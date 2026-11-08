@@ -14,6 +14,17 @@ export interface PresetDefinition {
    * which is what keeps them as upstream shipped them.
    */
   readonly acceptsContributions?: boolean
+  /**
+   * Whether a person starting a task is offered this preset. Absent means
+   * offered.
+   *
+   * The four ids the official modes use declare `false`: this fork packages
+   * them as two views a person chooses between, and a chooser offering six
+   * overlapping modes is the cost that packaging exists to remove. They stay
+   * registered rather than withdrawn, because a session recorded under one of
+   * those ids has to reopen with it ([ledger](../../../../CUSTOM.md)).
+   */
+  readonly offered?: boolean
 }
 
 /** Validate a parsed Cordis entry list, including nested groups.

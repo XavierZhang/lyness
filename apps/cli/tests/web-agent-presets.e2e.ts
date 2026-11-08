@@ -284,11 +284,19 @@ describe('the shipped Web composition', () => {
     }
   })
 
-  it('supplies both shipped presets, and only those, from the system root', async () => {
+  it('supplies every shipped preset, and only those, from the system root', async () => {
     const listed = await ctx.agentPresets.list()
 
-    expect(listed.map(preset => preset.id).sort()).toEqual(['cordis', 'minimal', 'ptc', 'standard'])
+    // Six declarations: the two views this fork offers a person, and the four
+    // ids the official modes use, which stay registered and resolvable so a
+    // session recorded under one reopens with it. Which of them a chooser
+    // shows is the `offered` mark, not membership of this roster.
+    expect(listed.map(preset => preset.id).sort()).toEqual(['build', 'cordis', 'minimal', 'ptc', 'standard', 'work'])
+    expect(listed.filter(preset => preset.offered !== false).map(preset => preset.id)).toEqual(['work', 'build'])
     expect(listed.every(preset => !('path' in preset))).toBe(true)
+    // This boot pins the default so the selection cases below do not depend on
+    // the shipped one; `packages/bundle/web-app/tests/shipped-presets.spec.ts`
+    // is what asserts the composition's own default.
     expect(ctx.agentPresets.defaultId).toBe('standard')
   })
 

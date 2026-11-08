@@ -1342,6 +1342,48 @@ describe('agent preset switch analytics', () => {
   })
 })
 
+describe('what the chip offers', () => {
+  /** A controller reading one roster, with no session bound. */
+  function seatOver(presets: readonly { id: string; isDefault?: boolean; offered?: boolean }[]) {
+    const roster = { ok: true as const, value: { presets } }
+    return new AgentPresetSeatController({
+      ...developerTools(),
+      remote: { agentPresets: { list: () => Promise.resolve(roster) } },
+    } as never, () => undefined)
+  }
+
+  it('leaves out a preset the deployment does not offer, and keeps the ones it does', async () => {
+    // This fork packages the modes as two views and marks the four official
+    // ids unoffered. They stay registered — a session recorded under one has
+    // to reopen — so the chooser filters rather than the roster dropping them.
+    const controller = seatOver([
+      { id: 'work', isDefault: true },
+      { id: 'build' },
+      { id: 'standard', offered: false },
+      { id: 'ptc', offered: false },
+    ])
+    await controller.load()
+    const snapshot = controller.store.getSnapshot()
+    expect(snapshot.options.map(option => option.id)).toEqual(['work', 'build'])
+    expect(snapshot.current).toBe('work')
+  })
+
+  it('opens on the deployment default even when that default is not offered', async () => {
+    // A deployment can point its default at an unoffered id; the chip shows
+    // what the next session will actually compose rather than inventing one.
+    const controller = seatOver([{ id: 'work' }, { id: 'standard', isDefault: true, offered: false }])
+    await controller.load()
+    expect(controller.store.getSnapshot().current).toBe('standard')
+    expect(controller.store.getSnapshot().options.map(option => option.id)).toEqual(['work'])
+  })
+
+  it('falls back to the first offered preset when no row is the default', async () => {
+    const controller = seatOver([{ id: 'standard', offered: false }, { id: 'work' }])
+    await controller.load()
+    expect(controller.store.getSnapshot().current).toBe('work')
+  })
+})
+
 describe('AgentPresetSeatController reconciliation', () => {
   it.each([
     { refuseFirst: false, refuseLatest: false },

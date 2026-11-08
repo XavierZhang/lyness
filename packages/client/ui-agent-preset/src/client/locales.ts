@@ -42,7 +42,7 @@ export type AgentPresetSettingsKey =
 export const en: Record<AgentPresetSettingsKey, string> = {
   ...guideEn,
   builtInGroup: 'Built-in', customGroup: 'Custom',
-  sectionIntro: 'Choose the agent’s tools and how it works. Use Work mode for everyday tasks, or Builder mode to add capabilities to {brandAbbr}.',
+  sectionIntro: 'Choose the agent’s tools and how it works. Everyday work handles day-to-day tasks; code development also builds software and extends {brandAbbr} itself.',
 
   seatHint: 'Choose the agent preset for your new task',
   headerHint: 'The agent preset chosen when this task started',
@@ -51,12 +51,12 @@ export const en: Record<AgentPresetSettingsKey, string> = {
   setDefault: 'Set as new task default',
   view: 'View configuration',
 
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   presetStandardName: 'Standard mode',
   presetStandardDescription:
     'Work with code, files, and information. Suitable for most tasks, with search, editing, terminal commands, and other tools available as needed.',
@@ -93,7 +93,7 @@ export const en: Record<AgentPresetSettingsKey, string> = {
 export const zh: Record<AgentPresetSettingsKey, string> = {
   ...guideZh,
   builtInGroup: '内置', customGroup: '自定义',
-  sectionIntro: '选择 Agent 的工具和工作方式。日常任务用「工作模式」，扩展 {brandAbbr} 的能力用「开发模式」。',
+  sectionIntro: '选择 Agent 的工具和工作方式。日常事务用「日常办公」；写代码、扩展 {brandAbbr} 本身用「代码开发」。',
 
   seatHint: '选择新任务使用的 Agent 预设',
   headerHint: '本任务的 Agent 预设，在任务开始时确定',
@@ -102,10 +102,10 @@ export const zh: Record<AgentPresetSettingsKey, string> = {
   setDefault: '设为新任务默认',
   view: '查看配置',
 
-  presetWorkName: '工作模式',
-  presetWorkDescription: '日常办公与对话，工作目录由你选定的文件夹决定。包含标准模式与 PTC 模式各自的全部能力：检索、编辑、一次性命令、可跨轮次保持状态的终端，以及用生成代码批量调用工具。',
-  presetBuildName: '开发模式',
-  presetBuildDescription: '包含工作模式的全部能力，并可用对话定制 {brandAbbr}：让 Agent 编写插件，添加新功能或界面；也能组合工具和提示词，创建自己的模式。',
+  presetWorkName: '日常办公',
+  presetWorkDescription: '日常办公与对话，工作目录由你选定的文件夹决定：检索、读写文件、一次性命令，以及可跨轮次保持状态的终端。',
+  presetBuildName: '代码开发',
+  presetBuildDescription: '包含日常办公的全部能力，另外用于写代码和扩展 {brandAbbr} 本身：编写 skill、编写插件以添加新功能或界面，也能组合工具和提示词创建自己的模式。',
   presetStandardName: '标准模式',
   presetStandardDescription: '处理代码、文件和资料，适合大多数任务。Agent 会按需使用检索、编辑和终端等工具。',
   presetPtcName: 'PTC 模式',
@@ -144,12 +144,12 @@ export type { PresetDisplaySource, PresetDisplayText } from '@lyness/lyn-agent-p
 export const ja = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guideJa,
   'builtInGroup': '組み込み',
   'customGroup': 'カスタム',
@@ -185,12 +185,12 @@ export const ja = {
 export const es = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guideEs,
   builtInGroup: 'Incorporado', customGroup: 'personalizado',
   sectionIntro: 'Elija las herramientas del agente y cómo funciona. Utilice el modo Estándar para las tareas diarias o el modo Creador para agregar capacidades a {brandAbbr}.',
@@ -238,12 +238,12 @@ export const es = {
 export const fr = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guideFr,
   builtInGroup: 'Intégré', customGroup: 'Personnalisé',
   sectionIntro: 'Choisissez les outils de l’agent et son fonctionnement. Utilisez le mode Standard pour les tâches quotidiennes ou le mode Créateur pour ajouter des fonctionnalités à {brandAbbr}.',
@@ -291,12 +291,12 @@ export const fr = {
 export const de = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guideDe,
   builtInGroup: 'Eingebaut', customGroup: 'Benutzerdefiniert',
   sectionIntro: 'Wählen Sie die Tools des Agenten und deren Funktionsweise aus. Verwenden Sie den Standardmodus für alltägliche Aufgaben oder den Creator-Modus, um {brandAbbr} Funktionen hinzuzufügen.',
@@ -344,12 +344,12 @@ export const de = {
 export const ru = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guideRu,
   builtInGroup: 'Встроенный', customGroup: 'Пользовательский',
   sectionIntro: 'Выбирайте инструменты агента и то, как они работают. Используйте стандартный режим для повседневных задач или режим Creator, чтобы расширить возможности {brandAbbr}.',
@@ -397,12 +397,12 @@ export const ru = {
 export const pt = {
   // The fork's own modes; these six locales arrived with upstream 0.2.1 and
   // carry the English copy until they are translated.
-  presetWorkName: 'Work mode',
+  presetWorkName: 'Everyday work',
   presetWorkDescription:
-    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
-  presetBuildName: 'Builder mode',
+    'Everyday work and conversation over a folder you choose: search, reading and editing files, one-shot commands, and a terminal that keeps its state across calls.',
+  presetBuildName: 'Code development',
   presetBuildDescription:
-    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
+    'Everything everyday work offers, plus building software and extending {brandAbbr} itself through conversation: skills, plugins that add features or UI, and your own modes composed from tools and prompts.',
   ...guidePt,
   builtInGroup: 'Integrado', customGroup: 'Personalizado',
   sectionIntro: 'Escolha as ferramentas do agente e como funciona. Use o modo Padrão para tarefas diárias ou o modo Criador para adicionar recursos ao {brandAbbr}.',

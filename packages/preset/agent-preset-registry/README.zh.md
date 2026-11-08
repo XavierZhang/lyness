@@ -43,6 +43,8 @@ kind: "package-reference"
 |---|---|---|
 | `default` | 必填 | 未显式指定时使用的 preset ID |
 
+声明还可以写 `offered: false`。该 preset 仍然注册、仍然可解析、仍然可挂载——日志里记着它的会话必须能原样恢复——但给人用的选择器不再列出它，而管理界面照旧列出。把多套组合包装成少数几个视图的部署用这个标记，而不是撤掉它们。
+
 Web 内置定义来自 `lyn-web-app` bundle。定义使用普通插件行；注册表不扫描目录，也不接受 preset 路径。`agent-preset-registry` 条目的 volatile 字段 `selectedDefault` 保留用户默认值，新会话优先使用它而不是部署 `default`。profile patch 仍可能带有已废弃的 `modeSelectionEnabled` 字段；注册表未声明该字段，既不读取也不重写它。
 
 注册表不写入任何声明。`read` Remote 把一条声明的子插件列表按 entry-list YAML 方言（含 `!!js` 条件）渲染回来，供客户端展示 preset 的组成；没有任何接口接受 YAML 写回。新建 preset 或覆盖内置 preset 都是 bundle 补丁：插入一行 `@lyness/lyn-agent-preset`，或按该行 id 写覆盖补丁，再用 `plugin_manager` 安装到 profile；创造模式在对话中编写这类 bundle。

@@ -1351,3 +1351,87 @@ lyn web: opening the default browser; pass --no-open to disable
 没下载（`~/Library/Caches/ms-playwright` 是空的），下一个 chromium 要拉 ~150MB，没有为了
 一次验证就去下。要补这一步就跑 `pnpm --filter @lyness/lyn-web-frontend exec playwright install chromium`
 再开 `pnpm run test:web`。
+
+## 「为什么官方的四个模式又出现了」—— 两个包装模式坏了（2026-11-08 查清并裁定）
+
+问题不是「四个模式又出现」，而是**包装用的两个模式 `work`／`build` 在运行时坏掉了**，
+而每个选择器都会过滤掉 `broken` 的 preset，于是用户看到的正好只剩官方那四个。
+
+证据取自**正在跑的产品**（`agentPresets/list` RPC）：
+
+```
+presets: 6
+  work     | broken     <- tool-presentation: $.mode expected "native" | "ptc" but got "both"
+  build    | broken     <- 同上
+  standard | default
+  ptc / minimal / cordis
+```
+
+### 根因：fork 把两个视图建在了上游刚删掉的能力上
+
+- **2026-10-07** 上游 `4359d3ee17 refactor(tools): remove mixed tool presentation` 删掉混合呈现，
+  并留下裁定笔记 [`2026-10-05-native-or-ptc-presentation`](.agents/notes/implemented/simplification/2026-10-05-native-or-ptc-presentation.md)：
+  「每个 agent 选 `native` 或 `ptc`，**注册表拒绝 `both`**」。理由是混合呈现把同一批能力
+  宣告两遍（schema + SDK），多出第三种准入情形与排序／配置／测试组合，却没有新增任何执行能力。
+- **2026-10-08** fork `12efed31c5` 建立 `work`／`build` 两个视图，**两者都用 `mode: both`**，
+  目的正是「一个 preset 同时拿到 standard 与 ptc 各自的全部能力」。
+- 0.2.2 合并把上游的删除带了进来，两个视图的 `mode: both` 当场校验失败 → `broken` → 用户看不见。
+
+同一片区域另有两处合并回退，都是「fork 那一代被上游那一代覆盖」：
+
+| 回退 | 后果 |
+|---|---|
+| `agent-preset-registry` 的 `default: work` → `standard` | 新用户第一眼就是「标准模式」，而且它本该是不对外的 |
+| `web-agent-presets.e2e.ts` 的断言退回官方四个 id（标题还留着 fork 的「both shipped presets」） | 这条 e2e 只在真实 API lane 跑，CI 上一直红着没人注意 |
+
+### 裁定：以官方为准，一个 agent 一种呈现形式 ⚠️ 这是能力取舍，必须知会
+
+两个视图都改成 **native 呈现**（`tool-executor-native`，不再用那个已废弃的 shim），
+`ptc` 作为不对外的模式保留程序形式。**代价**：fork 2026-10-08 想要的「一个模式里既有原生
+schema 又有 `run_code` 与生成的 SDK」没有了——上游的裁定说重新引入需要「具体需求 + 证据表明
+值得多一层接口」。若要把 `代码开发` 改成 PTC 呈现，只需把它的 `tool-executor-native` 换成
+`tool-executor-ptc` 一行；我没有这么做，理由是**两个视图的区别应当是「能不能改 LYN 自己」
+这种用户能理解的能力差别，而不是「调用形式」这种用户本来不该关心的事**。
+
+### 用户端只看两种：`offered` 标记
+
+新增 `PresetDefinition.offered`（默认视为 true）。官方四个 id 在各自的 patch 文件里写
+`offered: false`：**仍然注册、仍然可解析、仍然可挂载**（已提交会话日志里记着它们的 id，
+恢复会话必须能解析，这是 2026-10-08 裁定保留它们的原因），只是
+`AgentPresetSeatController`（新任务那个选择芯片）不再把它们列进菜单。
+`agent-presets` 设置页属于管理平面，照旧列出全部六个，是运维的后门。
+
+**两种还是三种：两种。** 证据在 `build.patch.yml` 自己的行里——它已经带着
+`tool-cordis`（运行时自我修改）、`skill-filesystem` 指向 `agent-preset/skills`、`tool-skill`、
+`tool-plugin-manager`，也就是说「插件开发／skill 开发」本来就在「代码开发」里面，
+单独再立一个视图只会和它逐行重复。用户的判断是对的。
+
+命名按用户定的：`日常办公`／`代码开发`（英文 `Everyday work`／`Code development`）。
+顺带把两条描述里「包含标准模式与 PTC 模式各自的全部能力」这种**把官方模式名泄露给用户**的话删掉——
+包装的意义就是用户不必知道那四个名字。
+
+### 守卫：这次要在默认 lane 里拦住
+
+新增 `packages/bundle/web-app/tests/shipped-presets.spec.ts`（5 条，读出货的 patch 文件）：
+声明齐六个、只 offer 两个、两个视图排在前、**默认必须是一个 offered 的视图**、
+contributions 只进两个视图。它跑在默认 `test` lane 里——原来唯一能发现这类回退的断言
+在真实 API lane，这就是它红了没人看见的原因。
+
+### 没做完的一步：两条浏览器场景要按两视图重写
+
+`apps/web/tests/agent-preset-{selection,authoring}.e2e.ts` 是**唯一会把模式菜单真的渲染给浏览器**
+的 lane，而它的用例是按「菜单里有全部六个模式」写的：它们去点「Standard mode」「Minimal mode」
+这些菜单项。包装生效后芯片只提供两个视图，这些点击等不到元素，9 条用例各自 30 秒超时。
+
+**这不是回归，是用例描述的行为过时了**，但我没有在这一轮重写它们：改动面是一个 400 多行的
+浏览器场景外加重录 ARIA 期望，而这条 lane **fork CI 根本没跑**（`fork-ci.yml` 里没有 `test:web`），
+所以它既不会挡住 CI，也不会自己变好。两条路都想过：
+
+- 把用例改成点两个视图 —— 直接，但场景的主题本来是「选择机制」，不该和「出货哪些模式」绑在一起；
+- 让场景自己声明一套 offered 的 preset —— 更干净，但 scaffold 的 `agentPresets.definitions` 只能
+  **插入**新行，而补丁会**替换整个 `config`**，没法只翻 `offered` 一个字段，所以要先给 scaffold
+  加一个「声明即对外提供」的入口。
+
+**推荐第二条**，并且顺手把 `test:web` 挂进 fork CI —— 这一轮的教训就是：没有 lane 跑的断言，
+等于没有断言。两次重录我都丢掉了（第一次用的是没重建的前端，第二次 9 条超时没录到菜单），
+`apps/web/tests/expected/` 保持 HEAD 原样，没有提交半成品快照。

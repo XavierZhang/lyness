@@ -7,6 +7,11 @@
       config:
         id: standard
         order: 3
+        # Not offered in the chooser a person uses: this fork packages the modes
+        # as two views (`work` and `build`), and this id stays registered so a
+        # session recorded under it still reopens. The Agent presets settings
+        # page still lists it.
+        offered: false
         plugins:
           - id: persona
             name: '@lyness/lyn-persona'

@@ -701,4 +701,7 @@
     - id: agent-preset-registry
       name: '@lyness/lyn-agent-preset-registry'
       config:
-        default: standard
+        # The business view. The 0.2.2 merge reverted this to `standard`, which
+        # put an unoffered mode in front of every new user; the two offered
+        # views are `work` and `build`.
+        default: work

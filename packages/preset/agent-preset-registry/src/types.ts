@@ -16,6 +16,11 @@ export interface AgentPresetRow {
   readonly description?: string
   /** Why this preset cannot compose a session; absent when it can. */
   readonly broken?: string
+  /**
+   * Whether the chooser a person uses should offer this preset; absent means
+   * it should. An administration surface lists every preset regardless.
+   */
+  readonly offered?: boolean
 }
 
 /** The roster one deployment currently supplies. */

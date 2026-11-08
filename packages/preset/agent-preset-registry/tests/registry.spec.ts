@@ -124,6 +124,19 @@ describe('declarative preset revisions', () => {
     ]))
   })
 
+  it('carries whether a chooser should offer each preset, and offers one that says nothing', async () => {
+    // A deployment that packages its modes marks the ones it does not offer.
+    // They stay registered and resolvable — a session recorded under one has
+    // to reopen — so the roster reports the mark rather than dropping the row.
+    const ctx = await setup()
+    await declare(ctx, { ...contribution('standard'), order: 1 })
+    await declare(ctx, { id: 'internal', order: 2, offered: false, plugins: [] })
+    const listed = await ctx.agentPresets.list()
+    expect(listed.map(row => [row.id, row.offered])).toEqual([['standard', undefined], ['internal', false]])
+    // Resolution ignores the mark: it decides what a chooser shows, nothing else.
+    expect((await ctx.agentPresets.resolve('internal')).id).toBe('internal')
+  })
+
   it('renders a declaration as entry-list YAML for reading, conditions included', async () => {
     const ctx = await setup()
     await declare(ctx, {
