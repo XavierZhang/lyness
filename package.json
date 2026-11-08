@@ -145,6 +145,7 @@
     "verify-default-product-isolation": "tsx scripts/verify-default-product-isolation.ts",
     "verify-application-entrypoints": "tsx scripts/verify-application-entrypoints.ts",
     "verify-package-dependencies": "tsx scripts/verify-package-dependencies.ts",
+    "verify-client-remote-namespaces": "tsx scripts/verify-client-remote-namespaces.ts",
     "verify-workspace-import-declarations": "tsx scripts/verify-workspace-import-declarations.ts",
     "verify-npm-install-layout": "tsx scripts/verify-npm-install-layout.ts",
     "verify-client-packages": "tsx scripts/verify-client-packages.ts",

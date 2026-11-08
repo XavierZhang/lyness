@@ -32,7 +32,7 @@ function view(roster: Partial<AgentPresetSettingsState> = {}, inMenu = false) {
     useSessionRetainInfo: unusedHook, useWorkspaces: unusedHook, useResource: unusedHook,
     ...allowAllAccess,
     useContextMenu: contextMenuHook(),
-    load, startCreatorDraft, onDismiss,
+    load, startCreatorDraft, onDismiss, authoringPreset: 'cordis',
   }
   function TestMenu() {
     const [open, setOpen] = useState(true)

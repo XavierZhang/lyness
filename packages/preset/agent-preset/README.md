@@ -44,6 +44,9 @@ Define an Agent’s child plugins in ordinary Cordis YAML. Declare several prese
 | `name` | unset | Display name |
 | `description` | unset | Display description |
 | `order` | unset | Roster order |
+| `extends` | unset | Preset whose rows this one starts from; `plugins` then holds only the difference |
+| `acceptsContributions` | `false` | Whether a module bundle may merge its rows into this preset |
+| `offered` | `true` | Whether a chooser a person uses lists this preset; an unoffered one still resolves and still reopens its sessions |
 
 The declaration row’s `id` addresses Loader edits; `config.id` is the preset identity saved by sessions. Child entry IDs may be omitted and assigned by Loader.
 

@@ -104,7 +104,7 @@ export function peopleCallsOf(ctx: Context): PeopleCalls {
     list: () => ctx.remote.people.list(),
     channels: () => ctx.remote.signInChannels.list(),
     save: input => ctx.remote.people.save(input),
-    remove: id => ctx.remote.people.remove(id),
+    remove: id => ctx.remote.people.delete(id),
     bind: input => ctx.remote.people.bind(input),
     unbind: input => ctx.remote.people.unbind(input),
   }

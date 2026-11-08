@@ -33,6 +33,7 @@ import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-client-ui-workspace/client'
 import type {} from '@lyness/lyn-client-ui-plugin-manager/client'
 import type { Context as ClientContext } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 import { AgentPresetLabel } from './AgentPresetLabel.tsx'
 import { CreatePluginMenuItem } from './CreatePluginMenuItem.tsx'
 import type { AgentPresetLabelInjected } from './AgentPresetLabel.tsx'
@@ -66,11 +67,32 @@ export const inject = [
   'slots', 'sessions', 'locale', 'remote', 'remote.agentPresets', 'remote.settings', 'configForms',
 ]
 
+/** Deployment-varying choices of the preset surfaces. */
+export interface Config {
+  /**
+   * The preset a plugin-authoring draft starts in.
+   *
+   * The flow needs a preset that carries the harness-authoring tool, and
+   * which preset that is belongs to the composition: a deployment that
+   * packages its modes into a few views offers one of those, not the mode the
+   * view is built on. The entries that start the flow stay hidden while this
+   * id is absent from the roster, so a composition that offers no authoring
+   * preset shows no entry rather than a dead one.
+   */
+  authoringPreset: string
+}
+
+/** Validated plugin configuration. */
+export const Config: z<Config> = z.object({
+  authoringPreset: z.string().default('cordis'),
+})
+
 /**
  * Mount the roster surfaces: hero chip, session-header label, settings section.
  * @param ctx - the browser plugin context.
+ * @param config - the deployment's authoring-preset choice.
  */
-export function apply(ctx: ClientContext): void {
+export function apply(ctx: ClientContext, config: Config): void {
   const toolsSettings = ctx.configForms.get<{ enabled: boolean }>('ui-settings')
   const presetSettings = ctx.configForms.get(AGENT_PRESET_SETTINGS_NS)
   let active = true
@@ -217,8 +239,9 @@ export function apply(ctx: ClientContext): void {
       // The Host composes the reused draft or new Session; the stage only drives the chip's display and introduction.
       // Navigation opens another blank when the main blank lists a different preset, so that blank is not staged.
       const listed = mainBlank()?.projectionValues?.agentPreset
-      if (typeof listed !== 'string' || listed === 'cordis') (mainBlankSeat() ?? unboundSeat).stage('cordis', true)
-      scope.uiWorkspace.startSession(undefined, { clearPreviousDraft: false, agentPreset: 'cordis' })
+      const authoring = config.authoringPreset
+      if (typeof listed !== 'string' || listed === authoring) (mainBlankSeat() ?? unboundSeat).stage(authoring, true)
+      scope.uiWorkspace.startSession(undefined, { clearPreviousDraft: false, agentPreset: authoring })
     }
 
     scope.effect(() => {
@@ -251,6 +274,7 @@ export function apply(ctx: ClientContext): void {
         hooks: { agentPresets: controller.store },
         load: () => controller.load(),
         startCreatorDraft,
+        authoringPreset: config.authoringPreset,
       }),
     }, CreatePluginMenuItem))
   })
@@ -274,6 +298,7 @@ export function apply(ctx: ClientContext): void {
     load: () => section.load(),
     view: (id: string) => section.view(id),
     closeView: () => { section.closeView() },
+    authoringPreset: config.authoringPreset,
     ...creatorDraft === undefined ? {} : { startCreatorDraft: creatorDraft },
     makeDefault: (id: string) => section.makeDefault(id, captureBlankSessionSync()),
   })

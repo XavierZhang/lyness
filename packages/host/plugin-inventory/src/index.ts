@@ -104,8 +104,12 @@ export async function readPluginInventory(ctx: Context): Promise<PluginInventory
   const presets = ctx.get('agentPresets')
   const management = ctx.get('pluginManager') === undefined ? {} : { managementAvailable: true }
   if (presets === undefined) return { entries, ...management }
-  const agentPresets: AgentPresetPluginGroup[] = (await presets.compositionInventory()).map(
-    composition => ({
+  // The inventory page's preset switcher is a surface a person reads, so it
+  // follows the roster's rule: a composition the deployment does not offer is
+  // backstage, and its rows reach an agent through the view that offers it.
+  const agentPresets: AgentPresetPluginGroup[] = (await presets.compositionInventory())
+    .filter(composition => composition.offered !== false)
+    .map(composition => ({
       ...composition,
       rows: composition.rows.map(({ fiberState, ...row }) => {
         const meta = ctx.baseUrl === undefined ? undefined : packages?.metaOf(row.moduleName, ctx.baseUrl)
@@ -115,7 +119,6 @@ export async function readPluginInventory(ctx: Context): Promise<PluginInventory
           ...meta === undefined ? {} : { meta },
         }
       }),
-    }),
-  )
+    }))
   return { entries, agentPresets, ...management }
 }

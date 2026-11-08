@@ -1910,18 +1910,39 @@ importers:
       '@lyness/lyn-api-account-controller':
         specifier: workspace:*
         version: link:../account-controller
+      '@lyness/lyn-api-admin-audit-controller':
+        specifier: workspace:*
+        version: link:../admin-audit-controller
+      '@lyness/lyn-api-announcement-controller':
+        specifier: workspace:*
+        version: link:../announcement-controller
+      '@lyness/lyn-api-bots-controller':
+        specifier: workspace:*
+        version: link:../bots-controller
+      '@lyness/lyn-api-credits-controller':
+        specifier: workspace:*
+        version: link:../credits-controller
       '@lyness/lyn-api-gateway':
         specifier: workspace:*
         version: link:../gateway
+      '@lyness/lyn-api-identity-controller':
+        specifier: workspace:*
+        version: link:../identity-controller
       '@lyness/lyn-api-job-controller':
         specifier: workspace:*
         version: link:../job-controller
+      '@lyness/lyn-api-people-controller':
+        specifier: workspace:*
+        version: link:../people-controller
       '@lyness/lyn-api-session-controller':
         specifier: workspace:*
         version: link:../session-controller
       '@lyness/lyn-api-settings-controller':
         specifier: workspace:*
         version: link:../settings-controller
+      '@lyness/lyn-api-sign-in-channel-controller':
+        specifier: workspace:*
+        version: link:../sign-in-channel-controller
       '@lyness/lyn-api-terminal-controller':
         specifier: workspace:*
         version: link:../terminal-controller
@@ -3418,6 +3439,18 @@ importers:
       '@lyness/lyn-bot-ask':
         specifier: workspace:*
         version: link:../../identity/bot-ask
+      '@lyness/lyn-client-ui-settings-bots':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-bots
+      '@lyness/lyn-client-ui-settings-history':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-history
+      '@lyness/lyn-client-ui-settings-people':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-people
+      '@lyness/lyn-client-ui-settings-sign-in-channels':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-sign-in-channels
       '@lyness/lyn-dingtalk':
         specifier: workspace:*
         version: link:../../vendor/dingtalk
@@ -4019,9 +4052,6 @@ importers:
       '@lyness/lyn-client-ui-settings-announcements':
         specifier: workspace:*
         version: link:../../client/ui-settings-announcements
-      '@lyness/lyn-client-ui-settings-bots':
-        specifier: workspace:*
-        version: link:../../client/ui-settings-bots
       '@lyness/lyn-client-ui-settings-capabilities':
         specifier: workspace:*
         version: link:../../client/ui-settings-capabilities
@@ -4034,9 +4064,6 @@ importers:
       '@lyness/lyn-client-ui-settings-general':
         specifier: workspace:*
         version: link:../../client/ui-settings-general
-      '@lyness/lyn-client-ui-settings-history':
-        specifier: workspace:*
-        version: link:../../client/ui-settings-history
       '@lyness/lyn-client-ui-settings-instructions':
         specifier: workspace:*
         version: link:../../client/ui-settings-instructions
@@ -4046,9 +4073,6 @@ importers:
       '@lyness/lyn-client-ui-settings-models':
         specifier: workspace:*
         version: link:../../client/ui-settings-models
-      '@lyness/lyn-client-ui-settings-people':
-        specifier: workspace:*
-        version: link:../../client/ui-settings-people
       '@lyness/lyn-client-ui-settings-plugin-inventory':
         specifier: workspace:*
         version: link:../../client/ui-settings-plugin-inventory
@@ -4061,9 +4085,6 @@ importers:
       '@lyness/lyn-client-ui-settings-shell':
         specifier: workspace:*
         version: link:../../client/ui-settings-shell
-      '@lyness/lyn-client-ui-settings-sign-in-channels':
-        specifier: workspace:*
-        version: link:../../client/ui-settings-sign-in-channels
       '@lyness/lyn-client-ui-settings-subagent':
         specifier: workspace:*
         version: link:../../client/ui-settings-subagent
@@ -4710,6 +4731,9 @@ importers:
       '@lyness/lyn-util-values':
         specifier: workspace:*
         version: link:../../util/values
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       react:
         specifier: ^18.2.0
         version: 18.3.1

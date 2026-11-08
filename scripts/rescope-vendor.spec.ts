@@ -97,7 +97,6 @@ describe('product identifiers', () => {
     'docs/user/guide/schedule.md',
     'docs/user/guide/schedule.zh.md',
     'packages/bundle/web-app/cordis.patch.yml',
-    'packages/client/ui-agent-preset/src/client/CreatePluginMenuItem.tsx',
     'packages/client/ui-agent-preset/src/client/analytics.ts',
     'packages/client/ui-agent-preset/tests/analytics.client.spec.ts',
     'packages/client/ui-agent-preset/tests/components.client.spec.tsx',
@@ -119,7 +118,7 @@ describe('product identifiers', () => {
   })
 
   it('still renames other libraries in a preset consumer and reverses them', () => {
-    const file = 'packages/client/ui-agent-preset/src/client/CreatePluginMenuItem.tsx'
+    const file = 'packages/client/ui-agent-preset/src/client/index.ts'
     const text = "const preset = 'cordis'\nimport utils from 'cosmokit'\nimport Schema from 'schemastery'\n"
     const scoped = "const preset = 'cordis'\nimport utils from '@lyness/cosmokit'\nimport Schema from '@lyness/schemastery'\n"
     expect(rescopeText(text, file)).toEqual({ text: scoped, lines: 2 })
@@ -151,7 +150,7 @@ describe('product identifiers', () => {
     ['JSDoc import', "/** @import { Context } from 'cordis' */\nfunction apply(ctx) {}", "/** @import { Context } from '@lyness/cordis' */\nfunction apply(ctx) {}"],
     ['same-line imports', "import 'cordis'; import 'cordis/subpath'", "import '@lyness/cordis'; import '@lyness/cordis/subpath'"],
   ])('rewrites %s without changing same-file product data', (_label, source, target) => {
-    const file = 'packages/client/ui-agent-preset/src/client/CreatePluginMenuItem.tsx'
+    const file = 'packages/client/ui-agent-preset/src/client/index.ts'
     const product = "const preset = 'cordis'\nctx.emit('cordis/inspect-query')\nconst fixture = \"import 'cordis'\"\n"
     const text = `${product}${source}\n`
     const scoped = `${product}${target}\n`

@@ -69,6 +69,7 @@
     "@lyness/lyn-client-ui-workspace": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "react": "^18.2.0"
   },
   "files": [

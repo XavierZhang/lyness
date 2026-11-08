@@ -628,8 +628,15 @@ async contribute(contribution: PresetContribution): Promise<() => Promise<void>>
  */
 async list(): Promise<AgentPreset[]>
 
-/** Read the selection roster.
- * @returns Current presets, each marked when it is the default.
+/**
+ * Read the selection roster a client offers.
+ *
+ * Only the presets the deployment offers: the host keeps every declaration
+ * for resolution and for a session recorded under an unoffered id, but a
+ * client has no surface that should list one. Filtering here rather than in
+ * each surface is what keeps a later surface — or a later merge — from
+ * putting a backstage composition back in front of a person.
+ * @returns the offered presets, each marked when it is the default.
  */
 @Remote('list') async remoteExportList(): Promise<AgentPresetRoster>
 

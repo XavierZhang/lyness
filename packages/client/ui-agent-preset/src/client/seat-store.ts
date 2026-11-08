@@ -111,15 +111,13 @@ export class AgentPresetSeatController {
       return
     }
     const { presets } = roster.value
-    // The chip is the chooser a person uses, so it shows only the presets the
-    // deployment offers. The Agent presets settings page still lists every
-    // one, and a session recorded under an unoffered id still reopens with it:
-    // this leaves it out of the menu, it does not withdraw it.
-    const offered = presets.filter(preset => preset.offered !== false)
-    this.fallback = presets.find(preset => preset.isDefault)?.id ?? offered[0]?.id ?? presets[0]?.id ?? ''
+    // The roster already carries only what the deployment offers, so every
+    // surface reading it shows the same set; the rule lives at the producer
+    // (`AgentPresetRegistry.remoteExportList`).
+    this.fallback = presets.find(preset => preset.isDefault)?.id ?? presets[0]?.id ?? ''
     const session = this.currentSession()
     this.set({
-      options: presetOptions(offered),
+      options: presetOptions(presets),
       // Staged pick first, then the composition the current session
       // already carries, then the Host-effective default. The middle term is
       // what keeps a late-landing load from regressing the display after

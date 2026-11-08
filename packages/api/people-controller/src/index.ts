@@ -85,11 +85,15 @@ export default class PeopleController extends TypertRemoteService {
   /**
    * Remove one person, and every identity admitted as them.
    * @param id - the person to remove.
+   *
+   * Named `delete` rather than `remove`: a client's `remote.<namespace>`
+   * is a Cordis service whose own members are reserved, and `remove` is
+   * one of them, so a namespace carrying it cannot mount at all.
    * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`,
    * or `gateway/internal`.
    */
   @Remote
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const directory = this.managed()
     const by = await this.calling()
     try {

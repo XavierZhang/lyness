@@ -165,7 +165,7 @@ describe('a tenant administrator', () => {
   it('removes a channel it configured', async () => {
     const controller = await harness(standing('tenant-administrator', 'acme'))
     const saved = await controller.save(input({ organization: 'acme' }))
-    await controller.remove(saved.id)
+    await controller.delete(saved.id)
     expect(await controller.list()).toEqual([])
   })
 
@@ -175,7 +175,7 @@ describe('a tenant administrator', () => {
     const controller = await harness(standing('tenant-administrator', 'acme'))
     // Both deployments read the same store, so naming the id is all this
     // caller could do; what refuses it is the organization on the record.
-    expect(await codeOf(controller.remove(other.id))).toBe('sign-in-channels/not-permitted')
+    expect(await codeOf(controller.delete(other.id))).toBe('sign-in-channels/not-permitted')
     expect(await platform.list()).toHaveLength(1)
   })
 })

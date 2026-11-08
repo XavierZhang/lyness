@@ -104,7 +104,7 @@ export function botsCallsOf(ctx: Context): BotsCalls {
     list: () => ctx.remote.bots.list(),
     presets: () => ctx.remote.bots.presets(),
     save: input => ctx.remote.bots.save(input),
-    remove: id => ctx.remote.bots.remove(id),
+    remove: id => ctx.remote.bots.delete(id),
     teams: () => ctx.remote.bots.teams(),
     saveTeam: input => ctx.remote.bots.saveTeam(input),
     removeTeam: id => ctx.remote.bots.removeTeam(id),

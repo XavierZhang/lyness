@@ -129,7 +129,8 @@ it('creates and idempotently adopts the explicit Session id bound to existing ta
     expect(view).toEqual({ ok: true, value: retainedEntry(record.title) })
     const retained = await readStore(root)
     const create = { request: { sessionId, cwd: root } }
-    const expectedCreate = { ok: true, value: { sessionId, agentPreset: 'standard' } }
+    // The Web composition's default is the everyday-work view it offers, not the mode that view extends.
+    const expectedCreate = { ok: true, value: { sessionId, agentPreset: 'work' } }
     expect(await rpc('session/create', create)).toEqual(expectedCreate)
     expect(await rpc('session/create', create)).toEqual(expectedCreate)
     expect(await rpc('schedule/view', { request: { id } })).toEqual(view)

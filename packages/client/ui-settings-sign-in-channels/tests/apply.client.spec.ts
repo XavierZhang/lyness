@@ -47,7 +47,7 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
       kinds: () => Promise.resolve({ ok: true, value: [KIND] }),
       list,
       save: () => Promise.resolve({ ok: true, value: CHANNEL }),
-      remove: () => Promise.resolve({ ok: true, value: undefined }),
+      delete: () => Promise.resolve({ ok: true, value: undefined }),
     },
   })
   events.$host = { home: undefined, isLoopback: true }

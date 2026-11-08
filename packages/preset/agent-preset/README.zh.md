@@ -44,6 +44,9 @@ kind: "package-reference"
 | `name` | 未设置 | 展示名称 |
 | `description` | 未设置 | 展示说明 |
 | `order` | 未设置 | 列表排序 |
+| `extends` | 未设置 | 这个 preset 从哪个 preset 的行起步；此时 `plugins` 只持有差异 |
+| `acceptsContributions` | `false` | 模块 bundle 是否可以把自己的行合并进这个 preset |
+| `offered` | `true` | 人用的选择器是否列出这个 preset；不提供的那个仍然可解析、仍然能重开它的会话 |
 
 声明行的 `id` 是 Loader 编辑地址；`config.id` 是会话保存的 preset 标识符。子插件可省略行 ID，由 Loader 分配。
 

@@ -89,6 +89,25 @@
     - id: sign-in-channel-controller
       name: '@lyness/lyn-api-sign-in-channel-controller'
 
+    # The browser halves of this module's own administration pages. They were
+    # inserted by `lyn-web-app`, which cannot satisfy them: each injects the
+    # `remote.<ns>` its controller here publishes, so a deployment that does
+    # not select this module left four Settings pages waiting for a service
+    # that never arrives — visible as failures on the plugin inventory page,
+    # with nothing a retry could do. A row belongs to the bundle that can
+    # satisfy it.
+    - id: ui-settings-sign-in-channels
+      name: '@lyness/lyn-client-ui-settings-sign-in-channels'
+
+    - id: ui-settings-people
+      name: '@lyness/lyn-client-ui-settings-people'
+
+    - id: ui-settings-bots
+      name: '@lyness/lyn-client-ui-settings-bots'
+
+    - id: ui-settings-history
+      name: '@lyness/lyn-client-ui-settings-history'
+
     # Who a verified subject is allowed to be. No written binding admits
     # nobody by itself, which is the intended reading: a connected directory
     # nobody has been admitted through must not sign anyone in.

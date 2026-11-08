@@ -12,7 +12,7 @@ import type { Session } from '@lyness/lyn-session'
 import type {} from '@lyness/lyn-settings'
 import type {} from '@lyness/lyn-tools'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
-import { entryListProblem, type PresetDefinition } from './definition.ts'
+import { entryListProblem, inheritedPlugins, type PresetDefinition } from './definition.ts'
 import { isContributionId, mergeContributions, type PresetContribution } from './contribution.ts'
 import type { AgentPreset, Config } from './preset.ts'
 import { agentPresetProjectionDefinition } from './session.ts'
@@ -20,7 +20,7 @@ import { auditRows, leakedServices, mountPreset, serviceForMount, type PresetMou
 import { activeCompositionModules, definitionComposition, mountedCompositionRows, type AgentPresetComposition, type AgentPresetInspection } from './composition-inventory.ts'
 
 export { agentPresetProjectionDefinition } from './session.ts'
-export { entryListProblem, type PresetDefinition } from './definition.ts'
+export { entryListProblem, inheritedPlugins, type PresetDefinition } from './definition.ts'
 export type { AgentPresetInspection } from './composition-inventory.ts'
 export {
   CONTRIBUTION_ORDERS, isContributionId, mergeContributions,
@@ -85,8 +85,24 @@ export class AgentPresetRegistry extends TypertRemoteService {
     })
   }
 
-  /** Default preset for a subsequently created session. */
-  get defaultId(): string { return this.config.selectedDefault.get() ?? this.config.default }
+  /**
+   * Default preset for a subsequently created session.
+   *
+   * A saved personal default stops counting once the deployment stops
+   * offering that preset: a person's saved choice outlives the composition
+   * that offered it, and a profile carrying `selectedDefault: ptc` kept
+   * opening every new task in a mode the chooser no longer lists — the chip
+   * then displayed a mode absent from its own menu.
+   *
+   * An id no declaration carries still wins, as upstream has it: a bundle
+   * switched on later declares it, and rewriting the person's choice in the
+   * meantime would lose it.
+   */
+  get defaultId(): string {
+    const saved = this.config.selectedDefault.get()
+    if (saved === undefined) return this.config.default
+    return this.definitions.get(saved)?.config.offered === false ? this.config.default : saved
+  }
 
   /**
    * Read the preset recorded for a Session, including selections no longer in the roster.
@@ -117,9 +133,11 @@ export class AgentPresetRegistry extends TypertRemoteService {
         record.generation.retired = true
         await this.collect(record.generation)
       }
+      await this.reactivateExtending(definition.id)
     }
     record.ready = this.activate(record)
     await record.ready
+    await this.reactivateExtending(definition.id)
     return unregister
   }
 
@@ -127,9 +145,10 @@ export class AgentPresetRegistry extends TypertRemoteService {
     const key = {}
     const scope = createScope(this.owner, key)
     try {
+      const declared = this.declaredPlugins(record)
       const plugins = record.config.acceptsContributions === true
-        ? mergeContributions(record.config.plugins, this.contributions)
-        : record.config.plugins
+        ? mergeContributions(declared, this.contributions)
+        : declared
       const problem = entryListProblem(plugins)
       if (problem !== undefined) throw new Error(problem)
       const context = scope.ctx.extend({ baseUrl: record.context.baseUrl })
@@ -145,6 +164,69 @@ export class AgentPresetRegistry extends TypertRemoteService {
       this.owner.logger.warn(`agent preset ${record.config.id}: ${record.broken}`)
       await scope.dispose()
     }
+  }
+
+  /**
+   * One definition's complete row list, resolved through what it extends.
+   * @param record - the registered definition.
+   * @returns the rows to mount, before contributions.
+   * @throws {Error} when a base is unregistered or the chain is circular.
+   */
+  private declaredPlugins(record: Definition): PresetDefinition['plugins'] {
+    return inheritedPlugins(record.config, id => this.definitions.get(id)?.config)
+  }
+
+  /**
+   * The rows a definition declares, falling back to its own when the base is
+   * unresolvable; the activation diagnostic already names that cause.
+   * @param record - the registered definition.
+   * @returns the rows to display.
+   */
+  private displayPlugins(record: Definition): PresetDefinition['plugins'] {
+    try {
+      return this.declaredPlugins(record)
+    } catch {
+      return record.config.plugins
+    }
+  }
+
+  /**
+   * Rebuild every definition extending one id, bases before dependents.
+   *
+   * A preset may register before the one it extends, and either may be
+   * withdrawn while the other stays. Rebuilding the dependents whenever a
+   * base appears or goes keeps a declaration order out of the contract: a
+   * view is broken only while its base is genuinely absent.
+   * @param baseId - the preset that was just registered or withdrawn.
+   * @param visited - ids already rebuilt on this walk; a circular chain is a
+   * declaration to report, not a reason to rebuild forever.
+   */
+  private async reactivateExtending(baseId: string, visited = new Set<string>()): Promise<void> {
+    if (visited.has(baseId)) return
+    visited.add(baseId)
+    for (const record of [...this.definitions.values()]) {
+      if (record.config.extends !== baseId) continue
+      await this.remount(record)
+      await this.reactivateExtending(record.config.id, visited)
+    }
+  }
+
+  /** Retire one definition's generation and activate a fresh one.
+   * @param record - the definition to rebuild.
+   */
+  private async remount(record: Definition): Promise<void> {
+    await record.ready
+    const previous = record.generation
+    if (previous !== undefined) {
+      previous.retired = true
+      delete record.generation
+    }
+    delete record.broken
+    record.ready = this.activate(record)
+    await record.ready
+    // Collected only after the rebuild, so a bound agent's generation
+    // survives while an unused one goes immediately.
+    if (previous !== undefined) await this.collect(previous)
   }
 
   /**
@@ -231,18 +313,7 @@ export class AgentPresetRegistry extends TypertRemoteService {
   private async reactivateAccepting(): Promise<void> {
     for (const record of [...this.definitions.values()]) {
       if (record.config.acceptsContributions !== true) continue
-      await record.ready
-      const previous = record.generation
-      if (previous !== undefined) {
-        previous.retired = true
-        delete record.generation
-      }
-      delete record.broken
-      record.ready = this.activate(record)
-      await record.ready
-      // Collected only after the rebuild, so a bound agent's generation
-      // survives while an unused one goes immediately.
-      if (previous !== undefined) await this.collect(previous)
+      await this.remount(record)
     }
   }
 
@@ -264,13 +335,21 @@ export class AgentPresetRegistry extends TypertRemoteService {
     return rows.sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity) || a.id.localeCompare(b.id))
   }
 
-  /** Read the selection roster.
-   * @returns Current presets, each marked when it is the default.
+  /**
+   * Read the selection roster a client offers.
+   *
+   * Only the presets the deployment offers: the host keeps every declaration
+   * for resolution and for a session recorded under an unoffered id, but a
+   * client has no surface that should list one. Filtering here rather than in
+   * each surface is what keeps a later surface — or a later merge — from
+   * putting a backstage composition back in front of a person.
+   * @returns the offered presets, each marked when it is the default.
    */
   @Remote('list')
   async remoteExportList(): Promise<AgentPresetRoster> {
     const defaultId = this.defaultId
-    return { presets: (await this.list()).map(row => ({ ...row, isDefault: row.id === defaultId })) }
+    const offered = (await this.list()).filter(row => row.offered !== false)
+    return { presets: offered.map(row => ({ ...row, isDefault: row.id === defaultId })) }
   }
 
   /** Resolve an identity without starting an Agent.
@@ -297,9 +376,9 @@ export class AgentPresetRegistry extends TypertRemoteService {
       return Promise.reject(new RemoteError('agent-preset/not-found', `Unknown agent preset: ${agentPreset}`,
         { agentPreset, available: [...this.definitions.keys()] }))
     }
-    const { id, name, description, plugins } = record.config
+    const { id, name, description } = record.config
     // The Loader's own dialect, so `!!js` conditions read as declared rather than as expression objects.
-    const content = dump(plugins, { schema: entryListSchema, noRefs: true, lineWidth: -1 })
+    const content = dump(this.displayPlugins(record), { schema: entryListSchema, noRefs: true, lineWidth: -1 })
     return Promise.resolve({
       agentPreset: id, content, ...(name === undefined ? {} : { name }), ...(description === undefined ? {} : { description }),
     })
@@ -462,11 +541,12 @@ export class AgentPresetRegistry extends TypertRemoteService {
    */
   compositionInventory(): Promise<AgentPresetComposition[]> {
     return Promise.all([...this.definitions.values()].map(async (record) => {
-      const { id, name, description } = record.config
+      const { id, name, description, offered } = record.config
       const broken = await this.diagnostic(record)
-      const read = definitionComposition(record.config.plugins, () => { throw new Error('Inactive definition') })
+      const read = definitionComposition(this.displayPlugins(record), () => { throw new Error('Inactive definition') })
       return { id, ...(name === undefined ? {} : { name }), ...(description === undefined ? {} : { description }),
         isDefault: id === this.defaultId,
+        ...(offered === undefined ? {} : { offered }),
         ...(broken === undefined ? {} : { broken }),
         rows: record.generation === undefined ? ('rows' in read ? read.rows : []) : mountedCompositionRows(record.generation.mount.tree) }
     }))

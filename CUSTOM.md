@@ -1398,8 +1398,13 @@ schema 又有 `run_code` 与生成的 SDK」没有了——上游的裁定说重
 新增 `PresetDefinition.offered`（默认视为 true）。官方四个 id 在各自的 patch 文件里写
 `offered: false`：**仍然注册、仍然可解析、仍然可挂载**（已提交会话日志里记着它们的 id，
 恢复会话必须能解析，这是 2026-10-08 裁定保留它们的原因），只是
-`AgentPresetSeatController`（新任务那个选择芯片）不再把它们列进菜单。
-`agent-presets` 设置页属于管理平面，照旧列出全部六个，是运维的后门。
+人用的选择面不再列出它们。
+
+**过滤点在生产者，不在每个界面**（2026-11-08 按用户要求收紧）：`remoteExportList`
+只返回 offered 的 preset，`plugin-inventory` 也滤掉未 offer 的 preset 组。
+所以新任务选择芯片、设置→agent 预设、设置→内置插件三处同时只显示两个视图——
+用户问的「agent 预设页是不是也不该展示」答案是：是，已经一起藏了。
+Host 自己仍然保留全部六个声明用于解析与重开旧会话。
 
 **两种还是三种：两种。** 证据在 `build.patch.yml` 自己的行里——它已经带着
 `tool-cordis`（运行时自我修改）、`skill-filesystem` 指向 `agent-preset/skills`、`tool-skill`、
@@ -1435,3 +1440,163 @@ contributions 只进两个视图。它跑在默认 `test` lane 里——原来�
 **推荐第二条**，并且顺手把 `test:web` 挂进 fork CI —— 这一轮的教训就是：没有 lane 跑的断言，
 等于没有断言。两次重录我都丢掉了（第一次用的是没重建的前端，第二次 9 条超时没录到菜单），
 `apps/web/tests/expected/` 保持 HEAD 原样，没有提交半成品快照。
+
+## 内置插件页的红条、两视图与官方四模式的真实对应（2026-11-08）
+
+用户提的七件事，这一节记落地结果与依据。
+
+### 一、「很多红色提示 + 重试本页面同步无效」：8 个页面被永久挂起
+
+`packages/api/remotes/src/client/index.ts` 是浏览器实际挂载哪些 Remote 命名空间的**唯一**清单。
+fork 自己加的 8 个管理页在顶层 `inject` 了 7 个命名空间，而这份清单一个都没挂：
+
+| 命名空间 | 注入它的页面 | 提供它的 controller |
+|---|---|---|
+| `announcements` | `ui-settings-announcements` | `api/announcement-controller` |
+| `credits` | `ui-settings-credits` | `api/credits-controller` |
+| `identity` | `ui-viewer`、`ui-sign-in` | `api/identity-controller` |
+| `people` | `ui-settings-people` | `api/people-controller` |
+| `bots` | `ui-settings-bots` | `api/bots-controller` |
+| `audit` | `ui-settings-history` | `api/admin-audit-controller` |
+| `signInChannels` | `ui-settings-sign-in-channels`、`ui-settings-people` | `api/sign-in-channel-controller` |
+
+Cordis 对缺失注入的处理是**停泊**，不是报错：插件既不激活也不失败，页面永远不出现。
+唯一看得见它的地方就是内置插件页，显示成一条 `clientSyncFailed`——**而「重试本页面同步」永远不可能成功**，
+因为缺的不是一次同步，是这个命名空间根本没人提供。七个全部挂上（import + 挂载清单 + 7 条
+`dependencies` + 手插 lockfile 条目）。
+
+**为什么会漏**：命名空间是**客户端**集中挂载的，而页面和 controller 是**各自**的包。
+新增一个管理页只要忘了改这份集中清单，就安静地多一个停泊页面——上游合并同样会漏。
+
+### 二、守卫：`verify-client-remote-namespaces`（新门禁，进 `ci-static` 与 `hygiene`）
+
+`scripts/verify-client-remote-namespaces.ts` + 同名 `.spec.ts`（7 条）。规则：
+凡是**注入列表**（`inject` 声明或 `ctx.inject([...])` 的数组）里出现的 `remote.<ns>`，
+必须被集中清单挂载，或者由注入它的包自己 `remote.$mount(...)`。
+`ctx.get('remote.x')` 这种可选读取不算——它返回 undefined，插件照跑。
+实测：46 个命名空间已挂载，17 个未挂载的全部是自挂载包（liveshare、cua、action-cards 等）
+或测试内的字符串。
+
+### 三、两视图如何「自动对应并调取官方四个模式的能力」：`extends`
+
+原来的做法是**抄**：`work.patch.yml` 和 `build.patch.yml` 各自复制了一整份行列表。
+这就是上游一动它们就坏、而且坏了很久没人知道的根因。实测这两份副本当时落后上游两个版本：
+
+| 行 | 官方 `standard`／`cordis` 当下 | 两个视图的副本 |
+|---|---|---|
+| `planning` | 「until the user approves your plan through exit_plan_mode」 | 「until exit_plan_mode succeeds」（旧文案） |
+| `delegation` | `modelSelection: true` / `modelDiscovery: true` | `modelSelectionSettings` / `backgroundMode`（旧键名） |
+| `tool-fs` | `applyPatch: false` | 无配置 |
+| `time-context`、`tool-schedule`、`present`、`tool-plugin-market` | 有 | **整行缺失** |
+
+所以新增 `PresetDefinition.extends`：声明里点名一个基底 preset，`plugins` 只写差异——
+**行 id 相同的原地替换、其余追加**，链一路走到根再自上而下套用。落地后：
+
+- `work`（日常办公）`extends: standard`，自己只剩 3 行：persona（加一句工作目录）、
+  `tool-session-query`、`tool-plugin-manager` 关掉（组合在本产品里属于设置页，不属于模型）。
+- `build`（代码开发）`extends: cordis`，自己只剩 2 行：同一个 persona、`tool-session-query`。
+  选 `cordis` 做基底是因为它=`standard` + `tool-cordis`，也就是写 skill／插件要的那个工具。
+- `ptc`、`minimal` 留在后台：注册、可解析、不 offer，谁都不继承它们。
+
+注册表侧配套三件事：`read` 与组成清单报告的是**继承后**的行（页面要显示实际挂载了什么，
+不是声明的差异）；贡献在继承解析之后合并；基底先后到达都行——`reactivateExtending`
+在任何基底注册或撤回时重建继承它的 preset，所以 patch 文件顺序**不是**约定。
+
+**踩到的坑**：`reactivateExtending` 第一版没有 visited 集合，成环的声明（`one extends two`、
+`two extends one`）让它无限互相重建，整个 spec 文件挂住、连 vitest 的 testTimeout 都没报。
+加 visited 后成环按诊断报告，链上每个 preset 都报。
+
+**守卫**：`shipped-presets.spec.ts` 增到 7 条，新增两条——每个视图必须 `extends` 一个已声明的
+官方模式；视图里**重述**的行（唯一两处：两个 persona、work 的 `tool-plugin-manager`）
+其字段必须与基底一致。重述是替换整行的代价，所以把它钉死，不让它再悄悄漂。
+
+### 四、「还有很多停用的插件」：核过一遍，都是故意的
+
+全局 34 条停用行里 22 条是 preset 逐会话提供的（页面本身就这么写），剩下 12 条：
+平台门禁（`pwsh-sandbox`）、界面门禁（桌面端 analytics／telemetry）、显式 opt-in
+（`webhook`、`skill-badge`、`module-lsp` 里带注释说明怎么开的 LSP 行）、
+上游默认关（`fs-observation-policy`）、preset 自己拥有（`tool-executor-ptc`）。
+只有 `module-schedule` 的两行是**不该关**的，已经打开。LSP 那几行保持 opt-in：
+它们要本地装对应 language server，默认开会在没装的机器上变成停泊行。
+
+### 五、改名三个 Remote 方法：`remove` 是命名空间服务的保留名
+
+挂上七个命名空间之后整个客户端启动失败了，错误是
+`client api: method "people/remove" conflicts with its namespace service`。
+根因：`remote.<ns>` 是一个 Cordis 服务，每个方法作为它的**成员**装上去，而
+`RemoteNamespaceService` 自己就有 `remove`（还有 `has`、`empty`、`install`、`service`、
+`descriptors`、`methods`、`namespace`、`name`、`ctx`、`invokeRemote`）。同名的方法装不上，
+挂载失败会让 `@lyness/lyn-api-remotes` 这一行整体 failed——**不是一个页面坏，是整个前端起不来**。
+
+`people`、`bots`、`signInChannels` 三个 controller 都声明了 `remove`。全部改名 `delete`
+（仓库里已有两个 controller 用 `delete`，所以这是既有写法，不是新发明）。Host 服务侧的
+`ctx.people.remove` 等保持原名——它们不是 Remote 命名空间。
+
+**为什么藏了这么久**：这三个命名空间从来没被挂载过，撞名就从来没被执行到。这正是
+「停泊是静默的」这条教训的第二面。
+
+**守卫**：`verify-client-remote-namespaces` 同时检查这一条——任何
+`extends TypertRemoteService` 的类上带 `@Remote` 的方法（含 `@Remote('list')` 这种改名），
+名字落在保留集合里就报错。保留集合的唯一来源是 Gateway 新导出的 `isReservedRemoteMethod`，
+挂载与门禁问的是同一份清单，不会漂。
+
+### 六、这一轮顺带清掉的三处连带债
+
+- `@lyness/lyn-agent-tool-presentation` 变成无人挂载（两个视图原来是它唯一的使用方）。
+  在 `product-package-policy.ts` 里显式分类为 `optional` 并写明理由，而不是让门禁一直红。
+- `ui-settings-general` 的 shell 用例按「web-app 名册有 8 个管理分区」写的，四个页面搬走后
+  改成 4 个，并在常量注释里写清为什么另外四个不在这里。
+- Typert 的 cordis 目录产物（`docs/subsystems/*.md` 的生成区段）重新生成，跟上新的 JSDoc 与改名。
+
+### 七、这一轮验证到哪一步
+
+Host 一侧是实测的：重启 `pnpm run start:web` 后
+`agentPresets/list` 只回 `work`（默认）与 `build`，两者都不带 `broken`；
+`pluginInventory/list` 回 235 个条目、**0 条诊断**，preset 组只有 `work`(30 行)/`build`(31 行)。
+客户端一侧由**装配客户端那一层**证明：`packages/experimental/liveshare/tests/*artifact*`
+用真实 `bootClient` 在进程内模块表上把整套客户端启起来并断言页面渲染。
+挂上七个命名空间后它们先是整片失败（`@lyness/lyn-api-remotes: failed`），
+改名之后全部转绿——这比截图更准，因为它断言的是「所有必需行都激活了」。
+
+**没有做的**：渲染后的页面没有用浏览器看过。Claude in Chrome 扩展在这台机器上没有连上，
+所以「那些红色提示在屏幕上消失了」这句话是按停泊根因、Host 名册与装配层断言推出来的，
+不是我盯着页面确认的。
+
+### 八、把官方四个模式藏起来，顺带把「创建插件」入口弄死了（已修）
+
+`ui-agent-preset` 的创作流程把 `'cordis'` 硬编码在三处：
+
+| 位置 | 原来做什么 |
+|---|---|
+| `CreatePluginMenuItem.tsx` | 名册里有 `cordis` 才启用「让 agent 创建插件」菜单项 |
+| `AgentPresetSection.tsx` | 行里有 `cordis` 才显示设置页的创作入口 |
+| `index.ts` | `startSession(..., { agentPreset: 'cordis' })` |
+
+名册按 `offered` 过滤之后 `cordis` 不在里面了，于是这两个入口**永久禁用**——
+这是包装两个视图的直接连带损伤，用户还没点到。
+
+按仓库规矩（「插件里不要硬编码可变量，部署会变的选择是 Config 字段」）改成
+`Config.authoringPreset`，默认值 `'cordis'`（上游组合照旧），
+web-app 的补丁层把它设成 `build`——用户说过「代码开发就包含 skill 开发、插件开发」，
+这正是 `build` 的定位。两个组件改为与注入进来的 id 比较，不再认死一个名字。
+
+**守卫两条**：`section.client.spec.tsx` 新增一条——配置成 `build` 时入口对 `build` 行出现、
+对 `cordis` 行不出现；`shipped-presets.spec.ts` 新增一条——出货组成的 `authoringPreset`
+必须是一个 **offered** 的视图。后者是关键：把它指向不提供的 id 等于把入口做死。
+
+顺带清掉两处因此过时的配置：`rescope-vendor` 的保留名单里
+`AgentPresetSection.tsx` 与 `CreatePluginMenuItem.tsx` 已经不含 `'cordis'` 字面量，
+条目作废，连带把 spec 里拿它们当夹具的用例改指向仍然含有该字面量的 `index.ts`。
+
+### 九、这一轮明确没做的
+
+1. **两个视图没有引导文案。** `PresetGuideDialog` 的 `guides` 映射只有官方四个 id，
+   所以 `work`/`build` 在选择器里没有「模式详情／如何使用」。
+   现成的 `guideStandard*`／`guideCordis*` 不能直接复用——它们的正文第一句就写着
+   「Choose Standard mode…」「Choose Creator mode…」，正是用户要求不暴露给用户的名字。
+   **推荐**：按两个视图重写三段文案（intro／explanation／usage），八种语言各一份；
+   这是一次本地化内容写作，建议单独一个 PR，不要混在这次改动里。
+2. **`analyticsMode` 没有 `work`/`build` 类别**，两个视图之间切换不上报
+   `agent_preset_switch`（落到 `'other'` 会被跳过）。扩 `AnalyticsPreset` 这个闭合联合
+   会改埋点契约、可能影响已有看板枚举，这属于产品数据决策，没有自行决定。
+3. **浏览器场景两条用例仍未重写**（见上一节），`test:web` 也仍未挂进 fork CI。

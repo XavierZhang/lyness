@@ -50,7 +50,7 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
     people: {
       list,
       save: () => Promise.resolve({ ok: true, value: PERSON }),
-      remove: () => Promise.resolve({ ok: true, value: undefined }),
+      delete: () => Promise.resolve({ ok: true, value: undefined }),
       bind: () => Promise.resolve({ ok: true, value: undefined }),
       unbind: () => Promise.resolve({ ok: true, value: undefined }),
     },

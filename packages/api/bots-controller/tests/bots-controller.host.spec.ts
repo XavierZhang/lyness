@@ -116,7 +116,7 @@ describe('an administrator maintaining the bots their organization runs', () => 
     expect(renamed.id).toBe(added.id)
     expect(await controller.list()).toEqual([expect.objectContaining({ id: added.id, displayName: 'Intake' })])
 
-    await controller.remove(added.id)
+    await controller.delete(added.id)
     expect(await controller.list()).toEqual([])
   })
 
@@ -158,7 +158,7 @@ describe('an administrator maintaining the bots their organization runs', () => 
 
     const tenant = await harness(standing('tenant-administrator', 'acme'))
     expect(await codeOf(tenant.save(input({ id: theirs.id })))).toBe('bots/not-permitted')
-    expect(await codeOf(tenant.remove(theirs.id))).toBe('bots/not-permitted')
+    expect(await codeOf(tenant.delete(theirs.id))).toBe('bots/not-permitted')
     // And it is not listed either, because listing it would tell one customer
     // who the others are.
     expect(await tenant.list()).toEqual([])
@@ -224,7 +224,7 @@ describe('what the surface refuses before it reaches the roster', () => {
     expect(await codeOf(controller.list())).toBe('gateway/internal')
     expect(await codeOf(controller.presets())).toBe('gateway/internal')
     expect(await codeOf(controller.save(input()))).toBe('gateway/internal')
-    expect(await codeOf(controller.remove('triage'))).toBe('gateway/internal')
+    expect(await codeOf(controller.delete('triage'))).toBe('gateway/internal')
     expect(await codeOf(controller.teams())).toBe('gateway/internal')
     expect(await codeOf(controller.saveTeam({ displayName: 'Intake', organization: 'acme', members: [] })))
       .toBe('gateway/internal')
@@ -236,7 +236,7 @@ describe('what the surface refuses before it reaches the roster', () => {
     expect(await codeOf(controller.list())).toBe('bots/no-standing')
     expect(await codeOf(controller.presets())).toBe('bots/no-standing')
     expect(await codeOf(controller.save(input()))).toBe('bots/no-standing')
-    expect(await codeOf(controller.remove('triage'))).toBe('bots/no-standing')
+    expect(await codeOf(controller.delete('triage'))).toBe('bots/no-standing')
     expect(await codeOf(controller.teams())).toBe('bots/no-standing')
     expect(await codeOf(controller.saveTeam({ displayName: 'Intake', organization: 'acme', members: [] })))
       .toBe('bots/no-standing')
@@ -259,7 +259,7 @@ describe('what composition wrote', () => {
 
     expect(await controller.list()).toEqual([expect.objectContaining({ id: 'scribe', written: true })])
     expect(await codeOf(controller.save(input({ id: 'scribe' })))).toBe('bots/written')
-    expect(await codeOf(controller.remove('scribe'))).toBe('bots/written')
+    expect(await codeOf(controller.delete('scribe'))).toBe('bots/written')
 
     ctx?.effect(() => ctx.managedBots.declareTeam({
       id: 'intake', displayName: 'Intake', organization: 'acme', members: [brandString<PersonId>('scribe')],

@@ -70,9 +70,21 @@ Activation auditing checks imports, missing services and globally leaked service
 
 </details>
 
+### Extending a preset
+
+A declaration may name another preset in `extends`, and then `plugins` holds only the difference: a row whose id matches one of the base's replaces it in place, and every other row follows the base's list. The chain is walked to its root and applied downwards, so a preset extending a preset reads as the single overlay it is.
+
+This is what lets a deployment package a few named views over the presets it ships without copying them. A copy keeps whatever the prompt, tool set and nested group configuration were on the day it was made, and nothing fails when the original moves on; an extending preset mounts the base's current rows.
+
+A preset may be declared before the one it extends, and either may be withdrawn while the other stays. A base that is absent leaves the extending preset broken with a diagnostic naming it, and the registry rebuilds every extending preset whenever a base is registered or withdrawn, so declaration order is not part of the contract. A circular chain is reported the same way, on every preset in it.
+
+`read` and the composition inventory report the inherited rows, not the declared difference, because both answer what the preset actually mounts. Contributions merge after inheritance resolves, so a contributed row follows the inherited list.
+
 ### Contributed rows
 
 A module bundle cannot add one tool to a preset by patching it: a preset is one row whose `config.plugins` holds the whole list, and a patch replaces the targeted row's whole config. It calls `contribute()` instead, and the registry merges the row into every preset declaring `acceptsContributions: true` — the view defaults, never the four ids the official modes use.
+
+A contribution whose plugin the preset's rows already name is dropped, inherited rows included. A module contributes a capability to the presets that lack it, and mounting it beside a declared row of the same plugin registers one tool name twice, which fails the preset.
 
 A contributed row id must carry a central allocation in `CONTRIBUTION_ORDERS`, because the tool catalog's order is part of the request prefix: two deployments with the same modules switched on have to produce the same catalog in the same order, which arrival order cannot guarantee. Contributions follow the preset's declared rows, sorted by that allocation.
 

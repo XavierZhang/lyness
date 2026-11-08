@@ -98,11 +98,15 @@ export default class SignInChannelController extends TypertRemoteService {
   /**
    * Remove one channel, its secret with it.
    * @param id - the channel to remove.
+   *
+   * Named `delete` rather than `remove`: a client's `remote.<namespace>`
+   * is a Cordis service whose own members are reserved, and `remove` is
+   * one of them, so a namespace carrying it cannot mount at all.
    * @throws {RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`,
    * or `gateway/internal`.
    */
   @Remote
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     const channels = this.configured()
     const by = await this.calling()
     try {

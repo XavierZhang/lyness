@@ -9,6 +9,16 @@ import commandsRemote from '@lyness/lyn-commands/remote'
 import agentTeamsRemote from '@lyness/lyn-agent-team/remote'
 export type {} from '@lyness/lyn-agent-team/remote'
 import accountRemote from '@lyness/lyn-api-account-controller/remote'
+// This fork's own administration pages inject these namespaces at their top
+// level, so a browser without them parks every one of those pages — visible
+// as failures on the plugin inventory page that no retry can clear.
+import announcementsRemote from '@lyness/lyn-api-announcement-controller/remote'
+import creditsRemote from '@lyness/lyn-api-credits-controller/remote'
+import identityRemote from '@lyness/lyn-api-identity-controller/remote'
+import peopleRemote from '@lyness/lyn-api-people-controller/remote'
+import botsRemote from '@lyness/lyn-api-bots-controller/remote'
+import auditRemote from '@lyness/lyn-api-admin-audit-controller/remote'
+import signInChannelsRemote from '@lyness/lyn-api-sign-in-channel-controller/remote'
 import settingsControllerRemote from '@lyness/lyn-api-settings-controller/remote'
 import officeToPdfRemote from '@lyness/lyn-office-to-pdf/remote'
 import goalsRemote from '@lyness/lyn-goal/remote'
@@ -205,6 +215,8 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
       fileUploadsRemote, sessionReferencesRemote,
       permissionPresetsRemote, subagentsRemote, sessionRemote, jobRemote, workspaceRemote, workspaceFilesRemote, terminalRemote,
       officeToPdfRemote, userQuestionsRemote, webRemote,
+      announcementsRemote, creditsRemote, identityRemote,
+      peopleRemote, botsRemote, auditRemote, signInChannelsRemote,
     ]) {
       disposers.push(await ctx.remote.$mount(contribution))
     }

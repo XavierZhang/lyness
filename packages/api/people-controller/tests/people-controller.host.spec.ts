@@ -122,7 +122,7 @@ describe('an administrator maintaining who may use the deployment', () => {
     }))
 
     await controller.unbind({ channel: 'wecom-1', issuer: 'corp', subject: 'bea' })
-    await controller.remove(added.id)
+    await controller.delete(added.id)
     expect(await controller.list()).toEqual([
       expect.objectContaining({ id: 'ada', written: true, role: 'platform-administrator' }),
     ])
@@ -132,7 +132,7 @@ describe('an administrator maintaining who may use the deployment', () => {
     const controller = await harness(standing('platform-administrator'))
     expect(await codeOf(controller.save({ id: 'ada', displayName: 'Renamed', role: 'member' })))
       .toBe('people/written')
-    expect(await codeOf(controller.remove('ada'))).toBe('people/written')
+    expect(await codeOf(controller.delete('ada'))).toBe('people/written')
   })
 
   it('is refused a standing it does not hold, and a tenant administrator without an organization', async () => {
@@ -174,7 +174,7 @@ describe('an administrator maintaining who may use the deployment', () => {
 
     // Their own written standing is theirs to see; the acme person is not.
     expect(await other.list()).toEqual([expect.objectContaining({ id: 'ada', written: true })])
-    expect(await codeOf(other.remove(theirs.id))).toBe('people/not-permitted')
+    expect(await codeOf(other.delete(theirs.id))).toBe('people/not-permitted')
     // Refused on the standing before the identity is looked at, so this
     // administrator does not learn that it is taken either.
     expect(await codeOf(other.bind({ ...identity, person: theirs.id }))).toBe('people/not-permitted')
@@ -189,7 +189,7 @@ describe('a call the deployment cannot answer', () => {
     // where it mounts none, every call arrives here.
     expect(await codeOf(controller.list())).toBe('people/no-standing')
     expect(await codeOf(controller.save({ displayName: 'Bea', role: 'member' }))).toBe('people/no-standing')
-    expect(await codeOf(controller.remove('x'))).toBe('people/no-standing')
+    expect(await codeOf(controller.delete('x'))).toBe('people/no-standing')
     expect(await codeOf(controller.bind({ channel: 'c', issuer: 'i', subject: 's', person: 'p' })))
       .toBe('people/no-standing')
     expect(await codeOf(controller.unbind({ channel: 'c', issuer: 'i', subject: 's' }))).toBe('people/no-standing')

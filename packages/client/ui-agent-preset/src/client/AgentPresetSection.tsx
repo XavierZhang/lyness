@@ -20,8 +20,10 @@ export interface AgentPresetSectionInjected {
     /** Shared Coding Tools preference; off hides the built-in PTC and Minimal cards. */
     developerTools: ObservableSnapshot<boolean>
   }
-  /** Stage the `cordis` preset and start a Creator-mode task; absent without a conversation flow. */
+  /** Stage {@link AgentPresetSectionInjected.authoringPreset} and start a plugin-authoring task; absent without a conversation flow. */
   startCreatorDraft?: () => void
+  /** The preset that authoring flow runs in; the entry hides while the roster lacks it. */
+  authoringPreset: string
   load: () => Promise<void>
   /** Open one preset's declared composition in the read-only viewer. */
   view: (id: string) => Promise<void>
@@ -63,7 +65,7 @@ function CardDescription({ text }: { text: string }): ReactNode {
  * @returns The preset settings section.
  */
 export function AgentPresetSection({
-  useAgentPresetSection, load, view, closeView, makeDefault, startCreatorDraft,
+  useAgentPresetSection, load, view, closeView, makeDefault, startCreatorDraft, authoringPreset,
   close: closeSettings, useDeveloperTools, t,
 }: AgentPresetSectionProps) {
   const state = useAgentPresetSection(value => value)
@@ -81,9 +83,11 @@ export function AgentPresetSection({
   const viewed = state.view
   const viewedRow = viewed === null ? undefined : state.rows.find(row => row.id === viewed.id)
   const viewedTitle = viewed === null ? '' : viewedRow === undefined ? viewed.title : presetDisplayText(viewedRow, t).name
-  // Creator mode authors presets in conversation; it needs the flow to land a
-  // session in and the self-referential preset on the roster.
-  const creator = startCreatorDraft !== undefined && state.rows.some(row => row.id === 'cordis') ? startCreatorDraft : undefined
+  // The authoring flow writes plugins and presets in conversation; it needs
+  // the flow to land a session in and its own preset on the roster.
+  const creator = startCreatorDraft !== undefined && state.rows.some(row => row.id === authoringPreset)
+    ? startCreatorDraft
+    : undefined
   /* The custom group is where a preset of one's own appears, so its entry
      stays on screen even while the group is empty. */
   const creatorButton = creator === undefined

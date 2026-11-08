@@ -84,7 +84,7 @@ export function channelsCallsOf(ctx: Context): ChannelsCalls {
     kinds: () => ctx.remote.signInChannels.kinds(),
     list: () => ctx.remote.signInChannels.list(),
     save: input => ctx.remote.signInChannels.save(input),
-    remove: id => ctx.remote.signInChannels.remove(id),
+    remove: id => ctx.remote.signInChannels.delete(id),
   }
 }
 

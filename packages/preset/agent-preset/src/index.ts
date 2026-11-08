@@ -20,6 +20,7 @@ export default class AgentPreset {
     order: z.number(),
     // Cordis owns individual plugin schemas; the registry validates entry structure.
     plugins: z.array(z.any()).required(),
+    extends: z.string(),
     acceptsContributions: z.boolean(),
     offered: z.boolean(),
   }) as z<Config>

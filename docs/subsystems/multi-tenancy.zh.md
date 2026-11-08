@@ -330,10 +330,14 @@ Host service backing the generated `ctx.remote.bots` namespace.
 /**
  * Remove one bot this deployment maintains.
  * @param id - the bot to remove.
+ *
+ * Named `delete` rather than `remove`: a client's `remote.<namespace>`
+ * is a Cordis service whose own members are reserved, and `remove` is
+ * one of them, so a namespace carrying it cannot mount at all.
  * @throws {RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`,
  * or `gateway/internal`.
  */
-@Remote async remove(id: string): Promise<void>
+@Remote async delete(id: string): Promise<void>
 
 /**
  * The teams the calling standing may change.
@@ -1029,10 +1033,14 @@ Host service backing the generated `ctx.remote.people` namespace.
 /**
  * Remove one person, and every identity admitted as them.
  * @param id - the person to remove.
+ *
+ * Named `delete` rather than `remove`: a client's `remote.<namespace>`
+ * is a Cordis service whose own members are reserved, and `remove` is
+ * one of them, so a namespace carrying it cannot mount at all.
  * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`,
  * or `gateway/internal`.
  */
-@Remote async remove(id: string): Promise<void>
+@Remote async delete(id: string): Promise<void>
 
 /**
  * Admit one directory identity as one person.
@@ -1378,10 +1386,14 @@ Host service backing the generated `ctx.remote.signInChannels` namespace.
 /**
  * Remove one channel, its secret with it.
  * @param id - the channel to remove.
+ *
+ * Named `delete` rather than `remove`: a client's `remote.<namespace>`
+ * is a Cordis service whose own members are reserved, and `remove` is
+ * one of them, so a namespace carrying it cannot mount at all.
  * @throws {RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`,
  * or `gateway/internal`.
  */
-@Remote async remove(id: string): Promise<void>
+@Remote async delete(id: string): Promise<void>
 ```
 
 Source: [`packages/api/sign-in-channel-controller/src/index.ts`](../../packages/api/sign-in-channel-controller/src/index.ts)

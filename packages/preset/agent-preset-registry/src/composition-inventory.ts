@@ -42,6 +42,12 @@ export interface AgentPresetComposition {
   readonly name?: string
   /** Whether a session naming no preset composes this one. */
   readonly isDefault: boolean
+  /**
+   * Whether a chooser a person uses should offer this preset; absent means it
+   * should. A composition that packages its modes into a few views marks the
+   * rest, which stay resolvable for the sessions recorded under them.
+   */
+  readonly offered?: boolean
   /** Why this preset's rows cannot be read; absent when {@link rows} answers. */
   readonly broken?: string
   /** Composition rows in composition order; empty when the preset is broken. */

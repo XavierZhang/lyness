@@ -34,6 +34,13 @@ export const PRODUCT_PACKAGE_POLICY: Readonly<Record<string, ProductPackagePolic
   'packages/context/tmux-context': { category: 'optional', reason: 'Context contribution requiring a tmux pane.' },
   'packages/fs/tool-str-replace-editor': { category: 'optional', reason: 'Explicit alternative to the default filesystem editing tools.' },
   'packages/fs/fs-observation-policy': { category: 'optional', reason: 'Read-before-mutation guard that a deployment enables on the disabled lyn-base row.' },
+  // Mixed presentation was removed upstream on 2026-10-07, so a composition
+  // selects one invocation form at the deployment and this row only chooses
+  // between the two projections `lyn-tools` owns. No shipped preset mounts it:
+  // the two views this fork offers took the deployment's native executor when
+  // the mixed row stopped resolving
+  // ([decision](../.agents/notes/implemented/simplification/2026-10-05-native-or-ptc-presentation.md)).
+  'packages/core/agent-tool-presentation': { category: 'optional', reason: 'Per-agent choice between the two tool projections, selected by a preset that wants a form other than the deployment\'s.' },
   'packages/sdk/client': { category: 'sdk', reason: 'Published TypeScript embedding client runs in the consumer process.' },
   'packages/typert/generator': { category: 'build', reason: 'Build-time generation of type metadata.' },
   'packages/test-support/agent-loop-testkit': { category: 'test', reason: 'Published agent-loop test harness.' },

@@ -10,9 +10,14 @@ import { CONTRIBUTION_ORDERS, isContributionId, mergeContributions } from '../sr
 import type { ContributionId, PresetContribution } from '../src/contribution.ts'
 import { harness, plugin } from './harness.ts'
 
-/** One contribution of the fixture plugin, under an allocated id. */
+/**
+ * One contribution of the second fixture plugin, under an allocated id.
+ *
+ * The second module, because a contribution the preset's rows already name is
+ * dropped: a case about one landing cannot name the plugin on both sides.
+ */
 function contributed(id: ContributionId, module: string, tool: string): PresetContribution {
-  return { id, module, row: { name: plugin('contribute'), config: { tool } } }
+  return { id, module, row: { name: plugin('contribute-second'), config: { tool } } }
 }
 
 it('allocates an order only for ids the central table names', () => {
@@ -115,4 +120,16 @@ it('contributes to an accepting preset that never activated, and withdraws once'
   await dispose()
   // The disposer is idempotent: a second call withdraws nothing again.
   await dispose()
+})
+
+it('drops a contribution whose plugin the preset already carries', () => {
+  // The deliverables module contributes `present` while the official modes
+  // declare it; a view extending one of those modes inherits that row, and
+  // mounting both would register one tool name twice.
+  const declared = [{ id: 'present', name: '@lyness/lyn-tool-present' }]
+  const merged = mergeContributions(declared, [
+    { id: 'module-deliverables-tool', module: 'module-deliverables', row: { name: '@lyness/lyn-tool-present' } },
+    contributed('module-memory-tools', 'module-memory', 'memory'),
+  ])
+  expect(merged.map(row => row.id)).toEqual(['present', 'module-memory-tools'])
 })

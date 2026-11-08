@@ -52,7 +52,7 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
       list,
       presets: () => Promise.resolve({ ok: true, value: [PRESET] }),
       save: () => Promise.resolve({ ok: true, value: BOT }),
-      remove: () => Promise.resolve({ ok: true, value: undefined }),
+      delete: () => Promise.resolve({ ok: true, value: undefined }),
       teams: () => Promise.resolve({ ok: true, value: [TEAM] }),
       saveTeam: () => Promise.resolve({ ok: true, value: TEAM }),
       removeTeam: () => Promise.resolve({ ok: true, value: undefined }),

@@ -13,7 +13,13 @@ const translations: ReadonlyMap<string, string> = new Map(Object.entries(en))
 function unusedHook(): never {
   throw new Error('This section does not read global slot sources')
 }
-function view(partial: Partial<AgentPresetSectionState> = {}, startCreatorDraft?: () => void, outerClose?: () => void, enabled = true) {
+function view(
+  partial: Partial<AgentPresetSectionState> = {},
+  startCreatorDraft?: () => void,
+  outerClose?: () => void,
+  enabled = true,
+  authoringPreset = 'cordis',
+) {
   const developerTools = createSnapshotStore(enabled)
   const store = createSnapshotStore<AgentPresetSectionState>({ status: 'ready', error: null,
     saving: false, rows: [{ id: 'standard', isDefault: true }, { id: 'mine', name: 'Mine', isDefault: false }],
@@ -21,6 +27,7 @@ function view(partial: Partial<AgentPresetSectionState> = {}, startCreatorDraft?
   const actions = { load: vi.fn(async () => {}), view: vi.fn(async () => {}), closeView: vi.fn(), makeDefault: vi.fn(async () => {}),
     close: vi.fn() }
   const props: AgentPresetSectionProps = { ...actions,
+    authoringPreset,
     ...(startCreatorDraft === undefined ? {} : { startCreatorDraft }),
     usePanelInfo: unusedHook, useSessions: unusedHook, useSessionStatus: unusedHook, useSessionRetainInfo: unusedHook,
     useWorkspaces: unusedHook, useResource: unusedHook,
@@ -111,7 +118,19 @@ it('launches a Creator-mode task from the entry and closes the settings dialog',
   expect(launch).toHaveBeenCalledOnce()
   expect(actions.close).toHaveBeenCalledOnce()
 })
-it('offers no Creator entry without the conversation flow or the cordis preset', () => {
+it('offers the authoring entry for the preset the deployment configured, not a fixed id', () => {
+  // A composition that packages its modes into views points the flow at a
+  // view; with the id hardcoded the entry was dead wherever the view's base
+  // mode stayed backstage.
+  const launch = vi.fn()
+  view({ rows: [{ id: 'build', isDefault: true }] }, launch, undefined, true, 'build')
+  fireEvent.click(screen.getByRole('button', { name: en.creatorDraft }))
+  expect(launch).toHaveBeenCalledOnce()
+  cleanup()
+  view({ rows: [{ id: 'cordis', isDefault: true }] }, vi.fn(), undefined, true, 'build')
+  expect(screen.queryByRole('button', { name: en.creatorDraft })).toBeNull()
+})
+it('offers no Creator entry without the conversation flow or the configured preset', () => {
   view({ rows: [{ id: 'cordis', isDefault: true }] })
   expect(screen.queryByRole('button', { name: en.creatorDraft })).toBeNull()
   cleanup()

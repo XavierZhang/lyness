@@ -14,6 +14,8 @@ export interface CreatePluginMenuItemInjected {
   }
   load: () => Promise<void>
   startCreatorDraft: () => void
+  /** The preset that authoring flow runs in; the item stays disabled while the roster lacks it. */
+  authoringPreset: string
 }
 
 type CreatePluginMenuItemProps = PropsRuntime<'plugins.add.actions'>
@@ -25,10 +27,10 @@ type CreatePluginMenuItemProps = PropsRuntime<'plugins.add.actions'>
  * @returns a stable menu item that explains why Creator is unavailable.
  */
 export function CreatePluginMenuItem({
-  t, useAgentPresets, load, onDismiss, startCreatorDraft,
+  t, useAgentPresets, load, onDismiss, startCreatorDraft, authoringPreset,
 }: CreatePluginMenuItemProps) {
   const roster = useAgentPresets(state => state)
-  const enabled = roster.status === 'ready' && roster.options.some(option => option.id === 'cordis')
+  const enabled = roster.status === 'ready' && roster.options.some(option => option.id === authoringPreset)
   useEffect(() => { void load() }, [load])
 
   let description = t('createPluginDescription')

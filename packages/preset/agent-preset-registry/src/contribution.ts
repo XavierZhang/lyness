@@ -57,7 +57,14 @@ export function isContributionId(id: string): id is ContributionId {
  *
  * Contributions follow the preset's own rows, in allocated order, so a
  * deployment's bundle order cannot move them.
- * @param plugins - the preset's declared rows.
+ *
+ * A contribution whose plugin the preset's rows already name is dropped: a
+ * module contributes a capability to the presets that lack it, and a preset
+ * extending one that declares the plugin outright has it already. Mounting
+ * both registers one tool name twice, which fails the whole preset — which is
+ * what the two views did the moment they started extending the official modes
+ * instead of restating them.
+ * @param plugins - the preset's rows, inheritance already resolved.
  * @param contributions - registered contributions, in registration order.
  * @returns the complete row list to mount.
  * @throws {Error} when two contributions claim one row id, naming both modules.
@@ -80,7 +87,9 @@ export function mergeContributions(
   for (const id of byId.keys()) {
     if (declared.has(id)) throw new Error(`preset contribution "${id}" collides with a row the preset declares`)
   }
+  const carried = new Set(plugins.map(row => row.name))
   const merged = [...byId.values()]
+    .filter(contribution => !carried.has(contribution.row.name))
     .sort((left, right) => CONTRIBUTION_ORDERS[left.id] - CONTRIBUTION_ORDERS[right.id])
     .map(contribution => ({ ...contribution.row, id: contribution.id }))
   return [...plugins, ...merged]

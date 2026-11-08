@@ -261,9 +261,9 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: '@Remote(\'list\') async remoteExportList(): Promise<AgentPresetRoster>',
-        description: 'Read the selection roster.',
+        description: 'Read the selection roster a client offers.\n\nOnly the presets the deployment offers: the host keeps every declaration for resolution and for a session recorded under an unoffered id, but a client has no surface that should list one. Filtering here rather than in each surface is what keeps a later surface — or a later merge — from putting a backstage composition back in front of a person.',
         parameters: [],
-        returns: 'Current presets, each marked when it is the default.',
+        returns: 'the offered presets, each marked when it is the default.',
       },
       {
         signature: 'async resolve(id?: string): Promise<AgentPreset>',
@@ -722,7 +722,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-preset`, `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.'],
       },
       {
-        signature: '@Remote async remove(id: string): Promise<void>',
+        signature: '@Remote async delete(id: string): Promise<void>',
         description: 'Remove one bot this deployment maintains.',
         parameters: [{ name: 'id', description: 'the bot to remove.' }],
         throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
@@ -2893,7 +2893,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`, `people/no-standing`, or `gateway/internal`.'],
       },
       {
-        signature: '@Remote async remove(id: string): Promise<void>',
+        signature: '@Remote async delete(id: string): Promise<void>',
         description: 'Remove one person, and every identity admitted as them.',
         parameters: [{ name: 'id', description: 'the person to remove.' }],
         throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
@@ -4427,7 +4427,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/unknown-kind`, `sign-in-channels/incomplete`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
       },
       {
-        signature: '@Remote async remove(id: string): Promise<void>',
+        signature: '@Remote async delete(id: string): Promise<void>',
         description: 'Remove one channel, its secret with it.',
         parameters: [{ name: 'id', description: 'the channel to remove.' }],
         throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
@@ -6677,7 +6677,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AgentPresetComposition',
-    declaration: 'export interface AgentPresetComposition {\n    readonly id: string;\n    readonly name?: string;\n    readonly isDefault: boolean;\n    readonly broken?: string;\n    readonly rows: readonly AgentPresetCompositionRow[];\n}',
+    declaration: 'export interface AgentPresetComposition {\n    readonly id: string;\n    readonly name?: string;\n    readonly isDefault: boolean;\n    readonly offered?: boolean;\n    readonly broken?: string;\n    readonly rows: readonly AgentPresetCompositionRow[];\n}',
   },
   {
     name: 'AgentPresetCompositionRow',
@@ -6697,7 +6697,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AgentPresetRow',
-    declaration: 'export interface AgentPresetRow {\n    readonly id: string;\n    readonly isDefault: boolean;\n    readonly name?: string;\n    readonly description?: string;\n    readonly broken?: string;\n}',
+    declaration: 'export interface AgentPresetRow {\n    readonly id: string;\n    readonly isDefault: boolean;\n    readonly name?: string;\n    readonly description?: string;\n    readonly broken?: string;\n    readonly offered?: boolean;\n}',
   },
   {
     name: 'AgentResolver',
@@ -9205,7 +9205,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PresetDefinition',
-    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly acceptsContributions?: boolean;\n}',
+    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly extends?: string;\n    readonly acceptsContributions?: boolean;\n    readonly offered?: boolean;\n}',
   },
   {
     name: 'PresetOptionView',

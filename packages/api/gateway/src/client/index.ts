@@ -640,7 +640,7 @@ class RemoteNamespaceService extends Service {
   private readonly namespace: string
 
   static assertMethodAvailable(namespace: string, method: string): void {
-    if (REMOTE_NAMESPACE_FIELDS.has(method) || method in RemoteNamespaceService.prototype) {
+    if (isReservedRemoteMethod(method)) {
       throw new Error(`client api: method ${JSON.stringify(`${namespace}/${method}`)} conflicts with its namespace service`)
     }
   }
@@ -761,6 +761,21 @@ function installMethods(
 }
 
 const REMOTE_NAMESPACE_FIELDS = new Set(['ctx', 'empty', 'invokeRemote', 'methods', 'name', 'namespace'])
+
+/**
+ * Whether a `remote.<namespace>` service reserves this member name.
+ *
+ * A namespace is a Cordis service, and a contributed method is installed as a
+ * member of it, so a method named like one of the service's own members cannot
+ * be installed — and the row that mounts the namespace fails, which fails the
+ * whole Client boot. A Host declaring such a method therefore has to rename
+ * it, and this predicate is what both the mount and the static gate ask.
+ * @param method - the exported Remote method name.
+ * @returns true when the name belongs to the namespace service itself.
+ */
+export function isReservedRemoteMethod(method: string): boolean {
+  return REMOTE_NAMESPACE_FIELDS.has(method) || method in RemoteNamespaceService.prototype
+}
 
 function remoteServiceKey(namespace: string): string {
   return `remote.${namespace}`

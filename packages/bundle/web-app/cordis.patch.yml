@@ -368,31 +368,6 @@
     - id: ui-settings-credits
       name: '@lyness/lyn-client-ui-settings-credits'
 
-    # The channels an administrator configures at runtime. It renders a
-    # notice rather than a form where the deployment configures none or the
-    # caller may not, so the row is the same on every product shape.
-    - id: ui-settings-sign-in-channels
-      name: '@lyness/lyn-client-ui-settings-sign-in-channels'
-
-    # Who may use the deployment, maintained beside the channels they sign in
-    # through. Same notice-rather-than-form rule, so the row is the same on
-    # every product shape.
-    - id: ui-settings-people
-      name: '@lyness/lyn-client-ui-settings-people'
-
-    # The bots the organization runs, maintained beside the people: a bot
-    # holds a standing in the same roster, so the two pages answer the same
-    # question about different kinds of actor.
-    - id: ui-settings-bots
-      name: '@lyness/lyn-client-ui-settings-bots'
-
-    # The history of what either page changed, read-only because the trail is
-    # append-only: a page offering to edit an entry would offer something the
-    # deployment refuses. It renders a notice where no trail is kept, so the
-    # single-operator shape sees no change.
-    - id: ui-settings-history
-      name: '@lyness/lyn-client-ui-settings-history'
-
     # Who the viewer is, read once and shared: the row naming whose session
     # this is, the sign-in screen, and the Settings navigation's plane split
     # all render from this one answer.
@@ -556,6 +531,12 @@
     # sessions created later. Absent a roster it renders nothing.
     - id: ui-agent-preset
       name: '@lyness/lyn-client-ui-agent-preset'
+      config:
+        # Plugin and skill authoring is what the development view is for, and
+        # it is the view this composition offers; `cordis` stays backstage, so
+        # pointing the authoring flow at it would leave every entry that starts
+        # the flow permanently disabled.
+        authoringPreset: build
 
     # Region-local More menus: pin or unpin plugin launchers and start a
     # plugin draft.

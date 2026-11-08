@@ -179,7 +179,7 @@ it('turns one administrator change into a bot the deployment knows', async () =>
     expect.objectContaining({ organization: 'acme', role: 'member' }),
   ])
 
-  await asAda(composed, () => ctx.botsController.remove(added.id))
+  await asAda(composed, () => ctx.botsController.delete(added.id))
   expect(await ctx.people.person(brandString<PersonId>(added.id))).toBeUndefined()
 })
 

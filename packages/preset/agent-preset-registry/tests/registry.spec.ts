@@ -135,7 +135,15 @@ describe('declarative preset revisions', () => {
     expect(listed.map(row => [row.id, row.offered])).toEqual([['standard', undefined], ['internal', false]])
     // Resolution ignores the mark: it decides what a chooser shows, nothing else.
     expect((await ctx.agentPresets.resolve('internal')).id).toBe('internal')
+    // The Remote roster is the surface a client reads, so the mark is applied
+    // there rather than in each surface.
+    expect((await ctx.agentPresets.remoteExportList()).presets.map(row => row.id)).toEqual(['standard'])
+    // The composition payload still reports it, because the inventory page
+    // filters its own groups with the same rule.
+    expect((await ctx.agentPresets.compositionInventory()).map(row => [row.id, row.offered]))
+      .toEqual(expect.arrayContaining([['standard', undefined], ['internal', false]]))
   })
+
 
   it('renders a declaration as entry-list YAML for reading, conditions included', async () => {
     const ctx = await setup()
@@ -240,6 +248,22 @@ it('resolves the saved default over the deployment default, and drops a removed 
   expect(ctx.agentPresets.defaultId).toBe('minimal')
   await live.replace({ default: 'standard' })
   expect(ctx.agentPresets.defaultId).toBe('standard')
+})
+
+it('stops honouring a saved default once the deployment stops offering it', async () => {
+  // A saved choice outlives the composition that offered it: a profile
+  // carrying `selectedDefault: ptc` kept opening every new task in a mode the
+  // chooser no longer lists, and the chip then showed a mode its own menu did
+  // not contain.
+  const ctx = await harness({ live: true })
+  contexts.push(ctx)
+  const live = liveRegistries.get(ctx)!
+  await declare(ctx, { ...contribution('backstage'), offered: false })
+  await live.update({ selectedDefault: 'backstage' })
+  expect(ctx.agentPresets.defaultId).toBe('standard')
+  // It is still resolvable and still absent from the roster a client reads.
+  expect((await ctx.agentPresets.resolve('backstage')).id).toBe('backstage')
+  expect((await ctx.agentPresets.remoteExportList()).presets.map(row => row.id)).not.toContain('backstage')
 })
 
 it('ignores a retired modeSelectionEnabled field in the user patch', async () => {
@@ -424,4 +448,85 @@ it('reports every process-global service published by a preset', async () => {
   } }
   await declare(ctx, { id: 'leaks', plugins: [{ name: 'cordis:leaks' }] })
   expect((await ctx.agentPresets.resolve('leaks')).broken).toContain('presetAlpha, presetZulu')
+})
+
+describe('a preset that extends another', () => {
+  /** One fixture row registering a tool, under a chosen row id. */
+  const row = (id: string, tool: string) => ({ id, name: plugin('contribute'), config: { tool } })
+
+  it('mounts the base rows in order, replacing by id and appending the rest', async () => {
+    const ctx = await setup()
+    await declare(ctx, { id: 'standard', plugins: [row('first', 'base-first'), row('second', 'base-second')] })
+    await declare(ctx, { id: 'work', extends: 'standard', plugins: [row('second', 'view-second'), row('third', 'view-third')] })
+    const agent = await agentOn(ctx, 'agent', 'work')
+    // The replacement keeps the base row's position; a new row follows the base list.
+    expect(ctx.tools.schemas(agent).map(entry => entry.name)).toEqual(['base-first', 'view-second', 'view-third'])
+  })
+
+  it('reads the inherited rows, not only the declared difference', async () => {
+    const ctx = await setup()
+    await declare(ctx, { id: 'standard', plugins: [row('first', 'base-first')] })
+    await declare(ctx, { id: 'work', extends: 'standard', plugins: [row('second', 'view-second')] })
+    const document = await ctx.agentPresets.readDocument('work')
+    expect(document.content).toContain('base-first')
+    expect(document.content).toContain('view-second')
+    const inventory = await ctx.agentPresets.compositionInventory()
+    // The Settings page lists what the preset actually mounts, so the
+    // inherited rows have to be in it, not only the declared difference.
+    expect(inventory.find(entry => entry.id === 'work')?.rows.map(entry => entry.entryId))
+      .toEqual(['first', 'second'])
+  })
+
+  it('waits for its base, in either declaration order', async () => {
+    const ctx = await setup()
+    // A view may be declared before the mode it draws on; the registry rebuilds
+    // it when the base arrives rather than making the patch order a contract.
+    await declare(ctx, { id: 'work', extends: 'standard', plugins: [row('second', 'view-second')] })
+    expect((await ctx.agentPresets.resolve('work')).broken).toContain('extends "standard"')
+    const base = await declare(ctx, { id: 'standard', plugins: [row('first', 'base-first')] })
+    expect((await ctx.agentPresets.resolve('work')).broken).toBeUndefined()
+    expect(ctx.tools.schemas(await agentOn(ctx, 'agent', 'work')).map(entry => entry.name))
+      .toEqual(['base-first', 'view-second'])
+    await base.dispose()
+    expect((await ctx.agentPresets.resolve('work')).broken).toContain('extends "standard"')
+  })
+
+  it('refuses a chain that returns to itself', async () => {
+    const ctx = await setup()
+    await declare(ctx, { id: 'one', extends: 'two', plugins: [] })
+    await declare(ctx, { id: 'two', extends: 'one', plugins: [] })
+    expect((await ctx.agentPresets.resolve('one')).broken).toContain('extends itself')
+    expect((await ctx.agentPresets.resolve('two')).broken).toContain('extends itself')
+  })
+
+  it('merges a module contribution after the inherited rows', async () => {
+    const ctx = await setup()
+    await declare(ctx, { id: 'standard', plugins: [row('first', 'base-first')] })
+    await declare(ctx, {
+      id: 'work', extends: 'standard', acceptsContributions: true, plugins: [row('second', 'view-second')],
+    })
+    await ctx.agentPresets.contribute({
+      id: 'module-terminal-tool',
+      module: '@lyness/lyn-module-terminal-tool',
+      row: { name: plugin('contribute-second'), config: { tool: 'contributed' } },
+    })
+    expect(ctx.tools.schemas(await agentOn(ctx, 'agent', 'work')).map(entry => entry.name))
+      .toEqual(['base-first', 'view-second', 'contributed'])
+  })
+})
+
+it('drops a contribution whose plugin the preset already carries', async () => {
+  const ctx = await setup()
+  // The deliverables module contributes `present` to the views while the
+  // official modes declare it outright. A view extending one of those modes
+  // has it already, and mounting both registers one tool name twice.
+  await declare(ctx, { id: 'standard', plugins: [{ id: 'present', name: plugin('contribute'), config: { tool: 'present' } }] })
+  await declare(ctx, { id: 'work', extends: 'standard', acceptsContributions: true, plugins: [] })
+  await ctx.agentPresets.contribute({
+    id: 'module-deliverables-tool',
+    module: '@lyness/lyn-module-deliverables',
+    row: { name: plugin('contribute'), config: { tool: 'present' } },
+  })
+  expect((await ctx.agentPresets.resolve('work')).broken).toBeUndefined()
+  expect(ctx.tools.schemas(await agentOn(ctx, 'agent', 'work')).map(entry => entry.name)).toEqual(['present'])
 })

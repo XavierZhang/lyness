@@ -171,7 +171,7 @@ it('leaves the roster the operator wrote to the operator', async () => {
   // reporting a change that would not survive it.
   const refused = await asAda(composed, async () => {
     try {
-      await ctx.peopleController.remove('ada')
+      await ctx.peopleController.delete('ada')
       return undefined
     } catch (failed: unknown) {
       return failed instanceof RemoteError ? String(failed.code) : undefined

@@ -92,7 +92,6 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   // `cordis` is also an agent-preset id, so in these files the bare name is
   // product data, not a package reference. Renaming it changed which preset
   // the creator flow stages and which id the roster reports.
-  { file: 'packages/client/ui-agent-preset/src/client/AgentPresetSection.tsx', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/src/client/PresetGuideDialog.tsx', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/src/client/index.ts', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/tests/apply.client.spec.ts', upstream: ['cordis'] },
@@ -123,7 +122,10 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   { file: 'docs/user/guide/schedule.md', upstream: ['cordis'] },
   { file: 'docs/user/guide/schedule.zh.md', upstream: ['cordis'] },
   { file: 'packages/bundle/web-app/cordis.patch.yml', upstream: ['cordis'] },
-  { file: 'packages/client/ui-agent-preset/src/client/CreatePluginMenuItem.tsx', upstream: ['cordis'] },
+  // The `build` view extends the preset whose id is `cordis`, and the shipped-preset
+  // cases name all four official ids; both are the product id, not the package.
+  { file: 'packages/bundle/web-app/presets/build.patch.yml', upstream: ['cordis'] },
+  { file: 'packages/bundle/web-app/tests/shipped-presets.spec.ts', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/src/client/analytics.ts', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/tests/analytics.client.spec.ts', upstream: ['cordis'] },
   { file: 'packages/client/ui-agent-preset/tests/components.client.spec.tsx', upstream: ['cordis'] },
