@@ -16,7 +16,7 @@ export const zh = {
   'label.feedback': '反馈',
   'label.compact': '压缩',
   'label.permission': '权限',
-  'label.export': '下载日志',
+  'label.export': '导出会话',
   'description.goal': '设置或查看长期任务目标',
   'description.plan': '进入或退出计划模式',
   'description.feedback': '发送关于当前会话的反馈',

@@ -211,7 +211,6 @@
     "@lyness/lyn-client-ui-brand-lyness": "workspace:*",
     "@lyness/lyn-client-ui-settings-announcements": "workspace:*",
     "@lyness/lyn-client-ui-settings-capabilities": "workspace:*",
-    "@lyness/lyn-client-ui-settings-credits": "workspace:*",
     "@lyness/lyn-client-ui-settings-data": "workspace:*",
     "@lyness/lyn-client-ui-settings-instructions": "workspace:*",
     "@lyness/lyn-client-ui-settings-memory": "workspace:*",

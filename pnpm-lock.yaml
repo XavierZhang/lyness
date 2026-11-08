@@ -3491,6 +3491,9 @@ importers:
 
   packages/bundle/module-credits:
     dependencies:
+      '@lyness/lyn-client-ui-settings-credits':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-credits
       '@lyness/lyn-credits':
         specifier: workspace:*
         version: link:../../credits/credits
@@ -4055,9 +4058,6 @@ importers:
       '@lyness/lyn-client-ui-settings-capabilities':
         specifier: workspace:*
         version: link:../../client/ui-settings-capabilities
-      '@lyness/lyn-client-ui-settings-credits':
-        specifier: workspace:*
-        version: link:../../client/ui-settings-credits
       '@lyness/lyn-client-ui-settings-data':
         specifier: workspace:*
         version: link:../../client/ui-settings-data
@@ -5143,6 +5143,9 @@ importers:
       '@lyness/lyn-util-values':
         specifier: workspace:*
         version: link:../../util/values
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -6735,6 +6738,9 @@ importers:
       '@lyness/lyn-settings':
         specifier: workspace:*
         version: link:../../settings/settings
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
       '@testing-library/react':
         specifier: ^16.3.3
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

@@ -91,7 +91,7 @@ it('withdraws every account surface and the account stream on revocation, and re
     ['settings.launcher', 'shell.quota-notice', 'settings.models.sign-in', 'settings.section'].map(name => [name, registered.get(name)]),
   )
   try {
-    apply(ctx as never)
+    apply(ctx as never, { requireSignIn: false })
     expect(new Set(guards.map(guard => guard.action))).toEqual(new Set(['account/watch']))
     grant(guards)
     await streams[0]!.accepted
@@ -166,7 +166,7 @@ it('drops reads a revoked grant started, and the next grant shows no account sec
     },
   }
   try {
-    apply(ctx as never)
+    apply(ctx as never, { requireSignIn: false })
     grant(guards)
     firstFrames[0]!.release()
     await firstFrames[0]!.accepted
@@ -258,7 +258,7 @@ function revocationHarness(scripts: StreamScript[]) {
       },
     },
   }
-  apply(ctx as never)
+  apply(ctx as never, { requireSignIn: false })
   return {
     guards, registered, accepted, getProfile, getUnnotifiedBonuses, startSignIn,
     operations: () => operations!,

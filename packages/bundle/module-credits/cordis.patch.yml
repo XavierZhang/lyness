@@ -31,3 +31,11 @@
     # patch, or a direct RPC cannot reach a model without being charged.
     - id: credits-enforce
       name: '@lyness/lyn-credits/enforce'
+
+    # The browser half of this module's own Settings section. It was inserted
+    # by `lyn-web-app`, which cannot satisfy it: without a ledger the
+    # namespace answers that no identity is presented, so a deployment that
+    # does not meter showed a section whose only content was that refusal. A
+    # row belongs to the bundle that can answer it.
+    - id: ui-settings-credits
+      name: '@lyness/lyn-client-ui-settings-credits'

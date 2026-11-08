@@ -39,6 +39,7 @@
     "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
+    "@lyness/lyn-client-ui-settings-credits": "workspace:*",
     "@lyness/lyn-credits": "workspace:*"
   },
   "devDependencies": {

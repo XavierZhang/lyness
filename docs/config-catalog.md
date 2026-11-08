@@ -666,7 +666,13 @@ export interface Config extends ContactConfig {
 
 /** Questionnaire destination and bonus notice timings shared by Host and Client. */
 export interface ContactConfig {
-  /** HTTPS questionnaire URL; override for a test form. */
+  /**
+   * HTTPS questionnaire the Feedback entry opens, or empty for none.
+   *
+   * Empty by default, and empty means the entry is not offered: the URL
+   * carries the signed-in account, the build and the device to whoever owns
+   * the form, so a deployment names its own or asks nothing.
+   */
   contactFormUrl: string
   /** Questionnaire source option; empty until Harness is supported by the form. */
   contactSource: string

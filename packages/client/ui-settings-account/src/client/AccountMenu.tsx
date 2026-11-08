@@ -24,6 +24,9 @@ export function AccountMenu({
   useAccount, useTheme, signOut, hasRunningAccountTasks, refreshAccount, bonusNoticeShown, bonusNoticeDismissed,
   contactUs, showLogin, start, cancel, avatarFailed, t,
 }: AccountMenuProps) {
+  // Offered only where a deployment named its own questionnaire: the URL
+  // carries the account, build and device to whoever owns that form.
+  const feedback = contactUs === undefined ? [] : [{ id: 'contact', label: t('contactUs'), icon: <IconPaperPlaneOutlineMedium size={16} /> }]
   const anchor = useRef<HTMLDivElement>(null)
   // The launcher outlives the panel, so a false-to-true edge is one Settings entry:
   // re-renders, section switches and tab switches inside one open must not read again.
@@ -74,14 +77,14 @@ export function AccountMenu({
       items={[
         { id: 'settings', label: t('settings'), icon: <IconSettingsOutlineMedium size={16} />,
           ...(settingsShortcut === undefined ? {} : { shortcut: settingsShortcut }) },
-        { id: 'contact', label: t('contactUs'), icon: <IconPaperPlaneOutlineMedium size={16} /> },
+        ...feedback,
         ...(signedIn ? [{ id: 'signout', label: t('signOut'), icon: <LogoutIcon />, disabled: busy }]
           : [{ id: 'signin', label: t('signIn'), icon: <IconUserOutlineMedium size={16} /> }]),
       ]}
       onClose={() => { setOpen(false) }}
       onSelect={(id) => {
         if (id === 'settings') { setOpen(false); trigger.current?.focus(); openSettings() }
-        else if (id === 'contact') { setOpen(false); contactUs() }
+        else if (id === 'contact') { setOpen(false); contactUs?.() }
         else if (id === 'signin') beginSignIn()
         else void requestSignOut()
       }} />

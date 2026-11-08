@@ -129,6 +129,21 @@ it('starts sign-in and disables cancellation during persistence', async () => {
   expect(screen.queryByRole('button', { name: en.signIn })).toBeNull()
 })
 
+it('offers no questionnaire entry where the deployment configured none', async () => {
+  // The URL carries the account, build and device to whoever owns the form,
+  // so an unconfigured deployment asks nothing rather than opening a default.
+  const { contactUs: _contactUs, ...operations } = mount({ status: 'credential-stored', attempt: null }, zh)
+  cleanup()
+  const { AccountMenu } = await import('../src/client/AccountMenu.tsx')
+  render(<AccountMenu {...({} as GlobalStandardProps)} {...operations} settingsOpen={false}
+    signOut={vi.fn(() => Promise.resolve())} hasRunningAccountTasks={async () => false}
+    useAccount={selector => selector(operations.hooks.account.getSnapshot())}
+    useTheme={selector => selector(operations.hooks.theme.getSnapshot())} wide openOnboarding={() => {}}
+    openSettings={vi.fn()} t={makeTranslate(zh)} />)
+  fireEvent.click(screen.getByRole('button', { name: zh.menu }))
+  expect(screen.getAllByRole('menuitem').map(item => item.textContent)).toEqual([zh.settings, zh.signOut])
+})
+
 it.each([en, zh].flatMap(copy => ([false, true, 'unknown'] as const).map(running => ({ copy, running }))))('confirms sidebar sign-out with task impact $running', async ({ copy, running }) => {
   const signOut = vi.fn(() => Promise.resolve())
   const openSettings = vi.fn()

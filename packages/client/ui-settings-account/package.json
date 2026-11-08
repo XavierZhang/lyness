@@ -67,6 +67,7 @@
     "@lyness/lyn-deepseek-account": "workspace:*",
     "@lyness/lyn-host-webserver": "workspace:*",
     "@lyness/lyn-settings": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@testing-library/react": "^16.3.3",
     "@types/big.js": "^6.2.2",
     "big.js": "^7.0.1",

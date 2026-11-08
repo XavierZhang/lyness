@@ -13,6 +13,7 @@
  * wait for its initial history open to succeed before contacting the Host.
  */
 import { Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 import type { Context } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (`commands/change` rides the allowlist) into this program.
@@ -72,9 +73,28 @@ interface LiveState {
   readonly popups: WeakMapWithValues<SessionBinding, PopupSelectController<ClientSessionContext>>
 }
 
+/** Deployment-varying choices of the command surface. */
+export interface CommandUiConfig {
+  /**
+   * Command names the composer menu leaves out, by `/` name.
+   *
+   * The menu is one way to reach a command and not the only one: a name
+   * listed here is still typed as `/<name>`, still ranked for a typed query,
+   * and still executes. What it stops is the row in the menu a person opens
+   * with no query, which is where a command the surrounding UI already offers
+   * is a second way to do the same thing rather than a capability.
+   *
+   * Absent and empty mean the same thing: every row the catalog offers.
+   */
+  menuHidden?: string[]
+}
+
 /** Command surface: session-keyed directory + '/' source + contribution registry + per-session popups. */
 export class CommandUiRuntime extends Service implements CommandUiContract {
   static inject = ['inputTriggers', 'sessions', 'remote', 'remote.commands']
+  static readonly Config: z<CommandUiConfig> = z.object({
+    menuHidden: z.array(z.string()).default([]),
+  })
 
   private readonly directory: CommandDirectory
   private readonly live: LiveState = {
@@ -85,12 +105,17 @@ export class CommandUiRuntime extends Service implements CommandUiContract {
   /** `command`-namespace translator (composer refusal notices). */
   private readonly t: TranslateNS<'command'>
 
+  /** Names the empty-query menu leaves out; a typed query still ranks them. */
+  private readonly menuHidden: ReadonlySet<string>
+
   /**
    * @param ctx - owning root context (plugin fiber; the service registers
    * itself as `command` and follows that fiber's lifetime).
+   * @param config - the deployment's menu choices.
    */
-  constructor(ctx: Context) {
+  constructor(ctx: Context, config: CommandUiConfig) {
     super(ctx, 'commandUi')
+    this.menuHidden = new Set(config.menuHidden ?? [])
     const locale = ctx.get('locale')
     if (locale === undefined) throw new Error('ui-commands: locale service unavailable')
     this.t = locale.bind('command')
@@ -246,7 +271,11 @@ export class CommandUiRuntime extends Service implements CommandUiContract {
       })
     }
     const visible = rows.filter(c => req.position === 'leading' || c.hint === undefined)
-    return req.query === '' ? sectionRows(visible, this.t) : rankByName(visible, req.query)
+    // Hidden rows leave the menu, not the surface: a typed query still ranks
+    // every visible row, so `/permission` reaches the command the menu omits.
+    return req.query === ''
+      ? sectionRows(visible.filter(row => !this.menuHidden.has(row.name)), this.t)
+      : rankByName(visible, req.query)
   }
 
   /** Decision table, menu column: contribution/decorated-host → popup or action; host input → claim; host bare → detached execute. */

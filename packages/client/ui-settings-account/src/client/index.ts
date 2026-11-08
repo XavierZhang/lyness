@@ -14,6 +14,8 @@ import type { AccountView, AccountDetails } from '@lyness/lyn-deepseek-account/t
 import type { OnboardingChange } from './onboarding-contract.ts'
 import type { PlatformBridge } from './PlatformOverlay.tsx'
 import { ContactConfig, CONTACT_CONFIG_GLOBAL } from '../contact-config.ts'
+import z from '@lyness/schemastery'
+import { SignInGate, type SignInGateInjected } from './SignInGate.tsx'
 import { contactUrl } from './contact-url.ts'
 import { authorizeUrlWithTheme } from './authorize-url.ts'
 import { BrowserLogin } from './browser-login.ts'
@@ -43,8 +45,31 @@ declare module '@lyness/lyn-client-ui-slots' {
 
 /** Services required by account settings. */
 export const inject = ['slots', 'locale', 'remote', 'remote.account', 'remote.session', 'theme', 'configForms', 'remoteAccess']
-/** Register account UI in Desktop and plain Web clients. @param ctx - client plugin context. */
-export function apply(ctx: Context): void {
+
+/** Deployment-varying choices of the account surfaces. */
+export interface Config {
+  /**
+   * Whether the product is covered until this installation can run a task.
+   *
+   * On it, an installation with nobody signed in and no model provider
+   * configured opens on the sign-in screen instead of a product whose every
+   * surface is about to refuse. It is off by default, because a development
+   * profile that reads its key from the environment is already usable and
+   * must not be shut out of itself.
+   */
+  requireSignIn: boolean
+}
+
+/** Validated plugin configuration. */
+export const Config: z<Config> = z.object({
+  requireSignIn: z.boolean().default(false),
+})
+
+/** Register account UI in Desktop and plain Web clients.
+ * @param ctx - client plugin context.
+ * @param pluginConfig - the deployment's sign-in requirement.
+ */
+export function apply(ctx: Context, pluginConfig: Config): void {
   const desktop = 'lynDesktop' in globalThis
   ctx.effect(() => ctx.locale.register('settings.account', { en, zh, ja, es, fr, de, ru, pt }), 'account: dictionaries')
   const t = ctx.locale.bind('settings.account')
@@ -200,7 +225,9 @@ export function apply(ctx: Context): void {
     subscribeModelSignInRequired: listener => ctx.remote.$on('deepseek-account/model-sign-in-required', listener),
     ...nativePlatform === undefined ? {} : { openPlatformPage: platformPageOpener(refreshAccount) },
     refreshAccount,
-    contactUs() {
+    // Absent where the deployment named no questionnaire, which is what keeps
+    // the entry off every surface rather than opening somebody else's form.
+    ...config.contactFormUrl === '' ? {} : { contactUs() {
       // Sample the account, build and environment before awaiting native information, so
       // a profile the read outlasts cannot replace the UID this click reported.
       const profile = snapshot.details?.profile
@@ -228,7 +255,7 @@ export function apply(ctx: Context): void {
         }
         openForm(deviceInfo)
       })()
-    },
+    } },
     showLogin(visible) { publish({ ...snapshot, loginVisible: visible }) },
     setOnboarding(active) { publish({ ...snapshot, onboarding: active }) },
     bonusNoticeShown(orderId) { notices.shown(orderId) },
@@ -309,6 +336,17 @@ export function apply(ctx: Context): void {
         track: (name, attributes) => ctx.get('productAnalytics')?.track(name, attributes),
       }),
     }, DesktopOnboardingEntry))
+  }
+  if (pluginConfig.requireSignIn) {
+    ctx.remoteAccess.whenAccess('account/watch', () => ctx.slots.inject('shell.overlay', () => ctx.slots.register({
+      name: 'shell.overlay', id: 'account.sign-in-gate', locale: 'settings.account',
+      inject: (): SignInGateInjected => ({
+        hooks: { account: operations.hooks.account, theme: operations.hooks.theme, settings: ctx.configForms.describe() },
+        load: () => ctx.configForms.describe().ensure(),
+        start: () => operations.start(),
+        cancel: id => operations.cancel(id),
+      }),
+    }, SignInGate)))
   }
   ctx.remoteAccess.whenAccess('account/watch', () => ctx.slots.inject('settings.models.sign-in', () => ctx.slots.register({
     name: 'settings.models.sign-in', locale: 'settings.account', inject: () => operations,

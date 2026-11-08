@@ -114,6 +114,9 @@ const GENERIC_SKIPS: readonly GenericSkip[] = [
   { file: 'docs/upgrade-guide/v0.2.1-alpha.1/subagent-preset-composition/guide.zh.md', upstream: ['cordis'] },
   { file: 'docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.md', upstream: ['cordis'] },
   { file: 'docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.zh.md', upstream: ['cordis'] },
+  // The guide names the `cordis` preset id the development view extends.
+  { file: 'docs/upgrade-guide/v0.2.2-alpha.3/agent-modes-packaged-as-views/guide.md', upstream: ['cordis'] },
+  { file: 'docs/upgrade-guide/v0.2.2-alpha.3/agent-modes-packaged-as-views/guide.zh.md', upstream: ['cordis'] },
   // The tool catalog names the preset whose rows state `applyPatch: false`; its
   // generator owns that sentence, so the generated pages skip the same name.
   { file: 'scripts/gen-tool-catalog.ts', upstream: ['cordis'] },

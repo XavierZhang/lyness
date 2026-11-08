@@ -1600,3 +1600,86 @@ web-app 的补丁层把它设成 `build`——用户说过「代码开发就包�
    `agent_preset_switch`（落到 `'other'` 会被跳过）。扩 `AnalyticsPreset` 这个闭合联合
    会改埋点契约、可能影响已有看板枚举，这属于产品数据决策，没有自行决定。
 3. **浏览器场景两条用例仍未重写**（见上一节），`test:web` 也仍未挂进 fork CI。
+
+## Web 端六项整理（2026-11-09）
+
+### 一、登录页：它早就存在，缺的是条件
+
+`@lyness/lyn-client-ui-sign-in` 就是登录页——没人登录时它盖住整个产品，每个已配置渠道一个按钮。
+实测 `identity/viewer` 回 `accounts: false, channels: []`，所以在单操作者形态下它渲染成空。
+要让它真正挡住，得切到 enterprise 形态：profile 加 `lyn-module-accounts`、在 `cordis.patch.yml`
+里写 people 名册、再配一个企业微信／钉钉／飞书应用（需要用户自己的 corpId/agentId/secret）。
+**用户选了另一条**：用已有的 DeepSeek 登录弹窗挡住。
+
+**差点做成砖**：第一版条件是「账号 `signed-out` 就盖住」。实测这台机器
+`llm-pi-ai.providers` 里配着 `zenlayer`、密钥走 `ZENLAYER_API_KEY` 环境变量——
+账号确实 signed-out，模型却完全可用。照那个条件上线，用户会被自己的应用锁在门外，
+而配置它的设置页正在门后面。
+
+最终条件是两件事同时成立：**没有人登录** 且 **没有可用模型**。
+「可用」= 任何 `llm-*` 设置命名空间里点名了 provider，或有已设置的密钥——
+`modelProviderConfigured()` 就这一件事，未读到答案时返回 true（宁可不盖）。
+出路也必须留：覆盖态弹窗的次要按钮放人进去一次（只在这次页面加载内，不写入任何状态），
+否则拿 API Key 的人进不了添加 API Key 的页面。
+
+`Config.requireSignIn` 默认关闭，web-app 打开。10 条用例守着它，其中一条专门钉死
+「环境变量配的 provider 不被盖住」这个砖的场景。
+
+### 二、「更多」菜单
+
+`signOut` 中文从「退出登录」改成「退出」（连带三条描述文案统一用词）。
+「意见反馈」**不是删掉能力，是改成按配置出现**——因为 `contactFormUrl` 的默认值是
+上游自己的飞书问卷，而这个 URL 会把账号 UID、构建版本、设备描述交给表单的拥有者。
+默认改成空字符串，空值即不提供该入口；想要的部署点名自己的 HTTPS 表单。
+这同时修掉了一个品牌/数据外泄点，不只是收起一个菜单项。
+
+### 三、设置页逐项实测（RPC 直接打，不是看代码猜）
+
+| 菜单 | 调用 | 结果 |
+|---|---|---|
+| 通用设置 | `settings/describe` | ok，22 个命名空间 |
+| 指令 | `personalInstructions/describe` | ok，`owned: true`（无 principal 时回落到单操作者） |
+| 记忆 | `memories/list` | ok 但 `owned: false` |
+| 能力 | `agentCapabilities/describe` | ok，回 preset `work` 与完整工具表 |
+| 数据 | `sessionData/delete` | 只有这一个方法，是删除动作页 |
+| 模型 | 设置写入 | ok |
+| 插件 | `pluginManager/listPlugins` | ok，可启停 |
+| 内置插件 | `pluginInventory/list` | ok，**只读**：全文件只调 `list()`，`onToggle` 是展开收起 |
+| 额度 | `credits/mine` | **`credits/anonymous: this request presents no identity`** |
+| agent 预设 | `agentPresets/list` 等 | ok，能设默认、能只读查看组成、能起创作任务 |
+
+两条结论回答用户的「这两个菜单是不是只是展示」：
+**内置插件确实只是展示**（组成诊断：哪些行在、启用／停用／失败），能改的地方在「插件」页；
+**agent 预设不是**，它能设默认、查看组成、起创作任务，只是不能原地编辑 preset。
+
+`记忆` 的 `owned: false` 是上游**写明的故意**：没有 principal 服务的部署只有一个操作者，
+记忆全归部署所有，而「把共享事实从个人页删掉」会替所有人删，所以这个命名空间不服务它。
+即使按第一条登录进来也还是 false——DeepSeek 账号不产生 `requestPrincipal`。
+
+`额度` 按用户裁定搬到 `module-credits`：没有账本时那一页只装着一条「没有身份」的拒绝。
+
+### 四、「公告」没有照搬「隐藏」——这一条我偏离了裁定，理由在这
+
+公告**不是左侧菜单，是「通用设置」里的一行**，而用户把通用设置列为没问题的三个之一。
+它按上游设计**只在点开时才读**（注释写明：没有公告是常态，没点开的人不该花一次请求），
+所以「空了就隐藏」需要每次页面加载都先读一次。零成本的替代方案也不成立：
+`AnnouncementSource.published()` 契约是异步的，而 `webserver/index-inject` 是同步事件，
+注不进「有没有公告」这个布尔。点开后它已经明确显示「暂无公告」。
+**没做，等用户确认是否接受每次加载一次请求的代价。**
+
+### 五、预览版与标语
+
+`hero.preview` 整个键从 8 种语言里删掉，徽章与它的样式一起删。
+上游的欢迎说明（另一处「预览版说明」）早已退役，`welcomeNoticeVersion` 只为旧 profile 可读而留。
+标语改成用户给的句子，并且**写成 `智驭百阵，{brandNameZh}胜势`**——
+`verify-brand-placeholders` 的品牌名正则包含 `领驭`，字典文案里出现产品名必须走占位符。
+其余 7 种语言仍是上游的标语：一句品牌标语不是一句话的八份翻译，
+我不替品牌写英文版，等用户定。
+
+### 六、「+」菜单
+
+新增 `ui-commands` 的 `Config.menuHidden`：空查询菜单不列出的命令名。
+web-app 隐藏 `permission` 与 `model`——输入框下面已经是座位。
+**撤下的只是行**：`/权限`、`/模型` 仍可键入、仍参与键入查询排序、仍能执行。
+「下载日志」是 `/export`（导出当前会话为 ZIP），不是系统日志；
+中文标签改成「导出会话」，与其他 7 种语言里本来就写的 Export／Exportar 对齐。

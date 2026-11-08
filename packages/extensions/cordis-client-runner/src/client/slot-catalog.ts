@@ -3960,6 +3960,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       'client-ui-plugin-manager PluginRefreshToast id \'plugin-manager.refresh-toast\'',
       'client-ui-schedule ScheduleDeleteToast id \'schedule.delete-toast\'',
       'client-ui-settings-account DesktopOnboardingEntry id \'desktop-onboarding\'',
+      'client-ui-settings-account SignInGate id \'account.sign-in-gate\'',
       'client-ui-settings-account AccountPlatformHost id \'account.platform-page\'',
       'client-ui-settings-general DesktopChannelToast id \'desktop-channel-toast\'',
       'client-ui-settings-general HostReleasePrompt id \'host-release-change\'',

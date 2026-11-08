@@ -8,7 +8,7 @@ import { authorizeUrlWithTheme } from './authorize-url.ts'
 import css from './SignInDialog.module.css'
 
 /** @param props - safe account state, localized copy, and user actions. @returns login dialog. */
-export function SignInDialog({ account, colorScheme, start, cancel, close, useApiKey, t }: {
+export function SignInDialog({ account, colorScheme, start, cancel, close, useApiKey, t, dismissible = true }: {
   account: AccountSnapshot
   /** Resolved scheme of the active application theme; the copied link carries it. */
   colorScheme: 'light' | 'dark'
@@ -17,6 +17,12 @@ export function SignInDialog({ account, colorScheme, start, cancel, close, useAp
   close: () => void
   useApiKey: () => void
   t: (key: AccountKey) => string
+  /**
+   * Whether the person may put the dialog away without finishing. False where
+   * it covers the product: the close affordance is withdrawn and Escape does
+   * nothing, while abandoning an active attempt still returns to the start.
+   */
+  dismissible?: boolean
 }) {
   const [busy, setBusy] = useState(false)
   const [failed, setFailed] = useState(false)
@@ -38,7 +44,7 @@ export function SignInDialog({ account, colorScheme, start, cancel, close, useAp
     && phase === 'failed' && attempt?.errorCode === 'no-response' ? 'noResponse' : 'failed'
   const waiting = active && !error
   const committing = phase === 'committing'
-  useEffect(() => { if (account.view?.status === 'credential-stored') close() }, [account.view?.status, close])
+  useEffect(() => { if (account.view?.status === 'credential-stored' && dismissible) close() }, [account.view?.status, close, dismissible])
   const run = async (action: () => Promise<void>) => {
     setBusy(true)
     setFailed(false)
@@ -46,8 +52,10 @@ export function SignInDialog({ account, colorScheme, start, cancel, close, useAp
   }
   const dismiss = () => {
     if (committing || busy) return
-    if (active && attempt) void run(async () => { await cancel(attempt.id); close() })
-    else close()
+    // A covering dialog still abandons the attempt it started; what it does
+    // not do is go away, because there is nothing usable behind it.
+    if (active && attempt) void run(async () => { await cancel(attempt.id); if (dismissible) close() })
+    else if (dismissible) close()
   }
   const retry = async () => {
     if (active && attempt) await cancel(attempt.id)
@@ -64,9 +72,9 @@ export function SignInDialog({ account, colorScheme, start, cancel, close, useAp
     <div className={css.content}>
       <div className={css.header}>
         <h2 className={css.title}>{title}</h2>
-        <button type="button" className={css.close} aria-label={t('close')} onClick={dismiss}>
+        {dismissible && <button type="button" className={css.close} aria-label={t('close')} onClick={dismiss}>
           <IconCloseOutlineRegular size={14} />
-        </button>
+        </button>}
       </div>
       {waiting ? <p className={css.description}>
         {t('browserPrompt')}<button type="button" className={css.link} disabled={!authorizeUrl}
@@ -79,7 +87,9 @@ export function SignInDialog({ account, colorScheme, start, cancel, close, useAp
     </div>
     <div className={css.actions}>
       <Button variant="outline" className={css.secondaryButton} disabled={committing || busy}
-        onClick={active ? dismiss : useApiKey}>{t(active ? 'cancel' : 'addApiKey')}</Button>
+        onClick={active ? dismiss : useApiKey}>
+        {t(active ? 'cancel' : dismissible ? 'addApiKey' : 'addApiKeyInSettings')}
+      </Button>
       <Button variant="primary" className={css.primaryButton} disabled={busy || committing || waiting || account.view === undefined}
         aria-label={waiting ? t('waiting') : undefined} onClick={() => { void run(retry) }}>
         {waiting ? <IconLoadingOutlineRegular className={css.spinner} /> : t(expired || error ? 'retry' : 'signIn')}

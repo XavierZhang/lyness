@@ -16,11 +16,13 @@ import type {} from '@lyness/lyn-client-locale/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-client-ui-session/client'
 import { CommandUiRuntime } from './service.ts'
+import type { CommandUiConfig } from './service.ts'
 import type { PopupSelectInjected } from './PopupSelectView.tsx'
 import { PopupSelectView } from './PopupSelectView.tsx'
 import { en, ja, es, fr, de, ru, pt, zh, type CommandKey } from './locales.ts'
 
 export { CommandUiRuntime } from './service.ts'
+export type { CommandUiConfig } from './service.ts'
 export { CommandDirectory } from './directory.ts'
 export type { CommandDescriptor, DirectoryStatus } from './directory.ts'
 export { filterOptions, PopupSelectController } from './popup.ts'
@@ -51,13 +53,20 @@ const NS = 'command'
 /** Required services: the '/' source registry, session scopes, commands Remote, and locale registry. */
 export const inject = ['inputTriggers', 'sessions', 'remote', 'remote.commands', 'locale']
 
+/** Deployment-varying choices of the command surface; the service owns the schema. */
+export type Config = CommandUiConfig
+
+/** Validated plugin configuration. */
+export const Config = CommandUiRuntime.Config
+
 /**
  * Mount the command service and its per-session popupSelect overlay.
  * @param ctx - client root context.
+ * @param config - the deployment's menu choices, forwarded to the service.
  */
-export function apply(ctx: ClientContext): void {
+export function apply(ctx: ClientContext, config: Config): void {
   ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), 'ui-commands: dictionaries')
-  ctx.plugin(CommandUiRuntime)
+  ctx.plugin(CommandUiRuntime, config)
   ctx.inject(['slots', 'commandUi', 'sessions'], (scope: ClientContext) => {
     const command = scope.commandUi
     const sessions = scope.get('sessions') as ISessions

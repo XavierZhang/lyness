@@ -70,7 +70,7 @@ it.each(['accepted', 'refused', 'disconnected', 'pending'] as const)('initialize
     },
   }
   try {
-    apply(ctx as never)
+    apply(ctx as never, { requireSignIn: false })
     await done.promise
     expect(initializeDefaultModel).toHaveBeenCalledExactlyOnceWith()
     expect(observed).toEqual([

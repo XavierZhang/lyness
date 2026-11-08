@@ -3,7 +3,13 @@ import z from '@lyness/schemastery'
 
 /** Questionnaire destination and bonus notice timings shared by Host and Client. */
 export interface ContactConfig {
-  /** HTTPS questionnaire URL; override for a test form. */
+  /**
+   * HTTPS questionnaire the Feedback entry opens, or empty for none.
+   *
+   * Empty by default, and empty means the entry is not offered: the URL
+   * carries the signed-in account, the build and the device to whoever owns
+   * the form, so a deployment names its own or asks nothing.
+   */
   contactFormUrl: string
   /** Questionnaire source option; empty until Harness is supported by the form. */
   contactSource: string
@@ -14,7 +20,7 @@ export interface ContactConfig {
 }
 /** Validate public questionnaire options. */
 export const ContactConfigFields = {
-  contactFormUrl: z.string().pattern(/^https:\/\/[^/\s]+\//).default('https://trtgsjkv6r.feishu.cn/share/base/form/shrcnlCoGElW7MQznGy9r3YYXcg?hide_uid=1&hide_device_info=1&hide_harness_version=1'),
+  contactFormUrl: z.string().pattern(/^(?:https:\/\/[^/\s]+\/.*)?$/).default(''),
   contactSource: z.string().default(''),
   bonusAckRetryDelayMs: z.number().min(1).default(1_000),
   bonusAckRetryMaxDelayMs: z.number().min(1).default(60_000),

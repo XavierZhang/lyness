@@ -50,17 +50,16 @@ const CHILD_NAMES = Object.keys(CHILD_SPECS) as Array<keyof typeof CHILD_SPECS>
 const PRODUCT_SECTIONS: readonly string[] = ['general', 'instructions', 'memory', 'capabilities', 'data']
 /**
  * Administration-plane section ids the web-app roster registers, in nav
- * order: ui-settings-models, ui-settings-plugins, ui-settings-credits and
- * ui-agent-preset. The shell offers the whole group only to a standing that
- * administers something.
+ * order: ui-settings-models, ui-settings-plugins and ui-agent-preset. The
+ * shell offers the whole group only to a standing that administers something.
  *
- * Sign-in channels, people, bots and history are not here: they read the
- * account plane, so they ship with `lyn-module-accounts` rather than with
- * every web surface. A deployment that mounts no account plane had them
- * parked, with a sync failure on the plugin inventory page that no retry
- * could clear ([ledger](../../../../CUSTOM.md)).
+ * Sign-in channels, people, bots, history and credits are not here: each
+ * reads a plane this bundle does not carry, so they ship with
+ * `lyn-module-accounts` and `lyn-module-credits` rather than with every web
+ * surface. A deployment without those planes had them parked or answering
+ * only a refusal ([ledger](../../../../CUSTOM.md)).
  */
-const PRODUCT_ADMINISTRATION: readonly string[] = ['models', 'plugins', 'credits', 'agent-presets']
+const PRODUCT_ADMINISTRATION: readonly string[] = ['models', 'plugins', 'agent-presets']
 /** Onboarding steps the web-app roster registers, in coordinator order; both come from ui-settings-models. */
 const PRODUCT_ONBOARDING: readonly { id: string; order: number }[] = [
   { id: 'deepseek-official', order: 0 },

@@ -42,11 +42,13 @@ Desktop 的用量、充值与引导充值操作在 48px 返回栏下方打开同
 
 Chat 通过 `shell.overlay` 中的宿主把已绑定 Session 的实时欠费交给全局 `shell.quota-notice` 链，提示的生命周期因此长于上报它的 Chat 面板。账号条目认领 `ACCOUNT_QUOTA`：已存储账号凭证且存在共享宿主条目时，Modal 提供取消和去充值。只要通过该共享请求通道请求的页面正在显示，原生视图就会盖住本页，因此该条目既不绘制 Modal 也不绘制 Toast。在 Account 设置页已打开页面的情况下新到达的欠费不会被保持：它仍受最新提示替换规则约束，返回后若该提示仍是最新一条就显示 Modal。该 Modal 报告的是原始请求的失败，而不是账号当前余额：返回时的重读是一次独立读取，返回本身既不证明支付成功，也不会自动撤下该提示。提示自身的去充值属于被保持的情形：它调用 `keepOpen()` 并通过共享请求通道申请 `top-up` 页面，使该提示与其页面在后续欠费期间保持挂载。存在共享宿主条目时，该条目会等待首个账号快照，而不是渲染一个可能被自身计时器丢弃的 Toast；快照报告未存储凭证，或账号流失败且无快照时，才由该条目自行渲染同一段中立警告 Toast，缺少该宿主条目时则立即渲染该 Toast，而不依赖 Chat 宿主回退。该条目持有保持与页面请求，并在自身卸载时释放二者，因此后续欠费会重新发布而不重放已丢弃的提示；关闭与退出登录也会清除保持和页面请求。关闭、取消、退出登录或离开该提示自己的内嵌页面都会撤下提示，且不会重试请求。
 
-账号菜单的“意见反馈”入口在系统浏览器中打开飞书问卷。每次点击都按当时的上下文取值：profile ready 且带 id 时的账号 UID、以 harness_version 表示的构建版本，以及 device_info。device_info 以 screen_resolution=宽x高 包含屏幕物理分辨率，尺寸乘以 devicePixelRatio 后四舍五入；屏幕尺寸不可用时省略此项。所有上下文字段同时设置 hide_*=1，配置的表单 URL 中这些字段的 stale prefill 参数先被清除，uid、device_info 与 harness_version 的隐藏参数不依赖配置 URL 的取值。URL 不携带 os_version、device_brand、app_locale 或独立的 screen_resolution 参数；配置 URL 中这些字段的 prefill 与 hide 参数会被移除。不传 token 或脱敏联系方式；未登录、profile 仍在加载或读取失败时都不填写 prefill_uid。普通浏览器中，或 Desktop 桥接没有 deviceInfo 读取器时，打开的表单以 navigator.userAgent 作为 device_info。Desktop 端暴露可选的 lynDesktop.deviceInfo 读取器，其字段格式由 [Desktop README](../../../apps/desktop/README.zh.md) 负责；该读取器的结果取代 user-agent，读取失败时仍打开表单，device_info 保留可获取的屏幕分辨率，而 device_info 描述的是上报的环境而非硬件型号。可在 ui-settings-account 插件配置 contactFormUrl，切换到另一个 HTTPS 问卷；问卷支持 Harness 来源选项前，contactSource 默认为空。
+`Config.requireSignIn` 让这个弹窗盖住产品、而不是与它并列，供希望使用者先登录的部署使用。它只在**没有人登录、且没有可用模型**时盖住：任何 `llm-*` 设置命名空间里点名的提供商都算，包括密钥来自环境变量、没有留下任何已存密钥的那种——因为只看账号状态就盖住，会把这样的安装挡在配置它的设置页之外。另一条出路也必须为同一个理由留着，所以覆盖态弹窗的次要按钮放这个人进去一次；什么都不写入，下次加载仍会再问，直到存在凭据为止。默认关闭。
+
+账号菜单的“意见反馈”入口在系统浏览器中打开飞书问卷。每次点击都按当时的上下文取值：profile ready 且带 id 时的账号 UID、以 harness_version 表示的构建版本，以及 device_info。device_info 以 screen_resolution=宽x高 包含屏幕物理分辨率，尺寸乘以 devicePixelRatio 后四舍五入；屏幕尺寸不可用时省略此项。所有上下文字段同时设置 hide_*=1，配置的表单 URL 中这些字段的 stale prefill 参数先被清除，uid、device_info 与 harness_version 的隐藏参数不依赖配置 URL 的取值。URL 不携带 os_version、device_brand、app_locale 或独立的 screen_resolution 参数；配置 URL 中这些字段的 prefill 与 hide 参数会被移除。不传 token 或脱敏联系方式；未登录、profile 仍在加载或读取失败时都不填写 prefill_uid。普通浏览器中，或 Desktop 桥接没有 deviceInfo 读取器时，打开的表单以 navigator.userAgent 作为 device_info。Desktop 端暴露可选的 lynDesktop.deviceInfo 读取器，其字段格式由 [Desktop README](../../../apps/desktop/README.zh.md) 负责；该读取器的结果取代 user-agent，读取失败时仍打开表单，device_info 保留可获取的屏幕分辨率，而 device_info 描述的是上报的环境而非硬件型号。该入口只在部署配置了 ui-settings-account 插件的 contactFormUrl 时出现：它默认为空，因为这个 URL 把账号、构建版本与设备信息交给表单的拥有者，不该发往一个部署没有点名的表单。问卷支持 Harness 来源选项前，contactSource 默认为空。
 
 账号资料与余额卡片共用[设置卡片材质与圆角](../../../docs/web-styling.zh.md#corner-radii-and-settings-cards)。用量与充值链接与标准 Button 尺寸一致；授权操作使用公共 Button。
 
-侧边栏账号菜单使用公共 Menu 的表面和背景模糊。已登录菜单沿用公共菜单项排版；未登录菜单使用自己的较宽菜单项。两种菜单的问卷入口均为“意见反馈”。设置菜单项显示外壳传入的有效组合键。关闭设置后，焦点回到侧栏账号入口。
+侧边栏账号菜单使用公共 Menu 的表面和背景模糊。已登录菜单沿用公共菜单项排版；未登录菜单使用自己的较宽菜单项。两种菜单的问卷入口均为“意见反馈”，部署没有配置表单时两者都不提供它。设置菜单项显示外壳传入的有效组合键。关闭设置后，焦点回到侧栏账号入口。
 
 账号卡片的“更多账号信息”链接不带下划线，通过系统浏览器打开 Host 提供的 Platform 用量 URL 的根路径，遵循 `platformOrigin` 配置。
 
@@ -63,7 +65,7 @@ Desktop preload 标记在账号凭证已存储后启用引导。进度属于本�
 
 欢迎页必须点击“开始设置”。额度页始终展示。首次进入时若已确认有正余额，则主操作为“继续”，次操作为“去充值”。该选择在引导控制器重建前保持固定且不持久化，后到的余额结果不会改变按钮。仅在确认不存在正余额时，继续而不充值才需确认；查询中或失败时不阻止继续。用途卡片选中后描述不变。从原生充值视图返回后保留额度页，并在等待任何已在进行的读取结束后于后台重读资料与余额，不受页面加载或支付结果影响。该读取不会重新计算该选择，因此充值成功后按钮仍保持首次进入时的状态，而继续前行仍按刷新后的余额判断。“下一步”仅在确认零余额时提示；额度页的“跳过”使用充值提示，答题页使用设置提示。仅选办公用途时以简洁展示完成；选择开发或两种用途时还会询问过程详情。上一步保留已有选择，任意可跳过步骤均采用标准工作过程、简洁性能与用量以及关闭代码工作工具的默认值。此流程不创建工作区或示例任务。
 
-访问控制：账号状态流、额度提醒、设置启动器、账号设置分区与模型登录入口只在当前 Peer 可以调用 `account/watch` 时存在；桌面引导与平台页面不受此控制。失去该权限时，这一轮发出的账号读取作废，待授权的浏览器标签页关闭，账号视图、详情、头像与登录对话框状态清空；之后再次授权时，账号分区等新流的第一帧到达后才重新出现。owner 始终有权限。
+访问控制：账号状态流、额度提醒、设置启动器、账号设置分区、模型登录入口与登录门只在当前 Peer 可以调用 `account/watch` 时存在，因此没有该权限的 Peer 不会被盖住；桌面引导与平台页面不受此控制。失去该权限时，这一轮发出的账号读取作废，待授权的浏览器标签页关闭，账号视图、详情、头像与登录对话框状态清空；之后再次授权时，账号分区等新流的第一帧到达后才重新出现。owner 始终有权限。
 
 <a id="understand-the-implementation"></a>
 ## 理解实现

@@ -15,7 +15,7 @@ import type { InputTriggerSource } from '@lyness/lyn-client-ui-input-trigger/cli
 import type { CommandUiContract } from '../src/client/contract.ts'
 import type { PopupSelectInjected } from '../src/client/PopupSelectView.tsx'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { apply, CommandUiRuntime, inject } from '../src/client/index.ts'
+import { apply, CommandUiRuntime, Config, inject } from '../src/client/index.ts'
 
 const sid = (k: string): SessionId => k as SessionId
 
@@ -48,7 +48,7 @@ async function bench() {
     name: 'root', children: { 'conversation.input.overlay': { kind: 'list', scope: 'session' } },
   } as never, (() => null) as never)
   ctx.provide('locale', new LocaleRuntime(ctx))
-  const fiber = ctx.plugin({ inject: [...inject], apply })
+  const fiber = ctx.plugin({ inject: [...inject], Config, apply })
   await fiber.await()
   const mint = (key: string) => {
     const id = sid(key)

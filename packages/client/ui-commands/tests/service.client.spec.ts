@@ -47,6 +47,8 @@ interface BenchOptions {
   addressed?: SessionId
   initialOpen?: SessionFixture['initialOpen']
   snapshot?: SessionFixture['snapshot']
+  /** Command names the empty-query menu leaves out; default hides none. */
+  menuHidden?: string[]
 }
 
 /**
@@ -152,7 +154,7 @@ async function bench(opts: BenchOptions = {}) {
       }),
     },
   })
-  const fiber = ctx.plugin(CommandUiRuntime)
+  const fiber = ctx.plugin(CommandUiRuntime, { menuHidden: opts.menuHidden ?? [] })
   await fiber.await()
   const command = ctx.get('commandUi') as CommandUiRuntime
   const source = registered.get('/ command')
@@ -200,10 +202,10 @@ const req = (query: string, position: 'leading' | 'inline' = 'leading') =>
 describe('registration', () => {
   it('reports missing initialization dependencies', () => {
     const missingLocale = new Context()
-    expect(() => new CommandUiRuntime(missingLocale)).toThrow('locale service unavailable')
+    expect(() => new CommandUiRuntime(missingLocale, { menuHidden: [] })).toThrow('locale service unavailable')
     const missingTriggers = new Context()
     missingTriggers.provide('locale', { bind: () => (key: string) => key })
-    expect(() => new CommandUiRuntime(missingTriggers)).toThrow('slash service unavailable')
+    expect(() => new CommandUiRuntime(missingTriggers, { menuHidden: [] })).toThrow('slash service unavailable')
   })
 
   it('registers the "/" source with matchSpace/matchEnter/warm hooks and removes it on fiber disposal', async () => {
@@ -408,6 +410,22 @@ describe('candidates', () => {
       expect(rows[6]).toMatchObject({ name: 'model', label: '模型', description: '选择本会话使用的模型', icon: Glyph })
       // A third-party command keeps its catalog text and gets no glyph.
       expect(rows[8]).toEqual({ name: 'deploy', description: 'third-party command', section: 'command:section.commands' })
+    })
+
+    it('leaves a hidden name out of the menu while a typed query still ranks it', async () => {
+      // The seats under the composer already offer permission and model, so
+      // this product's menu omits both rows; omitting the row must not take
+      // the command away, because `/权限` is how a keyboard reaches it.
+      const { command, source } = await bench({
+        commands: () => Promise.resolve({ commands: SHIPPED }),
+        menuHidden: ['permission', 'model'],
+      })
+      command.register(modelContribution())
+      const menu = await source.candidates(proj('s1'), req(''))
+      expect(menu.map(row => row.name)).toEqual(['goal', 'plan', 'feedback', 'compact', 'export', 'deploy'])
+      const typed = await source.candidates(proj('s1'), req('perm'))
+      expect(typed.map(row => row.name)).toContain('permission')
+      expect(source.matchSpace!(proj('s1'), '/permission')).toHaveProperty('claim.name', 'permission')
     })
 
     it('a same-name override keeps its own presentation even when it copies the first-party description', async () => {

@@ -139,6 +139,12 @@
     # reports an actionable error when its settings-domain provider is absent.
     - id: ui-settings-account
       name: '@lyness/lyn-client-ui-settings-account'
+      config:
+        # Open on the sign-in screen rather than on a product whose every
+        # surface is about to refuse. An installation that already reaches a
+        # model — a configured provider, or a key from the environment — is
+        # usable and is not covered.
+        requireSignIn: true
 
     - id: account-controller
       name: '@lyness/lyn-api-account-controller'
@@ -365,8 +371,6 @@
     - id: ui-settings-announcements
       name: '@lyness/lyn-client-ui-settings-announcements'
 
-    - id: ui-settings-credits
-      name: '@lyness/lyn-client-ui-settings-credits'
 
     # Who the viewer is, read once and shared: the row naming whose session
     # this is, the sign-in screen, and the Settings navigation's plane split
@@ -482,6 +486,13 @@
 
     - id: ui-commands
       name: '@lyness/lyn-client-ui-commands'
+      config:
+        # Permission and model are seats under the composer in this product,
+        # so a menu row for each is a second way to the same place rather than
+        # a capability. Both stay typable as `/权限` and `/模型`.
+        menuHidden:
+          - permission
+          - model
 
     - id: ui-skill
       name: '@lyness/lyn-client-ui-skill'

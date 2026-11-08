@@ -62,6 +62,7 @@
     "@lyness/lyn-commands": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "clsx": "^2.0.0",
     "react": "^18.2.0"
   },
