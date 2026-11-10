@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "pwsh-sandbox"
+    "title": "Sandboxed PowerShell execution",
+    "description": "Runs a PowerShell command within the sandbox in force."
   }
 }

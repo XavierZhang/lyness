@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-permission-presets"
+    "title": "Permission mode surface",
+    "description": "The default permissions for a new session, and the mode this session runs in."
   }
 }

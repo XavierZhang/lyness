@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-turn-outline"
+    "title": "Session turn outline",
+    "description": "Builds the outline of a conversation's turns, to find and jump to an earlier one."
   }
 }

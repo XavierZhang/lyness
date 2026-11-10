@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-message-feedback"
+    "title": "Message feedback surface",
+    "description": "The thumbs on a reply, and the conversation feedback dialog."
   }
 }

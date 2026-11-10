@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "llm-deepseek-api-key"
+    "title": "DeepSeek API key models",
+    "description": "Reaches the DeepSeek model service with an API key."
   }
 }

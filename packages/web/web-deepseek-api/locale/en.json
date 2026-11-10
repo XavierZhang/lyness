@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "web-deepseek-api"
+    "title": "DeepSeek web search and fetch API",
+    "description": "Searches with the DeepSeek Search API and reads a page's text with its Fetch API."
   }
 }

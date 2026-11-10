@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "workflow-ptc"
+    "title": "Workflow execution engine",
+    "description": "Runs the orchestration code on the shared PTC runtime."
   }
 }

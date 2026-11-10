@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "system-prompt"
+    "title": "System prompt assembly",
+    "description": "Assembles the system prompt out of what each plugin contributes."
   }
 }

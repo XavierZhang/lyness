@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-workspace-controller"
+    "title": "Workspace control API",
+    "description": "Workspace operations and state a client recovers after reconnecting."
   }
 }

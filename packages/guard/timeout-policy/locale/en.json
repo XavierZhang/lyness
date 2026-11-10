@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-call-timeout-policy"
+    "title": "Tool call timeout",
+    "description": "Cancels a call at its tool's own deadline and answers with a timeout."
   }
 }

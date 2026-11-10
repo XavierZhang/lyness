@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "spill-policy"
+    "title": "Tool result length policy",
+    "description": "Bounds how much of a tool result enters the context, and keeps the way to read the whole of it."
   }
 }

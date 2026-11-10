@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "command-feedback"
+    "title": "Conversation feedback command",
+    "description": "Records what a person thinks of a conversation, through `/feedback` and its kin."
   }
 }

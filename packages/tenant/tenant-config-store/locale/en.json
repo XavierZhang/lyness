@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-config-store"
+    "title": "Tenant configuration store",
+    "description": "Persistent tenant configuration: one record per tenant in a storage domain, writable from an administration surface."
   }
 }

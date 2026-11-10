@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-subagent"
+    "title": "Subagent delegation tools",
+    "description": "Lets the model hand a task to a subagent and take its result."
   }
 }

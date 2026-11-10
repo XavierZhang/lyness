@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-log-export"
+    "title": "Session log export",
+    "description": "The command that exports a Session log, and its download."
   }
 }

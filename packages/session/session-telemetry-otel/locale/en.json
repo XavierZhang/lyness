@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-telemetry-otel"
+    "title": "Feedback Session log upload",
+    "description": "Uploads the Session logs the feedback consent covers, over OpenTelemetry."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-ralph"
+    "title": "Ralph iteration tool",
+    "description": "Runs a fresh subagent each round at the same goal, carrying the previous round's brief report."
   }
 }

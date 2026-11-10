@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "message-feedback"
+    "title": "Message feedback record",
+    "description": "Records the thumbs and the added words a person leaves on a reply."
   }
 }

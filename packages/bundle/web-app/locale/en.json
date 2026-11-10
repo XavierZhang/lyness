@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "web-app"
+    "title": "Web application runtime",
+    "description": "Serves the front-end assets and composes what the Web application needs to run."
   }
 }

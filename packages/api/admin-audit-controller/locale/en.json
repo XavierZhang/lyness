@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "admin-audit-controller"
+    "title": "Administration trail RPC",
+    "description": "Administrators read what changed, who changed it, and from where."
   }
 }

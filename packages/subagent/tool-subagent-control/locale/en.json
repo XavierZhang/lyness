@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-subagent-control"
+    "title": "Subagent control tools",
+    "description": "Lets the model message a subagent or interrupt its run."
   }
 }

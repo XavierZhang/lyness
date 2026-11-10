@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "subprocess-local"
+    "title": "Local subprocesses",
+    "description": "Starts and owns local processes for other plugins."
   }
 }

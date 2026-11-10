@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-job-controller"
+    "title": "Background job API",
+    "description": "Streams background job status and output to a client."
   }
 }

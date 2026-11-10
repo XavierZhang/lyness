@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-trajectory"
+    "title": "Run trajectory",
+    "description": "Reading a turn's messages, tool calls, durations and tokens."
   }
 }

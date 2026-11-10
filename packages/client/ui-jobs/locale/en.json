@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-jobs"
+    "title": "Background jobs surface",
+    "description": "The background jobs of a session: the list, each one's state, and its live output."
   }
 }

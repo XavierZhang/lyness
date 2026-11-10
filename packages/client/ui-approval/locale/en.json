@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-approval"
+    "title": "Approval surface",
+    "description": "Shows what is waiting for approval and returns the person's answer to the running task."
   }
 }

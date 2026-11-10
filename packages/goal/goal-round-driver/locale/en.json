@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "goal-round-driver"
+    "title": "Goal continuation",
+    "description": "Lets the model carry the conversation's goal further while its conditions and allowance permit."
   }
 }

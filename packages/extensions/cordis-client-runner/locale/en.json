@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "cordis-client-runner"
+    "title": "Dynamic plugin browser runner",
+    "description": "Loads and runs the browser half of a scratch dynamic plugin."
   }
 }

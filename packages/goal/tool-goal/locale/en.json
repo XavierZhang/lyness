@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-goal"
+    "title": "Goal management tools",
+    "description": "Lets the model set, read and update this conversation's goal."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-sign-in-channels"
+    "title": "Sign-in channel settings",
+    "description": "The sign-in channels section of Settings: what a deployment or a tenant signs its people in with, configured at runtime."
   }
 }

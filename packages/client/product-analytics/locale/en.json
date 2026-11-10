@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "product-analytics"
+    "title": "Desktop usage analytics",
+    "description": "Collects the named desktop interactions and submits them to the product analytics service."
   }
 }

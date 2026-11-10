@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-pwsh-persistent"
+    "title": "Persistent PowerShell tool",
+    "description": "Lets the model run commands in a PowerShell session that keeps its state."
   }
 }

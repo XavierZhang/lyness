@@ -182,6 +182,7 @@
     "gen-config-catalog": "tsx scripts/gen-config-catalog.ts",
     "verify-config-catalog": "tsx scripts/gen-config-catalog.ts --check",
     "gen-plugin-packages": "tsx scripts/gen-plugin-packages.ts",
+    "verify-plugin-meta-copy": "tsx scripts/verify-plugin-meta-copy.ts",
     "verify-plugin-packages": "tsx scripts/gen-plugin-packages.ts --check",
     "gen-dependency-catalog": "tsx scripts/gen-dependency-catalog.ts",
     "verify-dependency-catalog": "tsx scripts/gen-dependency-catalog.ts --check",

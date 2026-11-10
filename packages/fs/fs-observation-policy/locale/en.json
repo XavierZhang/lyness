@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "fs-observation-policy"
+    "title": "File edit protection",
+    "description": "Requires the model to read a file before editing it, and to re-read one that changed underneath."
   }
 }

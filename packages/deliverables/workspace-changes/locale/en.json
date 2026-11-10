@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "workspace-changes"
+    "title": "Workspace change record",
+    "description": "Records what each turn changed in the workspace, for a file-by-file comparison."
   }
 }

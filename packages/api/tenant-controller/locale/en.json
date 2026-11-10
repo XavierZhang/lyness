@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-controller"
+    "title": "Tenant configuration RPC",
+    "description": "The calling tenant reads and saves its own configuration."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "credits-controller"
+    "title": "Credits RPC",
+    "description": "Everyone reads their own balance; administrators grant credits and set limits."
   }
 }

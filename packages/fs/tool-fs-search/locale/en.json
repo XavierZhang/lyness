@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-fs-search"
+    "title": "File search tools",
+    "description": "Lets the model search local files by name or by their text."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "wecom"
+    "title": "WeCom sign-in",
+    "description": "WeCom as a sign-in channel: one company signing in the member at the browser."
   }
 }

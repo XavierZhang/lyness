@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "product-telemetry-otel"
+    "title": "Product usage reporting",
+    "description": "Reports the named product usage events to the configured service over OpenTelemetry."
   }
 }

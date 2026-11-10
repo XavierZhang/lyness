@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "plugin-package-inventory-deepseek"
+    "title": "DeepSeek plugin inventory reporting",
+    "description": "Sends the list of currently active plugin packages along with a request to the official model API."
   }
 }

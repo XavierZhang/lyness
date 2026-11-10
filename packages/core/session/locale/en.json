@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session"
+    "title": "Session record",
+    "description": "Records a conversation's messages, tool calls and run events."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-subagent"
+    "title": "Subagent settings",
+    "description": "Delegation depth, how many may run at once, and which models they may use."
   }
 }

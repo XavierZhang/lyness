@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "cordis-host-runner"
+    "title": "Dynamic plugin Host runner",
+    "description": "Owns the scratch dynamic plugin definitions and runs their Host half."
   }
 }

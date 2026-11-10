@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "terminal-bash"
+    "title": "Persistent shell backend",
+    "description": "A shell terminal that keeps its state across calls."
   }
 }

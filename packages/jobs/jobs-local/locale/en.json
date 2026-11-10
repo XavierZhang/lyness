@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "jobs-local"
+    "title": "Local background jobs",
+    "description": "Owns this process's background jobs and their run state."
   }
 }

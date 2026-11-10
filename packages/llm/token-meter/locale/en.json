@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "token-meter"
+    "title": "Token metering",
+    "description": "Estimates a context's token usage, so compaction and its kin can judge the budget."
   }
 }

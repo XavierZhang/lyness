@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-ask-user"
+    "title": "Ask the user tool",
+    "description": "Lets the model ask the person when it needs a missing fact or a choice."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-user-questions"
+    "title": "Question and answer surface",
+    "description": "Shows the model's questions and plan reviews in the conversation, and collects the person's answer."
   }
 }

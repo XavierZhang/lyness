@@ -28,7 +28,8 @@
     "./preset-contribution": {
       "types": "./lib/types/preset-contribution.d.ts",
       "default": "./lib/types/preset-contribution.js"
-    }
+    },
+    "./preset-contribution/locale/*.json": "./locale/*.json"
   },
   "license": "MIT",
   "files": [

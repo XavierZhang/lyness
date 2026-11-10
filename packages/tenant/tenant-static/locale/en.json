@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-static"
+    "title": "Tenant directory from the composition",
+    "description": "A tenant directory carried by the deployment's own composition: the roster is the patch layer's rows."
   }
 }

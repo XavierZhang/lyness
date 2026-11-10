@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "user-questions"
+    "title": "User question service",
+    "description": "Lets a running model put a question to the person and wait for the answer."
   }
 }

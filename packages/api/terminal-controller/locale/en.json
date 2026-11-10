@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-terminal-controller"
+    "title": "Terminal control API",
+    "description": "Creating, writing to, reading and resuming a session's terminals from a client."
   }
 }

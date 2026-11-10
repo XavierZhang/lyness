@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "compaction-tool-result-pruner"
+    "title": "Tool result pruning",
+    "description": "Trims an over-long tool output under context pressure, keeping its head and tail."
   }
 }

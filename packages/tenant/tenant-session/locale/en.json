@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-session"
+    "title": "Session tenant stamp",
+    "description": "Records which tenant a conversation belongs to, and the identity that tenant contributed at the time, as one durable Session event."
   }
 }

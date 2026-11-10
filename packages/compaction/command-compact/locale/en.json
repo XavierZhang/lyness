@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "command-compact"
+    "title": "Compaction command",
+    "description": "Lets a person compact the current conversation's context on demand."
   }
 }

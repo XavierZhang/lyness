@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sidebar-right"
+    "title": "Right panel",
+    "description": "Owns the right panel: whether it is open, what it shows, and how it is navigated."
   }
 }

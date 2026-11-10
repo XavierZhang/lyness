@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "web-search-deepseek"
+    "title": "DeepSeek web search",
+    "description": "Web search results from DeepSeek."
   }
 }

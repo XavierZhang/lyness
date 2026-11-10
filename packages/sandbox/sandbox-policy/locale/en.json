@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sandbox-policy"
+    "title": "Sandbox policy",
+    "description": "Decides each operation's limits from the session's permission mode and its workspace."
   }
 }

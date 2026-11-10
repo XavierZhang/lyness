@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-announcements"
+    "title": "System announcements",
+    "description": "The announcements row in General settings, read from the deployment this client is connected to."
   }
 }

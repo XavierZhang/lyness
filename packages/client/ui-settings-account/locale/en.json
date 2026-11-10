@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-account"
+    "title": "Account settings",
+    "description": "The DeepSeek sign-in, and the way to that platform's billing page."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "llm-retry"
+    "title": "Model request retry",
+    "description": "Retries a failed request by its provider's own policy."
   }
 }

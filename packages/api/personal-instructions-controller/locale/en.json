@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "personal-instructions-controller"
+    "title": "Personal instructions API",
+    "description": "What a person tells their own agents, read and written by that person alone."
   }
 }

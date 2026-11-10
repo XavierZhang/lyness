@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "brand-deployment"
+    "title": "Deployment branding",
+    "description": "A deployment's own brand over the webserver's index: the title, the icons, the theme color, and the asset files whoever runs it placed."
   }
 }

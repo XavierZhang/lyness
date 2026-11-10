@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-deletion"
+    "title": "Session deletion",
+    "description": "Deletes a conversation: its stored log, every child log beneath it, and the projections cached about them."
   }
 }

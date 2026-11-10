@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-session-log"
+    "title": "Session log upload setting",
+    "description": "Whether a Session log rides along with a request to DeepSeek's own model API."
   }
 }

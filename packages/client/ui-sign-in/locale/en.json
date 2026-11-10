@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sign-in"
+    "title": "Sign-in surface",
+    "description": "The sign-in screen a deployment with accounts shows, and the row that says who is signed in."
   }
 }

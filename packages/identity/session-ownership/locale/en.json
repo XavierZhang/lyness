@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-ownership"
+    "title": "Session ownership",
+    "description": "A conversation belongs to the person who opened it, and to the identity they opened it as."
   }
 }

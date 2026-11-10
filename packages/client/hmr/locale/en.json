@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "hmr"
+    "title": "Web client hot reload",
+    "description": "Synchronizes the browser's plugins and updates the affected surfaces after a rebuild."
   }
 }

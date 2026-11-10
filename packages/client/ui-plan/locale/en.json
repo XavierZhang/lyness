@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-plan"
+    "title": "Plan review surface",
+    "description": "The plan-mode control, the plan card, and its Markdown preview."
   }
 }

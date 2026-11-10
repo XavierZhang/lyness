@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "goal"
+    "title": "Session goal service",
+    "description": "Records a conversation's goal and owns that goal's state and lifecycle."
   }
 }

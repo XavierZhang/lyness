@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-layout"
+    "title": "Application layout",
+    "description": "Arranges navigation, conversation and side panels, and lets a person drag the split."
   }
 }

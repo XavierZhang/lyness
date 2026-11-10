@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-capabilities"
+    "title": "What you may use",
+    "description": "The read-only section of Settings: the models, connections, skills and tools a person's agents have, and who provided each one."
   }
 }

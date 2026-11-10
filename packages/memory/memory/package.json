@@ -28,7 +28,9 @@
       "types": "./lib/types/preset-contribution.d.ts",
       "default": "./lib/types/preset-contribution.js"
     },
-    "./locale/*.json": "./locale/*.json"
+    "./locale/*.json": "./locale/*.json",
+    "./tools/locale/*.json": "./locale/*.json",
+    "./preset-contribution/locale/*.json": "./locale/*.json"
   },
   "files": [
     "locale/*.json",

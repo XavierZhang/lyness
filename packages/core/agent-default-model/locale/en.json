@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-default-model"
+    "title": "Default model",
+    "description": "The model a newly created agent starts on."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-reference"
+    "title": "Cross-session references",
+    "description": "Gives the model a read-only snapshot of another conversation."
   }
 }

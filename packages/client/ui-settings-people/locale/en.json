@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-people"
+    "title": "People settings",
+    "description": "The people section of Settings: who may use a deployment and which directory identity each of them is, maintained at runtime."
   }
 }

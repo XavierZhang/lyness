@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "llm-deepseek-account"
+    "title": "DeepSeek account models",
+    "description": "Reaches the model service with the DeepSeek account already signed in."
   }
 }

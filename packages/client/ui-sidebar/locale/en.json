@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sidebar"
+    "title": "Conversation sidebar",
+    "description": "The conversation list, with search, grouping and state."
   }
 }

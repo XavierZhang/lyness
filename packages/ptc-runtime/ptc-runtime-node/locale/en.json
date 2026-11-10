@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ptc-runtime-node"
+    "title": "Node PTC runtime",
+    "description": "Runs the tool-calling code in a sandboxed Node process."
   }
 }

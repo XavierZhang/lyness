@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sidebar-browser"
+    "title": "Browser panel",
+    "description": "Opening and browsing a web page in the right panel."
   }
 }

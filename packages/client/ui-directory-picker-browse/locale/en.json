@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-directory-picker-browse"
+    "title": "In-app directory picker",
+    "description": "Browsing, creating and choosing a workspace directory inside the application."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "attachment-local"
+    "title": "Local attachment store",
+    "description": "Keeps a conversation's images and other attachments, read back by content identity."
   }
 }

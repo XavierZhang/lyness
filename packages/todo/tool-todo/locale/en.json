@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-todo"
+    "title": "To-do list tool",
+    "description": "Lets the model write and update a task to-do list."
   }
 }

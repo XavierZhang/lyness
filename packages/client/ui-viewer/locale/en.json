@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-viewer"
+    "title": "Viewer state",
+    "description": "The browser's one answer to who is viewing: the sign-in screen, the account row and the Settings navigation all read it."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "typert-loader"
+    "title": "Typert type loading",
+    "description": "Loads the type information plugins generate, for the runtime to query and call."
   }
 }

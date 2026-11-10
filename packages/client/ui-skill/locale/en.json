@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-skill"
+    "title": "Skill references and display",
+    "description": "Referencing a skill in a conversation, and showing a skill invocation."
   }
 }

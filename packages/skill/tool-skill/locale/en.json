@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-skill"
+    "title": "Skill loading tool",
+    "description": "Lets the model load a skill's instructions when it needs them."
   }
 }

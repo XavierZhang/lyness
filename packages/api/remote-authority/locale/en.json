@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "remote-authority"
+    "title": "Remote authority",
+    "description": "Whether one Remote call may be served, decided once in the place every wire call passes through."
   }
 }

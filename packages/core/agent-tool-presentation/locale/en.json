@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-tool-presentation"
+    "title": "Tool invocation form",
+    "description": "Whether an agent calls tools natively or through PTC code."
   }
 }

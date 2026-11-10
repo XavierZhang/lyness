@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-account-controller"
+    "title": "Account operations API",
+    "description": "Account operations for an authenticated client."
   }
 }

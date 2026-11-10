@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-workflow-run"
+    "title": "Workflow run display",
+    "description": "Shows a workflow run in the conversation, and the detail of each member."
   }
 }

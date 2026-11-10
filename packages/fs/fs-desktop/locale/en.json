@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "fs-desktop"
+    "title": "Desktop filesystem",
+    "description": "The files an agent works on are on this person's own machine, not on the server."
   }
 }

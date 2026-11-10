@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-instructions"
+    "title": "Instructions settings",
+    "description": "The instructions section of Settings: what a person tells their own agents."
   }
 }

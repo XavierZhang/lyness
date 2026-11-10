@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "skill"
+    "title": "Skill registry",
+    "description": "Gathers the skills from every source, for the model to find and use."
   }
 }

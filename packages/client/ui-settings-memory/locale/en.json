@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-memory"
+    "title": "Memory settings",
+    "description": "The memory section of Settings: what this deployment remembers about one person."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-bash"
+    "title": "Bash command tool",
+    "description": "Lets the model run Bash commands, with background runs and permission requests as configured."
   }
 }

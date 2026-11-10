@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "user-approval"
+    "title": "User approval service",
+    "description": "Asks the person to authorize an action and answers with their decision."
   }
 }

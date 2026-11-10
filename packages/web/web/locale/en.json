@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "web"
+    "title": "Web access service",
+    "description": "Owns which providers answer web search and web fetch."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "directory-picker-native"
+    "title": "System directory picker",
+    "description": "Opens the operating system's own directory dialog."
   }
 }

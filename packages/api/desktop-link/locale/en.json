@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "desktop-link"
+    "title": "Desktop link",
+    "description": "The Host-to-desktop link: one authenticated channel per signed-in person, and the executor answering on it."
   }
 }

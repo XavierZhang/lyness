@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sandbox-local"
+    "title": "Local process sandbox",
+    "description": "Confines a command by the isolation the operating system offers."
   }
 }

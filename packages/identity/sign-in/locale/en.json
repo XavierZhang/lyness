@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sign-in"
+    "title": "Signing in",
+    "description": "Signs a person in through an external directory, admits them by the deployment's own rule, and establishes their session."
   }
 }

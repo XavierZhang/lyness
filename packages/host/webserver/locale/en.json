@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "webserver"
+    "title": "Web server",
+    "description": "Serves HTTP, with the page and API routes plugins register on it."
   }
 }

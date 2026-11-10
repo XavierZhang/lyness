@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-stats"
+    "title": "Session statistics",
+    "description": "Totals a conversation's interactions, durations and the rest."
   }
 }

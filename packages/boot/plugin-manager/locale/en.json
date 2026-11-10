@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "plugin-manager"
+    "title": "Plugin management service",
+    "description": "Manages the plugins and plugin packages of the running composition: installing, removing, enabling and disabling."
   }
 }

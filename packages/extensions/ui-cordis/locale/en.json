@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-cordis"
+    "title": "Dynamic plugin run card",
+    "description": "Shows a dynamic plugin definition, with the controls that run and stop it."
   }
 }

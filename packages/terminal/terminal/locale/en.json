@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "terminal"
+    "title": "Persistent terminal service",
+    "description": "Owns the interactive terminal sessions, their input, their output and their cleanup."
   }
 }

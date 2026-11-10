@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "compaction-image-offload"
+    "title": "History image offload",
+    "description": "Replaces the history images beyond a model's image budget with attachment references, then retries the request."
   }
 }

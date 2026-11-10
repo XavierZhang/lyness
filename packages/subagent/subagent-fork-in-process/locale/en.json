@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "subagent-fork-in-process"
+    "title": "Context-inheriting subagent backend",
+    "description": "Creates a subagent from a stretch of the parent conversation's history."
   }
 }

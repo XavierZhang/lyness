@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "open-in-app"
+    "title": "Open in application",
+    "description": "Finds the local applications available and opens a file or a workspace with the chosen one."
   }
 }

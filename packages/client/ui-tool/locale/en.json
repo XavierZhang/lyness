@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-tool"
+    "title": "Tool call display",
+    "description": "Shows a tool call as it runs, its nesting, and each tool's own result surface."
   }
 }

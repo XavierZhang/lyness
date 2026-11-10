@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "llm"
+    "title": "Model service",
+    "description": "One calling interface over every model provider."
   }
 }

@@ -438,6 +438,7 @@ function sharedHygieneGates(): Gate[] {
     ...i18nGates(false),
     pnpmScript('client-ui-i18n', 'verify-client-ui-i18n', { label: 'client UI i18n' }),
     pnpmScript('client-ui-translations', 'verify-client-ui-translations', { label: 'client UI translations' }),
+    pnpmScript('plugin-meta-copy', 'verify-plugin-meta-copy', { label: 'plugin names in English' }),
     pnpmScript('brand-placeholders', 'verify-brand-placeholders', { label: 'brand placeholders' }),
     pnpmScript('client-route-resolution', 'verify-client-route-resolution', { label: 'client route resolution' }),
     pnpmScript('no-bare-dispatcher', 'verify-no-bare-dispatcher', { label: 'proxy-aware dispatchers' }),

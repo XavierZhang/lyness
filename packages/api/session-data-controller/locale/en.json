@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-data-controller"
+    "title": "Session data API",
+    "description": "A person's own conversations: the deletion they may ask for, bounded by what they can see."
   }
 }

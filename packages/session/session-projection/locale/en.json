@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-projection"
+    "title": "Session state projection",
+    "description": "Derives a conversation's title, state and the rest from its log, for others to read."
   }
 }

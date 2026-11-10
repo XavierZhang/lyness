@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-bash-persistent"
+    "title": "Persistent Bash tool",
+    "description": "Lets the model run commands in a Bash session that keeps its state."
   }
 }

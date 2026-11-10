@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sign-in-http"
+    "title": "Browser half of signing in",
+    "description": "The browser-facing half: the sign-in, callback, channel-list and sign-out routes, and the session cookie."
   }
 }

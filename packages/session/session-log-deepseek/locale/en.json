@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-log-deepseek"
+    "title": "DeepSeek Session log upload",
+    "description": "Once enabled, uploads the Session log to DeepSeek along with a request to the official model API."
   }
 }

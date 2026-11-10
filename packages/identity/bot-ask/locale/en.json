@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "bot-ask"
+    "title": "Asking a colleague",
+    "description": "One bot puts a question to a colleague, answered in that colleague's own conversation."
   }
 }

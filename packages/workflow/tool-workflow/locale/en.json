@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-workflow"
+    "title": "Workflow tool",
+    "description": "Lets the model write and run a JavaScript script that orchestrates several tool operations."
   }
 }

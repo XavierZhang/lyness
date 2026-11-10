@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "connection"
+    "title": "Client connection",
+    "description": "Opens the authenticated client channel and owns its lifecycle."
   }
 }

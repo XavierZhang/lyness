@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-present"
+    "title": "File delivery tool",
+    "description": "Lets the model mark a workspace file as this turn's deliverable."
   }
 }

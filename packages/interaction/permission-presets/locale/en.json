@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "permission-presets"
+    "title": "Permission mode service",
+    "description": "Owns the permission mode a person chose, and the sandbox and approval policy it means."
   }
 }

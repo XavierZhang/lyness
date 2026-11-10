@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "request-principal"
+    "title": "Request principal",
+    "description": "Publishes who the call in progress is, resolved from the bearer it presented."
   }
 }

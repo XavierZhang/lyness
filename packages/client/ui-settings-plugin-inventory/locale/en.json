@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-plugin-inventory"
+    "title": "Plugin list surface",
+    "description": "Reading the global plugins and the plugins each agent preset mounts."
   }
 }

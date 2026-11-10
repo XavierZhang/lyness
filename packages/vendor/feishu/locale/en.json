@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "feishu"
+    "title": "Feishu sign-in",
+    "description": "Feishu as a sign-in channel: one tenant signing in the member at the browser."
   }
 }

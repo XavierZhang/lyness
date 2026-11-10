@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "directory-picker-auto"
+    "title": "Directory picker selection",
+    "description": "Chooses the system dialog or the in-app browser by what the runtime offers."
   }
 }

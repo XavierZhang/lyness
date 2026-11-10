@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-config-static"
+    "title": "Tenant configuration from the composition",
+    "description": "Tenant configuration carried by the deployment's own composition: models, providers, feature switches, identity and copy, each as a patch-layer row."
   }
 }

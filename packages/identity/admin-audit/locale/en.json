@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "admin-audit"
+    "title": "Administration trail",
+    "description": "The append-only trail of administrative change a deployment can answer for."
   }
 }

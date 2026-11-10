@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "file-reference-local"
+    "title": "Local file references",
+    "description": "Searching for and referencing a local file."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "storage-json"
+    "title": "JSON file storage",
+    "description": "Keeps key-value data in a local JSON file."
   }
 }

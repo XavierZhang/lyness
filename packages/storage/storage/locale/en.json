@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "storage"
+    "title": "Data storage service",
+    "description": "Owns the storage backends plugins use, and how data is reached."
   }
 }

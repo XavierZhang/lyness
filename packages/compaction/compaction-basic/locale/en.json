@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "compaction-basic"
+    "title": "Context compaction",
+    "description": "Summarizes the history with a model once the context reaches its threshold."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-session"
+    "title": "Session surface binding",
+    "description": "Binds session control and session state to the React surfaces."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-web-search"
+    "title": "Web search and fetch settings",
+    "description": "Choosing the web search and web fetch providers, and configuring the DeepSeek provider's key, endpoint and limits."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "model-required"
+    "title": "A model is required",
+    "description": "Refuses to serve a deployment that can reach no model at all, at the earliest point an empty registry is settled."
   }
 }

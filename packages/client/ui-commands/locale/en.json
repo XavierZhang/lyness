@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-commands"
+    "title": "Command surface",
+    "description": "The slash-command menu in the composer and the surfaces it opens."
   }
 }

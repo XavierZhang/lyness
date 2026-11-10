@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-credits"
+    "title": "Credits settings",
+    "description": "The credits section of Settings: one balance, one ledger, and the two decisions an administrator makes."
   }
 }

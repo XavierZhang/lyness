@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "announcement-controller"
+    "title": "Announcements RPC",
+    "description": "Exposes a deployment's own announcements over an authenticated Remote."
   }
 }

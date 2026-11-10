@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "commands"
+    "title": "User command service",
+    "description": "Owns the user commands plugins contribute."
   }
 }

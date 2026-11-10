@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "web-fetch-http"
+    "title": "Public web fetch",
+    "description": "Reads an HTTP or HTTPS page that needs no sign-in."
   }
 }

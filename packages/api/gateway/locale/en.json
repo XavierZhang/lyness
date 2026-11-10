@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-gateway"
+    "title": "Remote call gateway",
+    "description": "Receives a client's API calls and dispatches each to the service that owns it."
   }
 }

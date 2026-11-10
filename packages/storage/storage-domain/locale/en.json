@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "storage-domain"
+    "title": "Structured data storage",
+    "description": "Validates and keeps key-value data against its declared structure, and tells other plugins when it changed."
   }
 }

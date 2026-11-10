@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings"
+    "title": "Settings frame",
+    "description": "The form primitives of the Settings window, and the places plugins extend it."
   }
 }

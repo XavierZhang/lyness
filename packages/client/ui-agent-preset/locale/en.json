@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-agent-preset"
+    "title": "Agent preset surface",
+    "description": "Choosing the agent preset for this session and the next, and editing the plugins a preset mounts."
   }
 }

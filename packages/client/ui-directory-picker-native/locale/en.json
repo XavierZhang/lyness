@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-directory-picker-native"
+    "title": "System directory picker",
+    "description": "Joins the workspace entry to the operating system's own directory dialog."
   }
 }

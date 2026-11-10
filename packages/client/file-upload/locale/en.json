@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "file-upload"
+    "title": "File upload",
+    "description": "Uploads a file from the browser into the current session, for messages and tools to use."
   }
 }

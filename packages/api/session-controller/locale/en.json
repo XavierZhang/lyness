@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-session-controller"
+    "title": "Session control API",
+    "description": "Session reads, run control and state updates for a client."
   }
 }

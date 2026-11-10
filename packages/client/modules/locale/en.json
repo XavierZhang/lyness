@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "modules"
+    "title": "Client module loading",
+    "description": "Manages the browser's plugin modules and their load dependencies."
   }
 }

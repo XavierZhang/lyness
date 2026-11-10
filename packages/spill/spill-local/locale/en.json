@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "spill-local"
+    "title": "Local spill store",
+    "description": "Keeps an over-long tool result in a file of the session's own."
   }
 }

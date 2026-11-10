@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-persistence-jsonl"
+    "title": "Session log persistence",
+    "description": "Keeps the Session log as a local JSONL file, to resume and to read back."
   }
 }

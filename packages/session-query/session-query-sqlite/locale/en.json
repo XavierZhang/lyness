@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-query-sqlite"
+    "title": "Session query and search",
+    "description": "Queries the Session record, with SQLite full-text search where the configuration enables it."
   }
 }

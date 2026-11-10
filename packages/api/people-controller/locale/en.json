@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "people-controller"
+    "title": "People RPC",
+    "description": "Administrators maintain who may use a deployment, and which directory identity each of them is."
   }
 }

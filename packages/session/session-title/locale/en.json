@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-title"
+    "title": "Session title service",
+    "description": "Keeps and serves a conversation's title, and owns how a title is produced."
   }
 }

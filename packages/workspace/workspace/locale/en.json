@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "workspace"
+    "title": "Workspace management",
+    "description": "Keeps the workspaces and owns which conversation belongs to which."
   }
 }

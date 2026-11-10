@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "plugin-inventory"
+    "title": "Plugin inventory service",
+    "description": "A read-only list of the current plugin entries, their configured enablement and their run state."
   }
 }

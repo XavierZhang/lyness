@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-jobs"
+    "title": "Background job tools",
+    "description": "Lets the model read a background job, take its output, or stop it."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-instructions"
+    "title": "Workspace instruction loading",
+    "description": "Reads AGENTS.md, CLAUDE.md and their kin, so a workspace's own rules reach the model."
   }
 }

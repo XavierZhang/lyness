@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-workspace-files"
+    "title": "Workspace files API",
+    "description": "Reading workspace files, listing directories and updating file information."
   }
 }

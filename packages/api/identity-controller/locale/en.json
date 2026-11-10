@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "identity-controller"
+    "title": "Identity RPC",
+    "description": "Who the caller is, and what this deployment lets them sign in with."
   }
 }

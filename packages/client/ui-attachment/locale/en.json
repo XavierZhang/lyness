@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-attachment"
+    "title": "Attachment display",
+    "description": "Shows attachments and images in the composer, the conversation and the trajectory."
   }
 }

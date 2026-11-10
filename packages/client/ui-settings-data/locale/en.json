@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-data"
+    "title": "Data settings",
+    "description": "The data section of Settings: a person's own conversations, theirs to export and to delete."
   }
 }

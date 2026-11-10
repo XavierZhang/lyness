@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "shortcuts"
+    "title": "Keyboard shortcuts service",
+    "description": "Registers the application's shortcuts and dispatches each keystroke to what owns it."
   }
 }

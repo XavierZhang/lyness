@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-general"
+    "title": "General settings and welcome",
+    "description": "General settings, the Settings window's own copy, and the first-run prompts."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "fs-sandbox"
+    "title": "Sandboxed file access",
+    "description": "Bounds what may be written and edited by the permission mode in force."
   }
 }

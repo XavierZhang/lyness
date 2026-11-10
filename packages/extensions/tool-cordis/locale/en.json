@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-cordis"
+    "title": "Plugin API lookup tool",
+    "description": "Lets the model look up the Host and browser APIs before writing a plugin."
   }
 }

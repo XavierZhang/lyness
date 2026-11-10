@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-title-first-prompt-llm"
+    "title": "Title from the first message",
+    "description": "Has a model write the title from the conversation's first message."
   }
 }

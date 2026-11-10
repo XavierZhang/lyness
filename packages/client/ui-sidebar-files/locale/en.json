@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sidebar-files"
+    "title": "File browser panel",
+    "description": "Browsing the workspace's directories and opening a file in the right panel."
   }
 }

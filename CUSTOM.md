@@ -1817,3 +1817,34 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 `test:snapshot` 251 / `test:expected` 144 / `build`。
 `cordis-inspect-jsdoc` 这条快照因为 `tools` 服务多了一个方法而变化，用 `test:snapshot:refresh`
 （无需 API key）重录，diff 只有那一行工具结果。
+
+## 插件名字的英文那一半：240 个包只有包名（2026-11-10）
+
+把工具按插件分组之后，在真实运行的 Web 端拉了一次 `agentCapabilities/describe`，
+看到的英文标题是 `tool-fs`、`memory`、`api-gateway` 这样的**包名**。
+查下去发现：**ja/de/es/fr/pt/ru/zh 七种语言都有正经标题和一句话说明，只有 en 没有**——
+360 个包里 240 个的英文标题就是包名，其中 239 个连英文说明都没有。
+上游是中文团队，`locale/en.json` 一直只当键骨架用。
+
+这正好撞上用户那条「所有界面文字都要支持中英双语」：
+之前那条门禁只抓「中文词条还等于英文原文」，抓不到反方向——英文那一半根本没写。
+
+**做了什么**：按中文（必要时参照日/德文）为 240 个包写了英文标题与说明，
+标题用 sentence case（符合仓库散文标准）。例：
+`tool-fs` → `File read and write tools` / `Lets the model read, create and edit the working files.`；
+`wecom` → `WeCom sign-in`；`model-required` → `A model is required`。
+
+**新门禁 `verify-plugin-meta-copy`**（进 sharedHygieneGates，hygiene 与 ci-static 都跑）：
+`locale/en.json` 的 `meta.title` 不能是包名式的单个小写 token（`^@?[a-z0-9]+([-./@][a-z0-9]+)*$`），
+且 `locale/zh.json` 声明了哪些 `meta` 字段，英文就必须也声明。
+真的就叫一个小写词的包写进 `SLUG_TITLES`（目前为空），门禁还会点名已经不需要的豁免。
+
+**顺带补齐的 5 处子路径**：`@lyness/lyn-memory/tools`、四个 `*/preset-contribution` 和
+`@lyness/lyn-announcements/static` 这些以子路径入组合的行拿不到元信息，
+因为包没导出 `<子路径>/locale/*.json`。补上导出后它们也有名字了；
+`lyn-announcements` 本身一份 locale 都没有，顺手按八种语言写了。
+
+**实测**（不是靠单测）：重启 Web 端后拉两个真实接口——
+`agentCapabilities/describe` 的 19 个插件分组全部有中英标题；
+`pluginInventory/list` 的 233 行里，只剩 `cordis:include` 没有标题（它是 vendored Cordis 的组内置项，没有自己的包）。
+仓库级 typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` / snapshot / expected / build 全绿。

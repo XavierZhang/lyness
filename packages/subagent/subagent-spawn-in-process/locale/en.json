@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "subagent-spawn-in-process"
+    "title": "Fresh subagent backend",
+    "description": "Creates a fresh subagent in this process for a task of its own."
   }
 }

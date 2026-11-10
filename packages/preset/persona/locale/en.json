@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "persona"
+    "title": "Agent persona",
+    "description": "Gives the current agent the role and conduct its composition declared."
   }
 }

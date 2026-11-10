@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "memory-controller"
+    "title": "Memory API",
+    "description": "What this deployment remembers about one person, read and deleted by that person alone."
   }
 }

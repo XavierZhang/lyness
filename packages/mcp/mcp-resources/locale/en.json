@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "mcp-resources"
+    "title": "MCP resource access",
+    "description": "Lets the model discover and read the resources a connected MCP server offers."
   }
 }

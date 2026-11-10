@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-agent-loop"
+    "title": "Agent run settings",
+    "description": "How many tool calls may run at once."
   }
 }

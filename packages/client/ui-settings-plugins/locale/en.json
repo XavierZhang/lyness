@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-plugins"
+    "title": "Plugin settings entry",
+    "description": "The built-in plugins entry in Settings, and the tabs it opens."
   }
 }

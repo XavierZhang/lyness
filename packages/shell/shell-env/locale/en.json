@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "shell-env"
+    "title": "Command environment",
+    "description": "Supplies the LYN environment variables every command tool shares."
   }
 }

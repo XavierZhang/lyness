@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "managed-people"
+    "title": "Managed people",
+    "description": "The people and admission bindings a deployment's administrators maintain at runtime."
   }
 }

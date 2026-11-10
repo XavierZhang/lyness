@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-goal"
+    "title": "Session goal bar",
+    "description": "Shows the current session's goal and its state above the composer."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-renderer"
+    "title": "Interface rendering",
+    "description": "Assembles the surfaces each plugin contributes into the application."
   }
 }

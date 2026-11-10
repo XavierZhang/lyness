@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-http"
+    "title": "Tenant from the HTTP request",
+    "description": "Decides which tenant an HTTP request belongs to, by header, host or subdomain."
   }
 }

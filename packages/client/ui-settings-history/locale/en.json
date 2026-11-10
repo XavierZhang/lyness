@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-history"
+    "title": "Change history",
+    "description": "The history section of Settings: what an administrator changed, who changed it, and what the change replaced."
   }
 }

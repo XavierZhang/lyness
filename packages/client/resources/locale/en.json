@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "resources"
+    "title": "Client resource service",
+    "description": "Resolves a file or other resource address into content a surface can read."
   }
 }

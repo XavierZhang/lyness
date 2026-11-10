@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-capabilities-controller"
+    "title": "Agent capabilities API",
+    "description": "What one person's agents may use, and who decided each part of it, projected from the registries the agents themselves read."
   }
 }

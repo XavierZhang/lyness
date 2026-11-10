@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-models"
+    "title": "Model settings",
+    "description": "The model providers and their access configuration, with the guidance each one needs."
   }
 }

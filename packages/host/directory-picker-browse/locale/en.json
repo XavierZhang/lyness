@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "directory-picker-browse"
+    "title": "In-app directory browsing",
+    "description": "Lists and creates local directories, so a directory can be chosen inside the application."
   }
 }

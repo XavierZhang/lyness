@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-preset-registry"
+    "title": "Agent preset management",
+    "description": "Registers the agent presets and keeps the edits made to a preset's composition."
   }
 }

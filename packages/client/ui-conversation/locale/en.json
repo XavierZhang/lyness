@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-conversation"
+    "title": "Conversation frame",
+    "description": "Arranges the conversation, the composer, the message queue and view navigation."
   }
 }

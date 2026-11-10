@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "memory"
+    "title": "Persistent memory",
+    "description": "Persistent agent memory: facts written down on purpose, folded into every later request as runtime context."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tools"
+    "title": "Tool registry and execution",
+    "description": "Owns which tools are available and how a call to one executes."
   }
 }

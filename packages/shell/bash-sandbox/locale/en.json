@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "bash-sandbox"
+    "title": "Sandboxed Bash execution",
+    "description": "Runs a Bash command within the sandbox in force."
   }
 }

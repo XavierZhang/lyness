@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-bots"
+    "title": "Bots settings",
+    "description": "The bots section of Settings: which bots an organization runs and what each one runs on, maintained at runtime."
   }
 }

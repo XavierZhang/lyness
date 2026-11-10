@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "config-editor"
+    "title": "Plugin configuration editing",
+    "description": "Saves plugin configuration and applies the change to the running composition."
   }
 }

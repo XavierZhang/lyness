@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sign-in-channels"
+    "title": "Sign-in channels",
+    "description": "The configured sign-in channels a deployment serves, mounted from what its administrators saved."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "settings"
+    "title": "Settings service",
+    "description": "One interface over the user settings every plugin reads and writes."
   }
 }

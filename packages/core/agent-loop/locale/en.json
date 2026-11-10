@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-loop"
+    "title": "Agent run loop",
+    "description": "Drives a task by ordering model requests, tool calls and the steps that follow."
   }
 }

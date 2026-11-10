@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-plugin-manager"
+    "title": "Plugin management surface",
+    "description": "Reading and installing plugin packages, and enabling, disabling or retrying one."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "acting-context"
+    "title": "Acting identity",
+    "description": "Resolves and checks what one call acts as: what it claimed, what it actually holds, and what that address allows."
   }
 }

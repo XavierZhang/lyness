@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "skill-filesystem"
+    "title": "Local skill loading",
+    "description": "Discovers and reads skills from a local directory."
   }
 }

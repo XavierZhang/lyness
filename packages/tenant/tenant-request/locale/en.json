@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tenant-request"
+    "title": "Request tenant",
+    "description": "Which tenant one RPC request belongs to: resolved per call, and readable wherever that call reaches."
   }
 }

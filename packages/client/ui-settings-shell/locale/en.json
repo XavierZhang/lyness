@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-settings-shell"
+    "title": "Command execution settings",
+    "description": "The command timeout and the output length limit."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "locale"
+    "title": "Interface language",
+    "description": "Owns the interface language preference and every plugin's translated copy."
   }
 }

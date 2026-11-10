@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-projection-cache"
+    "title": "Session state cache",
+    "description": "Caches the state derived from a Session log, so the conversation list and its kin read it quickly."
   }
 }

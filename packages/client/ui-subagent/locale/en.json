@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-subagent"
+    "title": "Subagent conversation surface",
+    "description": "Reading and opening a subagent's conversation, continuing it, and referencing it with `@`."
   }
 }

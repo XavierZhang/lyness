@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-remotes"
+    "title": "Client API assembly",
+    "description": "Assembles the Host capabilities the application opens to its clients."
   }
 }

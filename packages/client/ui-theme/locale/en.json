@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-theme"
+    "title": "Interface theme",
+    "description": "Light, dark, and following the system."
   }
 }

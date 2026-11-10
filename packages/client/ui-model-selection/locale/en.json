@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-model-selection"
+    "title": "Model selection surface",
+    "description": "Reading which models are available and switching the one this session uses."
   }
 }

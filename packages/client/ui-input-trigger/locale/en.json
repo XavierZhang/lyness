@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-input-trigger"
+    "title": "Composer suggestions",
+    "description": "Recognizes `/` and `@` while typing, and offers the candidates each one opens."
   }
 }

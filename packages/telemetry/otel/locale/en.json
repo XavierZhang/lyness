@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "otel"
+    "title": "OpenTelemetry reporting",
+    "description": "One reporting channel of its own for product events and Session logs."
   }
 }

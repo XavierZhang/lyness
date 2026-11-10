@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "subagent"
+    "title": "Subagent service",
+    "description": "Owns the subagent backends behind one interface for delegation."
   }
 }

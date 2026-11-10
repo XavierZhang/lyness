@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-deliverables"
+    "title": "File changes and deliverables",
+    "description": "Shows the files a turn changed, their diffs, and the way into a delivered file."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-fs"
+    "title": "File read and write tools",
+    "description": "Lets the model read, create and edit the working files."
   }
 }

@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-pwsh"
+    "title": "PowerShell command tool",
+    "description": "Lets the model run PowerShell commands."
   }
 }

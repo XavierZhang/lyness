@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "microsoft-entra"
+    "title": "Microsoft Entra sign-in",
+    "description": "Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration."
   }
 }

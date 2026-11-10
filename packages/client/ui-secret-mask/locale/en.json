@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "ui-secret-mask",
+    "title": "Credential masking",
     "description": "Masks recognized keys, tokens, and passwords in sent messages."
   }
 }

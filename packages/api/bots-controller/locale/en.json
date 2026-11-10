@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "bots-controller"
+    "title": "Bots RPC",
+    "description": "Administrators maintain which bots an organization runs, and what each one runs on."
   }
 }

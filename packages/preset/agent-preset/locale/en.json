@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "agent-preset"
+    "title": "Agent preset definition",
+    "description": "Declares one agent preset and the plugins it mounts."
   }
 }

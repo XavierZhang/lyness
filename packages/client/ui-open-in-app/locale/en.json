@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-open-in-app"
+    "title": "Open in application",
+    "description": "The \"open with\" entries in a conversation and in the document preview."
   }
 }

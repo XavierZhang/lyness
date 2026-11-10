@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "office-to-pdf"
+    "title": "Office to PDF",
+    "description": "Converts Word, Excel and PowerPoint documents to PDF for previewing."
   }
 }

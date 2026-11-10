@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "tool-web"
+    "title": "Web search and read tools",
+    "description": "Lets the model search the web and read a page."
   }
 }

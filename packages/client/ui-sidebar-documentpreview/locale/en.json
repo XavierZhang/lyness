@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-sidebar-documentpreview"
+    "title": "Document preview panel",
+    "description": "Previewing documents, spreadsheets, code, images and web pages in the right panel."
   }
 }

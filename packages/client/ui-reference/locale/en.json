@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "ui-reference"
+    "title": "File and session references",
+    "description": "Referencing a file or another conversation from the composer with `@`."
   }
 }

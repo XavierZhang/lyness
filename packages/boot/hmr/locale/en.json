@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "hmr"
+    "title": "Plugin hot reload",
+    "description": "Reloads plugin code and configuration while the application runs."
   }
 }

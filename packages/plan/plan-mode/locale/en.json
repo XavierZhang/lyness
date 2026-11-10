@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "plan-mode"
+    "title": "Plan mode",
+    "description": "Has the model plan first, and switches to doing once the person has reviewed it."
   }
 }

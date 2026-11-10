@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "command-goal"
+    "title": "Goal command",
+    "description": "Setting and managing this conversation's goal from a command."
   }
 }

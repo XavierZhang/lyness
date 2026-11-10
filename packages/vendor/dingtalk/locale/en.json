@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "dingtalk"
+    "title": "DingTalk sign-in",
+    "description": "DingTalk as a sign-in channel: one organization signing in the member at the browser."
   }
 }

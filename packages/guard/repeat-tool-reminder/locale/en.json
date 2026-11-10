@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "repeat-tool-reminder"
+    "title": "Repeated tool call reminder",
+    "description": "Tells the model to change its approach when it repeats the same tool call."
   }
 }

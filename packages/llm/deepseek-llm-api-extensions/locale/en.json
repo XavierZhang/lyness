@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "deepseek-llm-api-extensions"
+    "title": "DeepSeek API extensions",
+    "description": "Lets another plugin add extension fields to a DeepSeek model request."
   }
 }

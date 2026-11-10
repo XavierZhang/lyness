@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "sign-in-channel-controller"
+    "title": "Sign-in channels RPC",
+    "description": "Administrators configure which directories a deployment signs people in with."
   }
 }

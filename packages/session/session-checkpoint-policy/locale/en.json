@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "session-checkpoint-policy"
+    "title": "Session checkpoints",
+    "description": "Saves the Session record before a model request and before a tool operation that may reach outside."
   }
 }

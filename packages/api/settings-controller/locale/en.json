@@ -1,5 +1,6 @@
 {
   "meta": {
-    "title": "api-settings-controller"
+    "title": "Settings API",
+    "description": "Reads and writes every setting on behalf of a client."
   }
 }
