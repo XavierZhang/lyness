@@ -3,6 +3,7 @@
  * nobody rather than failing, and every one afterwards reaches it.
  */
 
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
 import { describe, expect, it, vi } from 'vitest'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { CapabilitiesOperations } from '../src/client/operations.ts'
@@ -54,9 +55,11 @@ describe('SectionBinding', () => {
       retry: vi.fn(() => Promise.resolve()),
     }
     const bound = actions()
-    const face = sectionFace(binding, operations)(bound)
+    const resolveText = vi.fn((text: LocalizedText) => typeof text === 'string' ? text : text.en)
+    const face = sectionFace(binding, operations, resolveText)(bound)
     expect(face.load).toBe(operations.load)
     expect(face.retry).toBe(operations.retry)
+    expect(face.resolveText({ en: 'Shell' })).toBe('Shell')
     binding.begin()
     expect(bound.begin).toHaveBeenCalledOnce()
   })

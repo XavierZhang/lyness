@@ -60,6 +60,7 @@
     "@lyness/lyn-client-ui-renderer": "workspace:*",
     "@lyness/lyn-client-ui-settings": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
     "@lyness/lyn-typert-protocol": "workspace:*",
     "react": "^18.2.0"
   }

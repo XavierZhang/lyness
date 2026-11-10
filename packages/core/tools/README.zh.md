@@ -70,7 +70,7 @@ ctx.tools.register(defineTool({
 
 `resolve({ agent, modelSelection, signal })` 返回步骤拥有的 `ResolvedToolSet`。将它作为 `toolSet` 传给提示词组装以及该步骤的 `ctx.tools.execute()` 批次，批次结束后释放；同一步骤内的重试复用它。执行器把批次的集合应用到每次调用，包括 PTC 程序的子调用。注册仍由 effect 持有；每份集合只准入原 agent scope 中的原注册。注销、新的限制或同名替换会阻止尚未开始的调用继续使用它；取消之后，调用以共享 pipeline 的取消结果结束。已经开始的操作保留协作取消义务。批次没有已解析集合时，条件工具调用返回 `UNKNOWN_TOOL`。
 
-`get(name, scope, toolSet)`、`definitions(scope, toolSet)` 和 `schemas(scope, toolSet)` 读取已准入集合；省略 `toolSet` 时只查看已注册定义，不计算条件。`executable(name, scope, toolSet)` 是执行时的查找：它应用集合，没有集合时排除条件注册。执行器的描述与分区通过 `AssembleContext.toolSet` 接收同一集合。展示变换不能增删可调用工具。
+`registered(scope)` 把每个可见定义与注册它的 Fiber 配成一对，供需要说出「这个工具来自哪个插件」的界面使用；注册表只持有 Fiber、不再往下，组合条目与包由各自的归属服务去解析。`get(name, scope, toolSet)`、`definitions(scope, toolSet)` 和 `schemas(scope, toolSet)` 读取已准入集合；省略 `toolSet` 时只查看已注册定义，不计算条件。`executable(name, scope, toolSet)` 是执行时的查找：它应用集合，没有集合时排除条件注册。执行器的描述与分区通过 `AssembleContext.toolSet` 接收同一集合。展示变换不能增删可调用工具。
 
 ### 选择执行器
 

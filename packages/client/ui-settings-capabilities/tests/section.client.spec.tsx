@@ -40,7 +40,12 @@ function ready(over: Partial<CapabilitiesSectionState> = {}): CapabilitiesSectio
     status: 'ready',
     capabilities: {
       preset: 'coder',
-      tools: [{ name: 'bash', description: 'Run a command.', source: 'deployment' }],
+      tools: [{
+        plugin: 'tool-bash',
+        meta: { title: { en: 'Shell', zh: '命令行工具' }, description: { en: 'Runs commands.', zh: '运行命令。' } },
+        tools: ['bash'],
+        source: 'deployment',
+      }],
       connections: [{ server: 'acme', tools: 2, source: 'preset' }],
       skills: [{ name: 'badge', description: 'Does badge.', origin: 'bundled', provider: 'filesystem' }],
     },
@@ -49,12 +54,18 @@ function ready(over: Partial<CapabilitiesSectionState> = {}): CapabilitiesSectio
   }
 }
 
+/** The Client's own locale resolution, which this page reads plugin text through. */
+const resolveText: CapabilitiesSectionProps['resolveText'] = text =>
+  typeof text === 'string' ? text : text.zh ?? text.en ?? ''
+
 /** One rendered section over a fixed state. */
 function renderSection(state: CapabilitiesSectionState) {
   const load = vi.fn(() => Promise.resolve())
   const retry = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: CapabilitiesSectionState) => T) => select(state)) as CapabilitiesSectionProps['useStore']
-  const view = render(<CapabilitiesSection {...{ t, useStore, load, retry } as CapabilitiesSectionProps} />)
+  const view = render(
+    <CapabilitiesSection {...{ t, useStore, load, retry, resolveText } as CapabilitiesSectionProps} />,
+  )
   return { ...view, load, retry }
 }
 
@@ -67,7 +78,7 @@ describe('CapabilitiesSection', () => {
   it('shows nothing until the read has answered', () => {
     renderSection(ready({ status: 'loading' }))
     expect(screen.getByText(zh.loading)).toBeDefined()
-    expect(screen.queryByText('bash')).toBeNull()
+    expect(screen.queryByText('命令行工具')).toBeNull()
   })
 
   it('offers a retry when the read broke', () => {
@@ -79,7 +90,7 @@ describe('CapabilitiesSection', () => {
   it('names who gave each capability', () => {
     renderSection(ready())
     // The tool came from the deployment, the server from the preset.
-    expect(screen.getByText('bash').closest('li')?.textContent).toContain(zh.fromDeployment)
+    expect(screen.getByText('命令行工具').closest('li')?.textContent).toContain(zh.fromDeployment)
     expect(screen.getByText('acme').closest('li')?.textContent).toContain(zh.fromPreset)
     expect(screen.getByText('badge').closest('li')?.textContent).toContain('bundled · filesystem')
   })
@@ -88,6 +99,45 @@ describe('CapabilitiesSection', () => {
     renderSection(ready())
     expect(screen.getByText('2 个模型')).toBeDefined()
     expect(screen.getByText('2 个工具')).toBeDefined()
+  })
+
+  it('calls a plugin what its package calls it, and still shows the tool names', () => {
+    // The page a person reads names the capability; the model-facing names
+    // stay visible because a task shows them, and the model-facing
+    // description never appears at all.
+    renderSection(ready())
+    const row = screen.getByText('命令行工具').closest('li')
+    expect(row?.textContent).toContain('运行命令。')
+    expect(row?.textContent).toContain('bash')
+    expect(screen.getByText(/来自 1 个插件/u)).toBeDefined()
+  })
+
+  it('falls back to the plugin display name when its package declares an empty title', () => {
+    // A locale file with the key present but blank resolves to '', which is
+    // not a name: the row shows what the registry calls the plugin.
+    renderSection(ready({
+      capabilities: {
+        tools: [{ plugin: 'tool-void', meta: { title: { en: '', zh: '' }, description: { en: '', zh: '' } }, tools: ['void'], source: 'deployment' }],
+        connections: [],
+        skills: [],
+      },
+    }))
+    const row = screen.getByText('tool-void').closest('li')
+    expect(row?.textContent).toContain('1 个工具')
+  })
+
+  it('falls back to the plugin display name when its package declares no title', () => {
+    renderSection(ready({
+      capabilities: {
+        tools: [{ plugin: 'tool-ralph', tools: ['ralph', 'loop'], source: 'preset' }],
+        connections: [],
+        skills: [],
+      },
+    }))
+    const row = screen.getByText('tool-ralph').closest('li')
+    // With no package sentence, the row states how many tools it registered.
+    expect(row?.textContent).toContain('2 个工具')
+    expect(row?.textContent).toContain(zh.fromPreset)
   })
 
   it('leaves the models out rather than showing none when the catalogue failed', () => {

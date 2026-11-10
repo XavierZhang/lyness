@@ -7,10 +7,16 @@
 import { describe, expect, it } from 'vitest'
 import type { ToolDefinition } from '@lyness/lyn-tools'
 import { MCP_TOOL_PREFIX, connectionsOf, serverOfToolName, toolsOf } from '../src/project.ts'
+import type { ToolOrigin } from '../src/project.ts'
 
 /** One definition with only the fields this projection reads. */
 function tool(name: string, description = ''): ToolDefinition {
   return { name, description } as ToolDefinition
+}
+
+/** One tool with where it came from, as the controller resolves it. */
+function from(name: string, plugin: string, extra: Partial<ToolOrigin> = {}): ToolOrigin {
+  return { name, plugin, ...extra }
 }
 
 describe('serverOfToolName', () => {
@@ -30,22 +36,45 @@ describe('serverOfToolName', () => {
 })
 
 describe('toolsOf', () => {
-  it('reports the non-MCP tools in name order with their description', () => {
-    const available = [tool('write', 'Write a file.'), tool('bash', 'Run a command.')]
-    expect(toolsOf(available, new Set(['write', 'bash']))).toEqual([
-      { name: 'bash', description: 'Run a command.', source: 'deployment' },
-      { name: 'write', description: 'Write a file.', source: 'deployment' },
+  it('reports one row per plugin, in plugin order, naming the tools it registered', () => {
+    // Five tools from one package are one capability a person recognizes, so
+    // what a row names is the plugin; the tool names ride along because a
+    // task shows them.
+    const available = [
+      from('write', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
+      from('bash', 'tool-bash', { module: '@acme/lyn-tool-bash' }),
+      from('read', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
+    ]
+    expect(toolsOf(available, new Set(['write', 'bash', 'read']))).toEqual([
+      { plugin: 'tool-bash', tools: ['bash'], source: 'deployment' },
+      { plugin: 'tool-fs', tools: ['read', 'write'], source: 'deployment' },
     ])
   })
 
-  it('attributes a tool the deployment view does not carry to the preset', () => {
-    expect(toolsOf([tool('ralph')], new Set(['bash']))).toEqual([
-      { name: 'ralph', description: '', source: 'preset' },
+  it('carries the package\'s own localized metadata when the deployment could read it', () => {
+    const meta = { title: { en: 'Files', zh: '文件' } }
+    expect(toolsOf([from('read', 'tool-fs', { module: '@acme/lyn-tool-fs', meta })], new Set(['read'])))
+      .toEqual([{ plugin: 'tool-fs', tools: ['read'], source: 'deployment', meta }])
+  })
+
+  it('attributes a group to the preset as soon as one of its tools is the preset\'s', () => {
+    const available = [from('read', 'tool-fs'), from('ralph', 'tool-fs')]
+    expect(toolsOf(available, new Set(['read']))).toEqual([
+      { plugin: 'tool-fs', tools: ['ralph', 'read'], source: 'preset' },
     ])
+  })
+
+  it('groups by composition entry, so two plugins calling themselves the same stay apart', () => {
+    const available = [
+      from('read', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
+      from('peek', 'tool-fs', { module: '@other/lyn-tool-fs' }),
+    ]
+    expect(toolsOf(available, new Set(['read', 'peek'])).map(group => group.tools))
+      .toEqual([['read'], ['peek']])
   })
 
   it('leaves an MCP server tools out, because they are reported as its connection', () => {
-    expect(toolsOf([tool(`${MCP_TOOL_PREFIX}acme__search`)], new Set())).toEqual([])
+    expect(toolsOf([from(`${MCP_TOOL_PREFIX}acme__search`, 'mcp-client')], new Set())).toEqual([])
   })
 })
 

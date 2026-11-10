@@ -77,7 +77,7 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
       label: () => t('nav'),
       store,
       locale: NS,
-      inject: sectionFace(binding, operations),
+      inject: sectionFace(binding, operations, text => scope.locale.resolveText(text)),
     }, CapabilitiesSection))
   })
   return async () => {

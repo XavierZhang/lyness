@@ -375,6 +375,28 @@
   white-space: pre-line;
 }
 
+.copyAction {
+  margin-inline-start: 8px;
+  border: 1px solid color-mix(in srgb, var(--dsw-alias-state-error-primary) 35%, transparent);
+  border-radius: var(--dsw-radius-sm);
+  padding: 1px 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Fenced like every other hover state here: a tap must not latch it. */
+@media (hover: hover) {
+  .copyAction:hover {
+    background: color-mix(in srgb, var(--dsw-alias-state-error-primary) 12%, transparent);
+  }
+}
+
+.copyAction:active {
+  background: color-mix(in srgb, var(--dsw-alias-state-error-primary) 18%, transparent);
+}
+
 .hint {
   display: flex;
   flex-wrap: wrap;

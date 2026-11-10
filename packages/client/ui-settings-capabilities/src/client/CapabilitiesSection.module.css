@@ -82,3 +82,14 @@
   font-size: var(--lyn-font-size-sm);
   white-space: nowrap;
 }
+
+/* The model-facing tool names, on their own line below the plugin's sentence:
+   a reader meets them in a task, so they are worth showing, and they are
+   identifiers rather than prose. */
+.rowNames {
+  flex-basis: 100%;
+  color: var(--lyn-color-text-tertiary);
+  font-family: var(--lyn-font-family-mono);
+  font-size: var(--lyn-font-size-xs);
+  overflow-wrap: anywhere;
+}

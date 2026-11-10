@@ -61,6 +61,26 @@ describe('ToolRuntime', () => {
     } finally { await ctx.fiber.dispose() }
   })
 
+  it('names the plugin fiber that registered each visible tool', async () => {
+    // A surface that tells a person where a tool comes from needs the
+    // registering plugin, not the tool's own name; the registry answers with
+    // the Fiber because that is the identity it holds.
+    const ctx = await setup()
+    try {
+      const mounted = ctx.plugin({
+        name: 'echo-provider',
+        inject: ['tools'],
+        apply: (plugin: Context) => { plugin.tools.register(echoTool) },
+      })
+      await mounted
+      const registered = ctx.tools.registered()
+      expect(registered.map(one => [one.definition.name, one.registrar.name]))
+        .toEqual([['echo', 'echo-provider']])
+      await mounted.dispose()
+      expect(ctx.tools.registered()).toEqual([])
+    } finally { await ctx.fiber.dispose() }
+  })
+
   it('settles accepted calls after the actual native executor fiber unloads', async () => {
     const ctx = new Context()
     await ctx.plugin(SystemPrompt)

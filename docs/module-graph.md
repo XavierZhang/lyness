@@ -398,6 +398,7 @@ flowchart TD
     pkg_bot_ask["bot-ask"]
     pkg_managed_bots["managed-bots"]
     pkg_managed_people["managed-people"]
+    pkg_oidc["oidc"]
     pkg_people["people"]
     pkg_personal_instructions["personal-instructions"]
     pkg_request_principal["request-principal"]
@@ -776,6 +777,10 @@ flowchart TD
   pkg_experimental_speech_to_text_sensevoice --> pkg_subprocess
   pkg_hook_protocol --> pkg_session
   pkg_hook_protocol --> pkg_shell
+  pkg_oidc --> pkg_brand
+  pkg_oidc --> pkg_credentials
+  pkg_oidc --> pkg_sign_in
+  pkg_oidc --> pkg_util_crypto
   pkg_session_ownership --> pkg_people
   pkg_session_ownership --> pkg_request_principal
   pkg_session_ownership --> pkg_session
@@ -2081,6 +2086,7 @@ flowchart TD
 | [`experimental-client-ui-cot-translation`](../packages/experimental/client-ui-cot-translation) | `experimental` | [`experimental-translator`](../packages/experimental/translator) |
 | [`experimental-speech-to-text-sensevoice`](../packages/experimental/speech-to-text-sensevoice) | `experimental` | [`experimental-speech-to-text`](../packages/experimental/speech-to-text), [`subprocess`](../packages/subprocess/subprocess) |
 | [`hook-protocol`](../packages/experimental/hook-protocol) | `experimental` | [`session`](../packages/core/session), [`shell`](../packages/shell/shell) |
+| [`oidc`](../packages/identity/oidc) | `identity` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`session-ownership`](../packages/identity/session-ownership) | `identity` | [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`session-projection-cache`](../packages/session/session-projection-cache), [`storage-domain`](../packages/storage/storage-domain) |
 | [`sign-in-channels`](../packages/identity/sign-in-channels) | `identity` | [`admin-audit`](../packages/identity/admin-audit), [`credentials`](../packages/credentials/credentials), [`people`](../packages/identity/people), [`sign-in`](../packages/identity/sign-in), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`sign-in-http`](../packages/identity/sign-in-http) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in), [`util-values`](../packages/util/values) |

@@ -60,14 +60,16 @@ export class SectionBinding implements CapabilitiesSink {
  * registration.
  * @param binding - the join that will receive the baked actions.
  * @param operations - the calls the section drives.
+ * @param resolveText - resolves a plugin's own text in the current Client locale.
  * @returns the factory the framework calls with the baked actions.
  */
 export function sectionFace(
   binding: SectionBinding,
   operations: CapabilitiesOperations,
+  resolveText: CapabilitiesSectionInjected['resolveText'],
 ): (actions: CapabilitiesActions) => CapabilitiesSectionInjected {
   return (actions: CapabilitiesActions): CapabilitiesSectionInjected => {
     binding.bind(actions)
-    return { load: operations.load, retry: operations.retry }
+    return { load: operations.load, retry: operations.retry, resolveText }
   }
 }

@@ -5221,6 +5221,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'definitions after scoped shadowing and restrictions, limited to the step\'s admission when given.',
       },
       {
+        signature: 'registered(scope?: ScopeKey): readonly RegisteredTool[]',
+        description: 'The visible tools, each paired with the plugin Fiber that registered it.\n\nPaired rather than looked up by name, so a consumer reading the whole set never meets a tool whose registration it has to treat as possibly absent. The Fiber rather than a name, because a name is not an identity: whoever needs the composition entry, the package, or that package\'s own metadata resolves them from the Fiber through the service that owns those answers.',
+        parameters: [{ name: 'scope', description: 'the viewing scope (the agent); omitted = the global view.' }],
+        returns: 'one pair per visible tool, in registration order.',
+      },
+      {
         signature: 'schemas(scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolSchema[]',
         description: 'Project visible definitions onto the allowlisted model-facing schema fields, excluding execution and presentation callbacks.',
         parameters: [{ name: 'scope', description: 'the viewing scope (the agent); omitted = the global view.' }, { name: 'toolSet', description: 'step admission, or omitted for registered-definition inspection.' }],
@@ -6661,7 +6667,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AgentCapabilitiesView',
-    declaration: 'export interface AgentCapabilitiesView {\n    readonly preset?: string;\n    readonly tools: readonly ToolAvailabilityView[];\n    readonly connections: readonly ConnectionAvailabilityView[];\n    readonly skills?: readonly SkillAvailabilityView[];\n}',
+    declaration: 'export interface AgentCapabilitiesView {\n    readonly preset?: string;\n    readonly tools: readonly ToolPluginView[];\n    readonly connections: readonly ConnectionAvailabilityView[];\n    readonly skills?: readonly SkillAvailabilityView[];\n}',
   },
   {
     name: 'AgentFactory',
@@ -9424,6 +9430,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface RedirectStart {\n    readonly to: string;\n    readonly attempt: string;\n}',
   },
   {
+    name: 'RegisteredTool',
+    declaration: 'export interface RegisteredTool {\n    readonly definition: ToolDefinition;\n    readonly registrar: Fiber;\n}',
+  },
+  {
     name: 'Registry',
     declaration: 'export type Registry = string | null;',
   },
@@ -11276,10 +11286,6 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ToolAdditionBlock {\n    type: \'tool-addition\';\n    toolName: string;\n    tool?: never;\n}',
   },
   {
-    name: 'ToolAvailabilityView',
-    declaration: 'export interface ToolAvailabilityView {\n    readonly name: string;\n    readonly description: string;\n    readonly source: CapabilitySource;\n}',
-  },
-  {
     name: 'ToolBatchInput',
     declaration: 'export interface ToolBatchInput {\n    readonly calls: readonly ToolCallBlock[];\n    readonly signal: AbortSignal;\n    readonly maxParallelToolCalls?: number;\n    readonly agent?: Agent;\n    readonly toolSet?: ResolvedToolSet;\n    readonly log?: {\n        readonly turn: number;\n        readonly step: number;\n    };\n}',
   },
@@ -11376,6 +11382,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ToolOutputDefinition {\n    readonly schema: JsonSchemaNode;\n    render(args: unknown, value: JsonValue): ContentBlock[];\n    presentationMeta?(args: unknown, value: JsonValue): JsonValue;\n}',
   },
   {
+    name: 'ToolPluginView',
+    declaration: 'export interface ToolPluginView {\n    readonly plugin: string;\n    readonly meta?: PluginLocalizedMeta;\n    readonly tools: readonly string[];\n    readonly source: CapabilitySource;\n}',
+  },
+  {
     name: 'ToolPromptSection',
     declaration: 'export interface ToolPromptSection extends Pick<PromptSection, \'name\' | \'order\' | \'interpolate\'> {\n    readonly text: string | ((tools: readonly ToolDefinition[]) => string);\n}',
   },
@@ -11421,7 +11431,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ToolsService',
-    declaration: 'export class ToolsService extends Service {\n    static inject;\n    static Config;\n    constructor(ctx: Context);\n    register(definition: ToolDefinition, options: ToolRegistrationOptions = {}): () => void;\n    restrict(filter: ToolRestriction): () => void;\n    get(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined;\n    executable(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined;\n    async resolve(context: ToolActivationContext): Promise<ResolvedToolSet>;\n    definitions(scope?: ScopeKey, toolSet?: ResolvedToolSet): readonly ToolDefinition[];\n    schemas(scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolSchema[];\n    setExecutor(executor: ToolExecutor): () => void;\n    async execute(input: ToolBatchInput): Promise<ToolBatchResult>;\n    guard(guard: ToolGuard): () => void;\n    checkGuards(exec: ToolExecution): string | undefined;\n}',
+    declaration: 'export class ToolsService extends Service {\n    static inject;\n    static Config;\n    constructor(ctx: Context);\n    register(definition: ToolDefinition, options: ToolRegistrationOptions = {}): () => void;\n    restrict(filter: ToolRestriction): () => void;\n    get(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined;\n    executable(name: string, scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolDefinition | undefined;\n    async resolve(context: ToolActivationContext): Promise<ResolvedToolSet>;\n    definitions(scope?: ScopeKey, toolSet?: ResolvedToolSet): readonly ToolDefinition[];\n    registered(scope?: ScopeKey): readonly RegisteredTool[];\n    schemas(scope?: ScopeKey, toolSet?: ResolvedToolSet): ToolSchema[];\n    setExecutor(executor: ToolExecutor): () => void;\n    async execute(input: ToolBatchInput): Promise<ToolBatchResult>;\n    guard(guard: ToolGuard): () => void;\n    checkGuards(exec: ToolExecution): string | undefined;\n}',
   },
   {
     name: 'ToolUpdate',

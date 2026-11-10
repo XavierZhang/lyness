@@ -18,7 +18,7 @@ const SLOT = 'settings.section'
 
 const VIEW: AgentCapabilitiesView = {
   preset: 'coder',
-  tools: [{ name: 'bash', description: 'Run a command.', source: 'deployment' }],
+  tools: [{ plugin: 'tool-bash', tools: ['bash'], source: 'deployment' }],
   connections: [{ server: 'acme', tools: 2, source: 'preset' }],
   skills: [{ name: 'badge', description: 'Does badge.', origin: 'bundled', provider: 'filesystem' }],
 }
@@ -96,6 +96,18 @@ describe('ui-settings-capabilities apply', () => {
     expect(await calls.capabilities()).toEqual({ ok: true, value: VIEW })
     expect(await calls.models()).toEqual({ ok: true, value: CATALOG })
     expect(describeCall).toHaveBeenCalledOnce()
+  })
+
+  it('hands the section the Client\'s own resolution of a plugin\'s text', async () => {
+    // The page shows a plugin's own title, which only the Client can resolve:
+    // the locale a reader chose lives here, not on the Host.
+    const { slots, locale } = await bench()
+    const inject = entryOf(slots).inject as ((actions: unknown) => { resolveText: (text: unknown) => string }) | undefined
+    if (inject === undefined) throw new Error('the capabilities section registered no injected face')
+    const face = inject({ begin: () => {}, succeed: () => {}, fail: () => {}, reset: () => {} })
+    expect(face.resolveText({ en: 'Shell', zh: '命令行工具' })).toBe('命令行工具')
+    locale.setLocale('en')
+    expect(face.resolveText({ en: 'Shell', zh: '命令行工具' })).toBe('Shell')
   })
 
   it('declares a store the section reads through', async () => {

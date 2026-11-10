@@ -80,7 +80,7 @@ describe('which scope the read uses', () => {
     // that the acquired scope is the one both registries are asked about,
     // which the real registry would hide behind an opaque key.
     ctx.provide('tools', {
-      definitions: (scope?: unknown) => { viewed.push(scope); return [] },
+      registered: (scope?: unknown) => { viewed.push(scope); return [] },
     })
     ctx.provide('agentPresets', {
       defaultId: 'coder',
@@ -107,11 +107,28 @@ describe('agentCapabilities.describe', () => {
     register(ctx, 'write', 'Write a file.')
     register(ctx, 'bash', 'Run a command.')
     const view = await controller.describe()
-    expect(view.tools).toEqual([
-      { name: 'bash', description: 'Run a command.', source: 'deployment' },
-      { name: 'write', description: 'Write a file.', source: 'deployment' },
-    ])
+    // Both tools are registered by this spec's own context, which no Loader
+    // mounted: the row falls back to the plugin display name the registry
+    // knows, and carries both tool names.
+    expect(view.tools).toEqual([{ plugin: 'root', tools: ['bash', 'write'], source: 'deployment' }])
     expect(view.connections).toEqual([])
+  })
+
+  it('reports a tool registered inside another plugin under that plugin', async () => {
+    // The registry answers with the Fiber that registered the tool, which
+    // here is a plugin of its own rather than the deployment root: the walk
+    // for a composition entry climbs from there and finds none, because
+    // nothing in this composition came from a file.
+    const { ctx, controller } = await harness()
+    const mounted = ctx.plugin({
+      name: 'bash-provider',
+      inject: ['tools'],
+      apply: (plugin: Context) => { register(plugin, 'bash', 'Run a command.') },
+    })
+    await mounted.await()
+    expect((await controller.describe()).tools).toEqual([
+      { plugin: 'bash-provider', tools: ['bash'], source: 'deployment' },
+    ])
   })
 
   it('reports an MCP server as one connection rather than as its tools', async () => {
@@ -158,7 +175,9 @@ describe('agentCapabilities.describe', () => {
   it('answers what the registry holds at the moment it is asked', async () => {
     const { ctx, controller } = await harness()
     const dispose = register(ctx, 'bash', 'Run a command.')
-    expect((await controller.describe()).tools).toHaveLength(1)
+    expect((await controller.describe()).tools).toEqual([
+      { plugin: 'root', tools: ['bash'], source: 'deployment' },
+    ])
     dispose()
     // No list of its own: a tool withdrawn after the first read is gone from
     // the second, the way it is gone from the agent.

@@ -9,8 +9,9 @@
  * @module @lyness/lyn-api-agent-capabilities-controller/project
  */
 
+import type { PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
 import type { ToolDefinition } from '@lyness/lyn-tools'
-import type { CapabilitySource, ConnectionAvailabilityView, ToolAvailabilityView } from './types.ts'
+import type { CapabilitySource, ConnectionAvailabilityView, ToolPluginView } from './types.ts'
 
 /** Prefix `lyn-mcp-client` gives every tool it registers for one server. */
 export const MCP_TOOL_PREFIX = 'mcp__'
@@ -42,28 +43,57 @@ function sourceOf(name: string, fromDeployment: ReadonlySet<string>): Capability
   return fromDeployment.has(name) ? 'deployment' : 'preset'
 }
 
+/** One tool as this projection reads it: its name, and the plugin that registered it. */
+export interface ToolOrigin {
+  /** The tool's model-facing name. */
+  readonly name: string
+  /** The registering plugin's display name. */
+  readonly plugin: string
+  /** The composition entry that mounted it, which is the grouping identity when there is one. */
+  readonly module?: string
+  /** That package's own localized metadata, when the deployment could read it. */
+  readonly meta?: PluginLocalizedMeta
+}
+
 /**
- * The tools a reader sees as tools, in name order.
+ * The capabilities a reader sees as tools: one row per registering plugin, in
+ * plugin-name order, each naming the tools it registered.
  *
  * An MCP server's tools are left out: they are reported as that connection,
  * because a reader deciding whether they may reach a system cares about the
  * system rather than about its four verbs.
- * @param available - the definitions the viewing scope sees.
+ *
+ * Grouping is by composition entry where there is one, because two packages
+ * may call themselves the same thing while two entries never do; a plugin no
+ * Loader mounted groups by its display name. A group is the preset's as soon
+ * as one of its tools is, matching how a connection is attributed.
+ * @param available - the tools the viewing scope sees, each with its origin.
  * @param fromDeployment - names the deployment-wide view carries.
- * @returns one row per non-MCP tool, sorted by name.
+ * @returns one row per plugin, sorted by the name a surface falls back to.
  */
 export function toolsOf(
-  available: readonly ToolDefinition[],
+  available: readonly ToolOrigin[],
   fromDeployment: ReadonlySet<string>,
-): readonly ToolAvailabilityView[] {
-  return available
-    .filter(one => serverOfToolName(one.name) === undefined)
-    .map((one): ToolAvailabilityView => ({
-      name: one.name,
-      description: one.description,
-      source: sourceOf(one.name, fromDeployment),
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+): readonly ToolPluginView[] {
+  const groups = new Map<string, { view: ToolPluginView; tools: string[] }>()
+  for (const one of available) {
+    if (serverOfToolName(one.name) !== undefined) continue
+    const key = one.module ?? one.plugin
+    const source = sourceOf(one.name, fromDeployment)
+    const seen = groups.get(key)
+    if (seen === undefined) {
+      groups.set(key, {
+        tools: [one.name],
+        view: { plugin: one.plugin, tools: [], source, ...one.meta === undefined ? {} : { meta: one.meta } },
+      })
+      continue
+    }
+    seen.tools.push(one.name)
+    if (source === 'preset') seen.view = { ...seen.view, source }
+  }
+  return [...groups.values()]
+    .map(({ view, tools }): ToolPluginView => ({ ...view, tools: [...tools].sort((a, b) => a.localeCompare(b)) }))
+    .sort((a, b) => a.plugin.localeCompare(b.plugin))
 }
 
 /**

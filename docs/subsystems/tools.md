@@ -720,6 +720,19 @@ async resolve(context: ToolActivationContext): Promise<ResolvedToolSet>
 definitions(scope?: ScopeKey, toolSet?: ResolvedToolSet): readonly ToolDefinition[]
 
 /**
+ * The visible tools, each paired with the plugin Fiber that registered it.
+ *
+ * Paired rather than looked up by name, so a consumer reading the whole set
+ * never meets a tool whose registration it has to treat as possibly absent.
+ * The Fiber rather than a name, because a name is not an identity: whoever
+ * needs the composition entry, the package, or that package's own metadata
+ * resolves them from the Fiber through the service that owns those answers.
+ * @param scope - the viewing scope (the agent); omitted = the global view.
+ * @returns one pair per visible tool, in registration order.
+ */
+registered(scope?: ScopeKey): readonly RegisteredTool[]
+
+/**
  * Project visible definitions onto the allowlisted model-facing schema fields,
  * excluding execution and presentation callbacks.
  * @param scope - the viewing scope (the agent); omitted = the global view.

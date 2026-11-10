@@ -1772,3 +1772,48 @@ doc-sync 44 项 / `pnpm run test` 2793 文件 54983 用例 / snapshot 251 / expe
 
 **还没做**：第 2～5 期（三形态的登录门与会话有效期、自助注册与准入、级别与额度、账号切换）。
 ZITADEL 实例本身也还没部署，所以这一行现在是「能配但没配」，与三种目录 kind 的处境一致。
+
+## 「你可以用什么」说人话，插件不可用不再甩代码（2026-11-10）
+
+上一轮只把工具组里的模型侧说明删掉了，并把两件事记为「没做、推荐下一步」。这一轮按推荐做完。
+
+### 一、工具按插件分组，用插件自己的标题
+
+**原来的问题**：那一页列 45 行 `ask_user_question` / `bash` 这样的 snake_case 名字。
+**为什么不能只翻译名字**：一个插件注册多个工具（`tool-fs` 注册 5 个，`tool-bash` 注册 4 个），
+逐个工具显示插件标题会出现 5 行「文件读写工具」。所以正确的形状是**按插件分组**，
+与 MCP 连接那一组同构：一行一个插件、标题 + 它自己的一句话 + 工具数 + 来源，模型侧名字作为次行。
+
+**三个服务的接合**（这是这次真正的工程量）：
+1. `lyn-tools` 新增 `registered(scope?)`，把每个可见定义与**注册它的 Fiber** 配成一对
+   （而不是「按名字查注册方」——配对的形状让消费方永远不会遇到「可能不存在的注册」）。
+   注册表只持有 Fiber、不再往下：组合条目与包是 Loader 与包服务的答案。
+2. `lyn-api-agent-capabilities-controller` 从 Fiber 爬到最近的组合条目（子插件注册的工具归属外层条目），
+   拿 `entry.options.name` 与 tree 的 `baseUrl`，再经 `pluginPackages.metaOf` 读出那个包的 `locale/*.json`。
+   **按条目分组而不是按显示名**：两个包可能自称同一个名字，两条条目不会。
+3. 客户端用 `ctx.locale.resolveText` 以读者语言解析标题与说明，包没声明时回退到插件显示名 + 工具数。
+
+**wire 形状变了**：`tools` 从 `ToolAvailabilityView[]`（name/description/source）
+变为 `ToolPluginView[]`（plugin/meta?/tools/source），模型侧 description 不再过线——
+写了[升级指南](docs/upgrade-guide/v0.2.2-alpha.3/agent-capabilities-tools-by-plugin/guide.zh.md)。
+
+**验证**：新增 composition 用例走**真实 Loader + 真实磁盘上的包**（临时目录里写一个注册两个工具、
+带 `locale/{en,zh}.json` 的包），断言回复里拿到的是作者写的标题，且模型侧说明一个字都没进来。
+三个包逐文件 100% 覆盖。
+
+### 二、插件不可用：不再把诊断信息贴给用户
+
+内置插件页原来直接渲染 `包元信息错误：{原始错误}`，预设加载失败时直接渲染 Loader 的原始报错。
+改为：**「此插件不可用。」/「此 Agent 预设未能加载。」+ 一个「复制诊断信息」按钮**。
+被复制的那一块刻意不翻译（`plugin: / entry: / preset: / error:`），因为它会被粘进 issue 或工单，
+收件人是维护者。`metadataError` 这个文案键在八种语言里都删掉了。
+
+**为什么是复制而不是「一键发送」**：发送需要一个目的地，而 `contactFormUrl` 这一轮刚按要求默认改空。
+复制是现在能诚实做到的那一步；有了官方客服端点，这个按钮换个动作即可。
+
+### 三、这一轮的仓库级验证
+
+typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run test` 2793 文件 /
+`test:snapshot` 251 / `test:expected` 144 / `build`。
+`cordis-inspect-jsdoc` 这条快照因为 `tools` 服务多了一个方法而变化，用 `test:snapshot:refresh`
+（无需 API key）重录，diff 只有那一行工具结果。

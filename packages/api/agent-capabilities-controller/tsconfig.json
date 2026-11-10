@@ -9,6 +9,9 @@
   ],
   "references": [
     { "path": "../../../vendor/cordis" },
+    { "path": "../../../vendor/loader" },
+    { "path": "../../boot/app-boot" },
+    { "path": "../../util/package-manifest" },
     { "path": "../../core/tools" },
     { "path": "../../preset/agent-preset-registry" },
     { "path": "../../skill/skill" },

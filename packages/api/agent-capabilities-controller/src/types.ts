@@ -3,6 +3,8 @@
  * @module @lyness/lyn-api-agent-capabilities-controller/types
  */
 
+import type { PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
+
 /** Who decided that one capability is available. */
 export type CapabilitySource =
   /** The deployment composed it, so every agent of this installation has it. */
@@ -10,12 +12,22 @@ export type CapabilitySource =
   /** The agent preset this reader's conversations run added it. */
   | 'preset'
 
-/** One tool a reader's agents may call. */
-export interface ToolAvailabilityView {
-  /** The tool's model-facing name. */
-  readonly name: string
-  /** Its one-line description, as the model reads it. */
-  readonly description: string
+/**
+ * One plugin whose tools a reader's agents may call.
+ *
+ * A plugin rather than a tool, because a tool is a name written for a model:
+ * five of them belong to one capability a person recognizes, and the plugin
+ * that registered them is what that capability is called. Each tool's own
+ * description is left out on purpose — it is model-facing prose about
+ * arguments and exit codes, which on a page for people reads as code.
+ */
+export interface ToolPluginView {
+  /** The registering plugin's display name, which a surface shows when the package declares no title. */
+  readonly plugin: string
+  /** That package's own localized title, description and icon, when this deployment can read them. */
+  readonly meta?: PluginLocalizedMeta
+  /** The model-facing names it registered, in name order, so a reader recognizes a tool named in a task. */
+  readonly tools: readonly string[]
   /** Who made it available. */
   readonly source: CapabilitySource
 }
@@ -46,8 +58,8 @@ export interface SkillAvailabilityView {
 export interface AgentCapabilitiesView {
   /** The preset this reader's conversations run, when the deployment names one. */
   readonly preset?: string
-  /** Tools other than an MCP server's, by name. */
-  readonly tools: readonly ToolAvailabilityView[]
+  /** Tools other than an MCP server's, grouped by the plugin that registered them. */
+  readonly tools: readonly ToolPluginView[]
   /** MCP servers, each with how many of its tools are available. */
   readonly connections: readonly ConnectionAvailabilityView[]
   /**

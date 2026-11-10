@@ -47,7 +47,7 @@ Nothing else needs configuring. The section registers last in the personal plane
 
 **A broken model catalogue does not take the page down.** Only the capability read decides whether the page has an answer: a deployment whose provider list is failing still has tools and skills worth reading, and the models are left out with a line saying so rather than shown as none.
 
-**A tool's own description belongs to the model, not to this page.** It is written for the model — English prose about arguments, exit codes and `bash -c` — and rendered here it reads as code rather than as an answer, in one language regardless of the reader's. The tools group therefore carries a count and each tool's name, which is the name this product already shows in the trajectory card and the `/` menu, so a reader recognizes it. Skills keep their description, because a skill's is written for a person.
+**A tool's own description belongs to the model, not to this page.** It is written for the model — English prose about arguments, exit codes and `bash -c` — and rendered here it reads as code rather than as an answer, in one language regardless of the reader's. So the tools group is one row per plugin, titled with that package's own `locale/*.json` title and carrying its own one-line description, both resolved in the reader's language through `ctx.locale.resolveText`; where a package declares neither, the row shows the plugin's display name and how many tools it registered. The model-facing names ride along below the sentence, because the trajectory card and the `/` menu show them and a reader recognizes them there. Skills keep their description, because a skill's is written for a person.
 
 **An absent group and an empty one read differently.** "This deployment mounts no skill registry" and "no skill is discovered" are separate lines, because a reader deciding what they may use needs to know which of the two they are looking at.
 
@@ -80,6 +80,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 - **It describes the default preset, not the open conversation** — a reader who switched presets in a session sees what the deployment's default has.
 - **No link from a row to its decider** — a row says "this deployment" or "your agent preset" in words; it does not open the page an administrator would change it on, because a member may not reach those pages.
 - **A connection shows a count** — the server's own tool names are not listed, so a reader cannot audit what it can do from here.
+- **A plugin with no title of its own reads technically** — a package that ships no `locale/*.json` title leaves the row showing a display name like `tool-fs`, which is the registry's name rather than a sentence.
 - **Nothing refreshes while the panel is open** — the read happens once per opening, so a composition changed underneath shows on the next open.
 
 **Runtime invariant:** every row comes from a read performed for this opening; the page keeps no catalogue of its own.

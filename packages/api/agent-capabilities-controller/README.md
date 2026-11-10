@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-agent-capabilities-controller` owns the `agentCapabilities` Remote namespace: one read answering which tools, MCP connections and skills a reader's conversations actually have, each naming whether the deployment or the agent preset made it available. Every answer is projected from the registries an agent itself reads, at the moment it is asked, so the namespace keeps no list of its own and cannot disagree with what the agents have.
+`lyn-api-agent-capabilities-controller` owns the `agentCapabilities` Remote namespace: one read answering which tools, MCP connections and skills a reader's conversations actually have, each naming whether the deployment or the agent preset made it available. Tools are grouped by the plugin that registered them and carry that package's own title, because a tool name is written for a model while this read answers a person. Every answer is projected from the registries an agent itself reads, at the moment it is asked, so the namespace keeps no list of its own and cannot disagree with what the agents have.
 
 ## Table of Contents
 
@@ -39,11 +39,13 @@ Mount it where the tool registry is; the preset and skill registries are optiona
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-**It keeps no list.** Every call reads `ctx.tools.definitions()` and `ctx.skills.list()` again. A list kept here would be a second answer about capabilities and would disagree with the agents the first time a composition changed.
+**It keeps no list.** Every call reads `ctx.tools.registered()` and `ctx.skills.list()` again. A list kept here would be a second answer about capabilities and would disagree with the agents the first time a composition changed.
 
 **The preset's own scope is acquired for the read.** `agentPresets.acquireScope()` hands back a revision lease, so what is reported is the view an agent of that preset would see rather than the deployment's bare registrations. The lease is released even when the read throws, because it is a retain that holds the preset generation from collection.
 
-**Who gave a capability is computed, not stored.** A tool registration carries no registrant, so the answer comes from comparing the preset's view with the deployment-wide one: present in both means the deployment, present only in the scope means the preset.
+**Who gave a capability is computed, not stored.** The answer comes from comparing the preset's view with the deployment-wide one: present in both means the deployment, present only in the scope means the preset.
+
+**What a tool is called comes from three services.** `ctx.tools.registered()` answers which Fiber registered each tool, the Loader answers which composition entry mounted that Fiber, and `pluginPackages.metaOf` reads that package's own `locale/*.json`. The projection groups by entry where there is one — two packages may call themselves the same thing while two entries never do — and falls back to the plugin's display name for a composition built in code. Each tool's own description is left out: it is model-facing prose about arguments and exit codes, which on a page for people reads as code.
 
 **An MCP server is one connection, not four tools.** `lyn-mcp-client` names each tool `mcp__<server>__<raw>`, so the server is read out of the name and its tools are counted rather than listed; a reader deciding whether they may reach a system cares about the system.
 
@@ -77,6 +79,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 - **Agent-scoped restrictions are not reflected** — `tools.restrict()` applies at an agent's own scope, and this read has no agent, so a tool a running conversation denied itself still appears here.
 - **One preset, the default** — a reader whose conversations run a preset they selected per session sees the deployment's default rather than that one.
 - **Attribution is a comparison, not a stored registrant** — a tool the deployment and a preset both register reads as the deployment's, because that is what the two views cannot tell apart.
+- **A plugin title needs the package on disk** — a deployment whose packages the Loader resolved elsewhere, or one composed in code, reports the plugin's display name instead of the title its author wrote.
 - **A connection reports a count, not its tools** — a reader cannot see which four verbs a server offers without asking an agent.
 
 **Runtime invariant:** no state is retained between calls; the lease acquired for a read is released before it returns.

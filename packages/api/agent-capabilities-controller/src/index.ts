@@ -15,20 +15,44 @@
  */
 
 import { Context } from '@lyness/cordis'
+import type { Fiber } from '@lyness/cordis'
+import type {} from '@lyness/cordis-plugin-loader'
 import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { ToolDefinition } from '@lyness/lyn-tools'
+import type { RegisteredTool } from '@lyness/lyn-tools'
 import type {} from '@lyness/lyn-agent-preset-registry'
+import type {} from '@lyness/lyn-app-boot'
 import type {} from '@lyness/lyn-skill'
 import { connectionsOf, toolsOf } from './project.ts'
+import type { ToolOrigin } from './project.ts'
 import type { AgentCapabilitiesView, SkillAvailabilityView } from './types.ts'
 
 export type * from './types.ts'
+export type { ToolOrigin } from './project.ts'
 export { MCP_TOOL_PREFIX, connectionsOf, serverOfToolName, toolsOf } from './project.ts'
 
 declare module '@lyness/cordis' {
   interface Context {
     /** Host owner of the `agentCapabilities` Remote namespace. */
     agentCapabilitiesController: AgentCapabilitiesController
+  }
+}
+
+/**
+ * The composition entry that mounted one Fiber.
+ *
+ * A plugin mounted by another plugin carries no entry of its own, so the walk
+ * climbs to the nearest ancestor that has one: a tool registered inside a
+ * package belongs to the entry that package was composed as.
+ * @param fiber - the registering Fiber.
+ * @returns its entry, or undefined when no Loader mounted it.
+ */
+function entryOf(fiber: Fiber): Fiber['entry'] {
+  let current = fiber
+  for (;;) {
+    if (current.entry !== undefined) return current.entry
+    const parent = current.parent.fiber
+    if (parent === current) return undefined
+    current = parent
   }
 }
 
@@ -76,16 +100,42 @@ export default class AgentCapabilitiesController extends TypertRemoteService {
    */
   private async viewOf(scope: Parameters<typeof this.ctx.tools.definitions>[0], preset: string | undefined):
   Promise<AgentCapabilitiesView> {
-    const deployment = this.ctx.tools.definitions()
-    const available: readonly ToolDefinition[] = scope === undefined
+    const deployment = this.ctx.tools.registered()
+    const available: readonly RegisteredTool[] = scope === undefined
       ? deployment
-      : this.ctx.tools.definitions(scope)
-    const fromDeployment = new Set(deployment.map(one => one.name))
+      : this.ctx.tools.registered(scope)
+    const fromDeployment = new Set(deployment.map(one => one.definition.name))
     return {
       ...preset === undefined ? {} : { preset },
-      tools: toolsOf(available, fromDeployment),
-      connections: connectionsOf(available, fromDeployment),
+      tools: toolsOf(available.map(one => this.originOf(one)), fromDeployment),
+      connections: connectionsOf(available.map(one => one.definition), fromDeployment),
       ...await this.skillsOf(scope),
+    }
+  }
+
+  /**
+   * Where one tool comes from, as far as this deployment can tell.
+   *
+   * The registry answers with the Fiber that registered the tool; the Loader
+   * answers which composition entry mounted that Fiber, and the package
+   * service reads that package's own title and description. A deployment that
+   * composes its plugins in code rather than from a file has no entry, and the
+   * row falls back to the plugin's display name — which is what the registry
+   * knows in every composition.
+   * @param one - one visible tool with its registering Fiber.
+   * @returns the row the projection groups by.
+   */
+  private originOf(one: RegisteredTool): ToolOrigin {
+    const entry = entryOf(one.registrar)
+    const base = entry?.parent.tree.ctx.baseUrl
+    const meta = entry === undefined || base === undefined
+      ? undefined
+      : this.ctx.get('pluginPackages')?.metaOf(entry.options.name, base)
+    return {
+      name: one.definition.name,
+      plugin: one.registrar.name,
+      ...entry === undefined ? {} : { module: entry.options.name },
+      ...meta === undefined ? {} : { meta },
     }
   }
 

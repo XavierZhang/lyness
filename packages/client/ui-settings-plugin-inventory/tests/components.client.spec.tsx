@@ -200,8 +200,11 @@ describe('PluginInventorySettingsTab', () => {
     const preset = screen.getByRole('button', { name: 'Session runner, include:preset-runner, Enabled' })
     expect(document.getElementById(global.getAttribute('aria-describedby')!)?.textContent).toBe('Global navigation controls')
     expect(document.getElementById(preset.getAttribute('aria-describedby')!)?.textContent).toBe('Run per session')
-    expect(screen.getByText(en.metadataError.replace('{error}', globalError))).toBeTruthy()
-    expect(screen.getByText(en.metadataError.replace('{error}', presetError))).toBeTruthy()
+    // The raw loading error is addressed to the plugin's author, so the page
+    // says the plugin is unavailable and hands the diagnostics over instead.
+    expect(screen.getAllByText(en.unavailable)).toHaveLength(2)
+    expect(screen.queryByText(globalError)).toBeNull()
+    expect(screen.queryByText(presetError)).toBeNull()
     expect(global.closest('li')?.getAttribute('data-failed')).toBeNull()
     fireEvent.click(global)
     expect(screen.getByText(en.moduleLabel).nextElementSibling?.textContent).toBe('@acme/navigation')
@@ -217,7 +220,8 @@ describe('PluginInventorySettingsTab', () => {
     expect(screen.getByRole('button', { name: '会话执行器, include:preset-runner, 已启用' })).toBeTruthy()
     expect(screen.getByText('全局导航控件')).toBeTruthy()
     expect(screen.getByText('运行会话命令')).toBeTruthy()
-    expect(screen.getByText(zh.metadataError.replace('{error}', presetError))).toBeTruthy()
+    expect(screen.getAllByText(zh.unavailable).length).toBeGreaterThan(0)
+    expect(screen.getAllByRole('button', { name: zh.copyDiagnostics }).length).toBeGreaterThan(0)
     expect(view.container.querySelector('[data-loader-entry]')?.textContent).toBe('include:preset-runner')
     const search = screen.getByRole('searchbox', { name: zh.search })
     for (const query of ['导航', '全局导航控件', '@acme/navigation', 'include:global-navigation']) {
@@ -304,12 +308,36 @@ describe('PluginInventorySettingsTab', () => {
       }],
     })
     fireEvent.click(globalToggle())
-    expect(screen.getByText(en.metadataError.replace('{error}', error))).toBeTruthy()
+    expect(screen.getByText(en.unavailable)).toBeTruthy()
+    expect(screen.queryByText(error)).toBeNull()
     const card = screen.getByRole('button', { name: 'legacy, Disabled' })
     expect(card).toHaveProperty('disabled', false)
     expect(card.closest('li')?.getAttribute('data-failed')).toBeNull()
     fireEvent.click(card)
     expect(screen.getByText(en.moduleLabel).nextElementSibling?.textContent).toBe('@acme/lyn-legacy')
+  })
+
+  it('hands an unavailable plugin\'s diagnostics to the clipboard rather than to the page', async () => {
+    // The person reading this page cannot act on a loading error; whoever
+    // wrote the plugin can, so the page's one affordance is handing it over.
+    const error = 'locale/zh.json: invalid title'
+    const original = Object.getOwnPropertyDescriptor(navigator, 'clipboard')
+    const writeText = vi.fn<(text: string) => Promise<void>>().mockResolvedValue()
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } })
+    onTestFinished(() => {
+      if (original === undefined) Reflect.deleteProperty(navigator, 'clipboard')
+      else Object.defineProperty(navigator, 'clipboard', original)
+    })
+    await renderReady({
+      entries: [{
+        entryId: 'include:legacy' as PluginEntryId, moduleName: '@acme/lyn-legacy', enabled: false, fiberPhase: null,
+        meta: { error },
+      }],
+    })
+    fireEvent.click(globalToggle())
+    await act(async () => { fireEvent.click(screen.getByRole('button', { name: en.copyDiagnostics })) })
+    expect(writeText).toHaveBeenCalledWith('plugin: @acme/lyn-legacy\nentry: include:legacy\nerror: locale/zh.json: invalid title')
+    expect(screen.getByRole('button', { name: en.diagnosticsCopied })).toBeTruthy()
   })
 
   it('shows the default preset first with its group open and the global plane folded', async () => {
@@ -492,7 +520,8 @@ describe('PluginInventorySettingsTab', () => {
     expect(screen.getByText(en.fromPreset).nextElementSibling?.textContent).toBe('ptc')
 
     pickPreset('坏预设 (failed to load)')
-    expect(screen.getByRole('alert').textContent).toBe('the composition file is missing')
+    expect(screen.getByRole('alert').textContent).toBe(`${en.presetUnavailable}${en.copyDiagnostics}`)
+    expect(screen.queryByText('the composition file is missing')).toBeNull()
     expect(view.container.querySelectorAll('[data-plugin-scope="preset"] li')).toHaveLength(0)
   })
 

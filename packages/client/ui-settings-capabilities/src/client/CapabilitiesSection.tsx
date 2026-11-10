@@ -12,16 +12,19 @@ import { useEffect } from 'react'
 import { Button } from '@lyness/lyn-client-ui-primitives'
 import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-settings/client'
-import type { CapabilitySource } from '@lyness/lyn-api-agent-capabilities-controller/types'
+import type { CapabilitySource, ToolPluginView } from '@lyness/lyn-api-agent-capabilities-controller/types'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
 import type { createCapabilitiesSectionStore } from './store.ts'
 import css from './CapabilitiesSection.module.css'
 
-/** Injected business face: the read and the retry. */
+/** Injected business face: the read, the retry, and local package text. */
 export interface CapabilitiesSectionInjected {
   /** Read what is available, or join the read already running. */
   load: () => Promise<void>
   /** Read again after a failure. */
   retry: () => Promise<void>
+  /** Resolve a plugin's own title or description in the current Client locale. */
+  resolveText: (text: LocalizedText) => string
 }
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
@@ -43,11 +46,33 @@ function sourceLabel(source: CapabilitySource, t: Translate): string {
 }
 
 /**
+ * What one group of tools is called on a page for people.
+ *
+ * The plugin's own title when its package declares one, because that is the
+ * sentence its author wrote for a reader; its display name otherwise, which
+ * is still the name this product uses for it everywhere else.
+ * @param group - one plugin's tools, as the Host projected them.
+ * @param resolveText - resolves local package text in the current locale.
+ * @returns the title and, when the package declares one, the description.
+ */
+function pluginText(
+  group: ToolPluginView,
+  resolveText: CapabilitiesSectionInjected['resolveText'],
+): { readonly title: string; readonly description: string | undefined } {
+  const title = group.meta?.title
+  const description = group.meta?.description
+  return {
+    title: title === undefined ? group.plugin : resolveText(title) || group.plugin,
+    description: description === undefined ? undefined : resolveText(description) || undefined,
+  }
+}
+
+/**
  * Render the section.
  * @param props - composed slot props.
  * @returns the section element tree.
  */
-export function CapabilitiesSection({ t, useStore, load, retry }: CapabilitiesSectionProps) {
+export function CapabilitiesSection({ t, useStore, load, retry, resolveText }: CapabilitiesSectionProps) {
   const status = useStore(state => state.status)
   const capabilities = useStore(state => state.capabilities)
   const models = useStore(state => state.models)
@@ -139,19 +164,32 @@ export function CapabilitiesSection({ t, useStore, load, retry }: CapabilitiesSe
             <h3 className={css.blockHeading}>{t('tools')}</h3>
             {capabilities.tools.length === 0 ? <p className={css.notice}>{t('noTools')}</p> : (
               <>
-                <p className={css.notice}>{t('toolSummary', { count: String(capabilities.tools.length) })}</p>
+                <p className={css.notice}>
+                  {t('toolSummary', {
+                    count: String(capabilities.tools.reduce((total, group) => total + group.tools.length, 0)),
+                    plugins: String(capabilities.tools.length),
+                  })}
+                </p>
                 <ul className={css.rows}>
-                  {/* A tool's own description is written for the model: English
+                  {/* One row per plugin, named the way its author named it. A
+                      tool's own description is written for the model — English
                       prose about arguments and exit codes, which on this page
-                      reads as code rather than as an answer. The name is the
-                      one this product uses everywhere else — the trajectory
-                      card, the `/` menu — so a reader recognizes it. */}
-                  {capabilities.tools.map(tool => (
-                    <li key={tool.name} className={css.row}>
-                      <span className={css.rowName}>{tool.name}</span>
-                      <span className={css.rowSource}>{sourceLabel(tool.source, t)}</span>
-                    </li>
-                  ))}
+                      reads as code rather than as an answer — so what a row
+                      carries is the plugin's own sentence and the tool names
+                      a task shows. */}
+                  {capabilities.tools.map((group) => {
+                    const { title, description } = pluginText(group, resolveText)
+                    return (
+                      <li key={group.plugin} className={css.row}>
+                        <span className={css.rowName}>{title}</span>
+                        <span className={css.rowDetail}>
+                          {description ?? t('toolCount', { count: String(group.tools.length) })}
+                        </span>
+                        <span className={css.rowSource}>{sourceLabel(group.source, t)}</span>
+                        <span className={css.rowNames}>{group.tools.join(' · ')}</span>
+                      </li>
+                    )
+                  })}
                 </ul>
               </>
             )}

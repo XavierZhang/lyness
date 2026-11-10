@@ -54,7 +54,10 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
     "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
     "@lyness/lyn-skill": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
     "@lyness/lyn-tools": "workspace:*",

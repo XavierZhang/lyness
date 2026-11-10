@@ -863,6 +863,7 @@ export const LINK_MAP: Readonly<Record<string, string>> = {
   TokenMeasurement: 'token-meter.md',
   ContextPressureProjection: 'token-meter.md',
   PtcDispatchLog: 'tools.md',
+  RegisteredTool: 'tools.md',
   PostToolDecision: 'tools.md',
   PreToolDecision: 'tools.md',
   ToolDefinition: 'tools.md',

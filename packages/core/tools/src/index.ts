@@ -1,5 +1,6 @@
 /** Tool definitions and scoped dispatch to plugin-owned executors. @module */
 import { Context, Service } from '@lyness/cordis'
+import type { Fiber } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { AnonymousEntries, NamedEntries, ScopedLayers, scopeOf, scopeChainOf } from '@lyness/lyn-scope'
 import type { ScopeKey, ScopeLayer } from '@lyness/lyn-scope'
@@ -41,10 +42,29 @@ interface CompiledToolRestriction {
   readonly deny?: ReadonlySet<string>
 }
 
-/** One registered definition and its step-time activation condition. */
+/** One visible tool and the plugin that registered it. */
+export interface RegisteredTool {
+  /** The definition the viewing scope resolves. */
+  readonly definition: ToolDefinition
+  /** The Fiber that called `register()`. */
+  readonly registrar: Fiber
+}
+
+/** One registered definition, its step-time activation condition, and who registered it. */
 interface ToolRegistration {
   readonly definition: ToolDefinition
   readonly when: ToolRegistrationOptions['when']
+  /**
+   * The Fiber that called `register()`.
+   *
+   * Held so a surface can name the plugin a tool comes from. The registry
+   * knows the Fiber and nothing beyond it: which composition entry mounted
+   * that Fiber, and what that package calls itself, are the Loader's answers,
+   * read by whoever needs them (`lyn-api-agent-capabilities-controller`).
+   * The reference lives exactly as long as the registration, which the same
+   * Fiber's disposal removes.
+   */
+  readonly registrar: Fiber
 }
 
 /** One scope's complete registry view, derived in a single layer traversal. */
@@ -145,9 +165,10 @@ export class ToolsService extends Service {
     if (name === RUN_CODE_NAME) {
       throw new Error(`tool name "${RUN_CODE_NAME}" is reserved for the PTC mode presentation transport and cannot be registered or shadowed`)
     }
+    const registrar = this.ctx.fiber
     return this.layers.effect(
       this.ctx,
-      layer => layer.tools.insert(name, { definition, when: options.when }),
+      layer => layer.tools.insert(name, { definition, when: options.when, registrar }),
       { label: 'tools.register()' },
     )
   }
@@ -304,6 +325,22 @@ export class ToolsService extends Service {
    */
   definitions(scope?: ScopeKey, toolSet?: ResolvedToolSet): readonly ToolDefinition[] {
     return toolSet === undefined ? [...this.view(scope).visible.values()] : [...toolSet.view(scope).values()]
+  }
+
+  /**
+   * The visible tools, each paired with the plugin Fiber that registered it.
+   *
+   * Paired rather than looked up by name, so a consumer reading the whole set
+   * never meets a tool whose registration it has to treat as possibly absent.
+   * The Fiber rather than a name, because a name is not an identity: whoever
+   * needs the composition entry, the package, or that package's own metadata
+   * resolves them from the Fiber through the service that owns those answers.
+   * @param scope - the viewing scope (the agent); omitted = the global view.
+   * @returns one pair per visible tool, in registration order.
+   */
+  registered(scope?: ScopeKey): readonly RegisteredTool[] {
+    return [...this.view(scope).registrations.values()]
+      .map(({ definition, registrar }): RegisteredTool => ({ definition, registrar }))
   }
 
   /**

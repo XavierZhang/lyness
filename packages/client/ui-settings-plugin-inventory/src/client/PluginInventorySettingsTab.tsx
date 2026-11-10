@@ -9,6 +9,7 @@ import {
   Menu,
   StateDot,
   Tag,
+  useClipboardCopy,
 } from '@lyness/lyn-client-ui-primitives'
 import type { StateDotState, TagTone } from '@lyness/lyn-client-ui-primitives'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
@@ -120,15 +121,58 @@ function presetLabel(preset: AgentPresetGroup, t: Translate, presetName: (preset
   return name
 }
 
+/**
+ * The facts a plugin author needs, as one block the viewer can hand over.
+ *
+ * Deliberately not product copy: it is pasted into an issue or a support
+ * message, so its labels stay the technical ones a maintainer reads, in every
+ * interface language. What the page itself says is `unavailable`.
+ * @param fields - label/value pairs, in the order they should be read.
+ * @returns one line per field that carries a value.
+ */
+function diagnosticsReport(fields: readonly (readonly [string, string | null | undefined])[]): string {
+  return fields
+    .filter((field): field is readonly [string, string] => field[1] !== null && field[1] !== undefined && field[1] !== '')
+    .map(([label, value]) => `${label}: ${value}`)
+    .join('\n')
+}
+
+/**
+ * What the page shows in place of a diagnostic: that the thing is unavailable,
+ * and one control that hands the diagnostic to whoever can act on it.
+ *
+ * The raw text never reaches the page, because an error from a plugin's own
+ * loading is addressed to that plugin's author rather than to the person using
+ * the product.
+ */
+function UnavailableNote({ message, diagnostics, t, alert = false }: {
+  readonly message: string
+  readonly diagnostics: string
+  readonly t: Translate
+  readonly alert?: boolean
+}): ReactNode {
+  const { copied, onCopy } = useClipboardCopy(diagnostics)
+  return (
+    <p className={css.brokenNote} role={alert ? 'alert' : 'status'} data-package-meta-error>
+      {message}
+      <button type="button" className={css.copyAction} onClick={onCopy}>
+        {copied ? t('diagnosticsCopied') : t('copyDiagnostics')}
+      </button>
+    </p>
+  )
+}
+
 /** One expandable plugin card; the caller owns the trailing status content. */
 function PluginCard({
-  rowKey, moduleName, title, description, metadataError, entryId, trailing, ariaLabel, failed, expanded, onToggle, children,
+  rowKey, moduleName, title, description, diagnostics, t, entryId, trailing, ariaLabel, failed, expanded, onToggle, children,
 }: {
   readonly rowKey: string
   readonly moduleName: string
   readonly title: string
   readonly description: string | undefined
-  readonly metadataError: string | undefined
+  /** The plugin author's diagnostics, when this row carries any; the page shows that it is unavailable and offers them. */
+  readonly diagnostics: string | undefined
+  readonly t: Translate
   readonly entryId: string | null
   readonly trailing: ReactNode
   readonly ariaLabel: string
@@ -171,7 +215,7 @@ function PluginCard({
           </span>
         ) : null}
       </button>
-      {metadataError === undefined ? null : <p className={css.brokenNote} role="status" data-package-meta-error>{metadataError}</p>}
+      {diagnostics === undefined ? null : <UnavailableNote message={t('unavailable')} diagnostics={diagnostics} t={t} />}
       {open ? <div className={css.cardDetails} id={detailId}>{children}</div> : null}
     </li>
   )
@@ -342,7 +386,10 @@ export function PluginInventorySettingsTab(
         moduleName={row.moduleName}
         title={title}
         description={description}
-        metadataError={row.meta?.error === undefined ? undefined : t('metadataError', { error: row.meta.error })}
+        diagnostics={row.meta?.error === undefined ? undefined : diagnosticsReport([
+          ['plugin', row.moduleName], ['entry', row.entryId], ['preset', preset.id], ['error', row.meta.error],
+        ])}
+        t={t}
         entryId={row.entryId}
         failed={failed}
         expanded={expanded}
@@ -391,7 +438,10 @@ export function PluginInventorySettingsTab(
         moduleName={entry.moduleName}
         title={title}
         description={description}
-        metadataError={entry.meta?.error === undefined ? undefined : t('metadataError', { error: entry.meta.error })}
+        diagnostics={entry.meta?.error === undefined ? undefined : diagnosticsReport([
+          ['plugin', entry.moduleName], ['entry', entry.entryId], ['error', entry.meta.error],
+        ])}
+        t={t}
         entryId={entry.entryId}
         failed={failed}
         expanded={expanded}
@@ -520,7 +570,12 @@ export function PluginInventorySettingsTab(
               {presetEffectiveOpen ? (
                 <div id={`${sectionId}-preset`} className={css.groupBody}>
                   {selected.broken !== undefined ? (
-                    <p className={css.brokenNote} role="alert">{selected.broken}</p>
+                    <UnavailableNote
+                      message={t('presetUnavailable')}
+                      diagnostics={diagnosticsReport([['preset', selected.id], ['error', selected.broken]])}
+                      t={t}
+                      alert
+                    />
                   ) : null}
                   {selectedRows.length > 0 ? (
                     <ul className={css.cards}>
