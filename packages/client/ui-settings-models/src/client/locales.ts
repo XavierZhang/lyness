@@ -251,7 +251,7 @@ export const zh: { [Key in keyof typeof en]: string } = {
   fetchAdopt: '更新列表',
   fetchKeepOne: '请至少保留一个勾选的模型。',
   customTag: '自定义',
-  customRoute: 'Provider ID',
+  customRoute: '提供商 ID',
   customRouteHint: '以小写字母开头的标识，在请求中唯一标识该提供商，并用于派生凭据名。',
   customRouteInvalid: '需以小写字母开头，之后可用小写字母、数字和短横线。',
   customRouteTaken: '已有提供商使用了这个 ID。',

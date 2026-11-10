@@ -50,7 +50,8 @@ describe('viewer brand row', () => {
     expect(link.textContent).toContain('LiveShare')
     expect(link.textContent).toContain('LYN 0.1.5-rc.2')
     // The Relay's own release stays a detail of the same link instead of widening the row.
-    expect(link.getAttribute('title')).toBe('由 许翰翔 分享 · LYN 0.1.5-rc.2 · relay 20260911-143800-6a72b8')
+    expect(link.getAttribute('title'))
+      .toBe(`由 许翰翔 分享 · LYN 0.1.5-rc.2 · ${zh['viewer.relayVersion'].replace('{release}', '20260911-143800-6a72b8')}`)
     expect(link.textContent).not.toContain('20260911-143800-6a72b8')
   })
 

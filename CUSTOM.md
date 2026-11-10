@@ -1683,3 +1683,64 @@ web-app 隐藏 `permission` 与 `model`——输入框下面已经是座位。
 **撤下的只是行**：`/权限`、`/模型` 仍可键入、仍参与键入查询排序、仍能执行。
 「下载日志」是 `/export`（导出当前会话为 ZIP），不是系统日志；
 中文标签改成「导出会话」，与其他 7 种语言里本来就写的 Export／Exportar 对齐。
+
+## 四项：登录体系选型、能力页说人话、双语门禁、Session Log（2026-11-10）
+
+### 一、三种形态的登录体系：选型已定，提案已写
+
+用户给齐了需求（个人版自助注册、租户邮箱激活+用户级别额度、独立部署仅管理员建号、
+同邮箱双账户在 Web/桌面间切换、会话有效期内免登录）。实测现状：
+**出货的登录渠道只有企业微信、钉钉、飞书三种，没有邮箱自助注册**，而三种形态都需要它。
+门、会话存储（`lyn-auth-session/store`）、名册、租户接缝、计量（`lyn-credits`）都已存在。
+
+裁定：**接一个 IdP，lyness 只写一个 `oidc` 渠道 kind**，身份归提供方，授权/名册/额度/租户归我们。
+选型查证后的结论写进 [提案](.agents/notes/proposed/architecture/2026-11-10-oidc-identity-for-three-product-shapes.zh.md)：
+推荐 **ZITADEL**（organizations 是一等公民，直接表达「一个身份在两个组织里」这条最硬的需求），
+**但许可证待核实**——有资料称 v3.0 起转 AGPL-3.0，有资料仍称 Apache-2.0。退路是 Keycloak，
+代价是 realm 模型下账号切换要我们做身份经纪。分 5 期交付，只有第 1 期是新的安全敏感面。
+
+**没有开始实现**：这是多个 PR 的工程，且许可证与辖区问题要用户先定。
+
+### 二、「你可以用什么」：不是报错，是把模型的提示词贴到了用户页
+
+实测那一页的真实内容：45 行 `ask_user_question` / `bash` / `exit_plan_mode` 这样的
+snake_case 名字，加上**为模型写的英文散文**（"Execute a bash command (`bash -c`) and return
+its stdout/stderr…"）。所以「感觉还列出代码」是准确的观察，但它不是报错——
+它是模型的工具目录被原样渲染，而且无论界面语言是什么都只有英文。
+
+改法：工具组不再渲染模型侧说明，改为「数量 + 名称 + 来源」，名称与轨迹卡片和 `/` 菜单里一致。
+skill 的说明保留——那本来就是给人看的（本机那条 `fork-init` 的说明就是中文）。
+
+**没做、推荐下一步**：把工具名换成**插件的本地化标题**（`文件读写工具`／「让 AI 读取、创建和编辑工作文件。」）。
+每个工具插件的 `locale/*.json` 里已经有这份人话，缺的是「工具→提供它的插件」这条映射——
+`ToolDefinition` 不带来源，要改 `lyn-tools` 注册表记录注册方 fiber。这是正确的终局，值得单独一个 PR。
+
+**原始诊断信息**那一条也没做：`插件不可用` + 一键发给开发者/客服，需要一个发送目的地，
+而 `contactFormUrl` 这一轮刚刚按要求默认改空。现成的诚实替代是「复制诊断信息」。
+
+### 三、双语：做成了常驻门禁
+
+`verify-client-ui-translations`（进 ci-static 与 hygiene）：扫 73 份客户端字典，
+凡是中文条目仍然等于英文原文、且去掉 `{占位符}` 后还含三个以上连续拉丁字母的，报错。
+占位符名字是代码不是文案，所以 `{percent}%`、`{value} tok` 这类不误报——
+这条规则一加，原本 30 条豁免里有 12 条自动失效、被门禁点名删掉。
+
+实际修了 12 条真漏翻：`effort.providerDefault`→默认、`customRoute`→提供商 ID、
+`baseUrl`→基础地址、liveshare 的 `relay {release}`→中继、session-inspector 的
+Node/Group/Turn/Step→节点/分组/轮次/步骤、ui-cordis 的 Cordis Plugin/`{count} running`/Host/Client。
+剩 23 条是专有名词与格式模板（Bing、Google、Webhook、Hugging Face、LiveShare、`{value} tok` 等），
+每条都在 `SHARED` 里，且门禁会在它不再需要时点名要求删除。
+
+标语也补齐了八种语言（上一轮只改了中文）：英文 `Command the field, lead the outcome`，
+日/西/法/德/俄/葡 同义改写。这是我提的，品牌要换随时说。
+
+### 四、Session Log：不改文案，整个功能不提供
+
+实测：它**不是单独上传**，而是作为 `dsh_session_log` 字段挂在模型请求里，
+发给**提供官方模型 API 的那一方（DeepSeek）**，没有任何 lyness 采集端点；而且 `enabled` 默认是开的。
+所以「把文案改成帮助改进 lyness」会让界面对用户说假话。
+
+用户裁定「这一条不改，只是把功能隐藏掉」。我按**「这个功能在本产品里不提供」**实现：
+`bundle/base` 的行写 `enabled: false`（不上传），web-app 不再挂 `ui-settings-session-log`（没有入口）。
+**为什么不止隐藏开关**：一个看不见的开关却还在把用户会话日志发给第三方，比显示开关更糟；
+以自己品牌出货的产品不该默认把用户会话送给上游厂商。想恢复：两处各一行，升级指南里写了。

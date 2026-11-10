@@ -1,0 +1,28 @@
+# Bilingual-pair consistency record for 2026-11-10-oidc-identity-for-three-product-shapes.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-11-10-oidc-identity-for-three-product-shapes.md
+/agent-note-oidc-identity-for-the-three-product-shapes:
+  en: 3d69ce43db4aaa27
+  zh: 4bb3f98514eb7e0b
+/agent-note-oidc-identity-for-the-three-product-shapes/problem:
+  en: db06724c1d46ce86
+  zh: 7cba8fcb3ba30160
+/agent-note-oidc-identity-for-the-three-product-shapes/proposal:
+  en: 5e6466270bda35c6
+  zh: e9f25ff7355f7516
+/agent-note-oidc-identity-for-the-three-product-shapes/proposal/staged-delivery:
+  en: fed02f544d147bf5
+  zh: 2fef7eee14ffeb62
+/agent-note-oidc-identity-for-the-three-product-shapes/proposal/choosing-the-provider:
+  en: 95c6acf3180774be
+  zh: 27d1edbb31ba6b31
+/agent-note-oidc-identity-for-the-three-product-shapes/alternatives-considered:
+  en: 964d04a4e976faa5
+  zh: b07ea3b07ea3c273
+/agent-note-oidc-identity-for-the-three-product-shapes/acceptance-criteria:
+  en: 5079448526e7d881
+  zh: ea32d4045bc1cc33
+/agent-note-oidc-identity-for-the-three-product-shapes/risks:
+  en: 30e12342785755e9
+  zh: 0d65d10438782ee0

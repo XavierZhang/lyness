@@ -204,7 +204,7 @@ export const zh = {
   'viewer.brand': 'LiveShare',
   'viewer.home': '回到 LiveShare 首页',
   'viewer.sharedByShort': '由 {owner} 分享',
-  'viewer.relayVersion': 'relay {release}',
+  'viewer.relayVersion': '中继 {release}',
   'viewer.refused': 'liveshare：{subject} 被拒绝（{status}）',
   'viewer.relayAnswered': 'liveshare：中继返回 {status}',
   'viewer.relaySilent': 'liveshare：中继未对 {subject} 返回内容',

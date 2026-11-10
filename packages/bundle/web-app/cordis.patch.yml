@@ -29,6 +29,16 @@
     path: ':memory:'
     openAt: never
 
+# Off in the product people use. The log rides the model request as
+# `dsh_session_log`, so it reaches whoever serves the official model API rather
+# than this project, and a product shipped under its own brand does not send
+# its users' sessions to an upstream vendor by default. `lyn-base` keeps the
+# uploader composed, so a deployment that wants it flips this one field
+# ([ledger](../../../CUSTOM.md)).
+- id: session-log-deepseek
+  config:
+    enabled: false
+
 # ── web-only host rows, the transport layer, and the browser roster ─────────
 
 # `lyn.client` rows are the browser roster the modules node half scans into
@@ -554,8 +564,6 @@
     - id: entry-customization
       name: '@lyness/lyn-client-ui-entry-customization'
 
-    - id: ui-settings-session-log
-      name: '@lyness/lyn-client-ui-settings-session-log'
 
     # The Built-in plugins settings section: the navigation entry and the tab
     # row the inventory tab registers into. The official configuration pages

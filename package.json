@@ -153,6 +153,7 @@
     "verify-installer-locales": "node apps/desktop/scripts/installer-locales.mjs",
     "verify-locale-metadata": "tsx scripts/verify-locale-metadata.ts",
     "verify-client-ui-i18n": "tsx scripts/verify-client-ui-i18n.ts",
+    "verify-client-ui-translations": "tsx scripts/verify-client-ui-translations.ts",
     "verify-client-route-resolution": "tsx scripts/verify-client-route-resolution.ts",
     "verify-no-bare-dispatcher": "tsx scripts/verify-no-bare-dispatcher.ts",
     "verify-no-top-level-await": "tsx scripts/verify-no-top-level-await.ts",

@@ -41,6 +41,12 @@ export const PRODUCT_PACKAGE_POLICY: Readonly<Record<string, ProductPackagePolic
   // the mixed row stopped resolving
   // ([decision](../.agents/notes/implemented/simplification/2026-10-05-native-or-ptc-presentation.md)).
   'packages/core/agent-tool-presentation': { category: 'optional', reason: 'Per-agent choice between the two tool projections, selected by a preset that wants a form other than the deployment\'s.' },
+  // The Session-log upload preference. Its upload rides the model request as
+  // `dsh_session_log`, so it reaches whoever serves the official model API
+  // rather than this project; the composition ships the uploader switched off
+  // and offers no page for it. A deployment that wants the upload turns the
+  // field on and mounts this row ([ledger](../CUSTOM.md)).
+  'packages/client/ui-settings-session-log': { category: 'optional', reason: 'Settings row for an upload this composition leaves off; a deployment that enables the upload mounts it.' },
   'packages/sdk/client': { category: 'sdk', reason: 'Published TypeScript embedding client runs in the consumer process.' },
   'packages/typert/generator': { category: 'build', reason: 'Build-time generation of type metadata.' },
   'packages/test-support/agent-loop-testkit': { category: 'test', reason: 'Published agent-loop test harness.' },

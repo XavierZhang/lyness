@@ -417,7 +417,7 @@ describe('Hero chrome', () => {
   it('renders the headline through the hero locale seat, and no badge beside it', () => {
     const renderSlot = vi.fn<HeroShellProps['renderSlot']>(() => null)
     const view = render(<HeroShell t={makeTranslate(en, commonEn)} renderSlot={renderSlot} />)
-    expect(view.getByText('Into the Unknown')).toBeTruthy()
+    expect(view.getByText(en['hero.headline'])).toBeTruthy()
     // The release-stage badge was removed from the product, so the hero is
     // the headline and the mark, nothing else.
     expect(view.queryByText('Preview')).toBeNull()

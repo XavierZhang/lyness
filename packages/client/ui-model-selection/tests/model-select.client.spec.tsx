@@ -259,11 +259,11 @@ describe('ModelSelect reasoning effort', () => {
     />)
 
     fireEvent.click(screen.getByRole('button', {
-      name: '选择模型，当前 Model，推理等级 Default',
+      name: `选择模型，当前 Model，推理等级 ${zh['effort.providerDefault']}`,
     }))
     fireEvent.click(screen.getByRole('menuitem', { name: /推理等级/ }))
     expect(screen.getAllByRole('menuitemradio').map(item => item.textContent))
-      .toEqual(['Default', 'Standard'])
+      .toEqual([zh['effort.providerDefault'], 'Standard'])
   })
 
   it('opens model choices without exposing a saved route absent from the catalog', () => {

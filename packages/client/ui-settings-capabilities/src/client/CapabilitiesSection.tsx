@@ -138,15 +138,22 @@ export function CapabilitiesSection({ t, useStore, load, retry }: CapabilitiesSe
           <section className={css.block}>
             <h3 className={css.blockHeading}>{t('tools')}</h3>
             {capabilities.tools.length === 0 ? <p className={css.notice}>{t('noTools')}</p> : (
-              <ul className={css.rows}>
-                {capabilities.tools.map(tool => (
-                  <li key={tool.name} className={css.row}>
-                    <span className={css.rowName}>{tool.name}</span>
-                    <span className={css.rowDetail}>{tool.description}</span>
-                    <span className={css.rowSource}>{sourceLabel(tool.source, t)}</span>
-                  </li>
-                ))}
-              </ul>
+              <>
+                <p className={css.notice}>{t('toolSummary', { count: String(capabilities.tools.length) })}</p>
+                <ul className={css.rows}>
+                  {/* A tool's own description is written for the model: English
+                      prose about arguments and exit codes, which on this page
+                      reads as code rather than as an answer. The name is the
+                      one this product uses everywhere else — the trajectory
+                      card, the `/` menu — so a reader recognizes it. */}
+                  {capabilities.tools.map(tool => (
+                    <li key={tool.name} className={css.row}>
+                      <span className={css.rowName}>{tool.name}</span>
+                      <span className={css.rowSource}>{sourceLabel(tool.source, t)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
           </section>
 

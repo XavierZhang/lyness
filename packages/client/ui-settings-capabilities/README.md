@@ -47,6 +47,8 @@ Nothing else needs configuring. The section registers last in the personal plane
 
 **A broken model catalogue does not take the page down.** Only the capability read decides whether the page has an answer: a deployment whose provider list is failing still has tools and skills worth reading, and the models are left out with a line saying so rather than shown as none.
 
+**A tool's own description belongs to the model, not to this page.** It is written for the model — English prose about arguments, exit codes and `bash -c` — and rendered here it reads as code rather than as an answer, in one language regardless of the reader's. The tools group therefore carries a count and each tool's name, which is the name this product already shows in the trajectory card and the `/` menu, so a reader recognizes it. Skills keep their description, because a skill's is written for a person.
+
 **An absent group and an empty one read differently.** "This deployment mounts no skill registry" and "no skill is discovered" are separate lines, because a reader deciding what they may use needs to know which of the two they are looking at.
 
 **The read starts when the section opens.** A person who never opens this costs the deployment no request, and opening it twice costs one.

@@ -74,7 +74,7 @@ export const zh: Record<WebSearchSettingsLocaleKey, string> = {
   retry: '重试',
   pluginProviderHint: '请在该插件自己的设置中配置',
   credential: 'API Key',
-  baseUrl: 'Base URL',
+  baseUrl: '基础地址',
   baseUrlHint: '填写含 API 前缀的地址；留空时使用官方地址；程序追加 {path}',
   apiKeyUnsetApi: '未配置密钥。',
   searchGuide: '网页搜索与获取指南',
