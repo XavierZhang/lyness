@@ -56,20 +56,24 @@ declare module '@lyness/lyn-client-ui-slots' {
      */
     'settings.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
     /**
-     * One settings page of the administration plane — same entry, same owner
-     * share, different plane. A page lands here when what it shows is decided
-     * by somebody else and maintained by an administrator (models, people,
-     * bots, sign-in channels, agent presets, plugins); a page a person
-     * themselves controls stays in `settings.section`. The plane is the slot a
-     * registrant chooses rather than a flag it passes, so a composition that
-     * leaves the administration plane unrendered leaves those pages out
-     * entirely, and moving a page between planes is one name in its own
-     * registration. The shell offers this plane only to a standing that
-     * administers something; every call those pages make keeps its own
-     * authority check, so the grouping decides what is offered and never what
-     * is permitted.
+     * One administration page.
+     *
+     * A page lands here when what it shows is decided by somebody else and
+     * maintained by an administrator (models, people, bots, sign-in channels,
+     * agent modes, plugins); a page a person themselves controls is a
+     * `settings.section`. The seat is the slot a registrant chooses rather
+     * than a flag it passes, so moving a page between the two is one name in
+     * its own registration.
+     *
+     * Declared at runtime by the administration console
+     * (`lyn-client-ui-admin-console`), which is a page of its own rather than
+     * a plane inside Settings: the type lives here so every administration
+     * page collaborates with it without depending on it, the way
+     * `settings.plugins.tab` does. A composition that mounts no console leaves
+     * these pages unrendered — their own authority checks are unaffected,
+     * because the seat decides what is offered and never what is permitted.
      */
-    'settings.administration.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
+    'admin.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
     /**
      * Optional navigation icons addressed by the matching settings.section id.
      * The registration id must equal the target section's id; unmatched ids

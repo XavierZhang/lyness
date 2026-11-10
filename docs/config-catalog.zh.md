@@ -1899,10 +1899,24 @@ export interface Config {
 - `source`: [`packages/host/frontend-static/src/index.ts:34`](../packages/host/frontend-static/src/index.ts)
 
 ```ts config-catalog
-/** Plugin config: the dist anchor. */
+/** Plugin config: the dist anchor, and any extra page the same dist answers. */
 export interface Config {
   /** Absolute path of index.html inside the dist root. */
   distIndex: string
+  /**
+   * Extra pathnames that answer with the index document rather than with a file.
+   *
+   * One entry per page a composition serves from the same dist: the browser
+   * asks for `/admin`, this answers the same document, and the client decides
+   * which shell to render from the path it was served at. Each is an absolute
+   * pathname with no trailing slash and no further segment, because the
+   * injected `<base href="./">` resolves every app route against the
+   * document's own directory: `/admin` resolves `api/...` to `/api/...`, while
+   * `/admin/` or `/a/b` would resolve it under that directory and reach
+   * nothing. A request carrying the trailing slash is redirected to the path
+   * itself for the same reason.
+   */
+  documentPaths?: string[]
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-frontend-static -->
@@ -5168,6 +5182,15 @@ export interface Config {
    * Absent or YAML `null` advertises the bind-address URL.
    */
   publicUrl?: string
+  /**
+   * Extra pathnames this GUI answers with the application document.
+   *
+   * One entry per page the composition serves beside the workbench — the
+   * administration console is one — passed through to the dist server. The
+   * page's own plugin states which of them is its, and the two must agree:
+   * this decides which paths carry a document, not what renders on them.
+   */
+  documentPaths?: string[]
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-web-app -->
@@ -5434,6 +5457,7 @@ export interface Config {
 | `@lyness/lyn-client-modules` | `loader` | [`packages/client/modules/src/index.ts`](../packages/client/modules/src/index.ts) |
 | `@lyness/lyn-client-resources` | — | [`packages/client/resources/src/index.ts`](../packages/client/resources/src/index.ts) |
 | `@lyness/lyn-client-ui-action-cards` | — | [`packages/experimental/client-ui-action-cards/src/index.ts`](../packages/experimental/client-ui-action-cards/src/index.ts) |
+| `@lyness/lyn-client-ui-admin-console` | — | [`packages/client/ui-admin-console/src/index.ts`](../packages/client/ui-admin-console/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-preset` | — | [`packages/client/ui-agent-preset/src/index.ts`](../packages/client/ui-agent-preset/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-team` | — | [`packages/client/ui-agent-team/src/index.ts`](../packages/client/ui-agent-team/src/index.ts) |
 | `@lyness/lyn-client-ui-approval` | — | [`packages/client/ui-approval/src/index.ts`](../packages/client/ui-approval/src/index.ts) |

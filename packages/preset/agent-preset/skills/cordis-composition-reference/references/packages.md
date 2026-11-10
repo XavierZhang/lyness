@@ -83,6 +83,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-product-analytics` | yes | Desktop product event collection and authenticated Host reporting |
 | `@lyness/lyn-client-resources` | no | Unified client resource model: protocol-registered providers turn URL addresses into live values, consumed through the useResource global standard hook |
 | `@lyness/lyn-client-shortcuts` | yes | Application keyboard command registry and physical-key routing |
+| `@lyness/lyn-client-ui-admin-console` | no | The administration console: its own page, its own shell, and the administration pages inside it |
 | `@lyness/lyn-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
 | `@lyness/lyn-client-ui-agent-team` | no | Web shared task board for a subagent tree |
 | `@lyness/lyn-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |

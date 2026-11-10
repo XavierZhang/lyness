@@ -26,7 +26,7 @@ import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (the settings invalidation rides the allowlist) into this program.
 import type {} from '@lyness/lyn-api-remotes/client'
-// Type-only: pulls the settings shell's SlotMap merge (the 'settings.administration.section' entry).
+// Type-only: pulls the settings shell's SlotMap merge (the 'admin.section' entry).
 import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the Workspace UI navigation service merge (ctx.uiWorkspace).
@@ -305,8 +305,8 @@ export function apply(ctx: ClientContext, config: Config): void {
 
   // Ordered after Models: choosing a model is routine, and composing an
   // agent is the deployment-shaping act behind it.
-  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
-    name: 'settings.administration.section',
+  ctx.slots.inject('admin.section', () => ctx.slots.register({
+    name: 'admin.section',
     id: 'agent-presets',
     order: 20,
     label: () => ctx.locale.bind('settings.agentPreset')('nav'),

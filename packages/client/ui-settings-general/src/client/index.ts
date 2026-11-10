@@ -35,7 +35,6 @@ import type {
   SettingsOnboardingStep, SettingsRootInjected, SettingsSectionRow,
 } from './shell-contract.ts'
 import type { ShortcutCommandId } from '@lyness/lyn-client-shortcuts/client'
-import { administersSource } from './administers.ts'
 import { createSettingsShellStore } from './shell-store.ts'
 import { SettingsRoot } from './SettingsRoot.tsx'
 import { DesktopUpdateBadge } from './DesktopUpdateIndicator.tsx'
@@ -151,7 +150,7 @@ export function apply(ctx: ClientContext): void {
   // source (uSES contract: getSnapshot returns the cached rows until the
   // ledger version moves). Labels may be locale-following thunks, so the cache
   // key includes the locale revision and subscribers ride both sources.
-  const planeRows = (slot: 'settings.section' | 'settings.administration.section') => {
+  const planeRows = (slot: 'settings.section') => {
     let version = -1
     let revision = -1
     let rows: readonly SettingsSectionRow[] = []
@@ -184,11 +183,6 @@ export function apply(ctx: ClientContext): void {
     }
   }
   const sections = planeRows('settings.section')
-  const administrationSections = planeRows('settings.administration.section')
-  // The viewer service owns the read; the account row drives it too, and one
-  // read answers both. A composition without the service offers every plane:
-  // it has no directory, so it has nobody to hide a page from.
-  const administers = administersSource(ctx.get('uiViewer'))
   let onboardingVersion = -1
   let onboardingSteps: readonly SettingsOnboardingStep[] = []
   const shellInjected = (): SettingsRootInjected => ({
@@ -199,8 +193,6 @@ export function apply(ctx: ClientContext): void {
       desktopUpdate: desktopUpdate.store,
       connectionState: connection.state,
       sections,
-      administrationSections,
-      administers,
       onboardingSteps: {
         getSnapshot: () => {
           const version = ctx.slots.getVersion('settings.onboarding')
@@ -256,7 +248,6 @@ export function apply(ctx: ClientContext): void {
           'settings.action': { kind: 'list', scope: 'root' },
           'settings.close': { kind: 'single', scope: 'root' },
           'settings.section': { kind: 'list', scope: 'root' },
-          'settings.administration.section': { kind: 'list', scope: 'root' },
           'settings.section.icon': { kind: 'list', scope: 'root', inline: true },
           'settings.onboarding': { kind: 'list', scope: 'root' },
         },

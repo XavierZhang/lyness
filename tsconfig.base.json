@@ -323,6 +323,8 @@
       "@lyness/lyn-client-ui-model-selection": ["./packages/client/ui-model-selection/src"],
       "@lyness/lyn-client-ui-goal": ["./packages/client/ui-goal/src"],
       "@lyness/lyn-client-ui-message-feedback": ["./packages/client/ui-message-feedback/src"],
+      "@lyness/lyn-client-ui-admin-console": ["./packages/client/ui-admin-console/src/index.ts"],
+      "@lyness/lyn-client-ui-admin-console/client": ["./packages/client/ui-admin-console/src/client/index.ts"],
       "@lyness/lyn-client-ui-agent-preset": ["./packages/client/ui-agent-preset/src"],
       "@lyness/lyn-client-ui-permission-presets": ["./packages/client/ui-permission-presets/src"],
       "@lyness/lyn-client-ui-skill": ["./packages/client/ui-skill/src"],

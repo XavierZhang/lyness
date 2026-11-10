@@ -62,11 +62,6 @@ function mount({
   rows = [
     { id: 'general', order: 0, label: 'General' },
   ],
-  administrationRows = [
-    { id: 'models', order: 10, label: 'Models' },
-    { id: 'agent-presets', order: 20, label: 'Agent presets' },
-  ],
-  administers = true,
   steps = [
     { id: 'welcome', order: -100 },
     { id: 'credential', order: 0 },
@@ -80,8 +75,6 @@ function mount({
   onboardingActive?: boolean
   mainView?: boolean
   rows?: Row[]
-  administrationRows?: Row[]
-  administers?: boolean
   steps?: Step[]
 } = {}) {
   // Mutable row source standing in for the bound useSections hook; bump()
@@ -93,7 +86,7 @@ function mount({
   const reconnect = vi.fn()
   const renderSlot = vi.fn(
     ((key: string, _owner: unknown, opts?: { only?: string; fallback?: import('react').ReactNode }) => {
-      if (key === 'settings.section' || key === 'settings.administration.section') {
+      if (key === 'settings.section') {
         return <div data-testid={`section-${opts?.only ?? 'all'}`} />
       }
       return SEAT_CONTENT[key] ?? opts?.fallback
@@ -149,8 +142,6 @@ function mount({
       }, [])
       return select(current)
     },
-    useAdministrationSections: select => select(administrationRows),
-    useAdministers: select => select(administers),
     renderSlot,
   }
   const view = render(<SettingsRoot {...props} />)
@@ -384,10 +375,13 @@ describe('SettingsPanel close paths', () => {
 
 describe('SettingsPanel navigation', () => {
   it('projects rows, marks the first active, and renders only that section', () => {
-    mount()
+    mount({ rows: [
+      { id: 'general', order: 0, label: 'General' },
+      { id: 'instructions', order: 10, label: 'Instructions' },
+    ] })
     openPanel()
     expect(screen.getByRole('button', { name: 'General' }).getAttribute('aria-current')).toBe('true')
-    expect(screen.getByRole('button', { name: 'Models' }).getAttribute('aria-current')).toBeNull()
+    expect(screen.getByRole('button', { name: 'Instructions' }).getAttribute('aria-current')).toBeNull()
     expect(screen.getByTestId('section-general')).toBeTruthy()
   })
 
@@ -401,7 +395,6 @@ describe('SettingsPanel navigation', () => {
         { id: 'archived-sessions', order: 40, label: 'Archived sessions' },
         { id: 'contributed', order: 50, label: 'Contributed' },
       ],
-      administrationRows: [],
     })
     openPanel()
     // Each product glyph names its sprite symbol id in data-icon.
@@ -416,16 +409,22 @@ describe('SettingsPanel navigation', () => {
   })
 
   it('switches the rendered section on nav click', () => {
-    mount()
+    mount({ rows: [
+      { id: 'general', order: 0, label: 'General' },
+      { id: 'instructions', order: 10, label: 'Instructions' },
+    ] })
     openPanel()
-    fireEvent.click(screen.getByRole('button', { name: 'Models' }))
-    expect(screen.getByRole('button', { name: 'Models' }).getAttribute('aria-current')).toBe('true')
-    expect(screen.getByTestId('section-models')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'Instructions' }))
+    expect(screen.getByRole('button', { name: 'Instructions' }).getAttribute('aria-current')).toBe('true')
+    expect(screen.getByTestId('section-instructions')).toBeTruthy()
     expect(screen.queryByTestId('section-general')).toBeNull()
   })
 
   it('mounts onboarding steps in order and transfers ownership only on completion', () => {
-    const { renderSlot } = mount()
+    const { renderSlot } = mount({ rows: [
+      { id: 'general', order: 0, label: 'General' },
+      { id: 'models', order: 10, label: 'Models' },
+    ] })
     const first = renderSlot.mock.calls.find(call => call[0] === 'settings.onboarding')
     expect(first?.[1]).toMatchObject({ stepId: 'welcome' })
     expect(first?.[2]).toEqual({ only: 'welcome' })
@@ -491,7 +490,6 @@ describe('SettingsPanel navigation', () => {
         { id: 'general', order: 0, label: 'General' },
         { id: 'models', order: 10, label: 'Models' },
       ],
-      administrationRows: [],
     })
     openPanel()
     fireEvent.click(screen.getByRole('button', { name: 'Models' }))
@@ -501,48 +499,12 @@ describe('SettingsPanel navigation', () => {
   })
 
   it('renders an empty content column and focuses the title when the ledger is empty', () => {
-    const { renderSlot } = mount({ rows: [], administrationRows: [] })
+    const { renderSlot } = mount({ rows: [] })
     openPanel()
     expect(document.activeElement).toBe(screen.getByText('Settings Title'))
     expect(screen.getByRole('dialog')).toBeTruthy()
     const sectionCalls = renderSlot.mock.calls.filter(c => c[0] === 'settings.section')
     expect(sectionCalls).toHaveLength(0)
-  })
-
-  it('offers the administration plane only to a standing that administers something', () => {
-    mount({ administers: false })
-    openPanel()
-    expect(screen.queryByRole('button', { name: 'Models' })).toBeNull()
-    expect(screen.getByRole('button', { name: 'General' })).toBeTruthy()
-    // One plane on the rail needs no heading to tell it from the other.
-    expect(screen.queryByRole('heading', { name: 'Personal' })).toBeNull()
-    expect(screen.getByTestId('section-general')).toBeTruthy()
-  })
-
-  it('names each plane once both are on the rail', () => {
-    mount()
-    openPanel()
-    expect(screen.getByRole('heading', { name: 'Personal' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'Administration' })).toBeTruthy()
-  })
-
-  it('renders an administration section from its own slot', () => {
-    const { renderSlot } = mount()
-    openPanel()
-    fireEvent.click(screen.getByRole('button', { name: 'Models' }))
-    const calls = renderSlot.mock.calls.filter(c => c[0] === 'settings.administration.section')
-    expect(calls.at(-1)?.[2]).toMatchObject({ only: 'models' })
-    expect(screen.getByTestId('section-models')).toBeTruthy()
-  })
-
-  it('falls back to the other plane when the plane holding the active row goes away', () => {
-    const { view, props } = mount()
-    openPanel()
-    fireEvent.click(screen.getByRole('button', { name: 'Models' }))
-    expect(screen.getByTestId('section-models')).toBeTruthy()
-    const withheld = { ...props, useAdministers: (select: (v: boolean) => unknown) => select(false) }
-    view.rerender(<SettingsRoot {...withheld as SettingsRootComponentProps} />)
-    expect(screen.getByTestId('section-general')).toBeTruthy()
   })
 
   it('drops the ledger subscription on unmount', () => {

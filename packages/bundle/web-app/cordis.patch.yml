@@ -271,6 +271,11 @@
         printUrl: true
         publicUrl: !!js ctx.webStartup.publicUrl
         surfaceContext: true
+        # The administration console is a page of its own, so this path
+        # answers with the application document; the `ui-admin-console` row
+        # below states that the same path is the console's.
+        documentPaths:
+          - /admin
 
     # Model context for an agent that inspects or extends the harness serving
     # this GUI: value-free prompt sections plus the current checkout and GUI
@@ -393,6 +398,18 @@
     # consumer; a headless deployment has nobody to show it to.
     - id: agent-capabilities-controller
       name: '@lyness/lyn-api-agent-capabilities-controller'
+
+    # The administration console: /admin is a page of its own, with its own
+    # navigation and its own sign-in screen, and every administration page
+    # renders inside it rather than inside Settings. The workbench keeps what
+    # a person decides for themselves; what somebody else decides for them is
+    # here. The path matches the `documentPaths` entry on `web-runtime`: the
+    # Host decides which paths carry a document, this decides which one is the
+    # console.
+    - id: ui-admin-console
+      name: '@lyness/lyn-client-ui-admin-console'
+      config:
+        path: /admin
 
     # The personal plane's read-only entry: the one answer to the question the
     # administration pages otherwise answer with a refusal notice.

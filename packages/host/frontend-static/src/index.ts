@@ -30,15 +30,45 @@ export const name = 'frontend-static'
 /** Services required before the authenticated fallback seat can be claimed. */
 export const inject = ['webServer', 'connection']
 
-/** Plugin config: the dist anchor. */
+/** Plugin config: the dist anchor, and any extra page the same dist answers. */
 export interface Config {
   /** Absolute path of index.html inside the dist root. */
   distIndex: string
+  /**
+   * Extra pathnames that answer with the index document rather than with a file.
+   *
+   * One entry per page a composition serves from the same dist: the browser
+   * asks for `/admin`, this answers the same document, and the client decides
+   * which shell to render from the path it was served at. Each is an absolute
+   * pathname with no trailing slash and no further segment, because the
+   * injected `<base href="./">` resolves every app route against the
+   * document's own directory: `/admin` resolves `api/...` to `/api/...`, while
+   * `/admin/` or `/a/b` would resolve it under that directory and reach
+   * nothing. A request carrying the trailing slash is redirected to the path
+   * itself for the same reason.
+   */
+  documentPaths?: string[]
 }
 
 export const Config: z<Config> = z.object({
   distIndex: z.string().required(),
+  documentPaths: z.array(z.string()).default([]),
 })
+
+/**
+ * Refuse a configured page path that cannot carry the document.
+ * @param paths - the configured extra document paths.
+ * @returns the same paths, as a set.
+ * @throws {Error} when one is not an absolute single-segment pathname.
+ */
+export function documentPathSet(paths: readonly string[]): ReadonlySet<string> {
+  for (const path of paths) {
+    if (!/^\/[^/]+$/u.test(path)) {
+      throw new Error(`frontend-static: documentPaths entry ${JSON.stringify(path)} must be an absolute pathname of one segment, such as "/admin"`)
+    }
+  }
+  return new Set(paths)
+}
 
 const HTML_MIME = 'text/html; charset=utf-8'
 
@@ -94,8 +124,16 @@ async function serveStatic(
   request: Request, distRoot: string, distIndex: string,
   authorizeIndex: () => Response | undefined,
   renderIndex: (html: string) => string,
+  documents: ReadonlySet<string> = new Set(),
 ): Promise<Response> {
-  const target = resolve(normalize(join(distRoot, decodeURIComponent(new URL(request.url).pathname))))
+  const pathname = decodeURIComponent(new URL(request.url).pathname)
+  // A configured page carries the document itself, and the same path with a
+  // trailing slash would make `<base href="./">` resolve every app route one
+  // directory deeper, so it is redirected rather than served.
+  if (pathname.endsWith('/') && documents.has(pathname.slice(0, -1))) {
+    return new Response(null, { status: 308, headers: { location: pathname.slice(0, -1) } })
+  }
+  const target = documents.has(pathname) ? distIndex : resolve(normalize(join(distRoot, pathname)))
   // Traversal rejection: the target must be distRoot itself (`/`) or stay under
   // it. `sep`, not '/': resolve() emits backslash paths on Windows, where a '/'
   // suffix would reject every legitimate subpath as traversal.
@@ -149,6 +187,7 @@ export function apply(ctx: Context, config: Config): void {
     })
     return admitted ? undefined : new Response(body, { status, headers })
   }
+  const documents = documentPathSet(config.documentPaths ?? [])
   ctx.effect(() => ctx.webServer.registerFallback({
     resource: (request, peer) => serveStatic(
       request,
@@ -162,6 +201,7 @@ export function apply(ctx: Context, config: Config): void {
       // reference they insert.
       html => ctx.webServer.renderIndex(html, peer ?? ctx.connection.browserPeer)
         .replace(/<head(?:\s[^>]*)?>/i, open => `${open}<base href="./">`),
+      documents,
     ),
   }), 'frontend-static: fallback seat')
 }

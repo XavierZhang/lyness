@@ -1848,3 +1848,30 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 `agentCapabilities/describe` 的 19 个插件分组全部有中英标题；
 `pluginInventory/list` 的 233 行里，只剩 `cordis:include` 没有标题（它是 vendored Cordis 的组内置项，没有自己的包）。
 仓库级 typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` / snapshot / expected / build 全绿。
+
+## 管理端独立成页：/admin（2026-11-10）
+
+用户的两个决定（界面走浅色+黑侧栏；管理端与前台同后端、独立页面），以及一条补充需求（管理员可生成邀请码，用户凭码加入平台/租户）。本轮把**页面与外壳**做完，邀请码与 IdP 接入留到下一轮。
+
+### 先回答「管理端的入口是什么」
+
+**今天没有独立管理端**：管理页是设置窗口下半部分的「管理」分组，和前台同一个页面、同一套前端插件，由 `uiViewer.administers` 决定是否显示——而 `administers()` 对「没有账号体系的部署」返回 true，所以你在本机跑的 `web` profile 里它一直是可见的（只有模型/Agent 预设/内置插件三页，人员/机器人/登录渠道/变更历史随 `module-accounts` 才挂）。
+
+### 这一轮做了什么
+
+**`/admin` 是一个真正的页面。** `lyn-host-frontend-static` 新增 `documentPaths` 配置：列出的路径用应用文档作答，带尾斜杠的请求 308 回正路径（因为注入的 `<base href="./">` 会让 `/admin/` 把 `api/...` 解析到深一层）。`lyn-web-app` 把这份配置透传下去，web-app 组合里写 `documentPaths: ['/admin']`。
+
+**新包 `@lyness/lyn-client-ui-admin-console`**：只在「文档是在它配置的路径上给出的」时候，才以 `priority: -10` 占住内建 `root` 席位——`root` 是 single 槽，最低 priority 渲染，于是管理端在那一页遮住工作台 frame；其他任何页面它一行都不注册。外壳自带导航（三组：组织与人员／接入与能力／数据与平台，认不出的页落在末尾一组）、页头、页脚（当前登录者、退出、回工作台），以及**自己的登录页**（每个「浏览器能发起的渠道」一个链接；自驱动渠道不提供，因为页面发起不了）。普通成员摸到 URL 会看到「这一页是给管理员的」，而不是一排注定被拒的导航。
+
+**8 个管理页搬家**：slot `settings.administration.section` 改名 `admin.section`（类型仍声明在 `ui-settings`，与 `settings.plugins.tab` 同一先例），由管理端在运行时声明。设置外壳随之只剩一个平面，`administrationSections`/`administers` 两个 hook 与 `administers.ts` 一起删掉。
+
+### 两个踩到的真问题（都已修）
+
+1. **`root` 不允许同 priority 的第二个注册**，报 `single slot "root" already has a registration at priority 0`。文档只说「动态注册会被赋更低 priority 从而胜出」，手写注册必须自己声明 priority。
+2. **`shell.overlay` 不能被声明两次**：管理端一开始也声明了它（想白捡工作台的登录屏与 toast），结果让 `ui-layout` 激活失败。改为管理端自带登录页，toast 记为已知限制。
+
+### 实测证据
+
+新增 `apps/web/tests/admin-console.e2e.ts`（真实 Chromium，走出货组合）：`/admin` 给出管理端，三页都在里面、点击切换、`aria-current` 跟着走；页脚显示「尚未登录」且不提供退出（本机组合没有账号体系）；点「前往工作台」回到前台；而前台的设置里**一个管理页都没有**。诊断过程中还修了 `apps/web/tests/scaffold.ts`：它对 `web-runtime` 的覆盖会整段替换 config，原来就丢掉了 `documentPaths`（和 `surfaceContext` 同一个坑）。
+
+仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2797 文件 55023 用例 / snapshot 251 / expected 144 / build 全绿。`verify-no-unknown-casts` 的 baseline 有 3 处指纹位移——被改名的 slot 字面量就写在那些既有 `as unknown` 表达式里，条数未变，`--prune` 清掉了退役项。

@@ -44,7 +44,7 @@ function navIcon(id: string) {
 /** One navigation group: a plane's heading and the sections it holds. */
 type NavPlane = {
   /** Which slot the group's sections are registered in. */
-  slot: 'settings.section' | 'settings.administration.section'
+  slot: 'settings.section'
   /** Localized group heading, shown only when both planes render. */
   heading: string
   rows: readonly SettingsSectionRow[]
@@ -145,7 +145,7 @@ function SettingsPanel({ planes, renderSlot, activeId, onSelect, onClose }: Pane
  */
 export function SettingsRoot(props: SettingsRootComponentProps) {
   const {
-    wide, reconnect, useConnectionState, useSections, useAdministrationSections, useAdministers,
+    wide, reconnect, useConnectionState, useSections,
     useOnboardingSteps, useSessions, renderSlot, t,
     useDesktopUpdate, openDesktopUpdate, useStore, actions, useShortcuts,
   } = props
@@ -162,8 +162,6 @@ export function SettingsRoot(props: SettingsRootComponentProps) {
   // freshly localized text on locale change, and the trigger/header/close
   // seats re-render through their own outlets' subscriptions.
   const rows = useSections(s => s)
-  const administrationRows = useAdministrationSections(s => s)
-  const administers = useAdministers(s => s)
   const desktopUpdate = useDesktopUpdate(state => state)
   const connectionState = useConnectionState(state => state)
   const previousConnectionState = useRef(connectionState)
@@ -283,11 +281,9 @@ export function SettingsRoot(props: SettingsRootComponentProps) {
       {open && (
         <SettingsPanel
           planes={[
+            // One plane. What an administrator maintains lives in the
+            // administration console, which is a page of its own.
             { slot: 'settings.section', heading: t('plane.personal'), rows },
-            // A standing that administers nothing is offered no page it would
-            // be refused; the pages' own calls still check their authority.
-            { slot: 'settings.administration.section', heading: t('plane.administration'),
-              rows: administers ? administrationRows : [] },
           ]}
           renderSlot={renderSlot}
           activeId={activeId}

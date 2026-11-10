@@ -8,7 +8,7 @@
  */
 import type {} from '@lyness/lyn-client-product-analytics/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-// Type-only: pulls the shell's SlotMap merge (the 'settings.administration.section' entry).
+// Type-only: pulls the shell's SlotMap merge (the 'admin.section' entry).
 import type {} from '@lyness/lyn-client-ui-settings/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
 import type {} from '@lyness/lyn-client-locale/client'
@@ -66,7 +66,7 @@ export const inject = [
 ]
 
 /**
- * Register the Models section once the `settings.administration.section` declaration is on
+ * Register the Models section once the `admin.section` declaration is on
  * the ledger, wire its store to the connection, and keep it fresh on every
  * pushed invalidation (settings, credentials, or provider topology).
  * @param ctx - client root context.
@@ -121,8 +121,8 @@ export function apply(ctx: ClientContext): void {
     }
   }, 'ui-settings-models: pushed invalidations')
 
-  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
-    name: 'settings.administration.section',
+  ctx.slots.inject('admin.section', () => ctx.slots.register({
+    name: 'admin.section',
     id: 'models',
     order: 10,
     label: () => t('nav'),

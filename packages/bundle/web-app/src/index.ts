@@ -70,6 +70,15 @@ export interface Config {
    * Absent or YAML `null` advertises the bind-address URL.
    */
   publicUrl?: string
+  /**
+   * Extra pathnames this GUI answers with the application document.
+   *
+   * One entry per page the composition serves beside the workbench — the
+   * administration console is one — passed through to the dist server. The
+   * page's own plugin states which of them is its, and the two must agree:
+   * this decides which paths carry a document, not what renders on them.
+   */
+  documentPaths?: string[]
 }
 
 export const Config: z<Config> = z.object({
@@ -77,6 +86,7 @@ export const Config: z<Config> = z.object({
   printUrl: z.boolean().default(true),
   surfaceContext: z.boolean().default(true),
   publicUrl: z.transform(z.string(), value => parsePublicUrl(value).href),
+  documentPaths: z.array(z.string()).default([]),
 })
 
 /** Environment variable naming the advertised URL of this Web GUI. */
@@ -203,7 +213,7 @@ export function apply(ctx: Context, config: Config): void {
   /** The advertised root: the canonical `publicUrl`, or the listener's own origin. */
   const appRootUrl = (): string => publicUrl ?? ctx.webServer.getOrigin()
   ctx.provide('webApp', { getAdvertisedUrl: appRootUrl } satisfies WebApp)
-  ctx.plugin(FrontendStatic, { distIndex: internals.resolveDistIndex() })
+  ctx.plugin(FrontendStatic, { distIndex: internals.resolveDistIndex(), documentPaths: config.documentPaths ?? [] })
   if (config.surfaceContext) {
     ctx.inject(['shellEnv'], (runtimeCtx) => {
       runtimeCtx.shellEnv.register({

@@ -1,0 +1,266 @@
+/*
+ * The console's own chrome: a black navigation column for the platform, the
+ * product's own ground for the pages, and blue only on the selected row — the
+ * brand's proportion (neutral 70–85%, blue 5–10%).
+ *
+ * The column reads the brand palette rather than the theme aliases, because
+ * black is what the brand gives the platform and it stays black in either
+ * theme; the content column reads the aliases, because the pages inside it do.
+ * The pages bring their own styles and nothing here reaches into them.
+ */
+
+.shell {
+  --lyn-admin-sider-bg: var(--lyness-black);
+  --lyn-admin-sider-strong: var(--lyness-white);
+  --lyn-admin-sider-text: var(--lyness-dark-label-secondary);
+  --lyn-admin-sider-muted: var(--lyness-gray-600);
+  --lyn-admin-sider-hover: var(--lyness-dark-surface-2);
+  --lyn-admin-sider-border: var(--lyness-dark-surface-2);
+  --lyn-admin-sider-selected: var(--lyness-blue);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100%;
+  background: var(--dsw-alias-bg-secondary);
+  color: var(--dsw-alias-text-primary);
+}
+
+/* The column stacks above the content at phone width rather than squeezing it. */
+.sider {
+  display: flex;
+  flex: 0 0 236px;
+  flex-direction: column;
+  gap: 22px;
+  padding: 20px 14px 18px;
+  background: var(--lyn-admin-sider-bg);
+  color: var(--lyn-admin-sider-text);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+}
+
+.brandName {
+  color: var(--lyn-admin-sider-strong);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groupHeading {
+  padding: 0 10px 6px;
+  color: var(--lyn-admin-sider-muted);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+}
+
+.navRow {
+  border: 0;
+  border-radius: var(--dsw-radius-sm);
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--lyn-admin-sider-text);
+  font: inherit;
+  font-size: 13px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.navRow[aria-current='page'] {
+  background: var(--lyn-admin-sider-selected);
+  color: var(--lyn-admin-sider-strong);
+  font-weight: 500;
+}
+
+/* Hover stays behind a hover-capable pointer so a tap cannot latch it. */
+@media (hover: hover) {
+  .navRow:not([aria-current='page']):hover {
+    background: var(--lyn-admin-sider-hover);
+  }
+}
+
+.navRow:active {
+  background: var(--lyn-admin-sider-hover);
+}
+
+.siderFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  border-top: 1px solid var(--lyn-admin-sider-border);
+  padding-top: 12px;
+}
+
+.viewer {
+  color: var(--lyn-admin-sider-muted);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.siderLink {
+  color: var(--lyn-admin-sider-text);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .siderLink:hover {
+    text-decoration: underline;
+  }
+}
+
+.content {
+  display: flex;
+  flex: 999 1 560px;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 0.5px solid var(--dsw-alias-border-secondary);
+  padding: 18px 28px;
+  background: var(--dsw-alias-bg-primary);
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 28px 28px;
+  overflow-y: auto;
+}
+
+/* The console's own sign-in page: one card on the platform's ground. */
+.signIn {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+  background: var(--lyness-black);
+}
+
+.signInCard {
+  display: flex;
+  width: 100%;
+  max-width: 420px;
+  flex-direction: column;
+  gap: 14px;
+  border: 0.5px solid var(--dsw-alias-border-secondary);
+  border-radius: var(--dsw-radius-lg);
+  padding: 28px;
+  background: var(--dsw-alias-bg-primary);
+  color: var(--dsw-alias-text-primary);
+}
+
+.signInBrand {
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.6px;
+}
+
+.signInTitle {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.signInHint {
+  margin: 0;
+  color: var(--dsw-alias-text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.signInEmpty {
+  margin: 0;
+  border-radius: var(--dsw-radius-md);
+  padding: 12px 14px;
+  background: var(--dsw-alias-bg-secondary);
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.signInChannels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signInChannel {
+  border-radius: var(--dsw-radius-md);
+  padding: 11px 14px;
+  background: var(--dsw-alias-interactive-accent);
+  color: var(--lyness-white);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .signInChannel:hover {
+    background: var(--lyness-blue-dark);
+  }
+}
+
+.signInBack {
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .signInBack:hover {
+    text-decoration: underline;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 56px 28px;
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.emptyHint {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--dsw-alias-text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}

@@ -322,6 +322,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/memory-controller': { kind: 'none', reason: 'Serves a person reading their own records; lyn-memory owns how a remembered fact reaches a model request.' },
   'packages/client/ui-settings-memory': { kind: 'none', reason: 'Lists stored records for a person; lyn-memory owns how a remembered fact reaches a model request.' },
   'packages/api/agent-capabilities-controller': { kind: 'none', reason: 'Reports what the model-facing registries already hold; each registry owns how its contributions reach a request.' },
+  'packages/client/ui-admin-console': { kind: 'none', reason: 'A browser surface over Remote namespaces other packages own; it registers no tool, prompt, or Session event.' },
   'packages/client/ui-settings-capabilities': { kind: 'none', reason: 'Lists what the model-facing registries already hold, for a person to read.' },
   'packages/session/session-deletion': { kind: 'none', reason: 'Removes stored logs on a human act; no model request changes at call time.' },
   'packages/api/session-data-controller': { kind: 'none', reason: 'Serves a person acting on their own stored conversations; it registers no prompt or tool.' },

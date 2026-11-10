@@ -57,6 +57,8 @@ async function loadComposition(): Promise<Context> {
     "  name: '@lyness/lyn-host-frontend-static'",
     '  config:',
     `    distIndex: '${distIndex}'`,
+    '    documentPaths:',
+    "      - '/admin'",
     '',
   ].join('\n'))
 
@@ -99,6 +101,16 @@ async function request(
     body: await response.text(),
   }
 }
+
+describe('documentPathSet', () => {
+  it('takes absolute single-segment paths and refuses anything a base href would break', () => {
+    expect([...FrontendStatic.documentPathSet(['/admin', '/console'])]).toEqual(['/admin', '/console'])
+    expect([...FrontendStatic.documentPathSet([])]).toEqual([])
+    for (const path of ['admin', '/admin/', '/a/b', '/', '']) {
+      expect(() => FrontendStatic.documentPathSet([path]), path).toThrow('must be an absolute pathname of one segment')
+    }
+  })
+})
 
 describe('real Loader composition', () => {
   it('serves explicit index entries and files while preserving HTTP error semantics', { timeout: 60_000 }, async () => {
@@ -228,6 +240,37 @@ describe('real Loader composition', () => {
     await frontendEntry!.fiber?.dispose()
     expect((await request(port, '/no/such/route')).status).toBe(404)
     expect(() => server.registerFallback(() => {})).not.toThrow()
+  })
+
+  it('answers a configured page with the document, and its trailing slash with a redirect', { timeout: 60_000 }, async () => {
+    // A second page over the same dist: the browser asks for /admin, this
+    // answers the same document, and the client decides which shell to render.
+    const loaded = await loadComposition()
+    const port = loaded.webServer.port
+    const launchUrl = loaded.connection.authenticatedUrl(`http://127.0.0.1:${String(port)}`)
+    const exchange = await fetch(launchUrl, { redirect: 'manual' })
+    const setCookie = exchange.headers.get('set-cookie')
+    if (setCookie === null) throw new Error('authenticated frontend did not set a cookie')
+    const cookie = setCookie.split(';', 1)[0]!
+    const headers = { cookie }
+
+    // Unauthenticated, a page is refused exactly like the index is.
+    expect(await request(port, '/admin')).toMatchObject({ status: 401 })
+
+    const page = await request(port, '/admin', { headers })
+    expect(page.status).toBe(200)
+    expect(page.type).toBe('text/html; charset=utf-8')
+    // The same document the root serves, base href included: at /admin the
+    // document's directory is the root, so `api/...` still resolves to /api.
+    expect(page.body).toContain('<base href="./">')
+    expect(page.body).toContain('shell')
+
+    const redirect = await fetch(`http://127.0.0.1:${String(port)}/admin/`, { headers, redirect: 'manual' })
+    expect(redirect.status).toBe(308)
+    expect(redirect.headers.get('location')).toBe('/admin')
+
+    // A path nobody configured is still a miss rather than the document.
+    expect(await request(port, '/console', { headers })).toMatchObject({ status: 404 })
   })
 
   it('answers in-process reads for the given Peer without browser authentication', { timeout: 60_000 }, async () => {

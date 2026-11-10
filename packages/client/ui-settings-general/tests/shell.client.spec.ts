@@ -35,7 +35,6 @@ const CHILD_SPECS = {
   'settings.action': { kind: 'list', scope: 'root' },
   'settings.close': { kind: 'single', scope: 'root' },
   'settings.section': { kind: 'list', scope: 'root' },
-  'settings.administration.section': { kind: 'list', scope: 'root' },
   'settings.section.icon': { kind: 'list', scope: 'root', inline: true },
   'settings.onboarding': { kind: 'list', scope: 'root' },
 } as const
@@ -48,18 +47,6 @@ const CHILD_NAMES = Object.keys(CHILD_SPECS) as Array<keyof typeof CHILD_SPECS>
  * credential is stored. A plugin adding a personal section changes this list.
  */
 const PRODUCT_SECTIONS: readonly string[] = ['general', 'instructions', 'memory', 'capabilities', 'data']
-/**
- * Administration-plane section ids the web-app roster registers, in nav
- * order: ui-settings-models, ui-settings-plugins and ui-agent-preset. The
- * shell offers the whole group only to a standing that administers something.
- *
- * Sign-in channels, people, bots, history and credits are not here: each
- * reads a plane this bundle does not carry, so they ship with
- * `lyn-module-accounts` and `lyn-module-credits` rather than with every web
- * surface. A deployment without those planes had them parked or answering
- * only a refusal ([ledger](../../../../CUSTOM.md)).
- */
-const PRODUCT_ADMINISTRATION: readonly string[] = ['models', 'plugins', 'agent-presets']
 /** Onboarding steps the web-app roster registers, in coordinator order; both come from ui-settings-models. */
 const PRODUCT_ONBOARDING: readonly { id: string; order: number }[] = [
   { id: 'deepseek-official', order: 0 },
@@ -108,12 +95,11 @@ describe('ui-settings-general shell', () => {
     expect(c.ctx.slots.entries('sidebar.settings')).toEqual([])
   }, COLD_BOOT_TIMEOUT_MS)
 
-  it('projects each plane separately: product sections in order, defaults for bare rows, stable snapshots', async ({ start }) => {
+  it('projects the one plane it has: product sections in order, defaults for bare rows, stable snapshots', async ({ start }) => {
     const c = await start()
-    const { sections, administrationSections } = injectedOf(c).hooks
+    const { sections } = injectedOf(c).hooks
     const product = sections.getSnapshot()
     expect(product.map(row => row.id)).toEqual(PRODUCT_SECTIONS)
-    expect(administrationSections.getSnapshot().map(row => row.id)).toEqual(PRODUCT_ADMINISTRATION)
     c.ctx.slots.register({ name: 'settings.section', id: 'z', order: 1_000, label: 'Z' } as never, () => null)
     // No order and no label: both projection defaults apply, and order 0 sorts among the product rows.
     c.ctx.slots.register({ name: 'settings.section', id: 'a' } as never, () => null)
@@ -129,18 +115,6 @@ describe('ui-settings-general shell', () => {
     await Promise.resolve()
     expect(listener).toHaveBeenCalled()
     expect(sections.getSnapshot()).not.toBe(rows)
-    off()
-  })
-
-  it('offers the administration plane to the shape with no accounts, from the shared viewer read', async ({ start }) => {
-    const c = await start()
-    const { administers } = injectedOf(c).hooks
-    // Nothing has subscribed yet, so nothing has been read: the plane starts
-    // withheld rather than guessed.
-    expect(administers.getSnapshot()).toBe(false)
-    const off = administers.subscribe(() => {})
-    await vi.waitFor(() => { expect(administers.getSnapshot()).toBe(true) })
-    expect(c.ctx.uiViewer.state.getSnapshot().viewer?.accounts).toBe(false)
     off()
   })
 

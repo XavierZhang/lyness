@@ -597,8 +597,14 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   const composedRows = composeEntries([basePatches, surfacePatches, extraOverlayPatches])
   const webRuntimeConfig = composedRows.find(row => row.id === 'web-runtime')?.config as {
     surfaceContext?: boolean
+    documentPaths?: string[]
   } | undefined
   const surfaceContext = webRuntimeConfig?.surfaceContext !== false
+  // The pages the shipped composition serves beside the workbench — the
+  // administration console is one. Preserved for the same reason
+  // `surfaceContext` is: the override below replaces the row's whole config,
+  // and dropping these would 404 a page the product serves.
+  const documentPaths = webRuntimeConfig?.documentPaths ?? []
   // The scaffold's own overrides, above every bundle layer like `--patch` overlays.
   const overlayPatches: PatchOptions[] = [
     // Without HMR the profile applies configuration changes at its next start.
@@ -671,7 +677,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     // URL line are disabled because this scaffold owns its Playwright browser.
     // Preserve the composed surface-context choice because a patch replaces
     // the row's complete config.
-    { id: 'web-runtime', config: { openBrowser: false, printUrl: false, surfaceContext } },
+    { id: 'web-runtime', config: { openBrowser: false, printUrl: false, surfaceContext, documentPaths } },
     ...publicHost === undefined && options.remoteAuthority === undefined
       ? []
       : [{
