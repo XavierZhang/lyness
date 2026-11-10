@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/oidc/README.md
+/:
+  en: 145ccc4a7f53ad3e
+  zh: d24ce7b3ca888a9c
+/lyness-lyn-oidc:
+  en: 0bad4bc363803cd3
+  zh: 2057133d8d7da349
+/lyness-lyn-oidc/summary:
+  en: 30d6e2611f540dc8
+  zh: 22d01c93c1e501d4
+/lyness-lyn-oidc/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: b3ad7867f23dad1c
+/lyness-lyn-oidc/use-this-package:
+  en: 9c22911786d5f48d
+  zh: 77b3141b85d8684a
+/lyness-lyn-oidc/understand-the-implementation:
+  en: bd5b573eebd70f47
+  zh: ac645f3a848e21b3
+/lyness-lyn-oidc/further-exploration:
+  en: 4aec9a5ae7b58bde
+  zh: 8fc3f49122d2aa17
+/lyness-lyn-oidc/model-experience:
+  en: 34388addd6509b47
+  zh: b660d0c465aafa69
+/lyness-lyn-oidc/model-experience/kv-cache-effect:
+  en: e13faf79aaae30a9
+  zh: 7290727aeb005d00
+/lyness-lyn-oidc/known-limitations-and-deferred-work:
+  en: 2bcf543dc0c6a803
+  zh: e4992ff3e104ba46
+/lyness-lyn-oidc/known-limitations-and-deferred-work/dev-note:
+  en: eb03191e5ee60e35
+  zh: edc33d52cf0f4098

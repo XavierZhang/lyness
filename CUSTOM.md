@@ -1695,11 +1695,12 @@ web-app 隐藏 `permission` 与 `model`——输入框下面已经是座位。
 
 裁定：**接一个 IdP，lyness 只写一个 `oidc` 渠道 kind**，身份归提供方，授权/名册/额度/租户归我们。
 选型查证后的结论写进 [提案](.agents/notes/proposed/architecture/2026-11-10-oidc-identity-for-three-product-shapes.zh.md)：
-推荐 **ZITADEL**（organizations 是一等公民，直接表达「一个身份在两个组织里」这条最硬的需求），
-**但许可证待核实**——有资料称 v3.0 起转 AGPL-3.0，有资料仍称 Apache-2.0。退路是 Keycloak，
-代价是 realm 模型下账号切换要我们做身份经纪。分 5 期交付，只有第 1 期是新的安全敏感面。
+推荐 **ZITADEL**（organizations 是一等公民，直接表达「一个身份在两个组织里」这条最硬的需求）。
+许可证后来对着 ZITADEL 自己的 `LICENSING.md` 核实了：服务端 **AGPL-3.0-only**，
+`proto/` 与文档应用 Apache-2.0，`apps/login`、`packages/zitadel-client`、`packages/zitadel-proto` 为 MIT。
+退路仍是 Keycloak，代价是 realm 模型下账号切换要我们做身份经纪。分 5 期交付，只有第 1 期是新的安全敏感面。
 
-**没有开始实现**：这是多个 PR 的工程，且许可证与辖区问题要用户先定。
+第 1 期已落地，见下面「OIDC 渠道」一节。
 
 ### 二、「你可以用什么」：不是报错，是把模型的提示词贴到了用户页
 
@@ -1744,3 +1745,30 @@ Node/Group/Turn/Step→节点/分组/轮次/步骤、ui-cordis 的 Cordis Plugin
 `bundle/base` 的行写 `enabled: false`（不上传），web-app 不再挂 `ui-settings-session-log`（没有入口）。
 **为什么不止隐藏开关**：一个看不见的开关却还在把用户会话日志发给第三方，比显示开关更糟；
 以自己品牌出货的产品不该默认把用户会话送给上游厂商。想恢复：两处各一行，升级指南里写了。
+
+## OIDC 渠道：三形态登录体系的第 1 期（2026-11-10）
+
+新包 **`@lyness/lyn-oidc`**（`packages/identity/oidc`），在企业微信/钉钉/飞书三种 kind 旁边
+加第四种 `oidc`，由 `lyn-module-accounts` 以 `sign-in-kind-oidc` 这一行选中。
+身份归提供方，授权、名册、额度、租户仍归 lyness。
+
+**协议面做了什么**：读 discovery（带 TTL 缓存，并拒绝 `issuer` 与所请求不一致的文档）、
+authorization-code **带 PKCE**（每次尝试一个 32 字节随机 verifier + S256）、
+`client_secret_post` 换 token、**只读 userinfo 建主体**（不读 ID token），
+组织 claim 支持 `.` 分隔的路径，可选把组织作为授权参数带给提供方。
+
+**安全上刻意做的三件事**：
+1. **secret 只接受凭据引用**，写字面量在 `resolveConfig` 就拒绝——配置文件不该存密钥；
+2. **issuer 非 TLS 直接拒绝**，只放行 `localhost`/`127.0.0.1`/`[::1]`（本地开发）；
+3. **每次尝试独立状态**：用 `AttemptBook<OidcAttempt>` 持有 verifier，state 一次性可取、带 TTL。
+   第一版把 `returnTo`/`state`/`verifier` 放成实例字段，两个人同时登录会互相冲掉——自查时改掉的。
+
+**验证**：`packages/identity/oidc` 64 个用例、逐文件 100% 覆盖；composition 用例走真实 Loader
+（storage + auth-session + admission + sign-in）启动。仓库级：typecheck / lint / hygiene（含 publint）/
+doc-sync 44 项 / `pnpm run test` 2793 文件 54983 用例 / snapshot 251 / expected 144，全绿。
+
+**顺带修的门禁盲区**：`verify-package-readme-model-experience` 需要新包在
+`SENTENCE_MODEL_EXPERIENCE` 里有一条审计过的分类（`kind: 'none'`——登录往返发生在任何会话之前）。
+
+**还没做**：第 2～5 期（三形态的登录门与会话有效期、自助注册与准入、级别与额度、账号切换）。
+ZITADEL 实例本身也还没部署，所以这一行现在是「能配但没配」，与三种目录 kind 的处境一致。

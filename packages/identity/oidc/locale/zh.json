@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "单点登录",
+    "description": "通过本部署自己运行的 OpenID 提供方登录。"
+  }
+}

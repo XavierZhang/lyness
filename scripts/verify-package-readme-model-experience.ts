@@ -92,6 +92,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/identity/auth-session': { kind: 'none', reason: 'A Host store holds authentication state; it registers no tool, prompt, or Session event.' },
   'packages/identity/request-principal': { kind: 'none', reason: 'A Host request scope publishes who a call is; it registers no tool, prompt, or Session event.' },
   'packages/identity/sign-in': { kind: 'none', reason: 'A Host sign-in flow establishes sessions; it registers no tool, prompt, or Session event.' },
+  'packages/identity/oidc': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },
   'packages/identity/sign-in-http': { kind: 'none', reason: 'Host HTTP routes serve a browser sign-in; they register no tool, prompt, or Session event.' },
   'packages/host/announcements': { kind: 'none', reason: 'A Host source serves deployment-authored text to a surface; it registers no tool, prompt, or Session event.' },
   'packages/api/announcement-controller': { kind: 'none', reason: 'One Remote read of deployment-authored text; it registers no tool, prompt, or Session event.' },

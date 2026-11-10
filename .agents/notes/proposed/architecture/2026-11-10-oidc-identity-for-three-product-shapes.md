@@ -45,7 +45,7 @@ User levels and quotas stay on this side: a level is a roster fact, and the quot
 
 ### Staged delivery
 
-1. **The channel.** An `oidc` kind beside the three directory kinds: discovery, authorization-code with PKCE, the verified subject, and the organization claim. The Settings page that configures channels already exists and takes a new kind without change.
+1. **The channel.** An `oidc` kind beside the three directory kinds: discovery, authorization-code with PKCE, the verified subject, and the organization claim. The Settings page that configures channels already exists and takes a new kind without change. Landed as `@lyness/lyn-oidc`, selected by `lyn-module-accounts` as the `sign-in-kind-oidc` row.
 2. **The gate, in all three shapes.** `lyn-module-accounts` in the SaaS profiles, and `lyn-client-ui-sign-in` already covers the product; the work is the desktop half and the session lifetime (how long a valid session skips the login screen).
 3. **Self-registration and admission.** An admission rule that accepts a verified subject the provider created, so a personal-shape person becomes a roster entry on first sign-in instead of needing an administrator.
 4. **Levels and quotas.** A level on the roster entry, resolved to a `lyn-credits` allowance; the tenant administration page gains the level column.
@@ -55,16 +55,16 @@ Each stage is independently shippable, and only stage 1 is new security-sensitiv
 
 ### Choosing the provider
 
-Searched 2026-11-10. The published comparisons conflict on licences and on what a self-hosted edition includes, so these are the questions to settle against each project's own documentation before committing, not settled facts:
+Searched 2026-11-10, and each licence below was then read from the project's own licence file rather than from a comparison, because the published comparisons contradict one another on exactly this point:
 
 | Candidate | Tenancy model | Licence as reported | Fit for this requirement set |
 |---|---|---|---|
-| ZITADEL | organizations, first-class | AGPL-3.0 since v3.0 by one report, Apache-2.0 by another; SDKs reported Apache-2.0 | Best fit: organizations express the tenant shape and one identity in two organizations directly |
+| ZITADEL | organizations, first-class | AGPL-3.0-only, with Apache-2.0 for `proto/` and the docs app and MIT for `apps/login`, `packages/zitadel-client` and `packages/zitadel-proto` (`LICENSING.md`) | Best fit: organizations express the tenant shape and one identity in two organizations directly |
 | Keycloak | realms | Apache-2.0 | Mature and licence-clean, but a realm is a closed user set: one email in both a personal and a tenant account needs identity brokering between realms |
 | Logto | organizations | MPL-2.0; reports disagree on what the self-hosted edition gates | Good customer-facing login; the gating question decides whether it is usable self-hosted |
 | Authentik | weak or absent multi-tenancy | open-core, disputed | Not a fit for the tenant shape |
 
-**Recommendation: ZITADEL, subject to confirming its licence.** It is the only candidate whose tenancy model states this product's requirement without a workaround. The licence question is about the provider as a separate service: this repository is MIT, and running an unmodified AGPL service beside it does not reach lyness's own code, but modifying and distributing that service would carry obligations. If that is unacceptable, Keycloak is the fallback and account switching becomes brokering work on our side.
+**Recommendation: ZITADEL.** It is the only candidate whose tenancy model states this product's requirement without a workaround, and its licence is now read rather than reported: AGPL-3.0-only for the server. That reaches the server alone. lyness stays MIT and speaks OIDC to it over the network, so running an unmodified ZITADEL beside this repository copies none of its code into it; the obligations begin if the server itself is modified and then conveyed, which no stage of this plan does. The client and protocol packages a deployment might actually import are MIT, so even a client-side integration stays outside the AGPL. Keycloak remains the fallback if a customer refuses an AGPL component outright, at the cost of brokering account switching ourselves.
 
 ## Alternatives considered
 
@@ -85,6 +85,6 @@ Searched 2026-11-10. The published comparisons conflict on licences and on what 
 ## Risks
 
 - **The provider becomes a hard dependency of signing in.** Its outage is a total outage. The standalone shape mitigates this by pointing at infrastructure the customer already runs.
-- **Licence and jurisdiction.** The licence question above is unresolved, and a China-deployed SaaS may need the provider inside the same jurisdiction; a hosted foreign provider may not be an option.
+- **Jurisdiction, and a customer's licence policy.** A China-deployed SaaS may need the provider inside the same jurisdiction, so a hosted foreign provider may not be an option. The AGPL server is a separate network service here rather than a dependency of this repository, but a customer whose policy bars AGPL components anywhere in a deployment is the case Keycloak exists for.
 - **Quotas and identity drift apart.** Levels live here and identity lives there, so a person deleted in the provider still holds a roster entry. Reconciliation is part of stage 4, not an afterthought.
 - **What this gives up.** lyness stops being able to sign anybody in on its own: a deployment without a provider has no way in, where today a single-operator profile needs no identity at all. The standalone shape keeps that escape only while it keeps the single-operator composition.

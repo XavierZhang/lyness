@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Single sign-on",
+    "description": "Sign in through the OpenID Provider this deployment runs."
+  }
+}

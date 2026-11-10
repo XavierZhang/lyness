@@ -56,6 +56,7 @@
     "@lyness/lyn-feishu": "workspace:*",
     "@lyness/lyn-managed-bots": "workspace:*",
     "@lyness/lyn-managed-people": "workspace:*",
+    "@lyness/lyn-oidc": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session-ownership": "workspace:*",

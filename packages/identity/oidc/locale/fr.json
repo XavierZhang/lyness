@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Authentification unique",
+    "description": "Connectez-vous via le fournisseur OpenID qu'exécute ce déploiement."
+  }
+}

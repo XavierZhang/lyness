@@ -388,6 +388,7 @@
     { "path": "./packages/identity/managed-bots" },
     { "path": "./packages/identity/managed-people" },
     { "path": "./packages/identity/people" },
+    { "path": "./packages/identity/oidc" },
     { "path": "./packages/identity/acting-context" },
     { "path": "./packages/identity/auth-session" },
     { "path": "./packages/identity/request-principal" },

@@ -83,6 +83,14 @@
     - id: sign-in-kind-feishu
       name: '@lyness/lyn-feishu/kind'
 
+    # A deployment's own OpenID Provider, which is how this fork serves a
+    # directory nobody here has written an adapter for: the protocol is the
+    # same at every provider, so the kind asks for an issuer rather than for a
+    # vendor's app credentials
+    # (../../../.agents/notes/proposed/architecture/2026-11-10-oidc-identity-for-three-product-shapes.md).
+    - id: sign-in-kind-oidc
+      name: '@lyness/lyn-oidc/kind'
+
     # The surface administrators configure those instances through. It is here
     # rather than with the other namespaces because what it speaks for is
     # here: a deployment without this module stores no channels to configure.

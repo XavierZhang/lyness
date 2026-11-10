@@ -2791,6 +2791,51 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-office-to-pdf -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-oidc -->
+<a id="lynesslyn-oidc"></a>
+
+## `@lyness/lyn-oidc`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/identity/oidc/src/index.ts:111`](../packages/identity/oidc/src/index.ts)
+
+```ts config-catalog
+/** The provider to sign in against, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the provider returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /**
+   * The provider's issuer identifier, which is also where discovery is read
+   * from. Required, and `https` outside loopback.
+   */
+  issuer: string
+  /** The client this deployment is registered as with the provider. Required. */
+  clientId: string
+  /** Scopes requested at sign-in; defaults to identity and address. */
+  scope?: string
+  /**
+   * The claim naming the organization a sign-in belongs to, with `.`
+   * separating one level.
+   *
+   * Absent leaves every sign-in the deployment's own, which is the standalone
+   * shape. A deployment serving several organizations names the claim its
+   * provider carries them in, so one provider instance serves every tenant.
+   */
+  organizationClaim?: string
+  /** The organization this channel instance signs in for; absent is deployment-wide. */
+  organization?: string
+  /**
+   * The authorization parameter that asks the provider for one organization's
+   * own sign-in page, when it offers one.
+   */
+  organizationParameter?: string
+  /** How long one discovery document is reused, in milliseconds; defaults to 3600000. */
+  discoveryTtlMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-oidc -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-permission-presets -->
 <a id="lynesslyn-permission-presets"></a>
 
