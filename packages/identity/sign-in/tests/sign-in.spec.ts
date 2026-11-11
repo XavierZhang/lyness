@@ -11,7 +11,7 @@ import Storage from '@lyness/lyn-storage'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
 import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import StoredAuthSessions from '@lyness/lyn-auth-session/store'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -84,10 +84,21 @@ const SUBJECT: ExternalSubject = {
   displayName: 'Ada Lovelace',
 }
 
+/** One standing the directory double reports. */
+function standing(role: Membership['role'], organization?: string): Membership {
+  return {
+    id: brandString<MembershipId>(`ada:${role}${organization === undefined ? '' : `:${organization}`}`),
+    person: ADA,
+    role,
+    ...organization === undefined ? {} : { organization },
+  }
+}
+
 /** A context with sessions, one admission answer, and the sign-in service. */
 async function harness(
   admits: PersonId | undefined,
   config: Config = {},
+  held?: readonly Membership[],
 ): Promise<Context> {
   const root = mkdtempSync(join(tmpdir(), 'lyn-sign-in-'))
   roots.push(root)
@@ -96,6 +107,15 @@ async function harness(
   await ctx.plugin(StorageJson, { root })
   await ctx.plugin(StorageDomain, { backend: 'json' })
   await ctx.plugin(StoredAuthSessions, {}).await()
+  // The roster is read optionally, so a case that states no standings leaves
+  // the service out — which is the shape of a deployment with no directory.
+  if (held !== undefined) {
+    ctx.provide('people', {
+      person: () => Promise.resolve(undefined),
+      membership: (id: MembershipId) => Promise.resolve(held.find(one => one.id === id)),
+      memberships: () => Promise.resolve(held),
+    } as never)
+  }
   await ctx.plugin(class extends TableAdmission {
     constructor(inner: Context) { super(inner, admits) }
   }).await()
@@ -252,6 +272,39 @@ describe('SignIn', () => {
     const dispose = ctx.signIn.register(channel(SUBJECT))
     await dispose()
     expect(ctx.signIn.available()).toHaveLength(0)
+  })
+
+  it('puts the one standing this person holds in force', async () => {
+    const only = standing('platform-administrator')
+    const ctx = await harness(ADA, {}, [only])
+    ctx.signIn.register(channel(SUBJECT))
+    const session = await ctx.authSessions.read(await sessionFrom(ctx))
+    // A session acting personally authorizes nothing a standing is required
+    // for, and somebody holding one standing has nothing to choose between.
+    expect(session.acting).toEqual({ person: ADA, membership: only.id })
+  })
+
+  it('leaves somebody who holds several standings acting personally', async () => {
+    const ctx = await harness(ADA, {}, [standing('member', 'acme'), standing('tenant-administrator', 'beta')])
+    ctx.signIn.register(channel(SUBJECT))
+    const session = await ctx.authSessions.read(await sessionFrom(ctx))
+    // Which organization they act for is their decision, taken on a surface
+    // that can ask.
+    expect(session.acting).toEqual({ person: ADA })
+  })
+
+  it('leaves a session personal when the roster holds no standing for them', async () => {
+    const ctx = await harness(ADA, {}, [])
+    ctx.signIn.register(channel(SUBJECT))
+    expect((await ctx.authSessions.read(await sessionFrom(ctx))).acting).toEqual({ person: ADA })
+  })
+
+  it('establishes a session where the deployment keeps no directory to ask', async () => {
+    const ctx = await harness(ADA)
+    ctx.signIn.register(channel(SUBJECT))
+    // No roster for a standing to come from; the session is the one thing
+    // this flow can still produce.
+    expect((await ctx.authSessions.read(await sessionFrom(ctx))).acting).toEqual({ person: ADA })
   })
 
   it('stops offering a channel whose plugin was unloaded', async () => {

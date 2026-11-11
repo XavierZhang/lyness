@@ -761,6 +761,12 @@ async revoke(id: InvitationId, by: Membership): Promise<void>
  * Every refusal answers undefined, like every other unadmitted subject: a
  * redemption page that distinguished "no such code" from "expired" would
  * tell whoever asked which codes exist.
+ *
+ * A roster the redemption cannot finish writing is rolled back: a failed
+ * binding takes the person it was for with it, so a refused redemption
+ * leaves nobody behind, and the failure is raised rather than answered as
+ * "not admitted" — the person presenting the code did nothing wrong, and
+ * silence would hide a deployment that cannot admit anybody.
  * @param code - the code the person presented.
  * @param subject - the subject their channel verified.
  * @returns the person they now are here, or undefined when the code admits nobody.

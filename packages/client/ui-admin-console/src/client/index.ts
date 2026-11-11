@@ -176,31 +176,39 @@ function channelRows(view: ViewerView): readonly AdminChannelRow[] {
 }
 
 /**
+ * What the console says when this deployment keeps no accounts.
+ *
+ * The person at the keyboard is its operator, so the console is theirs and
+ * there is nobody to sign out.
+ */
+const NO_ACCOUNTS: AdminViewerRow = {
+  name: undefined, signOutPath: undefined, administers: true,
+  accounts: false, signedIn: false, channels: EMPTY_CHANNELS,
+}
+
+/**
  * Who the console says is viewing it.
  *
  * The viewer service owns the read; a composition without it has no accounts,
  * so the console names nobody and offers no sign-out — which is the
  * single-operator shape, where the person at the keyboard is the operator.
+ *
+ * The service is resolved per read rather than once: `apply` runs while the
+ * client graph is still mounting, and a service looked up there is undefined
+ * for no reason other than plugin order — which would make a deployment with
+ * accounts render as one without any.
  * @param ctx - client plugin context.
  * @returns a snapshot source the frame subscribes to.
  */
 function viewerRow(ctx: Context): HostObservable<AdminViewerRow> {
-  const viewer = ctx.get('uiViewer')
-  if (viewer === undefined) {
-    // No viewer service: no accounts, so the person at the keyboard is the
-    // operator and the console is theirs.
-    const absent: AdminViewerRow = {
-      name: undefined, signOutPath: undefined, administers: true,
-      accounts: false, signedIn: false, channels: [],
-    }
-    return { getSnapshot: () => absent, subscribe: () => () => {} }
-  }
   let last: AdminViewerRow = {
     name: undefined, signOutPath: undefined, administers: false,
-    accounts: false, signedIn: false, channels: [],
+    accounts: false, signedIn: false, channels: EMPTY_CHANNELS,
   }
   return {
     getSnapshot: () => {
+      const viewer = ctx.get('uiViewer')
+      if (viewer === undefined) return NO_ACCOUNTS
       const snapshot = viewer.state.getSnapshot()
       const view = snapshot.viewer
       const name = view?.person?.displayName
@@ -218,6 +226,8 @@ function viewerRow(ctx: Context): HostObservable<AdminViewerRow> {
       return last
     },
     subscribe: (listener) => {
+      const viewer = ctx.get('uiViewer')
+      if (viewer === undefined) return () => {}
       void viewer.load()
       return viewer.state.subscribe(listener)
     },

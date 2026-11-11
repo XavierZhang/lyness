@@ -25,6 +25,9 @@ import type { AuditSubmission } from '@lyness/lyn-admin-audit'
 import { administers } from '@lyness/lyn-people'
 import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
 import type {} from '@lyness/lyn-sign-in-channels'
+// Type-only: the registry of channels this deployment serves, read optionally
+// so a composition-written channel can be bound on.
+import type {} from '@lyness/lyn-sign-in'
 import { randomUUID } from '@lyness/lyn-util-crypto'
 import type { Domain } from '@lyness/lyn-storage-domain'
 import { managedPeopleDomain } from './storage.ts'
@@ -434,9 +437,13 @@ export class ManagedPeople extends Service {
     const channels = this.ctx.get('signInChannels')
     if (channels === undefined) return
     const permitted = await channels.list(by)
-    if (!permitted.some(candidate => candidate.id === channel)) {
-      throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
-    }
+    if (permitted.some(candidate => candidate.id === channel)) return
+    // A channel composition wrote is not in that store and never can be: the
+    // installation's own files name it, so no standing configured it and
+    // none can change it. It serves the whole deployment, and who may be
+    // admitted through it has already been decided by the person check above.
+    if (this.ctx.get('signIn')?.available().some(candidate => candidate.id === channel) === true) return
+    throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
   }
 
   /** One person as a surface shows them, with the identities that sign in as them. */

@@ -2045,3 +2045,53 @@ Traefik + Postgres + login v2，`localhost:8080`。**全部走 API 预置，没�
 包内 26 个用例、单文件 100% 覆盖（含「只改自己拥有的三样、注释与他人行原样保留」「第二次运行幂等」「换 subject 是替换」「拒绝第二位管理员」「每一种打错的输入各报哪一栏」）。另加补登记两处：`official-bundles` 的模板元组、`profile-mcp` 的独立树清单（新 profile 是不挂 agent 的运维树）。
 
 仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2811 文件 55152 用例 / snapshot 251 / expected 144 / build 10 项，全绿。`apps/desktop/tests/login-shell-environment.spec.ts` 在全量并发下抖了一次（单独跑 21 项全过，且本轮没碰 `apps/desktop`）——既有抖动，已记在这里。
+
+-----
+
+## 登录后置入标准，以及真跑暴露的两个自有缺陷（2026-11-11）
+
+用户拍板：登录后只持一个标准就置为生效，多个则一个都不置。连带要求修「开发门禁」那条——而那条实测下来**是我报错了**，见下。
+
+### 一、登录后把唯一那个标准置为生效
+
+`signIn.admitAndEstablish` 建会话之后多一步：问目录这个人持有哪些标准，**恰好一个就 `switchContext` 置上**；多个一个都不置（由哪个组织行事是他的选择，留给组织选择器）；一个都没有、或部署根本没有目录，就按原样留着。
+
+之前的事实是会话里只有 `acting: { person }`，于是 `invitations/list`、`people/list` 全部答 `this call acts in no standing`——管理员登进来之后什么都干不了。
+
+### 二、更正：开发门禁和账号会话**不冲突**
+
+上一轮我报了「本机 `lyn web` 的门禁与账号会话打架」。实测把它推翻了：登录前后每一次文档加载都是 **200**（空白上下文、带/不带登录各跑一遍）。我当时看到的 `lyn web authentication required` 是 Playwright `reload()` 重放**跨站重定向链**时 `SameSite=Lax` cookie 不被发送造成的测试假象。产品侧无事可修，这条撤回。
+
+真正让管理端显示「尚未登录」的是下面这条。
+
+### 三、`apply` 里读服务是错的（我自己的 bug，两处）
+
+管理端与 `/join` 都在 `apply` 里 `ctx.get('uiViewer')`。`apply` 跑在客户端图还在挂载的时候，那一刻它必然是空的（`ui-viewer` 自己 `inject: ['remote', 'remote.identity']`，要等命名空间挂完）——于是「有账号体系的部署」被渲染成「没有账号体系」：管理端说「尚未登录」、`/join` 说「这个部署不需要邀请码」。
+
+两处都改成**按次读取**（`getSnapshot`/`subscribe` 里各读一次），并在注释里写明为什么不能在 `apply` 里读。注意这条只会在**真跑**里暴露：单元测试里 `ctx.provide` 先于 `ctx.plugin`，服务永远在那儿。
+
+### 四、写定渠道不可绑定（更严重，也在我这条路上）
+
+`managed-people` 的绑定授权只认 `signInChannels`（运行时配置过的渠道）那个库，而 **composition 写下的渠道永远不在那个库里**——引导脚本写的 `oidc`、独立部署指南里的企业微信，都是。于是绑定被拒，而兑换已经先占了次数、先建了人：**半完成**，人建出来了、绑定没写、登录失败（库里真的留下两个孤儿 Bea）。
+
+两处修：
+1. 写定/已注册的渠道也接受绑定——它是 composition 自己的决定、部署范围，而「谁可以被它准入」在人员那一层已经判过；库里没有、注册表里也没有的渠道照旧拒绝。
+2. **绑定被拒就把刚建的那个人收回去**，烧掉的那次使用是唯一痕迹；并且**抛出**而不是答成「未被准入」——出示码的人没做错任何事，一个谁都准入不了的部署应该说出来。
+
+### 真实链路证据（ZITADEL v4.16，清空存储后一次跑完）
+
+| 环节 | 结果 |
+|---|---|
+| Ada 经 ZITADEL 登录 | 管理端页脚「Signed in as Ada Lin」+ 退出 |
+| Ada 读自己的邀请码页 | 「Nothing has been invited yet」（此前是 acts in no standing） |
+| Ada 签码 | 「Invitation for Bea」+ 链接出现 |
+| 空白浏览器打开链接 | 「You have been invited」+ 目录按钮 |
+| Bea 经 ZITADEL 登录 | 回调 302 → 落进产品；viewer 答出她是新建的人员 |
+| Ada 的列表 | 「Bea Member Closed acme 1 of 1 redeemed」 |
+| 存储对齐 | 人员 1 条（无孤儿）、绑定 1 条（`oidc` + issuer + 她的 ZITADEL id）、两条会话各带身份：`ada:platform-administrator`、`…:standing` |
+
+仓库级：typecheck / lint / hygiene 32 / doc-sync 44 / `pnpm run test` 2811 文件 55158 用例 / snapshot 251 / expected 144 / build 10，全绿。
+
+### 下一轮的入口
+
+多标准时的**组织选择器**（OIDC 提案第 5 期剩下的那一半）：现在多标准的人登录后不持标准，等于被挡在管理之外，需要一个能问他「以哪个组织行事」的界面。

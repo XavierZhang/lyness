@@ -116,21 +116,23 @@ them.
 Run it once, where the deployment runs, before its first start.
 
 Options:
-  --target <profile>   profile this administrator is written into
-  --person <id>        roster id, permanent: sessions, grants and bindings are
-                       written against it
-  --name <text>        name a surface shows them by
-  --issuer <url>       the provider's issuer URL, which is also where discovery
-                       is read from
-  --client-id <id>     the client this deployment is registered as with the
-                       provider
-  --subject <sub>      the provider's own stable identity for this person: its
-                       `sub` claim
-  --secret-name <ref>  credential reference the provider's client secret is read
-                       under (default: "OIDC_CLIENT_SECRET")
-  --replace            write this administrator in place of one the layer
-                       already names
-  -h, --help           show this help
+  --target <profile>     profile this administrator is written into
+  --person <id>          roster id, permanent: sessions, grants and bindings are
+                         written against it
+  --name <text>          name a surface shows them by
+  --issuer <url>         the provider's issuer URL, which is also where
+                         discovery is read from
+  --client-id <id>       the client this deployment is registered as with the
+                         provider
+  --subject <sub>        the provider's own stable identity for this person: its
+                         `sub` claim
+  --public-origin <url>  the origin a browser reaches this deployment at:
+                         scheme, host and port
+  --secret-name <ref>    credential reference the provider's client secret is
+                         read under (default: "OIDC_CLIENT_SECRET")
+  --replace              write this administrator in place of one the layer
+                         already names
+  -h, --help             show this help
 
 Where the subject comes from: open the provider's own console, find the person,
 and copy the id it keeps them under. It is never their address — an address can
@@ -138,9 +140,11 @@ be reassigned, and this binding must not follow it.
 
 Examples:
   lyn --profile admin-setup --target acme --person ada --name Ada \
-    --issuer https://id.acme.example --client-id 2984... --subject 2984...
+    --issuer https://id.acme.example --client-id 2984... --subject 2984... \
+    --public-origin https://agent.acme.example
   lyn --profile admin-setup --target acme --person ada --name Ada \
-    --issuer https://id.acme.example --client-id 2984... --subject 3071... --replace
+    --issuer https://id.acme.example --client-id 2984... --subject 3071... \
+    --public-origin https://agent.acme.example --replace
 
 ```
 

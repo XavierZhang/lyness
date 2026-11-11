@@ -3676,7 +3676,7 @@ export interface Config {
 ## `@lyness/lyn-sign-in`
 
 - `inject`: `authSessions` · `signInAdmission`
-- `source`: [`packages/identity/sign-in/src/index.ts:82`](../packages/identity/sign-in/src/index.ts)
+- `source`: [`packages/identity/sign-in/src/index.ts:86`](../packages/identity/sign-in/src/index.ts)
 
 ```ts config-catalog
 /** Deployment-owned terms for a session a directory sign-in establishes. */

@@ -22,6 +22,10 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import type { AuthSessionId } from '@lyness/lyn-auth-session'
+// Type-only: the roster is read optionally, so this pulls its service
+// declaration without requiring the package at runtime.
+import type {} from '@lyness/lyn-people'
+import type { PersonId } from '@lyness/lyn-people'
 import type {
   ChannelDescription, ChannelId, ExternalSubject, RedirectStart, SignInOutcome, SignInRefusal,
 } from './types.ts'
@@ -301,7 +305,34 @@ export class SignIn extends Service {
       method: `sign-in:${channel}`,
       lifetimeMs: this.terms.lifetimeMs,
     })
+    await this.putStandingInForce(session.id, person)
     return session.id
+  }
+
+  /**
+   * Put this person's one standing in force, where they hold exactly one.
+   *
+   * A session starts in its person's own personal context, which authorizes
+   * nothing a standing is required for. Somebody who holds one standing has
+   * nothing to choose between, and leaving them personal would make the
+   * deployment refuse its own administrator the moment they signed in.
+   *
+   * Somebody who holds several is left personal on purpose: which
+   * organization they are acting for is their decision, taken on a surface
+   * that can ask, not one this flow makes for them.
+   *
+   * A deployment with no directory to ask leaves the session as established:
+   * there is no roster for a standing to come from.
+   * @param session - the session just established.
+   * @param person - the person it was established for.
+   */
+  private async putStandingInForce(session: AuthSessionId, person: PersonId): Promise<void> {
+    const directory = this.ctx.get('people')
+    if (directory === undefined) return
+    const held = await directory.memberships(person)
+    const only = held.length === 1 ? held[0] : undefined
+    if (only === undefined) return
+    await this.ctx.authSessions.switchContext(session, { person, membership: only.id })
   }
 }
 

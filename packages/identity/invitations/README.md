@@ -56,6 +56,8 @@ The browser half carries the code: `/auth/sign-in/<channel>?invite=<code>` keeps
 
 **A use is claimed before the roster is written.** Two redemptions racing cannot exceed the count; a claim whose write then fails burns a use, which is the safe direction — an extra member is not recoverable, and a burned use is one more invitation.
 
+**A roster it cannot finish writing is rolled back.** The person is written before the identity that signs in as them, so a refused binding removes that person again: a row nobody can be is one an administrator did not ask for and cannot explain. The failure is raised rather than answered as "not admitted" — whoever presented the code did nothing wrong, and a deployment that cannot admit anybody should say so.
+
 **Every refusal is the same answer.** A wrong code, a spent one, an expired one and an uninvited subject all read as `undefined`, which the sign-in reports as `not-admitted`. A page that told them apart would report, to whoever asked, which codes exist.
 
 **A withdrawal keeps the record.** Revoking sets `revokedAt` rather than deleting the row: the trail of who invited whom is the point of keeping it, and a deleted row answers nothing when somebody asks how that person got in.
@@ -85,7 +87,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **A redemption is not transactional** — the use is claimed first and the roster written after, so a failure between them burns a use without admitting anybody.
+- **A redemption is not transactional** — the use is claimed first and the roster written after, so a failure between them burns a use without admitting anybody. A refused binding takes its own half back: the person is removed again, and the burned use is the only trace.
 - **No surface yet** — issuing and withdrawing are service calls; the administration console's page and the front-end redemption flow are the next steps.
 - **One standing per code** — an invitation carries one role in one organization, so inviting somebody to two organizations is two codes.
 - **No email** — the deployment produces the code; sending it is the administrator's own business, by whatever channel they already use.

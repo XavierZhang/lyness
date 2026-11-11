@@ -120,23 +120,33 @@ export function channelRows(view: ViewerView, code: string): readonly JoinChanne
   return rows.length === 0 ? EMPTY_CHANNELS : rows
 }
 
+/** What this page reports before it has asked, and where there is nothing to ask about. */
+const NOTHING_TO_REDEEM: JoinVisitRow = {
+  invited: false, accounts: false, signedIn: false, channels: EMPTY_CHANNELS,
+}
+
 /**
  * What this page knows about the visit.
  *
  * The viewer service owns the read; a composition without it has no accounts,
  * so there is nobody an invitation could admit and the page says so.
+ *
+ * The service is resolved per read rather than once: `apply` runs while the
+ * client graph is still mounting, and a service looked up there is undefined
+ * for no reason other than plugin order — which would make a deployment with
+ * accounts tell every invited person that it needs no invitation.
  * @param ctx - client plugin context.
  * @param code - the code this visit carries, if any.
  * @returns a snapshot source the page subscribes to.
  */
 export function visitRow(ctx: Context, code: string | undefined): HostObservable<JoinVisitRow> {
-  const invited = code !== undefined
-  const viewer = ctx.get('uiViewer')
-  if (viewer === undefined || code === undefined) {
-    const absent: JoinVisitRow = { invited, accounts: false, signedIn: false, channels: EMPTY_CHANNELS }
-    return { getSnapshot: () => absent, subscribe: () => () => {} }
+  if (code === undefined) {
+    // Nothing to redeem, so nothing to ask: this visit costs the deployment
+    // no request at all.
+    return { getSnapshot: () => NOTHING_TO_REDEEM, subscribe: () => () => {} }
   }
-  let last: JoinVisitRow = { invited, accounts: false, signedIn: false, channels: EMPTY_CHANNELS }
+  const uninvited: JoinVisitRow = { invited: true, accounts: false, signedIn: false, channels: EMPTY_CHANNELS }
+  let last: JoinVisitRow = uninvited
   // The rows are derived once per viewer answer: rebuilding them on every
   // read would hand React a new array each time, which is the one thing a
   // snapshot source may not do.
@@ -144,6 +154,8 @@ export function visitRow(ctx: Context, code: string | undefined): HostObservable
   let rows: readonly JoinChannelRow[] = EMPTY_CHANNELS
   return {
     getSnapshot: () => {
+      const viewer = ctx.get('uiViewer')
+      if (viewer === undefined) return uninvited
       const view = viewer.state.getSnapshot().viewer
       const signedIn = view?.person !== undefined
       const accounts = view?.accounts === true
@@ -152,11 +164,13 @@ export function visitRow(ctx: Context, code: string | undefined): HostObservable
         rows = view !== undefined && accounts && !signedIn ? channelRows(view, code) : EMPTY_CHANNELS
       }
       if (accounts !== last.accounts || signedIn !== last.signedIn || rows !== last.channels) {
-        last = { invited, accounts, signedIn, channels: rows }
+        last = { invited: true, accounts, signedIn, channels: rows }
       }
       return last
     },
     subscribe: (listener) => {
+      const viewer = ctx.get('uiViewer')
+      if (viewer === undefined) return () => {}
       void viewer.load()
       return viewer.state.subscribe(listener)
     },

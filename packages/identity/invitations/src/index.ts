@@ -306,6 +306,12 @@ export default class Invitations extends Service {
    * Every refusal answers undefined, like every other unadmitted subject: a
    * redemption page that distinguished "no such code" from "expired" would
    * tell whoever asked which codes exist.
+   *
+   * A roster the redemption cannot finish writing is rolled back: a failed
+   * binding takes the person it was for with it, so a refused redemption
+   * leaves nobody behind, and the failure is raised rather than answered as
+   * "not admitted" — the person presenting the code did nothing wrong, and
+   * silence would hide a deployment that cannot admit anybody.
    * @param code - the code the person presented.
    * @param subject - the subject their channel verified.
    * @returns the person they now are here, or undefined when the code admits nobody.
@@ -325,12 +331,21 @@ export default class Invitations extends Service {
       role: found.role,
       ...found.organization === undefined ? {} : { organization: found.organization },
     }, issuer)
-    await this.ctx.managedPeople.bind({
-      channel: subject.channel,
-      issuer: subject.issuer,
-      subject: subject.subject,
-      person: person.id,
-    }, issuer)
+    try {
+      await this.ctx.managedPeople.bind({
+        channel: subject.channel,
+        issuer: subject.issuer,
+        subject: subject.subject,
+        person: person.id,
+      }, issuer)
+    } catch (refused: unknown) {
+      // The roster entry is only worth having with the identity that signs in
+      // as it: a person nobody can be is a row an administrator did not ask
+      // for and cannot explain. Removing it leaves the burned use as the only
+      // trace, which is the same safe direction as a claim whose write fails.
+      await this.ctx.managedPeople.remove(person.id, issuer)
+      throw refused
+    }
     await this.ctx.adminAudit.record({
       kind: 'invitation',
       subject: found.id,

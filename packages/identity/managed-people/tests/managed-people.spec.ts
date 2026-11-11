@@ -48,6 +48,7 @@ async function bench(options: {
   people?: { id: string; displayName: string; role: string; organization?: string }[]
   bindings?: { channel: string; issuer: string; subject: string; person: string }[]
   channels?: readonly string[]
+  registered?: readonly string[]
 } = {}): Promise<Context> {
   const root = await mkdtemp(join(tmpdir(), 'lyn-managed-people-'))
   roots.push(root)
@@ -61,6 +62,12 @@ async function bench(options: {
     // The real service filters by the standing; the fixture answers the ids
     // the test says this standing administers.
     ctx.provide('signInChannels', { list: () => Promise.resolve(offered.map(id => ({ id }))) } as never)
+  }
+  if (options.registered !== undefined) {
+    const registered = options.registered
+    // What composition wrote: channels the sign-in service offers and no
+    // standing configured, so the configured-channel store never holds them.
+    ctx.provide('signIn', { available: () => registered.map(id => ({ id })) } as never)
   }
   await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ManagedPeople).await()
@@ -222,6 +229,26 @@ describe('the directory identities admitted as them', () => {
       { channel: 'wecom-1', issuer: 'corp', subject: 'ghost', person: brandString<PersonId>('nobody') },
       platform,
     )).rejects.toMatchObject({ reason: 'unknown-person', message: UNKNOWN_PERSON })
+  })
+
+  it('are bound on a channel composition wrote, which no store can hold', async () => {
+    const ctx = await bench({ people: OPERATOR, channels: ['acme-wecom'], registered: ['oidc'] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+
+    // The installation's own files name this channel, so nobody configured it
+    // and nobody can change it; refusing it would make the roster unusable on
+    // the one channel a deployment bootstraps with.
+    await expect(ctx.managedPeople.bind(
+      { channel: 'oidc', issuer: 'https://id.acme.example', subject: 'bea-sub', person: added.id },
+      platform,
+    )).resolves.toMatchObject({ channel: 'oidc', written: false })
+
+    // A channel neither half knows is still refused.
+    await expect(ctx.managedPeople.bind(
+      { channel: 'nowhere', issuer: 'corp', subject: 'bea', person: added.id },
+      platform,
+    )).rejects.toMatchObject({ reason: 'not-permitted' })
   })
 
   it('are bound only by an administrator of the person and of the channel', async () => {

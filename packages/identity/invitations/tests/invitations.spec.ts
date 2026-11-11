@@ -73,7 +73,7 @@ function subject(id: string, displayName?: string): ExternalSubject {
 }
 
 /** A deployment that stores its roster and issues invitations. */
-async function bench(config: Record<string, number> = {}): Promise<Context> {
+async function bench(config: Record<string, number> = {}, channels?: readonly string[]): Promise<Context> {
   const root = await mkdtemp(join(tmpdir(), 'lyn-invitations-'))
   roots.push(root)
   const ctx = new Context()
@@ -82,6 +82,13 @@ async function bench(config: Record<string, number> = {}): Promise<Context> {
   await ctx.plugin(StorageJson, { root })
   await ctx.plugin(StorageDomain, { backend: 'json' })
   await ctx.plugin(AdminAudit, {}).await()
+  // A deployment whose administrator configured channels at runtime: the
+  // roster then authorizes a binding against that store, and a redemption on
+  // a channel it does not hold cannot be written.
+  if (channels !== undefined) {
+    const offered = channels
+    ctx.provide('signInChannels', { list: () => Promise.resolve(offered.map(id => ({ id }))) } as never)
+  }
   await ctx.plugin(ManagedPeople).await()
   await ctx.plugin(ManagedPeopleDirectory, { people: ROSTER }).await()
   await ctx.plugin(Invitations, config).await()
@@ -198,6 +205,19 @@ describe('redeeming one', () => {
     expect(await ctx.managedPeople.admit(JSON.stringify(['oidc', 'https://id.example', 'bea'])))
       .toBe(person)
     expect((await ctx.invitations.list(TENANT))).toMatchObject([{ uses: 1, open: false }])
+  })
+
+  it('leaves nobody behind when the roster refuses the binding', async () => {
+    // A deployment that knows other channels and not this one: the person is
+    // written before the binding is, so a refusal there must take them back.
+    const ctx = await bench({}, ['acme-wecom'])
+    const issued = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+
+    await expect(ctx.invitations.redeem(issued.code ?? '', subject('bea', 'Bea Smith')))
+      .rejects.toMatchObject({ reason: 'not-permitted' })
+    // No half-written member, and the burned use is the only trace.
+    expect(await ctx.managedPeople.list(PLATFORM)).toMatchObject([{ id: 'ada' }, { id: 'lee' }])
+    expect(await ctx.invitations.list(TENANT)).toMatchObject([{ uses: 1, open: false }])
   })
 
   it('falls back to the label when the directory publishes no name', async () => {
