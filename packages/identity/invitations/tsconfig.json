@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    { "path": "../../../vendor/cordis" },
+    { "path": "../../../vendor/schemastery" },
+    { "path": "../../storage/storage-domain" },
+    { "path": "../../util/brand" },
+    { "path": "../../util/crypto" },
+    { "path": "../admin-audit" },
+    { "path": "../managed-people" },
+    { "path": "../people" },
+    { "path": "../sign-in" }
+  ]
+}

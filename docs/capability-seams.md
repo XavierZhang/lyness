@@ -345,6 +345,8 @@ flowchart LR
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
   svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_invitations["invitations"]
+  svc_invitations["ctx.invitations<br/>The invitations an administrator issues"]
   pkg_api_admin_audit_controller["api-admin-audit-controller"]
   svc_adminAuditController["ctx.adminAuditController<br/>The trail an administrator reads"]
   pkg_api_bots_controller["api-bots-controller"]
@@ -514,6 +516,7 @@ flowchart LR
   pkg_host_product_telemetry_otel --> svc_productTelemetry
   pkg_host_webserver --> svc_webServer
   pkg_inspector --> svc_inspector
+  pkg_invitations --> svc_invitations
   pkg_jobs --> svc_jobs
   pkg_jobs_local --> svc_jobs
   pkg_llm --> svc_llm
@@ -930,6 +933,7 @@ flowchart LR
 | `ctx.adminAudit` | `core` | [`admin-audit`](../packages/identity/admin-audit) | - | - | - | Keeps who changed which record, when, and the value the change replaced, in a domain of its own that is only ever appended to; both rosters inject it, so a deployment administering them without a history fails to load. |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | Holds the bots added at runtime and puts each one in its organization's roster, where it holds a member standing and owns what it opens; admission refuses it, because no directory can authenticate a bot. |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again. |
+| `ctx.invitations` | `core` | [`invitations`](../packages/identity/invitations) | - | - | - | Holds the codes that admit somebody the roster has never heard of: one standing per code, bounded by its issuer's own standing, an expiry, a use count and a withdrawal, and void once that standing is gone. |
 | `ctx.adminAuditController` | `core` | [`api-admin-audit-controller`](../packages/api/admin-audit-controller) | - | - | - | Answers one page of recorded changes on the standing the call acts in, and resolves the one thing it owns: an unnamed read means the caller's own organization, so a tenant administrator does not name the only one they administer. |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against. |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | Projects the managed directory onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and reports each refusal under its own code so a form can disable the row it names. |

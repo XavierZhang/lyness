@@ -1,0 +1,106 @@
+---
+description: "Invitations: the bounded code an administrator sends so somebody nobody has heard of can join."
+kind: "package-reference"
+---
+
+# @lyness/lyn-invitations
+
+English | [中文](README.zh.md)
+
+## Summary
+
+`lyn-invitations` is how a stranger becomes a member. An administrator issues a code carrying one standing — a role and the organization it is in — and sends it; the person signs in through a directory this deployment accepts, presents the code, and becomes a roster entry with that standing. The code is the authority, bounded on every side: it grants no more than its issuer could, it expires, it allows a counted number of redemptions, it can be withdrawn, and it is void once the issuing standing is gone. Only its hash is stored.
+
+## Table of Contents
+
+- [Use this package](#use-this-package)
+- [Understand the implementation](#understand-the-implementation)
+- [Further Exploration](#further-exploration)
+- [Model Experience](#model-experience)
+- [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
+- [Dev Note](#dev-note)
+
+-----
+
+<a id="use-this-package"></a>
+## Use this package
+
+Two rows: the invitations themselves, and the admission rule that honours them **instead of** `lyn-managed-people/admission`.
+
+```yaml
+- id: invitations
+  name: '@lyness/lyn-invitations'
+  config:
+    defaultLifetimeMs: 604800000
+    defaultMaxUses: 1
+- id: sign-in-admission
+  name: '@lyness/lyn-invitations/admission'
+  config:
+    bindings: []
+```
+
+A deployment mounts exactly one admission rule. The managed rule admits only what an administrator bound; this one also admits whoever they invited. `bindings` is the same operator-written half both rules read, so swapping the row keeps what an installation wrote.
+
+The browser half carries the code: `/auth/sign-in/<channel>?invite=<code>` keeps it in a short-lived cookie and presents it when the directory returns. A code never travels to the directory.
+
+-----
+
+<a id="understand-the-implementation"></a>
+## Understand the implementation
+
+**The store holds no redeemable secret.** The code is returned once, by the call that issued it, and kept as a SHA-256. An administrator who loses it issues another one; nothing can read it back, including a stolen store.
+
+**It grants what its issuer holds, twice over.** The three rules the roster applies to adding somebody directly are applied again at issue time: a tenant administrator's standing names an organization, only a platform administrator makes another one, and nobody reaches outside the organization they administer. Then redemption asks the directory for the issuing standing again — a code issued by an administrator who has since been removed, demoted, or moved admits nobody.
+
+**The roster answers before the invitation.** A subject a binding already names signs in as that person, and a code they happen to hold changes nothing. That order is what stops a forwarded link from adding a second entry for somebody already here.
+
+**A use is claimed before the roster is written.** Two redemptions racing cannot exceed the count; a claim whose write then fails burns a use, which is the safe direction — an extra member is not recoverable, and a burned use is one more invitation.
+
+**Every refusal is the same answer.** A wrong code, a spent one, an expired one and an uninvited subject all read as `undefined`, which the sign-in reports as `not-admitted`. A page that told them apart would report, to whoever asked, which codes exist.
+
+**A withdrawal keeps the record.** Revoking sets `revokedAt` rather than deleting the row: the trail of who invited whom is the point of keeping it, and a deleted row answers nothing when somebody asks how that person got in.
+
+-----
+
+<a id="further-exploration"></a>
+## Further Exploration
+
+- [`lyn-managed-people`](../managed-people/README.md) — the roster a redemption writes, and the rules it restates.
+- [`lyn-sign-in`](../sign-in/README.md) — the flow that presents the code, and the admission seam it reaches.
+- [`lyn-sign-in-http`](../sign-in-http/README.md) — the cookie that carries a code across the browser round trip.
+- [`lyn-admin-audit`](../admin-audit/README.md) — where issuing, withdrawing and redeeming are recorded.
+
+-----
+
+<a id="model-experience"></a>
+## Model Experience
+
+None, as this package registers no tool or prompt: it answers who may join before any session exists.
+
+#### KV Cache effect
+
+No request prefix changes, because nothing here contributes to an assembled request.
+
+## Known Limitations and Deferred Work
+
+<a id="known-limitations-and-deferred-work"></a>
+
+- **A redemption is not transactional** — the use is claimed first and the roster written after, so a failure between them burns a use without admitting anybody.
+- **No surface yet** — issuing and withdrawing are service calls; the administration console's page and the front-end redemption flow are the next steps.
+- **One standing per code** — an invitation carries one role in one organization, so inviting somebody to two organizations is two codes.
+- **No email** — the deployment produces the code; sending it is the administrator's own business, by whatever channel they already use.
+- **A revoked invitation keeps its label** — which is the name the administrator typed, so a label holding an address keeps that address in the trail.
+
+**Runtime invariant:** no invitation grants more than its issuer still holds, and no code is readable after the call that issued it.
+
+-----
+
+<a id="dev-note"></a>
+### Dev Note
+
+<details>
+<summary>Working context for maintainers — click to expand</summary>
+
+`redeem` writes through `ctx.managedPeople` with the issuing standing as the actor, so the roster's own authorization and the administration trail both see the change as that administrator's — which is whose authority it is.
+
+</details>

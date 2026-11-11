@@ -1,0 +1,16 @@
+# Bilingual-pair consistency record for guide.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/upgrade-guide/v0.2.2-alpha.3/invitation-admission/guide.md
+/:
+  en: ab2f12623d92258d
+  zh: c3a3e6df1ed9b1ba
+/admission-honours-an-invitation-code:
+  en: b938e979296a4e84
+  zh: 9fc3d49863542b96
+/admission-honours-an-invitation-code/change:
+  en: 4565e1c2fff305ea
+  zh: c9f47c88e98ecf1c
+/admission-honours-an-invitation-code/migration:
+  en: ce2b25404a5c5d22
+  zh: d0c0fbfe285f6881

@@ -31,6 +31,8 @@ export type {
   SignInRefusal,
 } from './types.ts'
 export { SignInAdmission } from './admission.ts'
+export type { AdmissionOffer } from './admission.ts'
+import type { AdmissionOffer } from './admission.ts'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -240,31 +242,36 @@ export class SignIn extends Service {
    * which kind of client someone signed in from.
    * @param channel - the channel the person chose.
    * @param returnTo - the deployment's own callback address; a self-driven channel ignores it.
+   * @param offer - what this sign-in presents besides the subject, such as an
+   * invitation code; a redirect channel's offer is presented again on
+   * {@link resume}, because the browser leaves and comes back.
    * @returns their new session, or where to send the browser.
    * @throws {SignInRefused} when the channel is unknown, the directory did not
    * complete, or this deployment admits them as nobody.
    */
-  async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome> {
+  async begin(channel: ChannelId, returnTo: string, offer?: AdmissionOffer): Promise<SignInOutcome> {
     const mounted = this.mounted(channel)
     if (mounted.kind === 'redirect') {
       return { kind: 'redirect', start: await mounted.start(returnTo) }
     }
     const subject = await mounted.authenticate()
-    return { kind: 'session', session: await this.admitAndEstablish(channel, subject) }
+    return { kind: 'session', session: await this.admitAndEstablish(channel, subject, offer) }
   }
 
   /**
    * Finish the sign-in a redirect channel's directory is returning from.
    * @param channel - the channel that started it.
    * @param parameters - the query the directory came back with.
+   * @param offer - what this sign-in presents besides the subject, such as an
+   * invitation code the browser carried across the round trip.
    * @returns the bearer identity of their new session.
    * @throws {SignInRefused} when the channel is unknown or self-driven, the return
    * completes no sign-in, or this deployment admits them as nobody.
    */
-  async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId> {
+  async resume(channel: ChannelId, parameters: URLSearchParams, offer?: AdmissionOffer): Promise<AuthSessionId> {
     const mounted = this.mounted(channel)
     if (mounted.kind !== 'redirect') throw new SignInRefused('nothing-to-resume')
-    return this.admitAndEstablish(channel, await mounted.complete(parameters))
+    return this.admitAndEstablish(channel, await mounted.complete(parameters), offer)
   }
 
   /** The channel of that id, or the refusal a caller naming an unmounted one gets. */
@@ -284,9 +291,10 @@ export class SignIn extends Service {
   private async admitAndEstablish(
     channel: ChannelId,
     subject: ExternalSubject | undefined,
+    offer?: AdmissionOffer,
   ): Promise<AuthSessionId> {
     if (subject === undefined) throw new SignInRefused('not-authenticated')
-    const person = await this.ctx.signInAdmission.admit(subject)
+    const person = await this.ctx.signInAdmission.admit(subject, offer)
     if (person === undefined) throw new SignInRefused('not-admitted')
     const session = await this.ctx.authSessions.establish({
       person,

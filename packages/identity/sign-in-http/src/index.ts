@@ -27,7 +27,7 @@ import { SignInRefused, channelId } from '@lyness/lyn-sign-in'
 import type { ChannelId } from '@lyness/lyn-sign-in'
 import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import {
-  ATTEMPT_COOKIE, SESSION_COOKIE, clearCookie, readCookie, setCookie,
+  ATTEMPT_COOKIE, INVITE_COOKIE, SESSION_COOKIE, clearCookie, readCookie, setCookie,
 } from './cookie.ts'
 
 /** Cordis plugin name used by loader diagnostics. */
@@ -188,10 +188,20 @@ export function apply(ctx: Context, config: Config): void {
           sendJson(res, 400, { error: 'channel-not-browser-driven' })
           return
         }
-        redirect(res, outcome.start.to, [setCookie(ATTEMPT_COOKIE, outcome.start.attempt, {
-          secure: terms.secureCookies,
-          maxAgeSeconds: ATTEMPT_COOKIE_SECONDS,
-        })])
+        // An invitation presented here is kept for the callback: the browser
+        // leaves for the directory and comes back, and the code must not
+        // travel to the directory with it.
+        const invitation = requestUrl(req, terms.publicOrigin).searchParams.get('invite')
+        redirect(res, outcome.start.to, [
+          setCookie(ATTEMPT_COOKIE, outcome.start.attempt, {
+            secure: terms.secureCookies,
+            maxAgeSeconds: ATTEMPT_COOKIE_SECONDS,
+          }),
+          ...invitation === null || invitation === '' ? [] : [setCookie(INVITE_COOKIE, invitation, {
+            secure: terms.secureCookies,
+            maxAgeSeconds: ATTEMPT_COOKIE_SECONDS,
+          })],
+        ])
       } catch (error) {
         reportRefusal(res, error)
       }
@@ -213,8 +223,10 @@ export function apply(ctx: Context, config: Config): void {
         sendJson(res, 400, { error: 'attempt-not-this-browser' })
         return
       }
+      const invitation = readCookie(req.headers.cookie, INVITE_COOKIE)
       try {
-        const session = await ctx.signIn.resume(channel, url.searchParams)
+        const session = await ctx.signIn.resume(channel, url.searchParams,
+          invitation === undefined ? undefined : { invitation })
         // The cookie's lifetime comes from the session's own, so a browser
         // never holds a credential the server has already let lapse.
         const established = await ctx.authSessions.read(session)
@@ -224,6 +236,7 @@ export function apply(ctx: Context, config: Config): void {
             maxAgeSeconds: cookieLifetime(established.expiresAt),
           }),
           clearCookie(ATTEMPT_COOKIE, { secure: terms.secureCookies }),
+          clearCookie(INVITE_COOKIE, { secure: terms.secureCookies }),
         ])
       } catch (error) {
         reportRefusal(res, error)

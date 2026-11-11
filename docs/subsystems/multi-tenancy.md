@@ -709,6 +709,67 @@ Host service backing the generated `ctx.remote.identity` namespace.
 
 Source: [`packages/api/identity-controller/src/index.ts`](../../packages/api/identity-controller/src/index.ts)
 
+<a id="ctxinvitations--invitations"></a>
+
+### `ctx.invitations` — `Invitations`
+
+The invitations a deployment has issued, and the redemptions they allow.
+
+```ts cordis-catalog
+/**
+ * Issue one invitation.
+ *
+ * The code is returned here and nowhere else. The standing it grants is
+ * checked against the issuer's own, by the same three rules the roster
+ * applies to adding somebody directly: a tenant administrator's standing
+ * names an organization, only a platform administrator makes another one,
+ * and nobody reaches outside the organization they administer.
+ * @param submission - what the administrator filled in.
+ * @param by - the standing issuing it.
+ * @returns the invitation, with its code.
+ * @throws {InvitationRefusedError} when that standing may not issue it, or the bounds refuse it.
+ */
+async issue(submission: InvitationSubmission, by: Membership): Promise<InvitationView>
+
+/**
+ * The invitations one standing administers, newest first.
+ * @param by - the standing reading them.
+ * @returns their views, without codes.
+ */
+async list(by: Membership): Promise<readonly InvitationView[]>
+
+/**
+ * Withdraw one invitation, so a code already sent stops working.
+ *
+ * The record stays, revoked: the trail of who invited whom is the point of
+ * keeping it, and a deleted row would answer nothing when somebody asks how
+ * that person got in.
+ * @param id - the invitation to withdraw.
+ * @param by - the standing withdrawing it.
+ * @throws {InvitationRefusedError} when no such invitation exists, or that standing may not withdraw it.
+ */
+async revoke(id: InvitationId, by: Membership): Promise<void>
+
+/**
+ * Redeem one code for one verified subject.
+ *
+ * The use is claimed before the roster is written, so two redemptions
+ * racing cannot exceed the count: a claim whose write then fails burns a
+ * use, which is the safe direction — an extra member is not recoverable,
+ * and a burned use is one more invitation.
+ *
+ * Every refusal answers undefined, like every other unadmitted subject: a
+ * redemption page that distinguished "no such code" from "expired" would
+ * tell whoever asked which codes exist.
+ * @param code - the code the person presented.
+ * @param subject - the subject their channel verified.
+ * @returns the person they now are here, or undefined when the code admits nobody.
+ */
+async redeem(code: string, subject: ExternalSubject): Promise<PersonId | undefined>
+```
+
+Source: [`packages/identity/invitations/src/index.ts`](../../packages/identity/invitations/src/index.ts)
+
 <a id="ctxmanagedbots--managedbots"></a>
 
 ### `ctx.managedBots` — `ManagedBots`
@@ -1312,21 +1373,26 @@ available(scope: ChannelScope = {}): readonly ChannelDescription[]
  * which kind of client someone signed in from.
  * @param channel - the channel the person chose.
  * @param returnTo - the deployment's own callback address; a self-driven channel ignores it.
+ * @param offer - what this sign-in presents besides the subject, such as an
+ * invitation code; a redirect channel's offer is presented again on
+ * {@link resume}, because the browser leaves and comes back.
  * @returns their new session, or where to send the browser.
  * @throws {SignInRefused} when the channel is unknown, the directory did not
  * complete, or this deployment admits them as nobody.
  */
-async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>
+async begin(channel: ChannelId, returnTo: string, offer?: AdmissionOffer): Promise<SignInOutcome>
 
 /**
  * Finish the sign-in a redirect channel's directory is returning from.
  * @param channel - the channel that started it.
  * @param parameters - the query the directory came back with.
+ * @param offer - what this sign-in presents besides the subject, such as an
+ * invitation code the browser carried across the round trip.
  * @returns the bearer identity of their new session.
  * @throws {SignInRefused} when the channel is unknown or self-driven, the return
  * completes no sign-in, or this deployment admits them as nobody.
  */
-async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId>
+async resume(channel: ChannelId, parameters: URLSearchParams, offer?: AdmissionOffer): Promise<AuthSessionId>
 ```
 
 Source: [`packages/identity/sign-in/src/index.ts`](../../packages/identity/sign-in/src/index.ts)
@@ -1346,9 +1412,11 @@ Abstract admission rule. Subclass and implement the one decision; a deployment m
  * roster": a sign-in page that distinguished them would report, to whoever
  * asked, which addresses exist here.
  * @param subject - the subject a channel verified.
+ * @param offer - what the sign-in presented besides the subject; a rule that
+ * admits only its roster ignores it.
  * @returns the person they are here, or undefined when this deployment admits them as nobody.
  */
-abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>
+abstract admit(subject: ExternalSubject, offer?: AdmissionOffer): Promise<PersonId | undefined>
 ```
 
 Source: [`packages/identity/sign-in/src/admission.ts`](../../packages/identity/sign-in/src/admission.ts)

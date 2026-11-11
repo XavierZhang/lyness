@@ -15,6 +15,16 @@ export const SESSION_COOKIE = 'lyn_identity'
 /** The cookie binding one sign-in attempt to the browser that started it. */
 export const ATTEMPT_COOKIE = 'lyn_signin_attempt'
 
+/**
+ * Cookie the invitation code a sign-in presents is carried in.
+ *
+ * It rides the round trip beside the attempt rather than in the URL the
+ * directory is sent: a code in a query string reaches the directory's logs and
+ * the browser's history, and this one is a credential for joining the
+ * deployment. Same lifetime as the attempt, cleared with it.
+ */
+export const INVITE_COOKIE = 'lyn_signin_invite'
+
 /** How one cookie is written. */
 export interface CookieTerms {
   /** Whether the deployment is served over TLS, which decides `Secure`. */

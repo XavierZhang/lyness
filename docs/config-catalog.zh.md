@@ -2043,6 +2043,29 @@ export interface TlsConfig {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-webserver -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-invitations -->
+<a id="lynesslyn-invitations"></a>
+
+## `@lyness/lyn-invitations`
+
+- `inject`: `storageDomain` · `adminAudit` · `managedPeople`
+- `source`: [`packages/identity/invitations/src/index.ts:75`](../packages/identity/invitations/src/index.ts)
+
+```ts config-catalog
+/** What this deployment allows an invitation to be. */
+export interface Config {
+  /** How long an invitation stays redeemable when its issuer names no lifetime, in milliseconds. */
+  defaultLifetimeMs?: number
+  /** How long the longest-lived invitation may stay redeemable, in milliseconds. */
+  maxLifetimeMs?: number
+  /** How many redemptions an invitation allows when its issuer names no count. */
+  defaultMaxUses?: number
+  /** How many redemptions the most reusable invitation may allow. */
+  maxUsesLimit?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-invitations -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-jobs-local -->
 <a id="lynesslyn-jobs-local"></a>
 
@@ -3653,7 +3676,7 @@ export interface Config {
 ## `@lyness/lyn-sign-in`
 
 - `inject`: `authSessions` · `signInAdmission`
-- `source`: [`packages/identity/sign-in/src/index.ts:80`](../packages/identity/sign-in/src/index.ts)
+- `source`: [`packages/identity/sign-in/src/index.ts:82`](../packages/identity/sign-in/src/index.ts)
 
 ```ts config-catalog
 /** Deployment-owned terms for a session a directory sign-in establishes. */

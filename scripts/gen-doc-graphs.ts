@@ -1092,6 +1092,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again.',
   },
   {
+    key: 'invitations',
+    pkg: 'invitations',
+    title: 'The invitations an administrator issues',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Holds the codes that admit somebody the roster has never heard of: one standing per code, bounded by its issuer\'s own standing, an expiry, a use count and a withdrawal, and void once that standing is gone.',
+  },
+  {
     key: 'adminAuditController',
     pkg: 'api-admin-audit-controller',
     title: 'The trail an administrator reads',

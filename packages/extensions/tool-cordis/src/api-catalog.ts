@@ -2165,6 +2165,38 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'invitations',
+    summary: 'The invitations a deployment has issued, and the redemptions they allow.',
+    description: 'The invitations a deployment has issued, and the redemptions they allow.',
+    methods: [
+      {
+        signature: 'async issue(submission: InvitationSubmission, by: Membership): Promise<InvitationView>',
+        description: 'Issue one invitation.\n\nThe code is returned here and nowhere else. The standing it grants is checked against the issuer\'s own, by the same three rules the roster applies to adding somebody directly: a tenant administrator\'s standing names an organization, only a platform administrator makes another one, and nobody reaches outside the organization they administer.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing issuing it.' }],
+        returns: 'the invitation, with its code.',
+        throws: ['{InvitationRefusedError} when that standing may not issue it, or the bounds refuse it.'],
+      },
+      {
+        signature: 'async list(by: Membership): Promise<readonly InvitationView[]>',
+        description: 'The invitations one standing administers, newest first.',
+        parameters: [{ name: 'by', description: 'the standing reading them.' }],
+        returns: 'their views, without codes.',
+      },
+      {
+        signature: 'async revoke(id: InvitationId, by: Membership): Promise<void>',
+        description: 'Withdraw one invitation, so a code already sent stops working.\n\nThe record stays, revoked: the trail of who invited whom is the point of keeping it, and a deleted row would answer nothing when somebody asks how that person got in.',
+        parameters: [{ name: 'id', description: 'the invitation to withdraw.' }, { name: 'by', description: 'the standing withdrawing it.' }],
+        throws: ['{InvitationRefusedError} when no such invitation exists, or that standing may not withdraw it.'],
+      },
+      {
+        signature: 'async redeem(code: string, subject: ExternalSubject): Promise<PersonId | undefined>',
+        description: 'Redeem one code for one verified subject.\n\nThe use is claimed before the roster is written, so two redemptions racing cannot exceed the count: a claim whose write then fails burns a use, which is the safe direction — an extra member is not recoverable, and a burned use is one more invitation.\n\nEvery refusal answers undefined, like every other unadmitted subject: a redemption page that distinguished "no such code" from "expired" would tell whoever asked which codes exist.',
+        parameters: [{ name: 'code', description: 'the code the person presented.' }, { name: 'subject', description: 'the subject their channel verified.' }],
+        returns: 'the person they now are here, or undefined when the code admits nobody.',
+      },
+    ],
+  },
+  {
     key: 'jobController',
     summary: 'Host service backing the generated `ctx.remote.job` namespace.',
     description: 'Host service backing the generated `ctx.remote.job` namespace.',
@@ -4373,16 +4405,16 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'each channel that caller may be offered.',
       },
       {
-        signature: 'async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>',
+        signature: 'async begin(channel: ChannelId, returnTo: string, offer?: AdmissionOffer): Promise<SignInOutcome>',
         description: 'Begin a sign-in through one channel.\n\nA self-driven channel has a session by the time this returns; a redirect channel has only said where to send the browser, and resume finishes it. Both shapes reach the same admission and the same session, because the decision about who may use this deployment must not depend on which kind of client someone signed in from.',
-        parameters: [{ name: 'channel', description: 'the channel the person chose.' }, { name: 'returnTo', description: 'the deployment\'s own callback address; a self-driven channel ignores it.' }],
+        parameters: [{ name: 'channel', description: 'the channel the person chose.' }, { name: 'returnTo', description: 'the deployment\'s own callback address; a self-driven channel ignores it.' }, { name: 'offer', description: 'what this sign-in presents besides the subject, such as an invitation code; a redirect channel\'s offer is presented again on {@link resume}, because the browser leaves and comes back.' }],
         returns: 'their new session, or where to send the browser.',
         throws: ['{SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.'],
       },
       {
-        signature: 'async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId>',
+        signature: 'async resume(channel: ChannelId, parameters: URLSearchParams, offer?: AdmissionOffer): Promise<AuthSessionId>',
         description: 'Finish the sign-in a redirect channel\'s directory is returning from.',
-        parameters: [{ name: 'channel', description: 'the channel that started it.' }, { name: 'parameters', description: 'the query the directory came back with.' }],
+        parameters: [{ name: 'channel', description: 'the channel that started it.' }, { name: 'parameters', description: 'the query the directory came back with.' }, { name: 'offer', description: 'what this sign-in presents besides the subject, such as an invitation code the browser carried across the round trip.' }],
         returns: 'the bearer identity of their new session.',
         throws: ['{SignInRefused} when the channel is unknown or self-driven, the return completes no sign-in, or this deployment admits them as nobody.'],
       },
@@ -4394,9 +4426,9 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     description: 'Abstract admission rule. Subclass and implement the one decision; a deployment mounts exactly one.',
     methods: [
       {
-        signature: 'abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>',
+        signature: 'abstract admit(subject: ExternalSubject, offer?: AdmissionOffer): Promise<PersonId | undefined>',
         description: 'The person an authenticated subject is, if this deployment admits them.\n\nUndefined refuses the sign-in. It is deliberately the same answer for "this directory is not one we accept" and "this person is not on the roster": a sign-in page that distinguished them would report, to whoever asked, which addresses exist here.',
-        parameters: [{ name: 'subject', description: 'the subject a channel verified.' }],
+        parameters: [{ name: 'subject', description: 'the subject a channel verified.' }, { name: 'offer', description: 'what the sign-in presented besides the subject; a rule that admits only its roster ignores it.' }],
         returns: 'the person they are here, or undefined when this deployment admits them as nobody.',
       },
     ],
@@ -6646,6 +6678,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AdministratorGrant {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly expiresAt?: string | undefined;\n}',
   },
   {
+    name: 'AdmissionOffer',
+    declaration: 'export interface AdmissionOffer {\n    readonly invitation?: string | undefined;\n}',
+  },
+  {
     name: 'AdmittedIdentityView',
     declaration: 'export interface AdmittedIdentityView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
   },
@@ -8204,6 +8240,22 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'InstructionsView',
     declaration: 'export interface InstructionsView {\n    readonly owned: boolean;\n    readonly text: string;\n    readonly writtenAt?: string;\n    readonly maxChars: number;\n}',
+  },
+  {
+    name: 'InvitationCode',
+    declaration: 'export type InvitationCode = Branded<\'InvitationCode\'>;',
+  },
+  {
+    name: 'InvitationId',
+    declaration: 'export type InvitationId = Branded<\'InvitationId\'>;',
+  },
+  {
+    name: 'InvitationSubmission',
+    declaration: 'export interface InvitationSubmission {\n    readonly label: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly maxUses?: number | undefined;\n    readonly lifetimeMs?: number | undefined;\n}',
+  },
+  {
+    name: 'InvitationView',
+    declaration: 'export interface InvitationView {\n    readonly id: InvitationId;\n    readonly label: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly issuedAt: string;\n    readonly expiresAt: string;\n    readonly maxUses: number;\n    readonly uses: number;\n    readonly open: boolean;\n    readonly code?: InvitationCode | undefined;\n}',
   },
   {
     name: 'InvocationDescriptor',

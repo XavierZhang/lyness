@@ -324,6 +324,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
 | `@lyness/lyn-admin-audit` | yes | The append-only trail of administrative changes a deployment can answer for |
 | `@lyness/lyn-bot-ask` | no | One bot asking a teammate a question, answered in a conversation of the teammate's own |
+| `@lyness/lyn-invitations` | yes | Invitations: the bounded code an administrator sends so somebody nobody has heard of can join |
 | `@lyness/lyn-managed-bots` | no | The bots a deployment's administrators maintain at runtime |
 | `@lyness/lyn-managed-people` | no | The people and admission bindings a deployment's administrators maintain at runtime |
 | `@lyness/lyn-oidc` | yes | An OpenID Provider as a sign-in channel: the standard protocol, so a deployment points it at its own directory |

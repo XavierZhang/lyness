@@ -1875,3 +1875,43 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 新增 `apps/web/tests/admin-console.e2e.ts`（真实 Chromium，走出货组合）：`/admin` 给出管理端，三页都在里面、点击切换、`aria-current` 跟着走；页脚显示「尚未登录」且不提供退出（本机组合没有账号体系）；点「前往工作台」回到前台；而前台的设置里**一个管理页都没有**。诊断过程中还修了 `apps/web/tests/scaffold.ts`：它对 `web-runtime` 的覆盖会整段替换 config，原来就丢掉了 `documentPaths`（和 `surfaceContext` 同一个坑）。
 
 仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2797 文件 55023 用例 / snapshot 251 / expected 144 / build 全绿。`verify-no-unknown-casts` 的 baseline 有 3 处指纹位移——被改名的 slot 字面量就写在那些既有 `as unknown` 表达式里，条数未变，`--prune` 清掉了退役项。
+
+-----
+
+## 邀请码：陌生人怎么进来（2026-11-11）
+
+用户补充的那条需求——「管理员可以生成前端页面用户注册登录的邀请码，用户凭邀请码加入平台、对应的租户或者独立部署的客户用户中」。这一轮做的是**服务与准入这一层**（第 1 期），管理端那一页和前台兑换页是第 2、3 期。
+
+### 新包 `@lyness/lyn-invitations`
+
+一张码携带**一个标准**（角色 + 它所在的组织），四面都有边界：
+
+| 边界 | 怎么实现 |
+|---|---|
+| 不超过签发者 | 签发时复用名册「直接加人」的那三条规则；**兑换时再问一次目录**——签发者被移除/降级/挪走，码即刻失效 |
+| 会过期 | `defaultLifetimeMs` 7 天、`maxLifetimeMs` 30 天，都是 Config，不是常量 |
+| 次数有限 | `defaultMaxUses` 1、`maxUsesLimit` 200；**先占用次数、再写名册**，并发不会超发 |
+| 可撤回 | `revoke` 只写 `revokedAt` 不删行——「谁邀请了谁」这条轨迹正是留它的意义 |
+
+库里不存可兑换的秘密：码只由签发那次调用返回一次，之后只留 SHA-256。所有拒绝（码不对/用完/过期/根本没被邀请）一律答 `undefined`，由登录报 `not-admitted`——区分开它们等于告诉任何来问的人「哪些码存在」。
+
+### 准入多收一个「出示物」
+
+`SignInAdmission.admit(subject, offer?)`、`signIn.begin/resume(..., offer?)`，都是**可选**参数，所以不传的调用方与忽略它的规则行为如旧。新规则 `@lyness/lyn-invitations/admission` 取代 `@lyness/lyn-managed-people/admission` 挂进 `module-accounts`：两条读同一份 `bindings`，所以写定了运维身份的安装不会丢；**名册先答、邀请码后答**，这个顺序使转发出去的链接不会给「已经在这里的人」再加一条记录。
+
+浏览器那一半：`/auth/sign-in/<channel>?invite=<code>` 把码放进 `lyn_signin_invite` cookie（600 秒），等目录回调时出示、随即清掉。**码不会跟着跳转走到目录那边去。**
+
+### 实测证据
+
+包内 31 个用例、单文件 100% 覆盖，其中 `tests/composition.spec.ts` 经**真实 Loader** 启起 storage/audit/managed-people/directory/invitations/admission/sign-in + 一个自驱动探针渠道，断言的是这套组合真能服务的那条路：一个谁都没听说过的人出示码进来、拿到码所携带的标准；同一个人第二次不带码也能进（因为兑换已经把他绑定了，且只算一次使用）；已被绑定的人拿着别人的码不会被加成第二条记录；伪造的码与「不带码」是同一个答案。
+
+仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2799 文件 55052 用例 / snapshot 251 / expected 144 / build 10 项，全绿。
+
+### 两处要记一笔的坑
+
+1. **写定（composition）的名册条目 id 是 `${id}:${role}`，而存储里的是 `${id}:standing`**——测试夹具按后者写会查不到，这个不对称在 `managed-people` 里是有意的（写定的那一半不可改），已写进夹具的 JSDoc。
+2. `verify-no-unknown-casts` 的 baseline 这次没动——新代码一处 `as unknown` 都没加。
+
+### 还没做的
+
+管理端的「邀请」页（生成/列表/撤回/复制链接）、前台的兑换页（`/join/<code>` 或登录页上的「我有邀请码」）、以及部署引导脚本写下的那个不可删除的超级管理员。

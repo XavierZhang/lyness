@@ -387,6 +387,7 @@
     { "path": "./packages/identity/bot-ask" },
     { "path": "./packages/identity/admin-audit" },
     { "path": "./packages/identity/managed-bots" },
+    { "path": "./packages/identity/invitations" },
     { "path": "./packages/identity/managed-people" },
     { "path": "./packages/identity/people" },
     { "path": "./packages/identity/oidc" },

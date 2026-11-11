@@ -347,6 +347,8 @@ flowchart LR
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
   svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_invitations["invitations"]
+  svc_invitations["ctx.invitations<br/>The invitations an administrator issues"]
   pkg_api_admin_audit_controller["api-admin-audit-controller"]
   svc_adminAuditController["ctx.adminAuditController<br/>The trail an administrator reads"]
   pkg_api_bots_controller["api-bots-controller"]
@@ -516,6 +518,7 @@ flowchart LR
   pkg_host_product_telemetry_otel --> svc_productTelemetry
   pkg_host_webserver --> svc_webServer
   pkg_inspector --> svc_inspector
+  pkg_invitations --> svc_invitations
   pkg_jobs --> svc_jobs
   pkg_jobs_local --> svc_jobs
   pkg_llm --> svc_llm
@@ -932,6 +935,7 @@ flowchart LR
 | `ctx.adminAudit` | `core` | [`admin-audit`](../packages/identity/admin-audit) | - | - | - | 存着谁改了哪条记录、什么时候，以及那次更改替换掉的那个值，放在一个只会被追加的、它自己的域里；两个名册都注入它，所以一个管理它们却不留历史的部署会加载不起来。 |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | 存着运行时添加的那些 bot，并把每一个放进它所在组织的名册，在那里它持有一个成员身份、并拥有它开启的东西；准入会拒绝它，因为没有哪个目录能验证一个 bot。 |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |
+| `ctx.invitations` | `core` | [`invitations`](../packages/identity/invitations) | - | - | - | 存着那些能准入名册从未听说过的人的码：一张码一个标准，受签发者自己那个标准的约束，还有一个到期时间、一个使用计数和一次撤回，并且一旦那个标准不在了就作废。 |
 | `ctx.adminAuditController` | `core` | [`api-admin-audit-controller`](../packages/api/admin-audit-controller) | - | - | - | 在这次调用所处的身份上答出一页已记录的更改，并解析它唯一拥有的那件事：一次不点名的读指的是调用方自己的组织，于是租户管理员不必点名他唯一管理的那一个。 |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | 把 bot 名册投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并答出那份名册用来校验一次保存的同一份 preset 列表。 |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | 把被管理的目录投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并把每种拒绝按自己的错误码汇报，好让表单禁用它点名的那一行。 |

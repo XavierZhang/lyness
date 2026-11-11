@@ -23,7 +23,7 @@ import { channelId } from '@lyness/lyn-sign-in'
 import type { ExternalSubject, RedirectChannel, SelfDrivenChannel } from '@lyness/lyn-sign-in'
 import * as RosterAdmission from '@lyness/lyn-sign-in/admission-roster'
 import * as SignInHttp from '../src/index.ts'
-import { ATTEMPT_COOKIE, SESSION_COOKIE, readCookie } from '../src/cookie.ts'
+import { ATTEMPT_COOKIE, INVITE_COOKIE, SESSION_COOKIE, readCookie } from '../src/cookie.ts'
 
 const CHANNEL = channelId('test-directory')
 const ISSUER = 'directory.example'
@@ -226,6 +226,25 @@ describe('starting a sign-in', () => {
     expect(headers.getSetCookie()[0]).toContain('Max-Age=600')
   })
 
+  it('carries an invitation across the round trip, in a cookie rather than to the directory', async () => {
+    // The code is a credential for joining this deployment: in the URL it
+    // would reach the directory's logs and the browser's history.
+    const port = await compose()
+    const { headers } = await call(port, `/auth/sign-in/${CHANNEL}?invite=the-code`)
+    expect(readCookie(cookies(headers), INVITE_COOKIE)).toBe('the-code')
+    expect(headers.getSetCookie().find(value => value.startsWith(INVITE_COOKIE)) ?? '')
+      .toContain('Max-Age=600')
+    expect(headers.get('location')).not.toContain('the-code')
+  })
+
+  it('sets no invitation cookie for a sign-in that presents none, or an empty one', async () => {
+    const port = await compose()
+    for (const path of [`/auth/sign-in/${CHANNEL}`, `/auth/sign-in/${CHANNEL}?invite=`]) {
+      const { headers } = await call(port, path)
+      expect(readCookie(cookies(headers), INVITE_COOKIE), path).toBeUndefined()
+    }
+  })
+
   it('refuses a channel that completes in the process owning the browser', async () => {
     // A self-driven channel opens its own window and waits on a loopback
     // callback, so a hosted deployment has nowhere to send this person. The
@@ -278,6 +297,22 @@ describe('returning from the directory', () => {
     expect(status).toBe(302)
     expect(headers.get('location')).toBe(`${ORIGIN}/app`)
     expect(readCookie(cookies(headers), SESSION_COOKIE)).toMatch(/.+/u)
+  })
+
+  it('presents the invitation it carried, and forgets it either way', async () => {
+    // The admission rule of this composition admits only its roster, so the
+    // code changes nothing here; what this case pins is that the callback
+    // hands it over and then stops holding it.
+    const port = await compose()
+    const started = await call(port, `/auth/sign-in/${CHANNEL}?invite=the-code`)
+    const { status, headers } = await call(
+      port,
+      `/auth/callback/${CHANNEL}?state=state-1&code=good`,
+      { headers: { cookie: cookies(started.headers) } },
+    )
+    expect(status).toBe(302)
+    expect(headers.getSetCookie().find(value => value.startsWith(INVITE_COOKIE)) ?? '')
+      .toContain('Max-Age=0')
   })
 
   it('gives the session cookie the session own lifetime', async () => {

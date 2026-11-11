@@ -67,6 +67,11 @@ export class ManagedAdmission extends SignInAdmission {
 
   /**
    * The person a binding names for this subject.
+   *
+   * Only a binding. A sign-in may present more — an invitation code — and
+   * this rule ignores it: a deployment that admits somebody nobody has bound
+   * mounts the rule that opens that door
+   * (`@lyness/lyn-invitations/admission`) instead of this one.
    * @param subject - the subject a channel verified.
    * @returns that person, or undefined when neither half admits this identity.
    */

@@ -116,11 +116,19 @@
     - id: ui-settings-history
       name: '@lyness/lyn-client-ui-settings-history'
 
+    # The invitations an administrator issues so somebody the roster has never
+    # heard of can join: one standing per code, bounded by its issuer's own,
+    # by an expiry, by a count, and by the issuer still holding that standing.
+    - id: invitations
+      name: '@lyness/lyn-invitations'
+
     # Who a verified subject is allowed to be. No written binding admits
     # nobody by itself, which is the intended reading: a connected directory
-    # nobody has been admitted through must not sign anyone in.
+    # nobody has been admitted through must not sign anyone in. This rule
+    # opens one more door than the managed one — an invitation — and a
+    # deployment mounts exactly one rule, so it is this row or that one.
     - id: sign-in-admission
-      name: '@lyness/lyn-managed-people/admission'
+      name: '@lyness/lyn-invitations/admission'
       config:
         bindings: []
 

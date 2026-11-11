@@ -19,6 +19,26 @@ import type { Context } from '@lyness/cordis'
 import type { PersonId } from '@lyness/lyn-people'
 import type { ExternalSubject } from './types.ts'
 
+/**
+ * What one sign-in presents besides the subject its channel verified.
+ *
+ * A rule that admits only a written roster ignores it; a rule that also
+ * honours something the person carried — an invitation code — reads it from
+ * here. It is the sign-in's own parameter rather than request-scoped state,
+ * so the one decision about who may use this deployment is made from values
+ * its caller passed in, and a test drives it without a transport.
+ */
+export interface AdmissionOffer {
+  /**
+   * An invitation code the person presented.
+   *
+   * It is a secret, so a rule that does not redeem codes must not log it, and
+   * the rule that does answers the same undefined for a wrong one as for a
+   * subject nobody invited.
+   */
+  readonly invitation?: string | undefined
+}
+
 declare module '@lyness/cordis' {
   interface Context {
     /** Who an authenticated directory subject is here; absent on a deployment that admits nobody. */
@@ -46,9 +66,11 @@ export abstract class SignInAdmission extends Service {
    * roster": a sign-in page that distinguished them would report, to whoever
    * asked, which addresses exist here.
    * @param subject - the subject a channel verified.
+   * @param offer - what the sign-in presented besides the subject; a rule that
+   * admits only its roster ignores it.
    * @returns the person they are here, or undefined when this deployment admits them as nobody.
    */
-  abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>
+  abstract admit(subject: ExternalSubject, offer?: AdmissionOffer): Promise<PersonId | undefined>
 }
 
 export default SignInAdmission

@@ -54,6 +54,7 @@
     "@lyness/lyn-client-ui-settings-sign-in-channels": "workspace:*",
     "@lyness/lyn-dingtalk": "workspace:*",
     "@lyness/lyn-feishu": "workspace:*",
+    "@lyness/lyn-invitations": "workspace:*",
     "@lyness/lyn-managed-bots": "workspace:*",
     "@lyness/lyn-managed-people": "workspace:*",
     "@lyness/lyn-oidc": "workspace:*",
