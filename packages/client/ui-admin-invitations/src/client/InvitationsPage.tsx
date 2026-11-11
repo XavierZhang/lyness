@@ -88,8 +88,10 @@ function IssuedCode({ label, code, joinPath, t }: {
   t: Translate
 }) {
   // Built from the page's own origin, because the link is for this
-  // deployment: an administrator sends the address they are looking at.
-  const link = `${window.location.origin}${joinPath}/${encodeURIComponent(code)}`
+  // deployment: an administrator sends the address they are looking at. The
+  // code travels as a query parameter, which is the path the Host serves and
+  // the page reads it from.
+  const link = `${window.location.origin}${joinPath}?invite=${encodeURIComponent(code)}`
   return (
     <section className={css.issued}>
       <h3 className={css.issuedHeading}>{t('issuedHeading', { label })}</h3>

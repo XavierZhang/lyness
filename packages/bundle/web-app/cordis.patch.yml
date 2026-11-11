@@ -276,6 +276,11 @@
         # below states that the same path is the console's.
         documentPaths:
           - /admin
+          # And the page an invitation link opens: whoever follows one has no
+          # account here yet, so it is a page of its own rather than the
+          # workbench with a notice on top. The `ui-join` row below states
+          # that the same path carries an invitation.
+          - /join
 
     # Model context for an agent that inspects or extends the harness serving
     # this GUI: value-free prompt sections plus the current checkout and GUI
@@ -410,6 +415,16 @@
       name: '@lyness/lyn-client-ui-admin-console'
       config:
         path: /admin
+
+    # The page an invitation link opens: the directories that redeem the code
+    # it carries, and nothing else — it asks this deployment nothing about the
+    # code, because an answer on a page anybody can open would tell whoever
+    # asked which codes exist. The path matches the `documentPaths` entry
+    # above and the `joinPath` the administration page builds its links with.
+    - id: ui-join
+      name: '@lyness/lyn-client-ui-join'
+      config:
+        path: /join
 
     # The personal plane's read-only entry: the one answer to the question the
     # administration pages otherwise answer with a refusal notice.

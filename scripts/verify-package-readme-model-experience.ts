@@ -326,6 +326,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/agent-capabilities-controller': { kind: 'none', reason: 'Reports what the model-facing registries already hold; each registry owns how its contributions reach a request.' },
   'packages/client/ui-admin-console': { kind: 'none', reason: 'A browser surface over Remote namespaces other packages own; it registers no tool, prompt, or Session event.' },
   'packages/client/ui-admin-invitations': { kind: 'none', reason: 'A browser surface over the invitations Remote namespace; it registers no tool, prompt, or Session event.' },
+  'packages/client/ui-join': { kind: 'none', reason: 'A browser page shown before anybody has an account; it registers no tool, prompt, or Session event.' },
   'packages/client/ui-settings-capabilities': { kind: 'none', reason: 'Lists what the model-facing registries already hold, for a person to read.' },
   'packages/session/session-deletion': { kind: 'none', reason: 'Removes stored logs on a human act; no model request changes at call time.' },
   'packages/api/session-data-controller': { kind: 'none', reason: 'Serves a person acting on their own stored conversations; it registers no prompt or tool.' },

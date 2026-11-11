@@ -222,7 +222,7 @@ describe('the code of a new invitation', () => {
     expect(screen.getByText('the-code')).toBeDefined()
     // The address the administrator is looking at, so what they send reaches
     // this deployment.
-    expect(screen.getByText(`${window.location.origin}/join/the-code`)).toBeDefined()
+    expect(screen.getByText(`${window.location.origin}/join?invite=the-code`)).toBeDefined()
   })
 
   it('takes the redemption path its composition chose', () => {
@@ -232,7 +232,7 @@ describe('the code of a new invitation', () => {
     )
     // Encoded, because a code is sent as a URL and nothing says it is safe
     // in one.
-    expect(screen.getByText(`${window.location.origin}/welcome/a%20b`)).toBeDefined()
+    expect(screen.getByText(`${window.location.origin}/welcome?invite=a%20b`)).toBeDefined()
   })
 
   it('offers both of them to the clipboard, and says which one was taken', async () => {

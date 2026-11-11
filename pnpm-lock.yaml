@@ -4073,6 +4073,9 @@ importers:
       '@lyness/lyn-client-ui-jobs':
         specifier: workspace:*
         version: link:../../client/ui-jobs
+      '@lyness/lyn-client-ui-join':
+        specifier: workspace:*
+        version: link:../../client/ui-join
       '@lyness/lyn-client-ui-layout':
         specifier: workspace:*
         version: link:../../client/ui-layout
@@ -5964,6 +5967,36 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+
+  packages/client/ui-join:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-identity-controller':
+        specifier: workspace:*
+        version: link:../../api/identity-controller
+      '@lyness/lyn-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@lyness/lyn-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@lyness/lyn-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@lyness/lyn-client-ui-viewer':
+        specifier: workspace:*
+        version: link:../ui-viewer
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
 
   packages/client/ui-layout:
     devDependencies:

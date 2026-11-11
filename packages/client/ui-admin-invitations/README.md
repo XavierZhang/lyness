@@ -36,7 +36,7 @@ The accounts module mounts it beside the namespace it reads:
     joinPath: /join
 ```
 
-`joinPath` is where the copied link sends somebody, and it must match the path the redemption page is served at: the link is built as `<origin><joinPath>/<code>`.
+`joinPath` is where the copied link sends somebody, and it must match the path the redemption page is served at: the link is built as `<origin><joinPath>?invite=<code>`.
 
 -----
 

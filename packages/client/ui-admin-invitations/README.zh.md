@@ -36,7 +36,7 @@ kind: "package-reference"
     joinPath: /join
 ```
 
-`joinPath` 是被复制的那条链接把人送到哪里，它必须与兑换页实际被服务的路径一致：链接是按 `<origin><joinPath>/<code>` 拼出来的。
+`joinPath` 是被复制的那条链接把人送到哪里，它必须与兑换页实际被服务的路径一致：链接是按 `<origin><joinPath>?invite=<code>` 拼出来的。
 
 -----
 

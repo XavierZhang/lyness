@@ -327,6 +327,8 @@
       "@lyness/lyn-client-ui-admin-console/client": ["./packages/client/ui-admin-console/src/client/index.ts"],
       "@lyness/lyn-client-ui-admin-invitations": ["./packages/client/ui-admin-invitations/src/index.ts"],
       "@lyness/lyn-client-ui-admin-invitations/client": ["./packages/client/ui-admin-invitations/src/client/index.ts"],
+      "@lyness/lyn-client-ui-join": ["./packages/client/ui-join/src/index.ts"],
+      "@lyness/lyn-client-ui-join/client": ["./packages/client/ui-join/src/client/index.ts"],
       "@lyness/lyn-client-ui-agent-preset": ["./packages/client/ui-agent-preset/src"],
       "@lyness/lyn-client-ui-permission-presets": ["./packages/client/ui-permission-presets/src"],
       "@lyness/lyn-client-ui-skill": ["./packages/client/ui-skill/src"],

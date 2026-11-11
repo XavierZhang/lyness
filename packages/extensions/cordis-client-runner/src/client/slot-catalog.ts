@@ -3244,6 +3244,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
     declaredBy: 'the runtime itself (built in; always present)',
     occupants: [
       'client-ui-admin-console AdminFrame',
+      'client-ui-join JoinPage',
       'client-ui-layout AppFrame',
     ],
     replaceRisk: 'shadows-shipped-ui',

@@ -88,6 +88,7 @@
     "@lyness/lyn-client-resources": "workspace:*",
     "@lyness/lyn-client-shortcuts": "workspace:*",
     "@lyness/lyn-client-ui-admin-console": "workspace:*",
+    "@lyness/lyn-client-ui-join": "workspace:*",
     "@lyness/lyn-client-ui-agent-preset": "workspace:*",
     "@lyness/lyn-client-ui-agent-team": "workspace:*",
     "@lyness/lyn-client-ui-approval": "workspace:*",

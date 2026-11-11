@@ -105,6 +105,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
 | `@lyness/lyn-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
 | `@lyness/lyn-client-ui-jobs` | no | Session-header background-job list with on-demand streaming record panels |
+| `@lyness/lyn-client-ui-join` | no | The page an invited person opens: what the invitation admits them to, and the directories that redeem it |
 | `@lyness/lyn-client-ui-layout` | no | Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels) |
 | `@lyness/lyn-client-ui-message-feedback` | no | The Web feedback surface: per-message Like/Dislike in the assistant-message action strip and the feedback dialog behind both ratings and /feedback, backed by the messageFeedback and sessionFeedback Host Remotes |
 | `@lyness/lyn-client-ui-model-selection` | no | Model selection over the shared model catalog, Session projection, and session.selectModel |

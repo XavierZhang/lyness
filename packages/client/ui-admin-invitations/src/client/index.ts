@@ -53,8 +53,8 @@ export const DEFAULT_JOIN_PATH = '/join'
 export interface Config {
   /**
    * The path the redemption page is served at, which the copied link carries
-   * the code to. It is the deployment's own choice, because the page that
-   * answers it is a row of the same composition.
+   * the code to as its `invite` parameter. It is the deployment's own choice,
+   * because the page that answers it is a row of the same composition.
    */
   joinPath?: string
 }

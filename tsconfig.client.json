@@ -168,6 +168,7 @@
     { "path": "./packages/client/ui-settings-data/tsconfig.client.json" },
     { "path": "./packages/client/ui-admin-console/tsconfig.client.json" },
     { "path": "./packages/client/ui-admin-invitations/tsconfig.client.json" },
+    { "path": "./packages/client/ui-join/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-capabilities/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-people/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.client.json" },

@@ -1,0 +1,100 @@
+/*
+ * The page an invited stranger sees first: the product's own ground, one
+ * card, and blue only on the action — the brand's proportion (neutral
+ * 70–85%, blue 5–10%).
+ */
+
+.page {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+  background: var(--dsw-alias-bg-secondary);
+  color: var(--dsw-alias-text-primary);
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  max-width: 420px;
+  flex-direction: column;
+  gap: 14px;
+  border: 0.5px solid var(--dsw-alias-border-secondary);
+  border-radius: var(--dsw-radius-lg);
+  padding: 28px;
+  background: var(--dsw-alias-bg-primary);
+}
+
+.brand {
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.hint {
+  margin: 0;
+  color: var(--dsw-alias-text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.empty {
+  margin: 0;
+  border-radius: var(--dsw-radius-md);
+  padding: 12px 14px;
+  background: var(--dsw-alias-bg-secondary);
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.channels {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.channel {
+  border-radius: var(--dsw-radius-md);
+  padding: 11px 14px;
+  background: var(--dsw-alias-interactive-accent);
+  color: var(--lyness-white);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .channel:hover {
+    background: var(--lyness-blue-dark);
+  }
+}
+
+.note {
+  margin: 0;
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.back {
+  color: var(--dsw-alias-text-secondary);
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .back:hover {
+    color: var(--dsw-alias-text-primary);
+  }
+}

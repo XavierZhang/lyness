@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.base.client.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types",
+    "tsBuildInfoFile": "lib/tsconfig.client.tsbuildinfo"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    { "path": "../../../vendor/cordis" },
+    { "path": "../../../vendor/schemastery" },
+    { "path": "../../api/identity-controller" },
+    { "path": "../locale/tsconfig.client.json" },
+    { "path": "../ui-renderer" },
+    { "path": "../ui-slots" },
+    { "path": "../ui-viewer/tsconfig.client.json" }
+  ],
+  "exclude": [
+    "src/index.ts"
+  ]
+}

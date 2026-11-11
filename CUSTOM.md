@@ -1951,3 +1951,39 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 ### 还没做的
 
 前台兑换页（`/join/<code>`）——这一页拼出的链接现在还指向一个没人应答的路径，是紧接着的第 3 期。
+
+-----
+
+## 邀请码第 3 期：前台的 `/join` 兑换页（2026-11-11）
+
+新包 `@lyness/lyn-client-ui-join`。它和管理端一样以 `priority: -10` 占住内建 `root` 席位——**但只在自己那条路径上**：跟着邀请链接来的人在这里还没有账号，工作台对他来说是一个用不了的产品。
+
+### 它不向部署打听那张码
+
+这是这一页最重要的一条：**它一次调用都不发**。能回答「这张码存不存在／是不是过期了」的页面，等于向任何来打开它的人报告哪些码存在。它只做三件事：
+
+1. 从 `location.search` 读出 `invite`；
+2. 从 `uiViewer` 拿到「浏览器能发起的」那些渠道，为每一个拼出 `/auth/sign-in/<channel>?invite=<code>`；
+3. 对三种没有可兑换东西的访问各说一句话：链接没带码、部署没有账号体系（它服务坐在键盘前的那个人）、人已经登录了。
+
+拒绝发生在登录那一侧，读起来与任何一个未被准入的主体一模一样——这正是第 1 期定下的「所有拒绝都是同一个答案」。
+
+### 链接形式改成查询参数
+
+第 2 期拼的是 `<origin>/join/<code>`，这一期改成 **`<origin>/join?invite=<code>`**。原因是 `documentPaths` 匹配的是 pathname 且要求「一个绝对段」，`/join/<code>` 这种子路径 Host 不会给出文档（会 404）；而查询串不影响 pathname 匹配。管理页、它的测试与两份 README 都已一起改掉。
+
+同一个决定现在说三遍，三处必须一致：`web-runtime` 的 `documentPaths: [/admin, /join]`、`ui-join` 的 `path`、`ui-admin-invitations` 的 `joinPath`。三处都写了相互指向的注释。
+
+### 顺手修掉一个快照稳定性缺陷
+
+`visitRow` 原来每次 `getSnapshot()` 都重算一遍渠道数组，等于每次读都交给 React 一个新数组——这是 `useSyncExternalStore` 唯一不许做的事。改成「每个 viewer 应答只推导一次」，并用一个断言把它钉住（`expect(visit.getSnapshot()).toBe(stable)`）。管理端的 `viewerRow` 在渠道非空时有同样的形状，留作下一轮一并处理。
+
+### 实测证据
+
+包内 19 个用例、单文件 100% 覆盖。另加 `apps/web/tests/join-page.e2e.ts`（真实 Chromium，走出货组合）：`/join` 给出「这条链接没有带邀请码」、`/join?invite=…` 给出「这个部署不需要邀请码」（本机组合确实没有账号体系）、工作台框架确实被替换掉（没有账号菜单），「前往工作台」能回去。
+
+仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2809 文件 55123 用例 / snapshot 251 / expected 144 / build 10 项，以及两个 Web e2e（新的 join 与既有的 admin-console），全绿。
+
+### 三期做完之后还剩什么
+
+部署引导脚本写下那个**不可删除的超级管理员**（`lyn --profile setup`），以及本机起一个 ZITADEL 真跑一遍首次登录。管理端其余几页（租户、席位与配额、用量重置周期、可用模块、模型治理）按用户原本的清单继续。

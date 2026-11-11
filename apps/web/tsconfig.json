@@ -29,6 +29,7 @@
     "tests/japanese-plugin-metadata.e2e.ts",
     "tests/context-menus.e2e.ts",
     "tests/admin-console.e2e.ts",
+    "tests/join-page.e2e.ts",
     "tests/additional-locales.e2e.ts",
     "tests/rich-text-quotes.e2e.ts",
     "tests/hover-input.e2e.ts",
