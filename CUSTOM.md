@@ -1987,3 +1987,61 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 ### 三期做完之后还剩什么
 
 部署引导脚本写下那个**不可删除的超级管理员**（`lyn --profile setup`），以及本机起一个 ZITADEL 真跑一遍首次登录。管理端其余几页（租户、席位与配额、用量重置周期、可用模块、模型治理）按用户原本的清单继续。
+
+-----
+
+## 部署引导脚本 + 真跑一遍 ZITADEL（2026-11-11）
+
+用户拍板「第 1 条：脚本直接写 binding」。这一轮做引导脚本，并把整条链路在真实 IdP 上跑到底。
+
+### 新 bundle `@lyness/lyn-admin-setup`（profile `admin-setup`）
+
+一条命令往目标 profile 的组合层里写**三样东西**：唯一那位平台管理员的名册条目、他登录所经的 OIDC 提供方行、放他进来的那一条准入绑定。层每次启动重新读，所以管理端既改不了也删不掉——这就是「无法删除、只能运维通过脚本管理」。
+
+```sh
+lyn --profile admin-setup --target acme --person ada --name Ada \
+  --issuer https://id.acme.example --client-id 2984... --subject 2984... \
+  --public-origin https://agent.acme.example
+```
+
+几条设计决定：
+
+| 决定 | 为什么 |
+|---|---|
+| 「站在文件旁边」就是授权 | 没有 token、没有页面、没有登录：它写的层压过运行期一切界面，能跑它只能是站在部署的文件旁 |
+| 提供方用 `insert`，名册与准入用 id patch | 账号模块组合出名册行与准入行、**完全没有**提供方；而带 `name:` 的覆盖在被覆盖行加载别的包时会被跳过——准入那一行刚换过手（受管 → 邀请码） |
+| 一个人在一个渠道上只有一条绑定 | 用新 subject 再跑是替换，不是追加：被重发过 id 的旧绑定不该继续放人 |
+| 第二位管理员直接拒绝 | 一套部署只有一位写定管理员；`--replace` 才换人，其余从管理端加 |
+| 不收客户端密钥 | 只写凭据引用名，真值启动时从环境来 |
+
+`--public-origin` 不是我原来设计里的——是**真跑之后被迫加的**，见下。
+
+### 两个文档 bug（实测出来的，不是读代码猜的）
+
+用 `--dump-config` 对着独立部署指南的「放第一位管理员进来」那段做了个探针，结论：
+
+1. **`- id: 新行  name: ...` 不带 `insert:` 根本不插入**，只打一行 `patch: entry "…" not found` 就过去了。指南里的渠道示例就是这种写法。
+2. 那段的准入覆盖写了 `name: '@lyness/lyn-managed-people/admission'`——第 1 期把准入换成邀请码规则之后，它会以**名字不匹配被跳过**。
+
+也就是说：照着原文档做，得到的是一个「谁都登不进来」的部署。中英两份都已改正、加了「两种写法不能互换」的解释，并把 `admin-setup` 作为 OIDC 目录的一条命令路径写进去。
+
+### 真跑 ZITADEL v4.16
+
+Traefik + Postgres + login v2，`localhost:8080`。**全部走 API 预置，没有在任何控制台里输过密码**：用 `FIRSTINSTANCE_ORG_MACHINE` 生成一个 IAM_OWNER 服务账号、PAT 写进 bootstrap 卷，再用它建 project、建带 client secret 的 Web 应用（redirect `http://127.0.0.1:7788/auth/callback/oidc`）、建两个测试用户。
+
+跑通的：部署零告警启动 → `/auth/sign-in/oidc` 302 到 ZITADEL（带正确 client_id、redirect_uri 与 PKCE S256）→ 真实 Chromium 走完 login v2 → 回调 302 下发 `lyn_identity` → **`auth_session.json` 里真的出现 `{"person":"ada","method":"sign-in:oidc"}`** → `identity/viewer` 答出 `Ada Lin` 与 `channels:[oidc]` → `/admin` 导航完整（People · Invitations · Bots · Models · Built-in plugins · Agent presets · Sign-in · History）。
+
+**第一次跑直接暴露一个漏配**：`sign-in-http` 的 `publicOrigin` 与 `secureCookies` 是必填，而账号模块组合它时不带 config——于是四条浏览器路由**一条都没激活**，指南也从没提过。所以 `admin-setup` 现在同时写这一行，`secureCookies` 由 origin 的 scheme 推出（https→true），并在报告里说明；它还把该注册的 redirect URI 原样印出来。
+
+### 卡住的两个真问题（都不是这几轮改出来的）
+
+1. **登录后「没有任何身份在生效」**：会话里是 `acting: { person: "ada" }`，**没有 `membership`**。于是 `invitations/list`、`people/list` 全部答 `gateway/forbidden: this call acts in no standing`。任何人经目录登录进来都不持标准，管理端什么都干不了。这是 OIDC 提案第 5 期「活跃组织记在 auth session 里」被推迟的那块，但它其实是前置条件。
+2. **本机 `lyn web` 的开发门禁与账号会话打架**：登录完成后再加载文档会得到 `lyn web authentication required`，于是管理端自己那次 viewer 读取被拒、页脚显示「尚未登录」——同一时刻带 cookie 直接打 API 却答得出 Ada Lin。生产形态（不走 `?token=`）不受影响，但本机点不完整。
+
+两条都已向用户提出，等他拍「登录后哪个标准生效」的规则（建议：只有一个标准就置为生效；有多个则一个都不置，由客户端出组织选择器）。
+
+### 实测证据
+
+包内 26 个用例、单文件 100% 覆盖（含「只改自己拥有的三样、注释与他人行原样保留」「第二次运行幂等」「换 subject 是替换」「拒绝第二位管理员」「每一种打错的输入各报哪一栏」）。另加补登记两处：`official-bundles` 的模板元组、`profile-mcp` 的独立树清单（新 profile 是不挂 agent 的运维树）。
+
+仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2811 文件 55152 用例 / snapshot 251 / expected 144 / build 10 项，全绿。`apps/desktop/tests/login-shell-environment.spec.ts` 在全量并发下抖了一次（单独跑 21 项全过，且本轮没碰 `apps/desktop`）——既有抖动，已记在这里。

@@ -109,6 +109,7 @@
     "@lyness/lyn-personalized-recommendations": "workspace:*",
     "@lyness/lyn-experimental-forge-bundle": "workspace:*",
     "@lyness/cordis-plugin-hmr": "workspace:~",
+    "@lyness/lyn-admin-setup": "workspace:*",
     "@lyness/lyn-brand-setup": "workspace:*",
     "@lyness/lyn-brand-studio": "workspace:*",
     "@lyness/lyn-module-accounts": "workspace:*",

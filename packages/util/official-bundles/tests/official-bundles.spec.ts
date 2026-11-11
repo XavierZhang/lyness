@@ -31,6 +31,7 @@ describe('Shipped profile templates', () => {
       'sdk-minimal': { bundles: ['@lyness/lyn-sdk-minimal'] },
       'brand-studio': { bundles: ['@lyness/lyn-brand-studio'] },
       'brand-setup': { bundles: ['@lyness/lyn-brand-setup'] },
+      'admin-setup': { bundles: ['@lyness/lyn-admin-setup'] },
     })
   })
 

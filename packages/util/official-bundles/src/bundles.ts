@@ -96,6 +96,15 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   'brand-setup': {
     bundles: ['@lyness/lyn-brand-setup'],
   },
+  /**
+   * The deploy-time command that writes a deployment's first platform
+   * administrator. Its own profile rather than a flag on the deployment's:
+   * it runs once, before that deployment has ever started, and it mounts
+   * nothing the deployment itself needs.
+   */
+  'admin-setup': {
+    bundles: ['@lyness/lyn-admin-setup'],
+  },
 }
 
 /**

@@ -43,18 +43,29 @@ The `id` is permanent: sessions, grants, and sign-in bindings are written agains
 
 Signing in has two halves. A **channel** authenticates somebody against a directory — WeCom, DingTalk, or Feishu. An **admission binding** says which person in your roster that directory identity is. An empty binding list admits nobody, which is deliberate: connecting a directory must not, by itself, let everyone in it sign in.
 
-The first administrator cannot configure anything before signing in, so their channel and their binding go in the same file, once:
+The first administrator cannot configure anything before signing in, so their channel and their binding go in the same file, once.
+
+If your directory speaks OpenID Connect, one command writes all of it — the roster entry, the provider, and the binding:
+
+```sh
+npx @lyness/lyn --profile admin-setup --target acme --person ada --name Ada \
+  --issuer https://id.acme.example --client-id 2984... --subject 2984...
+```
+
+It reports what it wrote and what is left. Run it once; a second administrator is added from the console afterwards.
+
+For one of the three enterprise directories, write the two rows yourself. The channel is a row the composition does not have, so it arrives under `insert:`; the admission row does exist, so it is an override targeting that id and names no package:
 
 ```yaml
-- id: sign-in-channel-head-office
-  name: '@lyness/lyn-wecom'
-  config:
-    corpId: ww-your-corp-id
-    agentId: '1000002'
-    secret: WECOM_APP_SECRET
+- insert:
+    - id: sign-in-channel-head-office
+      name: '@lyness/lyn-wecom'
+      config:
+        corpId: ww-your-corp-id
+        agentId: '1000002'
+        secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@lyness/lyn-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -63,7 +74,9 @@ The first administrator cannot configure anything before signing in, so their ch
         person: ada
 ```
 
-`issuer` and `subject` are what the directory reports: for WeCom the corp id and the member's UserId, for DingTalk the corp id and the person's unionId, for Feishu the tenant key and the union id. Your directory's own console shows them. `channel` is the channel's id — `wecom`, `dingtalk`, or `feishu` for one written here; a channel added later from the UI has its own id, which that page displays.
+Those two forms are not interchangeable. A row that names a new id without `insert:` is reported as `patch: entry "…" not found` and does nothing, and an override that names a package the composed row does not load is skipped as a name mismatch — which is why the admission override above names none.
+
+`issuer` and `subject` are what the directory reports: for WeCom the corp id and the member's UserId, for DingTalk the corp id and the person's unionId, for Feishu the tenant key and the union id. Your directory's own console shows them. `channel` is the channel's id — `wecom`, `dingtalk`, or `feishu` for one written here, `oidc` for the provider the command above writes; a channel added later from the UI has its own id, which that page displays.
 
 ### Supply the first secret
 

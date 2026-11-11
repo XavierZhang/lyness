@@ -297,6 +297,9 @@ importers:
       '@lyness/lyn-acp-app':
         specifier: workspace:*
         version: link:../../packages/bundle/acp-app
+      '@lyness/lyn-admin-setup':
+        specifier: workspace:*
+        version: link:../../packages/bundle/admin-setup
       '@lyness/lyn-agent-instructions':
         specifier: workspace:*
         version: link:../../packages/context/agent-instructions
@@ -3072,6 +3075,40 @@ importers:
       '@lyness/cordis-plugin-include':
         specifier: workspace:~
         version: link:../../../vendor/include
+
+  packages/bundle/admin-setup:
+    dependencies:
+      '@lyness/lyn-app-boot':
+        specifier: workspace:*
+        version: link:../../boot/app-boot
+      '@lyness/lyn-atomic-write':
+        specifier: workspace:*
+        version: link:../../util/atomic-write
+      '@lyness/lyn-cmdline':
+        specifier: workspace:*
+        version: link:../../boot/cmdline
+      '@lyness/lyn-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@lyness/lyn-home-paths':
+        specifier: workspace:*
+        version: link:../../util/home-paths
+      '@lyness/lyn-official-bundles':
+        specifier: workspace:*
+        version: link:../../util/official-bundles
+      '@lyness/lyn-oidc':
+        specifier: workspace:*
+        version: link:../../identity/oidc
+      commander:
+        specifier: ^15.0.0
+        version: 15.0.0
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
 
   packages/bundle/base:
     dependencies:

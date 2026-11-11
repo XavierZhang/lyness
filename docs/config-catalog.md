@@ -5452,6 +5452,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | --- | --- | --- |
 | `@lyness/lyn-acp-app` | `cmdlineArgs` | [`packages/bundle/acp-app/src/index.ts`](../packages/bundle/acp-app/src/index.ts) |
 | `@lyness/lyn-acting-context` | `people` | [`packages/identity/acting-context/src/index.ts`](../packages/identity/acting-context/src/index.ts) |
+| `@lyness/lyn-admin-setup` | `cmdlineArgs` | [`packages/bundle/admin-setup/src/index.ts`](../packages/bundle/admin-setup/src/index.ts) |
 | `@lyness/lyn-agent` | `sessionProjections` | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
 | `@lyness/lyn-api-account-controller` | `deepseekAccount` · `agents` | [`packages/api/account-controller/src/index.ts`](../packages/api/account-controller/src/index.ts) |
 | `@lyness/lyn-api-admin-audit-controller` | — | [`packages/api/admin-audit-controller/src/index.ts`](../packages/api/admin-audit-controller/src/index.ts) |

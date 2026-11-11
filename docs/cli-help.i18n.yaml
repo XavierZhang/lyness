@@ -9,8 +9,8 @@
   en: 9e2954ae4b7cd738
   zh: d2e95c8efaf37d82
 /lyn-cli-help/contents:
-  en: b9e5df37e3e03862
-  zh: 2f96cc776408c5ca
+  en: 559004444173c61f
+  zh: 61616b847506d51c
 /lyn-cli-help/lyn:
   en: f67c91b02f40262f
   zh: cf35586c854a72e9
@@ -18,8 +18,11 @@
   en: 9f3fb0d3d68e8e9f
   zh: 9d50bef95571d4cb
 /lyn-cli-help/lyn-acp:
-  en: ec9e535c1a250ef4
-  zh: 11343b6a9536c855
+  en: 44b9afc641ce5bf5
+  zh: a7e23eca753c92c0
+/lyn-cli-help/lyn-admin-setup:
+  en: b4add3149225f406
+  zh: 2efc29bfafe3e5d3
 /lyn-cli-help/lyn-brand-setup:
   en: bfdfa04125777ccb
   zh: fbd49530ffed64c7

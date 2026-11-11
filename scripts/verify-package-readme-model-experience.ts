@@ -195,6 +195,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/host/brand-fonts': { kind: 'none', reason: 'Ships font files for wordmark typesetting; registers nothing model-facing.' },
   'packages/bundle/brand-setup': { kind: 'none', reason: 'Operator page that writes brand files and a patch layer; mounts no model-facing row.' },
   'packages/bundle/brand-studio': { kind: 'none', reason: 'Operator command that writes brand files and a patch layer; mounts no model-facing row.' },
+  'packages/bundle/admin-setup': { kind: 'none', reason: 'Operator command that writes a profile patch layer; mounts no model-facing row.' },
   'packages/client/ui-conversation': { kind: 'none', reason: 'Browser-side UI plugin layer; registers nothing model-facing.' },
   'packages/client/ui-approval': { kind: 'none', reason: 'Browser-side approval presentation; registers nothing model-facing.' },
   'packages/client/ui-chat': { kind: 'none', reason: 'Browser-side Chat presentation; registers nothing model-facing.' },

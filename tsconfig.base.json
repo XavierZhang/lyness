@@ -552,6 +552,7 @@
       "@lyness/lyn-acp-app": ["./packages/bundle/acp-app/src"],
       "@lyness/lyn-acting-context": ["./packages/identity/acting-context/src"],
       "@lyness/lyn-admin-audit": ["./packages/identity/admin-audit/src"],
+      "@lyness/lyn-admin-setup": ["./packages/bundle/admin-setup/src"],
       "@lyness/lyn-agent": ["./packages/core/agent/src"],
       "@lyness/lyn-agent-default-model": ["./packages/core/agent-default-model/src"],
       "@lyness/lyn-agent-instructions": ["./packages/context/agent-instructions/src"],

@@ -12,10 +12,10 @@ const installAnchor = fileURLToPath(new URL('../package.json', import.meta.url))
 const resourcePackage = '@lyness/lyn-mcp-resources'
 
 describe('shipped MCP resource composition', () => {
-  // The brand profiles are excluded: each is a standalone tree that mounts no
-  // model, session, or Web row, so it carries no agent for an MCP resource
+  // The operator profiles are excluded: each is a standalone tree that mounts
+  // no model, session, or Web row, so it carries no agent for an MCP resource
   // consumer to serve. Their own patches state that design.
-  const STANDALONE = ['brand-studio', 'brand-setup']
+  const STANDALONE = ['brand-studio', 'brand-setup', 'admin-setup']
 
   it.each(Object.keys(PROFILE_TEMPLATES).filter(name => !STANDALONE.includes(name)))(
     '%s carries one shared resource consumer without a server', (name) => {

@@ -43,18 +43,29 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 
 登录分两半。**渠道**负责拿某个目录——企业微信、钉钉或飞书——认出一个人；**准入绑定**负责说出那个目录身份对应你名册里的哪个人。空的绑定列表谁也不放进来，这是刻意的：接上一个目录，本身不应该等于让那个目录里的所有人都能登录。
 
-第一位管理员在登录之前什么也配不了，所以他的渠道与绑定写在同一份文件里，写一次：
+第一位管理员在登录之前什么也配不了，所以他的渠道与绑定写在同一份文件里，写一次。
+
+如果你的目录说 OpenID Connect，一条命令就把这一整套写好——名册条目、提供方、绑定：
+
+```sh
+npx @lyness/lyn --profile admin-setup --target acme --person ada --name Ada \
+  --issuer https://id.acme.example --client-id 2984... --subject 2984...
+```
+
+它会报出写了什么、还剩什么。只跑一次；此后的第二位管理员从管理端添加。
+
+如果用的是那三种企业目录之一，就自己写那两行。渠道是组合里**没有**的一行，所以它以 `insert:` 到来；准入那一行**是有**的，所以它是一条按 id 的覆盖，并且不写包名：
 
 ```yaml
-- id: sign-in-channel-head-office
-  name: '@lyness/lyn-wecom'
-  config:
-    corpId: ww-your-corp-id
-    agentId: '1000002'
-    secret: WECOM_APP_SECRET
+- insert:
+    - id: sign-in-channel-head-office
+      name: '@lyness/lyn-wecom'
+      config:
+        corpId: ww-your-corp-id
+        agentId: '1000002'
+        secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@lyness/lyn-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -63,7 +74,9 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
         person: ada
 ```
 
-`issuer` 与 `subject` 是目录自己报出来的东西：企业微信是 corpid 与成员的 UserId，钉钉是 corpid 与此人的 unionId，飞书是 tenant key 与 union id。这些在目录自己的后台里能看到。`channel` 是渠道的标识——写在这里的那种就是 `wecom`、`dingtalk`、`feishu`；此后从界面加的渠道有自己的标识，那一页会显示出来。
+这两种写法不能互换。一行点名了新 id 却没有 `insert:`，会被报成 `patch: entry "…" not found` 并且什么都不做；而一条覆盖写了「被覆盖那一行并不加载的包名」，会以名字不匹配被跳过——这正是上面那条准入覆盖不写包名的原因。
+
+`issuer` 与 `subject` 是目录自己报出来的东西：企业微信是 corpid 与成员的 UserId，钉钉是 corpid 与此人的 unionId，飞书是 tenant key 与 union id。这些在目录自己的后台里能看到。`channel` 是渠道的标识——写在这里的那种就是 `wecom`、`dingtalk`、`feishu`，上面那条命令写出的提供方是 `oidc`；此后从界面加的渠道有自己的标识，那一页会显示出来。
 
 ### 把第一把密钥交给它
 
