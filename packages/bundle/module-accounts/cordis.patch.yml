@@ -116,6 +116,11 @@
     - id: ui-settings-history
       name: '@lyness/lyn-client-ui-settings-history'
 
+    # And the page an administrator issues invitations on, beside the roster
+    # a redemption writes into.
+    - id: ui-admin-invitations
+      name: '@lyness/lyn-client-ui-admin-invitations'
+
     # The invitations an administrator issues so somebody the roster has never
     # heard of can join: one standing per code, bounded by its issuer's own,
     # by an expiry, by a count, and by the issuer still holding that standing.
@@ -140,6 +145,11 @@
     # And the one they maintain their bots through, for the same reason.
     - id: bots-controller
       name: '@lyness/lyn-api-bots-controller'
+
+    # And the one they issue invitations through: a code is what admits
+    # somebody no directory has ever reported to this deployment.
+    - id: invitations-controller
+      name: '@lyness/lyn-api-invitations-controller'
 
     # And the one they read the history through: a surface that shows what
     # was changed is what makes the trail answerable rather than merely

@@ -126,6 +126,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
     slotInject: '',
     declaredBy: 'an entry in \'root\' (client-ui-admin-console), so it exists while that entry is mounted',
     occupants: [
+      'client-ui-admin-invitations InvitationsPage id \'invitations\'',
       'client-ui-agent-preset AgentPresetSection id \'agent-presets\'',
       'client-ui-settings-bots BotsSection id \'bots\'',
       'client-ui-settings-credits CreditsSection id \'credits\'',

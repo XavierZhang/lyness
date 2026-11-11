@@ -2197,6 +2197,33 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'invitationsController',
+    summary: 'Host service backing the generated `ctx.remote.invitations` namespace.',
+    description: 'Host service backing the generated `ctx.remote.invitations` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<readonly InvitationRowView[]>',
+        description: 'The invitations the calling standing administers, newest first.',
+        parameters: [],
+        returns: 'their views, without codes.',
+        throws: ['{RemoteError} `invitations/no-standing` when the call establishes none, or `gateway/internal` when this deployment issues none.'],
+      },
+      {
+        signature: '@Remote async issue(input: InvitationInput): Promise<InvitationRowView>',
+        description: 'Issue one invitation, and answer the code once.\n\nThe code is in this answer and nowhere else, so a surface shows it to the administrator now or not at all.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the invitation, with its code.',
+        throws: ['{RemoteError} `invitations/not-permitted`, `invitations/incomplete`, `invitations/out-of-bounds`, `invitations/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async revoke(id: string): Promise<void>',
+        description: 'Withdraw one invitation, so a code already sent stops working.\n\nThe row stays, revoked: who invited whom is why the record is kept.',
+        parameters: [{ name: 'id', description: 'the invitation to withdraw.' }],
+        throws: ['{RemoteError} `invitations/not-permitted`, `invitations/unknown`, `invitations/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
     key: 'jobController',
     summary: 'Host service backing the generated `ctx.remote.job` namespace.',
     description: 'Host service backing the generated `ctx.remote.job` namespace.',
@@ -8248,6 +8275,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'InvitationId',
     declaration: 'export type InvitationId = Branded<\'InvitationId\'>;',
+  },
+  {
+    name: 'InvitationInput',
+    declaration: 'export interface InvitationInput {\n    readonly label: string;\n    readonly role: Role;\n    readonly organization?: string;\n    readonly maxUses?: number;\n    readonly lifetimeMs?: number;\n}',
+  },
+  {
+    name: 'InvitationRowView',
+    declaration: 'export interface InvitationRowView {\n    readonly id: string;\n    readonly label: string;\n    readonly role: Role;\n    readonly organization?: string;\n    readonly issuedAt: string;\n    readonly expiresAt: string;\n    readonly maxUses: number;\n    readonly uses: number;\n    readonly open: boolean;\n    readonly code?: string;\n}',
   },
   {
     name: 'InvitationSubmission',

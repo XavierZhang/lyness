@@ -770,6 +770,46 @@ async redeem(code: string, subject: ExternalSubject): Promise<PersonId | undefin
 
 Source: [`packages/identity/invitations/src/index.ts`](../../packages/identity/invitations/src/index.ts)
 
+<a id="ctxinvitationscontroller--invitationscontroller"></a>
+
+### `ctx.invitationsController` — `InvitationsController`
+
+Host service backing the generated `ctx.remote.invitations` namespace.
+
+```ts cordis-catalog
+/**
+ * The invitations the calling standing administers, newest first.
+ * @returns their views, without codes.
+ * @throws {RemoteError} `invitations/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment issues none.
+ */
+@Remote async list(): Promise<readonly InvitationRowView[]>
+
+/**
+ * Issue one invitation, and answer the code once.
+ *
+ * The code is in this answer and nowhere else, so a surface shows it to
+ * the administrator now or not at all.
+ * @param input - what the administrator filled in.
+ * @returns the invitation, with its code.
+ * @throws {RemoteError} `invitations/not-permitted`, `invitations/incomplete`,
+ * `invitations/out-of-bounds`, `invitations/no-standing`, or `gateway/internal`.
+ */
+@Remote async issue(input: InvitationInput): Promise<InvitationRowView>
+
+/**
+ * Withdraw one invitation, so a code already sent stops working.
+ *
+ * The row stays, revoked: who invited whom is why the record is kept.
+ * @param id - the invitation to withdraw.
+ * @throws {RemoteError} `invitations/not-permitted`, `invitations/unknown`,
+ * `invitations/no-standing`, or `gateway/internal`.
+ */
+@Remote async revoke(id: string): Promise<void>
+```
+
+Source: [`packages/api/invitations-controller/src/index.ts`](../../packages/api/invitations-controller/src/index.ts)
+
 <a id="ctxmanagedbots--managedbots"></a>
 
 ### `ctx.managedBots` — `ManagedBots`

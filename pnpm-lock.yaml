@@ -1656,6 +1656,45 @@ importers:
         specifier: workspace:*
         version: link:../../typert/protocol
 
+  packages/api/invitations-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-invitations':
+        specifier: workspace:*
+        version: link:../../identity/invitations
+      '@lyness/lyn-managed-people':
+        specifier: workspace:*
+        version: link:../../identity/managed-people
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/api/job-controller:
     dependencies:
       '@lyness/lyn-typert-protocol':
@@ -1937,6 +1976,9 @@ importers:
       '@lyness/lyn-api-identity-controller':
         specifier: workspace:*
         version: link:../identity-controller
+      '@lyness/lyn-api-invitations-controller':
+        specifier: workspace:*
+        version: link:../invitations-controller
       '@lyness/lyn-api-job-controller':
         specifier: workspace:*
         version: link:../job-controller
@@ -3433,6 +3475,9 @@ importers:
       '@lyness/lyn-api-bots-controller':
         specifier: workspace:*
         version: link:../../api/bots-controller
+      '@lyness/lyn-api-invitations-controller':
+        specifier: workspace:*
+        version: link:../../api/invitations-controller
       '@lyness/lyn-api-people-controller':
         specifier: workspace:*
         version: link:../../api/people-controller
@@ -3448,6 +3493,9 @@ importers:
       '@lyness/lyn-bot-ask':
         specifier: workspace:*
         version: link:../../identity/bot-ask
+      '@lyness/lyn-client-ui-admin-invitations':
+        specifier: workspace:*
+        version: link:../../client/ui-admin-invitations
       '@lyness/lyn-client-ui-settings-bots':
         specifier: workspace:*
         version: link:../../client/ui-settings-bots
@@ -4722,6 +4770,48 @@ importers:
       '@lyness/lyn-client-ui-viewer':
         specifier: workspace:*
         version: link:../ui-viewer
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+
+  packages/client/ui-admin-invitations:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-invitations-controller':
+        specifier: workspace:*
+        version: link:../../api/invitations-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@lyness/lyn-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@lyness/lyn-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@lyness/lyn-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@lyness/lyn-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@lyness/lyn-client-ui-settings':
+        specifier: workspace:*
+        version: link:../ui-settings
+      '@lyness/lyn-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
       '@lyness/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery

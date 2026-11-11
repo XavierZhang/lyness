@@ -22,6 +22,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
+| `@lyness/lyn-api-invitations-controller` | no | Remote owner of the invitations surface: administrators issue, read and withdraw the codes that admit somebody new |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
 | `@lyness/lyn-api-memory-controller` | no | What this deployment remembers about one person, read and removed by that person alone |
 | `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
@@ -84,6 +85,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-resources` | no | Unified client resource model: protocol-registered providers turn URL addresses into live values, consumed through the useResource global standard hook |
 | `@lyness/lyn-client-shortcuts` | yes | Application keyboard command registry and physical-key routing |
 | `@lyness/lyn-client-ui-admin-console` | no | The administration console: its own page, its own shell, and the administration pages inside it |
+| `@lyness/lyn-client-ui-admin-invitations` | no | The invitations page in the administration console: issue the code that admits somebody new, read what still stands, and withdraw one |
 | `@lyness/lyn-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
 | `@lyness/lyn-client-ui-agent-team` | no | Web shared task board for a subagent tree |
 | `@lyness/lyn-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |

@@ -16,6 +16,7 @@ import announcementsRemote from '@lyness/lyn-api-announcement-controller/remote'
 import creditsRemote from '@lyness/lyn-api-credits-controller/remote'
 import identityRemote from '@lyness/lyn-api-identity-controller/remote'
 import peopleRemote from '@lyness/lyn-api-people-controller/remote'
+import invitationsRemote from '@lyness/lyn-api-invitations-controller/remote'
 import botsRemote from '@lyness/lyn-api-bots-controller/remote'
 import auditRemote from '@lyness/lyn-api-admin-audit-controller/remote'
 import signInChannelsRemote from '@lyness/lyn-api-sign-in-channel-controller/remote'
@@ -216,7 +217,7 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
       permissionPresetsRemote, subagentsRemote, sessionRemote, jobRemote, workspaceRemote, workspaceFilesRemote, terminalRemote,
       officeToPdfRemote, userQuestionsRemote, webRemote,
       announcementsRemote, creditsRemote, identityRemote,
-      peopleRemote, botsRemote, auditRemote, signInChannelsRemote,
+      peopleRemote, invitationsRemote, botsRemote, auditRemote, signInChannelsRemote,
     ]) {
       disposers.push(await ctx.remote.$mount(contribution))
     }

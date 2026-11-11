@@ -1119,6 +1119,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against.',
   },
   {
+    key: 'invitationsController',
+    pkg: 'api-invitations-controller',
+    title: 'The invitations an administrator issues',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the invitations onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the bounds that decide what that standing may issue, and carries the code only in the answer to the call that issued it.',
+  },
+  {
     key: 'peopleController',
     pkg: 'api-people-controller',
     title: 'Who may use this deployment',

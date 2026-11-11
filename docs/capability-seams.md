@@ -351,6 +351,8 @@ flowchart LR
   svc_adminAuditController["ctx.adminAuditController<br/>The trail an administrator reads"]
   pkg_api_bots_controller["api-bots-controller"]
   svc_botsController["ctx.botsController<br/>The bots an organization runs"]
+  pkg_api_invitations_controller["api-invitations-controller"]
+  svc_invitationsController["ctx.invitationsController<br/>The invitations an administrator issues"]
   pkg_api_people_controller["api-people-controller"]
   svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
   pkg_session_ownership["session-ownership"]
@@ -426,6 +428,7 @@ flowchart LR
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_identity_controller --> svc_identityController
+  pkg_api_invitations_controller --> svc_invitationsController
   pkg_api_job_controller --> svc_jobController
   pkg_api_memory_controller --> svc_memoryController
   pkg_api_people_controller --> svc_peopleController
@@ -936,6 +939,7 @@ flowchart LR
 | `ctx.invitations` | `core` | [`invitations`](../packages/identity/invitations) | - | - | - | Holds the codes that admit somebody the roster has never heard of: one standing per code, bounded by its issuer's own standing, an expiry, a use count and a withdrawal, and void once that standing is gone. |
 | `ctx.adminAuditController` | `core` | [`api-admin-audit-controller`](../packages/api/admin-audit-controller) | - | - | - | Answers one page of recorded changes on the standing the call acts in, and resolves the one thing it owns: an unnamed read means the caller's own organization, so a tenant administrator does not name the only one they administer. |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against. |
+| `ctx.invitationsController` | `core` | [`api-invitations-controller`](../packages/api/invitations-controller) | - | - | - | Projects the invitations onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the bounds that decide what that standing may issue, and carries the code only in the answer to the call that issued it. |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | Projects the managed directory onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and reports each refusal under its own code so a form can disable the row it names. |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | Reads back the attribution the stamp wrote: a person sees the conversations they opened and no others, an unattributed one answers only to a platform administrator, and a call with no principal is the deployment acting on itself and sees everything. |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names. |

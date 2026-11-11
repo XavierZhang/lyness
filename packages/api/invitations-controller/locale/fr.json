@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC des invitations",
+    "description": "Les administrateurs émettent les codes qui admettent une nouvelle personne, consultent ceux encore valables et en retirent un."
+  }
+}

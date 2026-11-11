@@ -1915,3 +1915,39 @@ typecheck / lint / hygiene 31 项（含 publint）/ doc-sync 44 项 / `pnpm run 
 ### 还没做的
 
 管理端的「邀请」页（生成/列表/撤回/复制链接）、前台的兑换页（`/join/<code>` 或登录页上的「我有邀请码」）、以及部署引导脚本写下的那个不可删除的超级管理员。
+
+-----
+
+## 邀请码第 2 期：命名空间与管理端那一页（2026-11-11）
+
+第 1 期把服务与准入做完了，这一期把它接到人身上。
+
+### `invitations` 这个 Remote 命名空间
+
+新包 `@lyness/lyn-api-invitations-controller`，三个方法：`list`、`issue`、`revoke`。**它什么都不决定**——谁可以签发什么是 `lyn-invitations` 那道接缝的事，这里只解析出「这次调用所处的那个标准」交给它，再把它答出的东西按自己的错误码汇报（`not-permitted` / `incomplete` / `out-of-bounds` / `unknown` / `no-standing`）。
+
+**码只过线一次**：只有 `issue` 的应答携带它，`list` 永远不带，因为库里只有哈希。方法名用 `revoke` 不用 `delete`——撤回保留那一行，这不是删除（而 `remove` 是命名空间服务的保留成员，上一轮已经踩过）。
+
+### 管理端的「邀请码」页
+
+新包 `@lyness/lyn-client-ui-admin-invitations`，注册进 `admin.section`（`order: 36`，排在「人员」后面：邀请码是「还不在那本名册里的人」怎么进来的）。表单五项：标签、授出的标准、组织（平台管理员那档自动消失）、允许兑换次数、有效期（一天／一周／一个月）。
+
+**码只展示这一次**，连同用这一页自己的 `window.location.origin` 拼出的兑换链接——管理员发出去的是他此刻正在看的那个地址。进入列表的那一行会把 `code` 摘掉，于是列表的形状与后续一次读答出的一致，没有哪个组件需要判断「我手里这张码是不是过时的」。`joinPath` 是 Config（默认 `/join`），因为兑换页是同一份组合里的另一行。
+
+撤回要走 `RiskConfirmation`：确认文案写明「对已经拿到码的人也会立刻失效」，之后那一行是「已失效」而不是消失。
+
+### 踩到的三件事
+
+1. **`verify-client-remote-namespaces`**：客户端注入 `remote.invitations` 之后，必须在 `packages/api/remotes/src/client/index.ts` 的挂载表里加上它，否则注入它的插件会被静默 park。
+2. **CSS Modules 需要包内的 `src/css-modules.d.ts`**，不然 `tsc -b` 报 TS2307；这是每个带 `.module.css` 的 client 包各自有一份的东西。
+3. **`exactOptionalPropertyTypes`**：「平台管理员那张码没有组织」不能写成 `organization: undefined`，要真的不带那个属性（夹具里用解构摘掉）。
+
+### 实测证据
+
+新包各自 100% 单文件覆盖：controller 10 个用例（含经真实 Loader 的组合测试：管理员经命名空间签出一张码 → 一个陌生人凭它登录进来 → 列表报出一次使用；撤回之后同一张码谁都准入不了），页面 32 个用例（含剪贴板真实写入、确认框、三种读失败状态、平台档不送组织、次数非数字时交给部署默认值）。
+
+仓库级：typecheck / lint / hygiene 32 项 / doc-sync 44 项 / `pnpm run test` 2806 文件 55104 用例 / snapshot 251 / expected 144 / build 10 项，全绿。
+
+### 还没做的
+
+前台兑换页（`/join/<code>`）——这一页拼出的链接现在还指向一个没人应答的路径，是紧接着的第 3 期。

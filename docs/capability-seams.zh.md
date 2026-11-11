@@ -353,6 +353,8 @@ flowchart LR
   svc_adminAuditController["ctx.adminAuditController<br/>The trail an administrator reads"]
   pkg_api_bots_controller["api-bots-controller"]
   svc_botsController["ctx.botsController<br/>The bots an organization runs"]
+  pkg_api_invitations_controller["api-invitations-controller"]
+  svc_invitationsController["ctx.invitationsController<br/>The invitations an administrator issues"]
   pkg_api_people_controller["api-people-controller"]
   svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
   pkg_session_ownership["session-ownership"]
@@ -428,6 +430,7 @@ flowchart LR
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_identity_controller --> svc_identityController
+  pkg_api_invitations_controller --> svc_invitationsController
   pkg_api_job_controller --> svc_jobController
   pkg_api_memory_controller --> svc_memoryController
   pkg_api_people_controller --> svc_peopleController
@@ -938,6 +941,7 @@ flowchart LR
 | `ctx.invitations` | `core` | [`invitations`](../packages/identity/invitations) | - | - | - | 存着那些能准入名册从未听说过的人的码：一张码一个标准，受签发者自己那个标准的约束，还有一个到期时间、一个使用计数和一次撤回，并且一旦那个标准不在了就作废。 |
 | `ctx.adminAuditController` | `core` | [`api-admin-audit-controller`](../packages/api/admin-audit-controller) | - | - | - | 在这次调用所处的身份上答出一页已记录的更改，并解析它唯一拥有的那件事：一次不点名的读指的是调用方自己的组织，于是租户管理员不必点名他唯一管理的那一个。 |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | 把 bot 名册投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并答出那份名册用来校验一次保存的同一份 preset 列表。 |
+| `ctx.invitationsController` | `core` | [`api-invitations-controller`](../packages/api/invitations-controller) | - | - | - | 把那些邀请码投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定「这个身份可以签出什么」的边界，并且只在签发它的那次调用的应答里携带那张码。 |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | 把被管理的目录投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并把每种拒绝按自己的错误码汇报，好让表单禁用它点名的那一行。 |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | 把写入的归属读回来：一个人看得到自己开启的对话、看不到别人的；没有归属的那些只对平台管理员作答；而没有 principal 的调用是部署在对自己行事，它看得到全部。 |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | 把配置好的渠道存储投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那条唯一决定谁管得着什么的规则，并把每种拒绝按自己的错误码汇报，好让表单标出它点名的那个字段。 |

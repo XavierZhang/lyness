@@ -5462,6 +5462,7 @@ export interface Config {
 | `@lyness/lyn-api-bots-controller` | — | [`packages/api/bots-controller/src/index.ts`](../packages/api/bots-controller/src/index.ts) |
 | `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |
 | `@lyness/lyn-api-identity-controller` | — | [`packages/api/identity-controller/src/index.ts`](../packages/api/identity-controller/src/index.ts) |
+| `@lyness/lyn-api-invitations-controller` | — | [`packages/api/invitations-controller/src/index.ts`](../packages/api/invitations-controller/src/index.ts) |
 | `@lyness/lyn-api-memory-controller` | `memory` | [`packages/api/memory-controller/src/index.ts`](../packages/api/memory-controller/src/index.ts) |
 | `@lyness/lyn-api-people-controller` | — | [`packages/api/people-controller/src/index.ts`](../packages/api/people-controller/src/index.ts) |
 | `@lyness/lyn-api-personal-instructions-controller` | `personalInstructions` | [`packages/api/personal-instructions-controller/src/index.ts`](../packages/api/personal-instructions-controller/src/index.ts) |
@@ -5481,6 +5482,7 @@ export interface Config {
 | `@lyness/lyn-client-resources` | — | [`packages/client/resources/src/index.ts`](../packages/client/resources/src/index.ts) |
 | `@lyness/lyn-client-ui-action-cards` | — | [`packages/experimental/client-ui-action-cards/src/index.ts`](../packages/experimental/client-ui-action-cards/src/index.ts) |
 | `@lyness/lyn-client-ui-admin-console` | — | [`packages/client/ui-admin-console/src/index.ts`](../packages/client/ui-admin-console/src/index.ts) |
+| `@lyness/lyn-client-ui-admin-invitations` | — | [`packages/client/ui-admin-invitations/src/index.ts`](../packages/client/ui-admin-invitations/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-preset` | — | [`packages/client/ui-agent-preset/src/index.ts`](../packages/client/ui-agent-preset/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-team` | — | [`packages/client/ui-agent-team/src/index.ts`](../packages/client/ui-agent-team/src/index.ts) |
 | `@lyness/lyn-client-ui-approval` | — | [`packages/client/ui-approval/src/index.ts`](../packages/client/ui-approval/src/index.ts) |

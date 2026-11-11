@@ -63,7 +63,7 @@ export interface AdminChannelRow {
 
 /** The console's navigation groups, in the order the column shows them. */
 export const GROUPS = [
-  { key: 'organization', sections: ['people', 'bots', 'credits'] },
+  { key: 'organization', sections: ['people', 'invitations', 'bots', 'credits'] },
   { key: 'capability', sections: ['sign-in-channels', 'models', 'agent-presets', 'plugins'] },
   { key: 'platform', sections: ['history'] },
 ] as const satisfies readonly { key: string; sections: readonly string[] }[]

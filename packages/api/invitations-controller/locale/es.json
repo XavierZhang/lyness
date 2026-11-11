@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de invitaciones",
+    "description": "Los administradores emiten los códigos que admiten a alguien nuevo, consultan los vigentes y retiran uno."
+  }
+}
