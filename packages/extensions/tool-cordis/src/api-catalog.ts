@@ -2145,6 +2145,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [],
         returns: 'whether this deployment has accounts, who the caller is, and the channels it offers.',
       },
+      {
+        signature: '@Remote async act(standing: string): Promise<ViewerView>',
+        description: 'Act in one of the standings this caller holds, and answer what they are afterwards.\n\nOne call changes one session\'s own acting context: the session is the one this call presented, and the standing must be one its person holds. A person who holds several starts personal — which organization they are acting for is their decision — and this is where they make it.',
+        parameters: [{ name: 'standing', description: 'the standing to put in force.' }],
+        returns: 'the viewer as the deployment now reads them.',
+        throws: ['{RemoteError} `identity/no-identity` when the call presented none, `identity/not-held` when the caller does not hold that standing, or `gateway/internal` when this deployment keeps no sessions.'],
+      },
     ],
   },
   {
@@ -11774,7 +11781,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ViewerView',
-    declaration: 'export interface ViewerView {\n    readonly accounts: boolean;\n    readonly person?: ViewerPersonView;\n    readonly standing?: ViewerStandingView;\n    readonly channels: readonly ChannelOfferView[];\n    readonly signInPrefix: string;\n    readonly signOutPath: string;\n}',
+    declaration: 'export interface ViewerView {\n    readonly accounts: boolean;\n    readonly person?: ViewerPersonView;\n    readonly standing?: ViewerStandingView;\n    readonly standings: readonly ViewerStandingView[];\n    readonly channels: readonly ChannelOfferView[];\n    readonly signInPrefix: string;\n    readonly signOutPath: string;\n}',
   },
   {
     name: 'WebBootBatch',

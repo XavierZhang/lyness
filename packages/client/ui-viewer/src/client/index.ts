@@ -16,7 +16,7 @@ import type {} from '@lyness/lyn-api-identity-controller/remote'
 import { UiViewer } from './viewer.ts'
 
 export { UiViewer } from './viewer.ts'
-export type { ViewerRead, ViewerSnapshot } from './viewer.ts'
+export type { ViewerAct, ViewerRead, ViewerSnapshot } from './viewer.ts'
 export { administers } from './plane.ts'
 export type { SettingsPlane } from './plane.ts'
 
@@ -28,5 +28,9 @@ export const inject = ['remote', 'remote.identity']
  * @param ctx - client provider context.
  */
 export function apply(ctx: Context): void {
-  new UiViewer(ctx, () => ctx.remote.identity.viewer())
+  new UiViewer(
+    ctx,
+    () => ctx.remote.identity.viewer(),
+    standing => ctx.remote.identity.act(standing),
+  )
 }

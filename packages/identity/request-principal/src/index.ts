@@ -33,6 +33,15 @@ declare module '@lyness/cordis' {
 
 /** The signed-in person a call speaks for, and the context they act in. */
 export interface Principal {
+  /**
+   * The session this call presented.
+   *
+   * Carried because an operation on the caller's own session — switching
+   * which standing it acts in — would otherwise have to re-read the request
+   * it was resolved from. It addresses this session and no other: nothing
+   * here lets a call name somebody else's.
+   */
+  readonly session: AuthSessionId
   /** The person the presented session belongs to. */
   readonly person: PersonId
   /** The context that session has in force. */
@@ -143,7 +152,7 @@ export class RequestPrincipal extends Service {
     const presented = presentedSession(request)
     const session = presented === undefined ? undefined : await this.read(presented)
     return this.store.run(
-      session === undefined ? undefined : { person: session.person, acting: session.acting },
+      session === undefined ? undefined : { session: session.id, person: session.person, acting: session.acting },
       run,
     )
   }

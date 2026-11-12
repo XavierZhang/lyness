@@ -4,9 +4,13 @@ import { expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
 import type { Principal } from '@lyness/lyn-request-principal'
 import CreditsController from '../src/index.ts'
+
+/** The session every principal in this spec presents; no case addresses another. */
+const SESSION = brandString<AuthSessionId>('test-session')
 
 const ADA = brandString<PersonId>('ada')
 const STANDING = brandString<MembershipId>('ada:tenant-administrator')
@@ -26,7 +30,7 @@ interface Mounted {
 }
 
 /** Act as Ada in her administrator standing. */
-const asAda: Principal = { person: ADA, acting: { person: ADA, membership: STANDING } }
+const asAda: Principal = { session: SESSION, person: ADA, acting: { person: ADA, membership: STANDING } }
 
 /**
  * Mount the controller over exactly the services one test needs.
@@ -79,7 +83,7 @@ it('answers a deployment with a ledger but no administration seam', async () => 
 })
 
 it('refuses a call acting in a personal context, which administers nobody', async () => {
-  const controller = await harness({ principal: { person: ADA, acting: { person: ADA } }, standings: [], ledger: true })
+  const controller = await harness({ principal: { session: SESSION, person: ADA, acting: { person: ADA } }, standings: [], ledger: true })
   expect(await refusedCode(controller.grant({ person: 'bea', amount: 5 }))).toBe('credits/not-permitted')
 })
 

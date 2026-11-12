@@ -30,12 +30,24 @@ const PAGES: readonly AdminSectionRow[] = [
 
 const OPERATOR: AdminViewerRow = {
   name: undefined, signOutPath: undefined, administers: true, accounts: false, signedIn: false, channels: [],
+  standings: [], standing: undefined,
+}
+
+/** Somebody holding two standings, with neither in force. */
+const UNDECIDED: AdminViewerRow = {
+  name: '张工', signOutPath: '/auth/sign-out', administers: false, accounts: true, signedIn: true, channels: [],
+  standing: undefined,
+  standings: [
+    { id: 'zhang:platform', role: 'platform-administrator' },
+    { id: 'zhang:acme', role: 'tenant-administrator', organization: 'acme' },
+  ],
 }
 
 /** A deployment with accounts, nobody signed in, one channel a browser can begin. */
 const SIGNED_OUT: AdminViewerRow = {
   name: undefined, signOutPath: undefined, administers: false, accounts: true, signedIn: false,
   channels: [{ href: '/auth/sign-in/oidc', displayName: '企业单点登录' }],
+  standings: [], standing: undefined,
 }
 
 /** One rendered console over a fixed set of pages and one viewer. */
@@ -44,6 +56,7 @@ function renderFrame(
   viewer: AdminViewerRow = OPERATOR,
 ) {
   const select = vi.fn()
+  const act = vi.fn()
   let active: string | undefined
   const renderSlot = vi.fn(((key: string, _owner: unknown, opts?: { only?: string }) =>
     key === 'admin.section'
@@ -56,9 +69,10 @@ function renderFrame(
     actions: { select: (id: string) => { active = id; select(id); view.rerender(<AdminFrame {...props} />) } },
     useSections: (<T,>(pick: (value: readonly AdminSectionRow[]) => T) => pick(rows)),
     useViewer: (<T,>(pick: (value: AdminViewerRow) => T) => pick(viewer)),
+    act,
   } as AdminFrameProps
   const view = render(<AdminFrame {...props} />)
-  return { ...view, select, renderSlot }
+  return { ...view, select, renderSlot, act }
 }
 
 describe('grouping the pages', () => {
@@ -135,6 +149,50 @@ describe('the console', () => {
     expect(screen.getByRole('link', { name: zh.signOut }).getAttribute('href')).toBe('/auth/sign-out')
     // Document-relative: at /admin, './' is the workbench.
     expect(screen.getByRole('link', { name: zh.workbench }).getAttribute('href')).toBe('./')
+  })
+
+  it('asks which standing to act in before offering anything, and acts on the answer', () => {
+    const { act } = renderFrame(PAGES, UNDECIDED)
+    expect(screen.getByText(zh.chooseTitle)).toBeTruthy()
+    // Not the nav: every page behind it would refuse a call acting in no
+    // standing.
+    expect(screen.queryByRole('navigation', { name: zh.console })).toBeNull()
+
+    const choices = screen.getAllByRole('button')
+    expect(choices.map(choice => choice.textContent)).toEqual(['整个平台 · 平台超级管理员', 'acme · 组织管理员'])
+    fireEvent.click(choices[1] as HTMLElement)
+    expect(act).toHaveBeenCalledWith('zhang:acme')
+
+    // A member standing reads as one too: the chooser is also the page
+    // somebody who administers nothing lands on.
+    cleanup()
+    renderFrame(PAGES, {
+      ...UNDECIDED,
+      standings: [...UNDECIDED.standings, { id: 'zhang:beta', role: 'member', organization: 'beta' }],
+    })
+    expect(screen.getByRole('button', { name: 'beta · 成员' })).toBeTruthy()
+  })
+
+  it('offers the other standings in the column once one is in force', () => {
+    const { act } = renderFrame(PAGES, {
+      ...UNDECIDED, administers: true, standing: 'zhang:acme',
+    })
+    // The console is open on a page, and the other standing is one click away.
+    expect(screen.getByRole('navigation', { name: zh.console })).toBeTruthy()
+    const other = screen.getByRole('button', { name: '改以「整个平台 · 平台超级管理员」行事' })
+    fireEvent.click(other)
+    expect(act).toHaveBeenCalledWith('zhang:platform')
+    // And the one in force is not offered to be switched to.
+    expect(screen.queryByRole('button', { name: /acme · 组织管理员/u })).toBeNull()
+  })
+
+  it('offers no switch to somebody holding one standing', () => {
+    renderFrame(PAGES, {
+      ...OPERATOR, name: '张工', accounts: true, signedIn: true,
+      standing: 's1', standings: [{ id: 's1', role: 'platform-administrator' }],
+    })
+    expect(screen.getByRole('navigation', { name: zh.console })).toBeTruthy()
+    expect(screen.queryByText(/改以/u)).toBeNull()
   })
 
   it('names nobody and offers no sign-out on a deployment with no accounts', () => {

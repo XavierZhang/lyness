@@ -85,8 +85,10 @@ it('publishes the person and the context their session has in force', async () =
   const session = await ctx.authSessions.establish({ person: ADA, method: 'sso' })
   await ctx.authSessions.switchContext(session.id, { person: ADA, membership: ADA_STANDING })
 
+  // The session it was resolved from comes with it: an operation on the
+  // caller's own session has it in hand without re-reading the request.
   expect(await runWith(presenting(session.id)))
-    .toEqual({ person: ADA, acting: { person: ADA, membership: ADA_STANDING } })
+    .toEqual({ session: session.id, person: ADA, acting: { person: ADA, membership: ADA_STANDING } })
 })
 
 it('publishes nothing for a call presenting no identity', async () => {

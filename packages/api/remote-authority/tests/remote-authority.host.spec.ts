@@ -7,11 +7,15 @@
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
 import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
 import type { Principal } from '@lyness/lyn-request-principal'
 import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
 import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
 import { ANONYMOUS, NO_STANDING, UNCLASSIFIED, apply, inject, refusal, satisfies } from '../src/index.ts'
+
+/** The session every principal in this spec presents; no case addresses another. */
+const SESSION = brandString<AuthSessionId>('test-session')
 
 const ADA = brandString<PersonId>('ada')
 
@@ -54,7 +58,7 @@ async function ask(
 function as(role: Role): { principal: Principal; standings: readonly Membership[] } {
   const held = standing(role)
   return {
-    principal: { person: ADA, acting: { person: ADA, membership: held.id } },
+    principal: { session: SESSION, person: ADA, acting: { person: ADA, membership: held.id } },
     standings: [held],
   }
 }
@@ -97,11 +101,11 @@ describe('the mounted rule', () => {
     expect(await ask(as('member'), 'member')).toBeUndefined()
     // A personal context is signed in too: it holds no standing, and a member
     // requirement does not ask for one.
-    expect(await ask({ principal: { person: ADA, acting: { person: ADA } } }, 'member')).toBeUndefined()
+    expect(await ask({ principal: { session: SESSION, person: ADA, acting: { person: ADA } } }, 'member')).toBeUndefined()
   })
 
   it('refuses a personal context where a standing is required', async () => {
-    const personal = { principal: { person: ADA, acting: { person: ADA } } }
+    const personal = { principal: { session: SESSION, person: ADA, acting: { person: ADA } } }
     expect(await ask(personal, 'tenant-administrator')).toBe(NO_STANDING)
   })
 

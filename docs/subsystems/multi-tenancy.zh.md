@@ -705,6 +705,22 @@ Host service backing the generated `ctx.remote.identity` namespace.
  * @returns whether this deployment has accounts, who the caller is, and the channels it offers.
  */
 @Remote async viewer(): Promise<ViewerView>
+
+/**
+ * Act in one of the standings this caller holds, and answer what they are
+ * afterwards.
+ *
+ * One call changes one session's own acting context: the session is the one
+ * this call presented, and the standing must be one its person holds. A
+ * person who holds several starts personal — which organization they are
+ * acting for is their decision — and this is where they make it.
+ * @param standing - the standing to put in force.
+ * @returns the viewer as the deployment now reads them.
+ * @throws {RemoteError} `identity/no-identity` when the call presented none,
+ * `identity/not-held` when the caller does not hold that standing, or
+ * `gateway/internal` when this deployment keeps no sessions.
+ */
+@Remote async act(standing: string): Promise<ViewerView>
 ```
 
 Source: [`packages/api/identity-controller/src/index.ts`](../../packages/api/identity-controller/src/index.ts)

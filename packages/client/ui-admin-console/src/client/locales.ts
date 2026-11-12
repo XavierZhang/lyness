@@ -10,6 +10,14 @@
 
 /** English copy; the key set every locale answers. */
 export const en = {
+  chooseTitle: 'Choose how you are acting here',
+  chooseHint: 'Your account holds more than one standing. Pick the one this session acts in; the column lets you change it later.',
+  standing: '{where} · {role}',
+  platformWide: 'The whole platform',
+  rolePlatform: 'Platform administrator',
+  roleTenant: 'Organization administrator',
+  roleMember: 'Member',
+  actAs: 'Act as {standing}',
   console: 'Administration',
   workbench: 'Open the workbench',
   group_organization: 'Organization and people',
@@ -33,6 +41,14 @@ export type AdminConsoleKey = keyof typeof en
 
 /** zh copy, checked complete against the English key set. */
 export const zh: Record<AdminConsoleKey, string> = {
+  chooseTitle: '选择你此刻以什么身份行事',
+  chooseHint: '你的账号持有不止一个身份。挑一个作为这次会话行事的身份；之后在左栏可以随时换。',
+  standing: '{where} · {role}',
+  platformWide: '整个平台',
+  rolePlatform: '平台超级管理员',
+  roleTenant: '组织管理员',
+  roleMember: '成员',
+  actAs: '改以「{standing}」行事',
   console: '管理端',
   workbench: '前往工作台',
   group_organization: '组织与人员',
@@ -53,6 +69,14 @@ export const zh: Record<AdminConsoleKey, string> = {
 
 /** ja copy. */
 export const ja: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'どの立場で操作するか選んでください',
+  chooseHint: 'あなたのアカウントは複数の立場を持っています。このセッションで使う立場を選んでください。左の列からいつでも変更できます。',
+  standing: '{where} · {role}',
+  platformWide: 'プラットフォーム全体',
+  rolePlatform: 'プラットフォーム管理者',
+  roleTenant: '組織管理者',
+  roleMember: 'メンバー',
+  actAs: '{standing} として操作する',
   console: '管理コンソール',
   workbench: 'ワークベンチを開く',
   group_organization: '組織とメンバー',
@@ -73,6 +97,14 @@ export const ja: Record<AdminConsoleKey, string> = {
 
 /** es copy. */
 export const es: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'Elige con qué condición actúas aquí',
+  chooseHint: 'Tu cuenta tiene más de una condición. Elige la de esta sesión; podrás cambiarla después desde la columna.',
+  standing: '{where} · {role}',
+  platformWide: 'Toda la plataforma',
+  rolePlatform: 'Administrador de la plataforma',
+  roleTenant: 'Administrador de la organización',
+  roleMember: 'Miembro',
+  actAs: 'Actuar como {standing}',
   console: 'Administración',
   workbench: 'Abrir el espacio de trabajo',
   group_organization: 'Organización y personas',
@@ -93,6 +125,14 @@ export const es: Record<AdminConsoleKey, string> = {
 
 /** fr copy. */
 export const fr: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'Choisissez la qualité dans laquelle vous agissez',
+  chooseHint: 'Votre compte porte plusieurs qualités. Choisissez celle de cette session ; la colonne permet de la changer ensuite.',
+  standing: '{where} · {role}',
+  platformWide: 'Toute la plateforme',
+  rolePlatform: 'Administrateur de la plateforme',
+  roleTenant: 'Administrateur de l’organisation',
+  roleMember: 'Membre',
+  actAs: 'Agir en tant que {standing}',
   console: 'Administration',
   workbench: 'Ouvrir l\'espace de travail',
   group_organization: 'Organisation et personnes',
@@ -113,6 +153,14 @@ export const fr: Record<AdminConsoleKey, string> = {
 
 /** de copy. */
 export const de: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'Wählen Sie, in welcher Stellung Sie hier handeln',
+  chooseHint: 'Ihr Konto trägt mehr als eine Stellung. Wählen Sie die für diese Sitzung; in der Spalte lässt sie sich später ändern.',
+  standing: '{where} · {role}',
+  platformWide: 'Die ganze Plattform',
+  rolePlatform: 'Plattformadministrator',
+  roleTenant: 'Organisationsadministrator',
+  roleMember: 'Mitglied',
+  actAs: 'Als {standing} handeln',
   console: 'Administration',
   workbench: 'Arbeitsbereich öffnen',
   group_organization: 'Organisation und Personen',
@@ -133,6 +181,14 @@ export const de: Record<AdminConsoleKey, string> = {
 
 /** ru copy. */
 export const ru: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'Выберите, в каком положении вы здесь действуете',
+  chooseHint: 'У вашей учётной записи несколько положений. Выберите то, в котором работает эта сессия; в колонке его можно будет сменить.',
+  standing: '{where} · {role}',
+  platformWide: 'Вся платформа',
+  rolePlatform: 'Администратор платформы',
+  roleTenant: 'Администратор организации',
+  roleMember: 'Участник',
+  actAs: 'Действовать как {standing}',
   console: 'Администрирование',
   workbench: 'Открыть рабочее место',
   group_organization: 'Организация и люди',
@@ -153,6 +209,14 @@ export const ru: Record<AdminConsoleKey, string> = {
 
 /** pt copy. */
 export const pt: Record<AdminConsoleKey, string> = {
+  chooseTitle: 'Escolha com que posição atua aqui',
+  chooseHint: 'A sua conta tem mais do que uma posição. Escolha a desta sessão; a coluna permite mudá-la depois.',
+  standing: '{where} · {role}',
+  platformWide: 'Toda a plataforma',
+  rolePlatform: 'Administrador da plataforma',
+  roleTenant: 'Administrador da organização',
+  roleMember: 'Membro',
+  actAs: 'Atuar como {standing}',
   console: 'Administração',
   workbench: 'Abrir a área de trabalho',
   group_organization: 'Organização e pessoas',

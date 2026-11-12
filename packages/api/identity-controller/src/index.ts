@@ -15,9 +15,11 @@
  */
 
 import { Context } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-request-principal'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import type {} from '@lyness/lyn-auth-session'
 import type {} from '@lyness/lyn-sign-in'
 import { SIGN_OUT_PATH, START_PREFIX } from '@lyness/lyn-sign-in-http'
 import type { ChannelOfferView, ViewerPersonView, ViewerStandingView, ViewerView } from './types.ts'
@@ -63,7 +65,48 @@ export default class IdentityController extends TypertRemoteService {
       signOutPath: SIGN_OUT_PATH,
       ...await this.who(principal?.person),
       ...await this.standing(principal?.acting.membership),
+      standings: await this.held(principal?.person),
     }
+  }
+
+  /**
+   * Act in one of the standings this caller holds, and answer what they are
+   * afterwards.
+   *
+   * One call changes one session's own acting context: the session is the one
+   * this call presented, and the standing must be one its person holds. A
+   * person who holds several starts personal — which organization they are
+   * acting for is their decision — and this is where they make it.
+   * @param standing - the standing to put in force.
+   * @returns the viewer as the deployment now reads them.
+   * @throws {RemoteError} `identity/no-identity` when the call presented none,
+   * `identity/not-held` when the caller does not hold that standing, or
+   * `gateway/internal` when this deployment keeps no sessions.
+   */
+  @Remote
+  async act(standing: string): Promise<ViewerView> {
+    const principal = this.ctx.get('requestPrincipal')?.current()
+    if (principal === undefined) {
+      throw new RemoteError('identity/no-identity', 'this call presented no identity', {})
+    }
+    const sessions = this.ctx.get('authSessions')
+    if (sessions === undefined) {
+      throw new RemoteError('gateway/internal', 'this deployment keeps no sessions', { endpoint: 'identity' })
+    }
+    const wanted = brandString<MembershipId>(standing)
+    const held = await this.ctx.get('people')?.memberships(principal.person) ?? []
+    if (!held.some(candidate => candidate.id === wanted)) {
+      throw new RemoteError('identity/not-held', 'this caller does not hold that standing', {})
+    }
+    await sessions.switchContext(principal.session, { person: principal.person, membership: wanted })
+    return await this.viewer()
+  }
+
+  /** Every standing this person holds, as a surface offers them. */
+  private async held(person: PersonId | undefined): Promise<readonly ViewerStandingView[]> {
+    if (person === undefined) return []
+    const held = await this.ctx.get('people')?.memberships(person) ?? []
+    return held.map(one => view(one))
   }
 
   /** The person this call speaks for, when the directory knows them. */
@@ -80,12 +123,19 @@ export default class IdentityController extends TypertRemoteService {
     if (id === undefined) return {}
     const held = await this.ctx.get('people')?.membership(id)
     if (held === undefined) return {}
-    return {
-      standing: {
-        id: String(held.id),
-        role: held.role,
-        ...held.organization === undefined ? {} : { organization: held.organization },
-      },
-    }
+    return { standing: view(held) }
+  }
+}
+
+/**
+ * One standing as a surface shows it.
+ * @param held - the standing as the directory holds it.
+ * @returns its wire view.
+ */
+function view(held: Membership): ViewerStandingView {
+  return {
+    id: String(held.id),
+    role: held.role,
+    ...held.organization === undefined ? {} : { organization: held.organization },
   }
 }

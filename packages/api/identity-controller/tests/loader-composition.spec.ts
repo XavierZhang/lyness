@@ -109,6 +109,7 @@ it('tells a signed-out viewer that this deployment has accounts and offers no ch
   expect(await ctx.identityController.viewer()).toEqual({
     accounts: true,
     channels: [],
+    standings: [],
     signInPrefix: '/auth/sign-in',
     signOutPath: '/auth/sign-out',
   })

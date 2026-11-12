@@ -19,6 +19,7 @@ const BASE: ViewerView = {
   accounts: true,
   channels: [],
   signInPrefix: '/auth/sign-in',
+  standings: [],
   signOutPath: '/auth/sign-out',
 }
 

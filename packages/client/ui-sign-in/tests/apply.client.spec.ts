@@ -19,6 +19,7 @@ const VIEWER: ViewerView = {
   accounts: true,
   channels: [{ id: 'wecom', displayName: '企业微信', redirect: true }],
   signInPrefix: '/auth/sign-in',
+  standings: [],
   signOutPath: '/auth/sign-out',
 }
 

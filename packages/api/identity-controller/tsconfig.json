@@ -9,6 +9,8 @@
   ],
   "references": [
     { "path": "../../../vendor/cordis" },
+    { "path": "../../identity/auth-session" },
+    { "path": "../../util/brand" },
     { "path": "../../identity/people" },
     { "path": "../../identity/request-principal" },
     { "path": "../../identity/sign-in" },

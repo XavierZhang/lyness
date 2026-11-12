@@ -44,6 +44,22 @@ export interface ViewerStandingView {
   readonly organization?: string
 }
 
+declare module '@lyness/lyn-typert-protocol' {
+  interface RemoteErrorDetailsMap {
+    /**
+     * The call presented no identity, so there is no session to change. A
+     * surface asks somebody to sign in rather than to choose.
+     */
+    'identity/no-identity': Record<string, never>
+    /**
+     * The caller does not hold that standing. One call changes one session's
+     * own context and nothing else, so a standing somebody else holds is
+     * refused rather than assumed.
+     */
+    'identity/not-held': Record<string, never>
+  }
+}
+
 /** Who the caller is, and what this deployment offers them. */
 export interface ViewerView {
   /**
@@ -58,6 +74,15 @@ export interface ViewerView {
   readonly person?: ViewerPersonView
   /** The standing they act in; absent for a personal context. */
   readonly standing?: ViewerStandingView
+  /**
+   * Every standing they hold, so a surface can offer the choice.
+   *
+   * Empty for a call that presented no identity. One entry is the standing a
+   * sign-in already put in force; several mean nothing is in force until this
+   * person says which organization they are acting for, because that is their
+   * decision and not the deployment's.
+   */
+  readonly standings: readonly ViewerStandingView[]
   /** The channels a surface may offer; empty when none is mounted. */
   readonly channels: readonly ChannelOfferView[]
   /** Where a surface sends the browser to begin one, with the channel id appended. */

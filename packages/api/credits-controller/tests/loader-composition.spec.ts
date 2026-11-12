@@ -22,9 +22,13 @@ import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import type { Principal } from '@lyness/lyn-request-principal'
 import CreditsController from '../src/index.ts'
+
+/** The session every principal in this spec presents; no case addresses another. */
+const SESSION = brandString<AuthSessionId>('test-session')
 
 const ADA = brandString<PersonId>('ada')
 const BEA = brandString<PersonId>('bea')
@@ -117,6 +121,7 @@ async function compose(): Promise<CreditsController> {
 function as(person: PersonId, membership?: string): void {
   acting = {
     person,
+    session: SESSION,
     acting: { person, ...membership === undefined ? {} : { membership: brandString<MembershipId>(membership) } },
   }
 }

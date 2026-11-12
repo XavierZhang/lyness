@@ -71,7 +71,10 @@ function viewerService(snapshot: ViewerSnapshotDouble, load = vi.fn(async () => 
 function signedOut(channels: ViewerView['channels']): ViewerSnapshotDouble {
   return {
     status: 'ready',
-    viewer: { accounts: true, channels, signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out' },
+    viewer: {
+      accounts: true, channels, standings: [],
+      signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out',
+    },
     administers: false,
   }
 }
@@ -195,6 +198,7 @@ describe('what this page tells its component', () => {
         standing: { id: 's1', role: 'member' },
         channels: [{ id: 'oidc', displayName: 'Single sign-on', redirect: true }],
         signInPrefix: '/auth/sign-in',
+        standings: [],
         signOutPath: '/auth/sign-out',
       },
       administers: false,
@@ -222,6 +226,7 @@ describe('what this page tells its component', () => {
         { id: 'wecom', displayName: 'Head office', redirect: true },
       ],
       signInPrefix: '/auth/sign-in',
+      standings: [],
       signOutPath: '/auth/sign-out',
     }, 'the-code')
     expect(rows).toEqual([
@@ -235,11 +240,13 @@ describe('what this page tells its component', () => {
       accounts: true,
       channels: [{ id: 'desktop', displayName: 'This device', redirect: false }],
       signInPrefix: '/auth/sign-in',
+      standings: [],
       signOutPath: '/auth/sign-out',
     }, 'the-code')
     expect(none).toEqual([])
     expect(channelRows({
       accounts: true, channels: [], signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out',
+      standings: [],
     }, 'the-code')).toBe(none)
   })
 })

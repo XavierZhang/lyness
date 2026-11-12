@@ -54,6 +54,8 @@ The two paths are one decision stated twice: the Host decides which paths serve 
 
 **A member is told, not shown.** The viewer service answers whether this viewer administers anything; a member who reaches the console's URL gets a line saying the page is for administrators instead of a nav whose every call would be refused. The refusals themselves stay with the calls: this decides what is offered and never what is permitted.
 
+**Somebody holding two standings is asked, not guessed at.** A sign-in puts a single standing in force; a person who holds several starts in none, because which organization they are acting for is their decision. The console asks that question on a page of its own — every page behind it would refuse a call acting in no standing — and once one is in force the column offers the others, so switching is one click rather than a sign-out.
+
 **It has a sign-in page of its own.** A deployment with accounts and nobody signed in gets that page and nothing behind it, with one link per channel a browser can begin — a self-driven channel completes in the process that owns the browser, so a page cannot offer it. The workbench's covering overlay is not reused: `shell.overlay` is declared by the frame this console shadows, and a second declaration fails that frame's activation.
 
 -----

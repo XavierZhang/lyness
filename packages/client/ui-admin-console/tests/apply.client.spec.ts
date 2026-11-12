@@ -56,8 +56,10 @@ function rootEntry(ctx: Context) {
 function injectedOf(ctx: Context): AdminFrameInjected {
   const inject = rootEntry(ctx)?.inject
   if (inject === undefined) throw new Error('the console registered no injected face')
-  const hooks = inject()['hooks'] as AdminFrameInjected['hooks']
-  return { hooks }
+  const face = inject()
+  const hooks = face['hooks'] as AdminFrameInjected['hooks']
+  const act = face['act'] as AdminFrameInjected['act']
+  return { hooks, act }
 }
 
 describe('whether the console takes the page', () => {
@@ -166,6 +168,7 @@ describe('what the console tells its frame', () => {
     // console is theirs.
     expect(viewer.getSnapshot()).toEqual({
       name: undefined, signOutPath: undefined, administers: true, accounts: false, signedIn: false, channels: [],
+      standings: [], standing: undefined,
     })
     const stop = viewer.subscribe(() => {})
     expect(stop).toBeInstanceOf(Function)
@@ -186,6 +189,7 @@ describe('what the console tells its frame', () => {
     const { viewer } = injectedOf(ctx).hooks
     expect(viewer.getSnapshot()).toEqual({
       name: undefined, signOutPath: undefined, administers: false, accounts: false, signedIn: false, channels: [],
+      standings: [], standing: undefined,
     })
     const off = viewer.subscribe(() => {})
     expect(load).toHaveBeenCalledOnce()
@@ -195,6 +199,7 @@ describe('what the console tells its frame', () => {
         accounts: true,
         person: { id: 'p1', displayName: '张工' },
         standing: { id: 's1', role: 'platform-administrator' },
+        standings: [{ id: 's1', role: 'platform-administrator' }],
         channels: [],
         signInPrefix: '/auth/sign-in',
         signOutPath: '/auth/sign-out',
@@ -203,10 +208,52 @@ describe('what the console tells its frame', () => {
     }
     expect(viewer.getSnapshot()).toEqual({
       name: '张工', signOutPath: '/auth/sign-out', administers: true, accounts: true, signedIn: true, channels: [],
+      standings: [{ id: 's1', role: 'platform-administrator' }], standing: 's1',
     })
     const stable = viewer.getSnapshot()
     expect(viewer.getSnapshot()).toBe(stable)
     off()
+  })
+
+  it('puts a standing in force through the viewer service, and does nothing without one', async () => {
+    const acted: string[] = []
+    const { ctx } = await bench('/admin', {}, {
+      load: async () => {},
+      act: (standing: string) => { acted.push(standing); return Promise.resolve(true) },
+      state: {
+        getSnapshot: () => ({
+          status: 'ready',
+          viewer: {
+            accounts: true,
+            person: { id: 'p1', displayName: '张工' },
+            standings: [
+              { id: 'zhang:platform', role: 'platform-administrator' },
+              { id: 'zhang:acme', role: 'tenant-administrator', organization: 'acme' },
+            ],
+            channels: [],
+            signInPrefix: '/auth/sign-in',
+            signOutPath: '/auth/sign-out',
+          },
+          administers: false,
+        }),
+        subscribe: () => () => {},
+      },
+    })
+    const row = injectedOf(ctx).hooks.viewer.getSnapshot()
+    // Both offered, neither in force: the frame asks before it offers a page.
+    expect(row.standings).toEqual([
+      { id: 'zhang:platform', role: 'platform-administrator' },
+      { id: 'zhang:acme', role: 'tenant-administrator', organization: 'acme' },
+    ])
+    expect(row.standing).toBeUndefined()
+
+    injectedOf(ctx).act('zhang:acme')
+    expect(acted).toEqual(['zhang:acme'])
+
+    // And where no viewer service is mounted there is nothing to switch
+    // between, so the same call is a no-op rather than a failure.
+    const plain = await bench('/admin')
+    expect(() => { injectedOf(plain.ctx).act('zhang:acme') }).not.toThrow()
   })
 
   it('offers no channel when the deployment configured none', async () => {
@@ -215,7 +262,10 @@ describe('what the console tells its frame', () => {
       state: {
         getSnapshot: () => ({
           status: 'ready',
-          viewer: { accounts: true, channels: [], signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out' },
+          viewer: {
+            accounts: true, channels: [], standings: [],
+            signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out',
+          },
           administers: false,
         }),
         subscribe: () => () => {},
@@ -238,6 +288,7 @@ describe('what the console tells its frame', () => {
               { id: 'oidc', displayName: 'Single sign-on', redirect: true },
               { id: 'desktop', displayName: 'This device', redirect: false },
             ],
+            standings: [],
             signInPrefix: '/auth/sign-in',
             signOutPath: '/auth/sign-out',
           },
@@ -251,6 +302,7 @@ describe('what the console tells its frame', () => {
     expect(injectedOf(ctx).hooks.viewer.getSnapshot()).toEqual({
       name: undefined, signOutPath: undefined, administers: false, accounts: true, signedIn: false,
       channels: [{ href: '/auth/sign-in/oidc', displayName: 'Single sign-on' }],
+      standings: [], standing: undefined,
     })
   })
 })

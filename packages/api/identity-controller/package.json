@@ -47,6 +47,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-sign-in": "workspace:*",
@@ -55,6 +57,8 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-sign-in": "workspace:*",

@@ -5,6 +5,7 @@ import { basename, join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type { MembershipId, PersonId, Role } from '@lyness/lyn-people'
 import type { Principal as RequestPrincipalValue } from '@lyness/lyn-request-principal'
 import SessionStore, { SessionId } from '@lyness/lyn-session'
@@ -64,6 +65,8 @@ interface Accounts {
   as(person: PersonId | undefined, role?: Role): void
 }
 
+/** The session every principal in this spec presents; no case addresses another. */
+const SESSION = brandString<AuthSessionId>('test-session')
 const ADA = brandString<PersonId>('ada')
 const BEA = brandString<PersonId>('bea')
 
@@ -100,7 +103,7 @@ function accounts(ctx: Context, options: { corpus: boolean }): Accounts {
     as: (person: PersonId | undefined, role: Role = 'member') => {
       signedIn = person === undefined
         ? undefined
-        : { person, acting: { person, membership: brandString<MembershipId>(`${person}:${role}`) } }
+        : { session: SESSION, person, acting: { person, membership: brandString<MembershipId>(`${person}:${role}`) } }
     },
   }
 }

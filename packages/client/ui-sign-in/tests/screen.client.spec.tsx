@@ -23,6 +23,7 @@ const SIGNED_OUT: ViewerView = {
     { id: 'local', displayName: 'This machine', redirect: false },
   ],
   signInPrefix: '/auth/sign-in',
+  standings: [],
   signOutPath: '/auth/sign-out',
 }
 

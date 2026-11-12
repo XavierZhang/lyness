@@ -40,6 +40,9 @@ export interface ViewerSnapshot {
 /** The one Remote read this service performs. */
 export type ViewerRead = () => Promise<ReadOutcome<ViewerView>>
 
+/** Puts one of the viewer's own standings in force. */
+export type ViewerAct = (standing: string) => Promise<ReadOutcome<ViewerView>>
+
 /**
  * Shared viewer state for every surface that renders who the viewer is.
  *
@@ -53,13 +56,18 @@ export class UiViewer extends Service {
   readonly state: SnapshotStore<ViewerSnapshot>
   private readonly shared: SharedRead
 
+  private readonly change: ViewerAct
+
   /**
    * @param ctx - the providing plugin's context.
    * @param read - performs one viewer read; the plugin binds it to its own
    * Remote so a test can drive the service without a transport.
+   * @param act - puts one of the viewer's own standings in force; the plugin
+   * binds it to the same Remote.
    */
-  constructor(ctx: Context, read: ViewerRead) {
+  constructor(ctx: Context, read: ViewerRead, act: ViewerAct) {
     super(ctx, 'uiViewer')
+    this.change = act
     this.state = createSnapshotStore<ViewerSnapshot>({ status: 'idle', viewer: undefined, administers: false })
     this.shared = createOutcomeRead(read, {
       begin: () => { this.state.update((draft) => { draft.status = 'loading' }) },
@@ -86,5 +94,23 @@ export class UiViewer extends Service {
    */
   retry(): Promise<void> {
     return this.shared.retry()
+  }
+
+  /**
+   * Act in one of the viewer's own standings, and publish what they are
+   * afterwards.
+   *
+   * The deployment answers the new viewer, so this service publishes that
+   * answer rather than re-reading it: every surface showing who is viewing
+   * moves together, and a refused change leaves the previous answer standing
+   * because the one that failed produced none.
+   * @param standing - the standing to put in force.
+   * @returns true when the deployment accepted it.
+   */
+  async act(standing: string): Promise<boolean> {
+    const outcome = await this.change(standing)
+    if (!outcome.ok) return false
+    this.state.set({ status: 'ready', viewer: outcome.value, administers: administers(outcome.value) })
+    return true
   }
 }

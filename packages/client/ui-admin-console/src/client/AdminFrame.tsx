@@ -30,6 +30,16 @@ export interface AdminSectionRow {
   readonly label: string
 }
 
+/** One standing the viewer holds, as the console offers it. */
+export interface AdminStandingRow {
+  /** Stable identity of the standing, which is what a switch names. */
+  readonly id: string
+  /** What it may do. */
+  readonly role: 'platform-administrator' | 'tenant-administrator' | 'member'
+  /** The organization it is in; absent for a platform administrator. */
+  readonly organization?: string
+}
+
 /** Who the console says is viewing it. */
 export interface AdminViewerRow {
   /** The display name, or undefined when nobody is signed in. */
@@ -51,6 +61,17 @@ export interface AdminViewerRow {
   readonly signedIn: boolean
   /** The channels the console may offer on its sign-in page. */
   readonly channels: readonly AdminChannelRow[]
+  /**
+   * Every standing this viewer holds, so the console can ask which one they
+   * are acting for.
+   *
+   * One entry is the standing their sign-in already put in force. Several
+   * with none in force is a person this deployment cannot act for yet: every
+   * page here would refuse, so the console asks instead of listing them.
+   */
+  readonly standings: readonly AdminStandingRow[]
+  /** The standing in force, when one is; it is one of {@link standings}. */
+  readonly standing: string | undefined
 }
 
 /** One sign-in channel the console's own sign-in page offers. */
@@ -85,6 +106,11 @@ export interface AdminFrameInjected {
     /** Who is viewing, and how they sign out. */
     viewer: HostObservable<AdminViewerRow>
   }
+  /**
+   * Act in one of the viewer's own standings.
+   * @param standing - the standing to put in force.
+   */
+  act: (standing: string) => void
 }
 
 /** Full composed props: runtime, the two child seats, the store, locale, and the injected face. */
@@ -218,11 +244,60 @@ function SignInPage({ channels, t }: {
 }
 
 /**
+ * What one standing is called.
+ * @param standing - the standing as the deployment reports it.
+ * @param t - the translator.
+ * @returns the organization it is in, or the word for the whole platform, with its role.
+ */
+export function standingLabel(standing: AdminStandingRow, t: Translate): string {
+  const role = standing.role === 'platform-administrator'
+    ? t('rolePlatform')
+    : standing.role === 'tenant-administrator' ? t('roleTenant') : t('roleMember')
+  return t('standing', { where: standing.organization ?? t('platformWide'), role })
+}
+
+/**
+ * The page a person with several standings and none in force gets.
+ *
+ * Every page behind it would refuse, because a call acting in no standing
+ * authorizes nothing: which organization they are acting for is the one
+ * question the deployment cannot answer for them.
+ */
+function ChoosePage({ standings, act, t }: {
+  readonly standings: readonly AdminStandingRow[]
+  readonly act: (standing: string) => void
+  readonly t: Translate
+}): ReactNode {
+  return (
+    <div className={css.signIn}>
+      <div className={css.signInCard}>
+        <span className={css.signInBrand}>{t('console')}</span>
+        <h1 className={css.signInTitle}>{t('chooseTitle')}</h1>
+        <p className={css.signInHint}>{t('chooseHint')}</p>
+        <div className={css.signInChannels}>
+          {standings.map(standing => (
+            <button
+              className={css.signInChannel}
+              key={standing.id}
+              type="button"
+              onClick={() => { act(standing.id) }}
+            >
+              {standingLabel(standing, t)}
+            </button>
+          ))}
+        </div>
+        <a className={css.signInBack} href="./">{t('workbench')}</a>
+      </div>
+    </div>
+  )
+}
+
+/**
  * Render the console.
  * @param props - composed slot props.
  * @returns the console's element tree.
  */
-export function AdminFrame({ renderSlot, useStore, actions, useSections, useViewer, t }: AdminFrameProps): ReactNode {
+export function AdminFrame({ renderSlot, useStore, actions, useSections, useViewer, act, t }: AdminFrameProps): ReactNode {
   const viewer = useViewer(value => value)
   const offered = useSections(value => value)
   // A member is offered nothing rather than a nav of pages that refuse them.
@@ -237,6 +312,13 @@ export function AdminFrame({ renderSlot, useStore, actions, useSections, useView
   // frame, which does not render here.
   if (viewer.accounts && !viewer.signedIn) return <SignInPage channels={viewer.channels} t={t} />
 
+  // Signed in, holding more than one standing, and acting in none: the
+  // console asks which one before it offers anything, because that choice is
+  // this person's and every page here needs its answer.
+  if (viewer.standing === undefined && viewer.standings.length > 1) {
+    return <ChoosePage standings={viewer.standings} act={act} t={t} />
+  }
+
   return (
     <div className={css.shell}>
       <aside className={css.sider}>
@@ -248,6 +330,16 @@ export function AdminFrame({ renderSlot, useStore, actions, useSections, useView
           <span className={css.viewer}>
             {viewer.name === undefined ? t('nobody') : t('signedInAs', { name: viewer.name })}
           </span>
+          {viewer.standings.filter(standing => standing.id !== viewer.standing).map(standing => (
+            <button
+              className={css.siderLink}
+              key={standing.id}
+              type="button"
+              onClick={() => { act(standing.id) }}
+            >
+              {t('actAs', { standing: standingLabel(standing, t) })}
+            </button>
+          ))}
           {viewer.signOutPath === undefined
             ? null
             : <a className={css.siderLink} href={viewer.signOutPath}>{t('signOut')}</a>}

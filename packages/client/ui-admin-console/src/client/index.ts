@@ -30,7 +30,9 @@ import type {} from '@lyness/lyn-client-ui-viewer/client'
 import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import { AdminFrame } from './AdminFrame.tsx'
-import type { AdminChannelRow, AdminFrameInjected, AdminSectionRow, AdminViewerRow } from './AdminFrame.tsx'
+import type {
+  AdminChannelRow, AdminFrameInjected, AdminSectionRow, AdminStandingRow, AdminViewerRow,
+} from './AdminFrame.tsx'
 import { createAdminConsoleStore } from './store.ts'
 import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { AdminConsoleKey } from './locales.ts'
@@ -156,6 +158,9 @@ function labelOf(label: unknown): string {
 /** No channel at all, so an unchanged answer keeps its snapshot identity. */
 const EMPTY_CHANNELS: readonly AdminChannelRow[] = []
 
+/** No standing at all, for the same reason. */
+const EMPTY_STANDINGS: readonly AdminStandingRow[] = []
+
 /**
  * The channels the console's sign-in page offers, as links.
  *
@@ -184,6 +189,20 @@ function channelRows(view: ViewerView): readonly AdminChannelRow[] {
 const NO_ACCOUNTS: AdminViewerRow = {
   name: undefined, signOutPath: undefined, administers: true,
   accounts: false, signedIn: false, channels: EMPTY_CHANNELS,
+  standings: EMPTY_STANDINGS, standing: undefined,
+}
+
+/**
+ * One standing the viewer holds, as the console offers it.
+ * @param standing - the standing as the deployment reports it.
+ * @returns the row the frame renders.
+ */
+function standingRow(standing: ViewerView['standings'][number]): AdminStandingRow {
+  return {
+    id: standing.id,
+    role: standing.role,
+    ...standing.organization === undefined ? {} : { organization: standing.organization },
+  }
 }
 
 /**
@@ -204,7 +223,13 @@ function viewerRow(ctx: Context): HostObservable<AdminViewerRow> {
   let last: AdminViewerRow = {
     name: undefined, signOutPath: undefined, administers: false,
     accounts: false, signedIn: false, channels: EMPTY_CHANNELS,
+    standings: EMPTY_STANDINGS, standing: undefined,
   }
+  // Both lists are derived once per viewer answer: rebuilding them on every
+  // read would hand React new arrays each time.
+  let read: ViewerView | undefined
+  let offered: readonly AdminChannelRow[] = EMPTY_CHANNELS
+  let held: readonly AdminStandingRow[] = EMPTY_STANDINGS
   return {
     getSnapshot: () => {
       const viewer = ctx.get('uiViewer')
@@ -218,10 +243,19 @@ function viewerRow(ctx: Context): HostObservable<AdminViewerRow> {
       // While the read is still out, nothing is offered: a nav drawn from a
       // guess would flicker into a refusal.
       const administers = snapshot.administers
-      const channels = view !== undefined && accounts && !signedIn ? channelRows(view) : EMPTY_CHANNELS
+      if (view !== read) {
+        read = view
+        offered = view !== undefined && accounts && !signedIn ? channelRows(view) : EMPTY_CHANNELS
+        held = view === undefined || view.standings.length === 0 ? EMPTY_STANDINGS : view.standings.map(standingRow)
+      }
+      const standing = view?.standing?.id
       if (name !== last.name || signOutPath !== last.signOutPath || administers !== last.administers
-        || accounts !== last.accounts || signedIn !== last.signedIn || channels !== last.channels) {
-        last = { name, signOutPath, administers, accounts, signedIn, channels }
+        || accounts !== last.accounts || signedIn !== last.signedIn || offered !== last.channels
+        || held !== last.standings || standing !== last.standing) {
+        last = {
+          name, signOutPath, administers, accounts, signedIn,
+          channels: offered, standings: held, standing,
+        }
       }
       return last
     },
@@ -231,6 +265,21 @@ function viewerRow(ctx: Context): HostObservable<AdminViewerRow> {
       void viewer.load()
       return viewer.state.subscribe(listener)
     },
+  }
+}
+
+/**
+ * Put one of the viewer's own standings in force.
+ *
+ * The viewer service owns the change as it owns the read, so every surface
+ * showing who is viewing moves together; a composition without it has no
+ * accounts and nothing to switch between.
+ * @param ctx - client plugin context.
+ * @returns the operation the frame calls.
+ */
+function acting(ctx: Context): (standing: string) => void {
+  return (standing: string): void => {
+    void ctx.get('uiViewer')?.act(standing)
   }
 }
 
@@ -248,6 +297,7 @@ export function apply(ctx: Context, config: Config): void {
     const store: typeof handle = { ...handle, create: () => instance }
     const sections = sectionRows(ctx)
     const viewer = viewerRow(ctx)
+    const act = acting(ctx)
     return ctx.slots.register({
       name: 'root',
       // `root` is a single slot and the workbench frame holds it at the
@@ -261,7 +311,7 @@ export function apply(ctx: Context, config: Config): void {
         'admin.section': { kind: 'list', scope: 'root' },
       },
       store,
-      inject: (): AdminFrameInjected => ({ hooks: { sections, viewer } }),
+      inject: (): AdminFrameInjected => ({ hooks: { sections, viewer }, act }),
     }, AdminFrame)
   }, 'admin console: the page')
 }
