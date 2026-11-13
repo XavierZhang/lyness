@@ -2201,6 +2201,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'code', description: 'the code the person presented.' }, { name: 'subject', description: 'the subject their channel verified.' }],
         returns: 'the person they now are here, or undefined when the code admits nobody.',
       },
+      {
+        signature: 'async accept(code: string, person: PersonId): Promise<Membership | undefined>',
+        description: 'Accept one code as somebody the roster already holds, gaining the standing it carries.\n\nThis is the other half of redemption, and it is deliberately not the same half. A code riding a sign-in still changes nothing for somebody already bound: a link they were forwarded would otherwise add authority to their account during a sign-in they made for another reason. Here the person is signed in and asks for it, which is what makes the grant theirs to accept.\n\nIt grants no more than the issuing standing could grant directly: the write goes through the roster as that standing, so the roster\'s own rule decides it — including that changing somebody requires administering every standing they already hold.\n\nThe use is claimed before the write and released when the roster refuses it, because nothing else was written: unlike a redemption, which leaves a person behind if its binding fails, a refused acceptance leaves the deployment exactly as it was, and burning a use for it would spend an administrator\'s invitation on an answer of "no".',
+        parameters: [{ name: 'code', description: 'the code the person presented.' }, { name: 'person', description: 'the person accepting it, as the caller\'s own session names them.' }],
+        returns: 'the standing they gained, or undefined when the code grants them nothing.',
+        throws: ['when the roster fails for a reason other than refusing the grant.'],
+      },
     ],
   },
   {
@@ -2227,6 +2234,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Withdraw one invitation, so a code already sent stops working.\n\nThe row stays, revoked: who invited whom is why the record is kept.',
         parameters: [{ name: 'id', description: 'the invitation to withdraw.' }],
         throws: ['{RemoteError} `invitations/not-permitted`, `invitations/unknown`, `invitations/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote({ requires: \'member\' }) async accept(code: string): Promise<AcceptanceView>',
+        description: 'Accept one invitation as the person this call signed in as.\n\nThe person is read from the call\'s own session and is not a parameter: accepting adds authority to an account, and the only account a call may add it to is the one it presented. It is the one method here a member may reach, because the whole point is that the person accepts for themselves.\n\nWhether the code grants them anything is the invitations seam\'s decision, and every refusal reads the same: a surface that told a wrong code from a spent one would report which codes exist.',
+        parameters: [{ name: 'code', description: 'the code the person presented.' }],
+        returns: 'what they now hold, or `accepted: false` when the code grants them nothing.',
+        throws: ['{RemoteError} `invitations/no-identity` when the call presented none, or `gateway/internal` when this deployment issues none.'],
       },
     ],
   },
@@ -6649,6 +6663,10 @@ export const EVENT_API: readonly EventApiEntry[] = [
 
 /** Shapes of every exported type the Service and Event signatures reference (transitively), sorted by name. */
 export const TYPE_API: readonly TypeApiEntry[] = [
+  {
+    name: 'AcceptanceView',
+    declaration: 'export interface AcceptanceView {\n    readonly accepted: boolean;\n    readonly role?: Role;\n    readonly organization?: string;\n}',
+  },
   {
     name: 'AccountBonusBatch',
     declaration: 'export interface AccountBonusBatch {\n    readonly accountId: AccountUserId;\n    readonly bonuses: readonly AccountBonusNotification[];\n}',

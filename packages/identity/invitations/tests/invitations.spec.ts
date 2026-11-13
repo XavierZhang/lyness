@@ -8,7 +8,7 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { brandString } from '@lyness/lyn-brand'
 import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
@@ -320,6 +320,123 @@ describe('redeeming one', () => {
 
     expect(entries.filter(entry => entry.kind === 'invitation' && entry.action === 'changed'))
       .toMatchObject([{ subject: issued.id, by: LEE }])
+  })
+})
+
+describe('accepting one as somebody the roster already holds', () => {
+  it('adds the standing the code carried to the person who accepted it', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'Bea again', role: 'tenant-administrator', organization: 'beta' }, PLATFORM)
+
+    const granted = await ctx.invitations.accept(second.code ?? '', bea)
+
+    expect(granted).toMatchObject({ person: bea, role: 'tenant-administrator', organization: 'beta' })
+    // One person, two standings: this is the whole point of the method.
+    expect(await ctx.people.memberships(bea)).toMatchObject([
+      { role: 'member', organization: 'acme' },
+      { role: 'tenant-administrator', organization: 'beta' },
+    ])
+    expect(await ctx.invitations.list(PLATFORM)).toMatchObject([
+      { label: 'Bea again', uses: 1 }, { label: 'Bea', uses: 1 },
+    ])
+  })
+
+  it('grants no more than the issuing standing could grant directly', async () => {
+    // Lee administers acme and nothing else, and Bea belongs to beta as well:
+    // changing her reaches past what Lee administers, so the roster refuses
+    // it and the code grants her nothing.
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'beta' }, PLATFORM)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'into acme', role: 'member', organization: 'acme' }, TENANT)
+
+    expect(await ctx.invitations.accept(second.code ?? '', bea)).toBeUndefined()
+    expect(await ctx.people.memberships(bea)).toHaveLength(1)
+    // And the refusal cost the administrator nothing: the use is released,
+    // because unlike a redemption nothing else was written.
+    expect(await ctx.invitations.list(TENANT)).toMatchObject([{ label: 'into acme', uses: 0, open: true }])
+  })
+
+  it('grants nothing twice, and releases the use it claimed', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'same again', role: 'member', organization: 'acme' }, TENANT)
+
+    expect(await ctx.invitations.accept(second.code ?? '', bea)).toBeUndefined()
+    expect(await ctx.people.memberships(bea)).toHaveLength(1)
+    expect(await ctx.invitations.list(TENANT))
+      .toMatchObject([{ label: 'same again', uses: 0 }, { label: 'Bea', uses: 1 }])
+  })
+
+  it('answers undefined for a code that is wrong, spent, or whose issuer is gone', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+
+    // Every refusal is the same answer here too: a signed-in caller must not
+    // learn from it which codes exist.
+    expect(await ctx.invitations.accept(newCode(), bea)).toBeUndefined()
+    const spent = await ctx.invitations.issue({ label: 'spent', role: 'tenant-administrator', organization: 'beta' }, PLATFORM)
+    await ctx.invitations.revoke(brandString<InvitationId>(spent.id), PLATFORM)
+    expect(await ctx.invitations.accept(spent.code ?? '', bea)).toBeUndefined()
+    // A standing the directory no longer holds authorizes nothing.
+    const orphan = await ctx.invitations.issue({ label: 'orphan', role: 'member', organization: 'acme' }, standing(brandString<PersonId>('gone'), 'tenant-administrator', 'acme'))
+    expect(await ctx.invitations.accept(orphan.code ?? '', bea)).toBeUndefined()
+  })
+
+  it('records the acceptance in the trail, as the issuing standing', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'Bea again', role: 'tenant-administrator', organization: 'acme' }, TENANT)
+    await ctx.invitations.accept(second.code ?? '', bea)
+
+    const trail = await ctx.adminAudit.read({ subject: second.id }, PLATFORM)
+    expect(trail.map(entry => entry.action)).toContain('changed')
+    expect(trail.find(entry => entry.action === 'changed')?.changes)
+      .toMatchObject([{ field: 'uses', after: '1' }, { field: 'accepted', after: bea }])
+  })
+
+  it('accepts a standing that names no organization', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'to the platform', role: 'platform-administrator' }, PLATFORM)
+
+    const granted = await ctx.invitations.accept(second.code ?? '', bea)
+
+    expect(granted).toMatchObject({ person: bea, role: 'platform-administrator' })
+    expect(granted?.organization).toBeUndefined()
+  })
+
+  it('leaves the use burned when the roster failed rather than refused', async () => {
+    const ctx = await bench()
+    const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    const bea = await ctx.invitations.redeem(first.code ?? '', subject('bea', 'Bea Smith'))
+    if (bea === undefined) throw new Error('the invitation admitted nobody')
+    const second = await ctx.invitations.issue({ label: 'again', role: 'tenant-administrator', organization: 'beta' }, PLATFORM)
+    vi.spyOn(ctx.managedPeople, 'grantStanding').mockRejectedValue(new Error('the store is gone'))
+
+    // Not an answer: whoever accepted did nothing wrong, and a deployment
+    // that cannot write its roster should say so rather than report "no".
+    await expect(ctx.invitations.accept(second.code ?? '', bea)).rejects.toThrow('the store is gone')
+  })
+
+  it('raises a roster that failed for a reason other than refusing', async () => {
+    const ctx = await bench()
+    const issued = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, TENANT)
+    // Nobody of that identity: the roster refuses, which is an answer.
+    expect(await ctx.invitations.accept(issued.code ?? '', brandString<PersonId>('nobody'))).toBeUndefined()
+    expect(await ctx.invitations.list(TENANT)).toMatchObject([{ uses: 0, open: true }])
   })
 })
 

@@ -27,10 +27,18 @@ const ADA = brandString<PersonId>('ada')
 const live: Context[] = []
 let root: string | undefined
 
+/**
+ * The deployment the last harness built, for the tests that need more than
+ * its controller: who the next call signs in as, and the roster to write a
+ * stored person into.
+ */
+let built: { ctx: Context; becomes: (person: PersonId) => void } | undefined
+
 afterEach(async () => {
   for (const ctx of live.splice(0)) await ctx.fiber.dispose()
   if (root !== undefined) await rm(root, { recursive: true, force: true })
   root = undefined
+  built = undefined
 })
 
 /** One standing, as the directory reports it. */
@@ -51,14 +59,19 @@ async function harness(
   root ??= await mkdtemp(join(tmpdir(), 'lyn-invitations-controller-'))
   const ctx = new Context()
   live.push(ctx)
+  let who: PersonId | undefined = by === 'none' ? undefined : by.person
   ctx.provide('requestPrincipal', {
-    current: () => by === 'none' ? undefined : { person: by.person, acting: { person: by.person, membership: by.id } },
+    current: () => by === 'none' || who === undefined
+      ? undefined
+      : { person: who, acting: { person: by.person, membership: by.id } },
   })
+  built = { ctx, becomes: (person) => { who = person } }
   if (options.fails !== undefined) {
     const failure = options.fails
     ctx.provide('invitations', {
       list: () => Promise.reject(new Error(failure)),
       issue: () => Promise.reject(new Error(failure)),
+      accept: () => Promise.reject(new Error(failure)),
     } as never)
     ctx.provide('people', {
       person: () => Promise.resolve(undefined),
@@ -184,5 +197,65 @@ describe('a call the deployment cannot answer', () => {
   it('issuing no invitations answers that it issues none', async () => {
     const controller = await harness(standing('platform-administrator'), { invitations: false })
     expect(await codeOf(controller.list())).toBe('gateway/internal')
+  })
+})
+
+describe('a member accepting an invitation', () => {
+  it('accepts as the person the call signed in as, and answers what they now hold', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const deployment = built
+    if (deployment === undefined) throw new Error('the harness built no deployment')
+    const bea = await deployment.ctx.managedPeople.save(
+      { displayName: 'Bea', role: 'member', organization: 'acme' }, standing('platform-administrator'),
+    )
+    const issued = await controller.issue({ label: 'Bea again', role: 'tenant-administrator', organization: 'beta' })
+
+    // The person comes from the call's own session, never from an argument.
+    deployment.becomes(bea.id)
+    expect(await controller.accept(issued.code ?? '')).toEqual({
+      accepted: true, role: 'tenant-administrator', organization: 'beta',
+    })
+  })
+
+  it('answers the same for every code that grants nothing', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const deployment = built
+    if (deployment === undefined) throw new Error('the harness built no deployment')
+    const bea = await deployment.ctx.managedPeople.save(
+      { displayName: 'Bea', role: 'member', organization: 'acme' }, standing('platform-administrator'),
+    )
+    const issued = await controller.issue({ label: 'again', role: 'member', organization: 'acme' })
+    deployment.becomes(bea.id)
+
+    // A wrong code, and one granting what they already hold: telling them
+    // apart would report which codes exist to anybody signed in.
+    expect(await controller.accept('not-a-code')).toEqual({ accepted: false })
+    expect(await controller.accept(issued.code ?? '')).toEqual({ accepted: false })
+  })
+
+  it('answers a standing that names no organization without one', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const deployment = built
+    if (deployment === undefined) throw new Error('the harness built no deployment')
+    const bea = await deployment.ctx.managedPeople.save(
+      { displayName: 'Bea', role: 'member', organization: 'acme' }, standing('platform-administrator'),
+    )
+    const issued = await controller.issue({ label: 'to the platform', role: 'platform-administrator' })
+    deployment.becomes(bea.id)
+
+    expect(await controller.accept(issued.code ?? ''))
+      .toEqual({ accepted: true, role: 'platform-administrator' })
+  })
+
+  it('refuses a call that presented no identity, having nobody to accept as', async () => {
+    const controller = await harness('none')
+    expect(await codeOf(controller.accept('any-code'))).toBe('invitations/no-identity')
+  })
+
+  it('answers that this deployment issues none, and reports a carrier failure as itself', async () => {
+    expect(await codeOf((await harness(standing('member'), { invitations: false })).accept('x')))
+      .toBe('gateway/internal')
+    await expect((await harness(standing('member'), { fails: 'the store is gone' })).accept('x'))
+      .rejects.toThrow('the store is gone')
   })
 })

@@ -1138,6 +1138,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   PersonInput: 'what an administrator submits to add or change one person over the wire is owned by packages/api/people-controller/README.md',
   BindingInput: 'what an administrator submits to admit one directory identity over the wire is owned by packages/api/people-controller/README.md',
   StandingInput: 'what an administrator submits to grant one further standing over the wire is owned by packages/api/people-controller/README.md',
+  AcceptanceView: 'what one acceptance of an invitation answers over the wire is owned by packages/api/invitations-controller/README.md',
   IdentityInput: 'one directory identity as a submission names it is owned by packages/api/people-controller/README.md',
   RemoteAuthorizationRequest: 'one resolved call as the authority rule reads it is owned by packages/api/remote-authority/README.md',
   CreditGrantInput: 'what an administrator adds to one person is owned by packages/api/credits-controller/README.md',

@@ -19,11 +19,11 @@ import type {
   InvitationId, InvitationRefusal, InvitationSubmission, InvitationView,
 } from '@lyness/lyn-invitations'
 import { brandString } from '@lyness/lyn-brand'
-import type { Membership } from '@lyness/lyn-people'
+import type { Membership, PersonId } from '@lyness/lyn-people'
 import { callingStanding } from '@lyness/lyn-request-principal'
 import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { assertNever } from '@lyness/lyn-util-values'
-import type { InvitationInput, InvitationRowView } from './types.ts'
+import type { AcceptanceView, InvitationInput, InvitationRowView } from './types.ts'
 
 export type * from './types.ts'
 
@@ -103,6 +103,34 @@ export default class InvitationsController extends TypertRemoteService {
     }
   }
 
+  /**
+   * Accept one invitation as the person this call signed in as.
+   *
+   * The person is read from the call's own session and is not a parameter:
+   * accepting adds authority to an account, and the only account a call may
+   * add it to is the one it presented. It is the one method here a member may
+   * reach, because the whole point is that the person accepts for themselves.
+   *
+   * Whether the code grants them anything is the invitations seam's decision,
+   * and every refusal reads the same: a surface that told a wrong code from a
+   * spent one would report which codes exist.
+   * @param code - the code the person presented.
+   * @returns what they now hold, or `accepted: false` when the code grants them nothing.
+   * @throws {RemoteError} `invitations/no-identity` when the call presented none,
+   * or `gateway/internal` when this deployment issues none.
+   */
+  @Remote({ requires: 'member' })
+  async accept(code: string): Promise<AcceptanceView> {
+    const invitations = this.issuing()
+    const granted = await invitations.accept(code, this.accepting())
+    if (granted === undefined) return { accepted: false }
+    return {
+      accepted: true,
+      role: granted.role,
+      ...granted.organization === undefined ? {} : { organization: granted.organization },
+    }
+  }
+
   /** The invitations seam, where this deployment issues any. */
   private issuing(): Context['invitations'] {
     const invitations = this.ctx.get('invitations')
@@ -112,6 +140,18 @@ export default class InvitationsController extends TypertRemoteService {
       })
     }
     return invitations
+  }
+
+  /**
+   * The person this call signed in as.
+   *
+   * Read here rather than taken as an argument: an acceptance that named its
+   * own person would let anybody signed in add a standing to somebody else.
+   */
+  private accepting(): PersonId {
+    const person = this.ctx.get('requestPrincipal')?.current()?.person
+    if (person === undefined) throw new RemoteError('invitations/no-identity', 'this call presented no identity', {})
+    return person
   }
 
   /**

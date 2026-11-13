@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-invitations` is how a stranger becomes a member. An administrator issues a code carrying one standing — a role and the organization it is in — and sends it; the person signs in through a directory this deployment accepts, presents the code, and becomes a roster entry with that standing. The code is the authority, bounded on every side: it grants no more than its issuer could, it expires, it allows a counted number of redemptions, it can be withdrawn, and it is void once the issuing standing is gone. Only its hash is stored.
+`lyn-invitations` is how a stranger becomes a member, and how somebody already here gains a second standing. An administrator issues a code carrying one standing — a role and its organization — and sends it. A stranger presents it at a sign-in and becomes a roster entry with that standing; somebody the roster already holds accepts it themselves. The code is the authority, bounded on every side: it grants no more than its issuer could, it expires, it allows a counted number of redemptions, it can be withdrawn, and it dies with the issuing standing. Only its hash is stored.
 
 ## Table of Contents
 
@@ -52,7 +52,11 @@ The browser half carries the code: `/auth/sign-in/<channel>?invite=<code>` keeps
 
 **It grants what its issuer holds, twice over.** The three rules the roster applies to adding somebody directly are applied again at issue time: a tenant administrator's standing names an organization, only a platform administrator makes another one, and nobody reaches outside the organization they administer. Then redemption asks the directory for the issuing standing again — a code issued by an administrator who has since been removed, demoted, or moved admits nobody.
 
-**The roster answers before the invitation.** A subject a binding already names signs in as that person, and a code they happen to hold changes nothing. That order is what stops a forwarded link from adding a second entry for somebody already here.
+**The roster answers before the invitation.** A subject a binding already names signs in as that person, and a code they happen to hold changes nothing. That order is what stops a forwarded link from adding a second entry for somebody already here — and from adding authority to their account during a sign-in they made for another reason.
+
+**Somebody already here accepts for themselves.** `accept` is the other half, and deliberately not the same half: the person is signed in, the code is theirs to present, and the standing arrives because they asked for it. It grants no more than the issuing standing could grant directly, because the write goes through the roster as that standing — including the roster's rule that changing somebody requires administering every standing they already hold.
+
+**A refused acceptance costs the invitation nothing.** The use is claimed before the write and released when the roster refuses it, because nothing else was written. A redemption cannot do that — it leaves a person behind if the binding fails — but an acceptance that was refused leaves the deployment exactly as it was, and burning an administrator's invitation on an answer of "no" would be a worse trade.
 
 **A use is claimed before the roster is written.** Two redemptions racing cannot exceed the count; a claim whose write then fails burns a use, which is the safe direction — an extra member is not recoverable, and a burned use is one more invitation.
 
@@ -87,8 +91,8 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
+- **An acceptance tells its holder nothing about the code** — a wrong code, a spent one, one whose issuer is gone and one granting a standing they already hold all answer the same, because anybody signed in could otherwise learn which codes exist.
 - **A redemption is not transactional** — the use is claimed first and the roster written after, so a failure between them burns a use without admitting anybody. A refused binding takes its own half back: the person is removed again, and the burned use is the only trace.
-- **No surface yet** — issuing and withdrawing are service calls; the administration console's page and the front-end redemption flow are the next steps.
 - **One standing per code** — an invitation carries one role in one organization, so inviting somebody to two organizations is two codes.
 - **No email** — the deployment produces the code; sending it is the administrator's own business, by whatever channel they already use.
 - **A revoked invitation keeps its label** — which is the name the administrator typed, so a label holding an address keeps that address in the trail.

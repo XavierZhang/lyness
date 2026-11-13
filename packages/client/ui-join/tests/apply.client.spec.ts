@@ -10,6 +10,7 @@ import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import {
   apply, channelRows, codeOf, Config, DEFAULT_PATH, inject, joinPage, NS, ROOT_PRIORITY,
 } from '@lyness/lyn-client-ui-join/client'
@@ -31,8 +32,8 @@ afterEach(async () => {
   window.history.replaceState({}, '', '/')
 })
 
-/** Mount the page over a slot registry and a locale, at one URL. */
-async function bench(url: string, config: Config = {}, viewer?: unknown) {
+/** Mount the page over a slot registry, a locale and the namespace, at one URL. */
+async function bench(url: string, config: Config = {}, viewer?: unknown, accept?: () => Promise<unknown>) {
   window.history.replaceState({}, '', url)
   const ctx = new Context()
   live.push(ctx)
@@ -41,6 +42,10 @@ async function bench(url: string, config: Config = {}, viewer?: unknown) {
   locale.setLocale('zh')
   ctx.provide('locale', locale)
   if (viewer !== undefined) ctx.provide('uiViewer', viewer as never)
+  const events = new TestRemote(ctx, {
+    invitations: { accept: accept ?? (() => Promise.resolve({ ok: true, value: { accepted: false } })) },
+  })
+  events.$host = { home: undefined, isLoopback: true }
   const fiber = ctx.plugin({ inject: [...inject], apply, Config }, config)
   await fiber.await()
   return { ctx, locale, fiber }
@@ -57,6 +62,13 @@ function visitOf(ctx: Context): JoinPageInjected['hooks']['visit'] {
   if (factory === undefined) throw new Error('the invitation page registered no injected face')
   const hooks = factory()['hooks'] as JoinPageInjected['hooks']
   return hooks.visit
+}
+
+/** The accept the page registered, as the framework would call it. */
+function acceptOf(ctx: Context): JoinPageInjected['accept'] {
+  const factory = rootEntry(ctx)?.inject
+  if (factory === undefined) throw new Error('the invitation page registered no injected face')
+  return factory()['accept'] as JoinPageInjected['accept']
 }
 
 /** One viewer service double over a fixed snapshot. */
@@ -115,6 +127,8 @@ describe('whether this page takes the document', () => {
     live.push(ctx)
     await ctx.plugin(SlotRegistry).await()
     ctx.provide('locale', new LocaleRuntime(ctx))
+    const events = new TestRemote(ctx, { invitations: { accept: () => Promise.resolve({ ok: true, value: { accepted: false } }) } })
+    events.$host = { home: undefined, isLoopback: true }
     // A composition that states no path, reaching apply() without the
     // schema's default: the page still knows where it lives.
     await ctx.plugin({ inject: [...inject], apply }, {}).await()
@@ -248,5 +262,16 @@ describe('what this page tells its component', () => {
       accounts: true, channels: [], signInPrefix: '/auth/sign-in', signOutPath: '/auth/sign-out',
       standings: [],
     }, 'the-code')).toBe(none)
+  })
+})
+
+describe('what the page accepts with', () => {
+  it('hands the page an accept that reaches the deployment with this visit\'s code', async () => {
+    const accept = vi.fn(() => Promise.resolve({ ok: true, value: { accepted: true, role: 'member', organization: 'acme' } }))
+    const { ctx } = await bench(`${DEFAULT_PATH}?invite=the-code`, {}, undefined, accept)
+    await acceptOf(ctx)()
+    // The code comes from the link this page was opened with; nothing else
+    // names it, so a page opened without one asks nothing.
+    expect(accept).toHaveBeenCalledWith('the-code')
   })
 })

@@ -37,7 +37,8 @@
     "client": {
       "inject": [
         "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-renderer"
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-api-remotes"
       ],
       "platform": "web",
       "immediately": true
@@ -49,6 +50,8 @@
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
     "@lyness/lyn-api-identity-controller": "workspace:*",
+    "@lyness/lyn-api-invitations-controller": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
     "@lyness/lyn-client-locale": "workspace:*",
     "@lyness/lyn-client-test-runtime": "workspace:*",
     "@lyness/lyn-client-ui-renderer": "workspace:*",

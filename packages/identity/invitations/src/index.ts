@@ -27,10 +27,10 @@ import z from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import { administers } from '@lyness/lyn-people'
 import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import { PeopleRefusedError } from '@lyness/lyn-managed-people'
 import type { ExternalSubject } from '@lyness/lyn-sign-in'
 import { randomUUID } from '@lyness/lyn-util-crypto'
 import type {} from '@lyness/lyn-admin-audit'
-import type {} from '@lyness/lyn-managed-people'
 import type { Domain } from '@lyness/lyn-storage-domain'
 import { invitationsDomain } from './storage.ts'
 import type {
@@ -358,6 +358,80 @@ export default class Invitations extends Service {
       ],
     }, issuer)
     return person.id
+  }
+
+  /**
+   * Accept one code as somebody the roster already holds, gaining the standing
+   * it carries.
+   *
+   * This is the other half of redemption, and it is deliberately not the same
+   * half. A code riding a sign-in still changes nothing for somebody already
+   * bound: a link they were forwarded would otherwise add authority to their
+   * account during a sign-in they made for another reason. Here the person is
+   * signed in and asks for it, which is what makes the grant theirs to
+   * accept.
+   *
+   * It grants no more than the issuing standing could grant directly: the
+   * write goes through the roster as that standing, so the roster's own rule
+   * decides it — including that changing somebody requires administering
+   * every standing they already hold.
+   *
+   * The use is claimed before the write and released when the roster refuses
+   * it, because nothing else was written: unlike a redemption, which leaves a
+   * person behind if its binding fails, a refused acceptance leaves the
+   * deployment exactly as it was, and burning a use for it would spend an
+   * administrator's invitation on an answer of "no".
+   * @param code - the code the person presented.
+   * @param person - the person accepting it, as the caller's own session names them.
+   * @returns the standing they gained, or undefined when the code grants them nothing.
+   * @throws when the roster fails for a reason other than refusing the grant.
+   */
+  async accept(code: string, person: PersonId): Promise<Membership | undefined> {
+    const domain = await this.ready
+    const hash = codeHash(code)
+    const found = [...domain.table('invitations').entries()]
+      .map(([, record]) => record)
+      .find(record => record.codeHash === hash)
+    if (found === undefined || !open(found)) return undefined
+    const issuer = await this.issuerStanding(found)
+    if (issuer === undefined) return undefined
+    await domain.table('invitations').put(found.id, { ...found, uses: found.uses + 1 })
+    let granted: Membership
+    try {
+      const after = await this.ctx.managedPeople.grantStanding({
+        person,
+        role: found.role,
+        ...found.organization === undefined ? {} : { organization: found.organization },
+      }, issuer)
+      const last = after.standings[after.standings.length - 1]
+      /* v8 ignore next -- a grant that returned answers with the standing it wrote; the guard keeps the read total. */
+      if (last === undefined) return undefined
+      granted = {
+        id: brandString<MembershipId>(last.id),
+        person,
+        role: last.role,
+        ...last.organization === undefined ? {} : { organization: last.organization },
+      }
+    } catch (refused: unknown) {
+      await domain.table('invitations').put(found.id, found)
+      // A standing this code may not grant this person is an answer, not a
+      // failure: the holder did nothing wrong, and telling them which rule
+      // refused it would say what the code carries.
+      if (refused instanceof PeopleRefusedError) return undefined
+      throw refused
+    }
+    await this.ctx.adminAudit.record({
+      kind: 'invitation',
+      subject: found.id,
+      subjectName: found.label,
+      action: 'changed',
+      ...found.organization === undefined ? {} : { organization: found.organization },
+      changes: [
+        { field: 'uses', before: String(found.uses), after: String(found.uses + 1) },
+        { field: 'accepted', after: person },
+      ],
+    }, issuer)
+    return granted
   }
 
   /**

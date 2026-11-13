@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-join/README.md
 /:
-  en: 6b39b949f717b844
-  zh: a284dd5a40a7a988
+  en: c622a43d2fd82182
+  zh: 63ce2b30580f9fb3
 /lyness-lyn-client-ui-join:
   en: 63a725a87285834d
   zh: 6e31774f5a485fd5
 /lyness-lyn-client-ui-join/summary:
-  en: 879079b1c6e57d36
-  zh: 43b5fec401ecd9b5
+  en: 06bc24eb27fd7d21
+  zh: ebfaa95dbbb9ac33
 /lyness-lyn-client-ui-join/table-of-contents:
   en: d152484eb41ac6b4
   zh: 16d7fe48384dcc71
@@ -18,8 +18,8 @@
   en: cab53740598d4c81
   zh: 1b95b6385bc01097
 /lyness-lyn-client-ui-join/understand-the-implementation:
-  en: 9f2071fe952cb6a0
-  zh: 9a475d25e353d2e1
+  en: 4f9ecc622108c244
+  zh: 230709c984d6f166
 /lyness-lyn-client-ui-join/further-exploration:
   en: c50b10a2d1c5bbce
   zh: 4c30aae2c31eaff3
@@ -30,8 +30,8 @@
   en: e13faf79aaae30a9
   zh: 7e3b9418610d1d81
 /lyness-lyn-client-ui-join/known-limitations-and-deferred-work:
-  en: a8a489f55ce2d020
-  zh: 108a3957ab4067fc
+  en: c3e20eba62de9c23
+  zh: ac779f44601ad5c0
 /lyness-lyn-client-ui-join/known-limitations-and-deferred-work/dev-note:
   en: e17d1df629c1bba7
   zh: 72dd312f3b4b660a

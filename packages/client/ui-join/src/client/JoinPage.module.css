@@ -63,14 +63,22 @@
 }
 
 .channel {
+  border: none;
   border-radius: var(--dsw-radius-md);
   padding: 11px 14px;
   background: var(--dsw-alias-interactive-accent);
   color: var(--lyness-white);
+  font: inherit;
   font-size: 13px;
   font-weight: 500;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.channel:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 
 @media (hover: hover) {

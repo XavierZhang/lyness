@@ -19,15 +19,20 @@ import z from '@lyness/schemastery'
 import type {} from '@lyness/lyn-client-locale/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-client-ui-viewer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-invitations-controller/remote'
 import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import { Acceptance } from './acceptance.ts'
 import { JoinPage } from './JoinPage.tsx'
 import type { JoinChannelRow, JoinPageInjected, JoinVisitRow } from './JoinPage.tsx'
 import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { JoinKey } from './locales.ts'
 
 export type { JoinKey } from './locales.ts'
-export { JoinPage, blockedBy } from './JoinPage.tsx'
+export { JoinPage, blockedBy, standingLabel } from './JoinPage.tsx'
+export { Acceptance, IDLE, rowOf } from './acceptance.ts'
+export type { AcceptanceRow, AcceptanceStatus } from './acceptance.ts'
 export type { JoinChannelRow, JoinPageInjected, JoinPageProps, JoinVisitRow } from './JoinPage.tsx'
 
 declare module '@lyness/lyn-client-ui-slots' {
@@ -70,8 +75,15 @@ export const Config: z<Config> = z.object({
   path: z.string().default(DEFAULT_PATH),
 })
 
-/** Services this page reads. */
-export const inject = ['slots', 'locale']
+/**
+ * Services this page reads.
+ *
+ * The invitations namespace is injected rather than resolved per call: the
+ * Client assembly mounts every namespace, so it is there whatever the Host
+ * composed, and an acceptance the deployment issues no invitations for is
+ * refused by the Host rather than hidden by this page.
+ */
+export const inject = ['slots', 'locale', 'remote', 'remote.invitations']
 
 /**
  * Whether this document is the invitation page.
@@ -185,11 +197,16 @@ export function visitRow(ctx: Context, code: string | undefined): HostObservable
 export function apply(ctx: Context, config: Config): void {
   if (!joinPage(config.path ?? DEFAULT_PATH, location.pathname)) return
   ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'join: dictionaries')
-  const visit = visitRow(ctx, codeOf(location.search))
+  const code = codeOf(location.search)
+  const visit = visitRow(ctx, code)
+  const acceptance = new Acceptance(ctx, code)
   ctx.effect(() => ctx.slots.register({
     name: 'root',
     priority: ROOT_PRIORITY,
     locale: NS,
-    inject: (): JoinPageInjected => ({ hooks: { visit } }),
+    inject: (): JoinPageInjected => ({
+      hooks: { visit, acceptance: acceptance.state },
+      accept: () => acceptance.accept(),
+    }),
   }, JoinPage))
 }

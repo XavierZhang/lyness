@@ -202,6 +202,31 @@ it('answers the roster first, so a code adds no second entry for somebody alread
   expect(await ctx.invitations.list(PLATFORM)).toMatchObject([{ uses: 0, open: true }])
 })
 
+it('lets the person the roster answered for accept that same code themselves', async () => {
+  const ctx = await compose()
+  // Bea joins with one code, which is the only way the roster hears of her;
+  // the second code then reaches her through accepting it, not through
+  // signing in again.
+  const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, PLATFORM)
+  authenticated = subject('bea', 'Bea')
+  const joined = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: first.code })
+  if (joined.kind !== 'session') throw new Error('a self-driven channel returned something else')
+  const bea = (await ctx.authSessions.read(joined.session)).person
+
+  const second = await ctx.invitations.issue({ label: 'Bea again', role: 'tenant-administrator', organization: 'beta' }, PLATFORM)
+  // Signing in with it in hand still changes nothing: that is what keeps a
+  // forwarded link from adding authority to an account.
+  await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: second.code })
+  expect(await ctx.people.memberships(bea)).toHaveLength(1)
+
+  expect(await ctx.invitations.accept(second.code ?? '', bea))
+    .toMatchObject({ role: 'tenant-administrator', organization: 'beta' })
+  expect(await ctx.people.memberships(bea)).toMatchObject([
+    { role: 'member', organization: 'acme' },
+    { role: 'tenant-administrator', organization: 'beta' },
+  ])
+})
+
 it('refuses a code this deployment never issued, with the same answer as no code', async () => {
   const ctx = await compose()
   authenticated = subject('nobody')

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/api/invitations-controller/README.md
 /:
-  en: 44900d9d92479787
-  zh: a855d2695219d934
+  en: 455e6d861c7fef17
+  zh: 59eee2dc1a437759
 /lyness-lyn-api-invitations-controller:
   en: 16a55071c12d127a
   zh: 89bc021710b6c42e
 /lyness-lyn-api-invitations-controller/summary:
-  en: 8b059ac5fb269b95
-  zh: e6d546579db054d2
+  en: 14c678912d734341
+  zh: cbf81c4f836c4c86
 /lyness-lyn-api-invitations-controller/table-of-contents:
   en: d152484eb41ac6b4
   zh: 16d7fe48384dcc71
@@ -18,8 +18,8 @@
   en: f6a73bbbbb1819d4
   zh: b9d5f663459ddef9
 /lyness-lyn-api-invitations-controller/understand-the-implementation:
-  en: dab7d2dd1db78a43
-  zh: 185576c4486d31f8
+  en: 88704fd5825fc1ad
+  zh: 08ac695980bf7803
 /lyness-lyn-api-invitations-controller/further-exploration:
   en: c11f589ef458d2f3
   zh: 824236c2b5630761
@@ -30,8 +30,8 @@
   en: e13faf79aaae30a9
   zh: 7e3b9418610d1d81
 /lyness-lyn-api-invitations-controller/known-limitations-and-deferred-work:
-  en: 7375350941b808cb
-  zh: 0e57d5c020edfb46
+  en: 1941e15cdabb92bf
+  zh: 9da1e311ed41026c
 /lyness-lyn-api-invitations-controller/known-limitations-and-deferred-work/dev-note:
   en: d212f849c7e39728
   zh: 2f74cebef057176b

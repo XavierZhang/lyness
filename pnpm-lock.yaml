@@ -6019,6 +6019,12 @@ importers:
       '@lyness/lyn-api-identity-controller':
         specifier: workspace:*
         version: link:../../api/identity-controller
+      '@lyness/lyn-api-invitations-controller':
+        specifier: workspace:*
+        version: link:../../api/invitations-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
       '@lyness/lyn-client-locale':
         specifier: workspace:*
         version: link:../locale

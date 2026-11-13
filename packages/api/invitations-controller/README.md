@@ -1,5 +1,5 @@
 ---
-description: "The surface administrators issue, read and withdraw invitation codes through, at runtime."
+description: "The surface administrators issue, read and withdraw invitation codes through, and anybody signed in accepts one through."
 kind: "package-reference"
 ---
 
@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-invitations-controller` owns the `invitations` Remote namespace: the invitations a standing administers, the call that issues one, and the call that withdraws one. It decides nothing about who may issue what — `lyn-invitations` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. The code crosses the wire once, in the answer to `issue`, because the deployment keeps only its hash. Every other answer carries what an invitation grants, when it lapses, and how much of it is left.
+`lyn-api-invitations-controller` owns the `invitations` Remote namespace: the invitations a standing administers, the call that issues one, the call that withdraws one, and the call anybody signed in accepts one with. It decides nothing about who may issue what — `lyn-invitations` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. The code crosses the wire once, in the answer to `issue`, because the deployment keeps only its hash. Every other answer carries what an invitation grants, when it lapses, and how much of it is left.
 
 ## Table of Contents
 
@@ -78,6 +78,10 @@ The channel the link names is one of the configured channels the `signInChannels
 
 **Every refusal has its own code.** `not-permitted`, `incomplete`, `out-of-bounds` and `unknown` each cross as themselves, so a form marks the organization field, reports the deployment's bounds, or explains the standing without matching prose.
 
+**`accept` is the one method a member may reach.** Every other method here is an administrator's; this one exists so that the person gaining the standing is the person asking for it. The account it adds to comes from the call's own session and is not a parameter, because an acceptance that named its own person would let anybody signed in add a standing to somebody else.
+
+**`accept` has one answer for every refusal.** A wrong code, a spent one, one whose issuer no longer holds the standing and one granting what the caller already holds all read as `accepted: false`. The other methods report their refusals apart because an administrator can act on them; here, telling them apart would let anybody signed in learn which codes exist and what authority they carry.
+
 **`revoke` is not a delete.** It withdraws the code and keeps the row, because who invited whom is why the record is kept; the namespace therefore has no `delete`.
 
 -----
@@ -105,6 +109,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
+- **An acceptance cannot say why it granted nothing** — which is the point, and leaves the holder to ask whoever sent the code.
 - **Nothing sends the invitation** — the namespace answers a code; delivering it is the administrator's own business, by whatever channel they already use.
 - **No paging** — `list` answers everything the standing administers, which suits an installation's staff and not a platform issuing thousands per tenant.
 - **A redemption is not reported here** — the use count moves, but who redeemed which code is read from the administration trail, not from this namespace.

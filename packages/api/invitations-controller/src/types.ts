@@ -39,6 +39,12 @@ declare module '@lyness/lyn-typert-protocol' {
      * rather than issuing an invitation on nobody's authority.
      */
     'invitations/no-standing': Record<string, never>
+    /**
+     * The call presented no identity, so there is nobody to accept an
+     * invitation as. Unreachable where the deployment mounts an authorization
+     * rule, which refuses such a call before it arrives.
+     */
+    'invitations/no-identity': Record<string, never>
   }
 }
 
@@ -70,6 +76,24 @@ export interface InvitationRowView {
    * this one back.
    */
   readonly code?: string
+}
+
+/**
+ * What one acceptance did, as the person who accepted it sees it.
+ *
+ * One answer for every refusal: a wrong code, a spent one, an expired one,
+ * one whose issuer no longer holds the standing, one granting what this
+ * person already holds, and one the roster refuses to write all read as
+ * `accepted: false`. Telling them apart would let anybody signed in learn
+ * which codes exist and what authority they carry.
+ */
+export interface AcceptanceView {
+  /** Whether the code granted this person a standing. */
+  readonly accepted: boolean
+  /** What they now hold; absent when the code granted them nothing. */
+  readonly role?: Role
+  /** The organization that standing is in; absent for a platform administrator, and when nothing was granted. */
+  readonly organization?: string
 }
 
 /** What an administrator submits to issue one invitation. */
