@@ -15,6 +15,7 @@ import type { CallOutcome, PeopleCalls, PeopleSink } from '../src/client/operati
 const PERSON: PersonRowView = {
   id: 'bea',
   displayName: 'Bea',
+  standings: [{ id: 'bea:standing', role: 'member', organization: 'acme' }],
   role: 'member',
   organization: 'acme',
   written: false,
@@ -67,6 +68,8 @@ function calls(over: Partial<PeopleCalls> = {}): PeopleCalls {
     remove: () => Promise.resolve({ ok: true, value: undefined }),
     bind: () => Promise.resolve({ ok: true, value: undefined }),
     unbind: () => Promise.resolve({ ok: true, value: undefined }),
+    grantStanding: () => Promise.resolve({ ok: true, value: PERSON }),
+    revokeStanding: () => Promise.resolve({ ok: true, value: undefined }),
     ...over,
   }
 }
@@ -198,6 +201,34 @@ describe('an identity change', () => {
       sink,
     ).bind({ channel: 'one', issuer: 'ww-acme', subject: 'bea', person: 'bea' })
     expect(sink.seen).toEqual(['work', 'fail:failed'])
+  })
+})
+
+describe('granting and revoking a standing', () => {
+  it('reads the people again, because whose row says what has changed', async () => {
+    const granting = recorder()
+    await createPeopleOperations(calls(), granting)
+      .grantStanding({ person: 'bea', role: 'tenant-administrator', organization: 'beta' })
+    expect(granting.seen).toEqual(['work', 'admitted:granted'])
+    expect(granting.read).toEqual([{ people: [PERSON], channels: [CHANNEL] }])
+
+    const revoking = recorder()
+    await createPeopleOperations(calls(), revoking).revokeStanding('bea:standing')
+    expect(revoking.seen).toEqual(['work', 'admitted:withdrawn'])
+  })
+
+  it('reports a refusal under the reason the deployment gave', async () => {
+    const held = recorder()
+    await createPeopleOperations(
+      calls({ grantStanding: () => Promise.resolve(refused('people/already-held', {}, 'already holds it')) }), held,
+    ).grantStanding({ person: 'bea', role: 'member', organization: 'acme' })
+    expect(held.seen).toEqual(['work', 'refused:already holds it:'])
+
+    const last = recorder()
+    await createPeopleOperations(
+      calls({ revokeStanding: () => Promise.resolve(refused('people/last-standing', {}, 'their only one')) }), last,
+    ).revokeStanding('bea:standing')
+    expect(last.seen).toEqual(['work', 'refused:their only one:'])
   })
 })
 

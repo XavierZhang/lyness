@@ -23,6 +23,8 @@ export type PeopleOutcome =
   | { kind: 'removed' }
   | { kind: 'bound'; subject: string }
   | { kind: 'unbound' }
+  | { kind: 'granted' }
+  | { kind: 'withdrawn' }
   | { kind: 'refused'; reason: string; fields: readonly string[] }
 
 /** What the section renders. */

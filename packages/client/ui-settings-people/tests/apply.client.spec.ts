@@ -23,6 +23,7 @@ const SLOT = 'admin.section'
 const PERSON: PersonRowView = {
   id: 'bea',
   displayName: 'Bea',
+  standings: [{ id: 'bea:standing', role: 'member', organization: 'acme' }],
   role: 'member',
   organization: 'acme',
   written: false,
@@ -53,6 +54,8 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
       delete: () => Promise.resolve({ ok: true, value: undefined }),
       bind: () => Promise.resolve({ ok: true, value: undefined }),
       unbind: () => Promise.resolve({ ok: true, value: undefined }),
+      grantStanding: () => Promise.resolve({ ok: true, value: PERSON }),
+      revokeStanding: () => Promise.resolve({ ok: true, value: undefined }),
     },
     signInChannels: {
       list: () => Promise.resolve({ ok: true, value: [CHANNEL] }),
@@ -112,6 +115,9 @@ describe('ui-settings-people apply', () => {
       .toEqual({ ok: true, value: undefined })
     expect(await calls.unbind({ channel: 'one', issuer: 'ww-acme', subject: 'bea' }))
       .toEqual({ ok: true, value: undefined })
+    expect(await calls.grantStanding({ person: 'bea', role: 'member', organization: 'beta' }))
+      .toEqual({ ok: true, value: PERSON })
+    expect(await calls.revokeStanding('bea:standing')).toEqual({ ok: true, value: undefined })
     expect(list).toHaveBeenCalledOnce()
   })
 

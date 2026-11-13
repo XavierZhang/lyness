@@ -20,7 +20,9 @@ import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-people-controller/remote'
 import type {} from '@lyness/lyn-api-sign-in-channel-controller/remote'
-import type { BindingInput, IdentityInput, PersonInput, PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type {
+  BindingInput, IdentityInput, PersonInput, PersonRowView, StandingInput,
+} from '@lyness/lyn-api-people-controller/types'
 import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
 import type { PeopleRead } from './store.ts'
 
@@ -43,6 +45,10 @@ export interface PeopleCalls {
   bind: (input: BindingInput) => Promise<CallOutcome<void>>
   /** Stop admitting one directory identity. */
   unbind: (input: IdentityInput) => Promise<CallOutcome<void>>
+  /** Grant one further standing. */
+  grantStanding: (input: StandingInput) => Promise<CallOutcome<PersonRowView>>
+  /** Revoke one standing. */
+  revokeStanding: (standing: string) => Promise<CallOutcome<void>>
 }
 
 // Deliberately parallel to the sign-in channels section: sibling
@@ -66,11 +72,23 @@ export interface PeopleSink {
   saved: (person: PersonRowView) => void
   /** Somebody was removed. */
   removed: (id: string) => void
-  /** An identity was admitted or withdrawn, and this is who exists afterwards. */
-  admitted: (update: { read: PeopleRead; outcome: { kind: 'bound'; subject: string } | { kind: 'unbound' } }) => void
+  /**
+   * The people were read again after a change, and this is what the change
+   * was: one identity admitted or withdrawn, or one standing granted or
+   * revoked. Each of them changes whose row says what, so the server's own
+   * answer is what the surface shows.
+   */
+  admitted: (update: { read: PeopleRead; outcome: ReadOutcomeKind }) => void
   /** A change was refused, with the reason and the fields to mark. */
   refused: (refusal: { reason: string; fields: readonly string[] }) => void
 }
+
+/** What one change the people are re-read after did. */
+export type ReadOutcomeKind =
+  | { kind: 'bound'; subject: string }
+  | { kind: 'unbound' }
+  | { kind: 'granted' }
+  | { kind: 'withdrawn' }
 
 /** What the section's injected face hands over. */
 export interface PeopleOperations {
@@ -86,6 +104,10 @@ export interface PeopleOperations {
   bind: (input: BindingInput) => Promise<void>
   /** Stop admitting one directory identity. */
   unbind: (input: IdentityInput) => Promise<void>
+  /** Grant one further standing. */
+  grantStanding: (input: StandingInput) => Promise<void>
+  /** Revoke one standing. */
+  revokeStanding: (standing: string) => Promise<void>
 }
 
 /* jscpd:ignore-end */
@@ -107,6 +129,8 @@ export function peopleCallsOf(ctx: Context): PeopleCalls {
     remove: id => ctx.remote.people.delete(id),
     bind: input => ctx.remote.people.bind(input),
     unbind: input => ctx.remote.people.unbind(input),
+    grantStanding: input => ctx.remote.people.grantStanding(input),
+    revokeStanding: standing => ctx.remote.people.revokeStanding(standing),
   }
 }
 
@@ -164,10 +188,10 @@ export function createPeopleOperations(calls: PeopleCalls, sink: PeopleSink): Pe
     }
   }, () => { sink.reset() })
 
-  /** One identity change, followed by the read that says who exists afterwards. */
+  /** One change, followed by the read that says who holds what afterwards. */
   const admitting = async (
-    change: () => Promise<CallOutcome<void>>,
-    outcome: { kind: 'bound'; subject: string } | { kind: 'unbound' },
+    change: () => Promise<CallOutcome<unknown>>,
+    outcome: ReadOutcomeKind,
   ): Promise<void> => {
     sink.work()
     try {
@@ -209,5 +233,7 @@ export function createPeopleOperations(calls: PeopleCalls, sink: PeopleSink): Pe
     /* jscpd:ignore-end */
     bind: input => admitting(() => calls.bind(input), { kind: 'bound', subject: input.subject }),
     unbind: input => admitting(() => calls.unbind(input), { kind: 'unbound' }),
+    grantStanding: input => admitting(() => calls.grantStanding(input), { kind: 'granted' }),
+    revokeStanding: standing => admitting(() => calls.revokeStanding(standing), { kind: 'withdrawn' }),
   }
 }

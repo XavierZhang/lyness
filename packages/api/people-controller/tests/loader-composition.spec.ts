@@ -166,7 +166,14 @@ it('leaves the roster the operator wrote to the operator', async () => {
   const { ctx } = composed
 
   expect(await asAda(composed, () => ctx.peopleController.list()))
-    .toEqual([{ id: 'ada', displayName: 'Ada', role: 'platform-administrator', written: true, bindings: [] }])
+    .toEqual([{
+      id: 'ada',
+      displayName: 'Ada',
+      standings: [{ id: 'ada:platform-administrator', role: 'platform-administrator' }],
+      role: 'platform-administrator',
+      written: true,
+      bindings: [],
+    }])
   // The next boot reads the file again, so this surface refuses rather than
   // reporting a change that would not survive it.
   const refused = await asAda(composed, async () => {

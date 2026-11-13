@@ -182,6 +182,61 @@ describe('an administrator maintaining who may use the deployment', () => {
   })
 })
 
+describe('the standings one person holds', () => {
+  it('grants a second standing and shows both, newest last', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const added = await controller.save({ displayName: 'Bea', role: 'member', organization: 'acme' })
+
+    const both = await controller.grantStanding({ person: added.id, role: 'tenant-administrator', organization: 'beta' })
+    expect(both.standings.map(one => [one.role, one.organization])).toEqual([
+      ['member', 'acme'],
+      ['tenant-administrator', 'beta'],
+    ])
+    // `role` still answers the first of them, for a row that shows one.
+    expect(both.role).toBe('member')
+    expect(both.standings[0]?.id).toBe(added.standings[0]?.id)
+  })
+
+  it('revokes one, and refuses their last', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const added = await controller.save({ displayName: 'Bea', role: 'member', organization: 'acme' })
+    const both = await controller.grantStanding({ person: added.id, role: 'member', organization: 'beta' })
+    const [, second] = both.standings
+    if (second === undefined) throw new Error('the grant wrote no second standing')
+
+    await controller.revokeStanding(second.id)
+    const [listed] = (await controller.list()).filter(person => person.id === added.id)
+    expect(listed?.standings).toHaveLength(1)
+    expect(await codeOf(controller.revokeStanding(listed?.standings[0]?.id ?? ''))).toBe('people/last-standing')
+  })
+
+  it('reports each refusal under its own code', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    const added = await controller.save({ displayName: 'Bea', role: 'member', organization: 'acme' })
+
+    expect(await codeOf(controller.grantStanding({ person: added.id, role: 'member', organization: 'acme' })))
+      .toBe('people/already-held')
+    expect(await codeOf(controller.grantStanding({ person: 'nobody', role: 'member', organization: 'acme' })))
+      .toBe('people/unknown-person')
+    expect(await codeOf(controller.grantStanding({ person: added.id, role: 'tenant-administrator' })))
+      .toBe('people/incomplete')
+    expect(await codeOf(controller.revokeStanding('nothing'))).toBe('people/unknown-standing')
+    // A standing composition owns is not this surface's to change.
+    expect(await codeOf(controller.grantStanding({ person: 'ada', role: 'member', organization: 'acme' })))
+      .toBe('people/written')
+  })
+
+  it('refuses a standing the caller does not hold, and one outside their organization', async () => {
+    const tenant = await harness(standing('tenant-administrator', 'acme'))
+    const added = await tenant.save({ displayName: 'Bea', role: 'member', organization: 'acme' })
+
+    expect(await codeOf(tenant.grantStanding({ person: added.id, role: 'platform-administrator' })))
+      .toBe('people/not-permitted')
+    expect(await codeOf(tenant.grantStanding({ person: added.id, role: 'member', organization: 'other' })))
+      .toBe('people/not-permitted')
+  })
+})
+
 describe('a call the deployment cannot answer', () => {
   it('on no standing changes nothing, whichever verb it names', async () => {
     const controller = await harness('none')

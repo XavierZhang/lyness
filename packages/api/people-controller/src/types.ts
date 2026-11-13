@@ -45,6 +45,15 @@ declare module '@lyness/lyn-typert-protocol' {
      * them together.
      */
     'people/incomplete': { readonly fields: readonly string[] }
+    /** That person already holds that standing, so granting it changes nothing. */
+    'people/already-held': Record<string, never>
+    /**
+     * That is their only standing. Somebody holding none could act in no
+     * context at all, so the surface offers removing the person instead.
+     */
+    'people/last-standing': Record<string, never>
+    /** No stored person holds that standing; it was withdrawn, or it is a written one. */
+    'people/unknown-standing': Record<string, never>
     /**
      * The call established no standing to act in. Unreachable where the
      * deployment mounts an authorization rule, which refuses such a call
@@ -67,15 +76,33 @@ export interface AdmittedIdentityView {
   readonly written: boolean
 }
 
+/** One standing a person holds, as the configuration surface shows it. */
+export interface StandingRowView {
+  /** Stable identity of the standing; what a session names and a revocation addresses. */
+  readonly id: string
+  /** What it may do. */
+  readonly role: Role
+  /** The organization it is in; absent for a platform administrator. */
+  readonly organization?: string
+}
+
 /** One person, as the configuration surface shows them. */
 export interface PersonRowView {
   /** Stable identity; what a binding names and a conversation is attributed to. */
   readonly id: string
   /** Name a surface shows; never used for authorization. */
   readonly displayName: string
-  /** What they may do. */
+  /**
+   * Every standing they hold that the caller administers, oldest first.
+   *
+   * Only the ones the caller administers: an administrator of one
+   * organization does not learn from this page which others somebody belongs
+   * to.
+   */
+  readonly standings: readonly StandingRowView[]
+  /** What they may do in the first of those standings. */
   readonly role: Role
-  /** The organization their standing is in; absent for a platform administrator. */
+  /** The organization that first standing is in; absent for a platform administrator. */
   readonly organization?: string
   /** Whether composition owns the entry, and the surface may not change it. */
   readonly written: boolean
@@ -92,6 +119,16 @@ export interface PersonInput {
   /** What they may do. */
   readonly role: Role
   /** The organization their standing is in; absent for a platform administrator. */
+  readonly organization?: string
+}
+
+/** What an administrator submits to grant one further standing. */
+export interface StandingInput {
+  /** The person who holds it. */
+  readonly person: string
+  /** What the standing may do. */
+  readonly role: Role
+  /** The organization it is in; absent for a platform administrator. */
   readonly organization?: string
 }
 

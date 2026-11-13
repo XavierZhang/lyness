@@ -7,6 +7,13 @@
 
 /** English copy; the key set every locale answers. */
 export const en = {
+  standingsHeading: 'Holds',
+  withdrawStanding: 'Withdraw',
+  grantHeading: 'Grant another standing',
+  grantHint: 'For somebody who belongs to more than one organization. They choose which to act for when they sign in.',
+  grantSubmit: 'Grant',
+  grantedDone: 'The standing was granted.',
+  withdrawnDone: 'The standing was withdrawn.',
   nav: 'People',
   title: 'People',
   intro: 'Who may use this deployment, and what each of them may do. Somebody added here can sign in as soon as a directory identity is admitted as them.',
@@ -67,6 +74,13 @@ export type PeopleKey = keyof typeof en
 
 /** Chinese copy. */
 export const zh: Record<PeopleKey, string> = {
+  standingsHeading: '持有',
+  withdrawStanding: '撤回',
+  grantHeading: '再授予一个身份',
+  grantHint: '给归属于不止一个组织的人。他登录时自己选以哪一个行事。',
+  grantSubmit: '授予',
+  grantedDone: '身份已授予。',
+  withdrawnDone: '身份已撤回。',
   nav: '人员',
   title: '人员',
   intro: '谁可以使用这个部署，各自能做什么。在这里添加的人，只要有一个目录身份被准入为他，就能登录。',
@@ -124,6 +138,13 @@ export const zh: Record<PeopleKey, string> = {
 
 /** Japanese copy. */
 export const ja: Record<PeopleKey, string> = {
+  standingsHeading: '保有',
+  withdrawStanding: '取り消す',
+  grantHeading: 'もう一つの立場を付与する',
+  grantHint: '複数の組織に属する人のために。どの立場で操作するかはサインイン時に本人が選びます。',
+  grantSubmit: '付与',
+  grantedDone: '立場を付与しました。',
+  withdrawnDone: '立場を取り消しました。',
   nav: '人員',
   title: '人員',
   intro: 'このデプロイを使える人と、各人が何をできるか。ここで追加した人は、ディレクトリ上の身元がその人として受け入れられ次第サインインできます。',
@@ -181,6 +202,13 @@ export const ja: Record<PeopleKey, string> = {
 
 /** Spanish copy. */
 export const es: Record<PeopleKey, string> = {
+  standingsHeading: 'Tiene',
+  withdrawStanding: 'Retirar',
+  grantHeading: 'Conceder otra condición',
+  grantHint: 'Para quien pertenece a más de una organización. Elige con cuál actúa al iniciar sesión.',
+  grantSubmit: 'Conceder',
+  grantedDone: 'La condición se ha concedido.',
+  withdrawnDone: 'La condición se ha retirado.',
   nav: 'Personas',
   title: 'Personas',
   intro: 'Quién puede usar este despliegue y qué puede hacer cada uno. Alguien añadido aquí puede iniciar sesión en cuanto se admita una identidad de directorio como esa persona.',
@@ -238,6 +266,13 @@ export const es: Record<PeopleKey, string> = {
 
 /** French copy. */
 export const fr: Record<PeopleKey, string> = {
+  standingsHeading: 'Détient',
+  withdrawStanding: 'Retirer',
+  grantHeading: 'Accorder une autre qualité',
+  grantHint: 'Pour quelqu’un qui appartient à plusieurs organisations. Il choisit laquelle à la connexion.',
+  grantSubmit: 'Accorder',
+  grantedDone: 'La qualité a été accordée.',
+  withdrawnDone: 'La qualité a été retirée.',
   nav: 'Personnes',
   title: 'Personnes',
   intro: 'Qui peut utiliser ce déploiement, et ce que chacun peut faire. Une personne ajoutée ici peut se connecter dès qu’une identité d’annuaire est admise en son nom.',
@@ -295,6 +330,13 @@ export const fr: Record<PeopleKey, string> = {
 
 /** German copy. */
 export const de: Record<PeopleKey, string> = {
+  standingsHeading: 'Hält',
+  withdrawStanding: 'Zurückziehen',
+  grantHeading: 'Eine weitere Stellung gewähren',
+  grantHint: 'Für jemanden, der zu mehr als einer Organisation gehört. Bei der Anmeldung wählt die Person selbst.',
+  grantSubmit: 'Gewähren',
+  grantedDone: 'Die Stellung wurde gewährt.',
+  withdrawnDone: 'Die Stellung wurde zurückgezogen.',
   nav: 'Personen',
   title: 'Personen',
   intro: 'Wer diese Installation nutzen darf und was jede Person tun darf. Wer hier hinzugefügt wird, kann sich anmelden, sobald eine Verzeichnisidentität als diese Person zugelassen ist.',
@@ -352,6 +394,13 @@ export const de: Record<PeopleKey, string> = {
 
 /** Russian copy. */
 export const ru: Record<PeopleKey, string> = {
+  standingsHeading: 'Положения',
+  withdrawStanding: 'Отозвать',
+  grantHeading: 'Выдать ещё одно положение',
+  grantHint: 'Для того, кто относится к нескольким организациям. При входе он сам выбирает, в каком работать.',
+  grantSubmit: 'Выдать',
+  grantedDone: 'Положение выдано.',
+  withdrawnDone: 'Положение отозвано.',
   nav: 'Люди',
   title: 'Люди',
   intro: 'Кто может пользоваться этим развёртыванием и что каждый может делать. Добавленный здесь человек сможет войти, как только за него будет допущена личность из каталога.',
@@ -409,6 +458,13 @@ export const ru: Record<PeopleKey, string> = {
 
 /** Portuguese copy. */
 export const pt: Record<PeopleKey, string> = {
+  standingsHeading: 'Tem',
+  withdrawStanding: 'Retirar',
+  grantHeading: 'Conceder outra posição',
+  grantHint: 'Para quem pertence a mais do que uma organização. Escolhe com qual atua ao iniciar sessão.',
+  grantSubmit: 'Conceder',
+  grantedDone: 'A posição foi concedida.',
+  withdrawnDone: 'A posição foi retirada.',
   nav: 'Pessoas',
   title: 'Pessoas',
   intro: 'Quem pode usar esta instalação e o que cada um pode fazer. Alguém acrescentado aqui pode iniciar sessão assim que uma identidade de diretório for admitida como essa pessoa.',

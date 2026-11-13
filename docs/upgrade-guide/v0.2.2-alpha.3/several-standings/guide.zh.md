@@ -16,7 +16,7 @@ description: "一个人可以持有多个身份：名册存一张表、写定的
 | `DeclaredPerson.membership` | `DeclaredPerson.memberships`，一张非空的表 |
 | `PersonView` 带 `role` 与 `organization` | 它还带 `standings`；`role` 与 `organization` 重复其中第一个 |
 | 写定的 `people:` 条目写 `role` | 它写 `role` **或** `standings`，不能都写也不能都不写 |
-| `managedPeople` 有 `save` 与 `remove` | 它还有 `grantStanding` 与 `revokeStanding` |
+| `managedPeople` 有 `save` 与 `remove` | 它还有 `grantStanding` 与 `revokeStanding`，`people` 命名空间也一样 |
 | `PeopleRefusal` 有六个原因 | 它有九个：`already-held`、`last-standing`、`unknown-standing` |
 | `managed_people` 存储是第 1 版 | 它是第 2 版，并且仍然读得了第 1 版 |
 

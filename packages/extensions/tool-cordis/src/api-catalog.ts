@@ -2978,6 +2978,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
       },
       {
+        signature: '@Remote async grantStanding(input: StandingInput): Promise<PersonRowView>',
+        description: 'Grant one further standing to a person this deployment maintains.\n\nBeside `save`, which writes the one standing most people hold: a second standing says this person also belongs somewhere else, and granting it leaves everything they already hold alone.',
+        parameters: [{ name: 'input', description: 'who holds it, and what it may do where.' }],
+        returns: 'the person as the deployment now reads them.',
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`, `people/unknown-person`, `people/already-held`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async revokeStanding(standing: string): Promise<void>',
+        description: 'Revoke one standing a person holds.\n\nTheir last one is refused rather than taken: somebody holding none could act in no context at all, and removing the person is `delete`.',
+        parameters: [{ name: 'standing', description: 'the standing to revoke.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/unknown-standing`, `people/last-standing`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
         signature: '@Remote async bind(input: BindingInput): Promise<void>',
         description: 'Admit one directory identity as one person.',
         parameters: [{ name: 'input', description: 'the identity and who it signs in as.' }],
@@ -9162,7 +9175,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PersonRowView',
-    declaration: 'export interface PersonRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n    readonly written: boolean;\n    readonly bindings: readonly AdmittedIdentityView[];\n}',
+    declaration: 'export interface PersonRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly standings: readonly StandingRowView[];\n    readonly role: Role;\n    readonly organization?: string;\n    readonly written: boolean;\n    readonly bindings: readonly AdmittedIdentityView[];\n}',
   },
   {
     name: 'PersonSubmission',
@@ -10939,6 +10952,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'StagedAttachment',
     declaration: 'export type StagedAttachment = {\n    readonly type: \'file\';\n    readonly attachment: FileAttachmentRef;\n} | {\n    readonly type: \'image\';\n    readonly attachment: ImageAttachmentRef;\n    readonly encodedBytes: number;\n};',
+  },
+  {
+    name: 'StandingInput',
+    declaration: 'export interface StandingInput {\n    readonly person: string;\n    readonly role: Role;\n    readonly organization?: string;\n}',
+  },
+  {
+    name: 'StandingRowView',
+    declaration: 'export interface StandingRowView {\n    readonly id: string;\n    readonly role: Role;\n    readonly organization?: string;\n}',
   },
   {
     name: 'StandingSubmission',

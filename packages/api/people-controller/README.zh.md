@@ -74,9 +74,11 @@ export async function admit(
 
 **身份是解析出来的，不是假定的。** 一次调用只有在权限规则放行后才会到达命名空间方法，而不挂载该规则的部署会放行每一次调用。在这里解析身份、并以 `people/no-standing` 拒绝，才能避免「谁可以使用这个系统」被一次无人负责的调用改掉。
 
-**每种拒绝都有自己的错误码。** `written`、`not-permitted`、`unknown-person`、`already-bound` 与 `incomplete` 各自原样过线，于是表单可以禁用某一行、标出某个字段，或者说明身份不对，而不必去匹配文案。
+**每种拒绝都有自己的错误码。** `written`、`not-permitted`、`unknown-person`、`already-bound`、`incomplete`、`already-held`、`last-standing` 与 `unknown-standing` 各自原样过线，于是表单可以禁用某一行、标出某个字段，或者说明身份不对，而不必去匹配文案。
 
-**绑定自己不回答任何东西。** `bind` 与 `unbind` 不返回值：界面渲染的是人员行，而 `list` 与 `save` 已经带着它的绑定一起给出；这一个事实只有一个来源，正是这一点让界面不会同时显示两份。
+**一行携带调用方管理着的每一个身份。** 一个人可能持有多个，所以 `standings` 是界面要渲染的那份列表，而 `role` 为「只显示一个身份的行」重复其中第一个。那份列表只过滤到调用方管理着的范围——这也正是 `grantStanding` 与 `revokeStanding` 会拒绝范围之外的身份的原因。
+
+**绑定与撤回自己不回答任何东西。** `bind`、`unbind` 与 `revokeStanding` 不返回值：界面渲染的是人员行，而 `list` 与 `save` 已经带着它的绑定一起给出；这一个事实只有一个来源，正是这一点让界面不会同时显示两份。
 
 -----
 

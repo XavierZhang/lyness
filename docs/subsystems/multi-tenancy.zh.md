@@ -1193,6 +1193,30 @@ Host service backing the generated `ctx.remote.people` namespace.
 @Remote async delete(id: string): Promise<void>
 
 /**
+ * Grant one further standing to a person this deployment maintains.
+ *
+ * Beside `save`, which writes the one standing most people hold: a second
+ * standing says this person also belongs somewhere else, and granting it
+ * leaves everything they already hold alone.
+ * @param input - who holds it, and what it may do where.
+ * @returns the person as the deployment now reads them.
+ * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`,
+ * `people/unknown-person`, `people/already-held`, `people/no-standing`, or `gateway/internal`.
+ */
+@Remote async grantStanding(input: StandingInput): Promise<PersonRowView>
+
+/**
+ * Revoke one standing a person holds.
+ *
+ * Their last one is refused rather than taken: somebody holding none could
+ * act in no context at all, and removing the person is `delete`.
+ * @param standing - the standing to revoke.
+ * @throws {RemoteError} `people/not-permitted`, `people/unknown-standing`,
+ * `people/last-standing`, `people/no-standing`, or `gateway/internal`.
+ */
+@Remote async revokeStanding(standing: string): Promise<void>
+
+/**
  * Admit one directory identity as one person.
  * @param input - the identity and who it signs in as.
  * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`,

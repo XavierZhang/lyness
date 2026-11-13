@@ -74,9 +74,11 @@ The channel a binding names is one of the configured channels the `signInChannel
 
 **The standing is resolved, not assumed.** A call reaches a namespace method only after the authority rule admits it, and a deployment that mounts no such rule admits every call. Resolving the standing here and refusing `people/no-standing` keeps a change to who may use the system from being made on nobody's authority.
 
-**Every refusal has its own code.** `written`, `not-permitted`, `unknown-person`, `already-bound` and `incomplete` each cross as themselves, so a form disables a row, marks a field, or explains the standing without matching prose.
+**Every refusal has its own code.** `written`, `not-permitted`, `unknown-person`, `already-bound`, `incomplete`, `already-held`, `last-standing` and `unknown-standing` each cross as themselves, so a form disables a row, marks a field, or explains the standing without matching prose.
 
-**Bindings answer nothing on their own.** `bind` and `unbind` return no value: what a surface renders is the person's row, which `list` and `save` carry with their bindings, and a single source of that one fact is what keeps a surface from showing two of them.
+**A row carries every standing the caller administers.** One person may hold several, so `standings` is the list a surface renders and `role` repeats the first of them for a row that shows one. The list is filtered to what the caller administers, which is also why `grantStanding` and `revokeStanding` refuse a standing outside it.
+
+**Bindings and revocations answer nothing on their own.** `bind`, `unbind` and `revokeStanding` return no value: what a surface renders is the person's row, which `list` and `save` carry with their bindings, and a single source of that one fact is what keeps a surface from showing two of them.
 
 -----
 

@@ -16,7 +16,7 @@ The roster used to give each person exactly one standing. It now holds a list, w
 | `DeclaredPerson.membership` | `DeclaredPerson.memberships`, a non-empty list |
 | `PersonView` carried `role` and `organization` | it also carries `standings`; `role` and `organization` repeat the first of them |
 | a written `people:` entry wrote `role` | it writes `role` **or** `standings`, never both and never neither |
-| `managedPeople` had `save` and `remove` | it also has `grantStanding` and `revokeStanding` |
+| `managedPeople` had `save` and `remove` | it also has `grantStanding` and `revokeStanding`, and so does the `people` namespace |
 | `PeopleRefusal` had six reasons | it has nine: `already-held`, `last-standing`, `unknown-standing` |
 | the `managed_people` store was version 1 | it is version 2, and still reads version 1 |
 

@@ -14,6 +14,7 @@ const PERSON: PersonRowView = {
   displayName: 'Bea',
   role: 'member',
   organization: 'acme',
+  standings: [{ id: 'bea:acme:member', role: 'member', organization: 'acme' }],
   written: false,
   bindings: [],
 }
@@ -89,6 +90,8 @@ describe('sectionFace', () => {
       remove: vi.fn(() => Promise.resolve()),
       bind: vi.fn(() => Promise.resolve()),
       unbind: vi.fn(() => Promise.resolve()),
+      grantStanding: vi.fn(() => Promise.resolve()),
+      revokeStanding: vi.fn(() => Promise.resolve()),
     }
     const baked = actions()
     const face = sectionFace(binding, operations)(baked)
@@ -98,6 +101,8 @@ describe('sectionFace', () => {
     expect(face.remove).toBe(operations.remove)
     expect(face.bind).toBe(operations.bind)
     expect(face.unbind).toBe(operations.unbind)
+    expect(face.grantStanding).toBe(operations.grantStanding)
+    expect(face.revokeStanding).toBe(operations.revokeStanding)
     binding.begin()
     expect(baked.calls).toEqual(['begin'])
   })

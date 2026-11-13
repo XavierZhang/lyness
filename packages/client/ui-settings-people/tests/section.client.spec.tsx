@@ -21,6 +21,21 @@ afterEach(cleanup)
 const BEA: PersonRowView = {
   id: 'bea-id',
   displayName: 'Bea',
+  standings: [{ id: 'bea-id:standing', role: 'member', organization: 'acme' }],
+  role: 'member',
+  organization: 'acme',
+  written: false,
+  bindings: [],
+}
+
+/** Somebody who belongs to two organizations. */
+const CAI: PersonRowView = {
+  id: 'cai-id',
+  displayName: 'Cai',
+  standings: [
+    { id: 'cai-id:standing', role: 'member', organization: 'acme' },
+    { id: 'cai-id:second', role: 'tenant-administrator', organization: 'beta' },
+  ],
   role: 'member',
   organization: 'acme',
   written: false,
@@ -30,6 +45,7 @@ const BEA: PersonRowView = {
 const ADA: PersonRowView = {
   id: 'ada',
   displayName: 'Ada',
+  standings: [{ id: 'ada:platform-administrator', role: 'platform-administrator' }],
   role: 'platform-administrator',
   written: true,
   bindings: [{ channel: 'one', issuer: 'ww-acme', subject: 'ada-sub', written: true }],
@@ -61,9 +77,16 @@ function renderSection(state: PeopleSectionState, over: Partial<PeopleSectionPro
   const remove = vi.fn(() => Promise.resolve())
   const bind = vi.fn(() => Promise.resolve())
   const unbind = vi.fn(() => Promise.resolve())
+  const grantStanding = vi.fn(() => Promise.resolve())
+  const revokeStanding = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: PeopleSectionState) => T) => select(state)) as PeopleSectionProps['useStore']
-  const props = { t, useStore, load, retry, save, remove, bind, unbind, ...over } as PeopleSectionProps
-  return { ...render(<PeopleSection {...props} />), load, retry, save, remove, bind, unbind }
+  const props = {
+    t, useStore, load, retry, save, remove, bind, unbind, grantStanding, revokeStanding, ...over,
+  } as PeopleSectionProps
+  return {
+    ...render(<PeopleSection {...props} />),
+    load, retry, save, remove, bind, unbind, grantStanding, revokeStanding,
+  }
 }
 
 /** A ready state carrying these people and channels. */
@@ -159,8 +182,36 @@ describe('what one person shows', () => {
   })
 
   it('names an organization administrator by their own standing', () => {
-    renderSection(ready([{ ...BEA, role: 'tenant-administrator' }]))
+    renderSection(ready([{
+      ...BEA,
+      standings: [{ id: 'bea-id:standing', role: 'tenant-administrator', organization: 'acme' }],
+      role: 'tenant-administrator',
+    }]))
     expect(rowOf('Bea').getByText(zh.roleTenant)).toBeDefined()
+  })
+
+  it('names every standing somebody holds, and offers to withdraw one of several', () => {
+    const { revokeStanding } = renderSection(ready([CAI]))
+    const row = rowOf('Cai')
+    expect(row.getByText(zh.roleMember)).toBeDefined()
+    expect(row.getByText(zh.roleTenant)).toBeDefined()
+    expect(row.getByText('acme')).toBeDefined()
+    expect(row.getByText('beta')).toBeDefined()
+
+    const [first] = row.getAllByRole('button', { name: zh.withdrawStanding })
+    fireEvent.click(first as HTMLElement)
+    expect(revokeStanding).toHaveBeenCalledWith('cai-id:standing')
+  })
+
+  it('offers no withdrawal for an only standing, or for one composition owns', () => {
+    renderSection(ready([BEA]))
+    // Somebody holding none could act in no context at all, so the page that
+    // would be refused does not offer it.
+    expect(rowOf('Bea').queryByRole('button', { name: zh.withdrawStanding })).toBeNull()
+
+    cleanup()
+    renderSection(ready([ADA]))
+    expect(rowOf('Ada').queryByRole('button', { name: zh.withdrawStanding })).toBeNull()
   })
 
   it('withdraws one admitted identity, naming the three parts it is found by', () => {
@@ -225,6 +276,14 @@ describe('the form an administrator adds through', () => {
     expect(screen.getByText(zh.unboundDone)).toBeDefined()
 
     cleanup()
+    renderSection(ready([CAI], [CHANNEL], { outcome: { kind: 'granted' } }))
+    expect(screen.getByText(zh.grantedDone)).toBeDefined()
+
+    cleanup()
+    renderSection(ready([BEA], [CHANNEL], { outcome: { kind: 'withdrawn' } }))
+    expect(screen.getByText(zh.withdrawnDone)).toBeDefined()
+
+    cleanup()
     renderSection(ready([BEA], [CHANNEL], { working: true }))
     expect(screen.getByText(zh.working)).toBeDefined()
   })
@@ -243,6 +302,45 @@ describe('admitting a directory identity', () => {
     expect(bind).toHaveBeenCalledWith({
       channel: 'one', issuer: 'ww-acme', subject: 'bea-sub', person: 'bea-id',
     })
+  })
+
+  it('grants a further standing to the person being edited', () => {
+    const { grantStanding } = renderSection(ready([BEA]))
+    expect(screen.queryByText(zh.grantHeading)).toBeNull()
+
+    fireEvent.click(rowOf('Bea').getByRole('button', { name: zh.edit }))
+    const grant = within(screen.getByText(zh.grantHeading).closest('form') as HTMLElement)
+    fireEvent.click(grant.getByRole('tab', { name: zh.roleTenant }))
+    fireEvent.change(
+      grant.getAllByText(zh.organization)[0]?.parentElement?.querySelector('input') as HTMLInputElement,
+      { target: { value: ' beta ' } },
+    )
+    fireEvent.click(grant.getByRole('button', { name: zh.grantSubmit }))
+    expect(grantStanding).toHaveBeenCalledWith({
+      person: 'bea-id', role: 'tenant-administrator', organization: 'beta',
+    })
+  })
+
+  it('sends no organization for a platform standing, and offers none for a written person', () => {
+    const { grantStanding } = renderSection(ready([BEA]))
+    fireEvent.click(rowOf('Bea').getByRole('button', { name: zh.edit }))
+    const grant = within(screen.getByText(zh.grantHeading).closest('form') as HTMLElement)
+    fireEvent.change(
+      grant.getAllByText(zh.organization)[0]?.parentElement?.querySelector('input') as HTMLInputElement,
+      { target: { value: 'beta' } },
+    )
+    fireEvent.click(grant.getByRole('tab', { name: zh.rolePlatform }))
+    fireEvent.click(grant.getByRole('button', { name: zh.grantSubmit }))
+    // A platform standing belongs to the platform rather than to any
+    // organization, so the field is gone and nothing it held is sent.
+    expect(grantStanding).toHaveBeenCalledWith({ person: 'bea-id', role: 'platform-administrator' })
+
+    cleanup()
+    // The installation's files own this person, so nothing here offers to add
+    // to what they hold — and there is no edit to open either.
+    renderSection(ready([ADA]))
+    expect(rowOf('Ada').queryByRole('button', { name: zh.edit })).toBeNull()
+    expect(screen.queryByText(zh.grantHeading)).toBeNull()
   })
 
   it('submits nothing until the identity is complete', () => {

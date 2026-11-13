@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-people` adds one Settings section: who may use this deployment, what each of them may do, and which directory identity signs in as them. An administrator adds somebody, gives them a standing, and admits the identity that authenticates them; a person the installation's own files name is shown without an edit, because the next boot reads that file again. Adding somebody admits nobody until an identity is bound to them, and the section says so on the row.
+`lyn-client-ui-settings-people` adds one Settings section: who may use this deployment, what each of them may do, and which directory identity signs in as them. An administrator adds somebody, gives them a standing — or several, for a person who belongs to more than one organization — and admits the identity that authenticates them; a person the installation's own files name is shown without an edit, because the next boot reads that file again. Adding somebody admits nobody until an identity is bound to them, and the section says so on the row.
 
 ## Table of Contents
 
@@ -44,6 +44,10 @@ There is nothing else to configure. The section reads `remote.people` and `remot
 **A written person is shown, not offered.** The row says the installation's configuration owns them and carries no Edit, Remove, or Withdraw: a change accepted here would be undone at the next boot, and the surface would have reported something untrue.
 
 **An identity change re-reads the people.** A binding belongs to a person, so what changed is whose identities they are; the server is asked again rather than the row patched locally. A change that landed and a re-read that did not is still reported as the change, because telling an administrator to admit somebody twice is worse than one stale row.
+
+**A row shows every standing somebody holds.** One person may belong to more than one organization, so the row lists what they hold rather than naming one role, and each standing carries its own withdrawal. The last one carries none: somebody holding no standing could act in no context at all, and the page does not offer what the deployment would refuse. The list is also only what the caller administers, so an administrator of one organization does not learn here which others somebody belongs to.
+
+**Granting is offered where somebody is being edited**, like admitting: a standing belongs to one person, and a form shown beside the add form would leave it unclear who was about to hold it.
 
 **Admitting is offered where somebody is being edited.** The identity form belongs to one person, and showing it beside the add form would leave it unclear who was about to be admitted.
 

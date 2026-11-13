@@ -12,7 +12,7 @@ import { Button, Input, RiskConfirmation, SegmentedControl, Tag } from '@lyness/
 import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {
-  BindingInput, IdentityInput, PersonInput, PersonRowView, Role,
+  BindingInput, IdentityInput, PersonInput, PersonRowView, Role, StandingInput, StandingRowView,
 } from '@lyness/lyn-api-people-controller/types'
 import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
 import type { createPeopleSectionStore } from './store.ts'
@@ -32,6 +32,10 @@ export interface PeopleSectionInjected {
   bind: (input: BindingInput) => Promise<void>
   /** Stop admitting one directory identity. */
   unbind: (input: IdentityInput) => Promise<void>
+  /** Grant one further standing. */
+  grantStanding: (input: StandingInput) => Promise<void>
+  /** Revoke one standing. */
+  revokeStanding: (standing: string) => Promise<void>
 }
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
@@ -52,6 +56,98 @@ function roleLabel(role: Role, t: Translate): string {
   if (role === 'platform-administrator') return t('rolePlatform')
   if (role === 'tenant-administrator') return t('roleTenant')
   return t('roleMember')
+}
+
+/**
+ * Render the standings one person holds.
+ *
+ * The last one offers no withdrawal: somebody holding none could act in no
+ * context at all, so the page that would refuse it does not offer it.
+ * @param props - the person, what to call things, and how to revoke one.
+ * @returns the standing list element tree.
+ */
+function Standings({ person, t, onRevoke }: {
+  person: PersonRowView
+  t: Translate
+  onRevoke: (standing: StandingRowView) => void
+}) {
+  return (
+    <ul className={css.identities}>
+      {person.standings.map(standing => (
+        <li className={css.identity} key={standing.id}>
+          <Tag tone={standing.role === 'member' ? 'neutral' : 'success'}>{roleLabel(standing.role, t)}</Tag>
+          <span className={css.rowScope}>{standing.organization ?? t('deploymentWide')}</span>
+          {person.written || person.standings.length === 1
+            ? null
+            : (
+              <Button variant="outline" onClick={() => { onRevoke(standing) }}>
+                {t('withdrawStanding')}
+              </Button>
+            )}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * Render the form that grants one further standing.
+ * @param props - who it is for, whether a change is in flight, and what to do on submit.
+ * @returns the form element tree.
+ */
+function GrantForm({ person, working, grantStanding, t }: {
+  person: PersonRowView
+  working: boolean
+  grantStanding: (input: StandingInput) => Promise<void>
+  t: Translate
+}) {
+  const [role, setRole] = useState<Role>('member')
+  const [organization, setOrganization] = useState('')
+
+  // Following the person being granted keeps one half-typed standing from
+  // being submitted for somebody else.
+  useEffect(() => {
+    setRole('member')
+    setOrganization('')
+  }, [person.id])
+
+  const submit = useCallback((): void => {
+    void grantStanding({
+      person: person.id,
+      role,
+      // A platform administrator's standing belongs to the platform rather
+      // than to any organization, so the field is not sent for one.
+      ...role === 'platform-administrator' || organization.trim().length === 0
+        ? {}
+        : { organization: organization.trim() },
+    })
+  }, [grantStanding, organization, person.id, role])
+
+  return (
+    <form className={css.form} onSubmit={(event) => { event.preventDefault(); submit() }}>
+      <h4 className={css.formHeading}>{t('grantHeading')}</h4>
+      <p className={css.fieldHint}>{t('grantHint')}</p>
+      <SegmentedControl
+        id="settings-people-grant-role"
+        value={role}
+        label={t('role')}
+        options={[
+          { value: 'member', label: t('roleMember') },
+          { value: 'tenant-administrator', label: t('roleTenant') },
+          { value: 'platform-administrator', label: t('rolePlatform') },
+        ]}
+        onChange={setRole}
+      />
+      {role === 'platform-administrator' ? null : (
+        <label className={css.field}>
+          <span className={css.fieldLabel}>{t('organization')}</span>
+          <Input value={organization} onChange={(event) => { setOrganization(event.target.value) }} />
+          <span className={css.fieldHint}>{t('organizationHint')}</span>
+        </label>
+      )}
+      <Button type="submit" variant="primary" disabled={working}>{t('grantSubmit')}</Button>
+    </form>
+  )
 }
 
 /**
@@ -93,26 +189,23 @@ function AdmittedIdentities({ person, t, onWithdraw }: {
  * @param props - the person, what to call them, and the things to do with them.
  * @returns the row element tree.
  */
-function PersonRow({ person, editing, t, onEdit, onRemove, onWithdraw }: {
+function PersonRow({ person, editing, t, onEdit, onRemove, onWithdraw, onRevoke }: {
   person: PersonRowView
   editing: boolean
   t: Translate
   onEdit: () => void
   onRemove: () => void
   onWithdraw: (identity: IdentityInput) => void
+  onRevoke: (standing: StandingRowView) => void
 }) {
   return (
     <li className={css.row}>
       <div className={css.rowMain}>
         <span className={css.rowName}>{person.displayName}</span>
-        <Tag tone={person.role === 'member' ? 'neutral' : 'success'}>{roleLabel(person.role, t)}</Tag>
         {person.written ? <Tag tone="neutral">{t('fromConfiguration')}</Tag> : null}
       </div>
-      <div className={css.rowFacts}>
-        <span className={css.rowScope}>
-          {person.organization === undefined ? t('deploymentWide') : person.organization}
-        </span>
-      </div>
+      <p className={css.rowHint}>{t('standingsHeading')}</p>
+      <Standings person={person} t={t} onRevoke={onRevoke} />
       {person.written ? <p className={css.rowHint}>{t('fromConfigurationHint')}</p> : null}
       <p className={css.rowId}>
         <span>{t('personId')}</span>
@@ -276,7 +369,9 @@ function AdmitForm({ person, channels, working, bind, t }: {
  * @param props - composed slot props.
  * @returns the section element tree.
  */
-export function PeopleSection({ t, useStore, load, retry, save, remove, bind, unbind }: PeopleSectionProps) {
+export function PeopleSection({
+  t, useStore, load, retry, save, remove, bind, unbind, grantStanding, revokeStanding,
+}: PeopleSectionProps) {
   const status = useStore(state => state.status)
   const people = useStore(state => state.people)
   const channels = useStore(state => state.channels)
@@ -293,6 +388,7 @@ export function PeopleSection({ t, useStore, load, retry, save, remove, bind, un
   const editing = people.find(one => one.id === editingId)
   const marked = outcome?.kind === 'refused' ? outcome.fields : []
   const withdraw = useCallback((identity: IdentityInput): void => { void unbind(identity) }, [unbind])
+  const revoke = useCallback((standing: StandingRowView): void => { void revokeStanding(standing.id) }, [revokeStanding])
 
   /* jscpd:ignore-start */
   const confirmRemoval = useCallback((target: PersonRowView): void => {
@@ -345,6 +441,7 @@ export function PeopleSection({ t, useStore, load, retry, save, remove, bind, un
                     onEdit={() => { setEditingId(person.id === editingId ? undefined : person.id) }}
                     onRemove={() => { setRemoving(person); setAcknowledged(false) }}
                     onWithdraw={withdraw}
+                    onRevoke={revoke}
                   />
                 ))}
               </ul>
@@ -359,6 +456,8 @@ export function PeopleSection({ t, useStore, load, retry, save, remove, bind, un
             {outcome?.kind === 'removed' ? <p className={css.done}>{t('removedDone')}</p> : null}
             {outcome?.kind === 'bound' ? <p className={css.done}>{t('boundDone', { subject: outcome.subject })}</p> : null}
             {outcome?.kind === 'unbound' ? <p className={css.done}>{t('unboundDone')}</p> : null}
+            {outcome?.kind === 'granted' ? <p className={css.done}>{t('grantedDone')}</p> : null}
+            {outcome?.kind === 'withdrawn' ? <p className={css.done}>{t('withdrawnDone')}</p> : null}
             {outcome?.kind === 'refused' ? <p className={css.refused}>{t('refused', { reason: outcome.reason })}</p> : null}
             <PersonForm
               // Remounted per edited person so the form starts from their own
@@ -372,6 +471,9 @@ export function PeopleSection({ t, useStore, load, retry, save, remove, bind, un
             />
             {editing === undefined ? null : (
               <AdmitForm person={editing} channels={channels} working={working} bind={bind} t={t} />
+            )}
+            {editing === undefined || editing.written ? null : (
+              <GrantForm person={editing} working={working} grantStanding={grantStanding} t={t} />
             )}
             {/* jscpd:ignore-end */}
           </section>

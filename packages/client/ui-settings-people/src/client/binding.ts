@@ -11,7 +11,7 @@
  */
 
 import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
-import type { PeopleOperations, PeopleSink } from './operations.ts'
+import type { PeopleOperations, PeopleSink, ReadOutcomeKind } from './operations.ts'
 import type { PeopleRead } from './store.ts'
 import type { PeopleSectionInjected } from './PeopleSection.tsx'
 
@@ -75,13 +75,10 @@ export class SectionBinding implements PeopleSink {
   removed(id: string): void { this.actions?.removed(id) }
 
   /**
-   * Report an identity that was admitted or withdrawn.
-   * @param update - who exists afterwards, and which change it was.
+   * Report a change the people were read again after.
+   * @param update - who holds what afterwards, and which change it was.
    */
-  admitted(update: {
-    read: PeopleRead
-    outcome: { kind: 'bound'; subject: string } | { kind: 'unbound' }
-  }): void {
+  admitted(update: { read: PeopleRead; outcome: ReadOutcomeKind }): void {
     this.actions?.admitted(update)
   }
 
@@ -116,6 +113,8 @@ export function sectionFace(
       remove: operations.remove,
       bind: operations.bind,
       unbind: operations.unbind,
+      grantStanding: operations.grantStanding,
+      revokeStanding: operations.revokeStanding,
     }
   }
 }

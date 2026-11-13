@@ -13,13 +13,17 @@
 
 import { Context } from '@lyness/cordis'
 import { PeopleRefusedError } from '@lyness/lyn-managed-people'
-import type { BindingSubmission, PeopleRefusal, PersonSubmission, PersonView } from '@lyness/lyn-managed-people'
+import type {
+  BindingSubmission, PeopleRefusal, PersonSubmission, PersonView, StandingSubmission,
+} from '@lyness/lyn-managed-people'
 import { brandString } from '@lyness/lyn-brand'
-import type { Membership, PersonId } from '@lyness/lyn-people'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
 import { callingStanding } from '@lyness/lyn-request-principal'
 import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { assertNever } from '@lyness/lyn-util-values'
-import type { BindingInput, IdentityInput, PersonInput, PersonRowView } from './types.ts'
+import type {
+  BindingInput, IdentityInput, PersonInput, PersonRowView, StandingInput,
+} from './types.ts'
 
 export type * from './types.ts'
 
@@ -104,6 +108,53 @@ export default class PeopleController extends TypertRemoteService {
   }
 
   /**
+   * Grant one further standing to a person this deployment maintains.
+   *
+   * Beside `save`, which writes the one standing most people hold: a second
+   * standing says this person also belongs somewhere else, and granting it
+   * leaves everything they already hold alone.
+   * @param input - who holds it, and what it may do where.
+   * @returns the person as the deployment now reads them.
+   * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`,
+   * `people/unknown-person`, `people/already-held`, `people/no-standing`, or `gateway/internal`.
+   */
+  @Remote
+  async grantStanding(input: StandingInput): Promise<PersonRowView> {
+    const directory = this.managed()
+    const by = await this.calling()
+    const submission: StandingSubmission = {
+      person: brandString<PersonId>(input.person),
+      role: input.role,
+      ...input.organization === undefined ? {} : { organization: input.organization },
+    }
+    try {
+      return view(await directory.grantStanding(submission, by))
+    } catch (refused: unknown) {
+      throw refusal(refused)
+    }
+  }
+
+  /**
+   * Revoke one standing a person holds.
+   *
+   * Their last one is refused rather than taken: somebody holding none could
+   * act in no context at all, and removing the person is `delete`.
+   * @param standing - the standing to revoke.
+   * @throws {RemoteError} `people/not-permitted`, `people/unknown-standing`,
+   * `people/last-standing`, `people/no-standing`, or `gateway/internal`.
+   */
+  @Remote
+  async revokeStanding(standing: string): Promise<void> {
+    const directory = this.managed()
+    const by = await this.calling()
+    try {
+      await directory.revokeStanding(brandString<MembershipId>(standing), by)
+    } catch (refused: unknown) {
+      throw refusal(refused)
+    }
+  }
+
+  /**
    * Admit one directory identity as one person.
    * @param input - the identity and who it signs in as.
    * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`,
@@ -177,6 +228,11 @@ function view(person: PersonView): PersonRowView {
   return {
     id: person.id,
     displayName: person.displayName,
+    standings: person.standings.map(standing => ({
+      id: String(standing.id),
+      role: standing.role,
+      ...standing.organization === undefined ? {} : { organization: standing.organization },
+    })),
     role: person.role,
     ...person.organization === undefined ? {} : { organization: person.organization },
     written: person.written,
@@ -213,13 +269,9 @@ function reported(reason: PeopleRefusal, message: string): RemoteError {
     case 'already-bound': return new RemoteError('people/already-bound', message, {})
     case 'not-a-person': return new RemoteError('people/not-a-person', message, {})
     case 'organization-required': return new RemoteError('people/incomplete', message, { fields: ['organization'] })
-    // The three a standing's own grant and revocation refuse with. No wire
-    // method reaches them yet — the surface that grants a second standing is
-    // the next change — so they are reported under the standing code rather
-    // than left to the exhaustiveness guard.
-    case 'already-held':
-    case 'last-standing':
-    case 'unknown-standing': return new RemoteError('people/not-permitted', message, {})
+    case 'already-held': return new RemoteError('people/already-held', message, {})
+    case 'last-standing': return new RemoteError('people/last-standing', message, {})
+    case 'unknown-standing': return new RemoteError('people/unknown-standing', message, {})
     /* v8 ignore next -- closed-union exhaustiveness guard; the directory names one of the nine above. */
     default: return assertNever(reason, 'managed people refusal')
   }
