@@ -213,7 +213,14 @@ function reported(reason: PeopleRefusal, message: string): RemoteError {
     case 'already-bound': return new RemoteError('people/already-bound', message, {})
     case 'not-a-person': return new RemoteError('people/not-a-person', message, {})
     case 'organization-required': return new RemoteError('people/incomplete', message, { fields: ['organization'] })
-    /* v8 ignore next -- closed-union exhaustiveness guard; the directory names one of the six above. */
+    // The three a standing's own grant and revocation refuse with. No wire
+    // method reaches them yet — the surface that grants a second standing is
+    // the next change — so they are reported under the standing code rather
+    // than left to the exhaustiveness guard.
+    case 'already-held':
+    case 'last-standing':
+    case 'unknown-standing': return new RemoteError('people/not-permitted', message, {})
+    /* v8 ignore next -- closed-union exhaustiveness guard; the directory names one of the nine above. */
     default: return assertNever(reason, 'managed people refusal')
   }
 }

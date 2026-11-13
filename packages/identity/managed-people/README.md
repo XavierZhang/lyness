@@ -62,6 +62,10 @@ await ctx.managedPeople.bind({
   subject: 'bea',
   person: bea.id,
 }, by)
+
+// Somebody who also belongs elsewhere holds a second standing, granted on
+// its own: `save` writes the one they started with and leaves the rest alone.
+await ctx.managedPeople.grantStanding({ person: bea.id, role: 'tenant-administrator', organization: 'beta' }, by)
 ```
 
 `list(by)` answers the people that standing administers, written and stored alike, each with the identities admitted as them and whether composition owns the entry. A refusal is a `PeopleRefusedError` carrying one of five reasons, so a surface marks the field or disables the row rather than matching prose.
@@ -77,7 +81,9 @@ await ctx.managedPeople.bind({
 
 **A binding is authorized by the person and by the channel.** A binding on another organization's directory lets that organization's people sign in here, so the channel must be one the standing administers, read from the configured channels where a deployment stores them. Where it stores none, the person is the whole authorization.
 
-**A standing's identity never moves.** It is derived from the person's identity alone, so changing somebody's role does not change the membership id an open session already names — a session whose standing moved would act with no standing rather than with the new one.
+**A standing's identity never moves.** The first one a person is given keeps the identity derived from theirs, and each one granted afterwards keeps the identity it was given, so changing somebody's role does not change the membership id an open session already names — a session whose standing moved would act with no standing rather than with the new one.
+
+**A person's standings are authorized together.** One standing in acme does not make somebody acme's: renaming them, removing them, admitting a directory identity as them, and revoking any of their standings all require administering **every** standing they hold, because a binding admits one identity as the whole person and they then act for each of them. Reading is the one exception: a list shows the standings the caller administers and no others, so an administrator of one organization never learns which others somebody belongs to.
 
 **Every change is recorded elsewhere, before it is read back here.** The directory holds what is true now; [`lyn-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced — a role, a name, or which person a directory identity signs in as. It is a hard injection, so a deployment that administers people without keeping their history fails to load rather than recording nothing in silence. Removing somebody records the bindings going with them, in the order the operation does it in.
 
@@ -109,7 +115,8 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **One standing per person** — a person belongs to one organization in one role, as the written roster has always had it; somebody who works with two organizations needs two identities.
+- **`save` writes one standing** — the one most people hold; a second is `grantStanding` and the last one cannot be revoked, because a person holding none could act in no context at all.
+- **No surface grants a standing yet** — the roster and the trail hold them, and the page that offers an administrator the choice is the next change.
 - **A composition channel cannot be bound by a tenant administrator** — the channel check reads the configured channels, and a channel that came from a composition row is in none of them, so only a deployment whose channels are stored can delegate binding.
 - **The stored record keeps only the current values** — a replacement keeps who added the person and when, and overwrites their name and role in place, so what those used to be is read from the [trail](../admin-audit/README.md) rather than from the directory.
 - **Removing a person does not end their sessions** — they stop signing in, and a session already established stays valid until it lapses.

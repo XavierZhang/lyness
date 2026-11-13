@@ -37,6 +37,20 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 
 共有三种角色。`platform-administrator` 管整套部署；`tenant-administrator` 管一个组织，并用 `organization:` 字段点名那个组织；`member` 谁也不管。在独立部署里，运行它的人就是平台管理员。
 
+归属于不止一个组织的人，写 `standings` 而不是 `role`，并同时持有它们：
+
+```yaml
+      - id: cai
+        displayName: Cai
+        standings:
+          - role: tenant-administrator
+            organization: acme
+          - role: member
+            organization: beta
+```
+
+一条条目只写两种形式之一，不能都写。只持一个身份的人，登录本身就把它置为生效；持有多个身份的人登录时一个都不生效，由他自己选以哪一个行事。
+
 `id` 是永久的：会话、发放与登录绑定都写在它上面。挑一个稳定的，比如工号或账号名，而不是显示名。
 
 ### 放第一位管理员进来

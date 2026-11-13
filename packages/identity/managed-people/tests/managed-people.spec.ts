@@ -4,7 +4,7 @@
  * grant which standing, and which directory identity signs in as whom.
  */
 
-import { mkdtemp, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -18,7 +18,7 @@ import * as StorageDomain from '@lyness/lyn-storage-domain'
 import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople, {
   ALREADY_BOUND, NOT_PERMITTED, ORGANIZATION_REQUIRED, PeopleRefusedError, UNKNOWN_PERSON, WRITTEN,
-  bindingKey, standingOf,
+  bindingKey, standingOf, standingsOf,
 } from '../src/index.ts'
 import ManagedPeopleDirectory, { declaredPeople } from '../src/directory.ts'
 import ManagedAdmission, { declaredBindings } from '../src/admission.ts'
@@ -49,9 +49,21 @@ async function bench(options: {
   bindings?: { channel: string; issuer: string; subject: string; person: string }[]
   channels?: readonly string[]
   registered?: readonly string[]
+  /** A store this deployment inherits, written by the first generation. */
+  stored?: Record<string, unknown>
 } = {}): Promise<Context> {
   const root = await mkdtemp(join(tmpdir(), 'lyn-managed-people-'))
   roots.push(root)
+  if (options.stored !== undefined) {
+    // Seeded before the service opens its domain, which is the only way a
+    // deployment ever meets a store an older version wrote.
+    await mkdir(root, { recursive: true })
+    await writeFile(join(root, 'managed_people.json'), JSON.stringify({
+      unit: { name: 'managed_people', version: 1 },
+      global: null,
+      tables: { people: options.stored, bindings: {} },
+    }))
+  }
   const ctx = new Context()
   live.push(ctx)
   await ctx.plugin(Storage)
@@ -198,6 +210,178 @@ describe('the people an administrator adds', () => {
   })
 })
 
+describe('the standings one person holds', () => {
+  it('grants a second standing without disturbing the first', async () => {
+    const ctx = await bench({ people: OPERATOR })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    const [first] = added.standings
+
+    const both = await ctx.managedPeople.grantStanding(
+      { person: added.id, role: 'tenant-administrator', organization: 'beta' }, platform)
+    expect(both.standings.map(one => [one.role, one.organization])).toEqual([
+      ['member', 'acme'],
+      ['tenant-administrator', 'beta'],
+    ])
+    // The first standing keeps its identity, so a session signed in under it
+    // still names a standing they hold.
+    expect(both.standings[0]?.id).toBe(first?.id)
+    expect((await ctx.people.memberships(added.id)).map(one => one.id))
+      .toEqual(both.standings.map(one => one.id))
+    for (const held of both.standings) {
+      expect(await ctx.people.membership(held.id)).toMatchObject({ person: added.id, role: held.role })
+    }
+  })
+
+  it('refuses a standing they already hold, and one nobody holds', async () => {
+    const ctx = await bench({ people: OPERATOR })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+
+    await expect(ctx.managedPeople.grantStanding({ person: added.id, role: 'member', organization: 'acme' }, platform))
+      .rejects.toMatchObject({ reason: 'already-held' })
+    await expect(ctx.managedPeople.grantStanding(
+      { person: brandString<PersonId>('nobody'), role: 'member', organization: 'acme' }, platform,
+    )).rejects.toMatchObject({ reason: 'unknown-person' })
+    await expect(ctx.managedPeople.revokeStanding(brandString<MembershipId>('nothing'), platform))
+      .rejects.toMatchObject({ reason: 'unknown-standing' })
+  })
+
+  it('revokes one and refuses the last', async () => {
+    const ctx = await bench({ people: OPERATOR })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    const both = await ctx.managedPeople.grantStanding(
+      { person: added.id, role: 'tenant-administrator', organization: 'beta' }, platform)
+    const [, second] = both.standings
+    if (second === undefined) throw new Error('the grant wrote no second standing')
+
+    await ctx.managedPeople.revokeStanding(second.id, platform)
+    expect(await ctx.people.memberships(added.id)).toHaveLength(1)
+    expect(await ctx.people.membership(second.id)).toBeUndefined()
+
+    // A person holding none could act in no context at all, so the last one
+    // is refused and removing the person is the operation that says so.
+    const [only] = (await ctx.managedPeople.list(platform)).find(view => view.id === added.id)?.standings ?? []
+    if (only === undefined) throw new Error('the person holds no standing')
+    await expect(ctx.managedPeople.revokeStanding(only.id, platform))
+      .rejects.toMatchObject({ reason: 'last-standing' })
+  })
+
+  it('keeps a person who belongs elsewhere out of one tenant administrator\'s reach', async () => {
+    const ctx = await bench({ people: OPERATOR })
+    const platform = standing('platform-administrator')
+    const acme = standing('tenant-administrator', 'acme')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    const both = await ctx.managedPeople.grantStanding(
+      { person: added.id, role: 'member', organization: 'beta' }, platform)
+    const [, beta] = both.standings
+    if (beta === undefined) throw new Error('the grant wrote no second standing')
+
+    // Acme's administrator sees them, because one of their standings is in
+    // acme — but only that standing, and they may neither rename nor delete
+    // somebody who also belongs to beta.
+    const listed = (await ctx.managedPeople.list(acme)).find(view => view.id === added.id)
+    expect(listed?.standings.map(one => one.organization)).toEqual(['acme'])
+    await expect(ctx.managedPeople.save({ id: added.id, displayName: 'Renamed', role: 'member', organization: 'acme' }, acme))
+      .rejects.toMatchObject({ reason: 'not-permitted' })
+    await expect(ctx.managedPeople.remove(added.id, acme)).rejects.toMatchObject({ reason: 'not-permitted' })
+    await expect(ctx.managedPeople.revokeStanding(beta.id, acme)).rejects.toMatchObject({ reason: 'not-permitted' })
+    // And an identity bound to them would sign in as somebody who acts for
+    // beta too, so that is refused as well.
+    await expect(ctx.managedPeople.bind(
+      { channel: 'acme-wecom', issuer: 'corp', subject: 'bea', person: added.id }, acme,
+    )).rejects.toMatchObject({ reason: 'not-permitted' })
+  })
+
+  it('grants a platform standing, which names no organization, and takes it back', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    await ctx.managedPeople.bind({ channel: 'wecom-1', issuer: 'corp', subject: 'bea', person: added.id }, platform)
+
+    const both = await ctx.managedPeople.grantStanding({ person: added.id, role: 'platform-administrator' }, platform)
+    // A platform standing belongs to the platform rather than to any
+    // organization, and the person keeps the identity that signs in as them.
+    expect(both.standings.map(one => one.organization)).toEqual(['acme', undefined])
+    expect(both.bindings).toEqual([{ channel: 'wecom-1', issuer: 'corp', subject: 'bea', written: false }])
+
+    const [, granted] = both.standings
+    if (granted === undefined) throw new Error('the grant wrote no second standing')
+    await ctx.managedPeople.revokeStanding(granted.id, platform)
+    expect((await ctx.people.memberships(added.id)).map(one => one.organization)).toEqual(['acme'])
+    // Filed under the platform rather than under acme, which is whose
+    // authority granted and took it back.
+    const trail = await ctx.adminAudit.read({}, platform)
+    expect(trail.slice(0, 2).map(entry => [entry.kind, entry.action, entry.organization]))
+      .toEqual([['person', 'changed', undefined], ['person', 'changed', undefined]])
+  })
+
+  it('refuses to grant a standing to a person composition owns', async () => {
+    const ctx = await bench({ people: OPERATOR })
+    await expect(ctx.managedPeople.grantStanding(
+      { person: ADA, role: 'member', organization: 'acme' }, standing('platform-administrator'),
+    )).rejects.toMatchObject({ reason: 'written' })
+  })
+})
+
+describe('a roster the first generation stored', () => {
+  it('reads one role as one standing, under the identity that generation derived', async () => {
+    const legacy = brandString<PersonId>('stored-before')
+    // What version 1 wrote: one role per person, no list, and the unit
+    // stamped with the version it was saved under.
+    const ctx = await bench({
+      people: OPERATOR,
+      stored: {
+        [legacy]: {
+          id: legacy,
+          displayName: 'Cai',
+          role: 'member',
+          organization: 'acme',
+          addedAt: '2026-01-01T00:00:00.000Z',
+          addedBy: ADA,
+        },
+      },
+    })
+    const platform = standing('platform-administrator')
+
+    const held = await ctx.people.memberships(legacy)
+    expect(held).toEqual([{ id: standingOf(legacy), person: legacy, role: 'member', organization: 'acme' }])
+    // A session signed in then names this identity, so it has to resolve.
+    expect(await ctx.people.membership(standingOf(legacy))).toMatchObject({ person: legacy })
+    expect((await ctx.managedPeople.list(platform)).find(view => view.id === legacy)?.standings)
+      .toEqual([{ id: standingOf(legacy), role: 'member', organization: 'acme' }])
+
+    // The next write of that record replaces the one role with a list, and
+    // the standing keeps the identity it already had.
+    const both = await ctx.managedPeople.grantStanding(
+      { person: legacy, role: 'member', organization: 'beta' }, platform)
+    expect(both.standings.map(one => [one.id, one.organization]))
+      .toEqual([[standingOf(legacy), 'acme'], [both.standings[1]?.id, 'beta']])
+    expect(await ctx.people.memberships(legacy)).toHaveLength(2)
+  })
+
+  it('folds a record of either generation the same way', () => {
+    const id = brandString<PersonId>('cai')
+    const legacy = standingsOf({
+      id, displayName: 'Cai', role: 'member', organization: 'acme',
+      addedAt: '2026-01-01T00:00:00.000Z', addedBy: ADA,
+    })
+    expect(legacy).toEqual([{
+      id: standingOf(id), role: 'member', organization: 'acme',
+      addedAt: '2026-01-01T00:00:00.000Z', addedBy: ADA,
+    }])
+    // A platform administrator of that generation named no organization.
+    expect(standingsOf({
+      id, displayName: 'Cai', role: 'platform-administrator',
+      addedAt: '2026-01-01T00:00:00.000Z', addedBy: ADA,
+    })).toEqual([{
+      id: standingOf(id), role: 'platform-administrator',
+      addedAt: '2026-01-01T00:00:00.000Z', addedBy: ADA,
+    }])
+  })
+})
+
 describe('the directory identities admitted as them', () => {
   it('sign in as the person they are bound to', async () => {
     const ctx = await bench({ people: OPERATOR, bindings: [] })
@@ -304,8 +488,10 @@ describe('what the trail records', () => {
     expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
       ['binding', 'added'], ['person', 'changed'], ['person', 'added'],
     ])
+    // Every standing in one field: a trail naming one of two would record
+    // half the change.
     expect(trail[1]?.changes).toEqual([
-      { field: 'role', before: 'member', after: 'tenant-administrator' },
+      { field: 'standings', before: 'member@acme', after: 'tenant-administrator@acme' },
     ])
     expect(trail[0]).toMatchObject({ subjectName: 'wecom-1:corp:bea', changes: [{ field: 'person', after: added.id }] })
   })

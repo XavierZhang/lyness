@@ -2137,3 +2137,54 @@ OIDC 提案第 5 期剩下的那一半。多标准的人登录后一个标准都
 ### 顺带记一笔
 
 `Principal` 多一个必填字段，波及 5 个 spec 的 principal 夹具与 4 个 `ViewerView` 夹具——都是「pre-stable API 就地更新每个消费者」那条规矩的常规代价，没有生产代码受影响。
+
+-----
+
+## 名册改成「一人多身份」：存储与服务（2026-11-13）
+
+用户拍了「做，先改存储与服务」。这一轮只动数据形状与服务，人员页与邀请码留到下一轮。
+
+### 存储：第 2 版，同时读得了第 1 版
+
+人员记录从 `{role, organization}` 变成 `standings: [{id, role, organization?, addedAt, addedBy}]`。`managed_people` 域 `version: 2, compatibleVersions: [1]`（`schedule` 已有先例）：schema 同时接受两代，**读的时候把第 1 版那一个 role 折成单元素表**，而对那条记录的下一次写入才换成列表。于是不需要迁移扫描，没人碰过的记录就按原样留着。
+
+**没有任何身份标识会移动**，这是整件事里最要紧的一条：
+- 第 1 版折出来的那个身份用的还是 `standingOf(person)`（`<person>:standing`）；
+- 一个人的第一个身份也用它；之后授予的是 `<person>:<uuid>`；
+- 写定名册里只写 `role` 的条目保持 `<person>:<role>`。
+
+所以已有会话的 `acting.membership`、已签发邀请码的 `issuedIn`，点名的都还是确实存在的身份。
+
+### 写定名册：两种形式，二选一
+
+```yaml
+- id: cai
+  displayName: Cai
+  standings:
+    - role: tenant-administrator
+      organization: acme
+    - role: member
+      organization: beta
+```
+
+`role`（一个身份的简写）与 `standings`（多个）**二选一**：都写、都不写、同一个身份写两遍，三种都在加载时拒绝（失败要响）。列表里的身份带上组织：`<person>:<organization>:<role>`，于是「同一个角色的两个身份」不会撞在一起。
+
+### 服务：三条授权规则定死
+
+- **改一个人要管得着他的每一个身份**：改名、删除、把目录身份准入为他、撤掉他任何一个身份——因为一条绑定准入的是「整个人」，他随后能以其中任意一个身份行事。在 acme 有个身份，不等于这个人就是 acme 的。
+- **读是例外**：`list` 只显示调用方管理着的那些身份。一个组织的管理员永远不会从这里知道这个人还归属于哪些别的组织。
+- **`save` 只写一个身份**（大多数人持有的那一个，并保留其余）；第二个走新的 `grantStanding`，撤销走 `revokeStanding`，而**最后一个撤不掉**（不持任何身份的人在任何上下文里都行事不了，要删人就用 `remove`）。三个新拒绝码：`already-held`、`last-standing`、`unknown-standing`。
+
+### 管理轨迹跟着变
+
+人员条目的审计字段从 `role` 变成 `standings`（`member@acme` → `tenant-administrator@acme`）：一个人有两个身份时，只记一个等于只记半次改动。另外，第 2 版记录自己不带 organization 了，所以条目改为按「这次改动涉及的那个身份的组织」归档——否则那个组织的管理员读不到它（这是全量跑出来的真失败，不是我预判的）。
+
+### 实测证据
+
+`managed-people` 30 项、`people` 12 项，各自单文件 100%；其中一条是**真正的迁移测试**：先在磁盘上写一份 `unit.version: 1` 的存储，再启动服务，断言它读成一个身份、`standingOf` 还能解析、`list` 看得见，并且一次 `grantStanding` 之后变成两个身份且第一个的标识没动。
+
+仓库级：typecheck / lint / hygiene 32 / doc-sync 44 / `pnpm run test` 2811 文件 55183 用例 / snapshot 251 / expected 144 / build 10，全绿。另写了升级指南（`DeclaredPerson.memberships`、三个新拒绝码、`PersonView.standings`、两种写定形式与它们的标识规则）。
+
+### 下一轮
+
+人员页（给一个人加／撤身份，一行显示多个身份）、`people` 命名空间的两个新方法，以及邀请码「兑换成某人的又一个身份」而不是又建一个人。做完之后，上一轮的组织选择器就能在真实部署里被触发了。

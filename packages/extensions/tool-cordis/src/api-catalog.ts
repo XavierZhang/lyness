@@ -2665,6 +2665,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{PeopleRefusedError} when the standing may not make the change, or composition owns the person.'],
       },
       {
+        signature: 'async grantStanding(submission: StandingSubmission, by: Membership): Promise<PersonView>',
+        description: 'Grant one further standing to a person this service holds.\n\nBeside `save`, which writes the one standing most people hold, because a second standing is a different decision: it says this person also belongs somewhere else, and it leaves everything they already hold alone.',
+        parameters: [{ name: 'submission', description: 'who holds it, and what it may do where.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the person as they now read.',
+        throws: ['{PeopleRefusedError} when the standing may not grant it, composition owns the person, nobody holds that identity, or they hold it already.'],
+      },
+      {
+        signature: 'async revokeStanding(standing: MembershipId, by: Membership): Promise<void>',
+        description: 'Revoke one standing a person holds.\n\nThe last one is refused: a person holding none could act in no context at all, and a roster entry nobody can be is not what an administrator meant — removing the person is remove, and it says so.',
+        parameters: [{ name: 'standing', description: 'the standing to revoke.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{PeopleRefusedError} when the standing may not revoke it, composition owns the person, no stored person holds it, or it is their last one.'],
+      },
+      {
         signature: 'async remove(id: PersonId, by: Membership): Promise<void>',
         description: 'Remove one person this service holds, and every binding that admitted them.\n\nTheir identity is not reused, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.',
         parameters: [{ name: 'id', description: 'the person to remove.' }, { name: 'by', description: 'the standing making the change.' }],
@@ -7669,7 +7682,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'DeclaredPerson',
-    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n    readonly kind?: PersonKind | undefined;\n}',
+    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly memberships: readonly Membership[];\n    readonly kind?: PersonKind | undefined;\n}',
   },
   {
     name: 'DeclaredTeam',
@@ -9157,7 +9170,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PersonView',
-    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly kind: PersonKind;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
+    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly kind: PersonKind;\n    readonly displayName: string;\n    readonly standings: readonly StandingView[];\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
   },
   {
     name: 'PiAiRequestHeaderContext',
@@ -10926,6 +10939,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'StagedAttachment',
     declaration: 'export type StagedAttachment = {\n    readonly type: \'file\';\n    readonly attachment: FileAttachmentRef;\n} | {\n    readonly type: \'image\';\n    readonly attachment: ImageAttachmentRef;\n    readonly encodedBytes: number;\n};',
+  },
+  {
+    name: 'StandingSubmission',
+    declaration: 'export interface StandingSubmission {\n    readonly person: PersonId;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'StandingView',
+    declaration: 'export interface StandingView {\n    readonly id: MembershipId;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'StopShareRequest',

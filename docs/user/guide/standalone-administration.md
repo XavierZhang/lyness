@@ -37,6 +37,20 @@ Write the roster into the profile's `cordis.patch.yml`:
 
 Three roles exist. A `platform-administrator` administers the whole deployment. A `tenant-administrator` administers one organization and names it with an `organization:` field. A `member` administers nothing. On a standalone deployment the people who run it are platform administrators.
 
+Somebody who belongs to more than one organization writes `standings` instead of `role`, and holds each of them:
+
+```yaml
+      - id: cai
+        displayName: Cai
+        standings:
+          - role: tenant-administrator
+            organization: acme
+          - role: member
+            organization: beta
+```
+
+An entry writes one form or the other, never both. Somebody holding one standing is put into it by the sign-in itself; somebody holding several signs in with none in force and chooses which to act for.
+
 The `id` is permanent: sessions, grants, and sign-in bindings are written against it. Pick something stable, such as an employee number or an account name, rather than a display name.
 
 ### Admit the first administrator

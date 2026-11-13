@@ -85,12 +85,12 @@ async function harness(
       // directory answers and the admission table must refuse.
       ctx.effect(() => ctx.managedPeople.declarePerson({
         person: { id: brandString<PersonId>(bot.id), displayName: 'Triage' },
-        membership: {
+        memberships: [{
           id: brandString<MembershipId>(`${bot.id}:standing`),
           person: brandString<PersonId>(bot.id),
           organization: bot.organization,
           role: 'member',
-        },
+        }],
         kind: 'bot',
       }))
     }

@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-people` to answer who a caller is and what their standing permits. A person holds one identity and a **membership** is their standing in one organization, carrying exactly one of three roles. `./static` serves a roster an operator writes, which is an enterprise installation's directory before SSO is connected. The directory reports a role and authorizes nothing: each operation decides for itself, against `administers`.
+Use `lyn-people` to answer who a caller is and what their standing permits. A person holds one identity and a **membership** is their standing in one organization, carrying exactly one of three roles; somebody who belongs to two organizations holds two memberships, and which is in force is the acting context's answer. `./static` serves a roster an operator writes, which is an enterprise installation's directory before SSO is connected. The directory reports a role and authorizes nothing: each operation decides for itself, against `administers`.
 
 ## Table of Contents
 
@@ -43,9 +43,18 @@ An installation whose administrator maintains the roster mounts the static provi
         displayName: Bob
         role: member
         organization: acme
+      - id: cai
+        displayName: Cai
+        standings:
+          - role: tenant-administrator
+            organization: acme
+          - role: member
+            organization: beta
 ```
 
 Only the people a roster names may use that installation, so an unknown identity holds no standing rather than a default one. `people` is required and rejected when empty, and a duplicate `id` is rejected at load.
+
+An entry writes `role` for the one standing most people hold, or `standings` for somebody who belongs to more than one organization — one of the two, never both and never neither. A one-standing entry keeps the standing identity it has always had (`<person>:<role>`), so a session signed in under it and every invitation issued in it still name a standing that exists; a listed standing carries its organization too (`<person>:<organization>:<role>`), which is what keeps two standings of one role apart.
 
 An operation restricting itself to administrators asks the predicate rather than comparing roles:
 
@@ -96,7 +105,7 @@ No request prefix changes, because nothing here reaches a model request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **The static roster gives each person exactly one standing** — correct for an installation serving one organization, and the reason a hosted deployment needs a store-backed directory where a person may hold several.
+- **A written roster is re-read at every boot** — somebody's standings change when the file does and not from any surface, which is what makes the operator's own entry the way back in.
 - **No acting context yet** — the decision defines a context a call states and the server checks; this package supplies the vocabulary and the directory, not the per-call plumbing.
 - **No SSO binding yet** — an enterprise installation connecting AD, WeCom, DingTalk, or Feishu needs an external account to bind to a standing; the roster is the manual path that stays available regardless.
 

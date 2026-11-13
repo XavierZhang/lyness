@@ -6,17 +6,17 @@
  * @module @lyness/lyn-managed-people/types
  */
 
-import type { Membership, Person, PersonId, Role } from '@lyness/lyn-people'
+import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
 
 /** What kind of actor one roster entry is. */
 export type PersonKind = 'person' | 'bot'
 
-/** One person another owner holds, and the single standing they hold. */
+/** One person another owner holds, and the standings they hold. */
 export interface DeclaredPerson {
   /** The person, as a lookup answers them. */
   readonly person: Person
-  /** The standing they hold. */
-  readonly membership: Membership
+  /** The standings they hold, in the owner's own order; never empty. */
+  readonly memberships: readonly Membership[]
   /**
    * Whether this entry is a human or a bot; absent reads as a human.
    *
@@ -28,15 +28,39 @@ export interface DeclaredPerson {
   readonly kind?: PersonKind | undefined
 }
 
-/** One person an administrator added, as the deployment stores them. */
+/** One standing a stored person holds. */
+export interface StandingRecord {
+  /** Stable identity of this standing; generated here and never reused. */
+  readonly id: MembershipId
+  /** What this standing may do. */
+  readonly role: Role
+  /** The organization it is in; absent for a platform administrator. */
+  readonly organization?: string | undefined
+  /** When it was granted, as a UTC instant. */
+  readonly addedAt: string
+  /** Who granted it. */
+  readonly addedBy: PersonId
+}
+
+/**
+ * One person an administrator added, as the deployment stores them.
+ *
+ * `standings` is what this generation writes, and the one a reader uses.
+ * `role` and `organization` are the single standing the first generation
+ * wrote: a record saved then still reads, and the next write of that record
+ * replaces both with a one-entry `standings`. Exactly one of the two forms is
+ * present in any stored record.
+ */
 export interface PersonRecord {
   /** Stable identity, generated here and never reused. */
   readonly id: PersonId
   /** Name a surface shows; never used for authorization. */
   readonly displayName: string
-  /** What this person may do. */
-  readonly role: Role
-  /** The organization their standing is in; absent for a platform administrator. */
+  /** The standings they hold, oldest first; absent only in a first-generation record. */
+  readonly standings?: readonly StandingRecord[] | undefined
+  /** What this person may do, in a first-generation record. */
+  readonly role?: Role | undefined
+  /** The organization that standing is in, in a first-generation record. */
   readonly organization?: string | undefined
   /** When they were added, as a UTC instant. */
   readonly addedAt: string
@@ -72,6 +96,16 @@ export interface PersonSubmission {
   readonly organization?: string | undefined
 }
 
+/** What an administrator submits to grant one further standing. */
+export interface StandingSubmission {
+  /** The person who holds it. */
+  readonly person: PersonId
+  /** What the standing may do. */
+  readonly role: Role
+  /** The organization it is in; absent for a platform administrator. */
+  readonly organization?: string | undefined
+}
+
 /** What an administrator submits to admit one directory identity. */
 export interface BindingSubmission {
   /** The channel that authenticates them. */
@@ -102,6 +136,16 @@ export interface BindingView {
   readonly written: boolean
 }
 
+/** One standing as a surface shows it. */
+export interface StandingView {
+  /** Stable identity of the standing; what a binding and a session name. */
+  readonly id: MembershipId
+  /** What it may do. */
+  readonly role: Role
+  /** The organization it is in; absent for a platform administrator. */
+  readonly organization?: string | undefined
+}
+
 /** One person as a surface shows them, with the identities that sign in as them. */
 export interface PersonView {
   /** Stable identity. */
@@ -110,9 +154,18 @@ export interface PersonView {
   readonly kind: PersonKind
   /** Name a surface shows. */
   readonly displayName: string
-  /** What this person may do. */
+  /** Every standing they hold, oldest first; never empty. */
+  readonly standings: readonly StandingView[]
+  /**
+   * What this person may do in their first standing.
+   *
+   * The first of {@link standings}, carried beside it while the surfaces that
+   * show one standing per person move over. A person holding several is not
+   * described by it, which is why anything deciding what to offer reads the
+   * list instead.
+   */
   readonly role: Role
-  /** The organization their standing is in; absent for a platform administrator. */
+  /** The organization that first standing is in; absent for a platform administrator. */
   readonly organization?: string | undefined
   /**
    * Whether this person is maintained somewhere other than here.

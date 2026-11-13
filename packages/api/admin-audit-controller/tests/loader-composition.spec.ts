@@ -149,6 +149,9 @@ it('reads back what one administrator\'s changes replaced', async () => {
   const read = await asAda(composed, () => ctx.adminAuditController.read({}))
 
   expect(read.map(entry => [entry.kind, entry.action])).toEqual([['person', 'changed'], ['person', 'added']])
-  expect(read[0]?.changes).toEqual([{ field: 'role', before: 'member', after: 'tenant-administrator' }])
+  // Every standing in one field, with the organization each is in: a trail
+  // naming one of two would record half the change.
+  expect(read[0]?.changes)
+    .toEqual([{ field: 'standings', before: 'member@acme', after: 'tenant-administrator@acme' }])
   expect(read[1]).toMatchObject({ subjectName: 'Bea', organization: 'acme', by: 'ada' })
 })

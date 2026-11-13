@@ -1056,6 +1056,33 @@ async list(by: Membership): Promise<readonly PersonView[]>
 async save(submission: PersonSubmission, by: Membership): Promise<PersonView>
 
 /**
+ * Grant one further standing to a person this service holds.
+ *
+ * Beside `save`, which writes the one standing most people hold, because a
+ * second standing is a different decision: it says this person also belongs
+ * somewhere else, and it leaves everything they already hold alone.
+ * @param submission - who holds it, and what it may do where.
+ * @param by - the standing making the change.
+ * @returns the person as they now read.
+ * @throws {PeopleRefusedError} when the standing may not grant it, composition
+ * owns the person, nobody holds that identity, or they hold it already.
+ */
+async grantStanding(submission: StandingSubmission, by: Membership): Promise<PersonView>
+
+/**
+ * Revoke one standing a person holds.
+ *
+ * The last one is refused: a person holding none could act in no context at
+ * all, and a roster entry nobody can be is not what an administrator meant
+ * — removing the person is {@link remove}, and it says so.
+ * @param standing - the standing to revoke.
+ * @param by - the standing making the change.
+ * @throws {PeopleRefusedError} when the standing may not revoke it, composition
+ * owns the person, no stored person holds it, or it is their last one.
+ */
+async revokeStanding(standing: MembershipId, by: Membership): Promise<void>
+
+/**
  * Remove one person this service holds, and every binding that admitted them.
  *
  * Their identity is not reused, so the conversations they opened stay

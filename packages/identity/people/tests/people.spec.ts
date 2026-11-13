@@ -106,3 +106,59 @@ it('refuses an empty roster and a duplicate identity at load', async () => {
     ],
   }).await()).rejects.toThrow(/duplicate person id/)
 })
+
+it('serves every standing a written entry lists', async () => {
+  const ctx = new Context()
+  await ctx.plugin(StaticPeopleDirectory, {
+    people: [{
+      id: 'ada',
+      displayName: 'Ada',
+      standings: [
+        { role: 'platform-administrator' },
+        { role: 'tenant-administrator', organization: 'acme' },
+        { role: 'member', organization: 'beta' },
+      ],
+    }],
+  }).await()
+
+  const held = await ctx.people.memberships(brandString<PersonId>('ada'))
+  expect(held.map(one => [one.id, one.role, one.organization])).toEqual([
+    ['ada:platform:platform-administrator', 'platform-administrator', undefined],
+    ['ada:acme:tenant-administrator', 'tenant-administrator', 'acme'],
+    ['ada:beta:member', 'member', 'beta'],
+  ])
+  // Each is reachable on its own, because a session names one of them.
+  expect(await ctx.people.membership(brandString<MembershipId>('ada:beta:member')))
+    .toMatchObject({ person: 'ada', role: 'member', organization: 'beta' })
+})
+
+it('keeps the identity a one-standing entry has always had', () => {
+  // A roster written before entries could list standings produced this id,
+  // and sessions and invitations name it: deriving another one would leave
+  // them holding a standing nobody has.
+  const { memberships } = resolveEntry({ id: 'ada', displayName: 'Ada', role: 'tenant-administrator', organization: 'acme' })
+  expect(memberships.map(one => one.id)).toEqual(['ada:tenant-administrator'])
+})
+
+it('refuses an entry that writes both forms, neither, or one standing twice', () => {
+  expect(() => resolveEntry({ id: 'ada', displayName: 'Ada' }))
+    .toThrow(/names no standing/)
+  expect(() => resolveEntry({ id: 'ada', displayName: 'Ada', standings: [] }))
+    .toThrow(/names no standing/)
+  expect(() => resolveEntry({
+    id: 'ada', displayName: 'Ada', role: 'member', organization: 'acme',
+    standings: [{ role: 'platform-administrator' }],
+  })).toThrow(/writes both/)
+  expect(() => resolveEntry({
+    id: 'ada',
+    displayName: 'Ada',
+    standings: [{ role: 'member', organization: 'acme' }, { role: 'member', organization: 'acme' }],
+  })).toThrow(/holds "member" in that organization twice/)
+})
+
+it('applies every standing rule to a listed one as well', () => {
+  expect(() => resolveEntry({ id: 'ada', displayName: 'Ada', standings: [{ role: 'auditor' }] }))
+    .toThrow(/unknown role/)
+  expect(() => resolveEntry({ id: 'ada', displayName: 'Ada', standings: [{ role: 'tenant-administrator' }] }))
+    .toThrow(/names no organization/)
+})

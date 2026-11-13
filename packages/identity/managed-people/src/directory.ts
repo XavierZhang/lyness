@@ -25,10 +25,11 @@ export type { Config } from '@lyness/lyn-people/static'
  * Resolve the written roster, rejecting what nobody could recover from.
  *
  * An installation naming nobody admits nobody and has no administrator to
- * add the first person, and one id written twice decides somebody's standing
- * by whichever row was read first.
+ * add the first person, and one id written twice decides somebody's standings
+ * by whichever row was read first. A person holding several standings writes
+ * them under one entry, which is what `standings` is for.
  * @param config - the operator-written roster.
- * @returns each written person and their standing, in written order.
+ * @returns each written person and their standings, in written order.
  * @throws {Error} when the roster is empty, or names one person twice.
  */
 export function declaredPeople(config: Config): readonly DeclaredPerson[] {

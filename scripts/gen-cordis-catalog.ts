@@ -1123,6 +1123,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   PersonView: 'one person as a surface shows them is owned by packages/identity/managed-people/README.md',
   DeclaredPerson: 'one person composition wrote is owned by packages/identity/managed-people/README.md',
   PersonSubmission: 'what an administrator submits to add or change one person is owned by packages/identity/managed-people/README.md',
+  StandingSubmission: 'what an administrator submits to grant one further standing is owned by packages/identity/managed-people/README.md',
   BindingView: 'one admission binding as a surface shows it is owned by packages/identity/managed-people/README.md',
   BindingSubmission: 'what an administrator submits to admit one directory identity is owned by packages/identity/managed-people/README.md',
   InvitationView: 'one invitation as a surface shows it is owned by packages/identity/invitations/README.md',

@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-用 `lyn-people` 回答「调用方是谁、他的身份允许做什么」。一个人持有一个身份，而 **membership** 是他在某一个组织中的身份，恰好携带三个角色之一。`./static` 提供一份由运营方书写的名册，这是独立部署在接入 SSO 之前的目录。该目录只报告角色、不做任何授权：每个操作自己依据 `administers` 作决定。
+用 `lyn-people` 回答「调用方是谁、他的身份允许做什么」。一个人持有一个身份，而 **membership** 是他在某一个组织中的身份，恰好携带三个角色之一；归属于两个组织的人持有两条 membership，而哪一条正在生效由「行事上下文」回答。`./static` 提供一份由运营方书写的名册，这是独立部署在接入 SSO 之前的目录。该目录只报告角色、不做任何授权：每个操作自己依据 `administers` 作决定。
 
 ## 目录
 
@@ -43,6 +43,13 @@ kind: "package-reference"
         displayName: Bob
         role: member
         organization: acme
+      - id: cai
+        displayName: Cai
+        standings:
+          - role: tenant-administrator
+            organization: acme
+          - role: member
+            organization: beta
 ```
 
 只有名册点名的人才能使用那个安装，所以一个未知身份持有的是「没有身份」、而不是某个默认身份。`people` 是必填的、为空时被拒绝，而重复的 `id` 在加载时被拒绝。

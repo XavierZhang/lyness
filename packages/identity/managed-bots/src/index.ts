@@ -521,7 +521,9 @@ export class ManagedBots extends Service {
   private enrol(entry: DeclaredBot): () => void {
     const withdraw = this.ctx.managedPeople.declarePerson({
       person: { id: entry.id, displayName: entry.displayName },
-      membership: { id: standingOf(entry.id), person: entry.id, organization: entry.organization, role: BOT_ROLE },
+      // One standing, and one only: a bot belongs to the organization that
+      // runs it and to nowhere else.
+      memberships: [{ id: standingOf(entry.id), person: entry.id, organization: entry.organization, role: BOT_ROLE }],
       kind: 'bot',
     })
     this.rostered.set(entry.id, withdraw)
