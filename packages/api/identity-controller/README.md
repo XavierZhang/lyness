@@ -60,6 +60,10 @@ A channel is offered by linking to `${signInPrefix}/${channel.id}`, and signing 
 
 **A session that outlived its person reads as signed out.** The principal names somebody the directory no longer holds; answering with an id and no name would put a ghost in the corner of every page.
 
+**The choice of standing is the person's own.** A person holding standings in two organizations starts in none of them: which one a session acts for is their decision, so `viewer` carries every standing they hold and `act` is where they pick one. It refuses a standing the directory does not list for that caller, and it changes one session — the one the call presented — rather than taking a session id.
+
+**`act` answers with the standing it put in force.** The request principal is established once per request, before the call runs, so reading the acting context back from it would report the standing just replaced — and a surface rendering that answer would be told to ask the question it had already answered. The answer is built from the standing the call set.
+
 **`anyone` is the whole point.** Every other namespace classifies its callers; this one exists to be read before anybody is classified, so it declares the one standing that asks for no identity at all.
 
 -----
@@ -87,7 +91,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <a id="known-limitations-and-deferred-work"></a>
 
 - **Nothing gates the product on it** — the answer says a viewer must sign in, and no surface yet refuses to render without one. A hosted deployment still serves its pages to a signed-out browser, which the Remote authority rule then refuses call by call.
-- **One standing, not a choice of them** — a person holding standings in two organizations acts in whichever their session carries, and this namespace reports that one rather than offering the others.
+- **Nothing names a session but this one** — `act` changes the session the call presented, so an administrator cannot put a standing in force for somebody else, and a person with several open browsers chooses in each of them.
 - **No channel configuration** — the channels are the composition's; a deployment or a tenant administrator cannot add, remove, or reorder one from a surface.
 - **The paths are this deployment's own** — a composition that mounts `lyn-sign-in-http` under different routes would report the default ones, because the constants are imported rather than asked for.
 

@@ -50,6 +50,21 @@ export default class IdentityController extends TypertRemoteService {
   @Remote
   async viewer(): Promise<ViewerView> {
     const principal = this.ctx.get('requestPrincipal')?.current()
+    return await this.answer(principal?.person, principal?.acting.membership)
+  }
+
+  /**
+   * Describe the caller as acting in one named standing.
+   *
+   * The acting context is a parameter rather than read from the principal,
+   * because the principal is established once per request: a call that has
+   * just changed the session's acting context would otherwise answer with the
+   * standing it replaced.
+   * @param person - who the call speaks for, when it presented an identity.
+   * @param acting - the standing in force once this call is done.
+   * @returns whether this deployment has accounts, who the caller is, and the channels it offers.
+   */
+  private async answer(person: PersonId | undefined, acting: MembershipId | undefined): Promise<ViewerView> {
     const signIn = this.ctx.get('signIn')
     return {
       // Accounts exist when a request can carry a principal at all. A
@@ -63,9 +78,9 @@ export default class IdentityController extends TypertRemoteService {
       }) satisfies ChannelOfferView),
       signInPrefix: START_PREFIX,
       signOutPath: SIGN_OUT_PATH,
-      ...await this.who(principal?.person),
-      ...await this.standing(principal?.acting.membership),
-      standings: await this.held(principal?.person),
+      ...await this.who(person),
+      ...await this.standing(acting),
+      standings: await this.held(person),
     }
   }
 
@@ -99,7 +114,7 @@ export default class IdentityController extends TypertRemoteService {
       throw new RemoteError('identity/not-held', 'this caller does not hold that standing', {})
     }
     await sessions.switchContext(principal.session, { person: principal.person, membership: wanted })
-    return await this.viewer()
+    return await this.answer(principal.person, wanted)
   }
 
   /** Every standing this person holds, as a surface offers them. */

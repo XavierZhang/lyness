@@ -2224,3 +2224,26 @@ OIDC 提案第 5 期剩下的那一半。多标准的人登录后一个标准都
 ### 下一轮能做什么
 
 组织选择器现在终于能在真实部署里被触发了：一个人可以通过人员页持有两个身份，于是「一个邮箱、两个组织」可以对着本地 ZITADEL 真跑一遍（管理端的选择页 + 左栏切换）。
+
+### 真跑：一个邮箱、两个组织（当天补做）
+
+上面那段写「下一轮能做什么」之后就直接做了，因为这一轮的界面刚好把它解锁。对着本地 ZITADEL 跑的链条：
+
+1. Ada（写定的超级管理员）经 OIDC 登录，到 `/admin` → People，Bea 那行显示 `Member | acme`（只有一个身份，所以**不给撤回**）；
+2. 在 Bea 的编辑区用授予表单给她加 `beta` 的组织管理员 → 行变成 `Member | acme | 撤回 | Organization administrator | beta | 撤回`；
+3. 存储从第 1 版就地升到第 2 版，**旧那个身份的标识没动**（`<id>:standing`），新的是 `<id>:<uuid>`——这正是「没有任何身份标识会移动」那条在真实数据上的样子；
+4. Bea 登录 → 她持有两个身份，所以哪个都不在力 → `/admin` 给出选择页「Choose how you are acting here」，列出 `acme · Member` 与 `beta · Organization administrator`；
+5. 选 `beta` → 进到管理端，左栏导航齐全，底部给出**另一个**身份的切换按钮；
+6. 点它切到 `acme · Member` → 变成「This page is for administrators. Your account administers nothing here」——一个成员看不到管理端内容，正确。
+
+### 这一跑抓出一个真 bug（我自己上一轮写的）
+
+第 4 步起初点不动：`identity/act` 答 `ok: true`，但返回的 viewer **不带 standing**，于是页面停在选择页不动。
+
+根因：`viewer()` 是从 `requestPrincipal.current()` 读行事上下文的，而请求主体在每个请求里只建立一次——建立在 `switchContext` 之前。所以 `act` 报出来的，永远是**刚被替换掉的那一个**。单元测试没抓到，因为断言只看了 `switchContext` 被怎么调用，没看返回值。
+
+修法：把答案的构造抽成 `answer(person, acting)`，`viewer()` 传主体的那一个，`act()` 传**它刚置入的那一个**。补了一条会失败的测试（先只回滚 src、留下测试，确认它红；再放回修复，确认它绿），并把 `identity-controller` 的 README 两语言都补上——那一页还挂着「一个身份，而不是在多个之间选」这条已经过时的已知限制，连 `act` 都没写。
+
+### 顺带一笔：本地跑要带 `OIDC_CLIENT_SECRET`
+
+渠道里 `secret: OIDC_CLIENT_SECRET` 是一个凭据引用，而那条凭据不在 `.credentials.yaml` 里，靠进程环境兜底。不带它启动，部署零告警起来、授权跳转也正常，只有回调那一步 400 `not-authenticated`——**部署期的配置缺口要到第一次真有人登录才暴露**。这不是产品 bug（失败确实响了，而且响在正确的地方），但值得记一笔：排查方向一开始被「状态不匹配」带偏了。

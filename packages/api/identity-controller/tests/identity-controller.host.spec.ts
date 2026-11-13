@@ -208,6 +208,22 @@ describe('acting in one of your own standings', () => {
     expect(switched).toEqual([{ session: SESSION, membership: 'ada:acme' }])
   })
 
+  it('answers with the standing it put in force, not the one it replaced', async () => {
+    const tenant = { ...standing('tenant-administrator', 'acme'), id: brandString<MembershipId>('ada:acme') }
+    const controller = await harness({
+      // The principal is established once per request, before this call runs,
+      // so it still reports no standing; a surface that rendered this answer
+      // would otherwise be told to ask the question it just answered.
+      principal: { session: SESSION, person: ADA, acting: { person: ADA } },
+      people: [{ id: ADA, displayName: 'Ada' }],
+      standings: [standing('platform-administrator'), tenant],
+      sessions: { switched: [] },
+    })
+
+    expect((await controller.act('ada:acme')).standing)
+      .toEqual({ id: 'ada:acme', role: 'tenant-administrator', organization: 'acme' })
+  })
+
   it('refuses a standing this caller does not hold, and changes nothing', async () => {
     const switched: { session: string; membership: string | undefined }[] = []
     const controller = await harness({
