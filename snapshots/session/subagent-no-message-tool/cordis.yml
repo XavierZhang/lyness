@@ -13,27 +13,27 @@
 
 - insert:
     - id: agent-preset-registry
-      name: '@lyness/lyn-agent-preset-registry'
+      name: '@deepseek-ai/dsh-agent-preset-registry'
       config:
         default: parent
     - id: preset-parent
-      name: '@lyness/lyn-agent-preset'
+      name: '@deepseek-ai/dsh-agent-preset'
       config:
         id: parent
         plugins:
-          - name: '@lyness/lyn-tool-fs'
+          - name: '@deepseek-ai/dsh-tool-fs'
             config:
               applyPatch: true
-          - name: '@lyness/lyn-tool-fs-search'
+          - name: '@deepseek-ai/dsh-tool-fs-search'
             config:
               sampleOverCapGlobResults: false
-          - name: '@lyness/lyn-tool-web'
+          - name: '@deepseek-ai/dsh-tool-web'
             config:
               fetch: true
               searchTimeoutMs: 60000
-          - name: '@lyness/lyn-tool-subagent-control'
+          - name: '@deepseek-ai/dsh-tool-subagent-control'
     - id: preset-child
-      name: '@lyness/lyn-agent-preset'
+      name: '@deepseek-ai/dsh-agent-preset'
       config:
         id: child
         plugins: []
@@ -41,7 +41,7 @@
       name: '../../../packages/test-support/session-snapshot/tests/fixtures/parent-agent-preset.ts'
 
 - id: tool-subagent
-  name: '@lyness/lyn-tool-subagent'
+  name: '@deepseek-ai/dsh-tool-subagent'
   inject: [agentPresets]
   config:
     provider: spawn

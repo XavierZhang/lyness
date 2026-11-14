@@ -4,9 +4,9 @@
  * every refusal, and nothing at all on a visit that carries no code.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
 import { Acceptance, IDLE, rowOf } from '../src/client/acceptance.ts'
 
 const live: Context[] = []

@@ -16,8 +16,8 @@
  * theirs to accept rather than something a link did to their account.
  */
 import type { ReactNode } from 'react'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
-import type { Role } from '@lyness/lyn-api-invitations-controller/types'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type { Role } from '@deepseek-ai/dsh-api-invitations-controller/types'
 import type { AcceptanceRow } from './acceptance.ts'
 import css from './JoinPage.module.css'
 

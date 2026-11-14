@@ -3,7 +3,7 @@ description: "Inspect the shared task board from the Web conversation header."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-agent-team
+# @deepseek-ai/dsh-client-ui-agent-team
 
 English | [中文](README.zh.md)
 

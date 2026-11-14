@@ -25,9 +25,9 @@ description: "Principal 多带它所在的会话，viewer 的应答多带这个�
 
 1. 凡是构造 `Principal` 的地方，补上 `session`。它就是这次调用出示的那个 `AuthSessionId`——`presentedSession(request)` 返回它，`requestPrincipal` 本来就解析出它：
    ```ts
-   import type { Principal } from '@lyness/lyn-request-principal'
-   import type { AuthSessionId } from '@lyness/lyn-auth-session'
-   import type { PersonId } from '@lyness/lyn-people'
+   import type { Principal } from '@deepseek-ai/dsh-request-principal'
+   import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
+   import type { PersonId } from '@deepseek-ai/dsh-people'
 
    declare const presented: AuthSessionId
    declare const person: PersonId

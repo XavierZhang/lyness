@@ -1,6 +1,6 @@
 /** Owner operations keep their captured Relay across asynchronous network and worker completions. */
-import { Context } from '@lyness/cordis'
-import type { TunnelRegistrationToken, TunnelWorkerEvent } from '@lyness/lyn-experimental-liveshare-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import type { TunnelRegistrationToken, TunnelWorkerEvent } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
 import { randomUUID } from 'node:crypto'
 import type { TunnelWorkerInput } from '../src/host/tunnel-worker.ts'
 import { existsSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs'

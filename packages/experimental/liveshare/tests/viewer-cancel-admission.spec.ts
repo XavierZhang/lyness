@@ -7,19 +7,19 @@
  * call is decoded or prepared cancels nothing, and one whose grant ended is refused before dispatch.
  */
 
-import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/lyn-llm'
-import { SessionId } from '@lyness/lyn-session'
+import { Context } from '@deepseek-ai/cordis'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@lyness/lyn-agent-loop-testkit'
-import { TypertGatewayService } from '@lyness/lyn-api-gateway'
-import RemoteAccessService from '@lyness/lyn-api-remote-access'
-import { TypertRegistry } from '@lyness/lyn-typert-registry'
-import type { PeerScope } from '@lyness/lyn-typert-protocol'
-import type { ShareRpcActor } from '@lyness/lyn-experimental-liveshare-protocol'
-import { identityKeyOf } from '@lyness/lyn-experimental-liveshare-protocol'
+} from '@deepseek-ai/dsh-agent-loop-testkit'
+import { TypertGatewayService } from '@deepseek-ai/dsh-api-gateway'
+import RemoteAccessService from '@deepseek-ai/dsh-api-remote-access'
+import { TypertRegistry } from '@deepseek-ai/dsh-typert-registry'
+import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import type { ShareRpcActor } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
+import { identityKeyOf } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -36,7 +36,7 @@ import { createViewerAccessPolicy, readerWriteRefusal, type ViewerAccessFacts } 
 import { createViewerReadService } from '../src/host/viewer-read.ts'
 import type { ViewerCallRequest } from '../src/viewer-channel.ts'
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface TypertLookupMap {
     /** Test-only lookup holding a cancel request in the Gateway's preparation, after access was checked. */
     viewerCancelAdmissionRequest: TypertLookup<SessionCancelRequest, SessionCancelRequest>

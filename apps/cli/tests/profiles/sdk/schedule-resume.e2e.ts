@@ -4,7 +4,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { Lyness } from '@lyness/lyn-sdk-client'
+import { DeepSeekHarness } from '@deepseek-ai/dsh-sdk-client'
 import { clearAmbientProxyEnv } from '../../../../../scripts/test-proxy-environment.ts'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { messagesResponse } from './fixtures/messages-response.ts'
@@ -37,7 +37,7 @@ it('delivers an overdue reminder with the SDK route and lets the client resume t
       response.end(messagesResponse(content, requests.length === 1 ? 'tool_use' : 'end_turn'))
     })
   })
-  const clients: Lyness[] = []
+  const clients: DeepSeekHarness[] = []
   onTestFinished(async () => {
     try { await Promise.all(clients.map(client => client.close())) } finally {
       try {
@@ -50,20 +50,20 @@ it('delivers an overdue reminder with the SDK route and lets the client resume t
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
   const address = server.address()
   if (address === null || typeof address === 'string') throw new Error('model fixture has no port')
-  const env = { ...process.env, LYNESS_PERMISSION_MODE: 'danger-full-access', LYNESS_TELEMETRY_DISABLED: '1',
+  const env = { ...process.env, DSH_PERMISSION_MODE: 'danger-full-access', DSH_TELEMETRY_DISABLED: '1',
     DEEPSEEK_API_KEY: 'keyless-schedule-fixture', DEEPSEEK_BASE_URL: `http://127.0.0.1:${String(address.port)}` }
   clearAmbientProxyEnv(env)
-  const first = new Lyness({ cwd: root, lynHome: join(root, '.lyn'), patches: [patch],
+  const first = new DeepSeekHarness({ cwd: root, dshHome: join(root, '.dsh'), patches: [patch],
     model: 'deepseek-v4-pro', maxTokens: 5678, initializeTimeoutMs: 30_000,
-    env: { ...env, LYNESS_TEST_SCHEDULE_NOW: String(Date.parse('2030-01-01T00:00:00Z')) } })
+    env: { ...env, DSH_TEST_SCHEDULE_NOW: String(Date.parse('2030-01-01T00:00:00Z')) } })
   clients.push(first)
   expect(await first.session('saved').run('Set a reminder')).toMatchObject({ finalResponse: 'ready' })
   expect(requests).toHaveLength(2)
   await first.close()
   restarting = true
-  const second = new Lyness({ cwd: root, lynHome: join(root, '.lyn'), patches: [patch],
+  const second = new DeepSeekHarness({ cwd: root, dshHome: join(root, '.dsh'), patches: [patch],
     model: 'deepseek-v4-flash', maxTokens: 1234, initializeTimeoutMs: 30_000,
-    env: { ...env, LYNESS_TEST_SCHEDULE_NOW: String(Date.parse('2030-01-03T00:00:00Z')) } })
+    env: { ...env, DSH_TEST_SCHEDULE_NOW: String(Date.parse('2030-01-03T00:00:00Z')) } })
   clients.push(second)
   await second.start()
   await vi.waitFor(() => { expect(restored).toHaveLength(1) }, { timeout: 30_000 })
@@ -92,7 +92,7 @@ it('refuses new Session destinations before storing tasks in the shipped SDK pro
       response.end(messagesResponse(content, content.type === 'tool_use' ? 'tool_use' : 'end_turn'))
     })
   })
-  const clients: Lyness[] = []
+  const clients: DeepSeekHarness[] = []
   onTestFinished(async () => {
     try { await Promise.all(clients.map(client => client.close())) } finally {
       try {
@@ -105,10 +105,10 @@ it('refuses new Session destinations before storing tasks in the shipped SDK pro
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
   const address = server.address()
   if (address === null || typeof address === 'string') throw new Error('model fixture has no port')
-  const env = { ...process.env, LYNESS_PERMISSION_MODE: 'danger-full-access', LYNESS_TELEMETRY_DISABLED: '1',
+  const env = { ...process.env, DSH_PERMISSION_MODE: 'danger-full-access', DSH_TELEMETRY_DISABLED: '1',
     DEEPSEEK_API_KEY: 'keyless-schedule-fixture', DEEPSEEK_BASE_URL: `http://127.0.0.1:${String(address.port)}` }
   clearAmbientProxyEnv(env)
-  const client = new Lyness({ cwd: root, lynHome: join(root, '.lyn'),
+  const client = new DeepSeekHarness({ cwd: root, dshHome: join(root, '.dsh'),
     model: 'deepseek-v4-pro', initializeTimeoutMs: 30_000, env })
   clients.push(client)
   expect((await client.session('schedule-owner').run('Check the supported schedule destinations')).finalResponse).toBe('ready')

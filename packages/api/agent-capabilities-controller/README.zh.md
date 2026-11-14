@@ -3,13 +3,13 @@ description: "一个人的 agent 可以用什么，以及每一项是谁决定�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-agent-capabilities-controller
+# @deepseek-ai/dsh-api-agent-capabilities-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-agent-capabilities-controller` 持有 `agentCapabilities` 这个 Remote 命名空间：一次读取回答一个人的对话此刻真正拥有哪些工具、MCP 连接与 skill，每一项说明是部署还是 agent 预设提供的。工具按注册它的插件分组，并带上那个包自己的标题——工具名是写给模型的，而这次读取回答的是人。所有答案都在被问的那一刻从 agent 自己读的那些注册表投影出来，所以这个命名空间不持有自己的清单，也不可能与 agent 真正拥有的东西产生分歧。
+`dsh-api-agent-capabilities-controller` 持有 `agentCapabilities` 这个 Remote 命名空间：一次读取回答一个人的对话此刻真正拥有哪些工具、MCP 连接与 skill，每一项说明是部署还是 agent 预设提供的。工具按注册它的插件分组，并带上那个包自己的标题——工具名是写给模型的，而这次读取回答的是人。所有答案都在被问的那一刻从 agent 自己读的那些注册表投影出来，所以这个命名空间不持有自己的清单，也不可能与 agent 真正拥有的东西产生分歧。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: agent-capabilities-controller
-  name: '@lyness/lyn-api-agent-capabilities-controller'
+  name: '@deepseek-ai/dsh-api-agent-capabilities-controller'
 ```
 
 `describe()` 回答可用的工具、连接与 skill，并说出它所读的那个预设。模型不在这里：`session.modelCatalog` 已经回答这个部署路由哪些模型，界面从那里取。
@@ -47,7 +47,7 @@ kind: "package-reference"
 
 **一个工具叫什么，由三个服务共同回答。** `ctx.tools.registered()` 回答每个工具是哪个 Fiber 注册的，Loader 回答是哪一条组合条目挂载了那个 Fiber，`pluginPackages.metaOf` 读出那个包自己的 `locale/*.json`。有组合条目时按条目分组——两个包可能自称同一个名字，两条条目却不会——在代码里组合出来的则回退到插件显示名。每个工具自己的说明被刻意丢掉：那是写给模型的、关于参数与退出码的英文散文，出现在给人看的页面上就像代码。
 
-**一个 MCP 服务器是一个连接，不是四个工具。** `lyn-mcp-client` 把每个工具命名为 `mcp__<server>__<raw>`，于是服务器名从名字里读出来、它的工具只计数不罗列；一个要判断「我是否能触达某个系统」的读者，在意的是那个系统。
+**一个 MCP 服务器是一个连接，不是四个工具。** `dsh-mcp-client` 把每个工具命名为 `mcp__<server>__<raw>`，于是服务器名从名字里读出来、它的工具只计数不罗列；一个要判断「我是否能触达某个系统」的读者，在意的是那个系统。
 
 **缺失的注册表被如实汇报为缺失。** 没有挂载 skill 注册表的部署根本不会得到 `skills` 这个成员，界面把它读作「这套安装没有 skill」，而不是「它什么都没发现」。
 
@@ -56,10 +56,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-client-ui-settings-capabilities`](../../client/ui-settings-capabilities/README.zh.md)：调用它的那张页面。
-- [`lyn-tools`](../../core/tools/README.zh.md)：本包投影其作用域视图的那个注册表。
-- [`lyn-skill`](../../skill/skill/README.zh.md)：本包汇报其 `source` 与 `provider` 的那个目录。
-- [`lyn-mcp-client`](../../mcp/mcp-client/README.zh.md)：把工具按服务器命名的地方。
+- [`dsh-client-ui-settings-capabilities`](../../client/ui-settings-capabilities/README.zh.md)：调用它的那张页面。
+- [`dsh-tools`](../../core/tools/README.zh.md)：本包投影其作用域视图的那个注册表。
+- [`dsh-skill`](../../skill/skill/README.zh.md)：本包汇报其 `source` 与 `provider` 的那个目录。
+- [`dsh-mcp-client`](../../mcp/mcp-client/README.zh.md)：把工具按服务器命名的地方。
 
 -----
 

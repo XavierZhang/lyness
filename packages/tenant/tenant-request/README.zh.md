@@ -3,7 +3,7 @@ description: "一次 RPC 调用所属的租户：调用到达时解析一次，�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-request
+# @deepseek-ai/dsh-tenant-request
 
 [English](README.md) | 中文
 
@@ -29,14 +29,14 @@ kind: "package-reference"
 
 ```yaml
 - id: tenants
-  name: '@lyness/lyn-tenant-static'
+  name: '@deepseek-ai/dsh-tenant-static'
   config:
     tenants:
       - id: acme
         slug: acme
         displayName: Acme
 - id: tenant-request
-  name: '@lyness/lyn-tenant-request'
+  name: '@deepseek-ai/dsh-tenant-request'
   config:
     baseDomain: example.com
 ```
@@ -46,9 +46,9 @@ kind: "package-reference"
 在服务这次调用的地方读取：
 
 ```ts
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import type { Context } from '@lyness/cordis'
-import type { RequestTenant } from '@lyness/lyn-tenant-request/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+import type { RequestTenant } from '@deepseek-ai/dsh-tenant-request/types'
 
 /**
  * The tenant this call is allowed to act for.

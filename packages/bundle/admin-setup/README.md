@@ -3,13 +3,13 @@ description: "The admin-setup profile: one command that writes a deployment's fi
 kind: "package-bundle"
 ---
 
-# `@lyness/lyn-admin-setup`
+# `@deepseek-ai/dsh-admin-setup`
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-This bundle is `lyn --profile admin-setup`, the command run once on a new deployment before it first starts. It writes three things into the target profile's patch layer: the roster entry of the one platform administrator, the OpenID provider they sign in through, and the single admission binding that admits them. That layer is read again at every boot, so the console can neither change nor remove what it names — which is what makes this administrator impossible to lock out, and the way back in when anybody else is. It mounts nothing that reaches a model.
+This bundle is `dsh --profile admin-setup`, the command run once on a new deployment before it first starts. It writes three things into the target profile's patch layer: the roster entry of the one platform administrator, the OpenID provider they sign in through, and the single admission binding that admits them. That layer is read again at every boot, so the console can neither change nor remove what it names — which is what makes this administrator impossible to lock out, and the way back in when anybody else is. It mounts nothing that reaches a model.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ This bundle is `lyn --profile admin-setup`, the command run once on a new deploy
 ## Use this package
 
 ```sh
-lyn --profile admin-setup --target acme --person ada --name Ada \
+dsh --profile admin-setup --target acme --person ada --name Ada \
   --issuer https://id.acme.example --client-id 298412... --subject 298430...
 ```
 
@@ -37,10 +37,10 @@ admin-setup: "Ada" administers the "acme" deployment
   person    ada
   provider  https://id.acme.example (channel oidc, client 298412...)
   subject   298430...
-  patch     /home/acme/.lyn/profiles/acme/cordis.patch.yml
+  patch     /home/acme/.dsh/profiles/acme/cordis.patch.yml
 
 Two things left, in this order:
-  1. give the deployment the client secret: OIDC_CLIENT_SECRET=… lyn --profile acme
+  1. give the deployment the client secret: OIDC_CLIENT_SECRET=… dsh --profile acme
   2. register the provider's redirect URI as <your public origin>/auth/callback/oidc
 ```
 
@@ -75,9 +75,9 @@ Running it twice with the same values changes nothing. Running it for somebody e
 ## Further Exploration
 
 - [standalone administration](../../../docs/user/guide/standalone-administration.md) — the whole install, of which this command is one step.
-- [`lyn-oidc`](../../identity/oidc/README.md) — the provider row this writes, and every setting it accepts.
-- [`lyn-managed-people`](../../identity/managed-people/README.md) — why a written entry cannot be changed from the console.
-- [`lyn-brand-studio`](../brand-studio/README.md) — the other operator command that edits a profile's patch layer.
+- [`dsh-oidc`](../../identity/oidc/README.md) — the provider row this writes, and every setting it accepts.
+- [`dsh-managed-people`](../../identity/managed-people/README.md) — why a written entry cannot be changed from the console.
+- [`dsh-brand-studio`](../brand-studio/README.md) — the other operator command that edits a profile's patch layer.
 
 -----
 

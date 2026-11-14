@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "pi-ai model adapter",
-    "description": "DeepSeek models through pi-ai, as the design proof for lyn-llm-deepseek."
+    "description": "DeepSeek models through pi-ai, as the design proof for dsh-llm-deepseek."
   }
 }

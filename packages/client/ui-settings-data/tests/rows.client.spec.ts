@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { SessionId } from '@lyness/lyn-session/types'
-import type { SessionListState, SessionSummary } from '@lyness/lyn-api-session-controller/client'
+import { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionListState, SessionSummary } from '@deepseek-ai/dsh-api-session-controller/client'
 import { conversationRows } from '../src/client/rows.ts'
 
 /** One catalog row. */

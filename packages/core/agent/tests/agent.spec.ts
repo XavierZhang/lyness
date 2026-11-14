@@ -1,10 +1,10 @@
-import { unsupportedModel } from '@lyness/lyn-agent-loop-testkit'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { unsupportedModel } from '@deepseek-ai/dsh-agent-loop-testkit'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import { describe, expect, expectTypeOf, it, onTestFinished } from 'vitest'
-import { Context, Service, symbols } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/lyn-session'
-import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
-import TypertRegistry from '@lyness/lyn-typert-registry'
+import { Context, Service, symbols } from '@deepseek-ai/cordis'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
+import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
+import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
 
 import type {
   Agent,
@@ -13,7 +13,7 @@ import type {
   AgentStatus,
   CreateAgentOptions,
   ResumeAgentOptions,
-} from '@lyness/lyn-agent'
+} from '@deepseek-ai/dsh-agent'
 
 function stubAgent(rawId: string, overrides: Partial<Agent> = {}): Agent {
   const id = SessionId(rawId)
@@ -84,8 +84,8 @@ describe('AgentRegistry', () => {
       parameter: 'agent',
       wire: 'agentId',
       resource: 'session',
-      hostTypeSymbol: '@lyness/lyn-agent#Agent',
-      wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
+      hostTypeSymbol: '@deepseek-ai/dsh-agent#Agent',
+      wireTypeSymbol: '@deepseek-ai/dsh-session/types#SessionId',
     })
     expect(lookup?.resolve(agent.id)).toBe(agent)
     const context = ctx.typert.contexts.getHost('agent')

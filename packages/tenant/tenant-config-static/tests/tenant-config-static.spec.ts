@@ -1,8 +1,8 @@
 /** What an operator's rows produce: one tenant's configuration, and every refusal a bad row causes. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { TenantId } from '@lyness/lyn-tenant'
+import { Context } from '@deepseek-ai/cordis'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
 import StaticTenantConfigStore from '../src/index.ts'
 import type { Config, TenantConfigEntry } from '../src/index.ts'
 

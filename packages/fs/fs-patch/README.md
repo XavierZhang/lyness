@@ -3,7 +3,7 @@ description: "Parse Codex-style patches and apply hunks to text without filesyst
 kind: "package-library"
 ---
 
-# lyn-fs-patch
+# dsh-fs-patch
 
 English | [中文](README.zh.md)
 
@@ -26,7 +26,7 @@ Parse a complete Codex-style patch into ordered file operations with `parsePatch
 Operations and hunks contain only JSON-serializable values, and parsing retains repeated paths in input order as unresolved strings.
 
 ```ts
-import { applyHunks, parsePatch } from '@lyness/lyn-fs-patch'
+import { applyHunks, parsePatch } from '@deepseek-ai/dsh-fs-patch'
 
 const operations = parsePatch('*** Begin Patch\n*** Update File: hello.txt\n-hello\n+hi\n*** End Patch')
 const operation = operations[0]
@@ -76,7 +76,7 @@ EOF before any hunk has no effect, matching the reference; an update still requi
 | Context lines | Replace the complete matched region from patch text, including tolerated context differences. |
 | No hunks | Still perform the same reconstruction, so a missing terminal LF is added and one terminal empty line can be consumed. |
 
-The intentional differences from Codex are ownership and result reporting: the LYN provider preserves line-ending style, so the matcher sees only LF-normalized text and `PreserveLineEndings` is not implemented. CR is an ordinary character: callers must normalize CRLF first and restore the chosen style afterward. Match failures return structured data rather than Codex's path-bearing errors, so the caller owns file identification and user-facing diagnostics.
+The intentional differences from Codex are ownership and result reporting: the DSH provider preserves line-ending style, so the matcher sees only LF-normalized text and `PreserveLineEndings` is not implemented. CR is an ordinary character: callers must normalize CRLF first and restore the chosen style afterward. Match failures return structured data rather than Codex's path-bearing errors, so the caller owns file identification and user-facing diagnostics.
 
 <a id="understand-the-implementation"></a>
 ## Understand the implementation

@@ -2,10 +2,10 @@
  * Vocabulary for WeCom sign-in: the two identities a corporation's directory
  * answers with, and the subject this integration hands a sign-in.
  *
- * @module @lyness/lyn-wecom/types
+ * @module @deepseek-ai/dsh-wecom/types
  */
 
-import type { Branded } from '@lyness/lyn-brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
 
 /** A corporation's own id, which WeCom calls `corpid`. */
 export type WecomCorpId = Branded<'WecomCorpId'>

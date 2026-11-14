@@ -4,27 +4,27 @@
  * plugin registers them in the mounting scope, so a preset decides which
  * agents receive them. Tasks belong to the Host, not to a Session: the tools
  * read and change any task by id, and only the delivery target names a Session.
- * @module @lyness/lyn-tool-schedule
+ * @module @deepseek-ai/dsh-tool-schedule
  */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
 // Type-only: make `ctx.get('agentPresets')` resolve to the preset roster when
 // composed. A rosterless deployment records no preset for a created Session.
-import type {} from '@lyness/lyn-agent-preset-registry'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import { delegationDepthOf } from '@lyness/lyn-subagent'
-import type {} from '@lyness/lyn-system-prompt'
-import { defineTool } from '@lyness/lyn-tools'
-import type { GenericCallView, ToolRunContext } from '@lyness/lyn-tools'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import { delegationDepthOf } from '@deepseek-ai/dsh-subagent'
+import type {} from '@deepseek-ai/dsh-system-prompt'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { GenericCallView, ToolRunContext } from '@deepseek-ai/dsh-tools'
 import {
   DEFAULT_LIST_LIMIT, MAX_LIST_LIMIT, MAX_TITLE_LENGTH, MIN_EVERY_INTERVAL_SECONDS, ScheduleId, ScheduleInputError,
   formatScheduleLocalTime,
-} from '@lyness/lyn-schedule'
+} from '@deepseek-ai/dsh-schedule'
 import type {
   InternalScheduleError, ScheduleEditRequest, ScheduleTargetRequest, ScheduleToolError,
   ScheduleCatalogEntry, ScheduleDeliveryReceipt, ScheduleRecord, SubagentSessionError,
-} from '@lyness/lyn-schedule'
+} from '@deepseek-ai/dsh-schedule'
 
 /** Plugin name registered with the Loader. */
 export const name = 'tool-schedule'

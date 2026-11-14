@@ -1,5 +1,5 @@
 /** Safe user-facing classifications for shell update settings failures. */
-import type { DesktopChannelChangeResult, DesktopChannelState } from '@lyness/lyn-client-ui-settings-general/types'
+import type { DesktopChannelChangeResult, DesktopChannelState } from '@deepseek-ai/dsh-client-ui-settings-general/types'
 import { DesktopSettingsFileError } from './settings-file.ts'
 import type { DesktopMessages } from './locale.ts'
 

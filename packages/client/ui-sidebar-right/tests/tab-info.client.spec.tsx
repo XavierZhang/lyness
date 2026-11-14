@@ -2,17 +2,17 @@
 /** Tab information refuses readers whose committed record and navigation binding disagree. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, renderHook } from '@testing-library/react'
-import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
-import { keyedObservableHook } from '@lyness/lyn-client-ui-renderer/src/client/bindings.tsx'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { findTabPane, type TabId } from '@lyness/lyn-client-ui-dockkit'
+import { bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
+import { keyedObservableHook } from '@deepseek-ai/dsh-client-ui-renderer/src/client/bindings.tsx'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { findTabPane, type TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
 import type { UseSidebarRightTabInfo } from '../src/client/contract/slots.ts'
 import { createSidebarRightStore } from '../src/client/stores.ts'
 import { TabDomain, type TabOccurrence } from '../src/client/tab-domain.ts'
 import { tabInfoFactory, type TabHookContext } from '../src/client/tab-info.ts'
 
 const SESSION = 's-info' as SessionId
-const ADDRESS = 'lyn-resource://file/session/s-info/a.txt'
+const ADDRESS = 'dsh-resource://file/session/s-info/a.txt'
 const domains: TabDomain[] = []
 
 afterEach(() => {
@@ -144,7 +144,7 @@ describe('tabInfoFactory committed-record relation', () => {
   it('keeps floating panel ids and host changes independent across tabs', () => {
     const h = harness()
     const firstId = h.open()
-    const secondId = h.open(undefined, 'lyn-resource://file/session/s-info/b.txt')
+    const secondId = h.open(undefined, 'dsh-resource://file/session/s-info/b.txt')
     const first = renderHook(h.bind(firstId))
     const second = renderHook(h.bind(secondId))
     const docked = first.result.current.panel.id

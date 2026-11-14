@@ -10,9 +10,9 @@ from concurrent.futures import ThreadPoolExecutor
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from lyness.models import CommandExecution
-from lyness import Lyness, Notification, RunResult, SdkProtocolError
-from lyness.errors import JsonRpcError
+from DeepSeek Harness.models import CommandExecution
+from DeepSeek Harness import DeepSeekHarness, Notification, RunResult, SdkProtocolError
+from DeepSeek Harness.errors import JsonRpcError
 
 
 class Ack(BaseModel):
@@ -161,25 +161,25 @@ for line in sys.stdin:
 
 @pytest.fixture
 def sdk(peer: Path, tmp_path: Path):
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"), request_timeout_seconds=5,
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"), request_timeout_seconds=5,
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl")},
     ) as harness:
         yield harness
 
 
-def release(sdk: Lyness) -> None:
+def release(sdk: DeepSeekHarness) -> None:
     sdk.client.request("release", {}, response_model=Ack, timeout_seconds=5)
 
 
-def assert_released(sdk: Lyness) -> None:
+def assert_released(sdk: DeepSeekHarness) -> None:
     assert sdk.client._responses == {}
     assert sdk.client._notification_subscribers == {}
 
 
 @pytest.mark.parametrize("entry", ["session", "harness"])
-def test_run_returns_command_without_waiting_for_idle(sdk: Lyness, entry: str) -> None:
+def test_run_returns_command_without_waiting_for_idle(sdk: DeepSeekHarness, entry: str) -> None:
     notifications = []
     result = (sdk.run("/compact", session_id="main", on_notification=notifications.append)
               if entry == "harness" else sdk.start_session("main").run("/compact", on_notification=notifications.append))
@@ -192,7 +192,7 @@ def test_run_returns_command_without_waiting_for_idle(sdk: Lyness, entry: str) -
 
 
 def test_top_level_command_results_identify_distinct_sessions_and_allow_continuing_one(
-    sdk: Lyness, tmp_path: Path,
+    sdk: DeepSeekHarness, tmp_path: Path,
 ) -> None:
     first = sdk.run("/compact")
     second = sdk.run("/compact")
@@ -215,8 +215,8 @@ def test_top_level_command_results_identify_distinct_sessions_and_allow_continui
 ])
 def test_run_adds_session_identity_without_changing_command_results(peer: Path, tmp_path: Path, result: dict) -> None:
     execution = {"commandId": "custom-command", "result": result}
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"), request_timeout_seconds=5,
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"), request_timeout_seconds=5,
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl"), "QUERY_RESPONSE": json.dumps({
             "kind": "command", "execution": execution,
@@ -234,7 +234,7 @@ def test_run_adds_session_identity_without_changing_command_results(peer: Path, 
 
 
 @pytest.mark.parametrize("text", ["ordinary", "fast-prompt", "/model", " /compact extra "])
-def test_run_preserves_ordinary_text_and_result(sdk: Lyness, text: str) -> None:
+def test_run_preserves_ordinary_text_and_result(sdk: DeepSeekHarness, text: str) -> None:
     notifications = []
     result = sdk.start_session("main").run(text, on_notification=notifications.append)
     assert isinstance(result, RunResult)
@@ -253,7 +253,7 @@ def test_run_preserves_ordinary_text_and_result(sdk: Lyness, text: str) -> None:
     ("session", ""),
 ])
 def test_run_forwards_content_blocks_with_the_routed_result_and_notifications(
-    sdk: Lyness, tmp_path: Path, entry: str, text: str,
+    sdk: DeepSeekHarness, tmp_path: Path, entry: str, text: str,
 ) -> None:
     blocks = [
         {"type": "text", "text": text},
@@ -281,7 +281,7 @@ def test_run_forwards_content_blocks_with_the_routed_result_and_notifications(
     assert_released(sdk)
 
 
-def test_run_normalizes_strings_without_changing_their_text(sdk: Lyness, tmp_path: Path) -> None:
+def test_run_normalizes_strings_without_changing_their_text(sdk: DeepSeekHarness, tmp_path: Path) -> None:
     result = sdk.run("  preserve whitespace  ", session_id="main")
     assert isinstance(result, RunResult)
     sent = [json.loads(line) for line in (tmp_path / "requests.jsonl").read_text(encoding="utf-8").splitlines()]
@@ -290,7 +290,7 @@ def test_run_normalizes_strings_without_changing_their_text(sdk: Lyness, tmp_pat
     }
 
 
-def test_concurrent_runs_keep_their_own_results(sdk: Lyness) -> None:
+def test_concurrent_runs_keep_their_own_results(sdk: DeepSeekHarness) -> None:
     session = sdk.start_session("main")
     entered = threading.Event()
     with ThreadPoolExecutor(max_workers=2) as workers:
@@ -308,7 +308,7 @@ def test_concurrent_runs_keep_their_own_results(sdk: Lyness) -> None:
 
 
 @pytest.mark.parametrize("text", ["missing-run", "missing-done", "missing-both", "unrelated-done", "invalid-done"])
-def test_command_result_rejects_incomplete_lifecycle(sdk: Lyness, text: str) -> None:
+def test_command_result_rejects_incomplete_lifecycle(sdk: DeepSeekHarness, text: str) -> None:
     session = sdk.start_session("main")
     with pytest.raises(SdkProtocolError, match="lifecycle"):
         session.run(text)
@@ -318,8 +318,8 @@ def test_command_result_rejects_incomplete_lifecycle(sdk: Lyness, text: str) -> 
 
 
 def test_failure_completion_can_precede_handler_settlement(peer: Path, tmp_path: Path) -> None:
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"), request_timeout_seconds=5,
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"), request_timeout_seconds=5,
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl"), "QUERY_LIFECYCLE": "late-done",
              "QUERY_RESPONSE": json.dumps({"kind": "command", "execution": {
@@ -333,7 +333,7 @@ def test_failure_completion_can_precede_handler_settlement(peer: Path, tmp_path:
 
 
 @pytest.mark.parametrize("text,error", [("rpc-error", JsonRpcError), ("bad-route", SdkProtocolError), ("bad-execution", SdkProtocolError)])
-def test_run_reports_routing_failures_without_retry(sdk: Lyness, text: str, error: type[Exception]) -> None:
+def test_run_reports_routing_failures_without_retry(sdk: DeepSeekHarness, text: str, error: type[Exception]) -> None:
     session = sdk.start_session("main")
     with pytest.raises(error):
         session.run(text)
@@ -342,7 +342,7 @@ def test_run_reports_routing_failures_without_retry(sdk: Lyness, text: str, erro
 
 
 @pytest.mark.parametrize("text", ["ordinary", "/compact"])
-def test_observer_error_releases_run_subscription(sdk: Lyness, text: str) -> None:
+def test_observer_error_releases_run_subscription(sdk: DeepSeekHarness, text: str) -> None:
     def reject(_notice: Notification) -> None:
         raise RuntimeError("observer failed")
     with pytest.raises(RuntimeError, match="observer failed"):
@@ -351,7 +351,7 @@ def test_observer_error_releases_run_subscription(sdk: Lyness, text: str) -> Non
     assert isinstance(sdk.start_session("main").run("after observer"), RunResult)
 
 
-def test_command_timeout_keeps_runtime_responsive(sdk: Lyness) -> None:
+def test_command_timeout_keeps_runtime_responsive(sdk: DeepSeekHarness) -> None:
     sdk.client.config.request_timeout_seconds = 0.05
     with pytest.raises(TimeoutError, match="session/query timed out"):
         sdk.start_session("main").run("hold-command")
@@ -368,8 +368,8 @@ def test_command_timeout_keeps_runtime_responsive(sdk: Lyness) -> None:
     {"kind": "command", "execution": {"commandId": "c", "result": {"kind": "success", "sourceEventSeq": True}}},
 ])
 def test_run_rejects_invalid_routing_responses_as_protocol_errors(peer: Path, tmp_path: Path, response: object) -> None:
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"), request_timeout_seconds=5,
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"), request_timeout_seconds=5,
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl"), "QUERY_RESPONSE": json.dumps(response)},
     ) as sdk:
@@ -381,7 +381,7 @@ def test_run_rejects_invalid_routing_responses_as_protocol_errors(peer: Path, tm
         assert isinstance(sdk.start_session("main").run("/compact"), RunResult)
 
 
-def test_plan_run_waits_for_model_output_after_the_command_receipt(sdk: Lyness) -> None:
+def test_plan_run_waits_for_model_output_after_the_command_receipt(sdk: DeepSeekHarness) -> None:
     admitted = threading.Event()
     session = sdk.start_session("plan")
     def observe(notice: Notification) -> None:
@@ -404,8 +404,8 @@ def test_plan_run_waits_for_model_output_after_the_command_receipt(sdk: Lyness) 
 def test_run_rejects_malformed_completion_and_releases_its_subscription(
     peer: Path, tmp_path: Path, completion: dict,
 ) -> None:
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"),
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"),
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl"),
              "QUERY_COMPLETION": json.dumps(completion),
@@ -433,8 +433,8 @@ def test_run_rejects_malformed_completion_and_releases_its_subscription(
     {"commandId": "command-1", "result": {"kind": "success", "sourceEventSeq": 2**53}},
 ])
 def test_run_rejects_malformed_native_results(peer: Path, tmp_path: Path, execution: dict) -> None:
-    with Lyness(
-        cwd=str(tmp_path), lyn_home=str(tmp_path / "home"),
+    with DeepSeekHarness(
+        cwd=str(tmp_path), dsh_home=str(tmp_path / "home"),
         _launch_args=(sys.executable, str(peer)),
         env={"REQUEST_LOG": str(tmp_path / "requests.jsonl"), "QUERY_RESPONSE": json.dumps({
             "kind": "command", "execution": execution,
@@ -446,7 +446,7 @@ def test_run_rejects_malformed_native_results(peer: Path, tmp_path: Path, execut
         assert_released(sdk)
 
 
-def test_low_level_prompt_keeps_slash_text_as_an_ordinary_prompt(sdk: Lyness, tmp_path: Path) -> None:
+def test_low_level_prompt_keeps_slash_text_as_an_ordinary_prompt(sdk: DeepSeekHarness, tmp_path: Path) -> None:
     blocks = [{"type": "text", "text": "/compact"}]
     assert sdk.client.session_prompt("main", blocks) == "literal-input"
     sent = [json.loads(line) for line in (tmp_path / "requests.jsonl").read_text(encoding="utf-8").splitlines()]

@@ -3,13 +3,13 @@
  * registry records, the pull sources it pumps, and the ring read a foreground
  * call renders when it stops waiting.
  *
- * @module @lyness/lyn-tool-bash/background
+ * @module @deepseek-ai/dsh-tool-bash/background
  */
 
-import type { SandboxMode } from '@lyness/lyn-sandbox'
-import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
-import type { ShellProcess, ShellSandboxInfo } from '@lyness/lyn-shell'
-import type { JobChunk, JobHooks, JobOutcome, JobOutputSource } from '@lyness/lyn-jobs'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { escalationHintMarker, sandboxDenialMarker } from '@deepseek-ai/dsh-sandbox'
+import type { ShellProcess, ShellSandboxInfo } from '@deepseek-ai/dsh-shell'
+import type { JobChunk, JobHooks, JobOutcome, JobOutputSource } from '@deepseek-ai/dsh-jobs'
 
 /**
  * Sandbox facts worth the terminal detail: a runner that never ran the

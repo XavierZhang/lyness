@@ -9,7 +9,7 @@ description: "Agent 创建和恢复选项将表示运行归属的 parentAgent �
 
 ## 变更
 
-`@lyness/lyn-agent` 中的 `CreateAgentOptions` 和 `ResumeAgentOptions` 将 `parentAgent` 替换为 `ownerAgent`。这影响调用 `ctx.agents.create()` 或 `ctx.agents.resume()` 的插件与自定义工厂。该字段指定拥有运行实例的在线 Agent；省略时创建运行时根。
+`@deepseek-ai/dsh-agent` 中的 `CreateAgentOptions` 和 `ResumeAgentOptions` 将 `parentAgent` 替换为 `ownerAgent`。这影响调用 `ctx.agents.create()` 或 `ctx.agents.resume()` 的插件与自定义工厂。该字段指定拥有运行实例的在线 Agent；省略时创建运行时根。
 
 Session 创建来源仍由 `meta.parentSession` 记录。嵌套子代理的运行归属者可以是树根，而直接创建者是另一个后代。持久化 Session 字段和格式保持不变。
 

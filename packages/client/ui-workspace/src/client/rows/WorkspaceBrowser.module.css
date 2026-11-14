@@ -70,7 +70,7 @@
   justify-content: flex-end;
   gap: 4px;
   height: var(--workspace-toolbar-height);
-  padding-left: var(--lyn-sidebar-row-padding);
+  padding-left: var(--dsh-sidebar-row-padding);
   margin-bottom: var(--workspace-toolbar-gap);
   box-sizing: border-box;
   border-radius: var(--dsw-radius-md);
@@ -189,7 +189,7 @@
 
 .root:not(.rail) .sectionHeader:has(.searchExpanded) {
   margin-right: 0;
-  padding-inline: calc(var(--lyn-sidebar-paint-inset) + 1px);
+  padding-inline: calc(var(--dsh-sidebar-paint-inset) + 1px);
   gap: 0;
 }
 
@@ -350,9 +350,9 @@
 .root:not(.rail) .listArea {
   display: block;
   margin-left: -4px;
-  margin-right: calc(2px - var(--lyn-sidebar-inline-padding));
+  margin-right: calc(2px - var(--dsh-sidebar-inline-padding));
   padding-left: 4px;
-  padding-right: calc(var(--lyn-sidebar-inline-padding) - var(--lyn-scrollbar-width) - 2px);
+  padding-right: calc(var(--dsh-sidebar-inline-padding) - var(--dsh-scrollbar-width) - 2px);
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-gutter: stable;
@@ -414,10 +414,10 @@
   /* Top alignment lines the 16px dot up with the equally tall title bar;
      the paddings center the 35px content in the 48px row. */
   align-items: flex-start;
-  gap: var(--lyn-sidebar-label-gap);
+  gap: var(--dsh-sidebar-label-gap);
   box-sizing: border-box;
   min-height: 48px;
-  padding: 6px var(--lyn-sidebar-row-padding) 7px;
+  padding: 6px var(--dsh-sidebar-row-padding) 7px;
 }
 
 .skeletonDot {
@@ -519,7 +519,7 @@
   height: 28px;
   border: none;
   border-radius: var(--dsw-radius-sm);
-  padding: 0 var(--lyn-sidebar-row-padding) 0 calc(var(--lyn-sidebar-row-padding) + 16px + var(--lyn-sidebar-label-gap) + var(--lyn-workspace-indent, 0px));
+  padding: 0 var(--dsh-sidebar-row-padding) 0 calc(var(--dsh-sidebar-row-padding) + 16px + var(--dsh-sidebar-label-gap) + var(--dsh-workspace-indent, 0px));
   background: transparent;
   cursor: pointer;
   text-align: left;

@@ -1,7 +1,7 @@
 /**
  * Copy for the announcements row and its reader.
  *
- * @module @lyness/lyn-client-ui-settings-announcements/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-announcements/client/locales
  */
 
 /** English copy; the key set every locale answers. */

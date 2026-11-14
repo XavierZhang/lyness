@@ -1,11 +1,11 @@
 /**
  * Public configuration and measurement vocabulary for replay token metering.
  *
- * @module @lyness/lyn-token-meter/types
+ * @module @deepseek-ai/dsh-token-meter/types
  */
 
-import type { TokenUsage } from '@lyness/lyn-llm'
-import type { SessionLogOffset, SessionSeq } from '@lyness/lyn-session/types'
+import type { TokenUsage } from '@deepseek-ai/dsh-llm'
+import type { SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session/types'
 
 export type { ContextBreakdownProjection, ContextPressureProjection, TokenUsageProjection } from './projection.ts'
 

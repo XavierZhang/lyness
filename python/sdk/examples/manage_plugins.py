@@ -7,25 +7,25 @@ import os
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
 
-from lyness import ApprovalRequestParams, Lyness
-from lyness_runtime import download_primary_runtime
+from DeepSeek Harness import ApprovalRequestParams, DeepSeekHarness
+from deepseek_harness_runtime import download_primary_runtime
 
 
 def main() -> None:
     """Prepare package tools, answer stdio approvals, and print the final response."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("prompt")
-    parser.add_argument("--lyn-home", type=Path, required=True)
-    parser.add_argument("--lyn-bin", type=Path)
+    parser.add_argument("--dsh-home", type=Path, required=True)
+    parser.add_argument("--dsh-bin", type=Path)
     parser.add_argument("--workspace", type=Path, default=Path.cwd())
     args = parser.parse_args()
-    if os.environ.get("LYNESS_PRIMARY_RUNTIME") is None:
+    if os.environ.get("DSH_PRIMARY_RUNTIME") is None:
         download_primary_runtime()
     with ThreadPoolExecutor(max_workers=2) as worker:
-        harness = Lyness(lyn_home=str(args.lyn_home.resolve()), cwd=str(args.workspace.resolve()),
-                                  lyn_bin=None if args.lyn_bin is None else str(args.lyn_bin.resolve()),
+        harness = DeepSeekHarness(dsh_home=str(args.dsh_home.resolve()), cwd=str(args.workspace.resolve()),
+                                  dsh_bin=None if args.dsh_bin is None else str(args.dsh_bin.resolve()),
                                   approval_requests=True,
-                                  env={"LYNESS_PERMISSION_MODE": "workspace-write"})
+                                  env={"DSH_PERMISSION_MODE": "workspace-write"})
         try:
             harness.start()
             run = worker.submit(harness.run, args.prompt)

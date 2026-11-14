@@ -11,27 +11,27 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
-import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
-import * as RequestPrincipal from '@lyness/lyn-request-principal'
-import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/lyn-session'
-import type { SessionHeader } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
-import * as SessionOwnership from '@lyness/lyn-session-ownership'
-import SessionVisibility from '@lyness/lyn-session-ownership/visibility'
-import { SESSION_OWNER_RECORD_VERSION } from '@lyness/lyn-session-ownership/types'
-import SessionDeletion from '@lyness/lyn-session-deletion'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import { StaticPeopleDirectory } from '@deepseek-ai/dsh-people/static'
+import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
+import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import type { SessionHeader } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
+import * as SessionOwnership from '@deepseek-ai/dsh-session-ownership'
+import SessionVisibility from '@deepseek-ai/dsh-session-ownership/visibility'
+import { SESSION_OWNER_RECORD_VERSION } from '@deepseek-ai/dsh-session-ownership/types'
+import SessionDeletion from '@deepseek-ai/dsh-session-deletion'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import SessionDataController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -52,17 +52,17 @@ type Scope = (request: Request, run: () => Promise<unknown>) => Promise<unknown>
 
 /** Boot the rows through the real Loader, and keep the request scope they registered. */
 async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-session-data-controller-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-session-data-controller-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-people/static'",
+    "- name: '@deepseek-ai/dsh-people/static'",
     '  config:',
     '    people:',
     '      - id: ada',
@@ -73,21 +73,21 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     '        displayName: Bo',
     '        role: member',
     '        organization: acme',
-    "- name: '@lyness/lyn-auth-session/store'",
-    "- name: '@lyness/lyn-request-principal'",
-    "- name: '@lyness/lyn-session'",
-    "- name: '@lyness/lyn-session-projection'",
-    "- name: '@lyness/lyn-session-persistence-jsonl'",
+    "- name: '@deepseek-ai/dsh-auth-session/store'",
+    "- name: '@deepseek-ai/dsh-request-principal'",
+    "- name: '@deepseek-ai/dsh-session'",
+    "- name: '@deepseek-ai/dsh-session-projection'",
+    "- name: '@deepseek-ai/dsh-session-persistence-jsonl'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'sessions'))}`,
     "    compression: 'none'",
-    "- name: '@lyness/lyn-session-query-sqlite'",
+    "- name: '@deepseek-ai/dsh-session-query-sqlite'",
     '  config:',
     `    path: ${JSON.stringify(join(root, 'session-query.db'))}`,
-    "- name: '@lyness/lyn-session-ownership'",
-    "- name: '@lyness/lyn-session-ownership/visibility'",
-    "- name: '@lyness/lyn-session-deletion'",
-    "- name: '@lyness/lyn-api-session-data-controller'",
+    "- name: '@deepseek-ai/dsh-session-ownership'",
+    "- name: '@deepseek-ai/dsh-session-ownership/visibility'",
+    "- name: '@deepseek-ai/dsh-session-deletion'",
+    "- name: '@deepseek-ai/dsh-api-session-data-controller'",
     '',
   ].join('\n'))
 
@@ -101,20 +101,20 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-people/static', StaticPeopleDirectory],
-    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
-    ['@lyness/lyn-request-principal', RequestPrincipal],
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-session-persistence-jsonl', JsonlSessionPersistence],
-    ['@lyness/lyn-session-query-sqlite', SqliteSessionQueryEngine],
-    ['@lyness/lyn-session-ownership', SessionOwnership],
-    ['@lyness/lyn-session-ownership/visibility', SessionVisibility],
-    ['@lyness/lyn-session-deletion', SessionDeletion],
-    ['@lyness/lyn-api-session-data-controller', SessionDataController],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-people/static', StaticPeopleDirectory],
+    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
+    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-session-persistence-jsonl', JsonlSessionPersistence],
+    ['@deepseek-ai/dsh-session-query-sqlite', SqliteSessionQueryEngine],
+    ['@deepseek-ai/dsh-session-ownership', SessionOwnership],
+    ['@deepseek-ai/dsh-session-ownership/visibility', SessionVisibility],
+    ['@deepseek-ai/dsh-session-deletion', SessionDeletion],
+    ['@deepseek-ai/dsh-api-session-data-controller', SessionDataController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

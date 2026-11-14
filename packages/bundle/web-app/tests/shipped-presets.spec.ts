@@ -16,8 +16,8 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
-import { inheritedPlugins, type PresetDefinition } from '@lyness/lyn-agent-preset-registry'
+import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { inheritedPlugins, type PresetDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 
@@ -37,13 +37,13 @@ interface Row {
   config?: Record<string, unknown>
 }
 
-/** Every row the shipped Web patch files insert, in `lyn.bundle.patch` order. */
+/** Every row the shipped Web patch files insert, in `dsh.bundle.patch` order. */
 function shippedRows(): Row[] {
   const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as {
-    lyn?: { bundle?: { patch?: string | string[] } }
+    dsh?: { bundle?: { patch?: string | string[] } }
   }
-  const patch = manifest.lyn?.bundle?.patch
-  if (patch === undefined) throw new Error('lyn-web-app declares no lyn.bundle.patch')
+  const patch = manifest.dsh?.bundle?.patch
+  if (patch === undefined) throw new Error('dsh-web-app declares no dsh.bundle.patch')
   const files = typeof patch === 'string' ? [patch] : patch
   return files.flatMap((file) => {
     const parsed = yaml.load(readFileSync(resolve(root, file), 'utf8'), { schema: entryListSchema })
@@ -51,11 +51,11 @@ function shippedRows(): Row[] {
   })
 }
 
-/** Every `@lyness/lyn-agent-preset` declaration the bundle ships, by preset id. */
+/** Every `@deepseek-ai/dsh-agent-preset` declaration the bundle ships, by preset id. */
 function declarations(): Map<string, Record<string, unknown>> {
   const found = new Map<string, Record<string, unknown>>()
   for (const row of shippedRows()) {
-    if (row.name !== '@lyness/lyn-agent-preset' || row.config === undefined) continue
+    if (row.name !== '@deepseek-ai/dsh-agent-preset' || row.config === undefined) continue
     const id = row.config['id']
     if (typeof id === 'string') found.set(id, row.config)
   }
@@ -84,7 +84,7 @@ function declaredPlugins(id: string): PresetDefinition['plugins'] {
 
 /** The preset-selection registry row. */
 function registry(): Record<string, unknown> {
-  const row = shippedRows().find(entry => entry.name === '@lyness/lyn-agent-preset-registry')
+  const row = shippedRows().find(entry => entry.name === '@deepseek-ai/dsh-agent-preset-registry')
   if (row?.config === undefined) throw new Error('the shipped Web patch declares no agent-preset-registry row')
   return row.config
 }
@@ -179,14 +179,14 @@ describe('the modes the shipped Web composition offers', () => {
     // mounted an executor of its own would override that choice.
     for (const view of ['work', 'build']) {
       expect(effectiveRows(view).map(row => row.name), view)
-        .not.toContain('@lyness/lyn-tool-executor-ptc')
+        .not.toContain('@deepseek-ai/dsh-tool-executor-ptc')
     }
   })
 
   it('points the plugin-authoring flow at a view it offers', () => {
     // The entries that start that flow hide while their preset is absent from
     // the roster, so an unoffered id leaves every one of them dead.
-    const row = shippedRows().find(entry => entry.name === '@lyness/lyn-client-ui-agent-preset')
+    const row = shippedRows().find(entry => entry.name === '@deepseek-ai/dsh-client-ui-agent-preset')
     const configured = row?.config?.['authoringPreset']
     expect(configured).toBe('build')
     expect(declarations().get(String(configured))?.['offered']).not.toBe(false)

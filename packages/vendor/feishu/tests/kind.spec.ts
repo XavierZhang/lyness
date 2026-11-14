@@ -4,10 +4,10 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
-import type { ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
-import { channelId } from '@lyness/lyn-sign-in'
+import { Context } from '@deepseek-ai/cordis'
+import ChannelKindRegistry from '@deepseek-ai/dsh-sign-in/kinds'
+import type { ConfiguredChannel } from '@deepseek-ai/dsh-sign-in/kinds'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
 import { DISPLAY_NAME } from '../src/index.ts'
 import * as Kind from '../src/kind.ts'
 import { create, FIELDS, KIND } from '../src/kind.ts'

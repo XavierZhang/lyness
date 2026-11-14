@@ -1,6 +1,6 @@
 /**
  * Host task decoding, timing validation, occurrence selection, and reminder framing.
- * @module @lyness/lyn-schedule
+ * @module @deepseek-ai/dsh-schedule
  */
 
 import { Temporal } from '@js-temporal/polyfill'
@@ -16,10 +16,10 @@ import {
   parseLocalCalendar,
   parseOffsetInstant,
   resolveLocalInstant,
-} from '@lyness/lyn-util-time'
+} from '@deepseek-ai/dsh-util-time'
 import type {
   InstantRejection, LocalCalendarRejection, LocalCalendarTime, TimeZoneRejection, RecurrenceResult,
-} from '@lyness/lyn-util-time'
+} from '@deepseek-ai/dsh-util-time'
 import type {
   AfterScheduleRecord,
   AtInput,

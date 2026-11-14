@@ -17,7 +17,7 @@ def default_binary():
     architecture = "arm64" if platform.machine() == "arm64" else "x64"
     directory = ROOT / "bin" / f"darwin-{architecture}"
     receipt = json.loads((directory / "current.json").read_text())
-    return directory / receipt["bundle"] / "LYN Computer Use.app/Contents/MacOS/lyn-cua-native"
+    return directory / receipt["bundle"] / "DSH Computer Use.app/Contents/MacOS/dsh-cua-native"
 
 
 def copy_helper(binary, destination):

@@ -2,7 +2,7 @@
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type {} from '@lyness/lyn-schedule'
+import type {} from '@deepseek-ai/dsh-schedule'
 import { launchWebScaffold, watchConsole, type WebScaffold } from './scaffold.ts'
 import { revealNavigationDrawer, saveFailureShot } from './support.ts'
 

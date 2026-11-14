@@ -1,9 +1,9 @@
 /** View target builder turning published nodes into turn rows. */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ConversationViewBuilder, ConversationViewDefinition,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { buildTurns } from './stats-aggregate.ts'
 import type { StatsSnapshot, StatsViewNode } from './stats-contract.ts'
 import { TARGET } from './stats-definition.ts'

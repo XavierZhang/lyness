@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
+import type { InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
 import { createInvitationsOperations, statusOf } from '../src/client/operations.ts'
 import type { CallOutcome, InvitationsCalls, InvitationsSink } from '../src/client/operations.ts'
 

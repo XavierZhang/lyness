@@ -3,7 +3,7 @@ description: "Download and save original files without changing their encoding"
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-file-actions
+# @deepseek-ai/dsh-client-ui-file-actions
 
 English | [中文](README.zh.md)
 

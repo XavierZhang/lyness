@@ -2,7 +2,7 @@
  * Copy for the invitations page: what a code grants, how long it lasts, and
  * the one chance an administrator has to copy it.
  *
- * @module @lyness/lyn-client-ui-admin-invitations/client/locales
+ * @module @deepseek-ai/dsh-client-ui-admin-invitations/client/locales
  */
 
 /** English copy; the key set every locale answers. */

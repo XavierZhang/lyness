@@ -6,10 +6,10 @@
  * the page cannot read — or one naming a mode this build does not know — leaves it there rather than
  * assuming more.
  *
- * @module @lyness/lyn-experimental-liveshare/src/client/viewer-capabilities
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/client/viewer-capabilities
  */
 
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 
 /**
  * What one owner lets a viewer do with a share, as one of two tiers.

@@ -1,10 +1,10 @@
 /**
  * Pure client-safe subagent projection vocabulary.
  *
- * @module @lyness/lyn-subagent/projection-types
+ * @module @deepseek-ai/dsh-subagent/projection-types
  */
 
-import type { SessionId, SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionId, SessionSeq } from '@deepseek-ai/dsh-session/types'
 
 /** Known child modes and their creation labels, shared by catalog views. */
 export type KnownSubagentCatalogFields =
@@ -85,7 +85,7 @@ export type SubagentIdentityProjection =
     seq: SessionSeq
   }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionMap {
     /** Direct children in parent catalog event order, excluding fork-inherited facts. */
     subagentCatalog: SubagentCatalogEntry[]

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DeepSeekFetchApiProvider, DeepSeekSearchApiProvider } from '@lyness/lyn-web-deepseek-api'
+import { DeepSeekFetchApiProvider, DeepSeekSearchApiProvider } from '@deepseek-ai/dsh-web-deepseek-api'
 import { customGuidance } from './guidance.ts'
 
 /** Real Search and Fetch API probes; the base names the deployment the key authenticates. */

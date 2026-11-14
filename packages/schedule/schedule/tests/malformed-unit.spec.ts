@@ -3,10 +3,10 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Storage from '@lyness/lyn-storage'
-import { DomainFacility } from '@lyness/lyn-storage-domain'
-import { JsonStorageBackend } from '@lyness/lyn-storage-json'
+import { Context } from '@deepseek-ai/cordis'
+import Storage from '@deepseek-ai/dsh-storage'
+import { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
+import { JsonStorageBackend } from '@deepseek-ai/dsh-storage-json'
 import { scheduleDomain } from '../src/storage.ts'
 import { ScheduleId, createAtScheduleRecord } from '../src/domain.ts'
 
@@ -18,7 +18,7 @@ afterEach(async () => {
 })
 
 async function open() {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-malformed-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-malformed-')); roots.push(root)
   const ctx = new Context(); contexts.push(ctx)
   await ctx.plugin(Storage)
   const backend = new JsonStorageBackend(root)

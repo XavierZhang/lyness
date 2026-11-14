@@ -2,7 +2,7 @@
 description: "Browser approval UI that answers Host permission requests through the scoped interaction path."
 kind: "package-reference"
 ---
-# @lyness/lyn-client-ui-approval
+# @deepseek-ai/dsh-client-ui-approval
 
 English | [中文](README.zh.md)
 

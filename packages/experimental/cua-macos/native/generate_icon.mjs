@@ -8,9 +8,9 @@ import sharp from 'sharp'
 
 async function main() {
   const root = dirname(fileURLToPath(import.meta.url))
-  const scratch = await mkdtemp(join(tmpdir(), 'lyn-cua-icon-'))
+  const scratch = await mkdtemp(join(tmpdir(), 'dsh-cua-icon-'))
   try {
-    const iconset = join(scratch, 'LYNComputerUse.iconset')
+    const iconset = join(scratch, 'DSHComputerUse.iconset')
     await mkdir(iconset)
     const source = await readFile(join(root, '../../cua-bundle/icon.svg'))
     const background = Buffer.from('<svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="32" height="32" rx="7" fill="#FFFFFF"/></svg>')
@@ -23,7 +23,7 @@ async function main() {
           .toFile(join(iconset, `icon_${points}x${points}${scale === 2 ? '@2x' : ''}.png`))
       }
     }
-    execFileSync('/usr/bin/iconutil', ['--convert', 'icns', '--output', join(root, 'LYNComputerUse.icns'), iconset], { stdio: 'inherit' })
+    execFileSync('/usr/bin/iconutil', ['--convert', 'icns', '--output', join(root, 'DSHComputerUse.icns'), iconset], { stdio: 'inherit' })
   } finally { await rm(scratch, { recursive: true, force: true }) }
 }
 

@@ -10,20 +10,20 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
-import SignIn, { channelId } from '@lyness/lyn-sign-in'
-import type { ExternalSubject, SelfDrivenChannel } from '@lyness/lyn-sign-in'
-import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import AdminAudit from '@lyness/lyn-admin-audit'
-import ManagedPeople from '@lyness/lyn-managed-people'
-import * as ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import SignIn, { channelId } from '@deepseek-ai/dsh-sign-in'
+import type { ExternalSubject, SelfDrivenChannel } from '@deepseek-ai/dsh-sign-in'
+import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import ManagedPeople from '@deepseek-ai/dsh-managed-people'
+import * as ManagedPeopleDirectory from '@deepseek-ai/dsh-managed-people/directory'
 import * as Invitations from '../src/index.ts'
 import * as InvitingAdmission from '../src/admission.ts'
 
@@ -54,7 +54,7 @@ afterEach(async () => {
 /**
  * A self-driven channel standing in for a directory.
  *
- * Self-driven because the browser round trip is `lyn-sign-in-http`'s half and
+ * Self-driven because the browser round trip is `dsh-sign-in-http`'s half and
  * has its own coverage; what this composition must show is that the code
  * reaches the admission rule and that the rule writes the roster.
  */
@@ -77,30 +77,30 @@ const probeChannel = {
  * @param bindings - the directory identities composition writes, in YAML lines.
  */
 async function compose(bindings: readonly string[] = []): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-invitations-composition-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-invitations-composition-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-admin-audit'",
-    "- name: '@lyness/lyn-auth-session/store'",
-    "- name: '@lyness/lyn-managed-people'",
-    "- name: '@lyness/lyn-managed-people/directory'",
+    "- name: '@deepseek-ai/dsh-admin-audit'",
+    "- name: '@deepseek-ai/dsh-auth-session/store'",
+    "- name: '@deepseek-ai/dsh-managed-people'",
+    "- name: '@deepseek-ai/dsh-managed-people/directory'",
     '  config:',
     '    people:',
     '      - id: ada',
     '        displayName: Ada',
     '        role: platform-administrator',
-    "- name: '@lyness/lyn-invitations'",
-    "- name: '@lyness/lyn-invitations/admission'",
+    "- name: '@deepseek-ai/dsh-invitations'",
+    "- name: '@deepseek-ai/dsh-invitations/admission'",
     '  config:',
     ...bindings.length === 0 ? ['    bindings: []'] : ['    bindings:', ...bindings],
-    "- name: '@lyness/lyn-sign-in'",
+    "- name: '@deepseek-ai/dsh-sign-in'",
     "- name: 'probe-channel'",
     '',
   ].join('\n'))
@@ -111,16 +111,16 @@ async function compose(bindings: readonly string[] = []): Promise<Context> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-admin-audit', AdminAudit],
-    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
-    ['@lyness/lyn-managed-people', ManagedPeople],
-    ['@lyness/lyn-managed-people/directory', ManagedPeopleDirectory],
-    ['@lyness/lyn-invitations', Invitations],
-    ['@lyness/lyn-invitations/admission', InvitingAdmission],
-    ['@lyness/lyn-sign-in', SignIn],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-admin-audit', AdminAudit],
+    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
+    ['@deepseek-ai/dsh-managed-people', ManagedPeople],
+    ['@deepseek-ai/dsh-managed-people/directory', ManagedPeopleDirectory],
+    ['@deepseek-ai/dsh-invitations', Invitations],
+    ['@deepseek-ai/dsh-invitations/admission', InvitingAdmission],
+    ['@deepseek-ai/dsh-sign-in', SignIn],
     ['probe-channel', probeChannel],
   ])
   const base = ctx.loader.internal
@@ -156,10 +156,10 @@ it('signs an invited stranger in, and refuses the same stranger without the code
 
   // Without the code this deployment admits them as nobody: the roster has
   // never heard of them.
-  await expect(ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback'))
+  await expect(ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback'))
     .rejects.toMatchObject({ code: 'not-admitted' })
 
-  const outcome = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: issued.code })
+  const outcome = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: issued.code })
   if (outcome.kind !== 'session') throw new Error('a self-driven channel returned something else')
   const established = await ctx.authSessions.read(outcome.session)
 
@@ -173,12 +173,12 @@ it('signs them in afterwards without the code, because the redemption bound them
   const ctx = await compose()
   const issued = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, PLATFORM)
   authenticated = subject('bea', 'Bea Smith')
-  const first = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: issued.code })
+  const first = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: issued.code })
   if (first.kind !== 'session') throw new Error('a self-driven channel returned something else')
   const person = (await ctx.authSessions.read(first.session)).person
 
   // The second sign-in presents no code at all.
-  const second = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback')
+  const second = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback')
   if (second.kind !== 'session') throw new Error('a self-driven channel returned something else')
 
   expect((await ctx.authSessions.read(second.session)).person).toBe(person)
@@ -195,7 +195,7 @@ it('answers the roster first, so a code adds no second entry for somebody alread
     { channel: CHANNEL, issuer: ISSUER, subject: 'ada', person: ADA }, PLATFORM)
   authenticated = subject('ada', 'Ada')
 
-  const outcome = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: bea.code })
+  const outcome = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: bea.code })
   if (outcome.kind !== 'session') throw new Error('a self-driven channel returned something else')
 
   expect((await ctx.authSessions.read(outcome.session)).person).toBe(ADA)
@@ -209,14 +209,14 @@ it('lets the person the roster answered for accept that same code themselves', a
   // signing in again.
   const first = await ctx.invitations.issue({ label: 'Bea', role: 'member', organization: 'acme' }, PLATFORM)
   authenticated = subject('bea', 'Bea')
-  const joined = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: first.code })
+  const joined = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: first.code })
   if (joined.kind !== 'session') throw new Error('a self-driven channel returned something else')
   const bea = (await ctx.authSessions.read(joined.session)).person
 
   const second = await ctx.invitations.issue({ label: 'Bea again', role: 'tenant-administrator', organization: 'beta' }, PLATFORM)
   // Signing in with it in hand still changes nothing: that is what keeps a
   // forwarded link from adding authority to an account.
-  await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: second.code })
+  await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: second.code })
   expect(await ctx.people.memberships(bea)).toHaveLength(1)
 
   expect(await ctx.invitations.accept(second.code ?? '', bea))
@@ -231,7 +231,7 @@ it('refuses a code this deployment never issued, with the same answer as no code
   const ctx = await compose()
   authenticated = subject('nobody')
 
-  await expect(ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback', { invitation: 'not-a-code' }))
+  await expect(ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback', { invitation: 'not-a-code' }))
     .rejects.toMatchObject({ code: 'not-admitted' })
   expect(await ctx.invitations.list(PLATFORM)).toEqual([])
 })
@@ -248,7 +248,7 @@ it('keeps the written bindings this rule still owns', async () => {
   ])
   authenticated = subject('ada', 'Ada')
 
-  const outcome = await ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback')
+  const outcome = await ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback')
   if (outcome.kind !== 'session') throw new Error('a self-driven channel returned something else')
   expect((await ctx.authSessions.read(outcome.session)).person).toBe(ADA)
 })
@@ -257,6 +257,6 @@ it('admits nobody by configuration when it writes no binding', async () => {
   const ctx = await compose()
   expect(ctx.signInAdmission).toBeDefined()
   authenticated = subject('ada', 'Ada')
-  await expect(ctx.signIn.begin(CHANNEL, 'https://lyn.example/callback'))
+  await expect(ctx.signIn.begin(CHANNEL, 'https://dsh.example/callback'))
     .rejects.toMatchObject({ code: 'not-admitted' })
 })

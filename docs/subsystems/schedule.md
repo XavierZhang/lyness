@@ -19,7 +19,7 @@ The README defines [when tasks upgrade](../../packages/schedule/schedule/README.
 <a id="recurrence-rules"></a>
 ## Recurrence rules
 
-[`lyn-util-time`](../../packages/util/time/README.md) owns reusable `Cron` and `RRule` parsing and bounded occurrence arithmetic. Both parsed values expose their authoritative expression and zone, `next(after)`, and `resolve(scheduledAt, acceptedAt)`. Parsers return an accepted value or a rejection reason; Schedule maps reasons to its own input errors and owns record validation, admission limits, persistence, and dispatch.
+[`dsh-util-time`](../../packages/util/time/README.md) owns reusable `Cron` and `RRule` parsing and bounded occurrence arithmetic. Both parsed values expose their authoritative expression and zone, `next(after)`, and `resolve(scheduledAt, acceptedAt)`. Parsers return an accepted value or a rejection reason; Schedule maps reasons to its own input errors and owns record validation, admission limits, persistence, and dispatch.
 
 Every stored `scheduledAt` is a canonical RFC 3339 UTC instant with millisecond precision and a year from 0001 through 9999. Decoding never recalculates it from current zone data. Latest-only catch-up preserves that committed floor, delivers the latest due occurrence once, and commits the first future occurrence. Exhaustion leaves the task stored as `ended`.
 
@@ -86,7 +86,7 @@ An omitted creation target defaults to `new_once`. Adding or replacing a `new` o
 <a id="task-management"></a>
 ## Task management
 
-All callers use the same `ScheduleCreateRequest`, `ScheduleCatalogEntry`, `ScheduleTiming`, and `ScheduleEditRequest`. Browser-safe types come from `@lyness/lyn-schedule/client`. There is no Session-bound management surface or second family of type aliases.
+All callers use the same `ScheduleCreateRequest`, `ScheduleCatalogEntry`, `ScheduleTiming`, and `ScheduleEditRequest`. Browser-safe types come from `@deepseek-ai/dsh-schedule/client`. There is no Session-bound management surface or second family of type aliases.
 
 | Operation | Behavior |
 |---|---|

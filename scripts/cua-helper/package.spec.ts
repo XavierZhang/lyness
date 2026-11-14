@@ -34,7 +34,7 @@ vi.mock('../../apps/desktop/scripts/notarize-macos.mjs', () => ({
     const { runLoggedNotarytool } = await import('../../apps/desktop/scripts/logged-notarytool.mjs')
     const id = '11111111-2222-3333-4444-555555555555'
     await runLoggedNotarytool(['submit', '/fixture/helper.zip', '--apple-id', 'private@example.test',
-      '--password', 'secret-sentinel', '--wait', '--output-format', 'json'], process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR, async (args) => {
+      '--password', 'secret-sentinel', '--wait', '--output-format', 'json'], process.env.DSH_DESKTOP_PACKAGING_RUN_DIR, async (args) => {
       if (state.reject) throw new Error('Apple transport failed: private@example.test secret-sentinel')
       return JSON.stringify(args[0] === 'submit' ? { id } : { id, status: 'Accepted' })
     })
@@ -50,7 +50,7 @@ vi.mock('tar', () => ({
 }))
 vi.mock('./payload.ts', async importOriginal => ({
   ...await importOriginal<typeof import('./payload.ts')>(),
-  readCuaApplication: (directory: string) => ({ application: join(directory, 'fixture/LYN Computer Use.app') }),
+  readCuaApplication: (directory: string) => ({ application: join(directory, 'fixture/DSH Computer Use.app') }),
   sealCuaApplication: () => 'fixture',
   verifyCuaHelperPayload: () => {},
 }))
@@ -62,7 +62,7 @@ it.each([false, true])('retains helper packaging outcome and restores the inheri
   const output = join(state.root, 'output')
   const savedPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!
   const savedArgv = process.argv
-  const savedDirectory = process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR
+  const savedDirectory = process.env.DSH_DESKTOP_PACKAGING_RUN_DIR
   const stderr = vi.spyOn(process.stderr, 'write').mockImplementation(() => true)
   const consoleLog = vi.spyOn(console, 'log').mockImplementation(() => {})
   const inherited = reject ? join(state.root, 'outer-record') : undefined
@@ -70,8 +70,8 @@ it.each([false, true])('retains helper packaging outcome and restores the inheri
   try {
     Object.defineProperty(process, 'platform', { ...savedPlatform, value: 'darwin' })
     process.argv = [process.execPath, resolve('scripts/cua-helper/package.ts'), '--out', output]
-    if (inherited === undefined) delete process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR
-    else process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR = inherited
+    if (inherited === undefined) delete process.env.DSH_DESKTOP_PACKAGING_RUN_DIR
+    else process.env.DSH_DESKTOP_PACKAGING_RUN_DIR = inherited
     vi.resetModules()
     const work = import('./package.ts')
     if (reject) await expect(work).rejects.toThrow('CUA helper packaging failed; see')
@@ -100,13 +100,13 @@ it.each([false, true])('retains helper packaging outcome and restores the inheri
       expect(events).toContain('"status":"Accepted"')
       expect(await readFile(join(output, 'cua-helper.tgz'), 'utf8')).toBe('fixture archive')
     }
-    expect(process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR).toBe(inherited)
+    expect(process.env.DSH_DESKTOP_PACKAGING_RUN_DIR).toBe(inherited)
     expect(['SIGINT', 'SIGTERM'].map(signal => process.listenerCount(signal))).toEqual(listeners)
   } finally {
     Object.defineProperty(process, 'platform', savedPlatform)
     process.argv = savedArgv
-    if (savedDirectory === undefined) delete process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR
-    else process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR = savedDirectory
+    if (savedDirectory === undefined) delete process.env.DSH_DESKTOP_PACKAGING_RUN_DIR
+    else process.env.DSH_DESKTOP_PACKAGING_RUN_DIR = savedDirectory
     stderr.mockRestore()
     consoleLog.mockRestore()
     await rm(state.root, { recursive: true, force: true })

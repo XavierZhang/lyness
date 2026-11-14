@@ -12,7 +12,7 @@ The 2026-10-23 evaluation of the SDK profile (native tools, six benchmarks) meas
 
 ## Decision
 
-Restore the #6054 wording, byte-identical: `Use the read tool — not shell commands like cat, sed, head, or tail — to inspect text files. Use offset and limit to read a line range or continue a large file.` The read tool and its guidance are owned by `@lyness/lyn-tool-fs`; write and edit guidance are unchanged.
+Restore the #6054 wording, byte-identical: `Use the read tool — not shell commands like cat, sed, head, or tail — to inspect text files. Use offset and limit to read a line range or continue a large file.` The read tool and its guidance are owned by `@deepseek-ai/dsh-tool-fs`; write and edit guidance are unchanged.
 
 ## Alternatives considered
 

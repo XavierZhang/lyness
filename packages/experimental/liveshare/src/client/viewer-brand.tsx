@@ -1,20 +1,20 @@
 /**
  * The viewer page's brand row: the sidebar's own mark and name seats carry the share.
  *
- * The page renders the normal client UI, so its identity belongs where every LYN page keeps one —
+ * The page renders the normal client UI, so its identity belongs where every DSH page keeps one —
  * the expanded sidebar's brand row — instead of a floating banner. The mark stays the shipped
  * Harness logo; the name seat becomes the way home and states, compactly, who shared this Session
- * and which LYN built it. The Relay's own release stays a detail on that link rather than a second
+ * and which DSH built it. The Relay's own release stays a detail on that link rather than a second
  * identifier in the page's chrome.
  *
- * @module @lyness/lyn-experimental-liveshare/src/client/viewer-brand
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/client/viewer-brand
  */
 
 import { useSyncExternalStore, type ReactNode } from 'react'
-import type { Context as ClientContext } from '@lyness/cordis'
-import { FishLogo } from '@lyness/lyn-client-ui-primitives'
-import type { SidebarBrandMarkOwnerProps } from '@lyness/lyn-client-ui-sidebar/client'
-import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import { FishLogo } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { SidebarBrandMarkOwnerProps } from '@deepseek-ai/dsh-client-ui-sidebar/client'
+import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
 import { NS } from './locales.ts'
 import { identitySubjectLabel } from '../owner-identity.ts'
 import { viewerContextFacts } from './viewer-context.ts'
@@ -37,7 +37,7 @@ export const inject: readonly string[] = ['slots']
 
 /** Window global the shell installs for the share this page presents. */
 interface ViewerTargetWindow {
-  __LYNESS_LIVESHARE_VIEWER__?: {
+  __DSH_LIVESHARE_VIEWER__?: {
     readonly shareId: string
     readonly sessionId: string
     readonly basePath: string
@@ -62,14 +62,14 @@ export function ViewerBrandMark({ size }: SidebarBrandMarkOwnerProps): ReactNode
 }
 
 /**
- * Render the name slot: LiveShare, its owner, and the owner's LYN version, linked to the page's
+ * Render the name slot: LiveShare, its owner, and the owner's DSH version, linked to the page's
  * share directory. The Relay's release rides the same link's tooltip so a long identifier stays
  * readable on demand instead of widening the row.
  * @param props - The framework-injected translate seat for this package's copy.
  * @returns the viewer's brand content.
  */
 export function ViewerBrandName({ t }: PropsLocale<typeof NS>): ReactNode {
-  const target = (globalThis as ViewerTargetWindow).__LYNESS_LIVESHARE_VIEWER__
+  const target = (globalThis as ViewerTargetWindow).__DSH_LIVESHARE_VIEWER__
   const basePath = target?.basePath ?? ''
   const facts = useViewerContextFacts()
   // The share's own identity data names its owner: a verified subject without a display name is
@@ -79,11 +79,11 @@ export function ViewerBrandName({ t }: PropsLocale<typeof NS>): ReactNode {
       ? t('viewer.picker.ownerUnknown')
       : t('viewer.picker.subjectLabel', { label: identitySubjectLabel(facts.ownerSubjectId) }))
   const ownerLine = t('viewer.sharedByShort', { owner })
-  const version = facts.lynVersion === undefined
+  const version = facts.dshVersion === undefined
     ? undefined
     // Inline, the chip states the release the owner runs. Build metadata and the Relay's own
     // release stay on the link's tooltip, so a long identifier never widens the row.
-    : `${t('viewer.picker.version')} ${facts.lynVersion.replace(/\+.*$/u, '')}`
+    : `${t('viewer.picker.version')} ${facts.dshVersion.replace(/\+.*$/u, '')}`
   const relay = facts.relay === undefined ? undefined : t('viewer.relayVersion', { release: facts.relay })
   return (
     <a
@@ -92,7 +92,7 @@ export function ViewerBrandName({ t }: PropsLocale<typeof NS>): ReactNode {
       aria-label={t('viewer.home')}
       title={[
         ownerLine,
-        facts.lynVersion === undefined ? undefined : `${t('viewer.picker.version')} ${facts.lynVersion}`,
+        facts.dshVersion === undefined ? undefined : `${t('viewer.picker.version')} ${facts.dshVersion}`,
         relay,
       ].filter(value => value !== undefined).join(' · ')}
     >

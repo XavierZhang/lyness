@@ -15,10 +15,10 @@
   box-shadow: var(--dsw-elevation-prominent);
   /* Elevated surface: the scrolling columns take the l2 thumb tokens, as in
      every other menu card (see ui-theme styles/scrollbar.css). */
-  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
-  max-width: var(--lyn-anchored-max-width, none);
-  max-height: var(--lyn-anchored-max-height, none);
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  max-width: var(--dsh-anchored-max-width, none);
+  max-height: var(--dsh-anchored-max-height, none);
   overflow-x: hidden;
   overflow-y: auto;
 }

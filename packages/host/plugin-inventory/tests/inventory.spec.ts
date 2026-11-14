@@ -3,11 +3,11 @@ import { lstatSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:f
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context, FiberState, type Plugin } from '@lyness/cordis'
-import { PluginPackages, readPluginMeta, type RuntimeResolution } from '@lyness/lyn-app-boot'
-import Loader from '@lyness/cordis-plugin-loader'
-import { remoteMethods } from '@lyness/lyn-typert-protocol'
-import type { AgentPresetRegistry } from '@lyness/lyn-agent-preset-registry'
+import { Context, FiberState, type Plugin } from '@deepseek-ai/cordis'
+import { PluginPackages, readPluginMeta, type RuntimeResolution } from '@deepseek-ai/dsh-app-boot'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { remoteMethods } from '@deepseek-ai/dsh-typert-protocol'
+import type { AgentPresetRegistry } from '@deepseek-ai/dsh-agent-preset-registry'
 import PluginInventoryGateway from '../src/index.ts'
 
 const contexts: Context[] = []
@@ -40,7 +40,7 @@ async function harness(baseUrl?: string): Promise<{
 }
 
 function metadataFixture(mode: 'native' | 'runtime') {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-inventory-meta-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-inventory-meta-'))
   roots.push(root)
   const profilesDir = join(root, 'profiles')
   const profileDir = join(profilesDir, 'test')
@@ -59,7 +59,7 @@ function metadataFixture(mode: 'native' | 'runtime') {
     expect(lstatSync(dir).isDirectory()).toBe(true)
     for (const path of [
       join(profileDir, 'node_modules'), join(profilesDir, 'node_modules'),
-      join(root, 'node_modules'), join(profileDir, '.lyn-module-fallback'),
+      join(root, 'node_modules'), join(profileDir, '.dsh-module-fallback'),
     ]) expect(lstatSync(path, { throwIfNoEntry: false }), path).toBeUndefined()
   }
   return { dir, baseUrl, resolution, expectUnlinked }

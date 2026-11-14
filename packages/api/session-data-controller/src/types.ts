@@ -1,6 +1,6 @@
 /**
  * Wire vocabulary of the personal conversation-data surface.
- * @module @lyness/lyn-api-session-data-controller/types
+ * @module @deepseek-ai/dsh-api-session-data-controller/types
  */
 
 /** What one deletion answers. */
@@ -16,7 +16,7 @@ export interface SessionDeleteValue {
   readonly removed: readonly string[]
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * There is no such conversation for this caller.

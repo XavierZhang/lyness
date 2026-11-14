@@ -9,7 +9,7 @@ description: "当请求保留的图片超过 50 张时，pi-ai 路由现在会�
 
 ## 变更
 
-`llm-pi-ai` 原先只用 `maxRequestImageBytes` 限制请求图片，因此在达到该字节上限前会重发每张保留图片。现在每条提供方路由还有 `maxRequestImages`（默认 50）和 `imageOffloadCountQuantum`（默认 10）。请求保留的图片多于 `maxRequestImages` 时，`lyn-compaction-image-offload` 把最老的 `imageOffloadCountQuantum` 张图片替换为占位文本并重试。该省略记录在 Session 中，不会回退。这会影响任何 pi-ai 路由上超过 50 张图片的 Session，包括单次请求接受更多图片的提供方。
+`llm-pi-ai` 原先只用 `maxRequestImageBytes` 限制请求图片，因此在达到该字节上限前会重发每张保留图片。现在每条提供方路由还有 `maxRequestImages`（默认 50）和 `imageOffloadCountQuantum`（默认 10）。请求保留的图片多于 `maxRequestImages` 时，`dsh-compaction-image-offload` 把最老的 `imageOffloadCountQuantum` 张图片替换为占位文本并重试。该省略记录在 Session 中，不会回退。这会影响任何 pi-ai 路由上超过 50 张图片的 Session，包括单次请求接受更多图片的提供方。
 
 ## 迁移
 

@@ -3,13 +3,13 @@ description: "Sign-in through an external directory, for deployments connecting 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-sign-in
+# @deepseek-ai/dsh-sign-in
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-sign-in` signs a person in through a directory they already belong to and hands back a session. A channel verifies who they are there; the deployment's own admission rule says who that is here; a session is established for that person. A channel either owns its browser round trip, for the client, or is one the browser leaves for and returns from, for the web app — and both reach the same admission. Channels register rather than being configured here, so an unsupported directory arrives as a plugin. Without a session store or an admission rule there is no sign-in.
+`dsh-sign-in` signs a person in through a directory they already belong to and hands back a session. A channel verifies who they are there; the deployment's own admission rule says who that is here; a session is established for that person. A channel either owns its browser round trip, for the client, or is one the browser leaves for and returns from, for the web app — and both reach the same admission. Channels register rather than being configured here, so an unsupported directory arrives as a plugin. Without a session store or an admission rule there is no sign-in.
 
 ## Table of Contents
 
@@ -29,11 +29,11 @@ Mount the service, an admission rule, and at least one channel:
 
 ```yaml
 - id: sign-in
-  name: '@lyness/lyn-sign-in'
+  name: '@deepseek-ai/dsh-sign-in'
   config:
     lifetimeMs: 43200000
 - id: sign-in-admission-roster
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: microsoft-entra
@@ -53,8 +53,8 @@ The roster's `bindings` is required, and an empty list admits nobody.
 A channel plugin registers one object and owns the disposer:
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import { channelId } from '@lyness/lyn-sign-in'
+import type { Context } from '@deepseek-ai/cordis'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
 
 export const inject = ['signIn']
 
@@ -93,10 +93,10 @@ A `self-driven` channel declares `authenticate()` instead of `start`/`complete`.
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-auth-session`](../auth-session/README.md) — the sessions this flow establishes.
-- [`lyn-people`](../people/README.md) — the roster an admission rule maps directory identities onto.
-- [`lyn-request-principal`](../request-principal/README.md) — what reads the session back on each later call.
-- [`lyn-microsoft-entra`](../../vendor/microsoft-entra) — a directory sign-in that can become a channel.
+- [`dsh-auth-session`](../auth-session/README.md) — the sessions this flow establishes.
+- [`dsh-people`](../people/README.md) — the roster an admission rule maps directory identities onto.
+- [`dsh-request-principal`](../request-principal/README.md) — what reads the session back on each later call.
+- [`dsh-microsoft-entra`](../../vendor/microsoft-entra) — a directory sign-in that can become a channel.
 
 -----
 
@@ -113,9 +113,9 @@ No request prefix changes, because nothing here reaches a model request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **One channel ships, and it carries its own credentials** — `@lyness/lyn-microsoft-entra/channel` is the redirect channel a deployment registers; it needs that deployment's own directory registration, so no bundle can select it for them. A channel for another directory is a new package following the same shape.
+- **One channel ships, and it carries its own credentials** — `@deepseek-ai/dsh-microsoft-entra/channel` is the redirect channel a deployment registers; it needs that deployment's own directory registration, so no bundle can select it for them. A channel for another directory is a new package following the same shape.
 - **No hosted admission rule** — the roster is the installation shape's answer. A hosted deployment's people arrive by signing up, which needs a rule that provisions on first sign-in within a tenant's own directory.
-- **The cookie is somebody else's decision** — `begin` returns the session identity, and `lyn-sign-in-http` is what puts it in a response and binds one sign-in to one browser; neither the attributes nor the redirect target are decided here.
+- **The cookie is somebody else's decision** — `begin` returns the session identity, and `dsh-sign-in-http` is what puts it in a response and binds one sign-in to one browser; neither the attributes nor the redirect target are decided here.
 - **A changed binding needs a restart** — the roster is read at load, so an administrator adding a person edits composition config rather than a surface.
 
 **Runtime invariant:** No companion is published. Every relation this package holds — a channel's registration, a binding's person — has exactly one observer.

@@ -3,7 +3,7 @@ description: "Web GUI 的模型选择：/model 弹窗与 composer 模型位共�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-model-selection
+# @deepseek-ai/dsh-client-ui-model-selection
 
 [English](README.md) | 中文
 
@@ -59,7 +59,7 @@ composer 菜单中的模型名称和推理等级均使用 400（regular）字重
 
 ### 选择失败
 
-当会话被其他写句柄占用时，模型选择失败提示用户退出其他正在运行的 LYN 后重试。
+当会话被其他写句柄占用时，模型选择失败提示用户退出其他正在运行的 DSH 后重试。
 
 会话级列表 slot `conversation.input.model.options` 在模型与推理等级选项下方追加控件。Owner props 提供 `locked`、`reportFailure(message)` 和 `dismiss()`，后者关闭菜单并同步聚焦触发按钮，供贡献方随后打开其他浮层；贡献方读取自身投影并提供专用命令。启用的开关按钮参与菜单键盘导航。
 
@@ -88,7 +88,7 @@ composer 的 `ModelSelect` 与 `/model` 选项构建器共用[提供方排序](s
 
 - [ui-commands](../ui-commands/README.zh.md)——`/model` 贡献项注册进的 popupSelect 外壳。
 - [ui-conversation](../ui-conversation/README.zh.md)——声明 composer 的 `conversation.input.model` 位。
-- [lyn-agent-default-model](../../core/agent-default-model/README.zh.md)——为从未选择的会话提供默认模型的默认模型服务。
+- [dsh-agent-default-model](../../core/agent-default-model/README.zh.md)——为从未选择的会话提供默认模型的默认模型服务。
 - [客户端包映射](../README.zh.md)——相邻的浏览器 UI 包。
 
 -----

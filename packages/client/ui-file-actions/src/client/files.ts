@@ -1,5 +1,5 @@
 /** Original-byte transfer, platform save selection, and pasteable image encoding. */
-import { resolveDragFileName } from '@lyness/lyn-util-file-drag'
+import { resolveDragFileName } from '@deepseek-ai/dsh-util-file-drag'
 import type { DesktopFileActions, FileActions, FileActionSource, FileSaveResult } from '../types.ts'
 
 /**
@@ -24,7 +24,7 @@ export class BrowserFileActions implements FileActions {
     this.lifetime.signal.throwIfAborted()
     if (source.read !== undefined) return source.read(this.lifetime.signal)
     const url = new URL(source.url)
-    if (!['http:', 'https:', 'blob:', 'data:', 'lyn-app:'].includes(url.protocol)) throw new Error('Unsupported file source')
+    if (!['http:', 'https:', 'blob:', 'data:', 'dsh-app:'].includes(url.protocol)) throw new Error('Unsupported file source')
     if (this.desktop !== undefined && ['http:', 'https:'].includes(url.protocol) && url.origin !== location.origin) {
       const content = await this.desktop.readClipboardImage(url.href)
       this.lifetime.signal.throwIfAborted()

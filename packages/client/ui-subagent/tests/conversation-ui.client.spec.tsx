@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
+import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { allowAllAccess, makeTranslate, RemoteError, sessionSnapshot } from '@lyness/lyn-client-test-runtime'
+import { allowAllAccess, makeTranslate, RemoteError, sessionSnapshot } from '@deepseek-ai/dsh-client-test-runtime'
 import type {
   SessionListState, SessionSummary, SessionSnapshot,
-} from '@lyness/lyn-api-session-controller/client'
-import type { SubagentAddress, SubagentCatalogEntry } from '@lyness/lyn-subagent/client'
-import type { TeamProjection, TeamTaskId, TeamTaskView } from '@lyness/lyn-agent-team/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { SessionStatusSnapshot } from '@lyness/lyn-client-ui-session/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SubagentAddress, SubagentCatalogEntry } from '@deepseek-ai/dsh-subagent/client'
+import type { TeamProjection, TeamTaskId, TeamTaskView } from '@deepseek-ai/dsh-agent-team/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionStatusSnapshot } from '@deepseek-ai/dsh-client-ui-session/client'
 import {
   SubagentCatalogAction, SubagentHeaderLineage,
   type SubagentCatalogActionProps, type SubagentHeaderLineageProps,
@@ -912,8 +912,8 @@ describe('SubagentHeaderLineage', () => {
     })
     expect(menu.style.left).toBe('48px')
     expect(menu.style.top).toBe('124px')
-    expect(menu.style.getPropertyValue('--lyn-anchored-max-width')).toBe('368px')
-    expect(menu.style.getPropertyValue('--lyn-anchored-max-height')).toBe('268px')
+    expect(menu.style.getPropertyValue('--dsh-anchored-max-width')).toBe('368px')
+    expect(menu.style.getPropertyValue('--dsh-anchored-max-height')).toBe('268px')
   })
 
   it('cancels a pending hover when the trigger becomes hidden', async () => {

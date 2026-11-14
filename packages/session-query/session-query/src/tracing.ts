@@ -1,13 +1,13 @@
 /** One-shot session-lineage and event-relationship tracing helpers. */
 
-import { currentSessionMessageProjections } from '@lyness/lyn-session-format-catalog/message-projections'
-import { foldSurface, isSurfaceEvent, snapshotSessionEvent } from '@lyness/lyn-session'
+import { currentSessionMessageProjections } from '@deepseek-ai/dsh-session-format-catalog/message-projections'
+import { foldSurface, isSurfaceEvent, snapshotSessionEvent } from '@deepseek-ai/dsh-session'
 import type {
   SessionEvent,
   SessionId,
   SessionSeq,
   SurfaceEvent,
-} from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
 import { SessionQueryError } from './config.ts'
 import type {
   SessionEventRecord,

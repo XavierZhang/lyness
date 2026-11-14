@@ -7,14 +7,14 @@
  * what the person gained or that they gained nothing, and never which rule
  * said no.
  *
- * @module @lyness/lyn-client-ui-join/client/acceptance
+ * @module @deepseek-ai/dsh-client-ui-join/client/acceptance
  */
 
-import type { Context } from '@lyness/cordis'
-import type { HostObservable } from '@lyness/lyn-client-ui-slots'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-invitations-controller/remote'
-import type { AcceptanceView, Role } from '@lyness/lyn-api-invitations-controller/types'
+import type { Context } from '@deepseek-ai/cordis'
+import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-invitations-controller/remote'
+import type { AcceptanceView, Role } from '@deepseek-ai/dsh-api-invitations-controller/types'
 
 /** Where one acceptance has got to. */
 export type AcceptanceStatus =

@@ -5,57 +5,57 @@
 /:
   en: eb52169ad8cf3b38
   zh: 3ad61fa2317079cf
-/lyness-lyn-web-deepseek-api:
+/deepseek-harness-dsh-web-deepseek-api:
   en: 8f616c556f7ab924
   zh: 0301fffd488b4f95
-/lyness-lyn-web-deepseek-api/summary:
+/deepseek-harness-dsh-web-deepseek-api/summary:
   en: b7eb01636d611ab1
   zh: 0cdd3793d939ab42
-/lyness-lyn-web-deepseek-api/table-of-contents:
+/deepseek-harness-dsh-web-deepseek-api/table-of-contents:
   en: 76368b6b1da79c80
   zh: 1e8f931a56b7d34d
-/lyness-lyn-web-deepseek-api/use-this-package:
+/deepseek-harness-dsh-web-deepseek-api/use-this-package:
   en: a34d17fee45060df
   zh: 6d6f30c0e6b2a959
-/lyness-lyn-web-deepseek-api/use-this-package/authentication:
+/deepseek-harness-dsh-web-deepseek-api/use-this-package/authentication:
   en: 08b4e11e84bfeb87
   zh: c939942c65cf204a
-/lyness-lyn-web-deepseek-api/use-this-package/results-and-failures:
+/deepseek-harness-dsh-web-deepseek-api/use-this-package/results-and-failures:
   en: 34c9a0bf30c2625d
   zh: 834b9a72116b9147
-/lyness-lyn-web-deepseek-api/understand-the-implementation:
+/deepseek-harness-dsh-web-deepseek-api/understand-the-implementation:
   en: daf7c059fb957b04
   zh: efb840067c2c52b3
-/lyness-lyn-web-deepseek-api/model-experience:
+/deepseek-harness-dsh-web-deepseek-api/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-results:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-results:
   en: dfd3b61aff4a8aa8
   zh: 06e2b6cc71f461e2
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-results/what-the-model-sees:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-results/what-the-model-sees:
   en: a9fbb78ffe886f0b
   zh: 813dc7ee283018d2
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-results/token-effect:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-results/token-effect:
   en: 1f33560e768d18c5
   zh: edeedeef2662e4bb
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-results/kv-cache-effect:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-results/kv-cache-effect:
   en: 54ed534b58469807
   zh: c3f8f178abb86ccb
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-list-indirectly:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-list-indirectly:
   en: ddcce72a4a4e0def
   zh: 338aa339f5708d7d
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-list-indirectly/what-the-model-sees:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-list-indirectly/what-the-model-sees:
   en: d9103a423c7aeeee
   zh: c3a045a4e01060c3
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-list-indirectly/token-effect:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-list-indirectly/token-effect:
   en: 4e75bf3d1e75e28c
   zh: 608bfad662133716
-/lyness-lyn-web-deepseek-api/model-experience/conversation-tool-list-indirectly/kv-cache-effect:
+/deepseek-harness-dsh-web-deepseek-api/model-experience/conversation-tool-list-indirectly/kv-cache-effect:
   en: 4b7884af3cf32908
   zh: 7b23cc4c55a4073f
-/lyness-lyn-web-deepseek-api/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-web-deepseek-api/known-limitations-and-deferred-work:
   en: a482f8df040ea3b9
   zh: 9f67597324d372fa
-/lyness-lyn-web-deepseek-api/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-web-deepseek-api/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
   zh: 9f56528562c7c914

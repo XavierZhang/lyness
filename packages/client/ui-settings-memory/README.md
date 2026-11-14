@@ -3,13 +3,13 @@ description: "The memory section in Settings: what a deployment remembers about 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-memory
+# @deepseek-ai/dsh-client-ui-settings-memory
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-memory` is the personal plane's memory page: one row per fact this deployment remembers about the person reading it, when it was remembered, and a button that forgets it. It is read-and-remove with no writing, because a memory is written when a person asks their agent to remember something — that is where the sentence they meant belongs. The deployment's shared memories are an administrator's and are not listed.
+`dsh-client-ui-settings-memory` is the personal plane's memory page: one row per fact this deployment remembers about the person reading it, when it was remembered, and a button that forgets it. It is read-and-remove with no writing, because a memory is written when a person asks their agent to remember something — that is where the sentence they meant belongs. The deployment's shared memories are an administrator's and are not listed.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The Web bundle mounts it; the namespace it reads comes with the memory module:
 
 ```yaml
 - id: ui-settings-memory
-  name: '@lyness/lyn-client-ui-settings-memory'
+  name: '@deepseek-ai/dsh-client-ui-settings-memory'
 ```
 
 Nothing else needs configuring. The section injects `remote.memories`, so a deployment that selects no memory module shows no memory page at all rather than an empty one.
@@ -54,20 +54,20 @@ Nothing else needs configuring. The section injects `remote.memories`, so a depl
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-memory-controller`](../../api/memory-controller/README.md) — the namespace this page reads and writes.
-- [`lyn-memory`](../../memory/memory/README.md) — the store behind it, and what an agent sees.
-- [`lyn-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
+- [`dsh-api-memory-controller`](../../api/memory-controller/README.md) — the namespace this page reads and writes.
+- [`dsh-memory`](../../memory/memory/README.md) — the store behind it, and what an agent sees.
+- [`dsh-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it lists stored records for a person, and `lyn-memory` owns how a remembered fact reaches a model request.
+None, as this package registers no tool or prompt: it lists stored records for a person, and `dsh-memory` owns how a remembered fact reaches a model request.
 
 #### KV Cache effect
 
-No request prefix changes from this page; forgetting a fact changes what that person's next assembly carries, which `lyn-memory` describes.
+No request prefix changes from this page; forgetting a fact changes what that person's next assembly carries, which `dsh-memory` describes.
 
 ## Known Limitations and Deferred Work
 

@@ -1,9 +1,9 @@
 /** Observe command-admitted activity through quiescence and preserve a goal's first terminal outcome. */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import type { GoalView } from '@lyness/lyn-goal'
-import type { CommandExecution, JsonRpcTransportPeer } from '@lyness/lyn-sdk-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { GoalView } from '@deepseek-ai/dsh-goal'
+import type { CommandExecution, JsonRpcTransportPeer } from '@deepseek-ai/dsh-sdk-protocol'
 
 /** One command's SDK completion observer; its listeners end at completion, rejection, or shutdown. */
 export class QueryActivity {

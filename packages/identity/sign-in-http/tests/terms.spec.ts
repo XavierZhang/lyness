@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { channelId, SignInRefused } from '@lyness/lyn-sign-in'
+import { channelId, SignInRefused } from '@deepseek-ai/dsh-sign-in'
 import {
   CALLBACK_PREFIX, callbackUrl, channelFrom, cookieLifetime, resolveConfig, START_PREFIX, statusOf,
 } from '../src/index.ts'

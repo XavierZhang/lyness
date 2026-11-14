@@ -5,81 +5,81 @@
 /:
   en: 0d36989eb614345d
   zh: a0a1a18c07621393
-/lyness-desktop:
+/deepseek-harness-desktop:
   en: bfa483d564b99241
   zh: 6df942ea33dad7a3
-/lyness-desktop/summary:
+/deepseek-harness-desktop/summary:
   en: 7bc8bf30de693222
   zh: e85993d8852b6cab
-/lyness-desktop/table-of-contents:
+/deepseek-harness-desktop/table-of-contents:
   en: 3be96e25476b652f
   zh: f5fc56b806b42257
-/lyness-desktop/application-overview:
+/deepseek-harness-desktop/application-overview:
   en: 2f06c30e81815b16
   zh: 21a36358fd26aec7
-/lyness-desktop/terminal-command:
+/deepseek-harness-desktop/terminal-command:
   en: eb2182b96e059839
   zh: a05f2aa906035911
-/lyness-desktop/closing-the-window-and-quitting:
+/deepseek-harness-desktop/closing-the-window-and-quitting:
   en: 7e9e93e20b85742a
   zh: a6b49e1dd8040f0c
-/lyness-desktop/key-technical-decisions:
+/deepseek-harness-desktop/key-technical-decisions:
   en: 4835c99b0b44e8a6
   zh: 1d12dd2488451496
-/lyness-desktop/key-technical-decisions/bundled-workspace-dependencies:
+/deepseek-harness-desktop/key-technical-decisions/bundled-workspace-dependencies:
   en: 2053b62966172253
   zh: f3d666aee608d58e
-/lyness-desktop/bundled-command-runtime:
+/deepseek-harness-desktop/bundled-command-runtime:
   en: 34fd91794c64d241
   zh: 6505ae0d9e824fa2
-/lyness-desktop/installation-ownership:
+/deepseek-harness-desktop/installation-ownership:
   en: 942acbb078f6de0c
   zh: 641323e390cb8783
-/lyness-desktop/installation-ownership/runtime-and-plugin-activation:
+/deepseek-harness-desktop/installation-ownership/runtime-and-plugin-activation:
   en: 602c1e74868946ad
   zh: 90c61dc2cd4f0915
-/lyness-desktop/installation-ownership/host-environment:
+/deepseek-harness-desktop/installation-ownership/host-environment:
   en: df9b2dd3330fe0a6
   zh: 096b32607169a1c2
-/lyness-desktop/develop:
+/deepseek-harness-desktop/develop:
   en: da98514edb4fff13
   zh: ef7454c3c310d296
-/lyness-desktop/develop/startup-onboarding:
+/deepseek-harness-desktop/develop/startup-onboarding:
   en: bb18173630543326
   zh: c443ab43524badb1
-/lyness-desktop/develop/welcome-window-appearance:
+/deepseek-harness-desktop/develop/welcome-window-appearance:
   en: fbf7c63c65aeceb6
   zh: cd030c938555fb74
-/lyness-desktop/package:
+/deepseek-harness-desktop/package:
   en: f5dc96d93d3fb2a4
   zh: 6d59ffd3467a2daa
-/lyness-desktop/windows-installer-interface:
+/deepseek-harness-desktop/windows-installer-interface:
   en: a997b56894059059
   zh: ba7790e2c6696b27
-/lyness-desktop/windows-installer-interface/unsigned-windows-test-installer:
+/deepseek-harness-desktop/windows-installer-interface/unsigned-windows-test-installer:
   en: da21596a49d89d70
   zh: 0c764e738abcd1f2
-/lyness-desktop/windows-installer-interface/windows-installer-interface:
+/deepseek-harness-desktop/windows-installer-interface/windows-installer-interface:
   en: 6a34822707ed8ad6
   zh: 462a16e89f75398f
-/lyness-desktop/updates:
+/deepseek-harness-desktop/updates:
   en: 26a97ac9e96b3680
   zh: fd32b77592ea38ef
-/lyness-desktop/updates/local-desktop-settings:
+/deepseek-harness-desktop/updates/local-desktop-settings:
   en: 7e2974bafe0bb5bf
   zh: d4f826ba0a2f5ada
-/lyness-desktop/updates/mandatory-update-policy:
+/deepseek-harness-desktop/updates/mandatory-update-policy:
   en: b290796303e8f5d5
   zh: bc876cdcbca71e86
-/lyness-desktop/updates/local-updater-qualification:
+/deepseek-harness-desktop/updates/local-updater-qualification:
   en: 0240f78fd889e961
   zh: 79bbdf24cbd50d35
-/lyness-desktop/low-level-development-overrides:
+/deepseek-harness-desktop/low-level-development-overrides:
   en: f02a0bd9b2773ad6
   zh: aef8bedf838a8860
-/lyness-desktop/known-limitations:
+/deepseek-harness-desktop/known-limitations:
   en: 8d10976c4d1a388b
   zh: 7507e4f74f203eaf
-/lyness-desktop/dev-note:
+/deepseek-harness-desktop/dev-note:
   en: 7b2612aefa49adca
   zh: 1de5346126d018a9

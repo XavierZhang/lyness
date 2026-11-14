@@ -5,75 +5,75 @@
 /:
   en: d510765ec1bebc28
   zh: 35efb9f71f05f326
-/lyness-lyn-subagent-spawn-in-process:
+/deepseek-harness-dsh-subagent-spawn-in-process:
   en: c4ef6716f0c6b5a4
   zh: 206df08a315ca7d5
-/lyness-lyn-subagent-spawn-in-process/summary:
+/deepseek-harness-dsh-subagent-spawn-in-process/summary:
   en: ffce216cc58a0852
   zh: 5fb03466d1deb8e0
-/lyness-lyn-subagent-spawn-in-process/table-of-contents:
+/deepseek-harness-dsh-subagent-spawn-in-process/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-subagent-spawn-in-process/use-this-package:
+/deepseek-harness-dsh-subagent-spawn-in-process/use-this-package:
   en: 4fbcaaceb4223700
   zh: 7326449eb197cecb
-/lyness-lyn-subagent-spawn-in-process/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-subagent-spawn-in-process/use-this-package/when-to-choose-it:
   en: 5f14443940e59bb5
   zh: 3e8610aec21c55e8
-/lyness-lyn-subagent-spawn-in-process/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-subagent-spawn-in-process/use-this-package/minimal-configuration:
   en: 37c00dd36a29322f
   zh: 657acb82b6bc3345
-/lyness-lyn-subagent-spawn-in-process/use-this-package/what-a-delegation-does:
+/deepseek-harness-dsh-subagent-spawn-in-process/use-this-package/what-a-delegation-does:
   en: e22f16d7f2efa79a
   zh: 8b05170f4a790d7e
-/lyness-lyn-subagent-spawn-in-process/understand-the-implementation:
+/deepseek-harness-dsh-subagent-spawn-in-process/understand-the-implementation:
   en: 7f34637751939818
   zh: 2937553168e1aee5
-/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/design-concept:
+/deepseek-harness-dsh-subagent-spawn-in-process/understand-the-implementation/design-concept:
   en: c65e162658402222
   zh: 4096627d8388ff0e
-/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/source-map:
+/deepseek-harness-dsh-subagent-spawn-in-process/understand-the-implementation/source-map:
   en: b7c55a4bff3ae1f0
   zh: 9d0f514f433250c6
-/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/run-flow:
+/deepseek-harness-dsh-subagent-spawn-in-process/understand-the-implementation/run-flow:
   en: 5f07f1044bf7c370
   zh: d31a485a3e333500
-/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/ownership-and-scope:
+/deepseek-harness-dsh-subagent-spawn-in-process/understand-the-implementation/ownership-and-scope:
   en: 1288272d1eabfdc1
   zh: 6efde7517f434179
-/lyness-lyn-subagent-spawn-in-process/further-exploration:
+/deepseek-harness-dsh-subagent-spawn-in-process/further-exploration:
   en: a0db2ee52b915c0d
   zh: 851644b748eacabd
-/lyness-lyn-subagent-spawn-in-process/model-experience:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/child-agent-request:
   en: 05e6180f1498fdf9
   zh: 2b05d2b97bfa67da
-/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/what-the-model-sees:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/child-agent-request/what-the-model-sees:
   en: c9dfab9a4d363fed
   zh: 6cb3b0914ccb73e2
-/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/token-effect:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/child-agent-request/token-effect:
   en: eb373a4b35a4b548
   zh: 9537d0e466e8bcd9
-/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/kv-cache-effect:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/child-agent-request/kv-cache-effect:
   en: 6da85bad412c741e
   zh: c9af9fd1b4e7eed2
-/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly:
   en: 75d061c2151624a7
   zh: 71e58e020b60ff90
-/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/what-the-model-sees:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/what-the-model-sees:
   en: 7b21babd48e77e5d
   zh: cfb266dc169abb07
-/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/token-effect:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/token-effect:
   en: ff8045aa0f466c2a
   zh: e38fc5c6af2ce076
-/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/kv-cache-effect:
+/deepseek-harness-dsh-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/kv-cache-effect:
   en: f5d5f97a153f7c70
   zh: 3d6bc05b9eadfbc2
-/lyness-lyn-subagent-spawn-in-process/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-subagent-spawn-in-process/known-limitations-and-deferred-work:
   en: 0c0b19dc1ccec027
   zh: a7799c516dc3b034
-/lyness-lyn-subagent-spawn-in-process/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-subagent-spawn-in-process/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

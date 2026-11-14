@@ -4,9 +4,9 @@
  * Isolated file so vi.mock of the MCP SDK doesn't pollute other test suites.
  */
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import type { Transport } from '@modelcontextprotocol/client'
-import { Config } from '@lyness/lyn-mcp-client'
+import { Config } from '@deepseek-ai/dsh-mcp-client'
 
 const { mockConnect, mockClose, mockListTools, mockGetServerVersion, MockClient, MockTransport } = vi.hoisted(() => {
   const mockConnect = vi.fn<() => Promise<void>>()
@@ -49,7 +49,7 @@ vi.mock('@modelcontextprotocol/client/stdio', () => ({
   StdioClientTransport: vi.fn(function () { return new MockTransport() }),
 }))
 
-import { probeServer } from '@lyness/lyn-mcp-client/src/probe.ts'
+import { probeServer } from '@deepseek-ai/dsh-mcp-client/src/probe.ts'
 
 // Typed views of vitest's asymmetric matchers: their `any` return would
 // otherwise trip no-unsafe-assignment inside expectation literals.

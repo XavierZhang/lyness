@@ -8,7 +8,7 @@
  * therefore resolves in this checkout and fails wherever resolution starts from
  * the package itself: the built `lib/` loaded by a plain-Node child, and a
  * published install. `session-controller` imported `callingStanding` from
- * `@lyness/lyn-request-principal` for months that way, and what finally caught
+ * `@deepseek-ai/dsh-request-principal` for months that way, and what finally caught
  * it was a benchmark subprocess, not a gate.
  *
  * Only value imports are checked. A type-only import emits nothing, so an

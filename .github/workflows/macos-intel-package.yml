@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       source_ref:
-        description: '打包源码：test 支持仓库内分支或 lyn-v* tag；production 仅支持 master 或 lyn-v* tag；源码须包含 CI 适配脚本'
+        description: '打包源码：test 支持仓库内分支或 dsh-v* tag；production 仅支持 master 或 dsh-v* tag；源码须包含 CI 适配脚本'
         type: string
         default: master
         required: true
@@ -57,21 +57,21 @@ concurrency:
 
 jobs:
   package:
-    runs-on: [self-hosted, macOS, ARM64, lyn-mac-package-trial]
+    runs-on: [self-hosted, macOS, ARM64, dsh-mac-package-trial]
     timeout-minutes: 180
     defaults:
       run:
         shell: bash
     env:
-      LYNESS_DESKTOP_TARGET_PLATFORM: darwin
-      LYNESS_DESKTOP_TARGET_ARCH: x64
+      DSH_DESKTOP_TARGET_PLATFORM: darwin
+      DSH_DESKTOP_TARGET_ARCH: x64
       PACKAGE_MACOS_ZIP_COMPRESSION_LEVEL: ${{ inputs.compression_level }}
       PACKAGE_SKIP_NOTARIZATION: ${{ inputs.skip_notarization }}
       PACKAGE_SOURCE_REF: ${{ inputs.source_ref }}
       PACKAGE_VERSION_MODE: ${{ inputs.version_mode }}
-      LYNESS_DESKTOP_UPDATE_CHANNEL: ${{ inputs.update_channel }}
-      LYNESS_TELEMETRY_DISABLED: '1'
-      LYNESS_PACKAGING_PRESET: ${{ inputs.preset }}
+      DSH_DESKTOP_UPDATE_CHANNEL: ${{ inputs.update_channel }}
+      DSH_TELEMETRY_DISABLED: '1'
+      DSH_PACKAGING_PRESET: ${{ inputs.preset }}
       PACKAGE_TEST_RELEASE_ID: ${{ inputs.test_release_id }}
     steps:
       - uses: actions/checkout@v7.0.1
@@ -83,13 +83,13 @@ jobs:
       - name: Validate selected source and adapter support
         run: >-
           node -e "const fs=require('node:fs'); const ref=process.env.PACKAGE_SOURCE_REF;
-          const cp=require('node:child_process'); const preset=process.env.LYNESS_PACKAGING_PRESET;
+          const cp=require('node:child_process'); const preset=process.env.DSH_PACKAGING_PRESET;
           if(!['test','production'].includes(preset)) throw Error('Unknown packaging preset');
-          const tag=/^lyn-v[0-9][0-9A-Za-z.-]*$/.test(ref);
-          if(preset==='production' && ref!=='master' && !tag) throw Error('Production source must be master or lyn-v*');
+          const tag=/^dsh-v[0-9][0-9A-Za-z.-]*$/.test(ref);
+          if(preset==='production' && ref!=='master' && !tag) throw Error('Production source must be master or dsh-v*');
           if(tag) {
           const v=JSON.parse(fs.readFileSync('package.json','utf8')).version;
-          if(ref!=='lyn-v'+v) throw Error('Source tag must match product version');
+          if(ref!=='dsh-v'+v) throw Error('Source tag must match product version');
           const tagged=cp.execFileSync('git',['rev-parse','--verify','refs/tags/'+ref+'^{commit}'],{encoding:'utf8'}).trim();
           const head=cp.execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
           if(tagged!==head) throw Error('Checkout does not match source tag');
@@ -107,10 +107,10 @@ jobs:
           node-version: '24'
       - name: Configure persistent package caches
         env:
-          LYNESS_DESKTOP_PACKAGE_CACHE_DIR: ${{ runner.tool_cache }}/lyn-desktop-package-cache
+          DSH_DESKTOP_PACKAGE_CACHE_DIR: ${{ runner.tool_cache }}/dsh-desktop-package-cache
         run: |
-          echo "LYNESS_DESKTOP_PACKAGE_CACHE_DIR=$LYNESS_DESKTOP_PACKAGE_CACHE_DIR" >> "$GITHUB_ENV"
-          echo "PNPM_CONFIG_STORE_DIR=$LYNESS_DESKTOP_PACKAGE_CACHE_DIR/workspace-pnpm-store" >> "$GITHUB_ENV"
+          echo "DSH_DESKTOP_PACKAGE_CACHE_DIR=$DSH_DESKTOP_PACKAGE_CACHE_DIR" >> "$GITHUB_ENV"
+          echo "PNPM_CONFIG_STORE_DIR=$DSH_DESKTOP_PACKAGE_CACHE_DIR/workspace-pnpm-store" >> "$GITHUB_ENV"
       - name: Check Rosetta execution
         run: arch -x86_64 /usr/bin/true
       - name: Install locked dependencies
@@ -128,10 +128,10 @@ jobs:
           if [[ "$PACKAGE_SKIP_NOTARIZATION" = true ]]; then args+=(--skip-notarization); fi
           pnpm run package:desktop:mac:x64 --check --build-version "$PACKAGE_VERSION" "${args[@]}"
       - name: Build and stage notarized Computer Use helpers
-        # A source whose lyn ships the Computer Use bundle packs the workspace provider into the Desktop runtime,
+        # A source whose dsh ships the Computer Use bundle packs the workspace provider into the Desktop runtime,
         # which therefore needs the same notarized helper npm publication stages.
         run: |
-          if ! node -e "process.exit(require('./apps/cli/package.json').dependencies?.['@lyness/lyn-cua-bundle'] ? 0 : 1)"; then
+          if ! node -e "process.exit(require('./apps/cli/package.json').dependencies?.['@deepseek-ai/dsh-cua-bundle'] ? 0 : 1)"; then
             echo 'This source does not ship Computer Use in Desktop; no helper is staged.'
             exit 0
           fi

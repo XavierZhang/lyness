@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-config-editor",
+  "name": "@deepseek-ai/dsh-config-editor",
   "description": "Persist plugin configuration through profile patches and Loader reconciliation",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/boot/config-editor"
   },
   "type": "module",
@@ -29,27 +29,27 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-hmr": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-hmr": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-atomic-write": "workspace:*",
+    "@deepseek-ai/dsh-atomic-write": "workspace:*",
     "js-yaml": "^4.3.2",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-hmr": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-hmr": "workspace:*",
     "@types/js-yaml": "^4.0.9"
   },
   "peerDependenciesMeta": {
-    "@lyness/lyn-hmr": {
+    "@deepseek-ai/dsh-hmr": {
       "optional": true
     }
   }

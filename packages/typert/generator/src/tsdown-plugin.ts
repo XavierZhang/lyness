@@ -6,7 +6,7 @@
  * Thread started by the pass's first `buildStart`, so bundling continues on the
  * main thread while Typert analyzes; the pass's first `writeBundle` awaits the
  * result and writes every artifact once.
- * @module @lyness/lyn-typert-generator/tsdown
+ * @module @deepseek-ai/dsh-typert-generator/tsdown
  */
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -63,7 +63,7 @@ type GenerationOutcome =
  */
 export function decoratorPlugin(): Pick<TypertPlugin, 'name' | 'transform'> {
   return {
-    name: 'lyn-decorators',
+    name: 'dsh-decorators',
     transform: {
       // Rolldown evaluates the id filter natively, so non-TypeScript modules
       // never cross into this JavaScript hook.
@@ -112,7 +112,7 @@ export function typertPlugin(pluginOptions: TypertPluginOptions = {}): TypertPlu
   }
   return {
     ...decoratorPlugin(),
-    name: 'lyn-typert-generator',
+    name: 'dsh-typert-generator',
     buildStart(inputOptions) {
       // tsdown builds every workspace package concurrently through this one
       // plugin instance; the first package build to start launches generation.

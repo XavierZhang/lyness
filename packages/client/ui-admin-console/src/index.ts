@@ -4,13 +4,13 @@
  * It registers nothing. The console is a browser surface over the Remote
  * namespaces the administration plugins already own, and this half exists so
  * the package has a Host entry its client bundle can be mounted beside. The
- * page itself is served by `lyn-host-frontend-static`, which answers the
+ * page itself is served by `dsh-host-frontend-static`, which answers the
  * console's path with the same document; see that package's `documentPaths`.
  *
- * @module @lyness/lyn-client-ui-admin-console
+ * @module @deepseek-ai/dsh-client-ui-admin-console
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 
 /**
  * Mount the Host half, which contributes nothing of its own.

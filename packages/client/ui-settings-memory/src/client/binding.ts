@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @lyness/lyn-client-ui-settings-memory/client/binding
+ * @module @deepseek-ai/dsh-client-ui-settings-memory/client/binding
  */
 
-import type { MemoriesView } from '@lyness/lyn-api-memory-controller/types'
+import type { MemoriesView } from '@deepseek-ai/dsh-api-memory-controller/types'
 import type { MemoryOperations, MemorySink } from './operations.ts'
 import type { MemorySectionInjected } from './MemorySection.tsx'
 

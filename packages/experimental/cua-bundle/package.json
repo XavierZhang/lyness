@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-cua-bundle",
+  "name": "@deepseek-ai/dsh-cua-bundle",
   "description": "Optional macOS Computer Use and permission setup",
   "version": "0.2.2-alpha.3",
   "icon": "./icon.svg",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/cua-bundle"
   },
   "type": "module",
@@ -33,7 +33,7 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml",
       "platforms": [
@@ -42,19 +42,19 @@
     }
   },
   "dependencies": {
-    "@lyness/lyn-computer-use": "workspace:*",
-    "@lyness/lyn-cua": "workspace:*"
+    "@deepseek-ai/dsh-computer-use": "workspace:*",
+    "@deepseek-ai/dsh-cua": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
     "js-yaml": "^4.2.0"
   },
   "optionalDependencies": {
-    "@lyness/lyn-experimental-cua-macos": "workspace:*"
+    "@deepseek-ai/dsh-experimental-cua-macos": "workspace:*"
   }
 }

@@ -5,7 +5,7 @@ import { createServer } from 'node:http'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Locator } from 'playwright'
 import { expect, it } from 'vitest'
-import type {} from '@lyness/lyn-plugin-market'
+import type {} from '@deepseek-ai/dsh-plugin-market'
 import { compareOrRefreshGolden, launchWebScaffold, watchConsole, webSnapshotMode } from './scaffold.ts'
 import { ZH_BROWSER_LOCALE } from './support.ts'
 
@@ -69,7 +69,7 @@ it('keeps Discover controls reachable when the toolbar wraps and retains search 
     if (address === null || typeof address === 'string') throw new Error('The plugin index fixture has no TCP port')
     const scaffold = await launchWebScaffold({
       extraOverlayPath: fileURLToPath(new URL('./pin-browse-picker.overlay.yml', import.meta.url)),
-      profile: { packages: [], bundles: ['@lyness/lyn-experimental-plugin-market-bundle'] },
+      profile: { packages: [], bundles: ['@deepseek-ai/dsh-experimental-plugin-market-bundle'] },
     })
     try {
       await scaffold.ctx.pluginMarket.setIndexes([`http://127.0.0.1:${address.port}/index.json`])
@@ -80,7 +80,7 @@ it('keeps Discover controls reachable when the toolbar wraps and retains search 
         await page.goto(scaffold.authenticatedUrl, { waitUntil: 'load' })
         await page.getByRole('button', { name: '插件', exact: true }).click()
         await page.getByRole('tab', { name: '发现', exact: true }).click()
-        await page.locator('[data-market-entry="lyn-toolbar-layout-fixture"]').waitFor()
+        await page.locator('[data-market-entry="dsh-toolbar-layout-fixture"]').waitFor()
         await page.getByRole('button', { name: '收起侧边栏', exact: true }).click()
         await page.evaluate(() => document.fonts.ready)
         const toolbar = page.locator('[data-discover-toolbar]')

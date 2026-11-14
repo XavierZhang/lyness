@@ -5,42 +5,42 @@
 /:
   en: cc518dcd97629a96
   zh: 465e999011282dc3
-/lyness-lyn-cua-bundle:
+/deepseek-harness-dsh-cua-bundle:
   en: 2d04467d2fb6a24b
   zh: 554b599d8fb8b9bf
-/lyness-lyn-cua-bundle/summary:
+/deepseek-harness-dsh-cua-bundle/summary:
   en: 0af32616deaaf058
   zh: 829120288520ba07
-/lyness-lyn-cua-bundle/table-of-contents:
+/deepseek-harness-dsh-cua-bundle/table-of-contents:
   en: b563e4ec4727d0de
   zh: d0228da978238e05
-/lyness-lyn-cua-bundle/use-this-package:
+/deepseek-harness-dsh-cua-bundle/use-this-package:
   en: a99d9b4823009bdb
   zh: d8855d5994deece9
-/lyness-lyn-cua-bundle/understand-the-implementation:
+/deepseek-harness-dsh-cua-bundle/understand-the-implementation:
   en: 4f30bbe3179ffc2e
   zh: 69d9c123138f1a6d
-/lyness-lyn-cua-bundle/further-exploration:
+/deepseek-harness-dsh-cua-bundle/further-exploration:
   en: f157f37d8fe9610f
   zh: 54cd9a6699d092f9
-/lyness-lyn-cua-bundle/model-experience:
+/deepseek-harness-dsh-cua-bundle/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-cua-bundle/model-experience/computer-use-in-ptc-sessions:
+/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions:
   en: e8f11f45b375771e
   zh: e8f11f45b375771e
-/lyness-lyn-cua-bundle/model-experience/computer-use-in-ptc-sessions/what-the-model-sees:
+/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/what-the-model-sees:
   en: 1bff58d661e1a4c7
   zh: 2e70dff1a62eb3bd
-/lyness-lyn-cua-bundle/model-experience/computer-use-in-ptc-sessions/token-effect:
+/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/token-effect:
   en: e8de232e96220fe7
   zh: 5c791307e2123667
-/lyness-lyn-cua-bundle/model-experience/computer-use-in-ptc-sessions/kv-cache-effect:
+/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/kv-cache-effect:
   en: 417c40acd93df532
   zh: 69cc5cf7140c75a9
-/lyness-lyn-cua-bundle/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-cua-bundle/known-limitations-and-deferred-work:
   en: 559776e398bb7c47
   zh: 27adfd2cacad1ee6
-/lyness-lyn-cua-bundle/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-cua-bundle/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
   zh: ce96645b3e75874e

@@ -31,9 +31,9 @@ description: "一个人可以持有多个身份：名册存一张表、写定的
 1. 已有存储什么都不用做：第 1 版的记录读出来就是一个身份，下一次写入会把它换成一张单元素表。
 2. 凡是声明人员的地方，把 `membership` 改成 `memberships`，并把那个身份放进数组：
    ```ts
-   import type { Context } from '@lyness/cordis'
-   import type {} from '@lyness/lyn-managed-people'
-   import type { Membership, Person } from '@lyness/lyn-people'
+   import type { Context } from '@deepseek-ai/cordis'
+   import type {} from '@deepseek-ai/dsh-managed-people'
+   import type { Membership, Person } from '@deepseek-ai/dsh-people'
 
    declare const ctx: Context
    declare const person: Person

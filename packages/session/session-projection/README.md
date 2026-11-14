@@ -3,13 +3,13 @@ description: "The session-projection registry for developers serving whole curre
 kind: "package-reference"
 ---
 
-# @lyness/lyn-session-projection
+# @deepseek-ai/dsh-session-projection
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-session-projection` when clients need current per-session state—such as todos, goals, or conversation statistics—without replaying the raw event log. Domains define synchronous projections from committed session events, and clients receive complete, schema-validated JSON values through snapshots and change notifications. Snapshots identify the last event reflected by every returned value, so carriers can pair state with the matching history cut. Projection state can be checkpointed for faster cold reads, while host-only projections remain private to the host.
+Use `dsh-session-projection` when clients need current per-session state—such as todos, goals, or conversation statistics—without replaying the raw event log. Domains define synchronous projections from committed session events, and clients receive complete, schema-validated JSON values through snapshots and change notifications. Snapshots identify the last event reflected by every returned value, so carriers can pair state with the matching history cut. Projection state can be checkpointed for faster cold reads, while host-only projections remain private to the host.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Use `lyn-session-projection` when clients need current per-session state—such 
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount `lyn-session-projection` wherever client carriers need current values of log-derived session state. Domain plugins register units; carriers read snapshots and subscribe to the change feed; neither knows the other.
+Mount `dsh-session-projection` wherever client carriers need current values of log-derived session state. Domain plugins register units; carriers read snapshots and subscribe to the change feed; neither knows the other.
 
 ### When to choose it
 
@@ -170,7 +170,7 @@ These limits define where the projection registry needs care at scale. They are 
 - **Eager drive touches every unit per event** — cheap by construction (whole-value rule and state/view reference gates), but a hot path would justify per-unit event-type prefilters.
 - **A released unit's checkpoint row stops advancing** — after the last registrant releases a key, `checkpoint(session)` keeps each Session's last cell until the key registers again. Outside graceful shutdown, events appended meanwhile leave the stored row behind the log, and cold listings serve that older value.
 - **A released predecessor keeps its definition referenced** — the registry holds the released unit's definition closures until the same key registers again, so a key that a reloaded plugin renames or stops registering keeps the old module referenced for the process lifetime. Cells are keyed weakly by Session and retain no Session.
-- **Registry cells live in memory only** — a restart rebuilds by folding the log on first touch; compositions that mount `lyn-session-projection-cache` seed that fold from persisted rows instead.
+- **Registry cells live in memory only** — a restart rebuilds by folding the log on first touch; compositions that mount `dsh-session-projection-cache` seed that fold from persisted rows instead.
 - **Synchronous unit discipline is only partially mechanical** — `wire.viewSchema.parse` rejects a Promise-returning view, but an `apply` that blocks or reads torn non-session state is a review concern.
 
 <a id="dev-note"></a>

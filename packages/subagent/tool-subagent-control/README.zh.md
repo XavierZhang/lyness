@@ -3,13 +3,13 @@ description: "通过消息、中断和收件箱等待发现并协调 subagent �
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tool-subagent-control
+# @deepseek-ai/dsh-tool-subagent-control
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-tool-subagent-control` 让 agent（智能体）按 Session id 发现和联系其 subagent（子智能体）树、中断后代，并等待自身下一步收件箱。默认情况下，一个插件实例注册全部四个工具；成员继承相同定义和顺序。
+`dsh-tool-subagent-control` 让 agent（智能体）按 Session id 发现和联系其 subagent（子智能体）树、中断后代，并等待自身下一步收件箱。默认情况下，一个插件实例注册全部四个工具；成员继承相同定义和顺序。
 
 ## 目录
 
@@ -32,15 +32,15 @@ kind: "package-reference"
 所需服务可用后，加载 subagent 服务、一个后端、委派工具和此包，即可提供全部四个控制与发现工具：
 
 ```yaml
-- name: '@lyness/lyn-subagent'
-- name: '@lyness/lyn-subagent-spawn-in-process'
-- name: '@lyness/lyn-tool-subagent'
+- name: '@deepseek-ai/dsh-subagent'
+- name: '@deepseek-ai/dsh-subagent-spawn-in-process'
+- name: '@deepseek-ai/dsh-tool-subagent'
   config:
     provider: spawn
-- name: '@lyness/lyn-tool-subagent-control'
+- name: '@deepseek-ai/dsh-tool-subagent-control'
 ```
 
-设置 `config.interrupt: false` 可省略 `interrupt_agent`。默认值为 `true`。其余三个工具和 `ctx.subagents.interrupt()` 仍然可用。参见生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-tool-subagent-control)。
+设置 `config.interrupt: false` 可省略 `interrupt_agent`。默认值为 `true`。其余三个工具和 `ctx.subagents.interrupt()` 仍然可用。参见生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-subagent-control)。
 
 ### send_message
 
@@ -99,8 +99,8 @@ kind: "package-reference"
 当包级约定不够用时阅读以下页面；它们从工具 schema 进入其背后的继续执行服务。
 
 - [Subagent 子系统](../../../docs/subsystems/subagent.zh.md)——可继续子级、Activation、inbox、中断与后续消息权限。
-- [lyn-tool-subagent](../tool-subagent/README.zh.md)——启动可继续子级的委派工具。
-- [生成工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-tool-subagent-control)——工具 schema。
+- [dsh-tool-subagent](../tool-subagent/README.zh.md)——启动可继续子级的委派工具。
+- [生成工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-subagent-control)——工具 schema。
 
 -----
 
@@ -111,7 +111,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-生成的 [schema](../../../docs/tool-catalog.zh.md#lynesslyn-tool-subagent-control) 定义按 id 寻址的通信与中断、整树发现，以及带 `timeout_ms` 的收件箱等待。`wait_agent` 在输入可用时返回 `{ "timedOut": false }`，超时时返回 `{ "timedOut": true }`。它不返回消息正文或其他成员活动诊断。
+生成的 [schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-subagent-control) 定义按 id 寻址的通信与中断、整树发现，以及带 `timeout_ms` 的收件箱等待。`wait_agent` 在输入可用时返回 `{ "timedOut": false }`，超时时返回 `{ "timedOut": true }`。它不返回消息正文或其他成员活动诊断。
 
 #### Token 影响
 

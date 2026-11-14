@@ -5,11 +5,11 @@ import { homedir, tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
-import type {} from '@lyness/lyn-experimental-forge-session'
-import { pluginRecordOf, type SessionEvent } from '@lyness/lyn-session'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { initialShortcutConfig, type DesktopShortcutInput, type ShortcutRevision } from '@lyness/lyn-client-shortcuts/protocol'
-import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
+import type {} from '@deepseek-ai/dsh-experimental-forge-session'
+import { pluginRecordOf, type SessionEvent } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { initialShortcutConfig, type DesktopShortcutInput, type ShortcutRevision } from '@deepseek-ai/dsh-client-shortcuts/protocol'
+import { abbreviateHomePath } from '@deepseek-ai/dsh-util-workspace-path'
 import { chromium, type Browser, type Page } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished } from 'vitest'
 import {
@@ -231,7 +231,7 @@ async function launchPanel(failureShot: string, scenario: 'normal' | 'follow-up'
   options: { desktop?: 'darwin' | 'win32'; branch?: string; hasTouch?: boolean; missingSandbox?: boolean; maxDiffBytes?: number } = {}): Promise<PanelLaunch> {
   const { desktop } = options
   const resources: { scaffold?: WebScaffold; browser?: Browser } = {}
-  const root = await mkdtemp(join(tmpdir(), 'lyn-forge-panel-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-forge-panel-'))
   onTestFinished(async () => {
     const failures: unknown[] = []
     await resources.browser?.close().catch((error: unknown) => failures.push(error))
@@ -310,7 +310,7 @@ async function launchPanel(failureShot: string, scenario: 'normal' | 'follow-up'
       Object.assign(window, {
         forgeKeyboard: { revision: config.revision,
           deliver: (input: DesktopShortcutInput) => { for (const listener of listeners) listener(input) } },
-        lynDesktop: { protocolVersion: 1,
+        dshDesktop: { protocolVersion: 1,
           shortcuts: { get: async () => config, subscribe: () => () => {}, recording: async () => {}, edit: async () => { throw new Error('Unused preference edit') } },
           keyboard: {
             subscribe: (listener: (input: DesktopShortcutInput) => void) => {
@@ -483,7 +483,7 @@ it.skipIf(MODE === 'record')('starts a Session in a worktree before its first me
   const directory = scaffold.ctx.workingDirectory.get(session)
   const branch = basename(directory)
   expect(directory).toBe(join(project, '.agents', 'worktrees', branch))
-  expect(branch).toMatch(new RegExp(`^lyn-${sessionId.slice('session-'.length, 'session-'.length + 8)}-[0-9a-f]{4}$`))
+  expect(branch).toMatch(new RegExp(`^dsh-${sessionId.slice('session-'.length, 'session-'.length + 8)}-[0-9a-f]{4}$`))
   expect(await git(directory, 'rev-parse', '--abbrev-ref', 'HEAD')).toBe(branch)
   const baseCommit = await git(project, 'rev-parse', 'release')
   expect(await git(directory, 'rev-parse', 'HEAD')).toBe(baseCommit)
@@ -524,7 +524,7 @@ it.skipIf(MODE === 'record')('starts a Session in a worktree before its first me
   const rowHover = page.locator('[data-forge-session-hover]')
   await rowHover.getByText('#7 Add the pull request panel', { exact: true }).waitFor({ timeout: 20_000 })
   await compareOrRefreshGolden(join(EXPECTED, 'session-row-hover.expected.md'),
-    await captureStableAria(page, '[data-forge-session-hover]', scaffold.workspaceCwd, { replacements: [[branch, 'lyn-{{worktree}}']] }), MODE)
+    await captureStableAria(page, '[data-forge-session-hover]', scaffold.workspaceCwd, { replacements: [[branch, 'dsh-{{worktree}}']] }), MODE)
   await page.mouse.move(0, 0)
   await rowHover.waitFor({ state: 'detached' })
   await header.click()
@@ -544,7 +544,7 @@ it.skipIf(MODE === 'record')('starts a Session in a worktree before its first me
   await change.getByText('等待评审 · 1 条未解决讨论', { exact: true }).waitFor()
   // The random branch suffix can read as a duration, so the branch is replaced before the capture normalizes durations.
   await compareOrRefreshGolden(join(EXPECTED, 'panel.expected.md'),
-    await captureStableAria(page, '[data-forge-panel]', scaffold.workspaceCwd, { replacements: [[branch, 'lyn-{{worktree}}']] }), MODE)
+    await captureStableAria(page, '[data-forge-panel]', scaffold.workspaceCwd, { replacements: [[branch, 'dsh-{{worktree}}']] }), MODE)
   const beforeChecks = (await readFile(join(root, 'calls.jsonl'), 'utf8')).trim().split('\n').map(line => JSON.parse(line) as string[])
   expect(beforeChecks.some(args => args.includes('id=rollup-7'))).toBe(false)
   const checksRow = change.getByRole('button', { name: /^检查/ })
@@ -610,7 +610,7 @@ it.skipIf(MODE === 'record')('keeps the first message waiting when the worktree 
   const failure = card.getByRole('region', { name: '创建工作树失败', exact: true })
   await failure.getByText('原因', { exact: true }).waitFor({ timeout: 20_000 })
   const attempted = await failure.getByRole('definition').first().textContent()
-  expect(attempted).toMatch(/^lyn-[0-9a-f]{8}-[0-9a-f]{4}$/)
+  expect(attempted).toMatch(/^dsh-[0-9a-f]{8}-[0-9a-f]{4}$/)
   await failure.getByText('消息会在工作树建好后发送', { exact: true }).waitFor()
 
   // Retry makes another attempt with a new branch name while the message keeps waiting.

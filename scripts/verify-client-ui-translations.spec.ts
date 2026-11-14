@@ -19,7 +19,7 @@ afterEach(() => {
 
 /** A fixture repository holding one Client dictionary. */
 function repository(body: string, pkg = 'ui-probe', group = 'client'): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-ui-translations-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-ui-translations-'))
   roots.push(root)
   const directory = join(root, 'packages', group, pkg, 'src', 'client')
   mkdirSync(directory, { recursive: true })
@@ -88,7 +88,7 @@ describe('the verdict', () => {
   })
 
   it('reports an empty corpus rather than passing silently', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-ui-translations-empty-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-ui-translations-empty-'))
     roots.push(root)
     expect(untranslatedClientCopy(root)).toEqual([`${root}: no Client dictionaries found`])
   })

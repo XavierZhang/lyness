@@ -3,7 +3,7 @@ description: "用给定的一组字体把品牌名排版成单色 SVG 字标，�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-host-brand-wordmark
+# @deepseek-ai/dsh-host-brand-wordmark
 
 [English](README.md) | 中文
 
@@ -31,7 +31,7 @@ kind: "package-reference"
 
 ```ts
 import { readFile, writeFile } from 'node:fs/promises'
-import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
+import { typesetWordmark } from '@deepseek-ai/dsh-host-brand-wordmark'
 
 const font = new Uint8Array(await readFile('/srv/acme/fonts/AcmeSans-Bold.otf'))
 const mark = typesetWordmark('acme', [font])

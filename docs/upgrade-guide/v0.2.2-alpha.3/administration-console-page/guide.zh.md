@@ -15,11 +15,11 @@ description: "管理页从设置里搬到 /admin 的管理端，页面改为注�
 
 | 变更前 | 变更后 |
 |---|---|
-| slot `settings.administration.section` | slot `admin.section`，由 `lyn-client-ui-admin-console` 声明 |
-| `lyn-host-frontend-static` 只在 `/` 给出 index | `documentPaths: ['/admin']` 让它也用文档作答那个路径 |
-| `lyn-web-app` 没有页面配置 | `documentPaths` 把这些路径透传给 dist 服务 |
+| slot `settings.administration.section` | slot `admin.section`，由 `dsh-client-ui-admin-console` 声明 |
+| `dsh-host-frontend-static` 只在 `/` 给出 index | `documentPaths: ['/admin']` 让它也用文档作答那个路径 |
+| `dsh-web-app` 没有页面配置 | `documentPaths` 把这些路径透传给 dist 服务 |
 
-`SettingsRootInjected.hooks` 去掉了 `administrationSections` 与 `administers`，`lyn-client-ui-settings-general` 不再导出 `administersSource`。
+`SettingsRootInjected.hooks` 去掉了 `administrationSections` 与 `administers`，`dsh-client-ui-settings-general` 不再导出 `administersSource`。
 
 受影响的是：自行组合客户端行的部署、注册管理页的插件，以及读过那两个 hook 的东西。使用产品的人看到的设置少了「管理」那一组；管理员打开 `/admin`。
 
@@ -28,12 +28,12 @@ description: "管理页从设置里搬到 /admin 的管理端，页面改为注�
 1. 在同一份组合里把管理端和它所在的页面都组合进去：
    ```yaml
    - id: web-runtime
-     name: '@lyness/lyn-web-app'
+     name: '@deepseek-ai/dsh-web-app'
      config:
        documentPaths:
          - /admin
    - id: ui-admin-console
-     name: '@lyness/lyn-client-ui-admin-console'
+     name: '@deepseek-ai/dsh-client-ui-admin-console'
      config:
        path: /admin
    ```

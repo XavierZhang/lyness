@@ -1,7 +1,7 @@
 /**
  * Copy for the invitation page: what the link is, and how somebody redeems it.
  *
- * @module @lyness/lyn-client-ui-join/client/locales
+ * @module @deepseek-ai/dsh-client-ui-join/client/locales
  */
 
 /** English copy; the key set every locale answers. */

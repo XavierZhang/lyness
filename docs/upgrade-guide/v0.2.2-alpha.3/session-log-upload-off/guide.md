@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`@lyness/lyn-base` sets `enabled: false` on the `session-log-deepseek` row, and `@lyness/lyn-web-app` no longer mounts `@lyness/lyn-client-ui-settings-session-log`. Nothing uploads, and Settings offers no preference for it.
+`@deepseek-ai/dsh-base` sets `enabled: false` on the `session-log-deepseek` row, and `@deepseek-ai/dsh-web-app` no longer mounts `@deepseek-ai/dsh-client-ui-settings-session-log`. Nothing uploads, and Settings offers no preference for it.
 
 The upload is not a separate request: the log rides the model request as the `dsh_session_log` field, so it reaches whoever serves the official model API rather than this project. A product shipped under its own brand does not send its users' sessions to an upstream vendor by default, and a preference that says "help improve" without naming the recipient does not make that choice informed.
 

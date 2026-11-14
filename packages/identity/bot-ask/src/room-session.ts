@@ -5,10 +5,10 @@
  * every other conversation is: who was invited, what each of them said in
  * which round, and the conclusion the chair wrote when the bound ended it.
  *
- * @module @lyness/lyn-bot-ask/room-session
+ * @module @deepseek-ai/dsh-bot-ask/room-session
  */
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /** A discussion was opened, naming what it is about and who is in it. */
     'room/opened': {

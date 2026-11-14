@@ -16,7 +16,7 @@
 import type { ReactNode } from 'react'
 import type {
   HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore,
-} from '@lyness/lyn-client-ui-slots'
+} from '@deepseek-ai/dsh-client-ui-slots'
 import type { createAdminConsoleStore } from './store.ts'
 import css from './AdminFrame.module.css'
 

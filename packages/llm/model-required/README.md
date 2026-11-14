@@ -3,13 +3,13 @@ description: "Refuse to serve a deployment that reaches no model, checked at the
 kind: "package-reference"
 ---
 
-# @lyness/lyn-model-required
+# @deepseek-ai/dsh-model-required
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Mount `lyn-model-required` to make a deployment that reaches no model fail at startup instead of serving. Without it, a deployment whose declared default model has no reachable adapter starts, serves its interface, and creates sessions that fail at their first prompt — in front of a user who cannot fix it. The check runs when startup commits, writes an operator-facing diagnostic naming the three things that could be missing, and asks the launcher to exit.
+Mount `dsh-model-required` to make a deployment that reaches no model fail at startup instead of serving. Without it, a deployment whose declared default model has no reachable adapter starts, serves its interface, and creates sessions that fail at their first prompt — in front of a user who cannot fix it. The check runs when startup commits, writes an operator-facing diagnostic naming the three things that could be missing, and asks the launcher to exit.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Mounting it is how a deployment shape states the requirement:
 
 ```yaml
 - id: model-required
-  name: '@lyness/lyn-model-required'
+  name: '@deepseek-ai/dsh-model-required'
 ```
 
 A hosted or enterprise template selects it, because neither product should open without a model. A developer profile does not, because an install that has not been given a key yet should still be able to open its own Models page and add one.
@@ -41,7 +41,7 @@ The plugin takes no configuration. It injects `llm` and `appReady`, so a launche
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-The check runs at successful startup, and that is the earliest point it can run rather than a convenience. A route registers when its own row applies, and [`lyn-llm-pi-ai`](../llm-pi-ai/README.md) registers its routes from the user settings document, so at load time an empty registry is indistinguishable from one whose rows have not applied yet. Failing at load would be a false alarm; this is the earliest resolvable point the repository's misconfiguration rule asks for.
+The check runs at successful startup, and that is the earliest point it can run rather than a convenience. A route registers when its own row applies, and [`dsh-llm-pi-ai`](../llm-pi-ai/README.md) registers its routes from the user settings document, so at load time an empty registry is indistinguishable from one whose rows have not applied yet. Failing at load would be a false alarm; this is the earliest resolvable point the repository's misconfiguration rule asks for.
 
 The consequence worth knowing is that the process does start before it exits. An operator sees a short-lived start followed by a non-zero exit and a diagnostic, not a refusal to launch.
 
@@ -54,8 +54,8 @@ The exit is requested through the launcher's `appExit` rather than thrown. A thr
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-llm`](../llm/README.md) — the registry this package queries.
-- [`lyn-llm-pi-ai`](../llm-pi-ai/README.md) — the router whose routes arrive from settings, and the reason this check is not at load.
+- [`dsh-llm`](../llm/README.md) — the registry this package queries.
+- [`dsh-llm-pi-ai`](../llm-pi-ai/README.md) — the router whose routes arrive from settings, and the reason this check is not at load.
 - [The model is a deployment decision](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.md) — why a deployment, not a user, states the model.
 
 -----
@@ -75,7 +75,7 @@ No request prefix changes, because a deployment that passes the check sends exac
 
 - **The process starts before it exits** — the check cannot be earlier without false alarms, so an operator sees a brief start rather than a refused launch.
 - **It checks that routes exist, not that any is usable** — an adapter registers its route whether or not a credential resolves, so a deployment mounting the shipped DeepSeek adapter passes this check with no key at all and fails at the first request. Measured, not assumed: an `enterprise` profile with no credential started and kept serving. The guard is therefore meaningful for a composition routing only through `llm-pi-ai`, whose registry really is empty until settings name a route.
-- **The stronger guarantee lives elsewhere** — a deployment that must state its models uses [`lyn-model-policy`](../model-policy/README.md), whose `allowed` list is required and non-empty and therefore fails at load, which is both earlier and unconditional.
+- **The stronger guarantee lives elsewhere** — a deployment that must state its models uses [`dsh-model-policy`](../model-policy/README.md), whose `allowed` list is required and non-empty and therefore fails at load, which is both earlier and unconditional.
 - **A route registered after startup commits is not rechecked** — a deployment whose settings empty out later keeps serving until its next start.
 
 **Runtime invariant:** No companion is published. The plugin owns no runtime state; its one listener is effect-owned and the registry it reads publishes its own.

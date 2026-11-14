@@ -6,14 +6,14 @@
  * One command, run once, on the machine the deployment runs on: the layer it
  * writes outranks every runtime surface, so standing where the files are is
  * what authorizes the write.
- * @module @lyness/lyn-admin-setup
+ * @module @deepseek-ai/dsh-admin-setup
  */
 
 import { Command } from 'commander'
-import type { Context } from '@lyness/cordis'
-import { internals, parseCmdline } from '@lyness/lyn-cmdline'
-import { resolveLynHome } from '@lyness/lyn-home-paths'
-import { CHANNEL_ID } from '@lyness/lyn-oidc'
+import type { Context } from '@deepseek-ai/cordis'
+import { internals, parseCmdline } from '@deepseek-ai/dsh-cmdline'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
+import { CHANNEL_ID } from '@deepseek-ai/dsh-oidc'
 import { redirectUri, resolveProfilePatch, runSetup, secureCookies } from './setup.ts'
 import type { AdministratorRequest } from './setup.ts'
 
@@ -52,7 +52,7 @@ interface SetupOptions {
  */
 function setupCommand(): Command {
   return new Command()
-    .name('lyn --profile admin-setup')
+    .name('dsh --profile admin-setup')
     .description([
       "Write a deployment's first platform administrator into a profile's patch layer,",
       'with the OpenID provider they sign in through and the one binding that admits them.',
@@ -74,10 +74,10 @@ and copy the id it keeps them under. It is never their address — an address ca
 be reassigned, and this binding must not follow it.
 
 Examples:
-  lyn --profile admin-setup --target acme --person ada --name Ada \\
+  dsh --profile admin-setup --target acme --person ada --name Ada \\
     --issuer https://id.acme.example --client-id 2984... --subject 2984... \\
     --public-origin https://agent.acme.example
-  lyn --profile admin-setup --target acme --person ada --name Ada \\
+  dsh --profile admin-setup --target acme --person ada --name Ada \\
     --issuer https://id.acme.example --client-id 2984... --subject 3071... \\
     --public-origin https://agent.acme.example --replace
 `)
@@ -100,7 +100,7 @@ function report(request: AdministratorRequest, target: string): string {
     '',
     'Two things left, in this order:',
     `  1. register this redirect URI with the provider: ${redirectUri(request.publicOrigin)}`,
-    `  2. start it with the client secret: ${request.secretName}=… lyn --profile ${target}`,
+    `  2. start it with the client secret: ${request.secretName}=… dsh --profile ${target}`,
     '',
     'Then start it and sign in. This administrator is written into the layer the',
     'deployment reads at every boot, so the console cannot change or remove them —',
@@ -125,7 +125,7 @@ async function run(options: SetupOptions): Promise<number> {
       secretName: options.secretName,
       publicOrigin: options.publicOrigin,
       replace: options.replace === true,
-      patchPath: resolveProfilePatch(options.target, resolveLynHome()),
+      patchPath: resolveProfilePatch(options.target, resolveDshHome()),
     }
     await runSetup(request)
     internals.stdout.write(report(request, options.target))

@@ -1,6 +1,6 @@
 /** Localized Cron descriptions built from the shared time parser's immutable fields. */
-import { Cron } from '@lyness/lyn-util-time'
-import type { Translate } from '@lyness/lyn-client-ui-slots'
+import { Cron } from '@deepseek-ai/dsh-util-time'
+import type { Translate } from '@deepseek-ai/dsh-client-ui-slots'
 
 /** ISO weekday dictionary key naming one cron day-of-week value. */
 type CronWeekdayKey = `frequency.weekday.${1 | 2 | 3 | 4 | 5 | 6 | 7}`

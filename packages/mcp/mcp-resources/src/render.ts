@@ -1,11 +1,11 @@
 /**
  * Resource-result projection keeps binary payloads out of model history.
  *
- * @module @lyness/lyn-mcp-resources
+ * @module @deepseek-ai/dsh-mcp-resources
  */
 
-import type { ContentBlock } from '@lyness/lyn-llm'
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 
 /**
  * Render resource JSON while retaining raw binary data only for programmatic callers.

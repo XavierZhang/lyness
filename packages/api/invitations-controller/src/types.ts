@@ -5,14 +5,14 @@
  * each invitation grants, how long it lasts, how much of it is left, and
  * whether it can still be redeemed — never the stored hash, and never the
  * code itself except in the answer to the call that issued it.
- * @module @lyness/lyn-api-invitations-controller/types
+ * @module @deepseek-ai/dsh-api-invitations-controller/types
  */
 
-import type { Role } from '@lyness/lyn-people/types'
+import type { Role } from '@deepseek-ai/dsh-people/types'
 
-export type { Role } from '@lyness/lyn-people/types'
+export type { Role } from '@deepseek-ai/dsh-people/types'
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The calling standing may not issue or withdraw that invitation: it

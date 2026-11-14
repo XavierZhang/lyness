@@ -12,7 +12,7 @@ LiveShare 过去通过声明 API 暴露插件端点。该 API 允许插件声明
 
 目录在运行时从 Typert 本地注册表枚举。每个 bundle 生成一行，优先使用 bundle 的本地化标题，没有时使用组件包标题；端点说明来自已注册的 Remote descriptor。分享记录只保存方法级策略，Host 在 Gateway 派发前把策略与目录取交集。
 
-目录排除 LYN 核心 bundle。它们的方法仍由原有的 Session 和 Workspace 分享角色控制，而不是插件权限。核心 bundle 名从 `PROFILE_TEMPLATES` 派生，使排除规则跟随实际下发的 profile 组合，而不是再维护一份手写名单。LiveShare 自身的 bundle 也被排除，因为它是分享实现，不是分享可以授予自己的能力。
+目录排除 DSH 核心 bundle。它们的方法仍由原有的 Session 和 Workspace 分享角色控制，而不是插件权限。核心 bundle 名从 `PROFILE_TEMPLATES` 派生，使排除规则跟随实际下发的 profile 组合，而不是再维护一份手写名单。LiveShare 自身的 bundle 也被排除，因为它是分享实现，不是分享可以授予自己的能力。
 
 ## 备选方案
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /** Test driver: one delegation turn through a headless Loader composition. */
 
-import { resolveConfigPath } from '@lyness/lyn-app-boot'
-import { SessionId } from '@lyness/lyn-session'
-import { runFixtureTurn } from '@lyness/lyn-loader-smoke'
+import { resolveConfigPath } from '@deepseek-ai/dsh-app-boot'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { runFixtureTurn } from '@deepseek-ai/dsh-loader-smoke'
 import { bootProductionProfile } from '../../../../../test-support/loader-smoke/tests/fixtures/production-profile.ts'
 
 const configPath = process.argv[2]

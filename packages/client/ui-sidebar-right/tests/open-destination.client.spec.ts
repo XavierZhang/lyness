@@ -6,12 +6,12 @@
  * Tab domain must keep a moved tab's occurrence across that commit.
  */
 import { describe, expect, it, vi } from 'vitest'
-import type { PaneId, TabId } from '@lyness/lyn-client-ui-dockkit'
-import { dockPaneIds, findTabPane, getPane } from '@lyness/lyn-client-ui-dockkit'
+import type { PaneId, TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
+import { dockPaneIds, findTabPane, getPane } from '@deepseek-ai/dsh-client-ui-dockkit'
 import { controllerHarness, SESSION } from './controller-harness.client.ts'
 
-const A = 'lyn-resource://file/session/s-test/a.txt'
-const B = 'lyn-resource://file/session/s-test/b.txt'
+const A = 'dsh-resource://file/session/s-test/a.txt'
+const B = 'dsh-resource://file/session/s-test/b.txt'
 
 function harness() {
   const { controller, instance, layout, entries, show } = controllerHarness()
@@ -61,7 +61,7 @@ describe('openResource with a destination — six transitions', () => {
   it('2. opens a new floating panel beside other floating panels and keeps the docked selection and expansion', () => {
     const h = harness()
     h.controller.openResource(B, { destination: 'sidebar' })
-    h.controller.openResource('lyn-resource://file/session/s-test/c.txt', { destination: 'float' })
+    h.controller.openResource('dsh-resource://file/session/s-test/c.txt', { destination: 'float' })
     const root = getPane(h.layout(), h.layout().rootId)
     h.controller.openResource(A, { destination: 'float' })
     const floats = h.layout().floats

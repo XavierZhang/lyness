@@ -2,7 +2,7 @@
  * Copy for the instructions section: what a person tells their own agents,
  * and the editor that changes it.
  *
- * @module @lyness/lyn-client-ui-settings-instructions/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-instructions/client/locales
  */
 
 /** English copy; the key set every locale answers. */

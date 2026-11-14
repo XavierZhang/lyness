@@ -11,13 +11,13 @@ import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { fileURLToPath } from 'node:url'
 import { crc32, deflateSync } from 'node:zlib'
-import { Context } from '@lyness/cordis'
-import { LocalAttachmentStore } from '@lyness/lyn-attachment-local'
-import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
-import { MessageId, ToolCallId } from '@lyness/lyn-llm'
-import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
-import SessionStore, { SessionId, type Session } from '@lyness/lyn-session'
-import SessionQueryEngine from '@lyness/lyn-session-query'
+import { Context } from '@deepseek-ai/cordis'
+import { LocalAttachmentStore } from '@deepseek-ai/dsh-attachment-local'
+import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import { MessageId, ToolCallId } from '@deepseek-ai/dsh-llm'
+import { AssistantStreamAccumulator } from '@deepseek-ai/dsh-llm/assistant-stream'
+import SessionStore, { SessionId, type Session } from '@deepseek-ai/dsh-session'
+import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
 import { ApiSessionAgentController } from '../src/agent.ts'
 import { SessionCommandController } from '../src/commands.ts'
 import type { SessionAttachmentValue } from '../src/types.ts'
@@ -158,12 +158,12 @@ async function transfer(payloads: readonly string[]): Promise<readonly number[]>
 }
 
 async function measure(workload: keyof typeof WORKLOADS) {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-image-read-perf-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-image-read-perf-'))
   const ctx = new Context()
   try {
     await ctx.plugin(SessionStore)
     await ctx.plugin(ImageReadSessionQuery)
-    await ctx.plugin(LocalAttachmentStore, { lynHome: root })
+    await ctx.plugin(LocalAttachmentStore, { dshHome: root })
     const refs: ImageAttachmentRef[] = []
     for (let ordinal = 0; ordinal < WORKLOADS[workload].images; ordinal++) {
       refs.push(await ctx.attachments.saveImage({ data: image(ordinal), mediaType: 'image/png' }))
@@ -299,7 +299,7 @@ async function measure(workload: keyof typeof WORKLOADS) {
 }
 
 for (const specifier of [
-  '@lyness/cordis', '@lyness/lyn-attachment-local', '@lyness/lyn-session', '@lyness/lyn-session-query',
+  '@deepseek-ai/cordis', '@deepseek-ai/dsh-attachment-local', '@deepseek-ai/dsh-session', '@deepseek-ai/dsh-session-query',
 ]) {
   assert.match(import.meta.resolve(specifier), /\/lib\/.*\.js$/, `${specifier} must resolve to built JavaScript`)
 }

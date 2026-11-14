@@ -31,9 +31,9 @@ This affects anybody declaring people into the roster, anything switching exhaus
 1. Nothing to do for an existing store: version 1 records read as one standing, and the next write replaces each with a one-entry list.
 2. Rename `membership` to `memberships` wherever you declare a person, wrapping the standing in an array:
    ```ts
-   import type { Context } from '@lyness/cordis'
-   import type {} from '@lyness/lyn-managed-people'
-   import type { Membership, Person } from '@lyness/lyn-people'
+   import type { Context } from '@deepseek-ai/cordis'
+   import type {} from '@deepseek-ai/dsh-managed-people'
+   import type { Membership, Person } from '@deepseek-ai/dsh-people'
 
    declare const ctx: Context
    declare const person: Person

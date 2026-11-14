@@ -6,10 +6,10 @@
  * settles before that publishes to nobody rather than failing, which is what
  * lets the plugin start a read without waiting for a render.
  *
- * @module @lyness/lyn-client-ui-admin-invitations/client/binding
+ * @module @deepseek-ai/dsh-client-ui-admin-invitations/client/binding
  */
 
-import type { InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
+import type { InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
 import type { InvitationsOperations, InvitationsSink } from './operations.ts'
 import type { InvitationsPageInjected } from './InvitationsPage.tsx'
 

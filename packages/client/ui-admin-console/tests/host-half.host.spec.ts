@@ -4,9 +4,9 @@
  * has a Host row to mount beside.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { apply } from '@lyness/lyn-client-ui-admin-console'
+import { apply } from '@deepseek-ai/dsh-client-ui-admin-console'
 
 const live: Context[] = []
 

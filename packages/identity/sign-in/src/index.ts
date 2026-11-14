@@ -14,18 +14,18 @@
  * that is what lets an unsupported directory arrive as a plugin rather than as
  * a change here.
  *
- * @module @lyness/lyn-sign-in
+ * @module @deepseek-ai/dsh-sign-in
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
 // Type-only: the roster is read optionally, so this pulls its service
 // declaration without requiring the package at runtime.
-import type {} from '@lyness/lyn-people'
-import type { PersonId } from '@lyness/lyn-people'
+import type {} from '@deepseek-ai/dsh-people'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type {
   ChannelDescription, ChannelId, ExternalSubject, RedirectStart, SignInOutcome, SignInRefusal,
 } from './types.ts'
@@ -38,7 +38,7 @@ export { SignInAdmission } from './admission.ts'
 export type { AdmissionOffer } from './admission.ts'
 import type { AdmissionOffer } from './admission.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Sign-in through an external directory; absent on a deployment with no directory. */
     signIn: SignIn

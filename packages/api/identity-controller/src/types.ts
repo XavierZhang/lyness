@@ -7,7 +7,7 @@
  * sees the product, and a signed-out viewer of one with accounts sees a
  * sign-in screen. Asking separately would render the wrong one first.
  *
- * @module @lyness/lyn-api-identity-controller/types
+ * @module @deepseek-ai/dsh-api-identity-controller/types
  */
 
 /** One sign-in channel a surface may offer. */
@@ -44,7 +44,7 @@ export interface ViewerStandingView {
   readonly organization?: string
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The call presented no identity, so there is no session to change. A

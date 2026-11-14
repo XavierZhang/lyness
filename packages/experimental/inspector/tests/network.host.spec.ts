@@ -30,7 +30,7 @@ describe('Inspector Network domain', () => {
     expect(response).toEqual({
       body: Buffer.from('abcd').toString('base64'),
       base64Encoded: true,
-      lynInspectorTruncated: true,
+      dshInspectorTruncated: true,
     })
     const dataEvent = sendEvent.mock.calls.find(call => call[0] === 'Network.dataReceived')
     expect(dataEvent?.[1]).toMatchObject({ dataLength: 6, encodedDataLength: 6 })
@@ -50,7 +50,7 @@ describe('Inspector Network domain', () => {
     expect(network.handle('Network.getResponseBody', { requestId: requestId('second') }, sink)).toEqual({
       body: Buffer.from('bbbb').toString('base64'),
       base64Encoded: true,
-      lynInspectorTruncated: false,
+      dshInspectorTruncated: false,
     })
   })
 
@@ -194,14 +194,14 @@ describe('Inspector Network domain', () => {
     expect(sendEvent).toHaveBeenCalledWith('Network.loadingFinished', expect.objectContaining({
       requestId: requestId('capture-error'),
       encodedDataLength: 7,
-      lynInspectorTruncated: true,
+      dshInspectorTruncated: true,
     }))
     expect(sendEvent.mock.calls.some(call => call[0] === 'Network.loadingFailed')).toBe(false)
     expect(network.handle('Network.getResponseBody', { requestId: requestId('capture-error') }, { sendEvent: vi.fn() }))
       .toMatchObject({
         body: Buffer.from('partial').toString('base64'),
-        lynInspectorTruncated: true,
-        lynInspectorCaptureError: 'AbortError: aborted',
+        dshInspectorTruncated: true,
+        dshInspectorCaptureError: 'AbortError: aborted',
       })
   })
 

@@ -3,13 +3,13 @@ description: "What one reader's agents may use, and who decided each part of it.
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-agent-capabilities-controller
+# @deepseek-ai/dsh-api-agent-capabilities-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-agent-capabilities-controller` owns the `agentCapabilities` Remote namespace: one read answering which tools, MCP connections and skills a reader's conversations actually have, each naming whether the deployment or the agent preset made it available. Tools are grouped by the plugin that registered them and carry that package's own title, because a tool name is written for a model while this read answers a person. Every answer is projected from the registries an agent itself reads, at the moment it is asked, so the namespace keeps no list of its own and cannot disagree with what the agents have.
+`dsh-api-agent-capabilities-controller` owns the `agentCapabilities` Remote namespace: one read answering which tools, MCP connections and skills a reader's conversations actually have, each naming whether the deployment or the agent preset made it available. Tools are grouped by the plugin that registered them and carry that package's own title, because a tool name is written for a model while this read answers a person. Every answer is projected from the registries an agent itself reads, at the moment it is asked, so the namespace keeps no list of its own and cannot disagree with what the agents have.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Mount it where the tool registry is; the preset and skill registries are optiona
 
 ```yaml
 - id: agent-capabilities-controller
-  name: '@lyness/lyn-api-agent-capabilities-controller'
+  name: '@deepseek-ai/dsh-api-agent-capabilities-controller'
 ```
 
 `describe()` answers the tools, connections and skills available, and names the preset it read. Models are not here: `session.modelCatalog` already answers which models this deployment routes, and a surface shows them from there.
@@ -47,7 +47,7 @@ Mount it where the tool registry is; the preset and skill registries are optiona
 
 **What a tool is called comes from three services.** `ctx.tools.registered()` answers which Fiber registered each tool, the Loader answers which composition entry mounted that Fiber, and `pluginPackages.metaOf` reads that package's own `locale/*.json`. The projection groups by entry where there is one — two packages may call themselves the same thing while two entries never do — and falls back to the plugin's display name for a composition built in code. Each tool's own description is left out: it is model-facing prose about arguments and exit codes, which on a page for people reads as code.
 
-**An MCP server is one connection, not four tools.** `lyn-mcp-client` names each tool `mcp__<server>__<raw>`, so the server is read out of the name and its tools are counted rather than listed; a reader deciding whether they may reach a system cares about the system.
+**An MCP server is one connection, not four tools.** `dsh-mcp-client` names each tool `mcp__<server>__<raw>`, so the server is read out of the name and its tools are counted rather than listed; a reader deciding whether they may reach a system cares about the system.
 
 **A missing registry is reported as missing.** A deployment that mounts no skill registry gets no `skills` member at all, which a surface reads as "this installation has no skills" rather than as "it discovered none".
 
@@ -56,10 +56,10 @@ Mount it where the tool registry is; the preset and skill registries are optiona
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-client-ui-settings-capabilities`](../../client/ui-settings-capabilities/README.md) — the page that calls this.
-- [`lyn-tools`](../../core/tools/README.md) — the registry whose scoped views this projects.
-- [`lyn-skill`](../../skill/skill/README.md) — the catalog whose `source` and `provider` this reports.
-- [`lyn-mcp-client`](../../mcp/mcp-client/README.md) — what names a tool after its server.
+- [`dsh-client-ui-settings-capabilities`](../../client/ui-settings-capabilities/README.md) — the page that calls this.
+- [`dsh-tools`](../../core/tools/README.md) — the registry whose scoped views this projects.
+- [`dsh-skill`](../../skill/skill/README.md) — the catalog whose `source` and `provider` this reports.
+- [`dsh-mcp-client`](../../mcp/mcp-client/README.md) — what names a tool after its server.
 
 -----
 

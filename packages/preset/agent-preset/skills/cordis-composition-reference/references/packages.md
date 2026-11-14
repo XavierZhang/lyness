@@ -8,619 +8,619 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-acp` | yes | Automation-only Agent Client Protocol server for driving lyness agents over JSON-RPC stdio |
+| `@deepseek-ai/dsh-acp` | yes | Automation-only Agent Client Protocol server for driving DeepSeek Harness agents over JSON-RPC stdio |
 
 ## api
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-api-account-controller` | no | Expose safe account operations over authenticated Remote |
-| `@lyness/lyn-api-admin-audit-controller` | no | Remote owner of the administrative trail surface: an administrator reads what was changed, by whom, and from what |
-| `@lyness/lyn-api-agent-capabilities-controller` | no | What one reader's agents may use, and who decided each part of it |
-| `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
-| `@lyness/lyn-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
-| `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
-| `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
-| `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
-| `@lyness/lyn-api-invitations-controller` | no | Remote owner of the invitations surface: administrators issue, read and withdraw the codes that admit somebody new |
-| `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
-| `@lyness/lyn-api-memory-controller` | no | What this deployment remembers about one person, read and removed by that person alone |
-| `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
-| `@lyness/lyn-api-personal-instructions-controller` | no | What one person told their own agents, read and written by that person alone |
-| `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
-| `@lyness/lyn-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
-| `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
-| `@lyness/lyn-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
-| `@lyness/lyn-api-session-data-controller` | no | A person's own conversations: the deletion they can ask for, bounded by what they may see |
-| `@lyness/lyn-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
-| `@lyness/lyn-api-sign-in-channel-controller` | no | Remote owner of the sign-in channel surface: administrators configure the directories a deployment signs people in with |
-| `@lyness/lyn-api-tenant-controller` | no | Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration |
-| `@lyness/lyn-api-terminal-controller` | yes | Session-owned interactive terminals with shell discovery, screen recovery and typed Remote control |
-| `@lyness/lyn-api-workspace-controller` | yes | Workspace Remote commands and reconnect-safe state transport |
-| `@lyness/lyn-api-workspace-files` | yes | Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace |
-| `@lyness/lyn-desktop-link` | no | The Host-to-desktop link: one authenticated channel per signed-in person, and the executor that answers on it |
+| `@deepseek-ai/dsh-api-account-controller` | no | Expose safe account operations over authenticated Remote |
+| `@deepseek-ai/dsh-api-admin-audit-controller` | no | Remote owner of the administrative trail surface: an administrator reads what was changed, by whom, and from what |
+| `@deepseek-ai/dsh-api-agent-capabilities-controller` | no | What one reader's agents may use, and who decided each part of it |
+| `@deepseek-ai/dsh-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
+| `@deepseek-ai/dsh-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
+| `@deepseek-ai/dsh-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
+| `@deepseek-ai/dsh-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
+| `@deepseek-ai/dsh-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
+| `@deepseek-ai/dsh-api-invitations-controller` | no | Remote owner of the invitations surface: administrators issue, read and withdraw the codes that admit somebody new |
+| `@deepseek-ai/dsh-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
+| `@deepseek-ai/dsh-api-memory-controller` | no | What this deployment remembers about one person, read and removed by that person alone |
+| `@deepseek-ai/dsh-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
+| `@deepseek-ai/dsh-api-personal-instructions-controller` | no | What one person told their own agents, read and written by that person alone |
+| `@deepseek-ai/dsh-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
+| `@deepseek-ai/dsh-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
+| `@deepseek-ai/dsh-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
+| `@deepseek-ai/dsh-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
+| `@deepseek-ai/dsh-api-session-data-controller` | no | A person's own conversations: the deletion they can ask for, bounded by what they may see |
+| `@deepseek-ai/dsh-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
+| `@deepseek-ai/dsh-api-sign-in-channel-controller` | no | Remote owner of the sign-in channel surface: administrators configure the directories a deployment signs people in with |
+| `@deepseek-ai/dsh-api-tenant-controller` | no | Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration |
+| `@deepseek-ai/dsh-api-terminal-controller` | yes | Session-owned interactive terminals with shell discovery, screen recovery and typed Remote control |
+| `@deepseek-ai/dsh-api-workspace-controller` | yes | Workspace Remote commands and reconnect-safe state transport |
+| `@deepseek-ai/dsh-api-workspace-files` | yes | Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace |
+| `@deepseek-ai/dsh-desktop-link` | no | The Host-to-desktop link: one authenticated channel per signed-in person, and the executor that answers on it |
 
 ## attachment
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-attachment-local` | yes | Private content-addressed LYNESS_HOME attachment storage |
+| `@deepseek-ai/dsh-attachment-local` | yes | Private content-addressed DSH_HOME attachment storage |
 
 ## boot
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-config-editor` | no | Persist plugin configuration through profile patches and Loader reconciliation |
-| `@lyness/lyn-hmr` | yes | Coordinated module and profile configuration hot reload |
-| `@lyness/lyn-plugin-manager` | yes | Current-profile plugin and bundle management shared by lyn CLI, Web and agent tools |
-| `@lyness/lyn-plugin-market` | yes | Configured plugin market indexes for the Web Discover page and the plugin_market agent tool |
+| `@deepseek-ai/dsh-config-editor` | no | Persist plugin configuration through profile patches and Loader reconciliation |
+| `@deepseek-ai/dsh-hmr` | yes | Coordinated module and profile configuration hot reload |
+| `@deepseek-ai/dsh-plugin-manager` | yes | Current-profile plugin and bundle management shared by dsh CLI, Web and agent tools |
+| `@deepseek-ai/dsh-plugin-market` | yes | Configured plugin market indexes for the Web Discover page and the plugin_market agent tool |
 
 ## browser-use
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-browser-use` | no | Exclusive named browser-use provider registration |
+| `@deepseek-ai/dsh-browser-use` | no | Exclusive named browser-use provider registration |
 
 ## bundle
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-acp-app` | no | The lyn ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over lyn-base |
-| `@lyness/lyn-admin-setup` | no | The lyn admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile |
-| `@lyness/lyn-brand-setup` | yes | The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints |
-| `@lyness/lyn-brand-studio` | no | The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile |
-| `@lyness/lyn-headless` | yes | The lyn one-shot bundle: a direct core Agent/Session runner over lyn-base with no Host, HTTP, or browser layer |
-| `@lyness/lyn-sdk-app` | yes | The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base |
-| `@lyness/lyn-web-app` | yes | The lyn browser-surface bundle: the web patch layer over lyn-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line) |
+| `@deepseek-ai/dsh-acp-app` | no | The dsh ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over dsh-base |
+| `@deepseek-ai/dsh-admin-setup` | no | The dsh admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile |
+| `@deepseek-ai/dsh-brand-setup` | yes | The dsh brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints |
+| `@deepseek-ai/dsh-brand-studio` | no | The dsh brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile |
+| `@deepseek-ai/dsh-headless` | yes | The dsh one-shot bundle: a direct core Agent/Session runner over dsh-base with no Host, HTTP, or browser layer |
+| `@deepseek-ai/dsh-sdk-app` | yes | The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base |
+| `@deepseek-ai/dsh-web-app` | yes | The dsh browser-surface bundle: the web patch layer over dsh-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line) |
 
 ## client
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-client-connection` | yes | Authenticated RPC transport and generation lifecycle |
-| `@lyness/lyn-client-file-upload` | no | Agent-scoped browser file upload, streaming intake, and staged receipt service |
-| `@lyness/lyn-client-hmr` | yes | Web client graph synchronization and rebuilt-bundle reload transport |
-| `@lyness/lyn-client-locale` | no | Locale plugin: Host-backed preference, extensible language catalog, browser fallback, and typed built-in dictionaries |
-| `@lyness/lyn-client-modules` | no | Client module system, dual-face: node half composes the __LYNESS_BOOT__ entry graph (incremental lyn.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam |
-| `@lyness/lyn-client-product-analytics` | yes | Desktop product event collection and authenticated Host reporting |
-| `@lyness/lyn-client-resources` | no | Unified client resource model: protocol-registered providers turn URL addresses into live values, consumed through the useResource global standard hook |
-| `@lyness/lyn-client-shortcuts` | yes | Application keyboard command registry and physical-key routing |
-| `@lyness/lyn-client-ui-admin-console` | no | The administration console: its own page, its own shell, and the administration pages inside it |
-| `@lyness/lyn-client-ui-admin-invitations` | no | The invitations page in the administration console: issue the code that admits somebody new, read what still stands, and withdraw one |
-| `@lyness/lyn-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
-| `@lyness/lyn-client-ui-agent-team` | no | Web shared task board for a subagent tree |
-| `@lyness/lyn-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |
-| `@lyness/lyn-client-ui-attachment` | no | Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots |
-| `@lyness/lyn-client-ui-brand-lyness` | no | lyness brand occupants for the Web client's sidebar and conversation hero slots |
-| `@lyness/lyn-client-ui-brand-official` | no | Official lyness brand occupants for the Web client's sidebar slots |
-| `@lyness/lyn-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
-| `@lyness/lyn-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
-| `@lyness/lyn-client-ui-context-menu` | no | Typed, plugin-extensible context menus with captured targets and shared Web presentation |
-| `@lyness/lyn-client-ui-conversation` | no | Target-neutral Conversation assembly, shell, composer, queue, and view navigation |
-| `@lyness/lyn-client-ui-deliverables` | no | Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web |
-| `@lyness/lyn-client-ui-directory-picker-browse` | no | In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives |
-| `@lyness/lyn-client-ui-directory-picker-native` | no | Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser |
-| `@lyness/lyn-client-ui-entry-customization` | no | Customize plugin entries in the left sidebar, conversation views, and right sidebar, and quickly create new plugins. |
-| `@lyness/lyn-client-ui-file-actions` | no | Original-file saving and image clipboard actions for Web and Desktop |
-| `@lyness/lyn-client-ui-file-drag` | no | Application-owned file drag transfers and localized failure feedback |
-| `@lyness/lyn-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
-| `@lyness/lyn-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
-| `@lyness/lyn-client-ui-jobs` | no | Session-header background-job list with on-demand streaming record panels |
-| `@lyness/lyn-client-ui-join` | no | The page an invited person opens: what the invitation admits them to, and the directories that redeem it |
-| `@lyness/lyn-client-ui-layout` | no | Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels) |
-| `@lyness/lyn-client-ui-message-feedback` | no | The Web feedback surface: per-message Like/Dislike in the assistant-message action strip and the feedback dialog behind both ratings and /feedback, backed by the messageFeedback and sessionFeedback Host Remotes |
-| `@lyness/lyn-client-ui-model-selection` | no | Model selection over the shared model catalog, Session projection, and session.selectModel |
-| `@lyness/lyn-client-ui-open-in-app` | no | Web "Open In..." controls: the Session-header split button opening the workspace directory in an installed application, and the document preview's default-application controls for one file |
-| `@lyness/lyn-client-ui-permission-presets` | no | Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection |
-| `@lyness/lyn-client-ui-plan` | no | Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews |
-| `@lyness/lyn-client-ui-plugin-manager` | yes | Plugin management for the lyn web client: the sidebar Plugins panel installs, enables, disables, retries, and composes installed plugin packages |
-| `@lyness/lyn-client-ui-plugin-market` | no | Discover tab of the lyn web Plugins page: browse configured plugin market indexes and install their bundles |
-| `@lyness/lyn-client-ui-reference` | no | Unified Web @file and @session reference source |
-| `@lyness/lyn-client-ui-renderer` | no | Browser UI renderer: React slot bindings, ctx.uiRenderer, and the assembled application root |
-| `@lyness/lyn-client-ui-schedule` | no | Host task management page and Session reminder catalog |
-| `@lyness/lyn-client-ui-secret-mask` | no | Web display masking for recognized credentials in sent user text |
-| `@lyness/lyn-client-ui-session` | no | Session Controller adapter for React and session-scoped slots |
-| `@lyness/lyn-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
-| `@lyness/lyn-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
-| `@lyness/lyn-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the lyn web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
-| `@lyness/lyn-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
-| `@lyness/lyn-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
-| `@lyness/lyn-client-ui-settings-capabilities` | no | The what-you-may-use section in Settings: a reader's models, connections, skills and tools |
-| `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
-| `@lyness/lyn-client-ui-settings-data` | no | The data section in Settings: a person's own conversations, with the export and the deletion they own |
-| `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
-| `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
-| `@lyness/lyn-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
-| `@lyness/lyn-client-ui-settings-memory` | no | The memory section in Settings: what a deployment remembers about one person |
-| `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
-| `@lyness/lyn-client-ui-settings-people` | no | The people section in Settings: who may use a deployment and which directory identity each of them is, maintained at runtime |
-| `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
-| `@lyness/lyn-client-ui-settings-plugins` | no | Built-in plugins settings section for the lyn web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
-| `@lyness/lyn-client-ui-settings-session-log` | no | General settings control for Session-log upload with DeepSeek API requests |
-| `@lyness/lyn-client-ui-settings-shell` | no | Settings page of the shell executor on the lyn web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
-| `@lyness/lyn-client-ui-settings-sign-in-channels` | no | The sign-in channels section in Settings: what a deployment or a tenant signs its people in with, configured at runtime |
-| `@lyness/lyn-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the lyn web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
-| `@lyness/lyn-client-ui-settings-web-search` | no | Settings page for web search and fetch on the lyn web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, and legacy Messages search settings |
-| `@lyness/lyn-client-ui-shortcuts` | no | Keyboard shortcut reference, recording, and local preference editing |
-| `@lyness/lyn-client-ui-sidebar` | no | Sidebar plugin: session multi-level tree, search, grouping, state dots |
-| `@lyness/lyn-client-ui-sidebar-browser` | no | Sandboxed Web browser tabs for the right Sidebar |
-| `@lyness/lyn-client-ui-sidebar-documentpreview` | yes | Extensible Sidebar previews for Office documents, spreadsheets, Markdown, code, images, PDF, HTML, and plain text |
-| `@lyness/lyn-client-ui-sidebar-files` | no | The workspace files page and one workspace directory tree per pane beside docked and floating file previews, listed lazily over the workspaceFiles Remote namespace |
-| `@lyness/lyn-client-ui-sidebar-right` | no | Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it |
-| `@lyness/lyn-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
-| `@lyness/lyn-client-ui-sign-in` | no | The sign-in screen a deployment with accounts shows, and the row naming who is signed in |
-| `@lyness/lyn-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
-| `@lyness/lyn-client-ui-subagent` | no | Subagent conversation catalog, continuation routing UI, and '@' reference source |
-| `@lyness/lyn-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; ThemeRuntime for light/dark/system state and icon replacements; --dsw-* token styles and Appearance settings row |
-| `@lyness/lyn-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
-| `@lyness/lyn-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
-| `@lyness/lyn-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
-| `@lyness/lyn-client-ui-viewer` | no | The shared viewer read: who is signed in, and which Settings planes that standing is offered |
-| `@lyness/lyn-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for lyn web |
-| `@lyness/lyn-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
+| `@deepseek-ai/dsh-client-connection` | yes | Authenticated RPC transport and generation lifecycle |
+| `@deepseek-ai/dsh-client-file-upload` | no | Agent-scoped browser file upload, streaming intake, and staged receipt service |
+| `@deepseek-ai/dsh-client-hmr` | yes | Web client graph synchronization and rebuilt-bundle reload transport |
+| `@deepseek-ai/dsh-client-locale` | no | Locale plugin: Host-backed preference, extensible language catalog, browser fallback, and typed built-in dictionaries |
+| `@deepseek-ai/dsh-client-modules` | no | Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam |
+| `@deepseek-ai/dsh-client-product-analytics` | yes | Desktop product event collection and authenticated Host reporting |
+| `@deepseek-ai/dsh-client-resources` | no | Unified client resource model: protocol-registered providers turn URL addresses into live values, consumed through the useResource global standard hook |
+| `@deepseek-ai/dsh-client-shortcuts` | yes | Application keyboard command registry and physical-key routing |
+| `@deepseek-ai/dsh-client-ui-admin-console` | no | The administration console: its own page, its own shell, and the administration pages inside it |
+| `@deepseek-ai/dsh-client-ui-admin-invitations` | no | The invitations page in the administration console: issue the code that admits somebody new, read what still stands, and withdraw one |
+| `@deepseek-ai/dsh-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
+| `@deepseek-ai/dsh-client-ui-agent-team` | no | Web shared task board for a subagent tree |
+| `@deepseek-ai/dsh-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |
+| `@deepseek-ai/dsh-client-ui-attachment` | no | Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots |
+| `@deepseek-ai/dsh-client-ui-brand-deepseek-harness` | no | DeepSeek Harness brand occupants for the Web client's sidebar and conversation hero slots |
+| `@deepseek-ai/dsh-client-ui-brand-official` | no | Official DeepSeek Harness brand occupants for the Web client's sidebar slots |
+| `@deepseek-ai/dsh-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
+| `@deepseek-ai/dsh-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
+| `@deepseek-ai/dsh-client-ui-context-menu` | no | Typed, plugin-extensible context menus with captured targets and shared Web presentation |
+| `@deepseek-ai/dsh-client-ui-conversation` | no | Target-neutral Conversation assembly, shell, composer, queue, and view navigation |
+| `@deepseek-ai/dsh-client-ui-deliverables` | no | Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web |
+| `@deepseek-ai/dsh-client-ui-directory-picker-browse` | no | In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives |
+| `@deepseek-ai/dsh-client-ui-directory-picker-native` | no | Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser |
+| `@deepseek-ai/dsh-client-ui-entry-customization` | no | Customize plugin entries in the left sidebar, conversation views, and right sidebar, and quickly create new plugins. |
+| `@deepseek-ai/dsh-client-ui-file-actions` | no | Original-file saving and image clipboard actions for Web and Desktop |
+| `@deepseek-ai/dsh-client-ui-file-drag` | no | Application-owned file drag transfers and localized failure feedback |
+| `@deepseek-ai/dsh-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
+| `@deepseek-ai/dsh-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
+| `@deepseek-ai/dsh-client-ui-jobs` | no | Session-header background-job list with on-demand streaming record panels |
+| `@deepseek-ai/dsh-client-ui-join` | no | The page an invited person opens: what the invitation admits them to, and the directories that redeem it |
+| `@deepseek-ai/dsh-client-ui-layout` | no | Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels) |
+| `@deepseek-ai/dsh-client-ui-message-feedback` | no | The Web feedback surface: per-message Like/Dislike in the assistant-message action strip and the feedback dialog behind both ratings and /feedback, backed by the messageFeedback and sessionFeedback Host Remotes |
+| `@deepseek-ai/dsh-client-ui-model-selection` | no | Model selection over the shared model catalog, Session projection, and session.selectModel |
+| `@deepseek-ai/dsh-client-ui-open-in-app` | no | Web "Open In..." controls: the Session-header split button opening the workspace directory in an installed application, and the document preview's default-application controls for one file |
+| `@deepseek-ai/dsh-client-ui-permission-presets` | no | Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection |
+| `@deepseek-ai/dsh-client-ui-plan` | no | Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews |
+| `@deepseek-ai/dsh-client-ui-plugin-manager` | yes | Plugin management for the dsh web client: the sidebar Plugins panel installs, enables, disables, retries, and composes installed plugin packages |
+| `@deepseek-ai/dsh-client-ui-plugin-market` | no | Discover tab of the dsh web Plugins page: browse configured plugin market indexes and install their bundles |
+| `@deepseek-ai/dsh-client-ui-reference` | no | Unified Web @file and @session reference source |
+| `@deepseek-ai/dsh-client-ui-renderer` | no | Browser UI renderer: React slot bindings, ctx.uiRenderer, and the assembled application root |
+| `@deepseek-ai/dsh-client-ui-schedule` | no | Host task management page and Session reminder catalog |
+| `@deepseek-ai/dsh-client-ui-secret-mask` | no | Web display masking for recognized credentials in sent user text |
+| `@deepseek-ai/dsh-client-ui-session` | no | Session Controller adapter for React and session-scoped slots |
+| `@deepseek-ai/dsh-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
+| `@deepseek-ai/dsh-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
+| `@deepseek-ai/dsh-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the dsh web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
+| `@deepseek-ai/dsh-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
+| `@deepseek-ai/dsh-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
+| `@deepseek-ai/dsh-client-ui-settings-capabilities` | no | The what-you-may-use section in Settings: a reader's models, connections, skills and tools |
+| `@deepseek-ai/dsh-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
+| `@deepseek-ai/dsh-client-ui-settings-data` | no | The data section in Settings: a person's own conversations, with the export and the deletion they own |
+| `@deepseek-ai/dsh-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
+| `@deepseek-ai/dsh-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
+| `@deepseek-ai/dsh-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
+| `@deepseek-ai/dsh-client-ui-settings-memory` | no | The memory section in Settings: what a deployment remembers about one person |
+| `@deepseek-ai/dsh-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
+| `@deepseek-ai/dsh-client-ui-settings-people` | no | The people section in Settings: who may use a deployment and which directory identity each of them is, maintained at runtime |
+| `@deepseek-ai/dsh-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
+| `@deepseek-ai/dsh-client-ui-settings-plugins` | no | Built-in plugins settings section for the dsh web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
+| `@deepseek-ai/dsh-client-ui-settings-session-log` | no | General settings control for Session-log upload with DeepSeek API requests |
+| `@deepseek-ai/dsh-client-ui-settings-shell` | no | Settings page of the shell executor on the dsh web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
+| `@deepseek-ai/dsh-client-ui-settings-sign-in-channels` | no | The sign-in channels section in Settings: what a deployment or a tenant signs its people in with, configured at runtime |
+| `@deepseek-ai/dsh-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the dsh web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
+| `@deepseek-ai/dsh-client-ui-settings-web-search` | no | Settings page for web search and fetch on the dsh web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, and legacy Messages search settings |
+| `@deepseek-ai/dsh-client-ui-shortcuts` | no | Keyboard shortcut reference, recording, and local preference editing |
+| `@deepseek-ai/dsh-client-ui-sidebar` | no | Sidebar plugin: session multi-level tree, search, grouping, state dots |
+| `@deepseek-ai/dsh-client-ui-sidebar-browser` | no | Sandboxed Web browser tabs for the right Sidebar |
+| `@deepseek-ai/dsh-client-ui-sidebar-documentpreview` | yes | Extensible Sidebar previews for Office documents, spreadsheets, Markdown, code, images, PDF, HTML, and plain text |
+| `@deepseek-ai/dsh-client-ui-sidebar-files` | no | The workspace files page and one workspace directory tree per pane beside docked and floating file previews, listed lazily over the workspaceFiles Remote namespace |
+| `@deepseek-ai/dsh-client-ui-sidebar-right` | no | Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it |
+| `@deepseek-ai/dsh-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
+| `@deepseek-ai/dsh-client-ui-sign-in` | no | The sign-in screen a deployment with accounts shows, and the row naming who is signed in |
+| `@deepseek-ai/dsh-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
+| `@deepseek-ai/dsh-client-ui-subagent` | no | Subagent conversation catalog, continuation routing UI, and '@' reference source |
+| `@deepseek-ai/dsh-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; ThemeRuntime for light/dark/system state and icon replacements; --dsw-* token styles and Appearance settings row |
+| `@deepseek-ai/dsh-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
+| `@deepseek-ai/dsh-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
+| `@deepseek-ai/dsh-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
+| `@deepseek-ai/dsh-client-ui-viewer` | no | The shared viewer read: who is signed in, and which Settings planes that standing is offered |
+| `@deepseek-ai/dsh-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for dsh web |
+| `@deepseek-ai/dsh-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
 
 ## compaction
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-command-compact` | no | Human-facing slash command for explicit session compaction |
-| `@lyness/lyn-compaction-basic` | yes | Token-meter-driven compaction policy and LLM summarization backend for the lyness |
-| `@lyness/lyn-compaction-image-offload` | no | Durable image offload for image-capable routes: replace over-budget request images with placeholders and retry |
-| `@lyness/lyn-compaction-tool-result-pruner` | yes | Replay-safe model-free head/middle/tail pruning for tool-result surface nodes |
+| `@deepseek-ai/dsh-command-compact` | no | Human-facing slash command for explicit session compaction |
+| `@deepseek-ai/dsh-compaction-basic` | yes | Token-meter-driven compaction policy and LLM summarization backend for the DeepSeek Harness |
+| `@deepseek-ai/dsh-compaction-image-offload` | no | Durable image offload for image-capable routes: replace over-budget request images with placeholders and retry |
+| `@deepseek-ai/dsh-compaction-tool-result-pruner` | yes | Replay-safe model-free head/middle/tail pruning for tool-result surface nodes |
 
 ## computer-use
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-computer-use` | no | Exclusive named computer-use provider registration |
+| `@deepseek-ai/dsh-computer-use` | no | Exclusive named computer-use provider registration |
 
 ## context
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-agent-instructions` | yes | Workspace context loader for AGENTS.md/CLAUDE.md instruction files |
-| `@lyness/lyn-file-reference-local` | yes | Local-filesystem ctx.fileReferences provider with bounded fuzzy indexes |
-| `@lyness/lyn-harness-dev-context` | no | Model context naming the lyness checkout and Web GUI URL without letting either change the system prompt |
-| `@lyness/lyn-session-reference` | yes | Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver) |
-| `@lyness/lyn-time-context` | yes | Durable per-step context with the current time and elapsed time |
-| `@lyness/lyn-tmux-context` | yes | Opt-in durable per-step context with this agent's tmux pane and window location |
+| `@deepseek-ai/dsh-agent-instructions` | yes | Workspace context loader for AGENTS.md/CLAUDE.md instruction files |
+| `@deepseek-ai/dsh-file-reference-local` | yes | Local-filesystem ctx.fileReferences provider with bounded fuzzy indexes |
+| `@deepseek-ai/dsh-harness-dev-context` | no | Model context naming the DeepSeek Harness checkout and Web GUI URL without letting either change the system prompt |
+| `@deepseek-ai/dsh-session-reference` | yes | Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver) |
+| `@deepseek-ai/dsh-time-context` | yes | Durable per-step context with the current time and elapsed time |
+| `@deepseek-ai/dsh-tmux-context` | yes | Opt-in durable per-step context with this agent's tmux pane and window location |
 
 ## core
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-agent` | no | Agent interface, registry, initiator scope, and event vocabulary for the lyness |
-| `@lyness/lyn-agent-default-model` | yes | Default model selection shared by Agent entry points |
-| `@lyness/lyn-agent-loop` | yes | The concrete agent loop plugin for the lyness |
-| `@lyness/lyn-agent-tool-presentation` | yes | Deprecated tool presentation selector; use lyn-tool-executor-native or lyn-tool-executor-ptc directly |
-| `@lyness/lyn-session` | no | Event-sourced session store for the lyness |
-| `@lyness/lyn-system-prompt` | yes | System prompt assembly registry for the lyness |
-| `@lyness/lyn-tool-executor-native` | no | Native tool execution plugin |
-| `@lyness/lyn-tool-executor-ptc` | yes | PTC program execution, tool bindings, and generated SDK prompts |
-| `@lyness/lyn-tools` | no | Tool registry and execution pipeline for the lyness |
+| `@deepseek-ai/dsh-agent` | no | Agent interface, registry, initiator scope, and event vocabulary for the DeepSeek Harness |
+| `@deepseek-ai/dsh-agent-default-model` | yes | Default model selection shared by Agent entry points |
+| `@deepseek-ai/dsh-agent-loop` | yes | The concrete agent loop plugin for the DeepSeek Harness |
+| `@deepseek-ai/dsh-agent-tool-presentation` | yes | Deprecated tool presentation selector; use dsh-tool-executor-native or dsh-tool-executor-ptc directly |
+| `@deepseek-ai/dsh-session` | no | Event-sourced session store for the DeepSeek Harness |
+| `@deepseek-ai/dsh-system-prompt` | yes | System prompt assembly registry for the DeepSeek Harness |
+| `@deepseek-ai/dsh-tool-executor-native` | no | Native tool execution plugin |
+| `@deepseek-ai/dsh-tool-executor-ptc` | yes | PTC program execution, tool bindings, and generated SDK prompts |
+| `@deepseek-ai/dsh-tools` | no | Tool registry and execution pipeline for the DeepSeek Harness |
 
 ## credentials
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-authorization` | no | Authorization seam (ctx.authorization): plugin-owned flows that obtain a credential through a conversation with the human |
-| `@lyness/lyn-credentials-local` | yes | File-backed credentials provider ($LYNESS_HOME/.env under the live process environment) for the lyness |
-| `@lyness/lyn-deepseek-account-platform` | yes | Authorize DeepSeek accounts through browser PKCE |
+| `@deepseek-ai/dsh-authorization` | no | Authorization seam (ctx.authorization): plugin-owned flows that obtain a credential through a conversation with the human |
+| `@deepseek-ai/dsh-credentials-local` | yes | File-backed credentials provider ($DSH_HOME/.env under the live process environment) for the DeepSeek Harness |
+| `@deepseek-ai/dsh-deepseek-account-platform` | yes | Authorize DeepSeek accounts through browser PKCE |
 
 ## deliverables
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-deliverable-file-references` | no | Shared model guidance for file links and deliverables across lyness hosts |
-| `@lyness/lyn-tool-present` | yes | Explicit workspace file delivery declarations for the lyness |
-| `@lyness/lyn-workspace-changes` | yes | Per-turn workspace file changes recorded from git working-tree snapshots and whole-file captures, with per-file comparisons, for the lyness |
+| `@deepseek-ai/dsh-deliverable-file-references` | no | Shared model guidance for file links and deliverables across DeepSeek Harness hosts |
+| `@deepseek-ai/dsh-tool-present` | yes | Explicit workspace file delivery declarations for the DeepSeek Harness |
+| `@deepseek-ai/dsh-workspace-changes` | yes | Per-turn workspace file changes recorded from git working-tree snapshots and whole-file captures, with per-file comparisons, for the DeepSeek Harness |
 
 ## document
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-office-to-pdf` | yes | Shared Office-to-PDF conversion with bounded queues and caching |
+| `@deepseek-ai/dsh-office-to-pdf` | yes | Shared Office-to-PDF conversion with bounded queues and caching |
 
 ## experimental
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-action-cards` | yes | Optional action cards below answers: one shared proposal tool, card state, user actions and status notices |
-| `@lyness/lyn-client-ui-action-cards` | no | Action cards below completed answers: the shared card frame, kind bodies and the compact tool row |
-| `@lyness/lyn-client-ui-creation-recommendations` | no | Body of the personalized page card: location choice, creation progress, Undo and Restore |
-| `@lyness/lyn-client-ui-plugin-recommendations` | no | Official plugin card body with catalog text and enabling |
-| `@lyness/lyn-creation-recommendations` | no | Create persistent removable interface plugins from explicit conversation needs |
-| `@lyness/lyn-cua` | no | Shared Computer Use application objects, authorization, and logged tool execution |
-| `@lyness/lyn-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
-| `@lyness/lyn-experimental-auto-review` | no | Per-tool LLM authorization review for the lyness Auto permission preset |
-| `@lyness/lyn-experimental-browser-use-chrome-devtools-mcp` | yes | Experimental per-Session Chromium browser tools through chrome-devtools-mcp |
-| `@lyness/lyn-experimental-browser-use-playwright-mcp` | yes | Experimental per-Session Chromium browser tools through @playwright/mcp |
-| `@lyness/lyn-experimental-browser-use-stagehand-native` | yes | Experimental Stagehand browser tools with separately configured native models |
-| `@lyness/lyn-experimental-claude-code-mods` | yes | Experimental bridge: load Claude Code mods (hooks modules) and run their hook chains on lyness extension points |
-| `@lyness/lyn-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
-| `@lyness/lyn-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
-| `@lyness/lyn-experimental-client-ui-forge` | yes | Sidebar panel for a Session's change requests, with a worktree option for new Sessions and its Host Remote |
-| `@lyness/lyn-experimental-client-ui-stats` | no | Per-turn and per-step context, timing, cache, and tool-cost table contributed as an experimental conversation View |
-| `@lyness/lyn-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
-| `@lyness/lyn-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
-| `@lyness/lyn-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
-| `@lyness/lyn-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
-| `@lyness/lyn-experimental-forge` | yes | Provider-neutral change request registry with shared status polling |
-| `@lyness/lyn-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
-| `@lyness/lyn-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
-| `@lyness/lyn-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
-| `@lyness/lyn-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the lyness PTC execution seam |
-| `@lyness/lyn-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
-| `@lyness/lyn-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
-| `@lyness/lyn-experimental-speech-to-text-sensevoice` | yes | Local SenseVoice ONNX transcription with a managed sherpa-onnx process |
-| `@lyness/lyn-experimental-subagent-oar` | yes | Experimental one-shot subagents through OAR runtimes |
-| `@lyness/lyn-experimental-tool-subagent-oar` | yes | Delegate standalone tasks to configured external subagent providers |
-| `@lyness/lyn-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
-| `@lyness/lyn-experimental-translator` | yes | Machine translation with reusable Session results |
-| `@lyness/lyn-experimental-worktree` | yes | Creates a named Git worktree and changes the calling Session working directory |
-| `@lyness/lyn-hooks-claude-code` | yes | Bridge plugin: run a Claude Code hooks.json / settings hook config on the lyness interception seams |
-| `@lyness/lyn-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the lyness interception seams |
-| `@lyness/lyn-plugin-recommendations` | no | Official plugin suggestions with explicit user activation and persistent conversation decisions |
-| `@lyness/lyn-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for lyness session titles |
+| `@deepseek-ai/dsh-action-cards` | yes | Optional action cards below answers: one shared proposal tool, card state, user actions and status notices |
+| `@deepseek-ai/dsh-client-ui-action-cards` | no | Action cards below completed answers: the shared card frame, kind bodies and the compact tool row |
+| `@deepseek-ai/dsh-client-ui-creation-recommendations` | no | Body of the personalized page card: location choice, creation progress, Undo and Restore |
+| `@deepseek-ai/dsh-client-ui-plugin-recommendations` | no | Official plugin card body with catalog text and enabling |
+| `@deepseek-ai/dsh-creation-recommendations` | no | Create persistent removable interface plugins from explicit conversation needs |
+| `@deepseek-ai/dsh-cua` | no | Shared Computer Use application objects, authorization, and logged tool execution |
+| `@deepseek-ai/dsh-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
+| `@deepseek-ai/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset |
+| `@deepseek-ai/dsh-experimental-browser-use-chrome-devtools-mcp` | yes | Experimental per-Session Chromium browser tools through chrome-devtools-mcp |
+| `@deepseek-ai/dsh-experimental-browser-use-playwright-mcp` | yes | Experimental per-Session Chromium browser tools through @playwright/mcp |
+| `@deepseek-ai/dsh-experimental-browser-use-stagehand-native` | yes | Experimental Stagehand browser tools with separately configured native models |
+| `@deepseek-ai/dsh-experimental-claude-code-mods` | yes | Experimental bridge: load Claude Code mods (hooks modules) and run their hook chains on DeepSeek Harness extension points |
+| `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
+| `@deepseek-ai/dsh-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
+| `@deepseek-ai/dsh-experimental-client-ui-forge` | yes | Sidebar panel for a Session's change requests, with a worktree option for new Sessions and its Host Remote |
+| `@deepseek-ai/dsh-experimental-client-ui-stats` | no | Per-turn and per-step context, timing, cache, and tool-cost table contributed as an experimental conversation View |
+| `@deepseek-ai/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
+| `@deepseek-ai/dsh-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
+| `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
+| `@deepseek-ai/dsh-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
+| `@deepseek-ai/dsh-experimental-forge` | yes | Provider-neutral change request registry with shared status polling |
+| `@deepseek-ai/dsh-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
+| `@deepseek-ai/dsh-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
+| `@deepseek-ai/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
+| `@deepseek-ai/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
+| `@deepseek-ai/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
+| `@deepseek-ai/dsh-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
+| `@deepseek-ai/dsh-experimental-speech-to-text-sensevoice` | yes | Local SenseVoice ONNX transcription with a managed sherpa-onnx process |
+| `@deepseek-ai/dsh-experimental-subagent-oar` | yes | Experimental one-shot subagents through OAR runtimes |
+| `@deepseek-ai/dsh-experimental-tool-subagent-oar` | yes | Delegate standalone tasks to configured external subagent providers |
+| `@deepseek-ai/dsh-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
+| `@deepseek-ai/dsh-experimental-translator` | yes | Machine translation with reusable Session results |
+| `@deepseek-ai/dsh-experimental-worktree` | yes | Creates a named Git worktree and changes the calling Session working directory |
+| `@deepseek-ai/dsh-hooks-claude-code` | yes | Bridge plugin: run a Claude Code hooks.json / settings hook config on the DeepSeek Harness interception seams |
+| `@deepseek-ai/dsh-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the DeepSeek Harness interception seams |
+| `@deepseek-ai/dsh-plugin-recommendations` | no | Official plugin suggestions with explicit user activation and persistent conversation decisions |
+| `@deepseek-ai/dsh-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for DeepSeek Harness session titles |
 
 ## extensions
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-client-ui-cordis` | no | Cordis dynamic-plugin definition card: the keyed cordis_define tool row with its run/stop switch |
-| `@lyness/lyn-cordis-client-runner` | no | Browser half of dynamic dual-half plugin packages: event subscription, closure evaluation, guard facade, and loader entries |
-| `@lyness/lyn-cordis-host-runner` | yes | Dynamic package definition registry, host-half sandbox lifecycle, and invoke handler table for model-mounted dual-half packages |
-| `@lyness/lyn-tool-cordis` | no | Read-only runtime API inspection for Harness plugin development |
+| `@deepseek-ai/dsh-client-ui-cordis` | no | Cordis dynamic-plugin definition card: the keyed cordis_define tool row with its run/stop switch |
+| `@deepseek-ai/dsh-cordis-client-runner` | no | Browser half of dynamic dual-half plugin packages: event subscription, closure evaluation, guard facade, and loader entries |
+| `@deepseek-ai/dsh-cordis-host-runner` | yes | Dynamic package definition registry, host-half sandbox lifecycle, and invoke handler table for model-mounted dual-half packages |
+| `@deepseek-ai/dsh-tool-cordis` | no | Read-only runtime API inspection for Harness plugin development |
 
 ## feedback
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-command-feedback` | no | Log-only session feedback: the record event, the sessionFeedback Host Remote, and the human-facing slash command |
-| `@lyness/lyn-message-feedback` | yes | Canonical Session-log ratings and notes for finalized assistant messages |
+| `@deepseek-ai/dsh-command-feedback` | no | Log-only session feedback: the record event, the sessionFeedback Host Remote, and the human-facing slash command |
+| `@deepseek-ai/dsh-message-feedback` | yes | Canonical Session-log ratings and notes for finalized assistant messages |
 
 ## fs
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-fs-desktop` | no | The files the agent works on are on the person's own machine, not the server's |
-| `@lyness/lyn-fs-local` | yes | Local-filesystem implementation of the lyness filesystem seam (ctx.fs) |
-| `@lyness/lyn-fs-observation-policy` | no | File-context policy plugin for the lyness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
-| `@lyness/lyn-fs-sandbox` | yes | Sandbox-enforcing implementation of the lyness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |
-| `@lyness/lyn-tool-fs` | yes | Model-facing filesystem tools (read, write, edit) over the lyness filesystem seam (ctx.fs) |
-| `@lyness/lyn-tool-fs-search` | yes | Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep) |
-| `@lyness/lyn-tool-str-replace-editor` | yes | Model-facing view, create, literal replace, and line insert tool over the Harness filesystem service |
+| `@deepseek-ai/dsh-fs-desktop` | no | The files the agent works on are on the person's own machine, not the server's |
+| `@deepseek-ai/dsh-fs-local` | yes | Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs) |
+| `@deepseek-ai/dsh-fs-observation-policy` | no | File-context policy plugin for the DeepSeek Harness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
+| `@deepseek-ai/dsh-fs-sandbox` | yes | Sandbox-enforcing implementation of the DeepSeek Harness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |
+| `@deepseek-ai/dsh-tool-fs` | yes | Model-facing filesystem tools (read, write, edit) over the DeepSeek Harness filesystem seam (ctx.fs) |
+| `@deepseek-ai/dsh-tool-fs-search` | yes | Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep) |
+| `@deepseek-ai/dsh-tool-str-replace-editor` | yes | Model-facing view, create, literal replace, and line insert tool over the Harness filesystem service |
 
 ## goal
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-command-goal` | no | Human-facing slash command for persisted same-session goals |
-| `@lyness/lyn-goal` | yes | Event-sourced same-session goal state and lifecycle service for the lyness |
-| `@lyness/lyn-goal-round-driver` | no | Race-fenced same-session goal-round driver |
-| `@lyness/lyn-tool-goal` | yes | Model-facing same-session goal tools with execution-time authority checks |
+| `@deepseek-ai/dsh-command-goal` | no | Human-facing slash command for persisted same-session goals |
+| `@deepseek-ai/dsh-goal` | yes | Event-sourced same-session goal state and lifecycle service for the DeepSeek Harness |
+| `@deepseek-ai/dsh-goal-round-driver` | no | Race-fenced same-session goal-round driver |
+| `@deepseek-ai/dsh-tool-goal` | yes | Model-facing same-session goal tools with execution-time authority checks |
 
 ## guard
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-repeat-tool-reminder` | yes | Repeat-tool-call guard plugin: advisory reminders when an agent loops on identical tool calls |
-| `@lyness/lyn-tool-call-timeout-policy` | no | Tool-call timeout policy: a tools/execute wrapper that arms a per-tool deadline on exec.signal and returns TOOL_TIMEOUT when it wins |
+| `@deepseek-ai/dsh-repeat-tool-reminder` | yes | Repeat-tool-call guard plugin: advisory reminders when an agent loops on identical tool calls |
+| `@deepseek-ai/dsh-tool-call-timeout-policy` | no | Tool-call timeout policy: a tools/execute wrapper that arms a per-tool deadline on exec.signal and returns TOOL_TIMEOUT when it wins |
 
 ## host
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-host-brand-deployment` | yes | The deployment's own brand over the webserver index render: title, favicon, theme colour, and the asset files an operator places |
-| `@lyness/lyn-host-directory-picker-auto` | no | Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the lyness web GUI host |
-| `@lyness/lyn-host-directory-picker-browse` | yes | In-app browsing backend of the directory-picker seam (listing/creation primitives over the host filesystem) |
-| `@lyness/lyn-host-directory-picker-native` | no | Native-OS-chooser backend of the directory-picker seam for the lyness web GUI host |
-| `@lyness/lyn-host-frontend-static` | yes | SPA dist server for the Web shell: owns the webserver fallback seat, serving explicit index entries and static assets with traversal rejection and 404 misses |
-| `@lyness/lyn-host-open-in-app` | yes | Host half of open-in-app: resolved application catalog, icons, and the launch endpoint as three webServer routes |
-| `@lyness/lyn-host-plugin-inventory` | no | Read-only Remote projection of current Cordis Loader plugin state |
-| `@lyness/lyn-host-product-telemetry-otel` | yes | Explicit product usage events exported through OpenTelemetry HTTP logs |
-| `@lyness/lyn-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, per-Peer index transform taps, and static dist fallback |
+| `@deepseek-ai/dsh-host-brand-deployment` | yes | The deployment's own brand over the webserver index render: title, favicon, theme colour, and the asset files an operator places |
+| `@deepseek-ai/dsh-host-directory-picker-auto` | no | Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the DeepSeek Harness web GUI host |
+| `@deepseek-ai/dsh-host-directory-picker-browse` | yes | In-app browsing backend of the directory-picker seam (listing/creation primitives over the host filesystem) |
+| `@deepseek-ai/dsh-host-directory-picker-native` | no | Native-OS-chooser backend of the directory-picker seam for the DeepSeek Harness web GUI host |
+| `@deepseek-ai/dsh-host-frontend-static` | yes | SPA dist server for the Web shell: owns the webserver fallback seat, serving explicit index entries and static assets with traversal rejection and 404 misses |
+| `@deepseek-ai/dsh-host-open-in-app` | yes | Host half of open-in-app: resolved application catalog, icons, and the launch endpoint as three webServer routes |
+| `@deepseek-ai/dsh-host-plugin-inventory` | no | Read-only Remote projection of current Cordis Loader plugin state |
+| `@deepseek-ai/dsh-host-product-telemetry-otel` | yes | Explicit product usage events exported through OpenTelemetry HTTP logs |
+| `@deepseek-ai/dsh-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, per-Peer index transform taps, and static dist fallback |
 
 ## identity
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
-| `@lyness/lyn-admin-audit` | yes | The append-only trail of administrative changes a deployment can answer for |
-| `@lyness/lyn-bot-ask` | no | One bot asking a teammate a question, answered in a conversation of the teammate's own |
-| `@lyness/lyn-invitations` | yes | Invitations: the bounded code an administrator sends so somebody nobody has heard of can join |
-| `@lyness/lyn-managed-bots` | no | The bots a deployment's administrators maintain at runtime |
-| `@lyness/lyn-managed-people` | no | The people and admission bindings a deployment's administrators maintain at runtime |
-| `@lyness/lyn-oidc` | yes | An OpenID Provider as a sign-in channel: the standard protocol, so a deployment points it at its own directory |
-| `@lyness/lyn-personal-instructions` | yes | What a person tells their own agents, kept for them and recorded on every session they open |
-| `@lyness/lyn-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
-| `@lyness/lyn-session-ownership` | no | A session belongs to the person who opened it, and the standing they held it open under |
-| `@lyness/lyn-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |
-| `@lyness/lyn-sign-in-channels` | no | The configured sign-in channels a deployment serves, mounted from what its administrators stored |
-| `@lyness/lyn-sign-in-http` | yes | The browser-facing half of signing in: the sign-in, callback, channel-list and sign-out routes, and the session cookie |
+| `@deepseek-ai/dsh-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
+| `@deepseek-ai/dsh-admin-audit` | yes | The append-only trail of administrative changes a deployment can answer for |
+| `@deepseek-ai/dsh-bot-ask` | no | One bot asking a teammate a question, answered in a conversation of the teammate's own |
+| `@deepseek-ai/dsh-invitations` | yes | Invitations: the bounded code an administrator sends so somebody nobody has heard of can join |
+| `@deepseek-ai/dsh-managed-bots` | no | The bots a deployment's administrators maintain at runtime |
+| `@deepseek-ai/dsh-managed-people` | no | The people and admission bindings a deployment's administrators maintain at runtime |
+| `@deepseek-ai/dsh-oidc` | yes | An OpenID Provider as a sign-in channel: the standard protocol, so a deployment points it at its own directory |
+| `@deepseek-ai/dsh-personal-instructions` | yes | What a person tells their own agents, kept for them and recorded on every session they open |
+| `@deepseek-ai/dsh-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
+| `@deepseek-ai/dsh-session-ownership` | no | A session belongs to the person who opened it, and the standing they held it open under |
+| `@deepseek-ai/dsh-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |
+| `@deepseek-ai/dsh-sign-in-channels` | no | The configured sign-in channels a deployment serves, mounted from what its administrators stored |
+| `@deepseek-ai/dsh-sign-in-http` | yes | The browser-facing half of signing in: the sign-in, callback, channel-list and sign-out routes, and the session cookie |
 
 ## interaction
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-commands` | no | Plugin-owned human command registry for lyness UIs |
-| `@lyness/lyn-permission-presets` | yes | User-facing permission presets (ctx.permissionPresets) for the lyness: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events |
-| `@lyness/lyn-tool-ask-user` | yes | Model-facing ask_user_question tool over the ctx.userQuestions seam |
-| `@lyness/lyn-user-approval` | yes | User-approval seam (ctx.approval) for the lyness: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default |
-| `@lyness/lyn-user-questions` | no | Abstract user-questions seam (ctx.userQuestions) for asking the human during agent runs |
+| `@deepseek-ai/dsh-commands` | no | Plugin-owned human command registry for DeepSeek Harness UIs |
+| `@deepseek-ai/dsh-permission-presets` | yes | User-facing permission presets (ctx.permissionPresets) for the DeepSeek Harness: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events |
+| `@deepseek-ai/dsh-tool-ask-user` | yes | Model-facing ask_user_question tool over the ctx.userQuestions seam |
+| `@deepseek-ai/dsh-user-approval` | yes | User-approval seam (ctx.approval) for the DeepSeek Harness: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default |
+| `@deepseek-ai/dsh-user-questions` | no | Abstract user-questions seam (ctx.userQuestions) for asking the human during agent runs |
 
 ## jobs
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-jobs-local` | yes | Process-local implementation of the lyness background job registry seam |
-| `@lyness/lyn-tool-jobs` | yes | Model-facing background job control tools (job_output, job_list, job_kill) over the ctx.jobs registry |
+| `@deepseek-ai/dsh-jobs-local` | yes | Process-local implementation of the DeepSeek Harness background job registry seam |
+| `@deepseek-ai/dsh-tool-jobs` | yes | Model-facing background job control tools (job_output, job_list, job_kill) over the ctx.jobs registry |
 
 ## llm
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-deepseek-llm-api-extensions` | no | Additive request-field registry for the official DeepSeek LLM API adapter |
-| `@lyness/lyn-llm` | no | Provider-neutral LLM service interface for the lyness |
-| `@lyness/lyn-llm-deepseek-account` | yes | DeepSeek account provider authentication and discovery |
-| `@lyness/lyn-llm-deepseek-api-key` | yes | DeepSeek api-key provider authentication and discovery |
-| `@lyness/lyn-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the lyness LLM seam (design-verification twin of lyn-llm-deepseek) |
-| `@lyness/lyn-llm-retry` | yes | Provider-routed LLM request retry policy for the lyness |
-| `@lyness/lyn-model-required` | no | Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive |
-| `@lyness/lyn-plugin-package-inventory-deepseek` | yes | Active Loader-backed plugin package inventory for official DeepSeek LLM API requests |
-| `@lyness/lyn-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the lyness |
+| `@deepseek-ai/dsh-deepseek-llm-api-extensions` | no | Additive request-field registry for the official DeepSeek LLM API adapter |
+| `@deepseek-ai/dsh-llm` | no | Provider-neutral LLM service interface for the DeepSeek Harness |
+| `@deepseek-ai/dsh-llm-deepseek-account` | yes | DeepSeek account provider authentication and discovery |
+| `@deepseek-ai/dsh-llm-deepseek-api-key` | yes | DeepSeek api-key provider authentication and discovery |
+| `@deepseek-ai/dsh-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam (design-verification twin of dsh-llm-deepseek) |
+| `@deepseek-ai/dsh-llm-retry` | yes | Provider-routed LLM request retry policy for the DeepSeek Harness |
+| `@deepseek-ai/dsh-model-required` | no | Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive |
+| `@deepseek-ai/dsh-plugin-package-inventory-deepseek` | yes | Active Loader-backed plugin package inventory for official DeepSeek LLM API requests |
+| `@deepseek-ai/dsh-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the DeepSeek Harness |
 
 ## lsp
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-lsp` | no | Abstract LSP capability seam (ctx.lsp) for the lyness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy |
-| `@lyness/lyn-lsp-stdio` | yes | Generic stdio language-server provider for the lyness LSP capability seam (ctx.lsp) — spawns configured servers, translates JSON-RPC, and serves transient-open goToDefinition/findReferences/goToImplementation/hover queries in the host filesystem namespace |
-| `@lyness/lyn-tool-lsp` | yes | Model-facing lsp tool over the lyness LSP capability seam (ctx.lsp) — one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization |
+| `@deepseek-ai/dsh-lsp` | no | Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy |
+| `@deepseek-ai/dsh-lsp-stdio` | yes | Generic stdio language-server provider for the DeepSeek Harness LSP capability seam (ctx.lsp) — spawns configured servers, translates JSON-RPC, and serves transient-open goToDefinition/findReferences/goToImplementation/hover queries in the host filesystem namespace |
+| `@deepseek-ai/dsh-tool-lsp` | yes | Model-facing lsp tool over the DeepSeek Harness LSP capability seam (ctx.lsp) — one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization |
 
 ## mcp
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-mcp-client` | yes | MCP client bridge: connects to MCP servers and registers their tools on ctx.tools |
-| `@lyness/lyn-mcp-manager` | yes | MCP server manager: a settings-driven fleet of mcp-client instances with runtime status, restart, and probe |
-| `@lyness/lyn-mcp-resources` | no | Scoped MCP resource discovery and reading through shared model tools |
+| `@deepseek-ai/dsh-mcp-client` | yes | MCP client bridge: connects to MCP servers and registers their tools on ctx.tools |
+| `@deepseek-ai/dsh-mcp-manager` | yes | MCP server manager: a settings-driven fleet of mcp-client instances with runtime status, restart, and probe |
+| `@deepseek-ai/dsh-mcp-resources` | no | Scoped MCP resource discovery and reading through shared model tools |
 
 ## memory
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-memory` | yes | Durable agent memory: explicitly written facts folded into every later request as runtime context |
+| `@deepseek-ai/dsh-memory` | yes | Durable agent memory: explicitly written facts folded into every later request as runtime context |
 
 ## plan
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-plan-mode` | yes | Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit |
+| `@deepseek-ai/dsh-plan-mode` | yes | Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit |
 
 ## preset
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-agent-preset` | yes | Declare an Agent capability composition in Cordis YAML |
-| `@lyness/lyn-agent-preset-registry` | yes | Declarative Agent preset registry and profile-backed editing |
-| `@lyness/lyn-persona` | yes | Composition-authored deployment persona section for the lyness |
+| `@deepseek-ai/dsh-agent-preset` | yes | Declare an Agent capability composition in Cordis YAML |
+| `@deepseek-ai/dsh-agent-preset-registry` | yes | Declarative Agent preset registry and profile-backed editing |
+| `@deepseek-ai/dsh-persona` | yes | Composition-authored deployment persona section for the DeepSeek Harness |
 
 ## ptc-runtime
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-ptc-runtime-node` | yes | Node PTC execution with async function, REPL and VM Script evaluators and optional retained state |
+| `@deepseek-ai/dsh-ptc-runtime-node` | yes | Node PTC execution with async function, REPL and VM Script evaluators and optional retained state |
 
 ## sandbox
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-sandbox-local` | yes | Local process-sandbox backends for the lyness sandbox seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or the Windows ACL restricted-token runner — functionally probed, fail-closed |
-| `@lyness/lyn-sandbox-policy` | yes | Per-call sandbox policy resolver and current model context: deployment fallbacks plus each session's mode and workspace root, shared by every enforcing capability family |
+| `@deepseek-ai/dsh-sandbox-local` | yes | Local process-sandbox backends for the DeepSeek Harness sandbox seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or the Windows ACL restricted-token runner — functionally probed, fail-closed |
+| `@deepseek-ai/dsh-sandbox-policy` | yes | Per-call sandbox policy resolver and current model context: deployment fallbacks plus each session's mode and workspace root, shared by every enforcing capability family |
 
 ## schedule
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-schedule` | yes | Host-wide durable reminders with shared management and delivery to existing or new Sessions |
-| `@lyness/lyn-tool-schedule` | no | Model-facing scheduled task tools (schedule_create, schedule_list, schedule_view, schedule_edit) over the Host ctx.schedule service |
+| `@deepseek-ai/dsh-schedule` | yes | Host-wide durable reminders with shared management and delivery to existing or new Sessions |
+| `@deepseek-ai/dsh-tool-schedule` | no | Model-facing scheduled task tools (schedule_create, schedule_list, schedule_view, schedule_edit) over the Host ctx.schedule service |
 
 ## sdk
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-sdk-jsonrpc-server` | yes | Stdio JSON-RPC server plugin for out-of-process lyness SDK clients |
+| `@deepseek-ai/dsh-sdk-jsonrpc-server` | yes | Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness SDK clients |
 
 ## session
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-message-quotes` | no | Selected-text quotation and Markdown blockquote presentation |
-| `@lyness/lyn-session-checkpoint-policy` | no | Semantic session durability checkpoints before model requests and tool side effects |
-| `@lyness/lyn-session-deletion` | no | Delete one conversation: its stored log, every sub-session log beneath it, and the projections cached about them |
-| `@lyness/lyn-session-log-deepseek` | yes | Incremental lossless session-log request extension for the official DeepSeek LLM API |
-| `@lyness/lyn-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the lyness |
-| `@lyness/lyn-session-projection` | no | Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state |
-| `@lyness/lyn-session-projection-cache` | yes | Persisted projection cache (ctx.sessionProjectionCache): durable per-session checkpoint records on the session_projcache storage domain (per-record layout), throttled write-behind, and the cached listing read |
-| `@lyness/lyn-session-stats` | no | Whole-log conversation counts and wall times projection (sessionStats) for the lyness |
-| `@lyness/lyn-session-telemetry-otel` | yes | Feedback-authorized Session logs over byte-bounded OpenTelemetry HTTP requests |
-| `@lyness/lyn-session-title` | yes | Log-backed session title service and provider registry for the lyness |
-| `@lyness/lyn-session-title-first-prompt-llm` | yes | First-message LLM provider plugin for lyness session titles |
-| `@lyness/lyn-session-turn-outline` | no | Whole-log turn outline projection (turnOutline) for the lyness |
-| `@lyness/lyn-tool-working-directory` | no | Read and change the active Session working directory |
-| `@lyness/lyn-working-directory` | yes | Session working directories with durable changes and model context |
+| `@deepseek-ai/dsh-message-quotes` | no | Selected-text quotation and Markdown blockquote presentation |
+| `@deepseek-ai/dsh-session-checkpoint-policy` | no | Semantic session durability checkpoints before model requests and tool side effects |
+| `@deepseek-ai/dsh-session-deletion` | no | Delete one conversation: its stored log, every sub-session log beneath it, and the projections cached about them |
+| `@deepseek-ai/dsh-session-log-deepseek` | yes | Incremental lossless session-log request extension for the official DeepSeek LLM API |
+| `@deepseek-ai/dsh-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the DeepSeek Harness |
+| `@deepseek-ai/dsh-session-projection` | no | Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state |
+| `@deepseek-ai/dsh-session-projection-cache` | yes | Persisted projection cache (ctx.sessionProjectionCache): durable per-session checkpoint records on the session_projcache storage domain (per-record layout), throttled write-behind, and the cached listing read |
+| `@deepseek-ai/dsh-session-stats` | no | Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness |
+| `@deepseek-ai/dsh-session-telemetry-otel` | yes | Feedback-authorized Session logs over byte-bounded OpenTelemetry HTTP requests |
+| `@deepseek-ai/dsh-session-title` | yes | Log-backed session title service and provider registry for the DeepSeek Harness |
+| `@deepseek-ai/dsh-session-title-first-prompt-llm` | yes | First-message LLM provider plugin for DeepSeek Harness session titles |
+| `@deepseek-ai/dsh-session-turn-outline` | no | Whole-log turn outline projection (turnOutline) for the DeepSeek Harness |
+| `@deepseek-ai/dsh-tool-working-directory` | no | Read and change the active Session working directory |
+| `@deepseek-ai/dsh-working-directory` | yes | Session working directories with durable changes and model context |
 
 ## session-query
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-session-log-export` | yes | Web Session-log ZIP export and Session Markdown copy |
-| `@lyness/lyn-session-query-sqlite` | yes | Concrete ctx.sessionQuery backend with SQLite FTS5 search |
-| `@lyness/lyn-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
+| `@deepseek-ai/dsh-session-log-export` | yes | Web Session-log ZIP export and Session Markdown copy |
+| `@deepseek-ai/dsh-session-query-sqlite` | yes | Concrete ctx.sessionQuery backend with SQLite FTS5 search |
+| `@deepseek-ai/dsh-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
 
 ## settings
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-settings` | no | Abstract user-settings seam (ctx.settings) for the lyness |
+| `@deepseek-ai/dsh-settings` | no | Abstract user-settings seam (ctx.settings) for the DeepSeek Harness |
 
 ## shell
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-bash-local` | yes | Local-subprocess implementation of the lyness bash executor seam |
-| `@lyness/lyn-bash-sandbox` | yes | Sandbox-consuming implementation of the lyness bash executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
-| `@lyness/lyn-pwsh-local` | yes | Local PowerShell implementation of the lyness bash executor seam |
-| `@lyness/lyn-pwsh-sandbox` | yes | Sandbox-consuming implementation of the lyness PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
-| `@lyness/lyn-shell-env` | yes | Tool-independent managed LYNESS_* shell environment registry |
-| `@lyness/lyn-tool-bash` | yes | Model-facing bash tool with optional generic background-job and sandbox-escalation support |
-| `@lyness/lyn-tool-bash-persistent` | yes | Model-facing owner-scoped persistent Bash tool backed by the Harness PTY service |
-| `@lyness/lyn-tool-pwsh` | yes | Model-facing pwsh tool over the bash executor seam |
-| `@lyness/lyn-tool-pwsh-persistent` | yes | Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service |
+| `@deepseek-ai/dsh-bash-local` | yes | Local-subprocess implementation of the DeepSeek Harness bash executor seam |
+| `@deepseek-ai/dsh-bash-sandbox` | yes | Sandbox-consuming implementation of the DeepSeek Harness bash executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
+| `@deepseek-ai/dsh-pwsh-local` | yes | Local PowerShell implementation of the DeepSeek Harness bash executor seam |
+| `@deepseek-ai/dsh-pwsh-sandbox` | yes | Sandbox-consuming implementation of the DeepSeek Harness PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts) |
+| `@deepseek-ai/dsh-shell-env` | yes | Tool-independent managed DSH_* shell environment registry |
+| `@deepseek-ai/dsh-tool-bash` | yes | Model-facing bash tool with optional generic background-job and sandbox-escalation support |
+| `@deepseek-ai/dsh-tool-bash-persistent` | yes | Model-facing owner-scoped persistent Bash tool backed by the Harness PTY service |
+| `@deepseek-ai/dsh-tool-pwsh` | yes | Model-facing pwsh tool over the bash executor seam |
+| `@deepseek-ai/dsh-tool-pwsh-persistent` | yes | Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service |
 
 ## skill
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-skill` | yes | Agent skill provider registry for the lyness |
-| `@lyness/lyn-skill-badge` | no | Bundled lyn badge skill provider for lyness |
-| `@lyness/lyn-skill-filesystem` | yes | Local filesystem skill provider for the lyness |
-| `@lyness/lyn-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations |
-| `@lyness/lyn-tool-skill` | yes | Model-facing skill loading tool for the lyness |
-| `@lyness/lyn-tool-workspace-dependencies` | yes | The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload |
+| `@deepseek-ai/dsh-skill` | yes | Agent skill provider registry for the DeepSeek Harness |
+| `@deepseek-ai/dsh-skill-badge` | no | Bundled dsh badge skill provider for DeepSeek Harness |
+| `@deepseek-ai/dsh-skill-filesystem` | yes | Local filesystem skill provider for the DeepSeek Harness |
+| `@deepseek-ai/dsh-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations |
+| `@deepseek-ai/dsh-tool-skill` | yes | Model-facing skill loading tool for the DeepSeek Harness |
+| `@deepseek-ai/dsh-tool-workspace-dependencies` | yes | The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload |
 
 ## spill
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-spill-local` | yes | Local-filesystem implementation of the lyness spill storage seam (private session-scoped files) |
-| `@lyness/lyn-spill-policy` | yes | Token-budgeted tool-result retention with recoverable text and image paths |
+| `@deepseek-ai/dsh-spill-local` | yes | Local-filesystem implementation of the DeepSeek Harness spill storage seam (private session-scoped files) |
+| `@deepseek-ai/dsh-spill-policy` | yes | Token-budgeted tool-result retention with recoverable text and image paths |
 
 ## ssh
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-fs-ssh` | no | Filesystem provider over the shared POSIX SSH helper |
-| `@lyness/lyn-sandbox-ssh` | no | Remote POSIX sandbox argv provider over the shared SSH helper |
-| `@lyness/lyn-ssh` | yes | Shared OpenSSH connection and versioned POSIX remote helper |
-| `@lyness/lyn-subprocess-ssh` | no | Subprocess and terminal provider over the shared POSIX SSH helper |
+| `@deepseek-ai/dsh-fs-ssh` | no | Filesystem provider over the shared POSIX SSH helper |
+| `@deepseek-ai/dsh-sandbox-ssh` | no | Remote POSIX sandbox argv provider over the shared SSH helper |
+| `@deepseek-ai/dsh-ssh` | yes | Shared OpenSSH connection and versioned POSIX remote helper |
+| `@deepseek-ai/dsh-subprocess-ssh` | no | Subprocess and terminal provider over the shared POSIX SSH helper |
 
 ## storage
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-storage` | no | Storage hub (ctx.storage): named backend registry plus mounted data-form facilities for the lyness |
-| `@lyness/lyn-storage-domain` | yes | Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the lyness |
-| `@lyness/lyn-storage-json` | yes | JSON file KV storage backend for the lyness storage hub |
-| `@lyness/lyn-storage-sqlite` | yes | SQLite storage backend (kv facet) for the lyness storage hub |
+| `@deepseek-ai/dsh-storage` | no | Storage hub (ctx.storage): named backend registry plus mounted data-form facilities for the DeepSeek Harness |
+| `@deepseek-ai/dsh-storage-domain` | yes | Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the DeepSeek Harness |
+| `@deepseek-ai/dsh-storage-json` | yes | JSON file KV storage backend for the DeepSeek Harness storage hub |
+| `@deepseek-ai/dsh-storage-sqlite` | yes | SQLite storage backend (kv facet) for the DeepSeek Harness storage hub |
 
 ## subagent
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-subagent` | yes | Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents |
-| `@lyness/lyn-subagent-acp` | yes | Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol |
-| `@lyness/lyn-subagent-claude-code` | yes | One-shot Claude Code subagent provider over the official Agent SDK |
-| `@lyness/lyn-subagent-codex` | yes | One-shot Codex subagent provider over the official app-server protocol |
-| `@lyness/lyn-subagent-fork-in-process` | yes | In-process fork subagent backend: runs a child agent seeded with a prefix of the parent's log |
-| `@lyness/lyn-subagent-lyn-sdk` | yes | Out-of-process SDK subagent backend: drives a child lyness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
-| `@lyness/lyn-subagent-spawn-in-process` | yes | In-process spawn subagent backend: runs a fresh child agent on ctx.agents |
-| `@lyness/lyn-tool-subagent` | yes | Model-facing subagent delegation tool over the ctx.subagents seam |
-| `@lyness/lyn-tool-subagent-control` | yes | Shared messaging, interruption, and child discovery tools for subagents |
+| `@deepseek-ai/dsh-subagent` | yes | Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents |
+| `@deepseek-ai/dsh-subagent-acp` | yes | Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol |
+| `@deepseek-ai/dsh-subagent-claude-code` | yes | One-shot Claude Code subagent provider over the official Agent SDK |
+| `@deepseek-ai/dsh-subagent-codex` | yes | One-shot Codex subagent provider over the official app-server protocol |
+| `@deepseek-ai/dsh-subagent-fork-in-process` | yes | In-process fork subagent backend: runs a child agent seeded with a prefix of the parent's log |
+| `@deepseek-ai/dsh-subagent-dsh-sdk` | yes | Out-of-process SDK subagent backend: drives a child DeepSeek Harness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
+| `@deepseek-ai/dsh-subagent-spawn-in-process` | yes | In-process spawn subagent backend: runs a fresh child agent on ctx.agents |
+| `@deepseek-ai/dsh-tool-subagent` | yes | Model-facing subagent delegation tool over the ctx.subagents seam |
+| `@deepseek-ai/dsh-tool-subagent-control` | yes | Shared messaging, interruption, and child discovery tools for subagents |
 
 ## subprocess
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-subprocess-local` | no | Local-subprocess implementation of the lyness subprocess seam |
+| `@deepseek-ai/dsh-subprocess-local` | no | Local-subprocess implementation of the DeepSeek Harness subprocess seam |
 
 ## team
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-agent-team` | yes | Shared task DAG and change waits for subagent trees |
-| `@lyness/lyn-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
+| `@deepseek-ai/dsh-agent-team` | yes | Shared task DAG and change waits for subagent trees |
+| `@deepseek-ai/dsh-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
 
 ## telemetry
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-otel` | no | Cordis service for independent ordinary-event and byte-bounded Session-log OTLP channels |
+| `@deepseek-ai/dsh-otel` | no | Cordis service for independent ordinary-event and byte-bounded Session-log OTLP channels |
 
 ## tenant
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-tenant-config-static` | yes | Tenant configuration backed by the deployment's composition config: models, providers, features, identity, and copy as patch-layer rows |
-| `@lyness/lyn-tenant-config-store` | no | Durable tenant configuration: one record per tenant in the storage domain, writable by an administration surface |
-| `@lyness/lyn-tenant-http` | yes | Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug |
-| `@lyness/lyn-tenant-request` | yes | The tenant one RPC request belongs to: resolved once per call and readable by everything the call reaches |
-| `@lyness/lyn-tenant-session` | yes | Records the tenant a session belongs to, and the identity text that tenant contributed, as one durable session event |
-| `@lyness/lyn-tenant-static` | yes | Tenant directory backed by the deployment's composition config: the roster is patch-layer rows |
+| `@deepseek-ai/dsh-tenant-config-static` | yes | Tenant configuration backed by the deployment's composition config: models, providers, features, identity, and copy as patch-layer rows |
+| `@deepseek-ai/dsh-tenant-config-store` | no | Durable tenant configuration: one record per tenant in the storage domain, writable by an administration surface |
+| `@deepseek-ai/dsh-tenant-http` | yes | Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug |
+| `@deepseek-ai/dsh-tenant-request` | yes | The tenant one RPC request belongs to: resolved once per call and readable by everything the call reaches |
+| `@deepseek-ai/dsh-tenant-session` | yes | Records the tenant a session belongs to, and the identity text that tenant contributed, as one durable session event |
+| `@deepseek-ai/dsh-tenant-static` | yes | Tenant directory backed by the deployment's composition config: the roster is patch-layer rows |
 
 ## terminal
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-terminal` | no | Persistent PTY session seam for the lyness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
-| `@lyness/lyn-terminal-bash` | yes | Persistent shell PTY backend over the lyness subprocess terminal primitive |
-| `@lyness/lyn-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
+| `@deepseek-ai/dsh-terminal` | no | Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
+| `@deepseek-ai/dsh-terminal-bash` | yes | Persistent shell PTY backend over the DeepSeek Harness subprocess terminal primitive |
+| `@deepseek-ai/dsh-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
 
 ## test-support
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-llm-replay` | yes | Replay LLM plugin: short-circuits llm/stream with model chunks reconstructed from a recorded session JSONL (keyless snapshot tests) |
+| `@deepseek-ai/dsh-llm-replay` | yes | Replay LLM plugin: short-circuits llm/stream with model chunks reconstructed from a recorded session JSONL (keyless snapshot tests) |
 
 ## todo
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-tool-todo` | yes | Model-facing todo_write tool over the lyness event-sourced session log |
+| `@deepseek-ai/dsh-tool-todo` | yes | Model-facing todo_write tool over the DeepSeek Harness event-sourced session log |
 
 ## typert
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-typert-loader` | yes | Loader integration for generated Typert package contributions |
+| `@deepseek-ai/dsh-typert-loader` | yes | Loader integration for generated Typert package contributions |
 
 ## vendor
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-dingtalk` | yes | DingTalk as a sign-in channel: an organization signs in whichever of its people is at the browser |
-| `@lyness/lyn-feishu` | yes | Feishu as a sign-in channel: a tenant signs in whichever of its people is at the browser |
-| `@lyness/lyn-microsoft-entra` | yes | Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration |
-| `@lyness/lyn-wecom` | yes | WeCom as a sign-in channel: a corporation signs in whichever of its members is at the browser |
+| `@deepseek-ai/dsh-dingtalk` | yes | DingTalk as a sign-in channel: an organization signs in whichever of its people is at the browser |
+| `@deepseek-ai/dsh-feishu` | yes | Feishu as a sign-in channel: a tenant signs in whichever of its people is at the browser |
+| `@deepseek-ai/dsh-microsoft-entra` | yes | Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration |
+| `@deepseek-ai/dsh-wecom` | yes | WeCom as a sign-in channel: a corporation signs in whichever of its members is at the browser |
 
 ## web
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-tool-web` | yes | Model-facing web tools (web_search, web_fetch) over the lyness web capability seam (ctx.web) |
-| `@lyness/lyn-web` | yes | Abstract web access capability seam (ctx.web) for the lyness — search/fetch provider registry, registration-order-independent selection, request/result vocabulary, and the WebError taxonomy |
-| `@lyness/lyn-web-deepseek-api` | yes | DeepSeek Search and Fetch API providers for the lyness web capability seam (ctx.web) |
-| `@lyness/lyn-web-fetch-http` | yes | Anonymous HTTP(S) fetch provider for the lyness web capability seam (ctx.web) |
-| `@lyness/lyn-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the lyness web capability seam (ctx.web) |
+| `@deepseek-ai/dsh-tool-web` | yes | Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web) |
+| `@deepseek-ai/dsh-web` | yes | Abstract web access capability seam (ctx.web) for the DeepSeek Harness — search/fetch provider registry, registration-order-independent selection, request/result vocabulary, and the WebError taxonomy |
+| `@deepseek-ai/dsh-web-deepseek-api` | yes | DeepSeek Search and Fetch API providers for the DeepSeek Harness web capability seam (ctx.web) |
+| `@deepseek-ai/dsh-web-fetch-http` | yes | Anonymous HTTP(S) fetch provider for the DeepSeek Harness web capability seam (ctx.web) |
+| `@deepseek-ai/dsh-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the DeepSeek Harness web capability seam (ctx.web) |
 
 ## webhook
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions |
-| `@lyness/lyn-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the lyness webhook runtime |
+| `@deepseek-ai/dsh-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed DeepSeek Harness Sessions |
+| `@deepseek-ai/dsh-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the DeepSeek Harness webhook runtime |
 
 ## workflow
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
-| `@lyness/lyn-tool-workflow` | yes | Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine |
-| `@lyness/lyn-workflow-ptc` | yes | Workflow orchestration in the shared sandboxed Node PTC runtime |
+| `@deepseek-ai/dsh-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
+| `@deepseek-ai/dsh-tool-workflow` | yes | Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine |
+| `@deepseek-ai/dsh-workflow-ptc` | yes | Workflow orchestration in the shared sandboxed Node PTC runtime |
 
 ## workspace
 
 | Package | Config | Description |
 |---|---|---|
-| `@lyness/lyn-workspace` | no | Workspace entity registry (ctx.workspaceRegistry): durable workspace records with validated session attachment over the domain data form for the lyness |
+| `@deepseek-ai/dsh-workspace` | no | Workspace entity registry (ctx.workspaceRegistry): durable workspace records with validated session attachment over the domain data form for the DeepSeek Harness |

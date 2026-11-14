@@ -4,10 +4,10 @@
  * A plugin's RPC error may be swallowed by that plugin's own UI. This page-level notice names the
  * plugin once per page so the reader learns why a panel is empty; it never retries or changes the
  * call itself.
- * @module @lyness/lyn-experimental-liveshare/src/client/viewer-plugin-warning
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/client/viewer-plugin-warning
  */
 
-import type { ConnectionHandle } from '@lyness/lyn-client-connection/client'
+import type { ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client'
 import type { ViewerTranslate } from './locales.ts'
 
 /** Plugin names already announced on this page. */

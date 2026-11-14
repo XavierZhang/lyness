@@ -104,7 +104,7 @@ def main():
         cleanup.callback(unregister_helper, binary)
         cleanup.callback(cleanup_fixture, fixture_root)
         with (application / "Contents/Info.plist").open("wb") as output:
-            plistlib.dump({"CFBundleExecutable": "startup", "CFBundleIdentifier": f"dev.lyn.cua.startup.{uuid.uuid4().hex}",
+            plistlib.dump({"CFBundleExecutable": "startup", "CFBundleIdentifier": f"dev.dsh.cua.startup.{uuid.uuid4().hex}",
                           "CFBundlePackageType": "APPL", "LSUIElement": True}, output)
         subprocess.run(["xcrun", "swiftc", "-parse-as-library", "-swift-version", "6",
                         str(ROOT / "tests/StartupFixture.swift"), str(args.runtime_source),

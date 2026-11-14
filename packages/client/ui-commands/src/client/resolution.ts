@@ -1,7 +1,7 @@
 /** Command identity and localized input spelling over the effective Host catalog. */
-import type { CommandDescriptor } from '@lyness/lyn-commands/types'
-import type { TranslateNS } from '@lyness/lyn-client-locale/client'
-import { builtinCommandName } from '@lyness/lyn-commands/builtin'
+import type { CommandDescriptor } from '@deepseek-ai/dsh-commands/types'
+import type { TranslateNS } from '@deepseek-ai/dsh-client-locale/client'
+import { builtinCommandName } from '@deepseek-ai/dsh-commands/builtin'
 
 /**
  * Select the input spelling for a menu-picked command.

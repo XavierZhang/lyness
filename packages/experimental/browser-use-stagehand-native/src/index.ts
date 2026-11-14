@@ -1,22 +1,22 @@
 /**
  * Stagehand browser tools with one native browser runtime per live Session.
- * @module @lyness/lyn-experimental-browser-use-stagehand-native
+ * @module @deepseek-ai/dsh-experimental-browser-use-stagehand-native
  */
 
-import type { Context } from '@lyness/cordis'
-import Schema from '@lyness/schemastery'
-import { BrowserUseProviderName } from '@lyness/lyn-browser-use/brand'
-import { SessionResources } from '@lyness/lyn-experimental-browser-use-runtime'
-import { createMcpToolDefinition } from '@lyness/lyn-mcp-client'
+import type { Context } from '@deepseek-ai/cordis'
+import Schema from '@deepseek-ai/schemastery'
+import { BrowserUseProviderName } from '@deepseek-ai/dsh-browser-use/brand'
+import { SessionResources } from '@deepseek-ai/dsh-experimental-browser-use-runtime'
+import { createMcpToolDefinition } from '@deepseek-ai/dsh-mcp-client'
 import { z } from 'zod'
 import { browserInputs, stagehandModelSchema, StagehandDrainError } from './native.ts'
 import type { BrowserMethod, NativeBrowserRuntime, StagehandModelConfig } from './native.ts'
 import { openBrowserWorker } from './worker-client.ts'
 import { launchChromium } from './launch.ts'
-import type {} from '@lyness/lyn-agent'
-import type {} from '@lyness/lyn-browser-use'
-import type {} from '@lyness/lyn-system-prompt'
-import type {} from '@lyness/lyn-tools'
+import type {} from '@deepseek-ai/dsh-agent'
+import type {} from '@deepseek-ai/dsh-browser-use'
+import type {} from '@deepseek-ai/dsh-system-prompt'
+import type {} from '@deepseek-ai/dsh-tools'
 
 /** Cordis identity for the native Stagehand provider. */
 export const name = 'experimental-browser-use-stagehand-native'

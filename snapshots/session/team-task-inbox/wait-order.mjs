@@ -4,7 +4,7 @@ export const inject = ['tools', 'subagents', 'sessionPersistence']
 
 /**
  * Keep past commits before the first wait and completion inside the second wait.
- * @param {import('@lyness/cordis').Context} ctx - Scenario host context.
+ * @param {import('@deepseek-ai/cordis').Context} ctx - Scenario host context.
  */
 export function apply(ctx) {
   const claimed = Promise.withResolvers()

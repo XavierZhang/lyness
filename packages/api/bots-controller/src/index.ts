@@ -9,22 +9,22 @@
  * answered. A second rule written here would be one to keep in step with the
  * first, and the one a direct caller bypasses.
  *
- * @module @lyness/lyn-api-bots-controller
+ * @module @deepseek-ai/dsh-api-bots-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { BotsRefusedError } from '@lyness/lyn-managed-bots'
-import type { BotRefusal, BotSubmission, BotView, TeamSubmission, TeamView } from '@lyness/lyn-managed-bots'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, PersonId } from '@lyness/lyn-people'
-import { callingStanding } from '@lyness/lyn-request-principal'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import { assertNever } from '@lyness/lyn-util-values'
+import { Context } from '@deepseek-ai/cordis'
+import { BotsRefusedError } from '@deepseek-ai/dsh-managed-bots'
+import type { BotRefusal, BotSubmission, BotView, TeamSubmission, TeamView } from '@deepseek-ai/dsh-managed-bots'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import { callingStanding } from '@deepseek-ai/dsh-request-principal'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { BotInput, BotRowView, PresetOptionView, TeamInput, TeamRowView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `bots` Remote namespace. */
     botsController: BotsController

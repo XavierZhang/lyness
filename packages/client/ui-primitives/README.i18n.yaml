@@ -5,57 +5,57 @@
 /:
   en: 82f544da59010158
   zh: ef457b89042d5ead
-/lyness-lyn-client-ui-primitives:
+/deepseek-harness-dsh-client-ui-primitives:
   en: 2f0811a9af0fbb79
   zh: 9e261d0547a112cf
-/lyness-lyn-client-ui-primitives/summary:
+/deepseek-harness-dsh-client-ui-primitives/summary:
   en: fcb274b954caa498
   zh: 9a684e86ceb275c7
-/lyness-lyn-client-ui-primitives/table-of-contents:
+/deepseek-harness-dsh-client-ui-primitives/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-client-ui-primitives/use-this-package:
+/deepseek-harness-dsh-client-ui-primitives/use-this-package:
   en: ead6be55c7c9d7cf
   zh: 125ad36db7328551
-/lyness-lyn-client-ui-primitives/use-this-package/component-catalog:
+/deepseek-harness-dsh-client-ui-primitives/use-this-package/component-catalog:
   en: 0183be9c077ddefc
   zh: 0f88c45aca3727ac
-/lyness-lyn-client-ui-primitives/use-this-package/controls-and-icons:
+/deepseek-harness-dsh-client-ui-primitives/use-this-package/controls-and-icons:
   en: 448997eccb99ba93
   zh: bb509a730e9c61f5
-/lyness-lyn-client-ui-primitives/use-this-package/rendering-agent-output:
+/deepseek-harness-dsh-client-ui-primitives/use-this-package/rendering-agent-output:
   en: b9f858ddb7dd6d29
   zh: cb01db45d7bd1507
-/lyness-lyn-client-ui-primitives/use-this-package/localizing-copy:
+/deepseek-harness-dsh-client-ui-primitives/use-this-package/localizing-copy:
   en: 81e58c7b342baf3c
   zh: 6cd47b16124b215c
-/lyness-lyn-client-ui-primitives/understand-the-implementation:
+/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation:
   en: e56fd3d4b0332fb5
   zh: dc2b29a48dca98bd
-/lyness-lyn-client-ui-primitives/understand-the-implementation/source-map:
+/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/source-map:
   en: fd510d34404eb090
   zh: d05b0890db929ae6
-/lyness-lyn-client-ui-primitives/understand-the-implementation/input-modality:
+/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/input-modality:
   en: e9ca36e19864ba52
   zh: d40d46f4a6fe8422
-/lyness-lyn-client-ui-primitives/understand-the-implementation/streaming-markdown:
+/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/streaming-markdown:
   en: 8bbfa14c27f3bfd7
   zh: 88f7548ac3a114e1
-/lyness-lyn-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
+/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
   en: 45f4cd1ef96bb6d2
   zh: f264d25b780ad1dc
-/lyness-lyn-client-ui-primitives/further-exploration:
+/deepseek-harness-dsh-client-ui-primitives/further-exploration:
   en: be0bd41c9458c167
   zh: 404a1e3143a81b7e
-/lyness-lyn-client-ui-primitives/model-experience:
+/deepseek-harness-dsh-client-ui-primitives/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/lyness-lyn-client-ui-primitives/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-client-ui-primitives/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-client-ui-primitives/known-limitations-and-deferred-work:
   en: 14256f89f54c77ec
   zh: eb7376040d392f3e
-/lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

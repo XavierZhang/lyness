@@ -3,13 +3,13 @@ description: "管理员在运行时配置登录渠道所经过的那层界面。
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-sign-in-channel-controller
+# @deepseek-ai/dsh-api-sign-in-channel-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-sign-in-channel-controller` 拥有 `signInChannels` 这个 Remote 命名空间：这套部署可以配置哪些种类的目录、已经配置了哪些渠道，以及新建、替换、删除一个渠道的调用。谁可以改什么，不由它决定——那条规则在 `lyn-sign-in-channels` 手里，本命名空间只把这次调用所处的身份交给它。应用密钥只向内穿过；任何答案都带不出一个，因为存下来的是凭据存储保管它所用的那个引用名。
+`dsh-api-sign-in-channel-controller` 拥有 `signInChannels` 这个 Remote 命名空间：这套部署可以配置哪些种类的目录、已经配置了哪些渠道，以及新建、替换、删除一个渠道的调用。谁可以改什么，不由它决定——那条规则在 `dsh-sign-in-channels` 手里，本命名空间只把这次调用所处的身份交给它。应用密钥只向内穿过；任何答案都带不出一个，因为存下来的是凭据存储保管它所用的那个引用名。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: sign-in-channel-controller
-  name: '@lyness/lyn-api-sign-in-channel-controller'
+  name: '@deepseek-ai/dsh-api-sign-in-channel-controller'
 ```
 
 配置界面先问可以配置什么，再提交其中一种：
@@ -37,7 +37,7 @@ kind: "package-reference"
 ```ts
 import type {
   ChannelInput, ChannelKindView, ConfiguredChannelView,
-} from '@lyness/lyn-api-sign-in-channel-controller/types'
+} from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 
 /** The two calls one configuration form makes. */
 interface ChannelsRemote {
@@ -83,9 +83,9 @@ export async function configure(
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-sign-in-channels`](../../identity/sign-in-channels/README.zh.md) —— 记录、挂载，以及本命名空间向其交出身份的那条规则。
-- [`lyn-sign-in`](../../identity/sign-in/README.zh.md) —— 配置好的渠道落入的那个注册表，以及构建它的那些种类。
-- [`lyn-api-remote-authority`](../remote-authority/README.zh.md) —— `tenant-administrator` 在线上意味着什么。
+- [`dsh-sign-in-channels`](../../identity/sign-in-channels/README.zh.md) —— 记录、挂载，以及本命名空间向其交出身份的那条规则。
+- [`dsh-sign-in`](../../identity/sign-in/README.zh.md) —— 配置好的渠道落入的那个注册表，以及构建它的那些种类。
+- [`dsh-api-remote-authority`](../remote-authority/README.zh.md) —— `tenant-administrator` 在线上意味着什么。
 
 -----
 

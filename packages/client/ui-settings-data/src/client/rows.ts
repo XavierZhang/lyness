@@ -8,11 +8,11 @@
  * moves, which is what a `useSyncExternalStore` reader requires of a derived
  * source.
  *
- * @module @lyness/lyn-client-ui-settings-data/client/rows
+ * @module @deepseek-ai/dsh-client-ui-settings-data/client/rows
  */
 
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
-import type { SessionListState, SessionSummary } from '@lyness/lyn-api-session-controller/client'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { SessionListState, SessionSummary } from '@deepseek-ai/dsh-api-session-controller/client'
 
 /** One conversation, as the data section shows it. */
 export interface ConversationRow {

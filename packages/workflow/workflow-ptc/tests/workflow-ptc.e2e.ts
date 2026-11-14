@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/lyn-session'
+import { Context } from '@deepseek-ai/cordis'
+import { SessionId } from '@deepseek-ai/dsh-session'
 
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import * as Spawn from '@lyness/lyn-subagent-spawn-in-process'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import * as Spawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
 import PtcWorkflowEngine from '../src/index.ts'
 import { mountPtcRuntime } from './setup.ts'
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 let ctx: Context | undefined
 

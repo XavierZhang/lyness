@@ -14,7 +14,7 @@ Status: implemented
 
 ## Decision
 
-一条仅日志事件 `tenant/identity`，由 `@lyness/lyn-tenant-session` 在 `session/created` 时为每个会话追加一次。它携带一组带版本的显式字段——租户 id、创建时读到的标识，以及该租户的约束与个性原文。新增事件类型不需要升格式版本；逐事件的 `ignorable` 守卫覆盖了词汇增长。
+一条仅日志事件 `tenant/identity`，由 `@deepseek-ai/dsh-tenant-session` 在 `session/created` 时为每个会话追加一次。它携带一组带版本的显式字段——租户 id、创建时读到的标识，以及该租户的约束与个性原文。新增事件类型不需要升格式版本；逐事件的 `ignorable` 守卫覆盖了词汇增长。
 
 身份文本按原文记录，而不是按引用。仓库对"记录进入过模型的内容"有两种形态——文本本身就是那个东西时记原文，可解析时记可解析的 id——而租户身份属于前者：它来自可变的配置，因此 id 解析不出该会话实际运行时所用的内容。
 

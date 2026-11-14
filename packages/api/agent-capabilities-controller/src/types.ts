@@ -1,9 +1,9 @@
 /**
  * Wire vocabulary of the read-only "what you may use" surface.
- * @module @lyness/lyn-api-agent-capabilities-controller/types
+ * @module @deepseek-ai/dsh-api-agent-capabilities-controller/types
  */
 
-import type { PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
+import type { PluginLocalizedMeta } from '@deepseek-ai/dsh-package-manifest'
 
 /** Who decided that one capability is available. */
 export type CapabilitySource =

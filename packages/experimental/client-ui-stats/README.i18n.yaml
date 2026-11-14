@@ -5,39 +5,39 @@
 /:
   en: db1b5b42664d338d
   zh: 6985139d86d1b08f
-/lyness-lyn-experimental-client-ui-stats:
+/deepseek-harness-dsh-experimental-client-ui-stats:
   en: b85e6e03bc57237b
   zh: b8fbda7c261623e3
-/lyness-lyn-experimental-client-ui-stats/summary:
+/deepseek-harness-dsh-experimental-client-ui-stats/summary:
   en: cd8563fb8d8a9a3f
   zh: a5fd771cabccedd7
-/lyness-lyn-experimental-client-ui-stats/table-of-contents:
+/deepseek-harness-dsh-experimental-client-ui-stats/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-experimental-client-ui-stats/use-this-package:
+/deepseek-harness-dsh-experimental-client-ui-stats/use-this-package:
   en: 0fde622d41dedcbf
   zh: a5d6e96e732f81ce
-/lyness-lyn-experimental-client-ui-stats/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-experimental-client-ui-stats/use-this-package/when-to-choose-it:
   en: faf6b9ae94a6d6ce
   zh: 8ee657a3d26423b4
-/lyness-lyn-experimental-client-ui-stats/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-experimental-client-ui-stats/use-this-package/minimal-configuration:
   en: e001601f2f9779b1
   zh: 077d3703b8c82774
-/lyness-lyn-experimental-client-ui-stats/understand-the-implementation:
+/deepseek-harness-dsh-experimental-client-ui-stats/understand-the-implementation:
   en: 7e560f4017eed7a8
   zh: ea7d8b4c0f938dab
-/lyness-lyn-experimental-client-ui-stats/further-exploration:
+/deepseek-harness-dsh-experimental-client-ui-stats/further-exploration:
   en: 38ddf5268f742e6f
   zh: d50718f262cfdafe
-/lyness-lyn-experimental-client-ui-stats/model-experience:
+/deepseek-harness-dsh-experimental-client-ui-stats/model-experience:
   en: 9cc467886fff1f2d
   zh: 4b10d95f64769bad
-/lyness-lyn-experimental-client-ui-stats/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-experimental-client-ui-stats/model-experience/kv-cache-effect:
   en: 7605bb868f93b4a8
   zh: 184ca10ce6680499
-/lyness-lyn-experimental-client-ui-stats/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-experimental-client-ui-stats/known-limitations-and-deferred-work:
   en: 5eb9d44becdc7aff
   zh: 63c076955d88f8ad
-/lyness-lyn-experimental-client-ui-stats/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-experimental-client-ui-stats/known-limitations-and-deferred-work/dev-note:
   en: e6913a399b56bfd9
   zh: 14d111fb73444b18

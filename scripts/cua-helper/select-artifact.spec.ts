@@ -2,7 +2,7 @@
 import { expect, it, vi } from 'vitest'
 import { selectCuaHelperArtifact } from './select-artifact.ts'
 
-const repository = 'lyness/lyness'
+const repository = 'DeepSeek Harness/DeepSeek Harness'
 const base = `repos/${repository}/actions/runs/123`
 
 function fixture() {

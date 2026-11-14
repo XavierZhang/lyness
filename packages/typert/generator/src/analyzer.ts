@@ -2,7 +2,7 @@
  * TypeScript project analyzer for the compiler-independent Typert model.
  * Programs, symbols, and syntax nodes remain extraction-only implementation
  * details; callers receive only the model declared in {@link ./model.ts}.
- * @module @lyness/lyn-typert-generator/analyzer
+ * @module @deepseek-ai/dsh-typert-generator/analyzer
  */
 
 import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
@@ -61,7 +61,7 @@ const REMOTE_AUTHORITIES: ReadonlySet<string> = new Set([
 ])
 
 const PUBLIC_REMOTE_TYPE_ROOTS = new Set([
-  '@lyness/lyn-util-values',
+  '@deepseek-ai/dsh-util-values',
 ])
 
 /** Analysis failure with a source-oriented diagnostic. */
@@ -751,7 +751,7 @@ class FaceAnalyzer {
       for (const statement of sourceFile.statements) {
         if (!ts.isModuleDeclaration(statement)
           || !ts.isStringLiteral(statement.name)
-          || statement.name.text !== '@lyness/cordis'
+          || statement.name.text !== '@deepseek-ai/cordis'
           || statement.body === undefined
           || !ts.isModuleBlock(statement.body)) continue
         for (const member of statement.body.statements) {
@@ -1613,7 +1613,7 @@ class FaceAnalyzer {
       for (const statement of sourceFile.statements) {
         if (!ts.isModuleDeclaration(statement)
           || !ts.isStringLiteral(statement.name)
-          || statement.name.text !== '@lyness/lyn-typert-protocol'
+          || statement.name.text !== '@deepseek-ai/dsh-typert-protocol'
           || statement.body === undefined
           || !ts.isModuleBlock(statement.body)) continue
         for (const nested of statement.body.statements) {
@@ -1741,7 +1741,7 @@ class FaceAnalyzer {
         const alias = type.aliasSymbol
         const aliasDeclaration = alias === undefined ? undefined : preferredDeclaration(this.resolveSymbol(alias))
         if (alias?.name === 'JsonValue' && aliasDeclaration !== undefined
-          && this.registrationForFile(aliasDeclaration.getSourceFile().fileName)?.name === '@lyness/lyn-util-values') {
+          && this.registrationForFile(aliasDeclaration.getSourceFile().fileName)?.name === '@deepseek-ai/dsh-util-values') {
           return add({ kind: 'keyword', name: 'unknown', json: true })
         }
         const flags = type.flags
@@ -2116,11 +2116,11 @@ class FaceAnalyzer {
     const declaration = preferredDeclaration(resolved)
     if (declaration === undefined) return false
     const registration = this.registrationForFile(declaration.getSourceFile().fileName)
-    if (registration?.name === '@lyness/lyn-typert-protocol') return true
+    if (registration?.name === '@deepseek-ai/dsh-typert-protocol') return true
     for (let current: ts.Node | undefined = declaration; current !== undefined; current = optionalParent(current)) {
       if (ts.isModuleDeclaration(current)
         && ts.isStringLiteral(current.name)
-        && current.name.text === '@lyness/lyn-typert-protocol') return true
+        && current.name.text === '@deepseek-ai/dsh-typert-protocol') return true
     }
     return false
   }
@@ -2945,7 +2945,7 @@ function sourceFileHasSurface(sourceFile: ts.SourceFile): boolean {
     }
     if (!ts.isModuleDeclaration(statement)
       || !ts.isStringLiteral(statement.name)
-      || statement.name.text !== '@lyness/cordis'
+      || statement.name.text !== '@deepseek-ai/cordis'
       || statement.body === undefined
       || !ts.isModuleBlock(statement.body)) continue
     if (statement.body.statements.some(member => ts.isInterfaceDeclaration(member)
@@ -2964,9 +2964,9 @@ function hasPackageSurface(model: PackageModel): boolean {
 }
 
 function isDualFacePackage(manifest: Record<string, unknown>): boolean {
-  const lyn = manifest.lyn
-  const client = lyn !== null && typeof lyn === 'object'
-    ? (lyn as Record<string, unknown>).client
+  const dsh = manifest.dsh
+  const client = dsh !== null && typeof dsh === 'object'
+    ? (dsh as Record<string, unknown>).client
     : undefined
   return client !== null
     && typeof client === 'object'
@@ -3226,7 +3226,7 @@ function stringLiteralValue(node: ts.Node | undefined): string | undefined {
 }
 
 function isRemoteSegment(value: string): boolean {
-  // Generation bootstraps workspace artifacts before lyn-typert-protocol is built,
+  // Generation bootstraps workspace artifacts before dsh-typert-protocol is built,
   // so this extraction-only copy must mirror isTypertRemoteSegment().
   return value !== '.' && value !== '..' && /^[A-Za-z0-9_$.-]+$/.test(value)
 }

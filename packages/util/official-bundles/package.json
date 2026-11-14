@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-official-bundles",
-  "description": "Installation-owned lists of official lyn bundles (shipped profile templates, optional, on-demand, and retired bundles) and the plugin manager's protected and presented packages",
+  "name": "@deepseek-ai/dsh-official-bundles",
+  "description": "Installation-owned lists of official dsh bundles (shipped profile templates, optional, on-demand, and retired bundles) and the plugin manager's protected and presented packages",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/util/official-bundles"
   },
   "type": "module",
@@ -27,12 +27,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-package-manifest": "workspace:*"
+    "@deepseek-ai/dsh-package-manifest": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

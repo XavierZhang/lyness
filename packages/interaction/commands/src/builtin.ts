@@ -2,12 +2,12 @@
 import type { CommandDescriptor } from './types.ts'
 
 const BUILTINS = {
-  goal: '@lyness/lyn-command-goal',
-  plan: '@lyness/lyn-plan-mode',
-  feedback: '@lyness/lyn-command-feedback',
-  compact: '@lyness/lyn-command-compact',
-  permission: '@lyness/lyn-permission-presets',
-  export: '@lyness/lyn-session-log-export',
+  goal: '@deepseek-ai/dsh-command-goal',
+  plan: '@deepseek-ai/dsh-plan-mode',
+  feedback: '@deepseek-ai/dsh-command-feedback',
+  compact: '@deepseek-ai/dsh-command-compact',
+  permission: '@deepseek-ai/dsh-permission-presets',
+  export: '@deepseek-ai/dsh-session-log-export',
 } as const
 
 /** Stable first-party capabilities, independent of their registered command names. */

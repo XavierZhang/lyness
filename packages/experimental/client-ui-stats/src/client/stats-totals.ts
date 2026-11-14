@@ -1,7 +1,7 @@
 /** Whole-session totals from the host projections that survive client paging. */
 
-import type { SessionStatsProjection } from '@lyness/lyn-session-stats/types'
-import type { TokenUsageProjection } from '@lyness/lyn-token-meter/client'
+import type { SessionStatsProjection } from '@deepseek-ai/dsh-session-stats/types'
+import type { TokenUsageProjection } from '@deepseek-ai/dsh-token-meter/client'
 import type { StatsTotals } from './stats-aggregate.ts'
 
 /**

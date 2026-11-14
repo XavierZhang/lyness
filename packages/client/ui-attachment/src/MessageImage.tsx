@@ -1,11 +1,11 @@
-import type { ContextMenuBindings } from '@lyness/lyn-client-ui-context-menu/client'
+import type { ContextMenuBindings } from '@deepseek-ai/dsh-client-ui-context-menu/client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
-import { IconLoadingOutlineRegular, IconRefreshOutlineRegular, DraggableImage, ImageLightbox, type FileDragActions } from '@lyness/lyn-client-ui-primitives'
-import type { MessageImageLabels } from '@lyness/lyn-client-ui-conversation/client'
+import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import { IconLoadingOutlineRegular, IconRefreshOutlineRegular, DraggableImage, ImageLightbox, type FileDragActions } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { MessageImageLabels } from '@deepseek-ai/dsh-client-ui-conversation/client'
 import css from './MessageImage.module.css'
 
-export type { MessageImageLabels } from '@lyness/lyn-client-ui-conversation/client'
+export type { MessageImageLabels } from '@deepseek-ai/dsh-client-ui-conversation/client'
 
 /** Loads a Gateway-authorized durable image URL and may expose a cached URL synchronously. */
 export type ImageLoader = ((attachment: ImageAttachmentRef) => Promise<string>) & {

@@ -10,20 +10,20 @@
  * review, and a page that listed them beside somebody's own would invite a
  * removal that takes a fact away from everybody.
  *
- * @module @lyness/lyn-api-memory-controller
+ * @module @deepseek-ai/dsh-api-memory-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import { brandString } from '@lyness/lyn-brand'
-import { memoryOwnerOfPerson } from '@lyness/lyn-memory'
-import type { MemoryId, MemoryOwnerId } from '@lyness/lyn-memory'
-import type {} from '@lyness/lyn-request-principal'
+import { Context } from '@deepseek-ai/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { memoryOwnerOfPerson } from '@deepseek-ai/dsh-memory'
+import type { MemoryId, MemoryOwnerId } from '@deepseek-ai/dsh-memory'
+import type {} from '@deepseek-ai/dsh-request-principal'
 import type { MemoriesView, MemoryEntryView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `memories` Remote namespace. */
     memoryController: MemoryController

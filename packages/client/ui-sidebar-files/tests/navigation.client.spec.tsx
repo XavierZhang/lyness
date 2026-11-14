@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 /** Target-tab navigation through the real files face, store, and snapshot sources. */
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { SnapshotStore } from '@lyness/lyn-client-store'
-import type { PaneId, TabId } from '@lyness/lyn-client-ui-dockkit'
-import type { SidebarRightTabNavigation } from '@lyness/lyn-client-ui-sidebar-right/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { PaneId, TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
+import type { SidebarRightTabNavigation } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { sessionFileAddress } from '@deepseek-ai/dsh-util-workspace-path'
 import { filesFace } from '../src/client/face.ts'
 import type { ListWorkspaceDirectory, WatchWorkspaceDirectory } from '../src/client/face.ts'
 import { createFilesStore } from '../src/client/store.ts'

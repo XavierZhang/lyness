@@ -3,10 +3,10 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { chromium, type Browser, type Locator, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed, vi } from 'vitest'
-import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
-import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
-import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-title'
+import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { createAssistantMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-session-title'
 import { launchWebScaffold, seedSession, watchConsole, type WebScaffold } from './scaffold.ts'
 import { saveFailureShot } from './support.ts'
 
@@ -112,7 +112,7 @@ describe.each(['MacIntel', 'Win32', 'Linux x86_64'])('web context menus on %s', 
   it('updates an open Session menu from another window’s shortcut preferences and still renames the captured row', async () => {
     onTestFailed(() => saveFailureShot(page, 'context-menus-live-shortcuts'))
     const other = await page.context().newPage()
-    const key = 'lyn.keybindings.v1'
+    const key = 'dsh.keybindings.v1'
     const original = await page.evaluate(key => localStorage.getItem(key), key)
     try {
       await other.goto(scaffold.authenticatedUrl)
@@ -216,7 +216,7 @@ describe.each(['MacIntel', 'Win32', 'Linux x86_64'])('web context menus on %s', 
     await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe(join(scaffold.workspaceCwd, 'first.txt'))
     expect(await file.evaluate(element => element === document.activeElement)).toBe(true)
     await page.evaluate(() => {
-      document.documentElement.style.setProperty('--lyn-frame-overlay-top', '100px')
+      document.documentElement.style.setProperty('--dsh-frame-overlay-top', '100px')
       const frames: number[] = []
       const observer = new MutationObserver(() => {
         for (const menu of document.querySelectorAll('[role="menu"]')) frames.push(menu.querySelectorAll('[role="menuitem"]').length)
@@ -244,7 +244,7 @@ describe.each(['MacIntel', 'Win32', 'Linux x86_64'])('web context menus on %s', 
       const observed = (window as Window & { menuObservation?: { frames: number[]; observer: MutationObserver } }).menuObservation
       if (observed === undefined) throw new Error('Menu observer not installed')
       observed.observer.disconnect()
-      document.documentElement.style.removeProperty('--lyn-frame-overlay-top')
+      document.documentElement.style.removeProperty('--dsh-frame-overlay-top')
       return observed.frames
     })
     expect(counts.length).toBeGreaterThan(0)
@@ -393,7 +393,7 @@ describe.each(['MacIntel', 'Win32', 'Linux x86_64'])('web context menus on %s', 
       const destinations = { download: join(scaffold.workspaceCwd, 'downloaded.gif'), saveAs: join(scaffold.workspaceCwd, 'saved.txt') }
       await native.addInitScript(({ platform, destinations }) => {
         Object.defineProperty(navigator, 'platform', { value: platform })
-        Object.defineProperty(globalThis, 'lynDesktop', { value: { protocolVersion: 1, fileActions: {
+        Object.defineProperty(globalThis, 'dshDesktop', { value: { protocolVersion: 1, fileActions: {
           save: async ({ mode }: { mode: 'download' | 'saveAs' }) => ({ status: 'saved', path: destinations[mode] }),
         } } })
       }, { platform, destinations })

@@ -1,8 +1,8 @@
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-agent'
-import { CompactionId, compactCheckpointSource } from '@lyness/lyn-compaction'
-import { createUserMessage } from '@lyness/lyn-llm'
-import type {} from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-agent'
+import { CompactionId, compactCheckpointSource } from '@deepseek-ai/dsh-compaction'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/dsh-tools'
 
 export const name = 'workspace-context-compaction'
 

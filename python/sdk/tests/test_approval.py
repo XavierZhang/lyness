@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from lyness import ApprovalRequestParams, ApprovalRequestResult, LynessConfig, HarnessClient
+from DeepSeek Harness import ApprovalRequestParams, ApprovalRequestResult, DeepSeekHarnessConfig, HarnessClient
 
 
 @pytest.mark.parametrize("enabled", [False, True])
@@ -50,6 +50,6 @@ def test_approval_result_rejects_unrecognized_grants() -> None:
 
 
 def test_approval_opt_in_preserves_existing_config_positional_arguments() -> None:
-    config = LynessConfig("mock", "model", None, None, "/workspace")
+    config = DeepSeekHarnessConfig("mock", "model", None, None, "/workspace")
     assert config.cwd == "/workspace"
     assert config.approval_requests is False

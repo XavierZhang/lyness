@@ -9,10 +9,10 @@ const calls = vi.hoisted(() => ({
   proxyLookups: [] as ({ value: string } | undefined)[][],
 }))
 
-vi.mock('@lyness/lyn-http-proxy', () => ({
+vi.mock('@deepseek-ai/dsh-http-proxy', () => ({
   createRouteDispatcher: async (env: { get(name: string): { value: string } | undefined }, options: Record<string, unknown>) => {
     calls.create.push({ options })
-    calls.proxyLookups.push([env.get('HTTPS_PROXY'), env.get('LYNESS_RELAY_FETCH_TEST_UNSET')])
+    calls.proxyLookups.push([env.get('HTTPS_PROXY'), env.get('DSH_RELAY_FETCH_TEST_UNSET')])
     return { close: async () => { calls.closed += 1 } }
   },
 }))

@@ -3,7 +3,7 @@ description: "Tenant directory whose roster is composition config: rows an opera
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-static
+# @deepseek-ai/dsh-tenant-static
 
 English | [中文](README.zh.md)
 
@@ -27,7 +27,7 @@ This backend registers `ctx.tenants` from a roster written in the deployment's p
 
 ```yaml
 - id: tenants
-  name: '@lyness/lyn-tenant-static'
+  name: '@deepseek-ai/dsh-tenant-static'
   config:
     tenants:
       - id: acme

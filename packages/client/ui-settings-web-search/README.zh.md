@@ -1,9 +1,9 @@
 ---
-description: "lyn Web 客户端插件页上的网页搜索与获取设置页：Search 与 Fetch 提供方下拉框、DeepSeek Search API 的结果数，以及旧版 Messages 搜索的设置。"
+description: "dsh Web 客户端插件页上的网页搜索与获取设置页：Search 与 Fetch 提供方下拉框、DeepSeek Search API 的结果数，以及旧版 Messages 搜索的设置。"
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-web-search
+# @deepseek-ai/dsh-client-ui-settings-web-search
 
 [English](README.md) | 中文
 
@@ -74,7 +74,7 @@ kind: "package-reference"
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **自动选择只看部署组合层**——组合层没有为该能力设置提供方时，下拉框才提供自动选择。自动选择生效时，Host 的 `LYNESS_WEB_SEARCH_PROVIDER` 或 `LYNESS_WEB_FETCH_PROVIDER` 环境变量会改为由它指定提供方，而页面不会显示这一选择。两者都没有时，如果注册了多个可用提供方，自动选择会让每次操作以 `WEB_PROVIDER_AMBIGUOUS` 失败。
+- **自动选择只看部署组合层**——组合层没有为该能力设置提供方时，下拉框才提供自动选择。自动选择生效时，Host 的 `DSH_WEB_SEARCH_PROVIDER` 或 `DSH_WEB_FETCH_PROVIDER` 环境变量会改为由它指定提供方，而页面不会显示这一选择。两者都没有时，如果注册了多个可用提供方，自动选择会让每次操作以 `WEB_PROVIDER_AMBIGUOUS` 失败。
 
 <a id="dev-note"></a>
 ### 开发备注

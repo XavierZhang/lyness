@@ -3,13 +3,13 @@ description: "解析并校验一次调用所处的上下文：由调用声明、
 kind: "package-reference"
 ---
 
-# @lyness/lyn-acting-context
+# @deepseek-ai/dsh-acting-context
 
 [English](README.md) | 中文
 
 ## 概述
 
-用 `lyn-acting-context` 判定一次调用所声明的上下文是否被允许。签入产生的是「人的会话」，不是「某个身份的会话」，所以哪个身份在生效是按调用决定的。三条规则各带一个 code 供界面映射成自己的文案：一次调用要么声明自己的上下文、要么被拒绝；所声明的身份属于调用方；而一个解析到某组织的地址只接纳那个组织的身份。
+用 `dsh-acting-context` 判定一次调用所声明的上下文是否被允许。签入产生的是「人的会话」，不是「某个身份的会话」，所以哪个身份在生效是按调用决定的。三条规则各带一个 code 供界面映射成自己的文案：一次调用要么声明自己的上下文、要么被拒绝；所声明的身份属于调用方；而一个解析到某组织的地址只接纳那个组织的身份。
 
 ## 目录
 
@@ -29,14 +29,14 @@ kind: "package-reference"
 
 ```yaml
 - id: acting-context
-  name: '@lyness/lyn-acting-context'
+  name: '@deepseek-ai/dsh-acting-context'
 ```
 
 传输层在操作运行之前解析每次调用的声明：
 
 ```ts
-import type { ActingContextResolver } from '@lyness/lyn-acting-context'
-import type { PersonId } from '@lyness/lyn-people'
+import type { ActingContextResolver } from '@deepseek-ai/dsh-acting-context'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 
 declare const resolver: ActingContextResolver
 declare const signedInPerson: PersonId
@@ -69,7 +69,7 @@ const acting = await resolver.resolve({
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-people`](../people/README.zh.md) —— 本解析器询问的那个目录，以及三个角色。
+- [`dsh-people`](../people/README.zh.md) —— 本解析器询问的那个目录，以及三个角色。
 - [人、成员关系与调用所处的上下文](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.zh.md) —— 本包所实现的那个决定。
 
 -----

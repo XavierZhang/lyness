@@ -6,12 +6,12 @@
 
 ## 问题
 
-[Apply patch 文件编辑](2026-09-28-apply-patch-file-editing.zh.md)以 opt-in 方式交付 `apply_patch`，并保持 `lyn-fs-observation-policy` 挂载，因此所有叠加 base 的 profile 都会拒绝对模型未读过、或读后已变化的文件执行 `write`、`edit` 与 `apply_patch`。维护者对随发行版交付的组合分别在开启该工具和禁用该策略的情况下跑了 benchmark，与基线比较后讨论得出了随发行版交付的默认值。
+[Apply patch 文件编辑](2026-09-28-apply-patch-file-editing.zh.md)以 opt-in 方式交付 `apply_patch`，并保持 `dsh-fs-observation-policy` 挂载，因此所有叠加 base 的 profile 都会拒绝对模型未读过、或读后已变化的文件执行 `write`、`edit` 与 `apply_patch`。维护者对随发行版交付的组合分别在开启该工具和禁用该策略的情况下跑了 benchmark，与基线比较后讨论得出了随发行版交付的默认值。
 
 ## 决策
 
-- `lyn-base` 的 `tool-fs` 行（headless、SDK、ACP）与 Web 的 `standard` preset 写出 `applyPatch: true`。Web 的 `ptc`、`cordis` preset 写出 `applyPatch: false`，随发行版交付的 [PTC overlay](../../../../apps/cli/config/examples/ptc.yml) 在 base 行上也设为 `false`，因此 SDK 与 Desktop 的 PTC 工具集保持一致，无需一致性例外。
-- `lyn-base` 的 `fs-observation-policy` 行以 `disabled: true` 交付。叠加 base 的 profile 中每个修改工具都直接作用于裸提供方：`write` 覆盖，`edit` 替换唯一的字面匹配，`apply_patch` 只凭上下文匹配应用 hunk。部署在该行上写 `disabled: false` 即可为三者恢复防护。`sdk-minimal` 不叠加 `lyn-base`，不受影响。
+- `dsh-base` 的 `tool-fs` 行（headless、SDK、ACP）与 Web 的 `standard` preset 写出 `applyPatch: true`。Web 的 `ptc`、`cordis` preset 写出 `applyPatch: false`，随发行版交付的 [PTC overlay](../../../../apps/cli/config/examples/ptc.yml) 在 base 行上也设为 `false`，因此 SDK 与 Desktop 的 PTC 工具集保持一致，无需一致性例外。
+- `dsh-base` 的 `fs-observation-policy` 行以 `disabled: true` 交付。叠加 base 的 profile 中每个修改工具都直接作用于裸提供方：`write` 覆盖，`edit` 替换唯一的字面匹配，`apply_patch` 只凭上下文匹配应用 hunk。部署在该行上写 `disabled: false` 即可为三者恢复防护。`sdk-minimal` 不叠加 `dsh-base`，不受影响。
 - `write` 与 `edit` 的提示语仍要求先读，但不再点名该策略；`apply_patch` 的提示语要求给每个 hunk 足够的上下文以匹配唯一位置，而非先读。
 - 由于没有默认组合挂载策略包，它被归类为可选产品包。录的是策略拒绝的两个场景 `fs-policy-reject` 与 `apply-patch-rejected` 通过各自的 `runtime.cordis.yml` 把该行开回来；固定 token 预算的压缩场景在 live 与 replay patch 中都钉住 `applyPatch: false`，因为它们的阈值是按录制时的工具集调的。
 

@@ -10,13 +10,13 @@
  * slug syntax, and no two tenants claiming one id, slug, or hostname — because
  * an ambiguous roster resolves requests to arbitrary tenants, and that is
  * another organization's data.
- * @module @lyness/lyn-tenant-static
+ * @module @deepseek-ai/dsh-tenant-static
  */
 
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { isTenantSlug, TENANT_ID_SYNTAX, TenantDirectory, TenantId } from '@lyness/lyn-tenant'
-import type { Tenant } from '@lyness/lyn-tenant'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { isTenantSlug, TENANT_ID_SYNTAX, TenantDirectory, TenantId } from '@deepseek-ai/dsh-tenant'
+import type { Tenant } from '@deepseek-ai/dsh-tenant'
 
 /** One configured tenant. */
 export interface TenantEntry {

@@ -6,7 +6,7 @@
  * while the store instance is baked when the section first renders. A call
  * that settles before that publishes to nobody rather than failing.
  *
- * @module @lyness/lyn-client-ui-settings-data/client/binding
+ * @module @deepseek-ai/dsh-client-ui-settings-data/client/binding
  */
 
 import type { DataOperations, DataSink } from './operations.ts'

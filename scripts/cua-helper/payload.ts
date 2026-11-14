@@ -7,7 +7,7 @@ import { z } from 'zod'
 /** Architectures carried by each published macOS provider package. */
 export const CUA_ARCHITECTURES = ['arm64', 'x64'] as const
 /** Native application name shared with the provider receipt. */
-export const CUA_APPLICATION = 'LYN Computer Use.app'
+export const CUA_APPLICATION = 'DSH Computer Use.app'
 /** Completion record written only after both applications pass distribution checks. */
 export const CUA_MANIFEST = 'cua-helper.json'
 const Digest = z.string().regex(/^[a-f0-9]{64}$/u)
@@ -57,10 +57,10 @@ export function readCuaApplication(directory: string): { application: string; bu
   const { bundle } = z.object({ bundle: Digest }).strict().parse(JSON.parse(readFileSync(join(directory, 'current.json'), 'utf8')))
   if (!lstatSync(join(directory, bundle)).isDirectory()) throw new Error('CUA generation must be a real directory')
   const application = join(directory, bundle, CUA_APPLICATION)
-  for (const path of ['Contents/Info.plist', 'Contents/MacOS/lyn-cua-native', 'Contents/Resources/LYNComputerUse.icns', 'Contents/_CodeSignature/CodeResources']) {
+  for (const path of ['Contents/Info.plist', 'Contents/MacOS/dsh-cua-native', 'Contents/Resources/DSHComputerUse.icns', 'Contents/_CodeSignature/CodeResources']) {
     if (!lstatSync(join(application, path)).isFile()) throw new Error(`CUA application omits ${path}`)
   }
-  if ((lstatSync(join(application, 'Contents/MacOS/lyn-cua-native')).mode & 0o111) === 0) throw new Error('CUA helper is not executable')
+  if ((lstatSync(join(application, 'Contents/MacOS/dsh-cua-native')).mode & 0o111) === 0) throw new Error('CUA helper is not executable')
   if (cuaApplicationDigest(application) !== bundle) throw new Error('CUA application digest does not match current.json')
   if (readdirSync(directory).sort().join(',') !== [bundle, 'current.json'].sort().join(',')) throw new Error('CUA release contains unselected application generations')
   return { application, bundle }

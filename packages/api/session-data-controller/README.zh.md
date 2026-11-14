@@ -3,13 +3,13 @@ description: "一个人自己的对话：他能要求的那次删除，以边界
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-session-data-controller
+# @deepseek-ai/dsh-api-session-data-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-session-data-controller` 拥有 `sessionData` Remote 命名空间：一个方法，删除调用者自己的一段对话，并回答有哪些存储会话消失了。它能动哪段对话，从不是调用方能放宽的参数——归属规则从对话自己的日志里回答它——所以别人的 id 得到的回答，与一个从未存在的 id 完全相同。这个命名空间不读列表：`session.list` 已经回答了调用者能看见哪些对话，第二份列表会成为页面与它所操作的东西唯一可能互相矛盾的地方。
+`dsh-api-session-data-controller` 拥有 `sessionData` Remote 命名空间：一个方法，删除调用者自己的一段对话，并回答有哪些存储会话消失了。它能动哪段对话，从不是调用方能放宽的参数——归属规则从对话自己的日志里回答它——所以别人的 id 得到的回答，与一个从未存在的 id 完全相同。这个命名空间不读列表：`session.list` 已经回答了调用者能看见哪些对话，第二份列表会成为页面与它所操作的东西唯一可能互相矛盾的地方。
 
 ## 目录
 
@@ -29,9 +29,9 @@ kind: "package-reference"
 
 ```yaml
 - id: session-deletion
-  name: '@lyness/lyn-session-deletion'
+  name: '@deepseek-ai/dsh-session-deletion'
 - id: session-data-controller
-  name: '@lyness/lyn-api-session-data-controller'
+  name: '@deepseek-ai/dsh-api-session-data-controller'
 ```
 
 `delete(sessionId)` 移除那段对话以及它下面每一个 subagent 会话，然后回答它们的 id。两行都不选的部署不提供这个命名空间，挂载它的那个设置页也就不会出现。
@@ -63,10 +63,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-session-deletion`](../../session/session-deletion/README.zh.md) —— 这次删除移除什么、按什么顺序、留下什么。
-- [`lyn-session-ownership`](../../identity/session-ownership/README.zh.md) —— 决定这段对话属于谁的那条规则。
-- [`lyn-client-ui-settings-data`](../../client/ui-settings-data/README.zh.md) —— 调用这个方法的那个页面。
-- [`lyn-api-remote-authority`](../remote-authority/README.zh.md) —— 执行这个命名空间所声明身份要求的地方。
+- [`dsh-session-deletion`](../../session/session-deletion/README.zh.md) —— 这次删除移除什么、按什么顺序、留下什么。
+- [`dsh-session-ownership`](../../identity/session-ownership/README.zh.md) —— 决定这段对话属于谁的那条规则。
+- [`dsh-client-ui-settings-data`](../../client/ui-settings-data/README.zh.md) —— 调用这个方法的那个页面。
+- [`dsh-api-remote-authority`](../remote-authority/README.zh.md) —— 执行这个命名空间所声明身份要求的地方。
 
 -----
 
@@ -84,7 +84,7 @@ kind: "package-reference"
 <a id="known-limitations-and-deferred-work"></a>
 
 - **没有批量删除** —— 一次调用一段对话，所以要清掉一长串历史的人得逐行点。提供「全部删除」的页面需要一个还没人定过的界限。
-- **没有导出方法** —— ZIP 与 Markdown 导出是 `lyn-session-log-export` 拥有的、经过认证的 Host 路由；这个命名空间不再加第二条把对话读出来的路。
+- **没有导出方法** —— ZIP 与 Markdown 导出是 `dsh-session-log-export` 拥有的、经过认证的 Host 路由；这个命名空间不再加第二条把对话读出来的路。
 - **开着的对话不能删** —— 拒绝会点名它，读者先把它关掉。为了删除而去结束某人的对话，是这次调用不做的第二个决定。
 
 **运行时不变量：** 每次调用都在移除任何东西之前，从对话自己的日志决定可见性。

@@ -10,9 +10,9 @@ import { existsSync } from 'node:fs'
 import { mkdir, mkdtemp, readdir, rename, rm, stat, utimes } from 'node:fs/promises'
 import { join } from 'node:path'
 import { execa } from 'execa'
-import { withFileLock } from '@lyness/lyn-atomic-write'
-import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
-import { DetailFailure, readmeName, type FoundFile } from '@lyness/lyn-plugin-detail'
+import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
+import { scrubbedParentEnv } from '@deepseek-ai/dsh-subprocess'
+import { DetailFailure, readmeName, type FoundFile } from '@deepseek-ai/dsh-plugin-detail'
 
 /**
  * Git deadlines one operation's lock waits for: an operation runs at most a fetch, its SSH retry, and a file read that
@@ -70,7 +70,7 @@ function remoteFailureOf(result: GitResult, label: string): DetailFailure {
 
 /**
  * The SSH form of an http(s) repository URL: `ssh://git@<host>/<path>` on SSH's default port, the form that
- * `sshGitSpec` in `@lyness/lyn-plugin-manager` gives installation.
+ * `sshGitSpec` in `@deepseek-ai/dsh-plugin-manager` gives installation.
  * @returns undefined for another scheme, or a URL with credentials or a query.
  */
 function sshUrlOf(url: string): string | undefined {
@@ -99,7 +99,7 @@ const STAGING_PREFIX = '.init-'
 
 /**
  * The environment of every Git command: the scrubbed parent environment without Git overrides such as `GIT_DIR`, which a
- * hook that launched LYN can leave, and without prompts or LFS downloads.
+ * hook that launched DSH can leave, and without prompts or LFS downloads.
  */
 function gitEnv(): Record<string, string> {
   const env = Object.fromEntries(Object.entries(scrubbedParentEnv())
@@ -270,10 +270,10 @@ export class RepositoryCache {
     // written after a completed fetch records the commit instead, and eviction removes it with the repository.
     const head = this.heads.get(url)
     const known = commit ?? (head !== undefined && head.expiresAt > Date.now() ? head.value : undefined)
-    if (known !== undefined && !(await this.git(['show-ref', '--verify', '--quiet', `refs/lyn/${known}`], repository, signal)).failed) return known
+    if (known !== undefined && !(await this.git(['show-ref', '--verify', '--quiet', `refs/dsh/${known}`], repository, signal)).failed) return known
     await this.fetch(repository, commit ?? 'HEAD', signal)
     const fetched = commit ?? (await this.run(repository, ['rev-parse', 'FETCH_HEAD'], signal)).toString('utf8').trim()
-    await this.run(repository, ['update-ref', `refs/lyn/${fetched}`, fetched], signal)
+    await this.run(repository, ['update-ref', `refs/dsh/${fetched}`, fetched], signal)
     if (commit === undefined) this.heads.set(url, { value: fetched, expiresAt: Date.now() + this.options.ttlMs })
     return fetched
   }

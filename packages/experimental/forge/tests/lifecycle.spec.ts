@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import type { ChangeRequestUpdate, ForgeProvider } from '../src/types.ts'
 import ForgeService, { changeRequestKey } from '../src/index.ts'
 import { demo, FakeProvider, forgeContext, provide, ref, snapshot } from './fake-provider.ts'

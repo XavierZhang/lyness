@@ -4,17 +4,17 @@ import { bundleTitleMap, bundleTitlesOf, type BundleTitleBundle } from '../src/h
 describe('bundleTitleMap', () => {
   it('maps a component row to its bundle identity and marks profile bundles as core', () => {
     const bundles: BundleTitleBundle[] = [
-      { name: '@lyness/lyn-base', meta: { title: 'LYN' }, rows: [{ moduleName: '@fixture/base-component' }] },
+      { name: '@deepseek-ai/dsh-base', meta: { title: 'DSH' }, rows: [{ moduleName: '@fixture/base-component' }] },
       { name: '@fixture/forge-bundle', meta: { title: { zh: '变更请求与工作树', en: 'Change requests' } },
-        rows: [{ moduleName: '@lyness/lyn-experimental-client-ui-forge' }] },
+        rows: [{ moduleName: '@deepseek-ai/dsh-experimental-client-ui-forge' }] },
     ]
     const titles = bundleTitleMap(bundles)
     expect(titles.get('@fixture/base-component')).toEqual({
-      name: '@lyness/lyn-base',
+      name: '@deepseek-ai/dsh-base',
       core: true,
-      titles: { en: 'LYN' },
+      titles: { en: 'DSH' },
     })
-    expect(titles.get('@lyness/lyn-experimental-client-ui-forge')).toEqual({
+    expect(titles.get('@deepseek-ai/dsh-experimental-client-ui-forge')).toEqual({
       name: '@fixture/forge-bundle',
       core: false,
       titles: { zh: '变更请求与工作树', en: 'Change requests' },
@@ -56,11 +56,11 @@ describe('bundleTitleMap', () => {
 
   it('maps a core bundle without a title and skips a bundle that reports no rows', () => {
     const titles = bundleTitleMap([
-      { name: '@lyness/lyn-base', rows: [{ moduleName: '@fixture/base-component' }] },
+      { name: '@deepseek-ai/dsh-base', rows: [{ moduleName: '@fixture/base-component' }] },
       { name: '@fixture/rows-less', meta: { title: 'Rows-less' } },
     ])
     expect([...titles]).toEqual([
-      ['@fixture/base-component', { name: '@lyness/lyn-base', core: true }],
+      ['@fixture/base-component', { name: '@deepseek-ai/dsh-base', core: true }],
     ])
   })
 

@@ -1,18 +1,18 @@
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
-import { botProjectionDefinition } from '@lyness/lyn-managed-bots/session'
-import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionId } from '@lyness/lyn-session'
-import type { Session, SessionHeader } from '@lyness/lyn-session'
-import { SessionAlreadyOwnedError } from '@lyness/lyn-session-persistence'
-import type { SessionObservation } from '@lyness/lyn-session-query'
-import TypertRegistry from '@lyness/lyn-typert-registry'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
+import { botProjectionDefinition } from '@deepseek-ai/dsh-managed-bots/session'
+import type { EngagedBot } from '@deepseek-ai/dsh-managed-bots/session'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionId } from '@deepseek-ai/dsh-session'
+import type { Session, SessionHeader } from '@deepseek-ai/dsh-session'
+import { SessionAlreadyOwnedError } from '@deepseek-ai/dsh-session-persistence'
+import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
+import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   ApiSessionAgentController,
@@ -316,7 +316,7 @@ describe('ApiSession resuming a conversation with a bot', () => {
     const { ctx, agents } = await harness({ presets: ['standard'], roster: composed })
     // Adopting creates the directory, so this one is a real one; every other
     // test here only records a cwd and never reaches the filesystem.
-    const cwd = mkdtempSync(join(tmpdir(), 'lyn-session-controller-adopt-'))
+    const cwd = mkdtempSync(join(tmpdir(), 'dsh-session-controller-adopt-'))
     tempDirs.push(cwd)
     const meta = header('bot-adopt', cwd)
     const resumed = agent(ctx, meta)
@@ -369,7 +369,7 @@ describe('ApiSession creation', () => {
 
   it('surfaces directory creation failure', async () => {
     const { agents } = await harness()
-    const parent = mkdtempSync(join(tmpdir(), 'lyn-session-controller-file-'))
+    const parent = mkdtempSync(join(tmpdir(), 'dsh-session-controller-file-'))
     tempDirs.push(parent)
     const file = join(parent, 'file')
     writeFileSync(file, 'not a directory')

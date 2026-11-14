@@ -3,13 +3,13 @@ description: "Web 执行面自成一个 bundle：执行模块插入的宿主面�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-web-execution
+# @deepseek-ai/dsh-web-execution
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-web-execution` 把执行模块插入的宿主面 shell、文件系统、workflow 与 ralph 行禁用掉，因为 Web profile 的预设会按会话、按 agent 重新加上它们。它自成一个 bundle，是因为这次搬移需要两半都在：只有 Web 界面、没有执行模块的 profile，既没有那些行、也没有那些预设，而一份点名不存在的行的补丁，每次开机都会按行报出缺席。
+`dsh-web-execution` 把执行模块插入的宿主面 shell、文件系统、workflow 与 ralph 行禁用掉，因为 Web profile 的预设会按会话、按 agent 重新加上它们。它自成一个 bundle，是因为这次搬移需要两半都在：只有 Web 界面、没有执行模块的 profile，既没有那些行、也没有那些预设，而一份点名不存在的行的补丁，每次开机都会按行报出缺席。
 
 ## 目录
 
@@ -29,9 +29,9 @@ profile 在两半之后选上它：
 
 ```yaml
 bundles:
-  - '@lyness/lyn-module-execution'
-  - '@lyness/lyn-web-app'
-  - '@lyness/lyn-web-execution'
+  - '@deepseek-ai/dsh-module-execution'
+  - '@deepseek-ai/dsh-web-app'
+  - '@deepseek-ai/dsh-web-execution'
 ```
 
 随产品发布的 `web` 与 `enterprise` 模板正是这么做的。`hosted` 模板不选执行模块，也就不选这一个。
@@ -45,15 +45,15 @@ bundles:
 
 **是禁用，不是删除。** 基础组合是共享的；被某个界面覆盖层删掉的行，会在有人重排层序的那一天悄悄回来。
 
-**`shell-env` 留在宿主面。** Web 应用注入它来发布 `LYNESS_WEB_URL` 与 `LYNESS_WEB_MODE`，而注入服务的行在任何会话存在之前就已解析，没有 agent 可供归属。放进预设 realm 之后，这些变量根本到不了模型的 shell。
+**`shell-env` 留在宿主面。** Web 应用注入它来发布 `DSH_WEB_URL` 与 `DSH_WEB_MODE`，而注入服务的行在任何会话存在之前就已解析，没有 agent 可供归属。放进预设 realm 之后，这些变量根本到不了模型的 shell。
 
 -----
 
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-module-execution`](../module-execution/README.zh.md) —— 本 bundle 所搬移的那些行。
-- [`lyn-web-app`](../web-app/README.zh.md) —— 按会话重新加上它们的那些预设。
+- [`dsh-module-execution`](../module-execution/README.zh.md) —— 本 bundle 所搬移的那些行。
+- [`dsh-web-app`](../web-app/README.zh.md) —— 按会话重新加上它们的那些预设。
 
 -----
 
@@ -82,6 +82,6 @@ bundles:
 <details>
 <summary>维护者工作上下文 —— 点击展开</summary>
 
-这些行原本住在 `lyn-web-app` 里，直到 hosted 模板——有 Web 界面、没有执行模块——让它们每次开机都点名七行并不存在的行。
+这些行原本住在 `dsh-web-app` 里，直到 hosted 模板——有 Web 界面、没有执行模块——让它们每次开机都点名七行并不存在的行。
 
 </details>

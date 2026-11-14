@@ -1,16 +1,16 @@
 /**
- * lyn-llm's owned branded ids: tool-call correlation and provider request
+ * dsh-llm's owned branded ids: tool-call correlation and provider request
  * diagnostics.
  *
  * The `Branded<B>` primitive and stateless constructor live in
- * `@lyness/lyn-brand` so every owner of a cross-boundary id can brand it
- * without depending on lyn-llm; see that package's README for the
+ * `@deepseek-ai/dsh-brand` so every owner of a cross-boundary id can brand it
+ * without depending on dsh-llm; see that package's README for the
  * nominal-typing policy.
  *
- * @module @lyness/lyn-llm/brand
+ * @module @deepseek-ai/dsh-llm/brand
  */
 
-import { brandString, type Branded } from '@lyness/lyn-brand'
+import { brandString, type Branded } from '@deepseek-ai/dsh-brand'
 
 /** Stable identity carried by one message across inbox, log, and model-request boundaries. */
 export type MessageId = Branded<'MessageId'>

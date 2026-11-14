@@ -11,18 +11,18 @@
  * whether the code is good: an answer to that question, on a page anybody can
  * open, would tell whoever asked which codes exist.
  *
- * @module @lyness/lyn-client-ui-join/client
+ * @module @deepseek-ai/dsh-client-ui-join/client
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-client-ui-viewer/client'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-invitations-controller/remote'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
-import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-client-ui-viewer/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-invitations-controller/remote'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
 import { Acceptance } from './acceptance.ts'
 import { JoinPage } from './JoinPage.tsx'
 import type { JoinChannelRow, JoinPageInjected, JoinVisitRow } from './JoinPage.tsx'
@@ -35,7 +35,7 @@ export { Acceptance, IDLE, rowOf } from './acceptance.ts'
 export type { AcceptanceRow, AcceptanceStatus } from './acceptance.ts'
 export type { JoinChannelRow, JoinPageInjected, JoinPageProps, JoinVisitRow } from './JoinPage.tsx'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { join: JoinKey }
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-experimental-forge-session",
+  "name": "@deepseek-ai/dsh-experimental-forge-session",
   "description": "Binds change requests to the Session that created, pushed, or tracked them",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
@@ -28,60 +28,60 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/forge-session"
   },
   "dependencies": {
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "shell-quote": "^1.12.0",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-experimental-forge": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-shell": "workspace:*",
-    "@lyness/lyn-shell-env": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-experimental-forge": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-shell": "workspace:*",
+    "@deepseek-ai/dsh-shell-env": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-loop": "workspace:*",
-    "@lyness/lyn-bash-local": "workspace:*",
-    "@lyness/lyn-experimental-forge": "workspace:*",
-    "@lyness/lyn-experimental-forge-github": "workspace:*",
-    "@lyness/lyn-fs-local": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-shell-env": "workspace:*",
-    "@lyness/lyn-subprocess-local": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tool-bash": "workspace:*",
-    "@lyness/lyn-tool-executor-native": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-working-directory": "workspace:*",
-    "@lyness/lyn-shell": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop": "workspace:*",
+    "@deepseek-ai/dsh-bash-local": "workspace:*",
+    "@deepseek-ai/dsh-experimental-forge": "workspace:*",
+    "@deepseek-ai/dsh-experimental-forge-github": "workspace:*",
+    "@deepseek-ai/dsh-fs-local": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-shell-env": "workspace:*",
+    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tool-bash": "workspace:*",
+    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-working-directory": "workspace:*",
+    "@deepseek-ai/dsh-shell": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@lyness/lyn-shell": {
+    "@deepseek-ai/dsh-shell": {
       "optional": true
     },
-    "@lyness/lyn-shell-env": {
+    "@deepseek-ai/dsh-shell-env": {
       "optional": true
     },
-    "@lyness/lyn-tools": {
+    "@deepseek-ai/dsh-tools": {
       "optional": true
     },
-    "@lyness/lyn-sandbox-policy": {
+    "@deepseek-ai/dsh-sandbox-policy": {
       "optional": true
     }
   }

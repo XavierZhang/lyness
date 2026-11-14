@@ -3,13 +3,13 @@ description: "What one person told their own agents, read and written by that pe
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-personal-instructions-controller
+# @deepseek-ai/dsh-api-personal-instructions-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-personal-instructions-controller` owns the `personalInstructions` Remote namespace: two methods that read and replace the caller's own instructions, plus the ceiling this deployment accepts. Whose instructions a call acts on is never a parameter — the store answers it from the principal the call published — so a caller cannot reach somebody else's record by asking for it.
+`dsh-api-personal-instructions-controller` owns the `personalInstructions` Remote namespace: two methods that read and replace the caller's own instructions, plus the ceiling this deployment accepts. Whose instructions a call acts on is never a parameter — the store answers it from the principal the call published — so a caller cannot reach somebody else's record by asking for it.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ Mount it beside the store it reads:
 
 ```yaml
 - id: personal-instructions
-  name: '@lyness/lyn-personal-instructions'
+  name: '@deepseek-ai/dsh-personal-instructions'
 - id: personal-instructions-controller
-  name: '@lyness/lyn-api-personal-instructions-controller'
+  name: '@deepseek-ai/dsh-api-personal-instructions-controller'
 ```
 
 `describe()` answers the caller's saved text, when it was saved, and `maxChars`; `save(text)` replaces it and answers the stored state read back from the store. A blank text clears the record.
@@ -54,16 +54,16 @@ Mount it beside the store it reads:
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-personal-instructions`](../../identity/personal-instructions/README.md) — the store and the session record behind these two methods.
-- [`lyn-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.md) — the page that calls them.
-- [`lyn-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
+- [`dsh-personal-instructions`](../../identity/personal-instructions/README.md) — the store and the session record behind these two methods.
+- [`dsh-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.md) — the page that calls them.
+- [`dsh-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it transports what a person wrote, and `lyn-personal-instructions` owns how that text reaches a model request.
+None, as this package registers no tool or prompt: it transports what a person wrote, and `dsh-personal-instructions` owns how that text reaches a model request.
 
 #### KV Cache effect
 

@@ -3,7 +3,7 @@ description: "Resolves the tenant an HTTP request belongs to — from the tenant
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-http
+# @deepseek-ai/dsh-tenant-http
 
 English | [中文](README.zh.md)
 
@@ -27,7 +27,7 @@ This plugin applies one deployment's tenant-resolution policy: the `X-Tenant-ID`
 
 ```yaml
 - id: tenant-http
-  name: '@lyness/lyn-tenant-http'
+  name: '@deepseek-ai/dsh-tenant-http'
   config:
     path: /tenant
     baseDomain: tenants.example.com

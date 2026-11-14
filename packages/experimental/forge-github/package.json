@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-experimental-forge-github",
+  "name": "@deepseek-ai/dsh-experimental-forge-github",
   "description": "GitHub provider for the experimental forge registry, read through the GitHub CLI on the host",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
@@ -25,24 +25,24 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/forge-github"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
-    "@lyness/lyn-timeout": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
     "execa": "^10.0.1",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-experimental-forge": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-experimental-forge": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-experimental-forge": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-experimental-forge": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*"
   }
 }

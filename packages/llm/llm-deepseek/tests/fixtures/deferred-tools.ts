@@ -1,9 +1,9 @@
 /** Replay first additions to an empty tool set and subsequent replacements through Messages serialization. */
 import assert from 'node:assert/strict'
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-agent'
-import { createUserMessage, projectToolUpdates } from '@lyness/lyn-llm'
-import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-agent'
+import { createUserMessage, projectToolUpdates } from '@deepseek-ai/dsh-llm'
+import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
 import { resolveAdapterOptions } from '../../src/config.ts'
 import { serialize } from '../../src/serialize.ts'
 

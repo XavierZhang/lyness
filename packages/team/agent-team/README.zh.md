@@ -3,13 +3,13 @@ description: "在开启 Team 的 Session 中通过持久化共享任务板协调
 kind: "package-reference"
 ---
 
-# @lyness/lyn-agent-team
+# @deepseek-ai/dsh-agent-team
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-agent-team` 为现有 subagent（子智能体）树添加持久化共享任务板。成员使用标准 subagent 工具发现和联系彼此。Team 提供比较并交换的任务归属更新。挂载 `lyn-tool-agent-team` 可提供任务工具。成员共享同一检出目录。
+`dsh-agent-team` 为现有 subagent（子智能体）树添加持久化共享任务板。成员使用标准 subagent 工具发现和联系彼此。Team 提供比较并交换的任务归属更新。挂载 `dsh-tool-agent-team` 可提供任务工具。成员共享同一检出目录。
 
 ## 目录
 
@@ -31,7 +31,7 @@ kind: "package-reference"
 
 模式切换无需等待排队中的任务修改即可生效。每项修改在开始时检查当前模式：已经进入执行的操作继续完成，仍在排队的操作若开始时 Team 仍关闭则被拒绝。重新开启允许后续操作继续。保存失败时，已经追加的选择仍然有效；重试同一选择会再次保存，不重复记录模式。
 
-当 subagent 需要持久化共享任务归属和依赖关系时，添加此包。与 `@lyness/lyn-tool-agent-team` 一起挂载可提供模型工具。
+当 subagent 需要持久化共享任务归属和依赖关系时，添加此包。与 `@deepseek-ai/dsh-tool-agent-team` 一起挂载可提供模型工具。
 
 ### 何时选择
 
@@ -41,12 +41,12 @@ kind: "package-reference"
 
 <a id="smallest-working-setup"></a>
 
-在已经提供 continuable subagent、其消息工具和持久会话存储的组合（例如基于 `@lyness/lyn-base` 的 profile）中挂载两个 Team 包：
+在已经提供 continuable subagent、其消息工具和持久会话存储的组合（例如基于 `@deepseek-ai/dsh-base` 的 profile）中挂载两个 Team 包：
 
 ```yaml
 # smallest Team addition over a composition with continuable subagents
-- name: '@lyness/lyn-agent-team'
-- name: '@lyness/lyn-tool-agent-team'
+- name: '@deepseek-ai/dsh-agent-team'
+- name: '@deepseek-ai/dsh-tool-agent-team'
 ```
 
 例如，让模型启动子代理审查差异，并在任务板上跟踪工作。配置字段均为可选项，在启动时校验：
@@ -56,7 +56,7 @@ kind: "package-reference"
 | `maxTasks` | `256` | 任务板上最多的未删除任务数 |
 | `defaultEnabled` | `false` | 为没有已有选择的新根会话保存 Team 模式开启状态 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-agent-team)是每个受支持字段及其 JSDoc 的穷尽式真源。设置 `maxMembers`、`maxMessageBytes` 或 `disposalTimeoutMs` 的配置行不会激活，lyn 会在启动警告中指出该键；[升级指南](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.zh.md)列出替代方式。
+生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-agent-team)是每个受支持字段及其 JSDoc 的穷尽式真源。设置 `maxMembers`、`maxMessageBytes` 或 `disposalTimeoutMs` 的配置行不会激活，dsh 会在启动警告中指出该键；[升级指南](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.zh.md)列出替代方式。
 
 ### Teammate
 

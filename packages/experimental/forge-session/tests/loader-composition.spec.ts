@@ -5,30 +5,30 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import LocalBashExecutor from '@lyness/lyn-bash-local'
-import ForgeService from '@lyness/lyn-experimental-forge'
-import * as ForgeGitHub from '@lyness/lyn-experimental-forge-github'
-import LocalFileSystem from '@lyness/lyn-fs-local'
-import LlmRuntime, { createUserMessage, LlmAdapter, ToolCallId } from '@lyness/lyn-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
-import SessionStore, { pluginRecordOf, SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as ShellEnv from '@lyness/lyn-shell-env'
-import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import * as ToolBash from '@lyness/lyn-tool-bash'
-import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
-import ToolRuntime from '@lyness/lyn-tools'
-import WorkingDirectoryService from '@lyness/lyn-working-directory'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import LocalBashExecutor from '@deepseek-ai/dsh-bash-local'
+import ForgeService from '@deepseek-ai/dsh-experimental-forge'
+import * as ForgeGitHub from '@deepseek-ai/dsh-experimental-forge-github'
+import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
+import LlmRuntime, { createUserMessage, LlmAdapter, ToolCallId } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
+import SessionStore, { pluginRecordOf, SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as ShellEnv from '@deepseek-ai/dsh-shell-env'
+import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import * as ToolBash from '@deepseek-ai/dsh-tool-bash'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import WorkingDirectoryService from '@deepseek-ai/dsh-working-directory'
 import ForgeSessionService from '../src/index.ts'
 import type { SessionChangeRequest, SessionChangeRequestsListener } from '../src/index.ts'
-import type { ShellExecution } from '@lyness/lyn-shell'
-import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@lyness/lyn-tools'
+import type { ShellExecution } from '@deepseek-ai/dsh-shell'
+import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@deepseek-ai/dsh-tools'
 
 /**
  * GitHub CLI fixture: `pr create` prints PR 8; `pr view` prints PR 9, whose description links PR 6;
@@ -147,7 +147,7 @@ afterEach(async () => {
 const suite = process.platform === 'win32' ? describe.skip : describe
 
 async function load() {
-  root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-forge-session-loader-')))
+  root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-forge-session-loader-')))
   const bin = join(root, 'bin')
   await mkdir(bin)
   await writeFile(join(root, 'fake-gh.mjs'), FAKE_GH)
@@ -157,31 +157,31 @@ async function load() {
   await chmod(join(bin, 'git'), 0o755)
 
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-llm', LlmRuntime],
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-system-prompt', SystemPrompt],
-    ['@lyness/lyn-fs-local', LocalFileSystem],
-    ['@lyness/lyn-working-directory', WorkingDirectoryService],
-    ['@lyness/lyn-tools', ToolRuntime],
-    ['@lyness/lyn-tool-executor-native', NativeToolExecutor],
-    ['@lyness/lyn-agent', AgentRegistry],
-    ['@lyness/lyn-agent-loop', AgentLoop],
-    ['@lyness/lyn-subprocess-local', LocalSubprocessRuntime],
-    ['@lyness/lyn-shell-env', ShellEnv],
-    ['@lyness/lyn-bash-local', LocalBashExecutor],
-    ['@lyness/lyn-tool-bash', ToolBash],
-    ['@lyness/lyn-experimental-forge', ForgeService],
-    ['@lyness/lyn-experimental-forge-github', ForgeGitHub],
-    ['@lyness/lyn-experimental-forge-session', ForgeSessionService],
+    ['@deepseek-ai/dsh-llm', LlmRuntime],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
+    ['@deepseek-ai/dsh-fs-local', LocalFileSystem],
+    ['@deepseek-ai/dsh-working-directory', WorkingDirectoryService],
+    ['@deepseek-ai/dsh-tools', ToolRuntime],
+    ['@deepseek-ai/dsh-tool-executor-native', NativeToolExecutor],
+    ['@deepseek-ai/dsh-agent', AgentRegistry],
+    ['@deepseek-ai/dsh-agent-loop', AgentLoop],
+    ['@deepseek-ai/dsh-subprocess-local', LocalSubprocessRuntime],
+    ['@deepseek-ai/dsh-shell-env', ShellEnv],
+    ['@deepseek-ai/dsh-bash-local', LocalBashExecutor],
+    ['@deepseek-ai/dsh-tool-bash', ToolBash],
+    ['@deepseek-ai/dsh-experimental-forge', ForgeService],
+    ['@deepseek-ai/dsh-experimental-forge-github', ForgeGitHub],
+    ['@deepseek-ai/dsh-experimental-forge-session', ForgeSessionService],
   ])
   const configs: Record<string, readonly string[]> = {
-    '@lyness/lyn-agent-loop': ['agents: []'],
-    '@lyness/lyn-shell-env': [`lynHome: ${JSON.stringify(join(root, 'lyn-home'))}`],
-    '@lyness/lyn-bash-local': ['timeoutMs: 20000'],
-    '@lyness/lyn-experimental-forge': ['activeIntervalMs: 600000', 'idleIntervalMs: 600000'],
-    '@lyness/lyn-experimental-forge-github': [`ghCommand: ${JSON.stringify(join(bin, 'gh'))}`],
-    '@lyness/lyn-experimental-forge-session': ['discoveryTimeoutMs: 20000'],
+    '@deepseek-ai/dsh-agent-loop': ['agents: []'],
+    '@deepseek-ai/dsh-shell-env': [`dshHome: ${JSON.stringify(join(root, 'dsh-home'))}`],
+    '@deepseek-ai/dsh-bash-local': ['timeoutMs: 20000'],
+    '@deepseek-ai/dsh-experimental-forge': ['activeIntervalMs: 600000', 'idleIntervalMs: 600000'],
+    '@deepseek-ai/dsh-experimental-forge-github': [`ghCommand: ${JSON.stringify(join(bin, 'gh'))}`],
+    '@deepseek-ai/dsh-experimental-forge-session': ['discoveryTimeoutMs: 20000'],
   }
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [...modules.keys()].flatMap(name => [
@@ -215,7 +215,7 @@ async function observerFixture() {
     isError: false, content: [{ type: 'text', text: '{"number":9}' }],
     value: { kind: 'foreground', cwd: root, exitCode: 0, signal: null, timedOut: false, aborted: false },
   }
-  const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === 'cordis:@lyness/lyn-experimental-forge-session')!
+  const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === 'cordis:@deepseek-ai/dsh-experimental-forge-session')!
   const records = () => handle.agent.session.snapshotEvents().flatMap((event) => {
     const record = pluginRecordOf(event)
     return record?.type === 'plugin:forge-session/binding' ? [record.data] : []
@@ -369,7 +369,7 @@ suite('forge-session through a real cordis.yml Loader composition', () => {
       ? [entry.update.snapshot.title, entry.update.snapshot.checksRollup]
       : null)).toEqual([['Change 7', 'pending'], ['Change 8', 'success'], ['Change 9', 'success']]) })
 
-    const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === 'cordis:@lyness/lyn-experimental-forge-session')
+    const entry = [...ctx.loader.entries()].find(candidate => candidate.options.name === 'cordis:@deepseek-ai/dsh-experimental-forge-session')
     const row = ctx.sessionProjections.checkpoint(agent.session).forgeChangeRequests
     await entry?.fiber?.dispose()
     expect(ctx.sessionProjections.checkpoint(agent.session)).toHaveProperty('forgeChangeRequests', row)

@@ -3,13 +3,13 @@ description: "The bots a deployment's administrators maintain at runtime, each o
 kind: "package-reference"
 ---
 
-# @lyness/lyn-managed-bots
+# @deepseek-ai/dsh-managed-bots
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-managed-bots` is where a deployment's bots come from when nobody is editing a composition file. An administrator names one, writes its character and what it is for, and picks one of the agent presets the deployment offers; the bot then joins its organization's roster, holding a member standing and owning the conversations it opens. A tenant administrator maintains their own organization's bots and nobody else's. A bot never becomes somebody who signs in — no directory can authenticate one — nor an administrator, because its standing is fixed here rather than submitted.
+`dsh-managed-bots` is where a deployment's bots come from when nobody is editing a composition file. An administrator names one, writes its character and what it is for, and picks one of the agent presets the deployment offers; the bot then joins its organization's roster, holding a member standing and owning the conversations it opens. A tenant administrator maintains their own organization's bots and nobody else's. A bot never becomes somebody who signs in — no directory can authenticate one — nor an administrator, because its standing is fixed here rather than submitted.
 
 ## Table of Contents
 
@@ -29,15 +29,15 @@ Beside the roster and the preset registry whose presets a bot may name:
 
 ```yaml
 - id: managed-bots
-  name: '@lyness/lyn-managed-bots'
+  name: '@deepseek-ai/dsh-managed-bots'
 ```
 
 An administrator then adds them:
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-managed-bots'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -58,7 +58,7 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-**A bot is an entry in the roster, not an object in a process.** It is registered with [`lyn-managed-people`](../managed-people/README.md) as a person of kind `bot`, so attribution, visibility and every surface that resolves an owner reach it without a second mechanism. Modelling it as a process-local object is what the multi-agent frameworks do, and it would make the bot the one actor in the product with no standing and nothing recorded against it.
+**A bot is an entry in the roster, not an object in a process.** It is registered with [`dsh-managed-people`](../managed-people/README.md) as a person of kind `bot`, so attribution, visibility and every surface that resolves an owner reach it without a second mechanism. Modelling it as a process-local object is what the multi-agent frameworks do, and it would make the bot the one actor in the product with no standing and nothing recorded against it.
 
 **Its standing is fixed, not submitted.** Every bot holds `member`. A persona is free text written by a tenant administrator, and a bot that administered anything could be talked into adding a person or changing a standing. Nothing a deployment gains from an administrator bot is worth that.
 
@@ -78,7 +78,7 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 **A teammate's job comes from its own record, not from the team.** A bot in two teams reads the same way in both. Letting a team restate what a member is for would make "what it does" depend on the company it is in, which is where a reader stops trusting either answer.
 
-**Every change is recorded elsewhere, before it is read back here.** The roster holds what is true now; [`lyn-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced. It is a hard injection, so a deployment that maintains bots without keeping their history fails to load rather than recording nothing in silence. A save that altered no field records nothing, because that is an administrator pressing Save without an edit.
+**Every change is recorded elsewhere, before it is read back here.** The roster holds what is true now; [`dsh-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced. It is a hard injection, so a deployment that maintains bots without keeping their history fails to load rather than recording nothing in silence. A save that altered no field records nothing, because that is an administrator pressing Save without an edit.
 
 **A record outlives the preset that runs it.** A preset the deployment stopped offering leaves the bot stored and `available: false`. Deleting it would lose the character an administrator wrote because a row left the profile.
 
@@ -87,11 +87,11 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-managed-people`](../managed-people/README.md) — the roster these join, and the admission table that refuses them.
-- [`lyn-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
-- [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.md) — where the presets a bot may name come from.
-- [`lyn-persona`](../../preset/persona/README.md) — the row that gives one agent its own system prompt, which a preset may carry beside a bot's character.
-- [`lyn-api-session-controller`](../../api/session-controller/README.md) — where a conversation names the bot it is with.
+- [`dsh-managed-people`](../managed-people/README.md) — the roster these join, and the admission table that refuses them.
+- [`dsh-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
+- [`dsh-agent-preset-registry`](../../preset/agent-preset-registry/README.md) — where the presets a bot may name come from.
+- [`dsh-persona`](../../preset/persona/README.md) — the row that gives one agent its own system prompt, which a preset may carry beside a bot's character.
+- [`dsh-api-session-controller`](../../api/session-controller/README.md) — where a conversation names the bot it is with.
 - [Bots, their teams and their rooms](../../../.agents/notes/proposed/architecture/2026-10-22-bots-their-teams-and-their-rooms.md) — the design this package is the first part of.
 
 -----

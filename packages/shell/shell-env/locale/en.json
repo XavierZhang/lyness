@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Command environment",
-    "description": "Supplies the LYN environment variables every command tool shares."
+    "description": "Supplies the DSH environment variables every command tool shares."
   }
 }

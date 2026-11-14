@@ -89,7 +89,7 @@ describe('useAnchoredPosition', () => {
     const previous = root.getAttribute('style')
     const priorFullscreen = root.getAttribute('data-fullscreen')
     try {
-      root.style.setProperty('--lyn-frame-top-clearance', '40px')
+      root.style.setProperty('--dsh-frame-top-clearance', '40px')
       root.toggleAttribute('data-fullscreen', fullscreen)
       vi.spyOn(HTMLButtonElement.prototype, 'getBoundingClientRect').mockReturnValue(new DOMRect(100, anchorY, 200, 10))
       vi.spyOn(HTMLDivElement.prototype, 'offsetHeight', 'get').mockReturnValue(400)
@@ -160,8 +160,8 @@ describe('useAnchoredPosition', () => {
     measure.mockClear()
     act(() => { observer.callback([], {} as ResizeObserver) })
     expect(measure).not.toHaveBeenCalled()
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-width')).toBe('')
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-height')).toBe('')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-width')).toBe('')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-height')).toBe('')
   })
 
   it('positions without ResizeObserver and subscribes only while open', () => {
@@ -189,11 +189,11 @@ describe('useAnchoredPosition', () => {
     const panel = ui.getByTestId('panel')
     expect(panel.style.left).toBe('100px')
     expect(panel.style.top).toBe('216px')
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-width')).toBe('476px')
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-height')).toBe('376px')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-width')).toBe('476px')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-height')).toBe('376px')
     ui.unmount()
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-width')).toBe('')
-    expect(panel.style.getPropertyValue('--lyn-anchored-max-height')).toBe('')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-width')).toBe('')
+    expect(panel.style.getPropertyValue('--dsh-anchored-max-height')).toBe('')
   })
 
   it('tracks a moving host rect, hides a missing anchor, and stops on unmount', () => {

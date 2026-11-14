@@ -1,12 +1,12 @@
 /**
  * Durable placement for signed-in sessions.
  *
- * @module @lyness/lyn-auth-session/storage
+ * @module @deepseek-ai/dsh-auth-session/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
 import type { AuthSessionId, SignedInSession } from './types.ts'
 
 /** Stored session; the acting context is stored as the two ids it is made of. */

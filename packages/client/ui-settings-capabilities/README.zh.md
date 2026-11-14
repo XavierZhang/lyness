@@ -3,13 +3,13 @@ description: "设置里的「可以用什么」分区：一个读者的模型、
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-capabilities
+# @deepseek-ai/dsh-client-ui-settings-capabilities
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-capabilities` 是个人平面的只读入口：四组内容——模型、连接、skill、工具——列出这个读者的对话此刻真正拥有什么，每一行说明是部署还是 agent 预设提供的，并以一行话收尾：这里没有一项是他能改的。它是「模型」「插件」「Agent 预设」「连接」四张页面原本用一条拒绝提示来回答的那个问题的唯一答案。
+`dsh-client-ui-settings-capabilities` 是个人平面的只读入口：四组内容——模型、连接、skill、工具——列出这个读者的对话此刻真正拥有什么，每一行说明是部署还是 agent 预设提供的，并以一行话收尾：这里没有一项是他能改的。它是「模型」「插件」「Agent 预设」「连接」四张页面原本用一条拒绝提示来回答的那个问题的唯一答案。
 
 ## 目录
 
@@ -29,9 +29,9 @@ Web bundle 把它挂在它所读的命名空间旁边：
 
 ```yaml
 - id: agent-capabilities-controller
-  name: '@lyness/lyn-api-agent-capabilities-controller'
+  name: '@deepseek-ai/dsh-api-agent-capabilities-controller'
 - id: ui-settings-capabilities
-  name: '@lyness/lyn-client-ui-settings-capabilities'
+  name: '@deepseek-ai/dsh-client-ui-settings-capabilities'
 ```
 
 别的都不用配。分区排在个人平面最后，位于那些他确实能控制的条目之后。
@@ -58,9 +58,9 @@ Web bundle 把它挂在它所读的命名空间旁边：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-agent-capabilities-controller`](../../api/agent-capabilities-controller/README.zh.md)：本页所读的那个命名空间。
-- [`lyn-api-session-controller`](../../api/session-controller/README.zh.md)：模型清单的来源。
-- [`lyn-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
+- [`dsh-api-agent-capabilities-controller`](../../api/agent-capabilities-controller/README.zh.md)：本页所读的那个命名空间。
+- [`dsh-api-session-controller`](../../api/session-controller/README.zh.md)：模型清单的来源。
+- [`dsh-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
 
 -----
 

@@ -7,7 +7,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { ModelCatalog } from '@lyness/lyn-api-session-controller/types'
+import type { ModelCatalog } from '@deepseek-ai/dsh-api-session-controller/types'
 import { CapabilitiesSection } from '../src/client/CapabilitiesSection.tsx'
 import type { CapabilitiesSectionProps } from '../src/client/CapabilitiesSection.tsx'
 import type { CapabilitiesSectionState } from '../src/client/store.ts'

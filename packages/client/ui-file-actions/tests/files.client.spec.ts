@@ -3,7 +3,7 @@ import { Blob as NodeBlob } from 'node:buffer'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { BrowserFileActions, exportName } from '../src/client/files.ts'
 import type { DesktopFileActions } from '../src/types.ts'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { apply as clientApply } from '../src/client/index.ts'
 import { apply as hostApply } from '../src/index.ts'
 
@@ -187,7 +187,7 @@ describe('file actions', () => {
 
   it.each([false, true])('binds the optional Desktop adapter (%s) for the plugin lifetime', async (desktop) => {
     const bridge = native()
-    if (desktop) vi.stubGlobal('lynDesktop', { fileActions: bridge })
+    if (desktop) vi.stubGlobal('dshDesktop', { fileActions: bridge })
     const ctx = new Context(), fiber = ctx.plugin({ apply: clientApply })
     await fiber.await()
     expect(hostApply).not.toThrow()

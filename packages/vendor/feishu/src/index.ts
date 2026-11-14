@@ -11,29 +11,29 @@
  * carries a credential reference and the secret is resolved at the moment a
  * token is needed, so a composition file never holds one.
  *
- * @module @lyness/lyn-feishu
+ * @module @deepseek-ai/dsh-feishu
  */
 
 /* jscpd:ignore-start */
 // Every redirect channel reaches the same four seams — a context, a schema, a
 // credential store and the sign-in registry — so their import lists are
 // identical by construction rather than by copying.
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
-import type {} from '@lyness/lyn-credentials'
-import { channelId } from '@lyness/lyn-sign-in'
-import type { ExternalSubject } from '@lyness/lyn-sign-in'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { credentialRef, isCredentialRefName } from '@deepseek-ai/dsh-credentials'
+import type {} from '@deepseek-ai/dsh-credentials'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
+import type { ExternalSubject } from '@deepseek-ai/dsh-sign-in'
 import {
   DEFAULT_ATTEMPT_TTL_MS,
   DEFAULT_REQUEST_TIMEOUT_MS,
   REDIRECT_CHANNEL_CONFIG,
   REDIRECT_PATH_PATTERN,
   StatefulRedirectChannel,
-} from '@lyness/lyn-sign-in/redirect'
-import type { ChannelIdentity } from '@lyness/lyn-sign-in/redirect'
-import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@lyness/lyn-sign-in/redirect'
+} from '@deepseek-ai/dsh-sign-in/redirect'
+import type { ChannelIdentity } from '@deepseek-ai/dsh-sign-in/redirect'
+import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@deepseek-ai/dsh-sign-in/redirect'
 import {
   OK,
   appTokenReplySchema,

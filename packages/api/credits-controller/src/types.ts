@@ -5,10 +5,10 @@
  * plain strings on the wire, and a read adds the fact the ledger does not
  * carry — whether the caller may administer the person they are looking at,
  * which is what decides whether a surface offers a grant at all.
- * @module @lyness/lyn-api-credits-controller/types
+ * @module @deepseek-ai/dsh-api-credits-controller/types
  */
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The call presented no identity. Not a validation failure: credits belong

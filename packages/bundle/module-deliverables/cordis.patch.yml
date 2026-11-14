@@ -4,7 +4,7 @@
 # seam
 # (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
 #
-# The four official modes keep declaring `@lyness/lyn-tool-present` as a row
+# The four official modes keep declaring `@deepseek-ai/dsh-tool-present` as a row
 # of their own, as upstream ships them. A contribution reaching them would be
 # a second row registering one tool name, so only the view defaults take the
 # tool from this module and every preset still ends with exactly one.
@@ -13,12 +13,12 @@
     # assistant message. Disable this row to turn the surface off; the tail
     # hole renders empty.
     - id: ui-deliverables
-      name: '@lyness/lyn-client-ui-deliverables'
+      name: '@deepseek-ai/dsh-client-ui-deliverables'
 
     # Records each top-level turn's changed files from git working-tree
     # snapshots; the card above renders its events.
     - id: workspace-changes
-      name: '@lyness/lyn-workspace-changes'
+      name: '@deepseek-ai/dsh-workspace-changes'
 
     - id: deliverables-preset-contribution
-      name: '@lyness/lyn-tool-present/preset-contribution'
+      name: '@deepseek-ai/dsh-tool-present/preset-contribution'

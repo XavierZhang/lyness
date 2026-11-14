@@ -12,22 +12,22 @@
  * answer ever does, because nothing stored here can produce one: the record
  * holds the reference the credential store keeps it under.
  *
- * @module @lyness/lyn-api-sign-in-channel-controller
+ * @module @deepseek-ai/dsh-api-sign-in-channel-controller
  */
 
-import { Context } from '@lyness/cordis'
-import type { Membership } from '@lyness/lyn-people'
-import { callingStanding } from '@lyness/lyn-request-principal'
-import { ChannelRefusedError } from '@lyness/lyn-sign-in-channels'
-import type { ChannelRefusal, ChannelSubmission, ChannelView } from '@lyness/lyn-sign-in-channels'
-import type {} from '@lyness/lyn-sign-in/kinds'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import { assertNever } from '@lyness/lyn-util-values'
+import { Context } from '@deepseek-ai/cordis'
+import type { Membership } from '@deepseek-ai/dsh-people'
+import { callingStanding } from '@deepseek-ai/dsh-request-principal'
+import { ChannelRefusedError } from '@deepseek-ai/dsh-sign-in-channels'
+import type { ChannelRefusal, ChannelSubmission, ChannelView } from '@deepseek-ai/dsh-sign-in-channels'
+import type {} from '@deepseek-ai/dsh-sign-in/kinds'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { ChannelInput, ChannelKindView, ConfiguredChannelView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `signInChannels` Remote namespace. */
     signInChannelController: SignInChannelController

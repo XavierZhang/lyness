@@ -1,11 +1,11 @@
 /**
  * Vocabulary for a signed-in session and the context it holds.
  *
- * @module @lyness/lyn-auth-session/types
+ * @module @deepseek-ai/dsh-auth-session/types
  */
 
-import type { Branded } from '@lyness/lyn-brand'
-import type { ActingContext, PersonId } from '@lyness/lyn-people'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { ActingContext, PersonId } from '@deepseek-ai/dsh-people'
 
 /**
  * Opaque bearer identity of one signed-in session.

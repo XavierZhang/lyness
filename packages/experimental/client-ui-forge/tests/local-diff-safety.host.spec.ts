@@ -3,8 +3,8 @@ import { createHash } from 'node:crypto'
 import { access, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SandboxUnavailableError, type SandboxMode } from '@lyness/lyn-sandbox'
-import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import { SandboxUnavailableError, type SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
 import { inspectCheckout } from '../src/git.ts'
 import { FilterConfigError, localChanges, localDiff } from '../src/local-diff.ts'
 import type { DiffConfig } from '../src/local-diff.ts'
@@ -17,7 +17,7 @@ const cleanups: (() => Promise<void>)[] = []
 afterEach(async () => { for (const cleanup of cleanups.splice(0).reverse()) await cleanup() })
 
 async function setup(mode: SandboxMode = 'danger-full-access', real = false) {
-  const { path: root, remove } = await scratch('lyn-forge-diff-helpers-')
+  const { path: root, remove } = await scratch('dsh-forge-diff-helpers-')
   cleanups.push(remove)
   const repo = await repository(root)
   const record = sandboxRecord()

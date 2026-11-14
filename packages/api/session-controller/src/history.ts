@@ -3,17 +3,17 @@
 import {
   isAppendSurfaceEvent,
   SessionLogOffset,
-} from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
 import type {
   SessionEvent,
   SessionHeader,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
   SessionSeqCursor,
-} from '@lyness/lyn-session'
-import type { SessionObservation } from '@lyness/lyn-session-query'
-import type {} from '@lyness/lyn-subagent'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-session'
+import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
+import type {} from '@deepseek-ai/dsh-subagent'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import type {
   SessionAddress,
   SessionEventEntry,

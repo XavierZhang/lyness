@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-session-deletion",
+  "name": "@deepseek-ai/dsh-session-deletion",
   "description": "Delete one conversation: its stored log, every sub-session log beneath it, and the projections cached about them",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/session/session-deletion"
   },
   "type": "module",
@@ -34,22 +34,22 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/lyn-session-projection-cache": "workspace:*",
-    "@lyness/lyn-session-query": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/dsh-session-projection-cache": "workspace:*",
+    "@deepseek-ai/dsh-session-query": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-session-projection-cache": "workspace:*",
-    "@lyness/lyn-session-query": "workspace:*",
-    "@lyness/lyn-session-query-sqlite": "workspace:*",
-    "@lyness/lyn-storage": "workspace:*",
-    "@lyness/lyn-storage-json": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-session-projection-cache": "workspace:*",
+    "@deepseek-ai/dsh-session-query": "workspace:*",
+    "@deepseek-ai/dsh-session-query-sqlite": "workspace:*",
+    "@deepseek-ai/dsh-storage": "workspace:*",
+    "@deepseek-ai/dsh-storage-json": "workspace:*"
   }
 }

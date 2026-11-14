@@ -1,38 +1,38 @@
 /** Native helper replacement is synchronized with Agent and provider disposal. */
-import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
 import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { setImmediate } from 'node:timers/promises'
-import { Context, FiberState } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Timer from '@lyness/cordis-plugin-timer'
-import { initProfile, mountRootInclude, readProfilePatches, type ProfileContext } from '@lyness/lyn-app-boot'
-import ConfigEditor from '@lyness/lyn-config-editor'
-import Settings from '@lyness/lyn-settings'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import Hmr from '@lyness/lyn-hmr'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
-import ComputerUseRegistry from '@lyness/lyn-computer-use'
-import { CuaConfig } from '@lyness/lyn-cua'
-import { createConfigProjector } from '@lyness/lyn-app-boot/src/config-schema/projector.ts'
-import LocalAttachmentStore from '@lyness/lyn-attachment-local'
-import FileSystem from '@lyness/lyn-fs-local'
-import UserQuestions from '@lyness/lyn-user-questions'
-import NodeRuntime from '@lyness/lyn-ptc-runtime-node'
-import Sandbox from '@lyness/lyn-sandbox-local'
-import SandboxPolicy from '@lyness/lyn-sandbox-policy'
-import { LlmAdapter, ToolCallId, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/lyn-llm'
-import { SessionId } from '@lyness/lyn-session'
-import Subprocess from '@lyness/lyn-subprocess'
+import { Context, FiberState } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Timer from '@deepseek-ai/cordis-plugin-timer'
+import { initProfile, mountRootInclude, readProfilePatches, type ProfileContext } from '@deepseek-ai/dsh-app-boot'
+import ConfigEditor from '@deepseek-ai/dsh-config-editor'
+import Settings from '@deepseek-ai/dsh-settings'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import Hmr from '@deepseek-ai/dsh-hmr'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
+import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
+import { CuaConfig } from '@deepseek-ai/dsh-cua'
+import { createConfigProjector } from '@deepseek-ai/dsh-app-boot/src/config-schema/projector.ts'
+import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
+import FileSystem from '@deepseek-ai/dsh-fs-local'
+import UserQuestions from '@deepseek-ai/dsh-user-questions'
+import NodeRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
+import Sandbox from '@deepseek-ai/dsh-sandbox-local'
+import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
+import { LlmAdapter, ToolCallId, type LlmResolvedModelInfo, type StreamChunk } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import Subprocess from '@deepseek-ai/dsh-subprocess'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import sharp from 'sharp'
-import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
 import * as NativeProvider from '../src/index.ts'
-import type { NativeClient } from '@lyness/lyn-cua/native-client'
+import type { NativeClient } from '@deepseek-ai/dsh-cua/native-client'
 import type { NativeBuildSpec } from '../src/native-build.ts'
 
 const native = vi.hoisted(() => ({
@@ -46,8 +46,8 @@ vi.mock('../src/native-build.ts', async importOriginal => ({
   nativeHostArchitecture: native.architecture,
   prepareNativeExecutable: native.prepare,
 }))
-vi.mock('@lyness/lyn-cua/native-client', async importOriginal => ({
-  ...await importOriginal<typeof import('@lyness/lyn-cua/native-client')>(),
+vi.mock('@deepseek-ai/dsh-cua/native-client', async importOriginal => ({
+  ...await importOriginal<typeof import('@deepseek-ai/dsh-cua/native-client')>(),
   NativeClient: class {
     disposed = false
     constructor(...args: ConstructorParameters<typeof NativeClient>) {
@@ -307,7 +307,7 @@ it('retains the computer-use registration until permission helper cleanup settle
   const closing = f.provider.dispose()
   try {
     await entered.promise
-    expect(registry.providerName).toBe('lyn-cua')
+    expect(registry.providerName).toBe('dsh-cua')
     release.resolve(undefined)
     await closing
     expect(registry.providerName).toBeUndefined()
@@ -431,9 +431,9 @@ it('preserves screenshot attachments and invalidates pixel coordinates when wind
   const f = await setup({ provider: 'image-fixture', model: 'vision' })
   await selectApplication(f)
   f.ctx.llm.registerAdapter(['image-fixture'], new ImageAdapter())
-  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-image-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-image-'))
   onTestFinished(async () => { await f.ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) })
-  await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+  await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
   const data = imageData
   const metadata = imageMetadata
   native.request.mockResolvedValue({ ...metadata, mimeType: 'image/png', data })
@@ -469,9 +469,9 @@ it('maps the actual model-request image pixels back to native points without sto
     }
   }
   f.ctx.llm.registerAdapter(['image-fixture'], new ResizingAdapter())
-  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-coordinate-image-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-coordinate-image-'))
   onTestFinished(async () => { await f.ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) })
-  await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+  await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
   const save = vi.spyOn(f.ctx.attachments, 'saveImages')
   const image = await sharp({ create: { width: 40, height: 20, channels: 3, background: '#4488cc' } }).png().toBuffer()
   native.request.mockResolvedValue({ ...imageMetadata, bounds: { x: 10, y: 20, width: 400, height: 200 },
@@ -493,9 +493,9 @@ it.each([{ pixelWidth: 2 }, { pixelHeight: 2 }])('rejects native screenshot dime
   const f = await setup({ provider: 'image-fixture', model: 'vision' })
   await selectApplication(f)
   f.ctx.llm.registerAdapter(['image-fixture'], new ImageAdapter())
-  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-image-metadata-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-image-metadata-'))
   onTestFinished(async () => { await f.ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) })
-  await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+  await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
   native.request.mockResolvedValue({ ...imageMetadata, ...invalid, mimeType: 'image/png', data: imageData })
   const result = await f.execute('screenshot', { appHandle: 'app-one', windowId: 7 })
   expect(result.isError).toBe(true)
@@ -517,9 +517,9 @@ it.each(['unresolved', 'unknown', 'text-only', 'provider-error'] as const)(
   'refuses screenshot capture and storage for a %s model route', async (route) => {
     const f = await setup(route === 'unresolved' ? undefined : { provider: 'image-fixture', model: 'vision' })
     await selectApplication(f)
-    const root = await mkdtemp(join(tmpdir(), 'lyn-cua-image-route-'))
+    const root = await mkdtemp(join(tmpdir(), 'dsh-cua-image-route-'))
     onTestFinished(async () => { await f.ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) })
-    await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+    await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
     const saved = vi.spyOn(f.ctx.attachments, 'saveImages')
     const resolve = vi.spyOn(f.ctx.llm, 'resolveModelInfo')
     if (route === 'provider-error') resolve.mockRejectedValue(new Error('model lookup failed'))
@@ -540,9 +540,9 @@ it('returns an image-admission failure without emitting a successful screenshot'
   const f = await setup({ provider: 'image-fixture', model: 'vision' })
   await selectApplication(f)
   f.ctx.llm.registerAdapter(['image-fixture'], new ImageAdapter())
-  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-image-invalid-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-image-invalid-'))
   onTestFinished(async () => { await f.ctx.fiber.dispose(); await rm(root, { recursive: true, force: true }) })
-  await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+  await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
   native.request.mockResolvedValue({ ...imageMetadata, mimeType: 'image/png', data: 'AQ==' })
   const result = await f.execute('screenshot', { appHandle: 'app-one', windowId: 7 })
   expect(result.isError).toBe(true)
@@ -560,9 +560,9 @@ it.each([
   const f = await setup({ provider: 'image-fixture', model: 'vision' })
   await selectApplication(f)
   f.ctx.llm.registerAdapter(['image-fixture'], new ImageAdapter())
-  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-image-disposal-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-image-disposal-'))
   onTestFinished(async () => { try { await f.ctx.fiber.dispose() } finally { await rm(root, { recursive: true, force: true }) } })
-  await f.ctx.plugin(LocalAttachmentStore, { lynHome: root })
+  await f.ctx.plugin(LocalAttachmentStore, { dshHome: root })
   native.request.mockResolvedValue({ ...imageMetadata, mimeType: 'image/png', data: imageData })
   const entered: PromiseWithResolvers<void> = Promise.withResolvers()
   const release: PromiseWithResolvers<void> = Promise.withResolvers()
@@ -587,7 +587,7 @@ it.each([
     let closed = false
     closing = (owner === 'provider' ? f.provider.dispose()
       : owner === 'agent' ? f.handle.dispose()
-        : f.ctx.cuaAccess.revoke('a'.repeat(64) as import('@lyness/lyn-cua/types').CuaApplicationId)).then(() => { closed = true })
+        : f.ctx.cuaAccess.revoke('a'.repeat(64) as import('@deepseek-ai/dsh-cua/types').CuaApplicationId)).then(() => { closed = true })
     await setImmediate()
     expect(admissionSignal?.aborted).toBe(true)
     expect(closed).toBe(false)
@@ -621,7 +621,7 @@ it('prepares the selected native component before registering CUA and creates no
 
 it('adds an installation-owned bridge URL when persistent PTC is available', async () => {
   const f = await setup()
-  const text = async () => (await f.ctx.systemPrompt.assemble()).sections.find(section => section.name === 'computer-use:lyn-cua')?.text
+  const text = async () => (await f.ctx.systemPrompt.assemble()).sections.find(section => section.name === 'computer-use:dsh-cua')?.text
   expect(await text()).not.toContain('Persistent PTC initialization:')
   await f.ctx.plugin(FileSystem)
   await f.ctx.plugin(Sandbox)
@@ -696,7 +696,7 @@ async function permissionProfile(allowedApps: Array<{ id: string; name: string; 
   await mkdir(bundle, { recursive: true })
   await writeFile(join(home, 'package.json'), '{"name":"test-installation"}\n')
   await writeFile(join(bundle, 'package.json'), JSON.stringify({ name: 'permission-fixture-bundle', version: '1.0.0',
-    lyn: { bundle: { patch: 'cordis.patch.yml' } } }))
+    dsh: { bundle: { patch: 'cordis.patch.yml' } } }))
   await writeFile(join(bundle, 'cordis.patch.yml'), JSON.stringify([{ insert: [{ id: 'cua', name: 'cordis:cua', config: { ...config, allowedApps } }] }]))
   await writeFile(join(dir, 'cordis.yml'), '[]\n')
   const profile: ProfileContext = { name: 'test', startedBundles: ['permission-fixture-bundle'], dir,
@@ -731,7 +731,7 @@ it('stores revocation without entering the HMR configuration queue', async () =>
   onTestFinished(() => { release.resolve(undefined) })
   const blocked = f.ctx.hmr.runExclusive(async () => { acquired.resolve(undefined); await release.promise })
   await acquired.promise
-  await f.ctx.cuaAccess.revoke(grant.id as import('@lyness/lyn-cua/types').CuaApplicationId)
+  await f.ctx.cuaAccess.revoke(grant.id as import('@deepseek-ai/dsh-cua/types').CuaApplicationId)
   expect((await f.ctx.cuaAccess.applications()).allowedApps).toEqual([])
   expect(await readFile(f.profile.patchPath, 'utf8')).toBe(before)
   release.resolve(undefined)

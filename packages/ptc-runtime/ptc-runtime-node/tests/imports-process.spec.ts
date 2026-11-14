@@ -2,7 +2,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { expect, it, onTestFinished } from 'vitest'
 import { createProgramEvaluator } from '../src/evaluators/index.ts'
 import { mountRuntime } from './setup.ts'
@@ -13,10 +13,10 @@ it('reports a missing VM startup flag before accepting a Script handler', () => 
 })
 
 async function customBootstrap(asyncDecisions = false) {
-  const directory = await mkdtemp(join(tmpdir(), 'lyn-ptc-import-runner-'))
+  const directory = await mkdtemp(join(tmpdir(), 'dsh-ptc-import-runner-'))
   onTestFinished(async () => { await rm(directory, { recursive: true, force: true }) })
   const bootstrapPath = join(directory, 'runner.mjs')
-  const subprocess = dirname(fileURLToPath(import.meta.resolve('@lyness/lyn-subprocess/package.json')))
+  const subprocess = dirname(fileURLToPath(import.meta.resolve('@deepseek-ai/dsh-subprocess/package.json')))
   await writeFile(bootstrapPath, `
     import { openInheritedControlChannel } from ${JSON.stringify(pathToFileURL(join(subprocess, 'src/control.ts')).href)};
     import { runNodeMain } from ${JSON.stringify(new URL('../src/process.ts', import.meta.url).href)};

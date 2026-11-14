@@ -1,11 +1,11 @@
 /** Disposal: the request scope is withdrawn with the fiber that registered it. */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it } from 'vitest'
-import { HostConnectionService } from '@lyness/lyn-client-connection'
-import StaticTenantDirectory from '@lyness/lyn-tenant-static'
+import { HostConnectionService } from '@deepseek-ai/dsh-client-connection'
+import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
 import RequestTenantScope from '../src/index.ts'
-import type { PeerScope } from '@lyness/lyn-typert-protocol'
+import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
 
 /** These assertions are not about access, so every dispatch speaks for the owner. */
 const OWNER = { principal: { kind: 'owner' } } as PeerScope

@@ -1,5 +1,5 @@
 /**
- * MCP server manager (`ctx.mcpManager`): one fleet of `lyn-mcp-client`
+ * MCP server manager (`ctx.mcpManager`): one fleet of `dsh-mcp-client`
  * instances built from two sources. Volatile `Config.servers` holds configured
  * entries, which Settings exposes under the owning Loader entry id with profile
  * inheritance and revision checks; plugins contribute registered entries for
@@ -14,23 +14,23 @@
  * mount under the manager's fiber, so disposing the manager unwinds every
  * instance and its registered tools.
  *
- * @module @lyness/lyn-mcp-manager
+ * @module @deepseek-ai/dsh-mcp-manager
  */
 
-import { Context, Service } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { Fiber, Volatile, VolatileSnapshot } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import * as McpClient from '@lyness/lyn-mcp-client'
-import { ReconnectSchema, SERVER_NAME_PATTERN, connectionStatusOf, probeServer, resolveReconnectPolicy } from '@lyness/lyn-mcp-client'
-import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
-import type { McpCloseResult, McpProbeOptions, McpProbeResult, ReconnectConfig } from '@lyness/lyn-mcp-client'
-import { deepEqualJson } from '@lyness/lyn-util-values'
-import { assertTemplateSyntax } from '@lyness/lyn-mcp-client'
+import { Context, Service } from '@deepseek-ai/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Fiber, Volatile, VolatileSnapshot } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import * as McpClient from '@deepseek-ai/dsh-mcp-client'
+import { ReconnectSchema, SERVER_NAME_PATTERN, connectionStatusOf, probeServer, resolveReconnectPolicy } from '@deepseek-ai/dsh-mcp-client'
+import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import type { McpCloseResult, McpProbeOptions, McpProbeResult, ReconnectConfig } from '@deepseek-ai/dsh-mcp-client'
+import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
+import { assertTemplateSyntax } from '@deepseek-ai/dsh-mcp-client'
 import type { McpManagedServerStatus, McpManagedServerView } from './types.ts'
 // Side-effect type imports: declare the tool service and Loader's volatile events.
-import type {} from '@lyness/lyn-tools'
-import type {} from '@lyness/cordis-plugin-loader'
+import type {} from '@deepseek-ai/dsh-tools'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
 
 export type { McpManagedServerStatus, McpManagedServerView } from './types.ts'
 
@@ -178,7 +178,7 @@ interface ManagedRecord {
   detachStatus?: () => void
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The MCP server manager. */
     mcpManager: McpServerManager

@@ -14,15 +14,15 @@ import {
   IconListPenOutlineRegular, IconNowrapFillRegular, IconRightUpOutlineRegular, IconWorkspaceTreeOutlineRegular, IconWrapFillRegular,
   Menu, StateDot, Tooltip,
   type MenuEntry,
-} from '@lyness/lyn-client-ui-primitives'
-import type { HostObservable, InjectFace, PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
-import type { SidebarRightTabInfo } from '@lyness/lyn-client-ui-sidebar-right/client'
-import type { RemoteResult } from '@lyness/lyn-typert-protocol'
-import { fileAddressFor, pathPartsOf } from '@lyness/lyn-util-workspace-path'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SidebarRightTabInfo } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import { fileAddressFor, pathPartsOf } from '@deepseek-ai/dsh-util-workspace-path'
 import type {
   ForgeChangeRequestDiff, ForgeDiffFile, ForgeLocalDiff, ForgeLocalScope, ForgePanelChangeRequest, ForgePanelState,
 } from '../types.ts'
-import type { ForgeReviewRequest, ForgeReviewResult } from '@lyness/lyn-experimental-forge/types'
+import type { ForgeReviewRequest, ForgeReviewResult } from '@deepseek-ai/dsh-experimental-forge/types'
 import { sameReviewSource, type ReviewQueue } from './review-queue.ts'
 import { ReviewThread, useFileReview } from './ReviewThread.tsx'
 import type { ReviewActions } from './ReviewComposer.tsx'

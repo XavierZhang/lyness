@@ -3,7 +3,7 @@ description: "The ctx.tenants directory seam: which tenants a deployment serves,
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant
+# @deepseek-ai/dsh-tenant
 
 English | [中文](README.zh.md)
 
@@ -25,12 +25,12 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Compose a backend — [`lyn-tenant-static`](../tenant-static/README.md) reads the roster from composition config — and read the directory through `ctx.tenants`:
+Compose a backend — [`dsh-tenant-static`](../tenant-static/README.md) reads the roster from composition config — and read the directory through `ctx.tenants`:
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import { TenantError } from '@lyness/lyn-tenant'
-import type { Tenant } from '@lyness/lyn-tenant'
+import type { Context } from '@deepseek-ai/cordis'
+import { TenantError } from '@deepseek-ai/dsh-tenant'
+import type { Tenant } from '@deepseek-ai/dsh-tenant'
 
 export async function tenantOf(ctx: Context, hostname: string): Promise<Tenant> {
   const tenant = await ctx.tenants.byHost(hostname)

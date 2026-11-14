@@ -6,8 +6,8 @@
  */
 export async function readOnboardingApiKeyPresence(): Promise<boolean> {
   const bridge = (globalThis as typeof globalThis & {
-    lynOnboarding?: { hasApiKey(): Promise<boolean> }
-  }).lynOnboarding
+    dshOnboarding?: { hasApiKey(): Promise<boolean> }
+  }).dshOnboarding
   if (bridge === undefined) throw new Error('desktop login bridge unavailable')
   return bridge.hasApiKey()
 }

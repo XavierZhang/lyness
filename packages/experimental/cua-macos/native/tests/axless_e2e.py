@@ -34,16 +34,16 @@ def main():
             raise RuntimeError('Unlock the macOS console session before running this interactive check')
         if capabilities['permissions'] != {'accessibility': True, 'screenRecording': True}:
             raise RuntimeError('Accessibility and Screen Recording grants are required')
-        with tempfile.TemporaryDirectory(prefix='lyn-cua-axless-') as directory:
+        with tempfile.TemporaryDirectory(prefix='dsh-cua-axless-') as directory:
             root = Path(directory)
             state_path = root / 'state.json'
             def app_binary(name, state_file):
                 contents = root / (name + '.app') / 'Contents'
                 (contents / 'MacOS').mkdir(parents=True)
                 (contents / 'Info.plist').write_bytes(plistlib.dumps({
-                    'CFBundleIdentifier': 'org.lyness.cua.' + root.name + '.' + name,
+                    'CFBundleIdentifier': 'org.DeepSeek Harness.cua.' + root.name + '.' + name,
                     'CFBundleExecutable': 'fixture', 'CFBundleName': name, 'CFBundlePackageType': 'APPL',
-                    'LYNFixtureStatePath': str(state_file),
+                    'DSHFixtureStatePath': str(state_file),
                 }))
                 return contents / 'MacOS/fixture'
 

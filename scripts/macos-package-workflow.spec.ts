@@ -31,7 +31,7 @@ describe.each(['arm64', 'x64'])('macOS %s packaging', (arch) => {
     expect(workflow.on.workflow_dispatch).not.toHaveProperty('inputs.publish')
     expect(workflow.permissions).toEqual({ contents: 'read' })
     expect(workflow.concurrency).toEqual({ group: 'macos-desktop-package', 'cancel-in-progress': false })
-    expect(workflow.jobs.package!['runs-on']).toEqual(['self-hosted', 'macOS', 'ARM64', 'lyn-mac-package-trial'])
+    expect(workflow.jobs.package!['runs-on']).toEqual(['self-hosted', 'macOS', 'ARM64', 'dsh-mac-package-trial'])
     const steps = workflow.jobs.package!.steps
     expect(steps.find(step => step.id === 'checkout')?.with).toMatchObject({ 'persist-credentials': false, clean: true })
     for (const step of steps) expect(step.run ?? '').not.toContain('${{ inputs.')
@@ -58,9 +58,9 @@ describe.each(['arm64', 'x64'])('macOS %s packaging', (arch) => {
     expect(JSON.stringify(env)).not.toContain('runner.')
     const steps = workflow.jobs.package!.steps
     const cache = steps.find(step => step.name === 'Configure persistent package caches')!
-    expect(cache.env?.LYNESS_DESKTOP_PACKAGE_CACHE_DIR).toBe('${{ runner.tool_cache }}/lyn-desktop-package-cache')
-    expect(cache.run).toContain('PNPM_CONFIG_STORE_DIR=$LYNESS_DESKTOP_PACKAGE_CACHE_DIR/workspace-pnpm-store')
-    expect(cache.run).toContain('LYNESS_DESKTOP_PACKAGE_CACHE_DIR=$LYNESS_DESKTOP_PACKAGE_CACHE_DIR')
+    expect(cache.env?.DSH_DESKTOP_PACKAGE_CACHE_DIR).toBe('${{ runner.tool_cache }}/dsh-desktop-package-cache')
+    expect(cache.run).toContain('PNPM_CONFIG_STORE_DIR=$DSH_DESKTOP_PACKAGE_CACHE_DIR/workspace-pnpm-store')
+    expect(cache.run).toContain('DSH_DESKTOP_PACKAGE_CACHE_DIR=$DSH_DESKTOP_PACKAGE_CACHE_DIR')
     expect(steps.indexOf(cache)).toBeLessThan(steps.findIndex(step => step.name === 'Install locked dependencies'))
   })
 
@@ -77,8 +77,8 @@ describe.each(['arm64', 'x64'])('macOS %s packaging', (arch) => {
     expect(staging).toBeGreaterThan(steps.findIndex(step => step.name === 'Check packaging configuration and toolchain'))
     expect(staging).toBeLessThan(steps.findIndex(step => step.name === 'Build signed installers'))
     const run = steps[staging]?.run ?? ''
-    // Sources whose lyn does not ship the bundle, or that predate helper packaging, skip staging.
-    expect(run.indexOf("dependencies?.['@lyness/lyn-cua-bundle']")).toBeLessThan(run.indexOf('scripts/cua-helper/package.ts --out'))
+    // Sources whose dsh does not ship the bundle, or that predate helper packaging, skip staging.
+    expect(run.indexOf("dependencies?.['@deepseek-ai/dsh-cua-bundle']")).toBeLessThan(run.indexOf('scripts/cua-helper/package.ts --out'))
     expect(run.indexOf('[[ ! -f scripts/cua-helper/package.ts ]]')).toBeLessThan(run.indexOf('scripts/cua-helper/package.ts --out'))
     expect(run).toContain('pnpm exec tsx scripts/cua-helper/package.ts --out dist/cua-helper')
     expect(run).toContain('pnpm exec tsx scripts/cua-helper/stage.ts --from dist/cua-helper/extracted')
@@ -86,8 +86,8 @@ describe.each(['arm64', 'x64'])('macOS %s packaging', (arch) => {
 
   it('passes the same target to preparation, packaging and retention', () => {
     const job = workflow.jobs.package!
-    expect(job.env.LYNESS_DESKTOP_TARGET_PLATFORM).toBe('darwin')
-    expect(job.env.LYNESS_DESKTOP_TARGET_ARCH).toBe(arch)
+    expect(job.env.DSH_DESKTOP_TARGET_PLATFORM).toBe('darwin')
+    expect(job.env.DSH_DESKTOP_TARGET_ARCH).toBe(arch)
     const builds = job.steps.filter(step => step.run?.includes('pnpm run package:desktop:mac:'))
     expect(builds).toHaveLength(2)
     for (const step of builds) expect(step.run).toContain(`package:desktop:mac:${arch}`)

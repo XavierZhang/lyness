@@ -3,13 +3,13 @@ description: "admin-setup profile：一条命令，把一套部署的第一位�
 kind: "package-bundle"
 ---
 
-# `@lyness/lyn-admin-setup`
+# `@deepseek-ai/dsh-admin-setup`
 
 [English](README.md) | 中文
 
 ## 概述
 
-这个 bundle 就是 `lyn --profile admin-setup`——一套新部署在第一次启动之前运行一次的命令。它往目标 profile 的组合层里写三样东西：那位唯一的平台管理员的名册条目、他登录所经的 OpenID 提供方，以及放他进来的那一条准入绑定。那个层每次启动都会被重新读，所以它点名的东西在管理端既改不了也删不掉——这正是这位管理员无法被锁在门外的原因，也是别人被锁在门外时的那条回去的路。它不挂任何够得着模型的东西。
+这个 bundle 就是 `dsh --profile admin-setup`——一套新部署在第一次启动之前运行一次的命令。它往目标 profile 的组合层里写三样东西：那位唯一的平台管理员的名册条目、他登录所经的 OpenID 提供方，以及放他进来的那一条准入绑定。那个层每次启动都会被重新读，所以它点名的东西在管理端既改不了也删不掉——这正是这位管理员无法被锁在门外的原因，也是别人被锁在门外时的那条回去的路。它不挂任何够得着模型的东西。
 
 ## 目录
 
@@ -26,7 +26,7 @@ kind: "package-bundle"
 ## 使用这个包
 
 ```sh
-lyn --profile admin-setup --target acme --person ada --name Ada \
+dsh --profile admin-setup --target acme --person ada --name Ada \
   --issuer https://id.acme.example --client-id 298412... --subject 298430...
 ```
 
@@ -37,10 +37,10 @@ admin-setup: "Ada" administers the "acme" deployment
   person    ada
   provider  https://id.acme.example (channel oidc, client 298412...)
   subject   298430...
-  patch     /home/acme/.lyn/profiles/acme/cordis.patch.yml
+  patch     /home/acme/.dsh/profiles/acme/cordis.patch.yml
 
 Two things left, in this order:
-  1. give the deployment the client secret: OIDC_CLIENT_SECRET=… lyn --profile acme
+  1. give the deployment the client secret: OIDC_CLIENT_SECRET=… dsh --profile acme
   2. register the provider's redirect URI as <your public origin>/auth/callback/oidc
 ```
 
@@ -75,9 +75,9 @@ Two things left, in this order:
 ## 延伸阅读
 
 - [独立部署的安装与管理](../../../docs/user/guide/standalone-administration.zh.md) —— 整套安装流程，这条命令是其中一步。
-- [`lyn-oidc`](../../identity/oidc/README.zh.md) —— 这条命令写出的那个提供方行，以及它接受的每一项设置。
-- [`lyn-managed-people`](../../identity/managed-people/README.zh.md) —— 为什么写定的条目在管理端改不了。
-- [`lyn-brand-studio`](../brand-studio/README.zh.md) —— 另一条编辑 profile 组合层的运维命令。
+- [`dsh-oidc`](../../identity/oidc/README.zh.md) —— 这条命令写出的那个提供方行，以及它接受的每一项设置。
+- [`dsh-managed-people`](../../identity/managed-people/README.zh.md) —— 为什么写定的条目在管理端改不了。
+- [`dsh-brand-studio`](../brand-studio/README.zh.md) —— 另一条编辑 profile 组合层的运维命令。
 
 -----
 

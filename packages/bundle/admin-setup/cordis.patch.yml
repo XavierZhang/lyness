@@ -1,9 +1,9 @@
 # The standalone admin-setup application: one command that writes a
 # deployment's first platform administrator into a profile's patch layer. It
-# needs no model, session, or Web row, so it does not layer over lyn-base:
+# needs no model, session, or Web row, so it does not layer over dsh-base:
 # this insert is the complete Cordis tree. User profile, home, and invocation
 # patches still apply above it.
 
 - insert:
     - id: admin-setup
-      name: '@lyness/lyn-admin-setup'
+      name: '@deepseek-ai/dsh-admin-setup'

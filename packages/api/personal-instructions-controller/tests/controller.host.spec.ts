@@ -4,9 +4,9 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { InstructionsEntry, InstructionsOwnerId } from '@lyness/lyn-personal-instructions/types'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { InstructionsEntry, InstructionsOwnerId } from '@deepseek-ai/dsh-personal-instructions/types'
 import PersonalInstructionsController from '../src/index.ts'
 
 const SAM = brandString<InstructionsOwnerId>('person:sam')

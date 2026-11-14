@@ -9,10 +9,10 @@
  */
 
 import { useEffect } from 'react'
-import { Button, Tag } from '@lyness/lyn-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type { AuditChangeView, AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
+import { Button, Tag } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { AuditChangeView, AuditEntryView } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
 import type { createHistorySectionStore } from './store.ts'
 import css from './HistorySection.module.css'
 

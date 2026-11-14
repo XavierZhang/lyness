@@ -1,9 +1,9 @@
-import OTel from '@lyness/lyn-otel'
+import OTel from '@deepseek-ai/dsh-otel'
 import { createServer, type IncomingHttpHeaders } from 'node:http'
 import { once } from 'node:events'
 import { gunzipSync } from 'node:zlib'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { SeverityNumber } from '@opentelemetry/api-logs'
 import ProductTelemetry, { Config } from '../src/index.ts'
 

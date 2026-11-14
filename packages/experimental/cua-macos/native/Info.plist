@@ -5,13 +5,13 @@
     <key>CFBundleIdentifier</key>
     <string>com.deepseek.harness.computer-use</string>
     <key>CFBundleExecutable</key>
-    <string>lyn-cua-native</string>
+    <string>dsh-cua-native</string>
     <key>CFBundleName</key>
-    <string>LYN Computer Use</string>
+    <string>DSH Computer Use</string>
     <key>CFBundleDisplayName</key>
-    <string>LYN Computer Use</string>
+    <string>DSH Computer Use</string>
     <key>CFBundleIconFile</key>
-    <string>LYNComputerUse.icns</string>
+    <string>DSHComputerUse.icns</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleVersion</key>

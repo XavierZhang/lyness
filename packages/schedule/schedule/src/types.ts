@@ -1,14 +1,14 @@
 /**
  * Durable and model-facing Schedule value types.
- * @module @lyness/lyn-schedule/types
+ * @module @deepseek-ai/dsh-schedule/types
  */
 
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { MessageId } from '@lyness/lyn-llm/brand'
-import type { Branded } from '@lyness/lyn-brand'
-import type {} from '@lyness/lyn-typert-protocol'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import type {} from '@deepseek-ai/dsh-typert-protocol'
 // Type-only: the Workspace registry's archive-admission family map this plugin merges `schedule` into.
-import type {} from '@lyness/lyn-workspace/types'
+import type {} from '@deepseek-ai/dsh-workspace/types'
 
 /** Stable globally unique reminder identity. */
 export type ScheduleId = Branded<'ScheduleId'>
@@ -594,7 +594,7 @@ export interface ScheduleExecutionPendingResult {
 /** Task state after a manual delivery, or a non-mutating miss or refusal. */
 export type ScheduleRunResult = ScheduleCatalogEntry | ScheduleNotFoundResult | ScheduleExecutionPendingResult
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The Schedule request failed validation before it was stored. */
     'schedule/input-invalid': { readonly code: ScheduleInputErrorCode }
@@ -609,14 +609,14 @@ export interface ScheduleDeleteInactiveResult {
   readonly deleted: number
 }
 
-declare module '@lyness/lyn-workspace/types' {
+declare module '@deepseek-ai/dsh-workspace/types' {
   interface SessionActivityKindMap {
     /** A scheduled follow-up for this session is still active. */
     schedule: true
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Historical version-1 Session-local reminder mutation. New tasks live in Host storage;
@@ -626,7 +626,7 @@ declare module '@lyness/lyn-session/types' {
   }
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /** Durable task set changed; clients refetch global task and Session-active catalogs.
      * @mode emit

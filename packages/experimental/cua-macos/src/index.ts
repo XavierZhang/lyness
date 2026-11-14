@@ -1,9 +1,9 @@
 /** macOS native CUA provider using the shared application and window API. */
 import { isAbsolute, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Context } from '@lyness/cordis'
-import Schema from '@lyness/schemastery'
-import { CuaConfig, installCua } from '@lyness/lyn-cua'
+import type { Context } from '@deepseek-ai/cordis'
+import Schema from '@deepseek-ai/schemastery'
+import { CuaConfig, installCua } from '@deepseek-ai/dsh-cua'
 import { createPermissionParameters } from './permission-guide.ts'
 import { nativeHostArchitecture, prepareNativeExecutable, type SourceSigning } from './native-build.ts'
 import { createSharedNativeChannel } from './shared-native.ts'
@@ -51,7 +51,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   const backend = { createChannel: createSharedNativeChannel, guidance: GUIDANCE, description,
     permissionParameters: createPermissionParameters(config.permissionPollIntervalMs) }
   if (config.helperPath !== undefined) {
-    if (!isAbsolute(config.helperPath)) throw new Error('lyn-cua helperPath must be absolute')
+    if (!isAbsolute(config.helperPath)) throw new Error('dsh-cua helperPath must be absolute')
     installCua(ctx, config, { helperPath: config.helperPath, ...backend })
     return
   }
@@ -66,7 +66,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     controller.abort()
     // The Loader receives preparation failures through apply; disposal only awaits quiescence.
     await prepared.catch(() => {})
-  }, 'lyn-cua.native-preparation')
+  }, 'dsh-cua.native-preparation')
   const helperPath = await prepared
   controller.signal.throwIfAborted()
   installCua(ctx, config, { helperPath, ...backend })

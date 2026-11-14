@@ -29,17 +29,17 @@ def main():
         application = helper.parents[2]
         manifest = application / 'Contents/Info.plist'
         info = plistlib.loads(manifest.read_bytes())
-        info['CFBundleIdentifier'] = 'dev.lyn.cua.nested-test.' + uuid.uuid4().hex
+        info['CFBundleIdentifier'] = 'dev.dsh.cua.nested-test.' + uuid.uuid4().hex
         manifest.write_bytes(plistlib.dumps(info))
         subprocess.run(['codesign', '--force', '--sign', '-', '--timestamp=none', str(application)],
                        check=True, capture_output=True, timeout=30)
         key = hashlib.sha256(helper.read_bytes()).hexdigest()
-        cache = Path.home() / 'Library/Application Support/lyness/Computer Use'
+        cache = Path.home() / 'Library/Application Support/DeepSeek Harness/Computer Use'
         generation = cache / key
         assert not generation.exists(), 'The unique signed fixture unexpectedly shares an existing generation'
         cleanup.callback(lambda: (cache / (key + '.lock')).unlink(missing_ok=True))
         cleanup.callback(lambda: shutil.rmtree(generation) if generation.exists() else None)
-        copied_helper = generation / application.name / 'Contents/MacOS/lyn-cua-native'
+        copied_helper = generation / application.name / 'Contents/MacOS/dsh-cua-native'
         cleanup.callback(unregister_helper, copied_helper)
         runtime = [root / 'a', root / 'b']
 

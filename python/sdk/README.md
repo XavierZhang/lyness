@@ -1,11 +1,11 @@
-# lyness Python SDK
+# DeepSeek Harness Python SDK
 
 English | [中文](README.zh.md)
 
-Python subprocess SDK for driving lyness over newline-delimited JSON-RPC on stdio. Install `lyness-sdk`; it installs the exact same-version `lyness-runtime-bin` wheel for the current platform.
+Python subprocess SDK for driving DeepSeek Harness over newline-delimited JSON-RPC on stdio. Install `deepseek-harness-sdk`; it installs the exact same-version `deepseek-harness-runtime-bin` wheel for the current platform.
 
 ```sh
-python -m pip install lyness-sdk
+python -m pip install deepseek-harness-sdk
 ```
 
 ## Optional Office operations
@@ -13,8 +13,8 @@ python -m pip install lyness-sdk
 Download the Office runtime explicitly, then call the local API without an agent, Session, model request, API key, or Harness home:
 
 ```py
-from lyness_runtime import download_office
-from lyness.office import convert, recalculate, render_images
+from deepseek_harness_runtime import download_office
+from DeepSeek Harness.office import convert, recalculate, render_images
 
 download_office()
 pdf = convert("report.docx", "report.pdf")
@@ -24,19 +24,19 @@ preview = render_images("report.docx", "report-preview", pages=[1])
 
 The output file or image directory must not exist. Successful outputs belong to the caller; Kit removes failed outputs. `OfficeOptions` supplies operation limits and font preferences. Results expose typed paths, missing fonts, and image metadata. `OfficeError` retains CLI failure codes; malformed results raise `SdkProtocolError`. Recalculation does not verify business logic or Excel fidelity. Ctrl+C waits for CLI cleanup; a second interrupt forces termination and may leave partial output. Windows requires an absolute `SystemRoot` and a shared console for Ctrl+C delivery.
 
-The authoring environment is independently optional through `lyness_runtime.download_primary_runtime()`. See the [runtime reference](../sdk-runtime/README.md) for cache selection, resource activation, and download behavior. SDK startup and Office operations never acquire missing resources automatically.
+The authoring environment is independently optional through `deepseek_harness_runtime.download_primary_runtime()`. See the [runtime reference](../sdk-runtime/README.md) for cache selection, resource activation, and download behavior. SDK startup and Office operations never acquire missing resources automatically.
 
 ## Start a runtime
 
-The Python SDK has no separate application entrypoint. It launches the bundled `lyn` CLI with `--profile sdk`; the selected profile owns the JSON-RPC server, agent composition, credentials, persistence, tools, and shutdown behavior.
+The Python SDK has no separate application entrypoint. It launches the bundled `dsh` CLI with `--profile sdk`; the selected profile owns the JSON-RPC server, agent composition, credentials, persistence, tools, and shutdown behavior.
 
-Every launch requires an explicit Harness home. Pass `lyn_home` or provide a non-empty `LYNESS_HOME` in the child environment. The SDK deliberately never discovers `~/.lyn`.
+Every launch requires an explicit Harness home. Pass `dsh_home` or provide a non-empty `DSH_HOME` in the child environment. The SDK deliberately never discovers `~/.dsh`.
 
 ```py
-from lyness import Lyness
+from DeepSeek Harness import DeepSeekHarness
 
-with Lyness(
-    lyn_home="/absolute/path/to/isolated-lyn-home",
+with DeepSeekHarness(
+    dsh_home="/absolute/path/to/isolated-dsh-home",
     cwd="/absolute/path/to/workspace",
     provider="deepseek-official",
     model="deepseek-v4-flash",
@@ -48,12 +48,12 @@ with Lyness(
 print(result.final_response)
 ```
 
-`Lyness` starts lazily and reuses its runtime until `close()` or context-manager exit. The initial profile handshake has an independent 30-second default bound through `initialize_timeout_seconds`; ordinary activity remains unbounded after its protocol response, whose wait can be limited with `request_timeout_seconds`. A timeout names the selected profile and includes retained runtime diagnostics. `cwd` is the agent workspace; `runtime_cwd` independently selects the subprocess working directory. Both become absolute before launch. `provider`, `model`, optional `reasoning_effort`, and optional positive `max_tokens` are sent during JSON-RPC initialization. `base_url` and `api_key` explicitly override `DEEPSEEK_BASE_URL` and `DEEPSEEK_API_KEY` in the child environment.
+`DeepSeekHarness` starts lazily and reuses its runtime until `close()` or context-manager exit. The initial profile handshake has an independent 30-second default bound through `initialize_timeout_seconds`; ordinary activity remains unbounded after its protocol response, whose wait can be limited with `request_timeout_seconds`. A timeout names the selected profile and includes retained runtime diagnostics. `cwd` is the agent workspace; `runtime_cwd` independently selects the subprocess working directory. Both become absolute before launch. `provider`, `model`, optional `reasoning_effort`, and optional positive `max_tokens` are sent during JSON-RPC initialization. `base_url` and `api_key` explicitly override `DEEPSEEK_BASE_URL` and `DEEPSEEK_API_KEY` in the child environment.
 
-`harness.resume_session(saved_session_id)` restores persisted history and returns a `Session` ready for `run()`. Save the original session id and reuse its `lyn_home` and workspace. Restoration preserves the stored directory, repairs an interrupted final turn, and sends no new input. Missing, unreadable, incompatible, or occupied sessions raise without creating a replacement. `start_session(id)` only opens a lazy handle; it does not request persisted restoration. This API does not restore shell, browser, or other external processes.
+`harness.resume_session(saved_session_id)` restores persisted history and returns a `Session` ready for `run()`. Save the original session id and reuse its `dsh_home` and workspace. Restoration preserves the stored directory, repairs an interrupted final turn, and sends no new input. Missing, unreadable, incompatible, or occupied sessions raise without creating a replacement. `start_session(id)` only opens a lazy handle; it does not request persisted restoration. This API does not restore shell, browser, or other external processes.
 
 ```py
-with Lyness(lyn_home="/absolute/path/to/saved-home") as harness:
+with DeepSeekHarness(dsh_home="/absolute/path/to/saved-home") as harness:
     session = harness.resume_session(saved_session_id)
     result = session.run("Continue the task.")
 ```
@@ -73,7 +73,7 @@ Each call subscribes before sending and releases its subscription before returni
 
 The default full `sdk` profile provides the supported native commands; `sdk-minimal` keeps unsupported input on its ordinary prompt path. `/compact` can make an auxiliary model request and completes without a normal turn or idle notification; empty history can succeed without a summary. See the [compaction example](examples/README.md#compact-a-full-sdk-session).
 
-`/permission <preset>` changes only the receiving Session. An unknown preset returns a command error without changing policy. Later input and restoration retain successful changes; other Sessions and the caller's `LynessConfig` keep their own values. A running approval-policy change can inject a notice and cause another model step. See the [permission example](examples/README.md#change-session-permissions).
+`/permission <preset>` changes only the receiving Session. An unknown preset returns a command error without changing policy. Later input and restoration retain successful changes; other Sessions and the caller's `DeepSeekHarnessConfig` keep their own values. A running approval-policy change can inject a notice and cause another model step. See the [permission example](examples/README.md#change-session-permissions).
 
 `/plan` enters plan mode, `/plan off` leaves, and `/plan <message>` enters then submits the trimmed message through native steer. `run()` waits for submitted model activity, including native review and approved continuation; no separate subscription or `session/wait` call is required. Keep `on_user_question` available for review, as in the [plan example](examples/README.md#review-a-plan). Plans submitted through `exit_plan_mode` arrive in the review question's `detail`; `final_response` contains the final assistant text. Plan mode does not change permission settings.
 
@@ -84,12 +84,12 @@ The default full `sdk` profile provides the supported native commands; `sdk-mini
 
 For an interactive full-profile example that explicitly prepares Node/pnpm and answers permission requests while a turn runs, see [`examples/manage_plugins.py`](examples/manage_plugins.py). It uses the existing stdio approval protocol, asks before each operation, and closes the runtime before joining its request worker. Plugin configuration takes effect after runtime restart.
 
-This low-level example receives one approval and rejects it. Use a dedicated request-handling thread or loop for a full run: `next_request()` blocks, and the request handler must run concurrently with `session/wait` or a high-level `run()`. Set `approval_requests=True` on `HarnessClient.initialize()` or `LynessConfig` only when that handler is ready. Omission preserves the runtime's answerer chain. Decisions are one-shot; invalid responses and lost connections fail closed, and cancellation discards late replies. `ApprovalRequestResult` validates response values when constructing decisions.
+This low-level example receives one approval and rejects it. Use a dedicated request-handling thread or loop for a full run: `next_request()` blocks, and the request handler must run concurrently with `session/wait` or a high-level `run()`. Set `approval_requests=True` on `HarnessClient.initialize()` or `DeepSeekHarnessConfig` only when that handler is ready. Omission preserves the runtime's answerer chain. Decisions are one-shot; invalid responses and lost connections fail closed, and cancellation discards late replies. `ApprovalRequestResult` validates response values when constructing decisions.
 
 ```py
-from lyness import ApprovalRequestParams, HarnessClient, HarnessConfig
+from DeepSeek Harness import ApprovalRequestParams, HarnessClient, HarnessConfig
 
-with HarnessClient(HarnessConfig(lyn_home="/absolute/path/to/lyn-home")) as client:
+with HarnessClient(HarnessConfig(dsh_home="/absolute/path/to/dsh-home")) as client:
     client.initialize(cwd="/absolute/path/to/workspace", provider="deepseek-official",
                       model="deepseek-v4-flash", approval_requests=True)
     client.session_prompt("main", [{"type": "text", "text": "Run the operation requiring approval."}])
@@ -104,36 +104,36 @@ with HarnessClient(HarnessConfig(lyn_home="/absolute/path/to/lyn-home")) as clie
 
 ## Customize plugins
 
-Persistent customization belongs to a `lyn` profile. Initialize the shipped SDK profile and install an external bundle with the runtime wheel's `lyn` command:
+Persistent customization belongs to a `dsh` profile. Initialize the shipped SDK profile and install an external bundle with the runtime wheel's `dsh` command:
 
 ```sh
-export LYNESS_HOME=/absolute/path/to/isolated-lyn-home
-lyn --profile sdk --dump-default-config >/dev/null
-lyn plugin --profile sdk add file:/absolute/path/to/my-plugin-bundle
+export DSH_HOME=/absolute/path/to/isolated-dsh-home
+dsh --profile sdk --dump-default-config >/dev/null
+dsh plugin --profile sdk add file:/absolute/path/to/my-plugin-bundle
 ```
 
-The `file:` form installs the local bundle into the profile package tree, where its peer imports reach the bundled installation fallback. The profile manifest records installed dependencies and ordered bundle layers; its `$LYNESS_HOME/profiles/sdk/cordis.patch.yml` is the persistent user patch. `lyn plugin` needs `pnpm` only when managing external packages. Running the SDK does not require system Node.js.
+The `file:` form installs the local bundle into the profile package tree, where its peer imports reach the bundled installation fallback. The profile manifest records installed dependencies and ordered bundle layers; its `$DSH_HOME/profiles/sdk/cordis.patch.yml` is the persistent user patch. `dsh plugin` needs `pnpm` only when managing external packages. Running the SDK does not require system Node.js.
 
 For an invocation-specific change, pass one or more patch files. They become absolute and are forwarded in order after the profile and home patch layers:
 
 ```py
-with Lyness(
-    lyn_home="/absolute/path/to/isolated-lyn-home",
+with DeepSeekHarness(
+    dsh_home="/absolute/path/to/isolated-dsh-home",
     profile="sdk",
     patches=("/absolute/path/to/first.patch.yml", "/absolute/path/to/last.patch.yml"),
 ) as harness:
     result = harness.run("Make the requested code change.")
 ```
 
-`profile` may select another existing profile, but that composition must retain `@lyness/lyn-sdk-app` or another `@lyness/lyn-sdk-jsonrpc-server` row. Misconfiguration fails during CLI boot or SDK initialization; there is no complete-config fallback. `lyn_bin` may select another `lyn` executable while preserving the same profile grammar. Arbitrary argv replacement remains an internal fake-runtime test adapter, not public API.
+`profile` may select another existing profile, but that composition must retain `@deepseek-ai/dsh-sdk-app` or another `@deepseek-ai/dsh-sdk-jsonrpc-server` row. Misconfiguration fails during CLI boot or SDK initialization; there is no complete-config fallback. `dsh_bin` may select another `dsh` executable while preserving the same profile grammar. Arbitrary argv replacement remains an internal fake-runtime test adapter, not public API.
 
 `provider` selects a provider route registered by the chosen Cordis composition; `model` is the model id resolved by that adapter. `reasoning_effort` is an optional non-empty adapter-owned identifier for that exact route; omission preserves the model's own default. `max_tokens` is an optional positive per-request output-token cap for the root agent and its in-process descendants; omission leaves the provider default in control. Initialization rejects a missing adapter, unavailable model, or unsupported effort before a prompt runs. Compaction summaries keep the separate limit configured by their compaction plugin. The bundled default composition registers `deepseek-official`. A custom composition can mount `llm-pi-ai`, configure provider-specific credentials/endpoints there, and select any provider/model present in pi-ai's installed catalog.
 
-The shipped `sdk-minimal` profile is a standalone explicit tree rather than an overlay on `lyn-base`. Select it with `profile="sdk-minimal"`; the ordinary `model` argument is the sole runtime model selection, including for model ids outside the adapter's advisory catalog. It provides a platform-selected persistent shell, `read_image`, `working_directory`, local execution, JSONL sessions, and automatic compaction. Text file tools, settings, managed credentials, telemetry, Web tools, and the full default tool roster remain available through the separate full `sdk` and `web` profiles. The `sdk-minimal` profile leaves unsupported slash input on the ordinary prompt path.
+The shipped `sdk-minimal` profile is a standalone explicit tree rather than an overlay on `dsh-base`. Select it with `profile="sdk-minimal"`; the ordinary `model` argument is the sole runtime model selection, including for model ids outside the adapter's advisory catalog. It provides a platform-selected persistent shell, `read_image`, `working_directory`, local execution, JSONL sessions, and automatic compaction. Text file tools, settings, managed credentials, telemetry, Web tools, and the full default tool roster remain available through the separate full `sdk` and `web` profiles. The `sdk-minimal` profile leaves unsupported slash input on the ordinary prompt path.
 
 ## Native user questions
 
-Pass `on_user_question` to `LynessConfig`, `Lyness`, or `HarnessConfig` to answer the built-in `ask_user_question` tool through the native SDK protocol. The callback receives a `UserQuestionRequest` (`request_id`, `session_id`, and the original `questions`) and a `threading.Event` signalling cancellation. Return `UserQuestionAnswer` or a JSON object shaped as `{"answers": [{"id": "question-id", "selected": ["option label"], "custom": "optional free text"}]}`. Each original question id must appear exactly once. Return `{ "cancelled": true }` to dismiss instead of answering; this preserves the native plan-review dismissal, which ends the turn while keeping plan mode active. The application supplies its UI or simulated-user policy; the SDK does not choose answers.
+Pass `on_user_question` to `DeepSeekHarnessConfig`, `DeepSeekHarness`, or `HarnessConfig` to answer the built-in `ask_user_question` tool through the native SDK protocol. The callback receives a `UserQuestionRequest` (`request_id`, `session_id`, and the original `questions`) and a `threading.Event` signalling cancellation. Return `UserQuestionAnswer` or a JSON object shaped as `{"answers": [{"id": "question-id", "selected": ["option label"], "custom": "optional free text"}]}`. Each original question id must appear exactly once. Return `{ "cancelled": true }` to dismiss instead of answering; this preserves the native plan-review dismissal, which ends the turn while keeping plan mode active. The application supplies its UI or simulated-user policy; the SDK does not choose answers.
 
 Callbacks run on separate threads so the reader can process cancellation and other requests. They may run concurrently and may make further client requests. Release callback-owned work when the cancellation Event is set. Closing the client signals outstanding callbacks and gives their workers a shared 0.5-second join window; callbacks that ignore cancellation may continue, but their late answers cannot reach the runtime or a later process. A callback exception becomes a protocol error, and an absent callback retains existing native answerers or reports `NO_PROVIDER`.
 
@@ -145,7 +145,7 @@ For ordinary prompts, `Session.run()` owns an activity interval from its prompt'
 
 `HarnessClient` retains discovered subagent ancestry for the runtime process lifetime. During `Session.run()`, `RunResult.notifications` and `on_notification` receive the root session and known descendants in wire order. `RunResult.events` contains root-session events only, so descendant output cannot replace the root response. The low-level `session_prompt()` returns the queued message id immediately; callers that bypass `Session.run()` own the later activity boundary.
 
-The selected home stores profiles, plugins, and every profile-owned durable resource. The full `sdk` profile uses its credentials, settings, and session stores; `sdk-minimal` uses JSONL session storage and stores images under `$LYNESS_HOME/attachments/v1`, with request-image cache under `$LYNESS_HOME/cache/attachments`. Use a fresh home when those resources must be isolated, and a fresh session id for independent work. Reusing both a harness and session id continues the durable conversation and session-owned resources.
+The selected home stores profiles, plugins, and every profile-owned durable resource. The full `sdk` profile uses its credentials, settings, and session stores; `sdk-minimal` uses JSONL session storage and stores images under `$DSH_HOME/attachments/v1`, with request-image cache under `$DSH_HOME/cache/attachments`. Use a fresh home when those resources must be isolated, and a fresh session id for independent work. Reusing both a harness and session id continues the durable conversation and session-owned resources.
 
 See the [Python tutorial](../../docs/user/guide/python-sdk.md), [runnable example](examples/README.md), and [runtime wheel reference](../sdk-runtime/README.md).
 

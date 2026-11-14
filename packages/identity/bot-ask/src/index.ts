@@ -12,23 +12,23 @@
  * colleagues — a bot that could read them would be a way around a rule the
  * product enforces everywhere else.
  *
- * @module @lyness/lyn-bot-ask
+ * @module @deepseek-ai/dsh-bot-ask
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
-import type {} from '@lyness/lyn-session-projection'
-import type { TeammateView } from '@lyness/lyn-managed-bots'
-import type {} from '@lyness/lyn-managed-bots/session'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import type { TeammateView } from '@deepseek-ai/dsh-managed-bots'
+import type {} from '@deepseek-ai/dsh-managed-bots/session'
 import { runBotTurn } from './turn.ts'
 import type {} from './session.ts'
 
 export { BOT_ASK_EVENTS } from './session.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** One bot asking a teammate; absent where a deployment maintains no bots. */
     botAsk: BotAsk

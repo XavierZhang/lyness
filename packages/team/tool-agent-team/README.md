@@ -3,7 +3,7 @@ description: "Four task-board tools and shared-task guidance for Team-enabled Se
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tool-agent-team
+# @deepseek-ai/dsh-tool-agent-team
 
 English | [中文](README.zh.md)
 
@@ -27,11 +27,11 @@ This package lets every agent in a subagent tree create, claim, and complete sha
 
 Team tools are available to each model step only while the root Session enables Team mode. Prompt providers read the same selection when evaluated. Ordinary subagent controls remain available.
 
-Mount this package with `@lyness/lyn-agent-team` when models need the shared board. The root and descendants receive identical task schemas and task policy.
+Mount this package with `@deepseek-ai/dsh-agent-team` when models need the shared board. The root and descendants receive identical task schemas and task policy.
 
 ### When to choose it
 
-Choose it whenever the Team domain is mounted and models should use the board; without it, the board is reachable only through `ctx.agentTeams`. Teammates are created and reached through the standard `subagent`, `subagent_fork`, `send_message`, `list_agents`, and `interrupt_agent` tools, so the composition also needs `@lyness/lyn-tool-subagent` and `@lyness/lyn-tool-subagent-control`.
+Choose it whenever the Team domain is mounted and models should use the board; without it, the board is reachable only through `ctx.agentTeams`. Teammates are created and reached through the standard `subagent`, `subagent_fork`, `send_message`, `list_agents`, and `interrupt_agent` tools, so the composition also needs `@deepseek-ai/dsh-tool-subagent` and `@deepseek-ai/dsh-tool-subagent-control`.
 
 ### Smallest working example
 
@@ -39,10 +39,10 @@ The plugin takes no configuration; mount it beside the Team domain as in the [ag
 
 ```yaml
 - id: tool-agent-team
-  name: '@lyness/lyn-tool-agent-team'
+  name: '@deepseek-ai/dsh-tool-agent-team'
 ```
 
-A row that sets `interrupt`, `freshProvider`, or `forkProvider` does not activate, and lyn names the key in its startup warning. The [upgrade guide](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.md) maps the removed tools and keys to their replacements, and the generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-tool-agent-team) records the empty configuration.
+A row that sets `interrupt`, `freshProvider`, or `forkProvider` does not activate, and dsh names the key in its startup warning. The [upgrade guide](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.md) maps the removed tools and keys to their replacements, and the generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-agent-team) records the empty configuration.
 
 Ask the Lead to start a subagent to review the diff, add a review task, and wait for its result. The `description` explains the subagent’s work; the returned id addresses it.
 
@@ -51,7 +51,7 @@ Ask the Lead to start a subagent to review the diff, add a review task, and wait
 The task tools complement the ordinary subagent controls:
 
 - **Manage the task board** — `team_task_create`, `team_task_list`, `team_task_get`, and `team_task_update` add, browse, read, and update shared tasks.
-- **Wait for inbox input** — `wait_agent` belongs to `@lyness/lyn-tool-subagent-control` and remains available without this package.
+- **Wait for inbox input** — `wait_agent` belongs to `@deepseek-ai/dsh-tool-subagent-control` and remains available without this package.
 - **Create and reach teammates** — `subagent`, `subagent_fork`, `send_message`, `list_agents`, and `interrupt_agent` come from the subagent tool packages and are unchanged by this package.
 
 Task `owner` arguments and `ownerId` results use Session ids. The root may reassign to itself or any reachable continuable descendant; historical roster records grant no authority. Other agents claim ready tasks themselves. Updates enforce ownership and revision checks.
@@ -107,7 +107,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [agent-team package](../agent-team/README.md) — the `ctx.agentTeams` domain service behind these tools.
 - [Agent Teams subsystem](../../../docs/subsystems/agent-team.md) — durable Team types and service API.
 - [Subagent control tools](../../subagent/tool-subagent-control/README.md) — messaging, listing, interruption, and inbox waiting.
-- [Generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-tool-agent-team) — every tool schema the model receives.
+- [Generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-tool-agent-team) — every tool schema the model receives.
 - [Subagent teammates Agent Note](../../../.agents/notes/implemented/architecture/2026-10-15-agent-teams-as-subagents.md) — model-facing, scoping, and tool-family decisions.
 
 -----
@@ -145,7 +145,7 @@ The text is identical for the Lead and every descendant and does not change whil
 
 #### What the model sees
 
-Every member receives the same four task schemas in the [generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-tool-agent-team). Results are compact JSON task views or pages. Root-only reassignment is enforced at execution, not through different schemas.
+Every member receives the same four task schemas in the [generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-tool-agent-team). Results are compact JSON task views or pages. Root-only reassignment is enforced at execution, not through different schemas.
 
 #### Token effect
 

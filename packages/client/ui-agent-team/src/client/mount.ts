@@ -1,22 +1,22 @@
 /** Source-safe task-board browser registration. */
 
-import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/lyn-api-session-controller/client'
-import type {} from '@lyness/lyn-client-ui-subagent/client'
-import type {} from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-client-ui-model-selection/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { SessionId } from '@lyness/lyn-session/types'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+import type {} from '@deepseek-ai/dsh-client-ui-subagent/client'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-client-ui-model-selection/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { TeamDisableConfirmation, type TeamDisableConfirmationInjected, type TeamDisableRequest } from './TeamDisableConfirmation.tsx'
 import { TeamModeToggle, type TeamModeToggleInjected } from './TeamModeToggle.tsx'
 import { TeamBoard } from './TeamBoard.tsx'
 import { TeamCommandRow } from './TeamCommandRow.tsx'
 import { en, ja, es, fr, de, ru, pt, NS, zh, type TeamKey } from './locales.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Shared task-board copy. */
     'agent-team': TeamKey

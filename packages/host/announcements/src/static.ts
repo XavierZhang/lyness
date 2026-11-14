@@ -9,11 +9,11 @@
  * A hosted deployment mounts a store-backed source instead, because its
  * release notes change without anyone editing a customer's config.
  *
- * @module @lyness/lyn-announcements/static
+ * @module @deepseek-ai/dsh-announcements/static
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import { AnnouncementSource, newestFirst } from './index.ts'
 import type { Announcement } from './types.ts'
 

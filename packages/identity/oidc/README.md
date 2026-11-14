@@ -3,13 +3,13 @@ description: "An OpenID Provider as a sign-in channel: the standard protocol, so
 kind: "package-reference"
 ---
 
-# @lyness/lyn-oidc
+# @deepseek-ai/dsh-oidc
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-oidc` offers any OpenID Provider as a redirect sign-in channel. It is the channel for people outside a corporate messenger: the three vendor channels each speak one directory's protocol, this one speaks the standard, so a deployment points it at the provider it runs and gets email self-registration, verification, password reset and multi-factor from software whose job that is. None of those flows are implemented here — a channel's whole job is to hand a verified subject to the deployment's admission rule. It holds nothing: no tokens, no directory copy, no session of its own.
+`dsh-oidc` offers any OpenID Provider as a redirect sign-in channel. It is the channel for people outside a corporate messenger: the three vendor channels each speak one directory's protocol, this one speaks the standard, so a deployment points it at the provider it runs and gets email self-registration, verification, password reset and multi-factor from software whose job that is. None of those flows are implemented here — a channel's whole job is to hand a verified subject to the deployment's admission rule. It holds nothing: no tokens, no directory copy, no session of its own.
 
 ## Table of Contents
 
@@ -28,13 +28,13 @@ English | [中文](README.zh.md)
 Beside the sign-in registry and a credential store, with a binding for each person who may sign in:
 
 ```yaml
-- name: '@lyness/lyn-sign-in'
-- name: '@lyness/lyn-oidc'
+- name: '@deepseek-ai/dsh-sign-in'
+- name: '@deepseek-ai/dsh-oidc'
   config:
     issuer: https://idp.example
-    clientId: lyness-web
+    clientId: deepseek-harness-web
     secret: OIDC_CLIENT_SECRET
-- name: '@lyness/lyn-sign-in/admission-roster'
+- name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: oidc
@@ -48,10 +48,10 @@ Beside the sign-in registry and a credential store, with a binding for each pers
 A deployment serving several organizations names the claim its provider carries them in, and a channel instance may be scoped to one of them:
 
 ```yaml
-- name: '@lyness/lyn-oidc'
+- name: '@deepseek-ai/dsh-oidc'
   config:
     issuer: https://idp.example
-    clientId: lyness-web
+    clientId: deepseek-harness-web
     secret: OIDC_CLIENT_SECRET
     organizationClaim: organization.id
     organization: acme
@@ -60,7 +60,7 @@ A deployment serving several organizations names the claim its provider carries 
 
 `organizationClaim` is where a sign-in's organization is read from, `.` separating one level. `organization` scopes this instance to one of them, so a sign-in page serving another tenant does not offer it. `organizationParameter` is the authorization parameter that asks the provider for one organization's own sign-in page, where it offers one.
 
-`@lyness/lyn-oidc/kind` offers the same channel as a configurable kind instead, so an administrator adds a provider at runtime through the sign-in channels Settings page. Mounting the kind configures nothing by itself.
+`@deepseek-ai/dsh-oidc/kind` offers the same channel as a configurable kind instead, so an administrator adds a provider at runtime through the sign-in channels Settings page. Mounting the kind configures nothing by itself.
 
 -----
 
@@ -84,10 +84,10 @@ A deployment serving several organizations names the claim its provider carries 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-sign-in`](../sign-in/README.md) — the channel seam and the admission rule.
-- [`lyn-sign-in-http`](../sign-in-http/README.md) — the routes that send the browser out and take the callback.
-- [`lyn-dingtalk`](../../vendor/dingtalk/README.md) and [`lyn-wecom`](../../vendor/wecom/README.md) — the vendor channels, which share this one's attempt book.
-- [`lyn-credentials`](../../credentials/credentials/README.md) — where the client secret lives.
+- [`dsh-sign-in`](../sign-in/README.md) — the channel seam and the admission rule.
+- [`dsh-sign-in-http`](../sign-in-http/README.md) — the routes that send the browser out and take the callback.
+- [`dsh-dingtalk`](../../vendor/dingtalk/README.md) and [`dsh-wecom`](../../vendor/wecom/README.md) — the vendor channels, which share this one's attempt book.
+- [`dsh-credentials`](../../credentials/credentials/README.md) — where the client secret lives.
 
 -----
 

@@ -294,7 +294,7 @@ final class SharedSocket: @unchecked Sendable {
               let executable = bundle.executableURL, let processPath = NativePlatform.executablePath(getpid()),
               executable.resolvingSymlinksInPath() == URL(fileURLWithPath: processPath).resolvingSymlinksInPath() else {
             throw NativeFailure(code: "NATIVE_APPLICATION_REQUIRED",
-                                message: "Computer Use requires its signed application bundle; set helperPath to LYN Computer Use.app/Contents/MacOS/lyn-cua-native")
+                                message: "Computer Use requires its signed application bundle; set helperPath to DSH Computer Use.app/Contents/MacOS/dsh-cua-native")
         }
         let applicationURL = try StandaloneApplication.prepare(bundle.bundleURL, runtimeKey: options.runtimeKey, deadline: deadline)
         let configuration = NSWorkspace.OpenConfiguration()

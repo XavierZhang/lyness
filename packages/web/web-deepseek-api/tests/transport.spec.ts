@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { WebError } from '@lyness/lyn-web'
+import { WebError } from '@deepseek-ai/dsh-web'
 import { customGuidance } from './guidance.ts'
 import { dispatchDeepSeekWeb, type DeepSeekWebAuth } from '../src/transport.ts'
 const options = { apiKey: 'ds-key', baseURL: 'https://api.deepseek.test/v1/tools' }
@@ -55,7 +55,7 @@ describe('DeepSeek web account authentication', () => {
     expect(url).toBe(`${ACCOUNT_BASE}/search`)
     expect(resolveAccountToken).toHaveBeenCalledExactlyOnceWith(url)
     expect(resolveApiKey).not.toHaveBeenCalled()
-    expect(headers['x-lyn-auth-token']).toBe('account-token')
+    expect(headers['x-dsh-auth-token']).toBe('account-token')
     expect(headers).not.toHaveProperty('x-api-key')
     expect(headers).not.toHaveProperty('authorization')
   })
@@ -66,7 +66,7 @@ describe('DeepSeek web account authentication', () => {
     const { url, headers } = first()
     expect(url).toBe(`${options.baseURL}/search`)
     expect(headers['x-api-key']).toBe('ds-key')
-    expect(headers).not.toHaveProperty('x-lyn-auth-token')
+    expect(headers).not.toHaveProperty('x-dsh-auth-token')
   })
 
   it('maps an account resolver rejection to WEB_PROVIDER_ERROR without dispatching', async () => {

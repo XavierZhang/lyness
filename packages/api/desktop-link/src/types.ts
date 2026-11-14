@@ -6,11 +6,11 @@
  * payload belongs to the capability's own provider rather than to the link:
  * adding `subprocess` must not mean changing the channel.
  *
- * @module @lyness/lyn-desktop-link/types
+ * @module @deepseek-ai/dsh-desktop-link/types
  */
 
-import type { Branded } from '@lyness/lyn-brand'
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 
 /** Correlates one call with the replies that answer it, within one link. */
 export type CallId = Branded<'DesktopCallId'>

@@ -1,7 +1,7 @@
 # Keyless replay counterpart: the failed search remains real; only the
 # conversation model adapter is replaced by replay.
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek-api-key'
+  name: '@deepseek-ai/dsh-llm-deepseek-api-key'
   disabled: true
 
 - id: plugin-package-inventory-deepseek
@@ -9,7 +9,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/lyn-llm-replay'
+      name: '@deepseek-ai/dsh-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -26,8 +26,8 @@
       name: './web-search-error-fixture.mjs'
 
 - id: web-deepseek-api
-  name: '@lyness/lyn-web-deepseek-api'
+  name: '@deepseek-ai/dsh-web-deepseek-api'
   config:
-    searchApiKeyEnv: LYNESS_SNAPSHOT_SEARCH_KEY
+    searchApiKeyEnv: DSH_SNAPSHOT_SEARCH_KEY
     # The fixture maps this recorded authority to its OS-assigned listener.
     searchBaseURL: http://127.0.0.1:43118/api/v1/tools

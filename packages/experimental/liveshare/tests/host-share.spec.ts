@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { apply, type Config } from '../src/host/share-host.ts'
 
 describe('liveshare owner host routes', () => {

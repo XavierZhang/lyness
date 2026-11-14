@@ -14,12 +14,12 @@
     # Refuses to serve a deployment that reaches no model, at the first point
     # an empty registry is conclusive.
     - id: model-required
-      name: '@lyness/lyn-model-required'
+      name: '@deepseek-ai/dsh-model-required'
 
     # The allowed list an administrator maintains. Required and non-empty, so
     # a deployment that selects this bundle states its models or fails at load.
     - id: model-policy
-      name: '@lyness/lyn-model-policy/static'
+      name: '@deepseek-ai/dsh-model-policy/static'
       config:
         allowed:
           - provider: deepseek-official
@@ -28,4 +28,4 @@
     # Enforcement rides the llm/stream waterfall, so a preset row, a profile
     # patch, or a direct RPC cannot reach a model the policy does not name.
     - id: model-policy-enforce
-      name: '@lyness/lyn-model-policy/enforce'
+      name: '@deepseek-ai/dsh-model-policy/enforce'

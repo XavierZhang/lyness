@@ -3,7 +3,7 @@ description: "从 Web 对话标题栏查看共享任务板。"
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-agent-team
+# @deepseek-ai/dsh-client-ui-agent-team
 
 [English](README.md) | 中文
 

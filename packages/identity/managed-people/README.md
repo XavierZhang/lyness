@@ -3,13 +3,13 @@ description: "The people and admission bindings a deployment's administrators ma
 kind: "package-reference"
 ---
 
-# @lyness/lyn-managed-people
+# @deepseek-ai/dsh-managed-people
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-managed-people` is where a deployment's people come from once it is running. Composition still names the first of them — an empty system has no administrator to add the first administrator — and every one after is added through a surface: a person, their standing, and the directory identities admitted as them. The written half wins every lookup and cannot be changed here, because the next boot reads the file again. It provides both halves of the question: `ctx.people` says who exists and what they may do, `ctx.signInAdmission` which verified subject is which of them.
+`dsh-managed-people` is where a deployment's people come from once it is running. Composition still names the first of them — an empty system has no administrator to add the first administrator — and every one after is added through a surface: a person, their standing, and the directory identities admitted as them. The written half wins every lookup and cannot be changed here, because the next boot reads the file again. It provides both halves of the question: `ctx.people` says who exists and what they may do, `ctx.signInAdmission` which verified subject is which of them.
 
 ## Table of Contents
 
@@ -29,16 +29,16 @@ Three rows, in place of the static roster and the roster admission rule:
 
 ```yaml
 - id: managed-people
-  name: '@lyness/lyn-managed-people'
+  name: '@deepseek-ai/dsh-managed-people'
 - id: people
-  name: '@lyness/lyn-managed-people/directory'
+  name: '@deepseek-ai/dsh-managed-people/directory'
   config:
     people:
       - id: ada
         displayName: Ada
         role: platform-administrator
 - id: sign-in-admission
-  name: '@lyness/lyn-managed-people/admission'
+  name: '@deepseek-ai/dsh-managed-people/admission'
   config:
     bindings: []
 ```
@@ -48,9 +48,9 @@ The directory and admission rows read the same `people` and `bindings` configura
 An administrator adds a person and the identity that signs in as them:
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-managed-people'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-managed-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -85,7 +85,7 @@ await ctx.managedPeople.grantStanding({ person: bea.id, role: 'tenant-administra
 
 **A person's standings are authorized together.** One standing in acme does not make somebody acme's: renaming them, removing them, admitting a directory identity as them, and revoking any of their standings all require administering **every** standing they hold, because a binding admits one identity as the whole person and they then act for each of them. Reading is the one exception: a list shows the standings the caller administers and no others, so an administrator of one organization never learns which others somebody belongs to.
 
-**Every change is recorded elsewhere, before it is read back here.** The directory holds what is true now; [`lyn-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced — a role, a name, or which person a directory identity signs in as. It is a hard injection, so a deployment that administers people without keeping their history fails to load rather than recording nothing in silence. Removing somebody records the bindings going with them, in the order the operation does it in.
+**Every change is recorded elsewhere, before it is read back here.** The directory holds what is true now; [`dsh-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced — a role, a name, or which person a directory identity signs in as. It is a hard injection, so a deployment that administers people without keeping their history fails to load rather than recording nothing in silence. Removing somebody records the bindings going with them, in the order the operation does it in.
 
 **An identity is not reused.** A removed person's identity is retired with them, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.
 
@@ -94,11 +94,11 @@ await ctx.managedPeople.grantStanding({ person: bea.id, role: 'tenant-administra
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
-- [`lyn-people`](../people/README.md) — the directory this provides, and the static roster it reads.
-- [`lyn-sign-in`](../sign-in/README.md) — the admission rule this provides, and the roster rule it reads.
-- [`lyn-sign-in-channels`](../sign-in-channels/README.md) — the channels a binding names.
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
+- [`dsh-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
+- [`dsh-people`](../people/README.md) — the directory this provides, and the static roster it reads.
+- [`dsh-sign-in`](../sign-in/README.md) — the admission rule this provides, and the roster rule it reads.
+- [`dsh-sign-in-channels`](../sign-in-channels/README.md) — the channels a binding names.
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
 
 -----
 

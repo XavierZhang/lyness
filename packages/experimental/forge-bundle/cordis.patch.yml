@@ -1,14 +1,14 @@
 - insert:
     - id: worktree
-      name: '@lyness/lyn-experimental-worktree'
+      name: '@deepseek-ai/dsh-experimental-worktree'
     - id: tool-worktree
-      name: '@lyness/lyn-experimental-tool-worktree'
+      name: '@deepseek-ai/dsh-experimental-tool-worktree'
     - id: forge
-      name: '@lyness/lyn-experimental-forge'
+      name: '@deepseek-ai/dsh-experimental-forge'
     - id: forge-github
-      name: '@lyness/lyn-experimental-forge-github'
+      name: '@deepseek-ai/dsh-experimental-forge-github'
     - id: forge-session
-      name: '@lyness/lyn-experimental-forge-session'
+      name: '@deepseek-ai/dsh-experimental-forge-session'
     - id: optional-forge-panel
       name: cordis:group
       group: true
@@ -16,6 +16,6 @@
         worktrees: true
       config:
         - id: forge-worktree
-          name: '@lyness/lyn-experimental-worktree'
+          name: '@deepseek-ai/dsh-experimental-worktree'
         - id: forge-panel
-          name: '@lyness/lyn-experimental-client-ui-forge'
+          name: '@deepseek-ai/dsh-experimental-client-ui-forge'

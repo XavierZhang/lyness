@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Installed CLI entry for disk launchers and embedded runtimes.
- * @module @lyness/lyn/installed-bin
+ * @module @deepseek-ai/dsh/installed-bin
  */
 import { realpathSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'

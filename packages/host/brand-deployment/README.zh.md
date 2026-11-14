@@ -3,7 +3,7 @@ description: "部署自有品牌，作用于 webserver 的 index 渲染：浏览
 kind: "package-reference"
 ---
 
-# @lyness/lyn-host-brand-deployment
+# @deepseek-ai/dsh-host-brand-deployment
 
 [English](README.md) | 中文
 
@@ -25,13 +25,13 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-[`lyn-web-app`](../../bundle/web-app/README.zh.md) 已经以空配置挂载了这一行，因此一个部署只需从 patch 层填充该行即可完成品牌化。
+[`dsh-web-app`](../../bundle/web-app/README.zh.md) 已经以空配置挂载了这一行，因此一个部署只需从 patch 层填充该行即可完成品牌化。
 
 ### 最小配置
 
 ```yaml
 - id: brand-deployment
-  name: '@lyness/lyn-host-brand-deployment'
+  name: '@deepseek-ai/dsh-host-brand-deployment'
   config:
     productName: Acme Agent
     productAbbreviation: ACME
@@ -49,7 +49,7 @@ kind: "package-reference"
 
 `colors` 按名字替换品牌色彩令牌：`black`、`blue`、`blueDark`、`cyan`、`white`、`gray50`、`gray200`、`gray600`、`gray900`、`success`、`warning`、`error` 与 `info`。缺省的键保留内置值，因此只拥有一个主色的部署只写那一个。每个值接受的形式与 `themeColor` 相同；列表之外的键会让该行失败而不是被丢弃——运营方看不见的拼写错误，否则会让内置颜色原样生效且没有任何线索。`themeColor` 是独立的，仍然负责浏览器界面色。
 
-`productName`、`productAbbreviation` 与 `productNameZh` 是产品文案称呼产品的三个面：全名、内置品牌写作 `LYN` 的缩写、内置品牌写作「领驭」的中文名。三者**作为一组解析**——部署只给了其中一个，另两个取它，绝不会在自己的名字旁边留下内置取值，否则 Acme 的界面里仍会读到 `LYN`，显示的是运营方并未发布的品牌。三者都不给的部署保留全部内置取值。名字含花括号或换行、或超过 64 个字符时，该行在加载时即失败：页面是用这个名字去填占位符的，花括号会重新打开替换，换行会把承载它的句子拆开。
+`productName`、`productAbbreviation` 与 `productNameZh` 是产品文案称呼产品的三个面：全名、内置品牌写作 `DSH` 的缩写、内置品牌写作「领驭」的中文名。三者**作为一组解析**——部署只给了其中一个，另两个取它，绝不会在自己的名字旁边留下内置取值，否则 Acme 的界面里仍会读到 `DSH`，显示的是运营方并未发布的品牌。三者都不给的部署保留全部内置取值。名字含花括号或换行、或超过 64 个字符时，该行在加载时即失败：页面是用这个名字去填占位符的，花括号会重新打开替换，换行会把承载它的句子拆开。
 
 `assetDirectory` 是绝对路径，其中存放上面命名的三个文件；由部署脚本写入。每个文件按其角色寻址，而非按文件名：上面的 `favicon.svg` 以 `/brand/favicon.svg` 提供，而名为 `wordmark.png` 的字标以 `/brand/wordmark.png` 提供。可提供的类型为 SVG、PNG、WebP、ICO 与 JPEG。
 
@@ -59,7 +59,7 @@ kind: "package-reference"
 
 ### 浏览器收到什么
 
-产品名替换第一个 `<title>`，若 head 未声明则补上一个。配置的 favicon 替换第一个 `rel="icon"` 链接，而不是再加一个，因为浏览器会自行在相互竞争的图标链接之间做选择。主题色以一条 `<meta name="theme-color">` 注入行到达。品牌对象以 `globalThis.lynDeploymentBrand` 到达，携带三个产品名、颜色与被替换的调色板令牌、图标与字标的 URL 以及署名开关——成员缺失即表示部署未做配置，页面保留其内置呈现。
+产品名替换第一个 `<title>`，若 head 未声明则补上一个。配置的 favicon 替换第一个 `rel="icon"` 链接，而不是再加一个，因为浏览器会自行在相互竞争的图标链接之间做选择。主题色以一条 `<meta name="theme-color">` 注入行到达。品牌对象以 `globalThis.dshDeploymentBrand` 到达，携带三个产品名、颜色与被替换的调色板令牌、图标与字标的 URL 以及署名开关——成员缺失即表示部署未做配置，页面保留其内置呈现。
 
 资产响应携带各自的图片类型与 `cache-control: no-cache`。该 URL 跨部署保持不变，因此一次替换了字节的重新部署不能继续提供旧内容。
 
@@ -101,9 +101,9 @@ kind: "package-reference"
 当品牌契约不够用时读这些：先是它写入的渲染面，然后是决定这些字段归属何处的配置次序。
 
 - [Webserver](../webserver/README.zh.md) —— 本插件注册的注入表与 index tap。
-- [lyn-web-app bundle](../../bundle/web-app/README.zh.md) —— 挂载这一行的应用。
+- [dsh-web-app bundle](../../bundle/web-app/README.zh.md) —— 挂载这一行的应用。
 - [Configuration source ownership](../../../.agents/notes/implemented/architecture/2026-08-04-configuration-source-ownership.zh.md) —— 为什么这些字段是组合层配置而非用户设置。
-- [Generated configuration catalog](../../../docs/config-catalog.zh.md#lynesslyn-host-brand-deployment) —— 所有可接受的配置字段及其源声明。
+- [Generated configuration catalog](../../../docs/config-catalog.zh.md#deepseek-aidsh-host-brand-deployment) —— 所有可接受的配置字段及其源声明。
 
 -----
 

@@ -6,7 +6,7 @@
  * hosted deployment's browser returns to. One copy means one place where a
  * directory's refusal is read and one place where its answer is accepted.
  *
- * @module @lyness/lyn-microsoft-entra/exchange
+ * @module @deepseek-ai/dsh-microsoft-entra/exchange
  */
 
 import {

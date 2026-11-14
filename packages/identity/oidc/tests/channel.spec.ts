@@ -10,13 +10,13 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { CHANNEL_ID, OidcChannel, OidcSignInError } from '../src/index.ts'
 import type { Config as OidcConfig } from '../src/index.ts'
 import { challengeOf } from '../src/protocol.ts'
 
 const ISSUER = 'https://idp.example'
-const RETURN_TO = 'https://lyn.example/oauth/callback/oidc'
+const RETURN_TO = 'https://dsh.example/oauth/callback/oidc'
 
 /** Overrides a test may make to the fixture provider's configuration. */
 interface Over {
@@ -35,7 +35,7 @@ interface Over {
 function config(over: Over = {}): OidcConfig {
   return {
     issuer: over.issuer ?? ISSUER,
-    clientId: 'lyness-web',
+    clientId: 'deepseek-harness-web',
     secret: over.secret ?? 'OIDC_CLIENT_SECRET',
     ...over.organizationClaim === undefined ? {} : { organizationClaim: over.organizationClaim },
     ...over.organizationParameter === undefined ? {} : { organizationParameter: over.organizationParameter },

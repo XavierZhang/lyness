@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
+import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
 /**
  * Scenario-chain integration (scenarios A/C/D/H/I): the real per-session
  * InputTriggerController pipeline over a real session scope (Client Sessions over
@@ -10,28 +10,28 @@ import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
  * decision-table contract at the `InputTriggerSource` boundary.
  */
 import './control-row-dom.ts'
-import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
+import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import {
   $createTextNode, $getRoot, $isElementNode, BEFORE_INPUT_COMMAND, COMMAND_PRIORITY_LOW, DELETE_CHARACTER_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import type { SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import { InputTriggerService } from '@lyness/lyn-client-ui-input-trigger/client'
+import type { SessionSnapshot } from '@deepseek-ai/dsh-api-session-controller/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { InputTriggerService } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
 import type {
   ClientSessionContext, SubmitEnvelope,
-} from '@lyness/lyn-client-ui-input-trigger/client'
+} from '@deepseek-ai/dsh-client-ui-input-trigger/client'
 import type {
   CommandClaim, PickOutcome, SubmitAttachment, SubmitOutcome,
 } from '../src/client/contract/input.ts'
 import {
   allowAllAccess, bindSnapshotSelector, conversationSnapshot, makeTranslate, sessionSnapshot, SlotTestRuntime,
-} from '@lyness/lyn-client-test-runtime'
-import type { SessionStatusSnapshot } from '@lyness/lyn-client-ui-session/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+} from '@deepseek-ai/dsh-client-test-runtime'
+import type { SessionStatusSnapshot } from '@deepseek-ai/dsh-client-ui-session/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
 import type { DraftAttachmentId } from '../src/client/contract/input.ts'
 import { SessionInputShell } from '../src/client/input/facade.ts'
 import { $replaceDetectSpanWithText } from '../src/client/input/editor/span-map.ts'
@@ -263,7 +263,7 @@ describe('scenario A: menu-pick /goal, type args, enter submits', () => {
     expect(b.shell.snapshot.draft).toBe('/goal ')
     expect(b.view.container.querySelector('[data-composer-command]')?.textContent).toBe('/goal')
     // The zh dictionary owns a hint.goal entry, which overrides the machine's raw hint (production behavior).
-    expect(b.textarea.style.getPropertyValue('--lyn-composer-hint')).toBe(JSON.stringify('输入目标，智能体将持续执行'))
+    expect(b.textarea.style.getPropertyValue('--dsh-composer-hint')).toBe(JSON.stringify('输入目标，智能体将持续执行'))
     // Continue typing args; hint drops; claim holds.
     b.append('发布 v1')
     expect(b.shell.snapshot.phase).toBe('claimed')

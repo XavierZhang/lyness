@@ -11,336 +11,336 @@
 /tool-schema-catalog/tool-package-map:
   en: 43faab7fb10e3142
   zh: 1729d149651ad5a1
-/tool-schema-catalog/lyness-lyn-plugin-manager:
+/tool-schema-catalog/deepseek-harness-dsh-plugin-manager:
   en: 78ed2883903ca173
   zh: 78ed2883903ca173
-/tool-schema-catalog/lyness-lyn-plugin-manager/plugin-manager:
+/tool-schema-catalog/deepseek-harness-dsh-plugin-manager/plugin-manager:
   en: 937019d8e188e9cd
   zh: c5b6bf95f3496381
-/tool-schema-catalog/lyness-lyn-plugin-market:
+/tool-schema-catalog/deepseek-harness-dsh-plugin-market:
   en: 782a142198e8547a
   zh: 782a142198e8547a
-/tool-schema-catalog/lyness-lyn-plugin-market/plugin-market:
+/tool-schema-catalog/deepseek-harness-dsh-plugin-market/plugin-market:
   en: b58c05994c73e678
   zh: 423bdee6b8e5135c
-/tool-schema-catalog/lyness-lyn-mcp-resources:
+/tool-schema-catalog/deepseek-harness-dsh-mcp-resources:
   en: 6afbbed96fd9e612
   zh: 6afbbed96fd9e612
-/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resource-templates:
+/tool-schema-catalog/deepseek-harness-dsh-mcp-resources/list-mcp-resource-templates:
   en: 96275ece9d040944
   zh: 1fa9744642601ece
-/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resources:
+/tool-schema-catalog/deepseek-harness-dsh-mcp-resources/list-mcp-resources:
   en: bf4236607199d61e
   zh: 82f4f749dcabc89f
-/tool-schema-catalog/lyness-lyn-mcp-resources/read-mcp-resource:
+/tool-schema-catalog/deepseek-harness-dsh-mcp-resources/read-mcp-resource:
   en: ab034c84c6f336ac
   zh: 267d79904da6d3f2
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native:
   en: 3ae40c040a3e1cc9
   zh: 3ae40c040a3e1cc9
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-act:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-act:
   en: c4b27bf62c534dcc
   zh: 70c53824ed57ac23
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-extract:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-extract:
   en: ec7462ab99848155
   zh: 632fe0249040708e
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-navigate:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-navigate:
   en: ef97f063a037a006
   zh: 27727ccc908e007f
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-observe:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-observe:
   en: 2068f1baa0a59e1b
   zh: 5743c7b33e2c5ccb
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-screenshot:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-screenshot:
   en: 4910ab327694ee97
   zh: 17e79e4366cb636d
-/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-tabs:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-browser-use-stagehand-native/stagehand-tabs:
   en: 00dae7468fc45d77
   zh: 88d7a6d6b272f1da
-/tool-schema-catalog/lyness-lyn-action-cards:
+/tool-schema-catalog/deepseek-harness-dsh-action-cards:
   en: d63af733d35af036
   zh: d63af733d35af036
-/tool-schema-catalog/lyness-lyn-action-cards/propose-action:
+/tool-schema-catalog/deepseek-harness-dsh-action-cards/propose-action:
   en: 9fa073dd3467e809
   zh: 8ab019e8dc862c5b
-/tool-schema-catalog/lyness-lyn-tool-ask-user:
+/tool-schema-catalog/deepseek-harness-dsh-tool-ask-user:
   en: b300ee39e055518d
   zh: b300ee39e055518d
-/tool-schema-catalog/lyness-lyn-tool-ask-user/ask-user-question:
+/tool-schema-catalog/deepseek-harness-dsh-tool-ask-user/ask-user-question:
   en: 3248f3268ce44a40
   zh: 86818e03cee86f8e
-/tool-schema-catalog/lyness-lyn-tool-executor-ptc:
+/tool-schema-catalog/deepseek-harness-dsh-tool-executor-ptc:
   en: 472d81ae95a81bfd
   zh: 472d81ae95a81bfd
-/tool-schema-catalog/lyness-lyn-tool-executor-ptc/run-code:
+/tool-schema-catalog/deepseek-harness-dsh-tool-executor-ptc/run-code:
   en: 00d8cb3fb298713a
   zh: 65997bee39851458
-/tool-schema-catalog/lyness-lyn-plan-mode:
+/tool-schema-catalog/deepseek-harness-dsh-plan-mode:
   en: b098694195fc1c6e
   zh: b098694195fc1c6e
-/tool-schema-catalog/lyness-lyn-plan-mode/exit-plan-mode:
+/tool-schema-catalog/deepseek-harness-dsh-plan-mode/exit-plan-mode:
   en: 7eb92e413140c6e3
   zh: 9a62bf10e621b767
-/tool-schema-catalog/lyness-lyn-tool-bash:
+/tool-schema-catalog/deepseek-harness-dsh-tool-bash:
   en: 586f04db14b9f31c
   zh: 586f04db14b9f31c
-/tool-schema-catalog/lyness-lyn-tool-bash/bash:
+/tool-schema-catalog/deepseek-harness-dsh-tool-bash/bash:
   en: 4be883bb91620936
   zh: 3adc8c0d44492830
-/tool-schema-catalog/lyness-lyn-tool-present:
+/tool-schema-catalog/deepseek-harness-dsh-tool-present:
   en: aeea4f081d8475c1
   zh: aeea4f081d8475c1
-/tool-schema-catalog/lyness-lyn-tool-present/present:
+/tool-schema-catalog/deepseek-harness-dsh-tool-present/present:
   en: 662dbe8342fd6bca
   zh: 68f9ead67d8c6c74
-/tool-schema-catalog/lyness-lyn-tool-pwsh:
+/tool-schema-catalog/deepseek-harness-dsh-tool-pwsh:
   en: 99f3bbe639c1ee44
   zh: 99f3bbe639c1ee44
-/tool-schema-catalog/lyness-lyn-tool-pwsh/pwsh:
+/tool-schema-catalog/deepseek-harness-dsh-tool-pwsh/pwsh:
   en: e52ab4351fa4a6d6
   zh: d21dd1217b17671b
-/tool-schema-catalog/lyness-lyn-tool-cordis:
+/tool-schema-catalog/deepseek-harness-dsh-tool-cordis:
   en: 4efc4e4745cfdae2
   zh: 4efc4e4745cfdae2
-/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-list:
+/tool-schema-catalog/deepseek-harness-dsh-tool-cordis/cordis-inspect-list:
   en: 594e5b42047969cc
   zh: 72189ca21345c210
-/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-query:
+/tool-schema-catalog/deepseek-harness-dsh-tool-cordis/cordis-inspect-query:
   en: 8282879ab03568b0
   zh: 17b261e6b611ad25
-/tool-schema-catalog/lyness-lyn-tool-bash-persistent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-bash-persistent:
   en: beb9106858608a16
   zh: beb9106858608a16
-/tool-schema-catalog/lyness-lyn-tool-bash-persistent/bash:
+/tool-schema-catalog/deepseek-harness-dsh-tool-bash-persistent/bash:
   en: 42f4e68d8c7fe325
   zh: f545b6d2d83a1bd1
-/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-pwsh-persistent:
   en: 3e398c9eff09e8b7
   zh: 3e398c9eff09e8b7
-/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent/pwsh:
+/tool-schema-catalog/deepseek-harness-dsh-tool-pwsh-persistent/pwsh:
   en: aff6d9392a2edd6f
   zh: 679191616f2c8f2b
-/tool-schema-catalog/lyness-lyn-tool-str-replace-editor:
+/tool-schema-catalog/deepseek-harness-dsh-tool-str-replace-editor:
   en: 17554198bb416e7d
   zh: 17554198bb416e7d
-/tool-schema-catalog/lyness-lyn-tool-str-replace-editor/str-replace-editor:
+/tool-schema-catalog/deepseek-harness-dsh-tool-str-replace-editor/str-replace-editor:
   en: 8c480df0122921e9
   zh: 2a9b71c1c30adb9d
-/tool-schema-catalog/lyness-lyn-tool-fs:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs:
   en: 4804f24068f2f86e
   zh: 4804f24068f2f86e
-/tool-schema-catalog/lyness-lyn-tool-fs/apply-patch:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs/apply-patch:
   en: 882f2fa9fac236d6
   zh: e8320796a5cb038f
-/tool-schema-catalog/lyness-lyn-tool-fs/edit:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs/edit:
   en: 5b6a252adde51af6
   zh: 7aa172a5d8b9cbd2
-/tool-schema-catalog/lyness-lyn-tool-fs/read:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs/read:
   en: 94bfc5b03c63baef
   zh: 339338a0e74696c3
-/tool-schema-catalog/lyness-lyn-tool-fs/read-image:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs/read-image:
   en: f6f7a1140066ce04
   zh: d528e01a0939795a
-/tool-schema-catalog/lyness-lyn-tool-fs/write:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs/write:
   en: b8432b9f1b803383
   zh: e34da1354c658758
-/tool-schema-catalog/lyness-lyn-tool-fs-search:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs-search:
   en: 280f0f6a57d36b14
   zh: 280f0f6a57d36b14
-/tool-schema-catalog/lyness-lyn-tool-fs-search/glob:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs-search/glob:
   en: 3ba734ba7852cdd5
   zh: c6ce31ff2c195520
-/tool-schema-catalog/lyness-lyn-tool-fs-search/grep:
+/tool-schema-catalog/deepseek-harness-dsh-tool-fs-search/grep:
   en: ed7e31a9ed582d72
   zh: 95a30b2b8dfe69a7
-/tool-schema-catalog/lyness-lyn-tool-terminal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal:
   en: e0e15fecbdeb0f86
   zh: e0e15fecbdeb0f86
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-close:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-close:
   en: 6d6e428c866ac6c1
   zh: 8033539fcdcb6e7b
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-list:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-list:
   en: ae7d5bce32142aa5
   zh: e956a650a5bf294b
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-open:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-open:
   en: c542bd7f7e872441
   zh: 14731de81780b518
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-read:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-read:
   en: 6a7491d2436e4404
   zh: 772ff408ec0a67e3
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-send:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-send:
   en: e24ca8735dd59adb
   zh: 24f7140a0aed0968
-/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-signal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-terminal/terminal-signal:
   en: 6e8f1649ca41c3dc
   zh: 1b15a647bcb8d4d4
-/tool-schema-catalog/lyness-lyn-tool-goal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-goal:
   en: c03447152da25574
   zh: c03447152da25574
-/tool-schema-catalog/lyness-lyn-tool-goal/create-goal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-goal/create-goal:
   en: 9ae877cdf8a641a3
   zh: f83c3c09e80e4190
-/tool-schema-catalog/lyness-lyn-tool-goal/get-goal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-goal/get-goal:
   en: 0b517f13dfde11fe
   zh: b7ee7482e8ecde56
-/tool-schema-catalog/lyness-lyn-tool-goal/update-goal:
+/tool-schema-catalog/deepseek-harness-dsh-tool-goal/update-goal:
   en: 3405ea614554bb7c
   zh: dc7321c5a2fdad70
-/tool-schema-catalog/lyness-lyn-tool-schedule:
+/tool-schema-catalog/deepseek-harness-dsh-tool-schedule:
   en: b0ec3b9dac09a861
   zh: b0ec3b9dac09a861
-/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-create:
+/tool-schema-catalog/deepseek-harness-dsh-tool-schedule/schedule-create:
   en: 7237e492f01fb8fb
   zh: 2fd2bea81919baf6
-/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-edit:
+/tool-schema-catalog/deepseek-harness-dsh-tool-schedule/schedule-edit:
   en: 08db239b9e1c3e8f
   zh: c3860a8f20a01965
-/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-list:
+/tool-schema-catalog/deepseek-harness-dsh-tool-schedule/schedule-list:
   en: e2c657d431fd02a8
   zh: 7651bf05938eff69
-/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-view:
+/tool-schema-catalog/deepseek-harness-dsh-tool-schedule/schedule-view:
   en: 3cec5ecf317d4613
   zh: 1842934902287344
-/tool-schema-catalog/lyness-lyn-tool-lsp:
+/tool-schema-catalog/deepseek-harness-dsh-tool-lsp:
   en: 1139151c20d96a77
   zh: 1139151c20d96a77
-/tool-schema-catalog/lyness-lyn-tool-lsp/lsp:
+/tool-schema-catalog/deepseek-harness-dsh-tool-lsp/lsp:
   en: 1a969f2671b15a80
   zh: be5f41184735647a
-/tool-schema-catalog/lyness-lyn-tool-ralph:
+/tool-schema-catalog/deepseek-harness-dsh-tool-ralph:
   en: 76f832b9012c3163
   zh: 76f832b9012c3163
-/tool-schema-catalog/lyness-lyn-tool-ralph/ralph:
+/tool-schema-catalog/deepseek-harness-dsh-tool-ralph/ralph:
   en: a80bc2379de5b912
   zh: 3f6d25e2de50bb0b
-/tool-schema-catalog/lyness-lyn-tool-skill:
+/tool-schema-catalog/deepseek-harness-dsh-tool-skill:
   en: bcd0e22ec90f831b
   zh: bcd0e22ec90f831b
-/tool-schema-catalog/lyness-lyn-tool-skill/skill:
+/tool-schema-catalog/deepseek-harness-dsh-tool-skill/skill:
   en: b52365df0deb3f5b
   zh: 4cc6352215827edb
-/tool-schema-catalog/lyness-lyn-tool-session-query:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query:
   en: 7a73f8a26377c505
   zh: 7a73f8a26377c505
-/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-read:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query/session-event-read:
   en: 6687105065ac3a5f
   zh: 48b2f4d38536e4c7
-/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-search:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query/session-event-search:
   en: 41251b4cbe9af70d
   zh: 8855a5f32b4720e5
-/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-trace:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query/session-event-trace:
   en: 14b5ec05fa8c0932
   zh: 3c85d44c13cc42c5
-/tool-schema-catalog/lyness-lyn-tool-session-query/session-search:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query/session-search:
   en: 8263202c97568fc3
   zh: 92067337294c7a00
-/tool-schema-catalog/lyness-lyn-tool-session-query/session-trace:
+/tool-schema-catalog/deepseek-harness-dsh-tool-session-query/session-trace:
   en: 1fad30b1636ffee6
   zh: cf3d831d9fff7a3c
-/tool-schema-catalog/lyness-lyn-experimental-tool-subagent-oar:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-tool-subagent-oar:
   en: 4c79f02c245073ac
   zh: 4c79f02c245073ac
-/tool-schema-catalog/lyness-lyn-experimental-tool-subagent-oar/subagent-oar:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-tool-subagent-oar/subagent-oar:
   en: 6d29b5200c251845
   zh: a933a6b1e6c7b8dd
-/tool-schema-catalog/lyness-lyn-tool-subagent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent:
   en: 068e185ebae701a3
   zh: 068e185ebae701a3
-/tool-schema-catalog/lyness-lyn-tool-subagent/list-subagent-models:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent/list-subagent-models:
   en: 0e21650bbe8c71c7
   zh: fe4033efb38d51a3
-/tool-schema-catalog/lyness-lyn-tool-subagent/subagent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent/subagent:
   en: 57fa55d1e35cef00
   zh: f36ccbfe2664790f
-/tool-schema-catalog/lyness-lyn-tool-subagent-control:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent-control:
   en: 7d892d73ecc93d9b
   zh: 7d892d73ecc93d9b
-/tool-schema-catalog/lyness-lyn-tool-subagent-control/interrupt-agent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent-control/interrupt-agent:
   en: a622b15cc2598d51
   zh: 48e1b05956d63e26
-/tool-schema-catalog/lyness-lyn-tool-subagent-control/list-agents:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent-control/list-agents:
   en: a56168133c21c6a0
   zh: f9df1c0fe49fa225
-/tool-schema-catalog/lyness-lyn-tool-subagent-control/send-message:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent-control/send-message:
   en: b53326fedeab850d
   zh: ecb75b6ce31da009
-/tool-schema-catalog/lyness-lyn-tool-subagent-control/wait-agent:
+/tool-schema-catalog/deepseek-harness-dsh-tool-subagent-control/wait-agent:
   en: 2b0203c7d39d16ba
   zh: 42c4c7cd7123fb8d
-/tool-schema-catalog/lyness-lyn-tool-jobs:
+/tool-schema-catalog/deepseek-harness-dsh-tool-jobs:
   en: 7b9b5e7c032a569c
   zh: 7b9b5e7c032a569c
-/tool-schema-catalog/lyness-lyn-tool-jobs/job-kill:
+/tool-schema-catalog/deepseek-harness-dsh-tool-jobs/job-kill:
   en: 14294cc1988ae768
   zh: 80a9152bdc02723f
-/tool-schema-catalog/lyness-lyn-tool-jobs/job-list:
+/tool-schema-catalog/deepseek-harness-dsh-tool-jobs/job-list:
   en: 0c37fb1fed979d72
   zh: 5ea9d07f5a4a8a6c
-/tool-schema-catalog/lyness-lyn-tool-jobs/job-output:
+/tool-schema-catalog/deepseek-harness-dsh-tool-jobs/job-output:
   en: 132740c09669879c
   zh: 004375d2b63a2e9f
-/tool-schema-catalog/lyness-lyn-tool-agent-team:
+/tool-schema-catalog/deepseek-harness-dsh-tool-agent-team:
   en: baa779e1f9a306d7
   zh: baa779e1f9a306d7
-/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-create:
+/tool-schema-catalog/deepseek-harness-dsh-tool-agent-team/team-task-create:
   en: ac9ed819b705b4b8
   zh: 306477d2d457369a
-/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-get:
+/tool-schema-catalog/deepseek-harness-dsh-tool-agent-team/team-task-get:
   en: bca1abf330638c19
   zh: 903bfa977f75c046
-/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-list:
+/tool-schema-catalog/deepseek-harness-dsh-tool-agent-team/team-task-list:
   en: 8001eda7e9ff6a25
   zh: 2414761029f21404
-/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-update:
+/tool-schema-catalog/deepseek-harness-dsh-tool-agent-team/team-task-update:
   en: c76468d4dbbf023b
   zh: f80e0797999839f1
-/tool-schema-catalog/lyness-lyn-bot-ask:
+/tool-schema-catalog/deepseek-harness-dsh-bot-ask:
   en: 5674456c460edf3a
   zh: 5674456c460edf3a
-/tool-schema-catalog/lyness-lyn-bot-ask/ask-teammate:
+/tool-schema-catalog/deepseek-harness-dsh-bot-ask/ask-teammate:
   en: c63d1d73787306ae
   zh: 6d5fdeaa9f6e1d59
-/tool-schema-catalog/lyness-lyn-bot-ask/hold-discussion:
+/tool-schema-catalog/deepseek-harness-dsh-bot-ask/hold-discussion:
   en: 003bcb277200d4ba
   zh: d8a5cd566c290f97
-/tool-schema-catalog/lyness-lyn-bot-ask/list-teammates:
+/tool-schema-catalog/deepseek-harness-dsh-bot-ask/list-teammates:
   en: 0aa6dc5e7c1f560a
   zh: 823ae5e1a7581cfb
-/tool-schema-catalog/lyness-lyn-tool-todo:
+/tool-schema-catalog/deepseek-harness-dsh-tool-todo:
   en: 6b46c55cd2c76927
   zh: 6b46c55cd2c76927
-/tool-schema-catalog/lyness-lyn-tool-todo/todo-write:
+/tool-schema-catalog/deepseek-harness-dsh-tool-todo/todo-write:
   en: 0069e86c1e8c43ea
   zh: 6299d067d1a1b6b4
-/tool-schema-catalog/lyness-lyn-tool-working-directory:
+/tool-schema-catalog/deepseek-harness-dsh-tool-working-directory:
   en: c09ff6f79374b12e
   zh: c09ff6f79374b12e
-/tool-schema-catalog/lyness-lyn-tool-working-directory/working-directory:
+/tool-schema-catalog/deepseek-harness-dsh-tool-working-directory/working-directory:
   en: 2de66191c9c6d59a
   zh: 751c4726ac555cf9
-/tool-schema-catalog/lyness-lyn-experimental-tool-worktree:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-tool-worktree:
   en: 8242c36d9c0bf4b8
   zh: 8242c36d9c0bf4b8
-/tool-schema-catalog/lyness-lyn-experimental-tool-worktree/create-worktree:
+/tool-schema-catalog/deepseek-harness-dsh-experimental-tool-worktree/create-worktree:
   en: 1ae70cab655b2747
   zh: cbd1c8b873cdfee1
-/tool-schema-catalog/lyness-lyn-tool-workflow:
+/tool-schema-catalog/deepseek-harness-dsh-tool-workflow:
   en: daf3635023624dd1
   zh: daf3635023624dd1
-/tool-schema-catalog/lyness-lyn-tool-workflow/workflow:
+/tool-schema-catalog/deepseek-harness-dsh-tool-workflow/workflow:
   en: 7d9440a22d82f6e4
   zh: 351599e9c469373c
-/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies:
+/tool-schema-catalog/deepseek-harness-dsh-tool-workspace-dependencies:
   en: ea7bac41b14c11ea
   zh: ea7bac41b14c11ea
-/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies/load-workspace-dependencies:
+/tool-schema-catalog/deepseek-harness-dsh-tool-workspace-dependencies/load-workspace-dependencies:
   en: a590ec98f1c47f75
   zh: 86c8322d0b37ce19
-/tool-schema-catalog/lyness-lyn-tool-web:
+/tool-schema-catalog/deepseek-harness-dsh-tool-web:
   en: de179318997ca9d6
   zh: de179318997ca9d6
-/tool-schema-catalog/lyness-lyn-tool-web/web-fetch:
+/tool-schema-catalog/deepseek-harness-dsh-tool-web/web-fetch:
   en: 8673f203aea9bdf2
   zh: 4e17783ffdf34c83
-/tool-schema-catalog/lyness-lyn-tool-web/web-search:
+/tool-schema-catalog/deepseek-harness-dsh-tool-web/web-search:
   en: cc1ad38bf0006710
   zh: 324eacb827a09e93

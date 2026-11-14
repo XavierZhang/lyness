@@ -12,7 +12,7 @@ Bundling fonts ran into the repository's license policy. `scripts/gen-third-part
 
 ## Decision
 
-`@lyness/lyn-host-brand-fonts` ships two font files unmodified under OFL-1.1 — Inter SemiBold 4.1 and Noto Sans CJK SC Medium 2.004 — with their license texts beside them, and exposes them in fallback order. They serve the brand wordmark only: the files are read on the host, and a wordmark ships as outlines, so no font reaches a browser and the platform distributes no font as a web asset.
+`@deepseek-ai/dsh-host-brand-fonts` ships two font files unmodified under OFL-1.1 — Inter SemiBold 4.1 and Noto Sans CJK SC Medium 2.004 — with their license texts beside them, and exposes them in fallback order. They serve the brand wordmark only: the files are read on the host, and a wordmark ships as outlines, so no font reaches a browser and the platform distributes no font as a web asset.
 
 `typesetWordmark` now takes a list of fonts. It assigns each grapheme cluster to the first font that draws it, keeps whitespace in the run before it, and computes geometry in ems so fonts with different units per em share one scale. Inter comes first, so Latin letters keep Inter's shapes although Noto Sans CJK draws them too. `brand-studio` uses the built-in fonts when the operator passes no `--font`.
 
@@ -24,7 +24,7 @@ Disclosure runs on a new mechanism rather than an exception to the npm one: a pa
 
 **Subset the CJK font to the characters brands are likely to use.** The file would shrink by an order of magnitude. A subset is a modified font: it must be renamed if the license reserves the name, and it would refuse a customer whose name happens to use a character outside the subset — the failure this change exists to remove.
 
-**Set Latin in Noto Sans CJK as well, and ship one file.** No second font, no fallback. Its Latin is a different typeface from Inter, which the lyness wordmark and the shell's own type already use, so every Latin wordmark would change shape.
+**Set Latin in Noto Sans CJK as well, and ship one file.** No second font, no fallback. Its Latin is a different typeface from Inter, which the DeepSeek Harness wordmark and the shell's own type already use, so every Latin wordmark would change shape.
 
 **Ship a regional CJK font per language.** Japanese kanji and Traditional Chinese would carry their own glyph conventions. That is four files of about 16MB for a difference in the shapes of some characters, which a brand that needs it can supply with `--font`.
 
@@ -32,7 +32,7 @@ Disclosure runs on a new mechanism rather than an exception to the npm one: a pa
 
 ## Consequences
 
-The repository carries 17MB of font files, and every published copy of `lyn-host-brand-fonts` carries them too.
+The repository carries 17MB of font files, and every published copy of `dsh-host-brand-fonts` carries them too.
 
 Han characters are drawn in Simplified Chinese shapes, so a Japanese or Traditional Chinese name is legible but not in its own regional convention. Arabic, Hebrew, Thai, and Devanagari names are still refused; they need a font and verified right-to-left or complex-script typesetting.
 

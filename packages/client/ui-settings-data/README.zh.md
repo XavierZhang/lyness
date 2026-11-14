@@ -3,13 +3,13 @@ description: "设置里的数据分区：一个人自己的对话，导出与删
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-data
+# @deepseek-ai/dsh-client-ui-settings-data
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-data` 是个人平面的数据页：读它的人能打开的每一段对话一行，每行带着他拥有的两件事——下载一份副本，以及删除它。这些行就是会话目录自己的行，所以这个页面和侧边栏不可能对「存在什么」给出不同答案。删除会在那一行上问一次、不可撤销，页面还会说出它不拿走什么：上传的文件按内容存放，可能同时属于别的对话。
+`dsh-client-ui-settings-data` 是个人平面的数据页：读它的人能打开的每一段对话一行，每行带着他拥有的两件事——下载一份副本，以及删除它。这些行就是会话目录自己的行，所以这个页面和侧边栏不可能对「存在什么」给出不同答案。删除会在那一行上问一次、不可撤销，页面还会说出它不拿走什么：上传的文件按内容存放，可能同时属于别的对话。
 
 ## 目录
 
@@ -29,12 +29,12 @@ Web bundle 把它与删除服务及其命名空间一起挂上：
 
 ```yaml
 - id: ui-settings-data
-  name: '@lyness/lyn-client-ui-settings-data'
+  name: '@deepseek-ai/dsh-client-ui-settings-data'
 ```
 
 没有别的要配。页面自己挂 `sessionData` 命名空间，并在那个命名空间在位期间注册分区，所以没有删除那几行的部署根本不显示数据页，而不是显示一个按钮只会拒绝的页面。
 
-下载属于另一个插件。挂了 `lyn-session-log-export` 的地方，每一行都提供它，拿到的 ZIP 与会话标题栏自己那个动作下载的是同一份归档；没挂的地方页面会把这件事说出来，删除照旧可用。
+下载属于另一个插件。挂了 `dsh-session-log-export` 的地方，每一行都提供它，拿到的 ZIP 与会话标题栏自己那个动作下载的是同一份归档；没挂的地方页面会把这件事说出来，删除照旧可用。
 
 -----
 
@@ -58,9 +58,9 @@ Web bundle 把它与删除服务及其命名空间一起挂上：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-session-data-controller`](../../api/session-data-controller/README.zh.md) —— 这个页面调用的命名空间，以及它渲染的那些拒绝。
-- [`lyn-session-deletion`](../../session/session-deletion/README.zh.md) —— 一次删除移除什么、留下什么。
-- [`lyn-session-log-export`](../../session-query/session-log-export/README.zh.md) —— 每一行提供的那个下载。
+- [`dsh-api-session-data-controller`](../../api/session-data-controller/README.zh.md) —— 这个页面调用的命名空间，以及它渲染的那些拒绝。
+- [`dsh-session-deletion`](../../session/session-deletion/README.zh.md) —— 一次删除移除什么、留下什么。
+- [`dsh-session-log-export`](../../session-query/session-log-export/README.zh.md) —— 每一行提供的那个下载。
 - [一个个人平面](../../../.agents/notes/proposed/architecture/2026-10-28-the-personal-plane.zh.md) —— 这个页面为什么属于个人平面，以及那里还该有什么。
 
 -----

@@ -1,9 +1,9 @@
 ---
-description: "Package map for verified external events, programmatic rules, and fire-and-forget LYN Session creation."
+description: "Package map for verified external events, programmatic rules, and fire-and-forget DSH Session creation."
 kind: "package-group"
 ---
 
-# webhook/ — verified external events to LYN Sessions
+# webhook/ — verified external events to DSH Sessions
 
 English | [中文](README.zh.md)
 

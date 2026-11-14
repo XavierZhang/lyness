@@ -1,8 +1,8 @@
 /** The resolution policy itself: which part of a request names a tenant, and when a request names none. */
 
 import { describe, expect, it } from 'vitest'
-import { TenantId } from '@lyness/lyn-tenant'
-import type { Tenant, TenantDirectory } from '@lyness/lyn-tenant'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
+import type { Tenant, TenantDirectory } from '@deepseek-ai/dsh-tenant'
 import { requestHostname, resolveTenant, subdomainLabel, TENANT_HEADER } from '../src/resolve.ts'
 import type { RequestHeaders } from '../src/resolve.ts'
 

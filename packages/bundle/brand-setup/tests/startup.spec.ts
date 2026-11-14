@@ -7,8 +7,8 @@
  * service, so an invocation that only asks for help never reaches a bind.
  */
 
-import { Context } from '@lyness/cordis'
-import { internals } from '@lyness/lyn-cmdline'
+import { Context } from '@deepseek-ai/cordis'
+import { internals } from '@deepseek-ai/dsh-cmdline'
 import { afterEach, describe, expect, it } from 'vitest'
 import * as Startup from '../src/startup.ts'
 import { BRAND_SETUP_STARTUP_SERVICE, type BrandSetupStartup } from '../src/startup.ts'
@@ -74,7 +74,7 @@ describe('brand-setup command line', () => {
     expect(result.code).toBe(0)
     expect(result.stdout).toContain('brand-setup')
     expect(result.stdout).toContain('--port <port>')
-    expect(result.stdout).toContain('lyn --profile brand-setup --port 7345')
+    expect(result.stdout).toContain('dsh --profile brand-setup --port 7345')
     expect(result.stdout).toContain('binds 127.0.0.1 only')
   })
 

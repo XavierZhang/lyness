@@ -2,13 +2,13 @@
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Agent, AssistantStreamFrame } from '@lyness/lyn-agent'
+import type { Agent, AssistantStreamFrame } from '@deepseek-ai/dsh-agent'
 import {
   AssistantStreamAccumulator, LlmAttemptId, ToolCallId,
   createAssistantMessage, createToolResultMessage, createUserMessage,
   type StreamChunk,
-} from '@lyness/lyn-llm'
-import type { SessionEvent } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-llm'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'

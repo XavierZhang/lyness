@@ -11,10 +11,10 @@
  * stop-on-throw) or touch the agent loop. Composed by a backend in its
  * constructor.
  *
- * @module @lyness/lyn-session-telemetry/coordinator
+ * @module @deepseek-ai/dsh-session-telemetry/coordinator
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import {
   SessionSeq,
   SessionLogOffset,
@@ -22,8 +22,8 @@ import {
   type SessionEvent,
   type SessionSeq as SessionSeqType,
   type SessionSeqCursor,
-} from '@lyness/lyn-session'
-import type { Agent } from '@lyness/lyn-agent'
+} from '@deepseek-ai/dsh-session'
+import type { Agent } from '@deepseek-ai/dsh-agent'
 import type { SessionTelemetrySink, SessionTelemetryRecord, SessionTelemetrySeverity } from './index.ts'
 
 /** Whether capture follows live events or reads the canonical log only when requested. */

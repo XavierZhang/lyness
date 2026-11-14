@@ -1,15 +1,15 @@
 /** TestClient without a DOM: the api roster boots and connects; mount is refused; flush degrades to a microtask flush. */
-import type { ClientTransportHooks } from '@lyness/lyn-client-connection/client'
-import { RemoteMock } from '@lyness/lyn-remote-mock'
+import type { ClientTransportHooks } from '@deepseek-ai/dsh-client-connection/client'
+import { RemoteMock } from '@deepseek-ai/dsh-remote-mock'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { TestClient, remoteDefaultResponses, webApp } from '../src/assembly/index.ts'
 
 /** The Gateway client and what it injects: the Typert registry and the Connection. */
-const API_ROSTER = webApp.closure(['@lyness/lyn-api-gateway'])
-const TYPERT_ONLY = webApp.pick(['@lyness/lyn-typert-registry'])
+const API_ROSTER = webApp.closure(['@deepseek-ai/dsh-api-gateway'])
+const TYPERT_ONLY = webApp.pick(['@deepseek-ai/dsh-typert-registry'])
 /** A row on the Web client's required list, so its failure rejects the boot. */
-const RENDERER_ONLY = webApp.pick(['@lyness/lyn-client-ui-renderer'])
-const globals = globalThis as { __LYNESS_TRANSPORT__?: ClientTransportHooks }
+const RENDERER_ONLY = webApp.pick(['@deepseek-ai/dsh-client-ui-renderer'])
+const globals = globalThis as { __DSH_TRANSPORT__?: ClientTransportHooks }
 
 describe('TestClient (node environment)', () => {
   it('boots the api roster, connects, and flushes without a DOM', async () => {
@@ -35,15 +35,15 @@ describe('TestClient (node environment)', () => {
       try { await dispose() } finally { await client.dispose() }
     })
     await expect(client.dispose()).rejects.toThrow('teardown boom')
-    expect(globals.__LYNESS_TRANSPORT__).toBeUndefined()
+    expect(globals.__DSH_TRANSPORT__).toBeUndefined()
     expect(mock.log.streams('$events').map(stream => stream.state)).toEqual(['cancelled'])
     await client.dispose() // idempotent after a failed teardown
   })
 
   it('rethrows a required row that fails to apply and lets the next client boot', async () => {
     const failing = { apply(): void { throw new Error('apply boom') } }
-    await expect(TestClient.start({ roster: RENDERER_ONLY, provide: { '@lyness/lyn-client-ui-renderer': failing } }, RemoteMock.create()))
-      .rejects.toThrow('@lyness/lyn-client-ui-renderer (required): failed')
+    await expect(TestClient.start({ roster: RENDERER_ONLY, provide: { '@deepseek-ai/dsh-client-ui-renderer': failing } }, RemoteMock.create()))
+      .rejects.toThrow('@deepseek-ai/dsh-client-ui-renderer (required): failed')
     const mock = RemoteMock.create().load(remoteDefaultResponses)
     const client = await TestClient.start({ roster: API_ROSTER }, mock)
     onTestFinished(() => client.dispose())
@@ -55,13 +55,13 @@ describe('TestClient (node environment)', () => {
     onTestFinished(() => { warn.mockRestore() })
     const failing = { apply(): void { throw new Error('apply boom') } }
     await expect(TestClient.start(
-      { roster: TYPERT_ONLY, provide: { '@lyness/lyn-typert-registry': failing } },
+      { roster: TYPERT_ONLY, provide: { '@deepseek-ai/dsh-typert-registry': failing } },
       RemoteMock.create(),
       { awaitConnected: false },
     )).rejects.toThrow([
       'client-test-runtime: every roster entry must activate; pass allowInactiveEntries to tolerate it',
       'web boot: warning: 1 entry did not activate',
-      '@lyness/lyn-typert-registry: failed: Error: apply boom',
+      '@deepseek-ai/dsh-typert-registry: failed: Error: apply boom',
     ].join('\n'))
   })
 
@@ -70,17 +70,17 @@ describe('TestClient (node environment)', () => {
     onTestFinished(() => { warn.mockRestore() })
     const failing = { apply(): void { throw new Error('apply boom') } }
     const client = await TestClient.start(
-      { roster: TYPERT_ONLY, provide: { '@lyness/lyn-typert-registry': failing } },
+      { roster: TYPERT_ONLY, provide: { '@deepseek-ai/dsh-typert-registry': failing } },
       RemoteMock.create(),
       { awaitConnected: false, allowInactiveEntries: true },
     )
     onTestFinished(() => client.dispose())
     expect(warn).toHaveBeenCalledExactlyOnceWith(
-      'web boot: warning: 1 entry did not activate\n@lyness/lyn-typert-registry: failed: Error: apply boom',
+      'web boot: warning: 1 entry did not activate\n@deepseek-ai/dsh-typert-registry: failed: Error: apply boom',
     )
   })
 
-  it.each(['@lyness/lyn-api-remotes', '@lyness/lyn-api-remote-access'])(
+  it.each(['@deepseek-ai/dsh-api-remotes', '@deepseek-ai/dsh-api-remote-access'])(
     'refuses a provide entry for the %s row, whose generated Remote mount the tier replaces',
     async (name) => {
       const roster = webApp.closure([name])
@@ -91,7 +91,7 @@ describe('TestClient (node environment)', () => {
 
   it('drops the remote-access row and answers every access question with true', async () => {
     const mock = RemoteMock.create().load(remoteDefaultResponses)
-    const client = await TestClient.start({ roster: webApp.closure(['@lyness/lyn-api-remote-access']) }, mock)
+    const client = await TestClient.start({ roster: webApp.closure(['@deepseek-ai/dsh-api-remote-access']) }, mock)
     onTestFinished(() => client.dispose())
     expect(client.ctx.get('remoteAccess')?.source('session', 's1', 'session/fork').getSnapshot()).toBe(true)
     // The dropped row never mounts its namespace, so no access stream opens.
@@ -112,7 +112,7 @@ describe('TestClient (node environment)', () => {
     })
     await mock.dispatch('nowhere/call', []).catch(() => undefined)
     await expect(client.dispose()).rejects.toThrow(/nowhere\/call \(unary\)[\s\S]*also failed to dispose: teardown boom/)
-    expect(globals.__LYNESS_TRANSPORT__).toBeUndefined()
+    expect(globals.__DSH_TRANSPORT__).toBeUndefined()
     expect(mock.log.streams('$events').map(stream => stream.state)).toEqual(['cancelled'])
   })
 
@@ -122,7 +122,7 @@ describe('TestClient (node environment)', () => {
     const first = client.dispose()
     const second = client.dispose()
     await second
-    expect(globals.__LYNESS_TRANSPORT__).toBeUndefined()
+    expect(globals.__DSH_TRANSPORT__).toBeUndefined()
     await first
   })
 
@@ -138,13 +138,13 @@ describe('TestClient (node environment)', () => {
 
   it('skips readiness on request and leaves a pre-existing page transport untouched', async () => {
     const previous: ClientTransportHooks = { fetch: () => Promise.reject(new Error('unused')) }
-    globals.__LYNESS_TRANSPORT__ = previous
-    onTestFinished(() => { delete globals.__LYNESS_TRANSPORT__ })
+    globals.__DSH_TRANSPORT__ = previous
+    onTestFinished(() => { delete globals.__DSH_TRANSPORT__ })
     const client = await TestClient.start({ roster: TYPERT_ONLY }, RemoteMock.create(), { awaitConnected: false })
-    expect(globals.__LYNESS_TRANSPORT__).toBe(previous)
+    expect(globals.__DSH_TRANSPORT__).toBe(previous)
     expect(client.ctx.get('typert')).toBeDefined()
     expect(() => client.connection).toThrow('provides no `connection` service')
     await client.dispose()
-    expect(globals.__LYNESS_TRANSPORT__).toBe(previous)
+    expect(globals.__DSH_TRANSPORT__).toBe(previous)
   })
 })

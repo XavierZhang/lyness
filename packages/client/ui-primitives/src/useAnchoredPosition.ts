@@ -30,7 +30,7 @@ export interface AnchoredPositionOptions {
 
 /**
  * Keep a fixed panel aligned and constrained to the visible viewport.
- * Panel CSS consumes `--lyn-anchored-max-width` and `--lyn-anchored-max-height` for size limits.
+ * Panel CSS consumes `--dsh-anchored-max-width` and `--dsh-anchored-max-height` for size limits.
  * The hook owns those inline variables and optional min-width while open, restoring them on cleanup.
  * @param options - Open state, element refs, placement, and optional host rect or content change key.
  * @returns Fixed left/top coordinates, or null while closed or awaiting an anchor; the first measurement completes before paint.
@@ -52,7 +52,7 @@ export function useAnchoredPosition(options: AnchoredPositionOptions): CSSProper
     const viewport = win.visualViewport
     // WebKit client rects use the visual origin; viewport-fixed CSS uses the layout origin.
     const visualOrigin = typeof win.CSS !== 'undefined' && win.CSS.supports('-webkit-backdrop-filter', 'none')
-    const properties = ['--lyn-anchored-max-width', '--lyn-anchored-max-height', ...minWidthFromAnchor ? ['min-width'] : []]
+    const properties = ['--dsh-anchored-max-width', '--dsh-anchored-max-height', ...minWidthFromAnchor ? ['min-width'] : []]
     const previous = properties.map(name => [name, panel.style.getPropertyValue(name), panel.style.getPropertyPriority(name)] as const)
     let active = true
     let lastRect: Pick<DOMRect, 'x' | 'y' | 'width' | 'height'> | null = null
@@ -67,8 +67,8 @@ export function useAnchoredPosition(options: AnchoredPositionOptions): CSSProper
         const height = viewport?.height ?? (anchor.ownerDocument.documentElement.clientHeight || win.innerHeight)
         const topMargin = frameClearance ? overlayTopMargin(margin, rect, gap) : margin
         const maxWidth = Math.max(0, width - margin * 2)
-        panel.style.setProperty('--lyn-anchored-max-width', `${maxWidth}px`)
-        panel.style.setProperty('--lyn-anchored-max-height', `${Math.max(0, height - topMargin - margin)}px`)
+        panel.style.setProperty('--dsh-anchored-max-width', `${maxWidth}px`)
+        panel.style.setProperty('--dsh-anchored-max-height', `${Math.max(0, height - topMargin - margin)}px`)
         if (minWidthFromAnchor) panel.style.minWidth = `${Math.min(rect.width, maxWidth)}px`
         const panelWidth = panel.offsetWidth
         const panelHeight = panel.offsetHeight

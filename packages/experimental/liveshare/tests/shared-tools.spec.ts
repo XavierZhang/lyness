@@ -1,7 +1,7 @@
 /** The one table the source sandbox and a fork child's limit both admit tools from. */
 
 import { describe, expect, it } from 'vitest'
-import { RUN_CODE_NAME as RESERVED_TRANSPORT_NAME } from '@lyness/lyn-tools'
+import { RUN_CODE_NAME as RESERVED_TRANSPORT_NAME } from '@deepseek-ai/dsh-tools'
 import {
   RUN_CODE_NAME,
   SHARED_TOOL_PROFILES,

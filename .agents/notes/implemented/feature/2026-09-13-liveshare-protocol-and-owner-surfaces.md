@@ -1,4 +1,4 @@
-# Agent Note: Liveshare — sharing a LYN session with a colleague
+# Agent Note: Liveshare — sharing a DSH session with a colleague
 
 Status: implemented
 
@@ -6,27 +6,27 @@ English | [中文](2026-09-13-liveshare-protocol-and-owner-surfaces.zh.md)
 
 ## Problem
 
-A LYN session runs on your own computer. A colleague sometimes needs to watch one while you work — to follow a debugging session, or to see how a long task is going. Today there is no way to do that. Sending the session log is not the same thing: the colleague would need your plugins, configuration, and sandbox to render it, and the session only makes sense while it is running on your machine.
+A DSH session runs on your own computer. A colleague sometimes needs to watch one while you work — to follow a debugging session, or to see how a long task is going. Today there is no way to do that. Sending the session log is not the same thing: the colleague would need your plugins, configuration, and sandbox to render it, and the session only makes sense while it is running on your machine.
 
 So a share needs three things at once. A **page the colleague opens in a browser** that shows the session running on your machine, without connecting them to it. A **limit on what that page can do**, starting with "read without writing" — anything the page offers beyond what you agreed is a security hole, not a convenience. And an **answer to "who shared this?"**, because a page that cannot say who its owner is cannot be trusted by whoever opens it.
 
-This note covers the half that runs inside the owner's LYN — the share dialog, the owner-side service behind it, the package's browser face, and the page a reader opens — plus the protocol package both sides speak. The Liveshare server, the shared service in the middle, is its own package (`@lyness/lyn-experimental-liveshare-relay`) and is reviewed and deployed separately.
+This note covers the half that runs inside the owner's DSH — the share dialog, the owner-side service behind it, the package's browser face, and the page a reader opens — plus the protocol package both sides speak. The Liveshare server, the shared service in the middle, is its own package (`@deepseek-ai/dsh-experimental-liveshare-relay`) and is reviewed and deployed separately.
 
 ## Decision
 
 ### What a share is
 
-An owner creates a share for one session from LYN itself. The share is published to the Liveshare server, a service both sides can reach, and LYN returns a link. Opening that link shows the session rendered by the owner's own LYN with its own plugins, so the reader never needs the owner's configuration. The reader's list contains the source Session and any children that reader created through the share. Workspace names, membership, and ordering are trimmed to those Sessions; unrelated Sessions and workspaces stay hidden.
+An owner creates a share for one session from DSH itself. The share is published to the Liveshare server, a service both sides can reach, and DSH returns a link. Opening that link shows the session rendered by the owner's own DSH with its own plugins, so the reader never needs the owner's configuration. The reader's list contains the source Session and any children that reader created through the share. Workspace names, membership, and ordering are trimmed to those Sessions; unrelated Sessions and workspaces stay hidden.
 
-A share created from the LYN Share dialog is an **organization link** share: it carries `accessMode: 'open'`, so anyone in the organization who has the link is admitted. The deployment's `LIVESHARE_ALLOWED_SUBJECTS` is unioned into every share's ACL: it narrows an `open` share to the subjects it lists, and on a stored `selected` record it adds those subjects beside the record's own selection.
+A share created from the DSH Share dialog is an **organization link** share: it carries `accessMode: 'open'`, so anyone in the organization who has the link is admitted. The deployment's `LIVESHARE_ALLOWED_SUBJECTS` is unioned into every share's ACL: it narrows an `open` share to the subjects it lists, and on a stored `selected` record it adds those subjects beside the record's own selection.
 
 **Specific colleagues (`selected`) and the older `approval` spelling are legacy stored records.** The Host still reads them with their recorded ACL and shows their access summary, and the Liveshare server still admits their viewers by that ACL, but the shipped Share dialog offers no way to create one. `liveshareShares.create` keeps its `accessMode` and `allowedSubjectIds` fields for those records and for callers that invoke the Remote directly; the shipped dialog sends neither.
 
 ### What a reader can do
 
-The reader's page is the normal LYN client, not a cut-down copy. The sidebar, the session list, expanding, collapsing, and selecting are all there, because browsing is part of reading. What is missing is every action the reader is not allowed to perform: creating an unrelated session, renaming, archiving, deleting, and managing a workspace. Branching follows the share's own fork switch, prompting is available in both tiers and runs inside that tier's sandbox, and attachment upload follows the Sessions the reader can see; management permissions remain independent of the tier and the fork switch.
+The reader's page is the normal DSH client, not a cut-down copy. The sidebar, the session list, expanding, collapsing, and selecting are all there, because browsing is part of reading. What is missing is every action the reader is not allowed to perform: creating an unrelated session, renaming, archiving, deleting, and managing a workspace. Branching follows the share's own fork switch, prompting is available in both tiers and runs inside that tier's sandbox, and attachment upload follows the Sessions the reader can see; management permissions remain independent of the tier and the fork switch.
 
-These actions are not hidden with CSS. One access snapshot decides what the page may do: the remote-access client follows the reader's own `remoteAccess/follow`, and each button and menu entry reads its endpoint's answer on the global resource, a Session, or a Workspace through `useRemoteAccess`, `useAccess` or `useSessionAccess`, or `useWorkspaceAccess`, rendering again whenever the answer changes. The owner's LYN computes the snapshot from this share's `share-viewer` policy, so an ability the owner withdraws closes without reloading the page — and the server refuses those actions anyway; the page only avoids offering what would be refused. The served index carries the reader's opening snapshot, so no entry appears before the page knows it is allowed, and after the snapshot stream fails every answer is refused. The owner's own page opens with the owner baseline and behaves exactly like an ordinary LYN. Per-Session refusal reasons are not part of the snapshot: the page states the page-level reason (share mode, stop, expiry, lost access) and generic read-only copy. A page that cannot read the Session at all — offline owner, stopped or expired share, lapsed sign-in — states that condition at the top and gives the reader an action, instead of leaving an empty shell or a bare code.
+These actions are not hidden with CSS. One access snapshot decides what the page may do: the remote-access client follows the reader's own `remoteAccess/follow`, and each button and menu entry reads its endpoint's answer on the global resource, a Session, or a Workspace through `useRemoteAccess`, `useAccess` or `useSessionAccess`, or `useWorkspaceAccess`, rendering again whenever the answer changes. The owner's DSH computes the snapshot from this share's `share-viewer` policy, so an ability the owner withdraws closes without reloading the page — and the server refuses those actions anyway; the page only avoids offering what would be refused. The served index carries the reader's opening snapshot, so no entry appears before the page knows it is allowed, and after the snapshot stream fails every answer is refused. The owner's own page opens with the owner baseline and behaves exactly like an ordinary DSH. Per-Session refusal reasons are not part of the snapshot: the page states the page-level reason (share mode, stop, expiry, lost access) and generic read-only copy. A page that cannot read the Session at all — offline owner, stopped or expired share, lapsed sign-in — states that condition at the top and gives the reader an action, instead of leaving an empty shell or a bare code.
 
 ### Two driving tiers
 
@@ -49,13 +49,13 @@ The sandbox is a property of the Session, but it applies per turn: the Host reco
 
 ### Default visibility
 
-The package ships as a runtime dependency of every lyn installation, but a default installation must show it nowhere in the plugin manager: neither under **Built-in plugin settings**, nor under **Experimental plugins**, nor on the **More** page. A person enables it deliberately — by inserting the bundle's rows in the active profile's `cordis.patch.yml`, or by selecting the bundle in `lyn.profile.bundles`; the [package README](../../../../packages/experimental/liveshare/README.md) owns both routes. The package must still ship with the release and stay installable, and users who enabled it before this rule keep seeing it.
+The package ships as a runtime dependency of every dsh installation, but a default installation must show it nowhere in the plugin manager: neither under **Built-in plugin settings**, nor under **Experimental plugins**, nor on the **More** page. A person enables it deliberately — by inserting the bundle's rows in the active profile's `cordis.patch.yml`, or by selecting the bundle in `dsh.profile.bundles`; the [package README](../../../../packages/experimental/liveshare/README.md) owns both routes. The package must still ship with the release and stay installable, and users who enabled it before this rule keep seeing it.
 
 The Host's bundle `enabled` flag states whether the profile selected the bundle, which is not the same as whether the bundle's plugins run: inserting the bundle's rows through `cordis.patch.yml` starts its plugins while leaving the bundle unselected, so a visibility rule built on `enabled` would hide a bundle the person had just enabled and would strand the documented enable path.
 
-The package declares the hiding intent in its own bundle manifest as `lyn.bundle.listedByDefault: false`; the manager keeps one generic visibility rule rather than a client-side name set. A bundle whose manifest does not declare `listedByDefault: false` is listed; one that declares it is listed only when the profile enables it, the installation carries it selected, or one of the rows its bundle patch declares is running (`pkg.rows.some(row => row.enabled)`). The filter applies before both lists are derived, so the name is absent from the main Experimental plugins group, the More page, Built-in plugin settings, and the Installed plugins group until one of those holds. The Host's `listBundles` contract, the profile format, and the installed package set are unchanged. `BundleInfo.rows` already joins each declared row with the Loader entry currently carrying it, and the client's `PackageView` carries whether that entry runs, so row state is the effective answer for both enable routes: removing the rows, disabling them, or deselecting the bundle stops them and the card leaves both lists again.
+The package declares the hiding intent in its own bundle manifest as `dsh.bundle.listedByDefault: false`; the manager keeps one generic visibility rule rather than a client-side name set. A bundle whose manifest does not declare `listedByDefault: false` is listed; one that declares it is listed only when the profile enables it, the installation carries it selected, or one of the rows its bundle patch declares is running (`pkg.rows.some(row => row.enabled)`). The filter applies before both lists are derived, so the name is absent from the main Experimental plugins group, the More page, Built-in plugin settings, and the Installed plugins group until one of those holds. The Host's `listBundles` contract, the profile format, and the installed package set are unchanged. `BundleInfo.rows` already joins each declared row with the Loader entry currently carrying it, and the client's `PackageView` carries whether that entry runs, so row state is the effective answer for both enable routes: removing the rows, disabling them, or deselecting the bundle stops them and the card leaves both lists again.
 
-A default-hidden bundle is not addressable by ID while its card is hidden: `openPkg` resolves only the listed inventory, so `pluginNavigation.openBundle('@lyness/lyn-experimental-liveshare')` renders no details until the same enablement conditions list it.
+A default-hidden bundle is not addressable by ID while its card is hidden: `openPkg` resolves only the listed inventory, so `pluginNavigation.openBundle('@deepseek-ai/dsh-experimental-liveshare')` renders no details until the same enablement conditions list it.
 
 ### How shared work stays inside its grant
 
@@ -71,15 +71,15 @@ One fork request binds its viewer, share, source, operation identity, and comple
 
 ### Who the owner is
 
-A share can only be created by a verified owner. The dialog shows the identity the owner's LYN read back — name, expiry, when it will renew — and uses a label derived from the identity when there is no display name. The code that creates the share refuses an unverified owner as well, so the question is not settled by whether a button was clickable.
+A share can only be created by a verified owner. The dialog shows the identity the owner's DSH read back — name, expiry, when it will renew — and uses a label derived from the identity when there is no display name. The code that creates the share refuses an unverified owner as well, so the question is not settled by whether a button was clickable.
 
-Signing in happens once, in a window the page opens while the owner clicks. The LYN creates a short-lived transaction tied to the Liveshare server address, to the Liveshare server instance, and to the page allowed to finish it; the page opens the sign-in page the LYN names, accepts one one-time code only from that exact origin, window, and transaction, and hands it back to its own LYN.
+Signing in happens once, in a window the page opens while the owner clicks. The DSH creates a short-lived transaction tied to the Liveshare server address, to the Liveshare server instance, and to the page allowed to finish it; the page opens the sign-in page the DSH names, accepts one one-time code only from that exact origin, window, and transaction, and hands it back to its own DSH.
 
 The Owner redeems the code with the verifier it retained, stores the credential with owner-only permissions, and sends it only to the Liveshare server address that issued it. New registration requires that verified credential; existing-share reconnect uses the share's management token, and explicit identity claim preserves the share's ACL, mode, expiry, and token. A share's named colleagues are the owner's stored selection plus the deployment's own allowlist; nothing is derived from a display identity.
 
 ### What the reader sees at the top
 
-The served page reuses the sidebar's existing brand row instead of adding a bar on top of the app: the usual Harness mark, plus a LiveShare entry that names who shared the session and which LYN version they run, with the Liveshare server's own release labeled separately. Clicking it returns to the page listing the shares you can open.
+The served page reuses the sidebar's existing brand row instead of adding a bar on top of the app: the usual Harness mark, plus a LiveShare entry that names who shared the session and which DSH version they run, with the Liveshare server's own release labeled separately. Clicking it returns to the page listing the shares you can open.
 
 ### When the connection breaks
 
@@ -93,11 +93,11 @@ The viewer page is tested in-process: the test assembles the page from the carri
 
 ### What the package exposes
 
-The package ships one Host program and one browser face. Its public entries are the Host export (`lib/index.js`), `./client` (`lib/client.js`, a closure-factory bundle), `./viewer-declarations`, the share-management Remote's `./typert` and `./remote` faces, `./types`, the bundle patch `./cordis.patch.yml`, and the locale JSON files. The manifest declares the browser face as `lyn.client` with `platform: web` and the client services it needs; that face reads `__LYNESS_LIVESHARE_VIEWER__`, mounts the viewer session plugin and its brand, model, permission, session-row, and share-path surfaces on a served viewer page, and otherwise mounts the owner's generated Remote before the Session-header Share action.
+The package ships one Host program and one browser face. Its public entries are the Host export (`lib/index.js`), `./client` (`lib/client.js`, a closure-factory bundle), `./viewer-declarations`, the share-management Remote's `./typert` and `./remote` faces, `./types`, the bundle patch `./cordis.patch.yml`, and the locale JSON files. The manifest declares the browser face as `dsh.client` with `platform: web` and the client services it needs; that face reads `__DSH_LIVESHARE_VIEWER__`, mounts the viewer session plugin and its brand, model, permission, session-row, and share-path surfaces on a served viewer page, and otherwise mounts the owner's generated Remote before the Session-header Share action.
 
 Share management is one `liveshareShares` Typert Remote with twelve methods — `create`, `list`, `stop`, `updatePermissions`, `setCapabilities`, `capabilities`, `relay`, `setRelay`, `identity`, `audit`, `testRelay`, and `testPublish` — over the operations the owner host runs. The only same-origin HTTP routes left are the four owner sign-in and credential routes: `/api/liveshare.ownerLoginStart`, `/api/liveshare.ownerLoginRedeem`, `/api/liveshare.ownerLoginCancel`, and `/api/liveshare.ownerCredential`.
 
-The outgoing gateway is a supervised child process whose source entry is `src/owner-gateway/cli.ts` and whose published entry is `lib/owner-gateway/cli.js`; the directory name keeps it distinct from the LYN API gateway.
+The outgoing gateway is a supervised child process whose source entry is `src/owner-gateway/cli.ts` and whose published entry is `lib/owner-gateway/cli.js`; the directory name keeps it distinct from the DSH API gateway.
 
 ## Alternatives considered
 
@@ -123,7 +123,7 @@ The outgoing gateway is a supervised child process whose source entry is `src/ow
 ## Verification
 
 - A reader's page keeps the normal navigation, and no action the reader may not perform appears on the shared session or on any branch.
-- A LYN without the Liveshare bundle, and the owner's own page, behave exactly as before.
+- A DSH without the Liveshare bundle, and the owner's own page, behave exactly as before.
 - A share uses one of two tiers and that tier's sandbox; unknown modes, unreadable answers, and shares without a mode stay readable but are never driven.
 - A share cannot be created without a verified owner identity.
 - A share created from the dialog carries `open`; a stored `selected` or `approval` record keeps its recorded ACL and access summary, and `create` still stores a requested `selected` mode with its subjects.
@@ -139,9 +139,9 @@ The outgoing gateway is a supervised child process whose source entry is `src/ow
 
 ## Consequences
 
-The reader's page can only be as accurate as what the service tells it. Capability answers, the owner's identity status, the session mode, the owner's LYN version, and the sign-in endpoints all come from the owner's LYN and the Liveshare server; until those are deployed together with this layer, the page stays at its most conservative setting — read-only, with a sign-in that cannot complete — rather than guessing.
+The reader's page can only be as accurate as what the service tells it. Capability answers, the owner's identity status, the session mode, the owner's DSH version, and the sign-in endpoints all come from the owner's DSH and the Liveshare server; until those are deployed together with this layer, the page stays at its most conservative setting — read-only, with a sign-in that cannot complete — rather than guessing.
 
-The page is not a security boundary. The owner's LYN and the Liveshare server refuse a reader's writes no matter what the page does; the access snapshot exists so the page does not offer actions that would only be refused.
+The page is not a security boundary. The owner's DSH and the Liveshare server refuse a reader's writes no matter what the page does; the access snapshot exists so the page does not offer actions that would only be refused.
 
 Existing ACLs are retained. A record without a mode is readable but not driven, and contradictory mode fields are refused. Unattributed shares are shown as unverified history.
 

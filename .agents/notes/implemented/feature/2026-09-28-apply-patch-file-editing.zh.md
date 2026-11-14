@@ -10,7 +10,7 @@ Status: implemented
 
 ## 决策
 
-`apply_patch` 接收一份 Codex 风格补丁，支持新增、更新、删除和移动，以及多个文件和 hunk。[lyn-fs-patch 纯库](../../../../packages/fs/fs-patch/README.zh.md)遵循 Codex `rust-v0.158.0` 的解析、顺序匹配、空白容忍和 `NormalizeToLf` 重建。匹配器只接收 LF 文本，因此不实现 Codex `PreserveLineEndings`。
+`apply_patch` 接收一份 Codex 风格补丁，支持新增、更新、删除和移动，以及多个文件和 hunk。[dsh-fs-patch 纯库](../../../../packages/fs/fs-patch/README.zh.md)遵循 Codex `rust-v0.158.0` 的解析、顺序匹配、空白容忍和 `NormalizeToLf` 重建。匹配器只接收 LF 文本，因此不实现 Codex `PreserveLineEndings`。
 
 [文件系统服务](../../../../packages/fs/fs/README.zh.md)提供 `patchText`、`deleteFile` 和 `moveFile`；本地、沙箱和 SSH 提供方均实现它们。`fs/delete-intent` 与 `fs/edit-intent` 要求相同的存在观察，移动目标使用 `fs/write-intent`。版本防护和沙箱约束仍由提供方负责。移动先发布目标，再删除源；`sourceDeleted` 区分已完成的移动与目标已发布但源未能删除的情况。
 

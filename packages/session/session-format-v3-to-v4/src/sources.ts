@@ -1,7 +1,7 @@
 /** Released V3 plugin-source conversion and declared message traversal. */
 
-import { SessionFormatError, isSessionFormatJsonObject } from '@lyness/lyn-session-format'
-import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@lyness/lyn-session-format'
+import { SessionFormatError, isSessionFormatJsonObject } from '@DeepSeek Harness/lyn-session-format'
+import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@DeepSeek Harness/lyn-session-format'
 
 /**
  * Visit only messages carried by first-party event payloads.
@@ -44,7 +44,7 @@ const RENAMED_PRODUCERS: Readonly<Record<string, string>> = Object.freeze({
   '@deepseek-ai/dsh-system-prompt': 'runtime-context',
   // Logs this fork wrote name the same producer under its own scope, and
   // both spellings appear in committed generations.
-  '@lyness/lyn-system-prompt': 'runtime-context',
+  '@DeepSeek Harness/lyn-system-prompt': 'runtime-context',
 })
 
 /** First-party V3 plugin identities that intentionally keep their current kind. */
@@ -60,7 +60,7 @@ const RELEASED_SAME_NAME_PRODUCERS: ReadonlySet<string> = new Set([
 
 /** Resolve the current producer kind for one released V3 plugin string. */
 function producerKind(plugin: string, role: SessionFormatJsonValue | undefined): string {
-  if ((plugin === '@deepseek-ai/dsh-system-prompt' || plugin === '@lyness/lyn-system-prompt')
+  if ((plugin === '@deepseek-ai/dsh-system-prompt' || plugin === '@DeepSeek Harness/lyn-system-prompt')
     && role === 'system') return 'system-prompt'
   const renamed = Object.hasOwn(RENAMED_PRODUCERS, plugin) ? RENAMED_PRODUCERS[plugin] : undefined
   if (renamed !== undefined) return renamed

@@ -12,12 +12,12 @@ import { cpus, tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parseArgs } from 'node:util'
-import { Context } from '@lyness/cordis'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
-import { ToolCallId } from '@lyness/lyn-llm'
-import { SessionId } from '@lyness/lyn-session'
-import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
-import * as ToolFsSearch from '@lyness/lyn-tool-fs-search'
+import { Context } from '@deepseek-ai/cordis'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import * as ToolFsSearch from '@deepseek-ai/dsh-tool-fs-search'
 
 const TARGET = 'packages/core/agent-loop/src'
 const SAMPLES = 5
@@ -31,7 +31,7 @@ async function measure(): Promise<void> {
     ? ToolFsSearch
     : await import(pathToFileURL(resolve(values.plugin)).href) as typeof ToolFsSearch
   const temporary = values.workspace === undefined
-  const root = values.workspace === undefined ? await mkdtemp(join(tmpdir(), 'lyn-native-glob-perf-')) : resolve(values.workspace)
+  const root = values.workspace === undefined ? await mkdtemp(join(tmpdir(), 'dsh-native-glob-perf-')) : resolve(values.workspace)
   const ctx = new Context()
   try {
     if (temporary) {

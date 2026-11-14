@@ -1,17 +1,17 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
+import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
 /** Frame interactions with a real store and explicitly driven browser measurements. */
-import type { GlobalStandardProps, RenderOpts } from '@lyness/lyn-client-ui-slots'
-import { allowAllAccess, bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { GlobalStandardProps, RenderOpts } from '@deepseek-ai/dsh-client-ui-slots'
+import { allowAllAccess, bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
+import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import { AppFrame } from '../src/client/AppFrame.tsx'
 import type { AppFrameProps } from '../src/client/AppFrame.tsx'
 import type { MainPanelId, RightbarOwnerProps, SidebarOwnerProps } from '../src/client/index.ts'
 import { createLayoutStore } from '../src/client/stores.ts'
-import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 
 const useResource = (() => ({ status: 'none' as const, value: undefined, failure: undefined })) as GlobalStandardProps['useResource']
 let selectedSession: SessionId | undefined
@@ -104,7 +104,7 @@ function mountFrame(windowWidth = frameWidth, content?: AppFrameProps['renderSlo
       useContextMenu={contextMenuHook()} useResource={useResource}
       useWorkspaces={sel => sel(workspaceState)}
       {...allowAllAccess}
-      t={key => key === 'brand.localBuild' ? 'LYN Local Build' : key}
+      t={key => key === 'brand.localBuild' ? 'DSH Local Build' : key}
     />
   )
   const utils = render(element())
@@ -154,7 +154,7 @@ beforeEach(() => {
   observers = []
   animationFrames = new Map()
   nextFrame = 1
-  vi.stubEnv('LYNESS_CLIENT_TITLE', undefined)
+  vi.stubEnv('DSH_CLIENT_TITLE', undefined)
   vi.stubGlobal('ResizeObserver', ResizeObserverStub)
   foldedLandscape = createSnapshotStore(false)
   vi.stubGlobal('matchMedia', () => ({ matches: false }))
@@ -192,11 +192,11 @@ afterEach(() => {
 describe('AppFrame', () => {
   it('localizes the product title without a configured build title', () => {
     mountFrame()
-    expect(document.title).toBe('LYN Local Build')
+    expect(document.title).toBe('DSH Local Build')
   })
 
   it('follows the selected durable Session title', () => {
-    vi.stubEnv('LYNESS_CLIENT_TITLE', 'Product')
+    vi.stubEnv('DSH_CLIENT_TITLE', 'Product')
     selectedSessionTitle = 'First'
     const { rerenderFrame } = mountFrame()
     expect(document.title).toBe('First — Product')
@@ -209,17 +209,17 @@ describe('AppFrame', () => {
   })
 
   it('prefers the deployment product name over the build title', () => {
-    vi.stubEnv('LYNESS_CLIENT_TITLE', 'Product')
-    vi.stubGlobal('lynDeploymentBrand', { productName: 'Acme', showPoweredBy: false })
+    vi.stubEnv('DSH_CLIENT_TITLE', 'Product')
+    vi.stubGlobal('dshDeploymentBrand', { productName: 'Acme', showPoweredBy: false })
     mountFrame()
     expect(document.title).toBe('Acme')
   })
 
   it('ignores a deployment brand without a usable product name', () => {
     for (const brand of [null, 'Acme', { productName: '' }, { productName: 7 }]) {
-      vi.stubGlobal('lynDeploymentBrand', brand)
+      vi.stubGlobal('dshDeploymentBrand', brand)
       const { unmount } = mountFrame()
-      expect(document.title).toBe('LYN Local Build')
+      expect(document.title).toBe('DSH Local Build')
       unmount()
     }
   })
@@ -309,7 +309,7 @@ describe('AppFrame', () => {
       expect(instance.getSnapshot().layoutInfo).toBe(layoutInfo)
       expect(tracks(frame)).toEqual([280, 0])
       expect(selectedSession).toBe(sessionId)
-      expect(document.title).toBe(panelId === null ? 'Session title — LYN Local Build' : 'LYN Local Build')
+      expect(document.title).toBe(panelId === null ? 'Session title — DSH Local Build' : 'DSH Local Build')
     }
   })
 })

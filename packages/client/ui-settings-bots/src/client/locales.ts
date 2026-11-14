@@ -2,7 +2,7 @@
  * Copy for the bots section: which bots an organization runs, what each one
  * is for, and what it runs with.
  *
- * @module @lyness/lyn-client-ui-settings-bots/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-bots/client/locales
  */
 
 /** English copy; the key set every locale answers. */

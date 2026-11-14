@@ -3,7 +3,7 @@ description: "Automation task management and Session reminder entries in the exi
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-schedule
+# @deepseek-ai/dsh-client-ui-schedule
 
 English | [中文](README.zh.md)
 

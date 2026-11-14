@@ -13,7 +13,7 @@ description: "`ctx.sessionProjections.checkpoint(session)` 保留已释放单元
 
 现在，已释放的单元作为前任留在注册表中。它退出事件推进、`snapshot()`、`summaryKeys()`、`restoreFloor()`、`restore()`、`viewCheckpoint()` 和 `hydrate()`，此后新建的 Session 也不会为它建立 cell。`checkpoint(session)` 仍为每个已有 Session 返回该单元最后折叠出的行，注册表不再推进这一行。同一 key 再次注册时会替换前任并重新折叠日志；参见[注册生命周期](../../../../packages/session/session-projection/README.zh.md)。
 
-这会影响在投影所属方卸载后读取 `checkpoint()` 的插件代码和测试，例如断言已释放 key 不存在的 HMR 测试。`@lyness/lyn-session-projection-cache` 会存储这些行，因此正常关停不再丢掉 Web 层插件在其 Session detach 之前已折叠出的值。
+这会影响在投影所属方卸载后读取 `checkpoint()` 的插件代码和测试，例如断言已释放 key 不存在的 HMR 测试。`@deepseek-ai/dsh-session-projection-cache` 会存储这些行，因此正常关停不再丢掉 Web 层插件在其 Session detach 之前已折叠出的值。
 
 ## 迁移
 

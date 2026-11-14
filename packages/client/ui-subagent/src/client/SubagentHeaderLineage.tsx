@@ -3,18 +3,18 @@ import { createPortal } from 'react-dom'
 import {
   type SessionProjectionMap, type SessionSummary,
   type SessionProjectionSnapshot,
-} from '@lyness/lyn-api-session-controller/client'
-import type { SubagentAddress } from '@lyness/lyn-subagent/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import {
   IconChevronRightOutlineRegular, IconRefreshOutlineRegular, IconUsersOutlineRegular,
   IconCheckOutlineRegular, MenuSurface, StateDot, Tooltip, useAnchoredPosition,
-} from '@lyness/lyn-client-ui-primitives'
-import type { HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, TranslateNS } from '@lyness/lyn-client-ui-slots'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
 import { NS } from './locales.ts'
-import type {} from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-token-meter/client'
-import type {} from '@lyness/lyn-agent-team/client'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-token-meter/client'
+import type {} from '@deepseek-ai/dsh-agent-team/client'
 import type {} from './slots.ts'
 import css from './SubagentHeaderLineage.module.css'
 

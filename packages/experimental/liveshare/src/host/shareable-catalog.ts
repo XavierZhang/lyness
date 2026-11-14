@@ -2,13 +2,13 @@
  * Installed-plugin Remote methods a share may offer its viewers.
  *
  * The catalog is read from the Host's live local Typert registry: every method the current
- * composition registers belongs to a namespace, and namespaces that belong to LYN core services or
+ * composition registers belongs to a namespace, and namespaces that belong to DSH core services or
  * LiveShare itself are excluded. The owner still chooses which of the remaining methods one share
  * exposes; the catalog only states the offer, and never distinguishes read from write.
  *
  * Each group also carries the registering package and that package's localized plugin titles, so the
  * share dialog can show a product name instead of a wire namespace.
- * @module @lyness/lyn-experimental-liveshare/src/host/shareable-catalog
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/host/shareable-catalog
  */
 
 import { createRequire } from 'node:module'
@@ -19,7 +19,7 @@ import type { ShareablePluginCatalog } from './viewer-capability-types.ts'
 /**
  * Namespaces whose methods never enter the share catalog.
  *
- * These are LYN core services, Session/Workspace plumbing, the plugin manager, and LiveShare's own
+ * These are DSH core services, Session/Workspace plumbing, the plugin manager, and LiveShare's own
  * management Remote. A method that is not listed stays governed by the existing share roles.
  */
 export const EXCLUDED_SHARE_NAMESPACES: ReadonlySet<string> = new Set([

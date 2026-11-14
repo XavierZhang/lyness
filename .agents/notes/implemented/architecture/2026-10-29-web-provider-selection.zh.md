@@ -14,7 +14,7 @@ Web 服务通过 `web.searchProvider` 和 `web.fetchProvider` 两个独立字段
 
 ### 已注册的提供方可观察，可用性不可观察
 
-`WebSearchProvider` 和 `WebFetchProvider` 带有可选的 `title`（提供方的显示名称）和可选的多语言 `description`（说明该提供方适合什么、有什么代价或做不到什么）。`ctx.web.listProviders()` 返回 `{ search, fetch }`，二者均为按注册顺序排列的 `{ id, title?, description? }` 列表，`web` Remote namespace 将其暴露为 `web/listProviders`。每次注册和注销都会在注册表变更后触发无载荷的 `web/providers-changed` 事件；Web 服务会隔离监听器异常，因此观察者无法阻断注册表变更。[lyn-api-remotes](../../../../packages/api/remotes/README.zh.md) 挂载该 namespace 并转发该事件，Client 在收到通知和重连后重新读取列表。
+`WebSearchProvider` 和 `WebFetchProvider` 带有可选的 `title`（提供方的显示名称）和可选的多语言 `description`（说明该提供方适合什么、有什么代价或做不到什么）。`ctx.web.listProviders()` 返回 `{ search, fetch }`，二者均为按注册顺序排列的 `{ id, title?, description? }` 列表，`web` Remote namespace 将其暴露为 `web/listProviders`。每次注册和注销都会在注册表变更后触发无载荷的 `web/providers-changed` 事件；Web 服务会隔离监听器异常，因此观察者无法阻断注册表变更。[dsh-api-remotes](../../../../packages/api/remotes/README.zh.md) 挂载该 namespace 并转发该事件，Client 在收到通知和重连后重新读取列表。
 
 列表包含 `available()` 返回 false 的提供方。选择器展示的是可固定选用的项，包括用户尚未配置凭据的提供方；而可用性取决于会话的模型路由、凭据状态等单次请求条件。因此可用性仍是执行期结果：`search()` 和 `fetch()` 在调用时解析所配置的提供方并抛出结构化 `WebError`，与 seam 记录一致。工具层仍从不枚举提供方。
 
@@ -30,11 +30,11 @@ Search 与 Fetch API 读取同一个 `web-deepseek-api` namespace，并各自解
 
 Search 与 Fetch 跟随会话的 DeepSeek 凭据，设置页不为它们显示凭据控件。会话的路由是发起会话最近一次请求上下文的 `provider`，账号退出登录读取的也是它；`ready()` 使用正在准备的模型请求的路由，因此就绪判断与执行解析出相同的方案。
 
-在 `deepseek-account` 路由上，若模型提供方目录列出了入口根部活动且有效的 `@lyness/lyn-llm-deepseek-account` Loader 条目，操作只发送 `ctx.deepseekAccount` 为该路由 origin 加 `/v1/tools` 下的请求端点给出的账号令牌；HTTP 401 会作废该令牌。其他所有操作，包括账号会话中没有登录或没有令牌的操作，都把 `deepseek-official` 的活动 `@lyness/lyn-llm-deepseek-api-key` 条目的 `apiKeyEnv` 下的密钥（用该包自己的解析函数解析，包括 `DEEPSEEK_BASE_URL`）发往该路由基础地址的 origin 加 `/v1/tools`；没有该条目时，把 `DEEPSEEK_API_KEY` 发往 `https://api.deepseek.com/v1/tools`。未登录的账号会话发送 API 密钥，网页工具因此在其中仍然可用。因此只有 `DEEPSEEK_API_KEY` 的用户（包括所有 headless、SDK 与 ACP 运行）默认即可搜索和抓取，通过模型提供方基础地址设置的网关或内部部署也在同一 origin 上提供 Web 访问。缺少密钥时，该能力未就绪，操作以 `WEB_PROVIDER_CREDENTIAL_MISSING` 失败，指引信息点名模型页面、该引用和账号登录。已挂载、但其解析函数拒绝其设置的路由条目不视为不存在：需要该路由的操作未就绪，并以 `WEB_PROVIDER_MISCONFIGURED` 失败，不读取凭据、不发送请求，因此网关设置出错时请求不会被改发到官方端点。
+在 `deepseek-account` 路由上，若模型提供方目录列出了入口根部活动且有效的 `@deepseek-ai/dsh-llm-deepseek-account` Loader 条目，操作只发送 `ctx.deepseekAccount` 为该路由 origin 加 `/v1/tools` 下的请求端点给出的账号令牌；HTTP 401 会作废该令牌。其他所有操作，包括账号会话中没有登录或没有令牌的操作，都把 `deepseek-official` 的活动 `@deepseek-ai/dsh-llm-deepseek-api-key` 条目的 `apiKeyEnv` 下的密钥（用该包自己的解析函数解析，包括 `DEEPSEEK_BASE_URL`）发往该路由基础地址的 origin 加 `/v1/tools`；没有该条目时，把 `DEEPSEEK_API_KEY` 发往 `https://api.deepseek.com/v1/tools`。未登录的账号会话发送 API 密钥，网页工具因此在其中仍然可用。因此只有 `DEEPSEEK_API_KEY` 的用户（包括所有 headless、SDK 与 ACP 运行）默认即可搜索和抓取，通过模型提供方基础地址设置的网关或内部部署也在同一 origin 上提供 Web 访问。缺少密钥时，该能力未就绪，操作以 `WEB_PROVIDER_CREDENTIAL_MISSING` 失败，指引信息点名模型页面、该引用和账号登录。已挂载、但其解析函数拒绝其设置的路由条目不视为不存在：需要该路由的操作未就绪，并以 `WEB_PROVIDER_MISCONFIGURED` 失败，不读取凭据、不发送请求，因此网关设置出错时请求不会被改发到官方端点。
 
 在 YAML 中设置了非空 `searchBaseURL` 或 `searchApiKeyEnv`（Fetch 为 `fetchBaseURL` 或 `fetchApiKeyEnv`）的能力，则始终把其 `*ApiKeyEnv`（未设置时为 `DEEPSEEK_API_KEY`）下的密钥发往其 `*BaseURL`（未设置时为官方基础地址），从不发送账号令牌，因此内网或第三方端点只收到为它选择的密钥。每个能力有自己的字段，因为一个部署可以由不同网关提供搜索和抓取。这些字段只能在 YAML 中设置，空值视为未设置。schema 之外字段的已保存值，包括 `baseURL`、`apiKeyEnv` 和 `apiKey`，可以加载而不产生 schema 错误，且不生效。
 
-`@lyness/lyn-llm-deepseek` 的[凭据函数](../../../../packages/llm/llm-deepseek/src/credential.ts)为 DeepSeek 模型路由、Messages 搜索以及 Search 与 Fetch API 读取并校验 API 密钥、检查密钥是否存在、取得账号令牌，因此每个 DeepSeek 请求都以同一方式读取凭据库；账号模型路由、Messages 搜索以及 Search 与 Fetch API 还会作废被 HTTP 401 拒绝的令牌。内置配置不需要按 profile 覆盖凭据，因为只要 `DEEPSEEK_API_KEY` 或 DeepSeek API 密钥路由有密钥，API 密钥路径就能工作。
+`@deepseek-ai/dsh-llm-deepseek` 的[凭据函数](../../../../packages/llm/llm-deepseek/src/credential.ts)为 DeepSeek 模型路由、Messages 搜索以及 Search 与 Fetch API 读取并校验 API 密钥、检查密钥是否存在、取得账号令牌，因此每个 DeepSeek 请求都以同一方式读取凭据库；账号模型路由、Messages 搜索以及 Search 与 Fetch API 还会作废被 HTTP 401 拒绝的令牌。内置配置不需要按 profile 覆盖凭据，因为只要 `DEEPSEEK_API_KEY` 或 DeepSeek API 密钥路由有密钥，API 密钥路径就能工作。
 
 ### 默认值与已保存的选择
 
@@ -44,7 +44,7 @@ Search 与 Fetch 跟随会话的 DeepSeek 凭据，设置页不为它们显示�
 
 ### 旧版 Messages 搜索
 
-DeepSeek Messages 搜索提供方仍以 **DeepSeek（旧版）**提供。已保存的 `web.searchProvider: deepseek-official`（或 `LYNESS_WEB_SEARCH_PROVIDER=deepseek-official`）会选中它，因此网关支持 Messages 搜索但不提供 `/v1/tools` 的用户可以保留可用的提供方。
+DeepSeek Messages 搜索提供方仍以 **DeepSeek（旧版）**提供。已保存的 `web.searchProvider: deepseek-official`（或 `DSH_WEB_SEARCH_PROVIDER=deepseek-official`）会选中它，因此网关支持 Messages 搜索但不提供 `/v1/tools` 的用户可以保留可用的提供方。
 
 Messages 提供方负责声明并写入 `web/deepseek-search-llm-request`。声明和载荷保持与已发布会话兼容；Search 与 Fetch API 包既不声明也不写入这一辅助事件。
 

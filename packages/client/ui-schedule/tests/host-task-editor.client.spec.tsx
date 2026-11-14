@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { allowAllAccess, bindSnapshotSelector, contextMenuHook, makeTranslate } from '@lyness/lyn-client-test-runtime'
-import type { ScheduleId, ScheduleCatalogEntry, ScheduleRecord } from '@lyness/lyn-schedule/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
-import type { WorkspaceId, WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
-import { RRule } from '@lyness/lyn-util-time'
+import { allowAllAccess, bindSnapshotSelector, contextMenuHook, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import type { ScheduleId, ScheduleCatalogEntry, ScheduleRecord } from '@deepseek-ai/dsh-schedule/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { WorkspaceId, WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import { RRule } from '@deepseek-ai/dsh-util-time'
 import { TaskManagerPage, type TaskManagerPageProps } from '../src/client/TaskManagerPage.tsx'
 import type { HostTaskActions } from '../src/client/TaskDetail.tsx'
 import type { TaskCreateOutcome } from '../src/client/TaskDetail.tsx'
@@ -1521,7 +1521,7 @@ describe('stored timing preservation', () => {
 })
 
 describe('time zone menu', () => {
-  const RECENT = 'lyn.schedule.recent-time-zones.v1'
+  const RECENT = 'dsh.schedule.recent-time-zones.v1'
   beforeEach(() => { localStorage.clear() })
 
   it('lists zones that share a name once and keeps the stored zone when that name is chosen', async () => {
@@ -1586,7 +1586,7 @@ describe('time zone menu', () => {
 })
 
 /** Read the authoritative RRULE selected by a form submission. */
-function rruleOf(timing: import('@lyness/lyn-schedule/client').ScheduleTiming | undefined): string {
+function rruleOf(timing: import('@deepseek-ai/dsh-schedule/client').ScheduleTiming | undefined): string {
   if (timing?.kind !== 'rrule') throw new Error('expected RRULE timing')
   return timing.rrule
 }

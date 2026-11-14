@@ -1,18 +1,18 @@
 /** Client owner for forwarded Remote Event subscriptions and deliveries. */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ConnectionGenerationSource,
   ConnectionHostInfo,
   ConnectionHandle,
-} from '@lyness/lyn-client-connection/client'
+} from '@deepseek-ai/dsh-client-connection/client'
 import type {
   TypertClientEventListener,
   TypertOwnedValue,
   TypertRemoteEvent,
-} from '@lyness/lyn-typert-protocol'
-import { isRemoteJsonValue, isTypertOwnedValue } from '@lyness/lyn-typert-protocol'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+} from '@deepseek-ai/dsh-typert-protocol'
+import { isRemoteJsonValue, isTypertOwnedValue } from '@deepseek-ai/dsh-typert-protocol'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
 import {
   REMOTE_EVENT_RESULT_ENDPOINT,
   REMOTE_EVENT_STREAM_ENDPOINT,

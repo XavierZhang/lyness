@@ -11,7 +11,7 @@
  * the Client assembly mounted none of them.
  *
  * A namespace counts as mounted when the central assembly
- * (`@lyness/lyn-api-remotes/client`) imports the contribution of the package
+ * (`@deepseek-ai/dsh-api-remotes/client`) imports the contribution of the package
  * that declares it, or when the injecting package mounts contributions itself.
  * Adding a page therefore has to add its namespace to the assembly, which is
  * the step an upstream merge drops.
@@ -28,7 +28,7 @@
 import { globSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
-import { isReservedRemoteMethod } from '@lyness/lyn-api-gateway/client'
+import { isReservedRemoteMethod } from '@deepseek-ai/dsh-api-gateway/client'
 
 /** Repository root, resolved from this script's own location. */
 const root = resolve(import.meta.dirname, '..')

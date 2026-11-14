@@ -9,13 +9,13 @@
  * is what makes a reload safe. The seats' components have their own specs.
  */
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { MenuRegistry } from '@lyness/lyn-client-ui-context-menu/src/client/registry.ts'
-import { IconCloseOutlineRegular } from '@lyness/lyn-client-ui-primitives'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { Shortcuts, ShortcutCommand } from '@lyness/lyn-client-shortcuts/client'
+import { Context } from '@deepseek-ai/cordis'
+import { MenuRegistry } from '@deepseek-ai/dsh-client-ui-context-menu/src/client/registry.ts'
+import { IconCloseOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Shortcuts, ShortcutCommand } from '@deepseek-ai/dsh-client-shortcuts/client'
 import { TabMenuContent } from '../src/client/shell/TabMenuContent.tsx'
 import { apply, inject } from '../src/client/index.ts'
 import type { GuideInjected, SidebarRightInjected } from '../src/client/index.ts'
@@ -184,7 +184,7 @@ describe('ui-sidebar-right apply', () => {
     expect(injected.hooks.tabTypes.getSnapshot().find(type => type.kind === 'guide')?.id).toBe(GUIDE_ID)
     const seen = vi.fn()
     const unsubscribe = injected.hooks.tabTypes.subscribe(seen)
-    ctx.sidebarRightTabs.register({ id: 'spec/text', kind: 'text', patterns: ['lyn-resource://file/**'], title: () => 'text' })
+    ctx.sidebarRightTabs.register({ id: 'spec/text', kind: 'text', patterns: ['dsh-resource://file/**'], title: () => 'text' })
     expect(seen).toHaveBeenCalledOnce()
     unsubscribe()
     // The runtime mints each Session's store from the handle the registration
@@ -235,7 +235,7 @@ describe('ui-sidebar-right apply', () => {
     instance.actions.open(SESSION)
     // The first expansion seeds the guide; a second tab beside it makes it closable.
     instance.actions.setExpanded(SESSION, true)
-    instance.actions.openContent(SESSION, { kind: 'text', contentId: 'lyn-resource://file/session/s/a.txt', title: 'a' }, () => {})
+    instance.actions.openContent(SESSION, { kind: 'text', contentId: 'dsh-resource://file/session/s/a.txt', title: 'a' }, () => {})
     const guide = Object.values(instance.getSnapshot().bySession[SESSION]?.layout.tabs ?? {}).find(tab => tab.kind === 'guide')
     if (guide === undefined) throw new Error('expected the seeded guide')
     // Held and pinned from the store's own commit: no seat synced anything.
@@ -376,7 +376,7 @@ it('closes captured pane tabs and rechecks tabs moved or closed while their menu
   expect(run).toHaveBeenCalledOnce()
   remove()
   const add = (name: string) => {
-    instance.actions.openContent(SESSION, { kind: 'text', contentId: `lyn-resource://file/session/s/${name}`, title: name }, () => {})
+    instance.actions.openContent(SESSION, { kind: 'text', contentId: `dsh-resource://file/session/s/${name}`, title: name }, () => {})
     return Object.values(instance.getSnapshot().bySession[SESSION]!.layout.tabs).find(tab => tab.title === name)!
   }
   const first = add('first'), second = add('second'), third = add('third')

@@ -2,7 +2,7 @@
  * Copy for the memory section: what a deployment remembers about one person,
  * and the removal they can ask for.
  *
- * @module @lyness/lyn-client-ui-settings-memory/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-memory/client/locales
  */
 
 /** English copy; the key set every locale answers. */

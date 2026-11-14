@@ -6,15 +6,15 @@
  * visit — including that it asks the deployment nothing about the code.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
 import {
   apply, channelRows, codeOf, Config, DEFAULT_PATH, inject, joinPage, NS, ROOT_PRIORITY,
-} from '@lyness/lyn-client-ui-join/client'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+} from '@deepseek-ai/dsh-client-ui-join/client'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 import { JoinPage } from '../src/client/JoinPage.tsx'
 import type { JoinPageInjected } from '../src/client/JoinPage.tsx'
 

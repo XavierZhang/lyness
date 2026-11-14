@@ -3,13 +3,13 @@ description: "一套部署所服务的、已配置的登录渠道，由它的管
 kind: "package-reference"
 ---
 
-# @lyness/lyn-sign-in-channels
+# @deepseek-ai/dsh-sign-in-channels
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-sign-in-channels` 是在没有人去改组合文件时，一套部署的登录渠道的来源。管理员点一个种类、填上那个目录需要的东西、提交应用密钥；记录被存下，密钥以一个别人点不到的引用进入凭据存储，一个渠道随之挂上。平台管理员配置部署自己的渠道；租户管理员配置本组织的、且只有本组织的，而每个组织的登录页只提供自己的那些。组合期的行仍然照常工作：两者注册进同一个注册表。
+`dsh-sign-in-channels` 是在没有人去改组合文件时，一套部署的登录渠道的来源。管理员点一个种类、填上那个目录需要的东西、提交应用密钥；记录被存下，密钥以一个别人点不到的引用进入凭据存储，一个渠道随之挂上。平台管理员配置部署自己的渠道；租户管理员配置本组织的、且只有本组织的，而每个组织的登录页只提供自己的那些。组合期的行仍然照常工作：两者注册进同一个注册表。
 
 ## 目录
 
@@ -29,19 +29,19 @@ kind: "package-reference"
 
 ```yaml
 - id: sign-in-kinds
-  name: '@lyness/lyn-sign-in/kinds'
+  name: '@deepseek-ai/dsh-sign-in/kinds'
 - id: sign-in-channels
-  name: '@lyness/lyn-sign-in-channels'
+  name: '@deepseek-ai/dsh-sign-in-channels'
 - id: sign-in-kind-wecom
-  name: '@lyness/lyn-wecom/kind'
+  name: '@deepseek-ai/dsh-wecom/kind'
 ```
 
 一个种类行自己什么都不配置——它只说出那个目录需要什么。实例由管理员添加：
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-sign-in-channels'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-sign-in-channels'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -70,7 +70,7 @@ await ctx.signInChannels.save({
 
 **记录比建它的插件活得久。** 没有插件提供的种类、或被那个种类拒绝的设置，都让记录留着且不挂载。因为插件离开组合就把它删掉，会丢掉这套部署在插件回来时需要的配置；而界面上显示 `mounted: false` 是诚实的汇报。
 
-**每一次更改都被记下来，而密钥不被记下来。** [`lyn-admin-audit`](../admin-audit/README.zh.md) 持有谁配置了什么、哪个设置变了，每个设置都按名字单独记，于是审计者读到的是哪一项动了，而不是某个大块里有东西动了。被更换的凭据被记成一次两边都不带的更改：审计者必须能看到一个目录的密钥被轮换过，而这份记录绝不能是那个密钥读得出来的地方。一次没有改动任何设置、也没有轮换任何密钥的保存什么也不记。
+**每一次更改都被记下来，而密钥不被记下来。** [`dsh-admin-audit`](../admin-audit/README.zh.md) 持有谁配置了什么、哪个设置变了，每个设置都按名字单独记，于是审计者读到的是哪一项动了，而不是某个大块里有东西动了。被更换的凭据被记成一次两边都不带的更改：审计者必须能看到一个目录的密钥被轮换过，而这份记录绝不能是那个密钥读得出来的地方。一次没有改动任何设置、也没有轮换任何密钥的保存什么也不记。
 
 **别人组织的渠道不是被拒绝，而是根本不列出。** 列出来再拒绝登录，等于告诉一个客户另外那些客户是谁。
 
@@ -79,10 +79,10 @@ await ctx.signInChannels.save({
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-sign-in`](../sign-in/README.zh.md) —— 它们挂进去的那个注册表，以及种类注册表。
-- [`lyn-wecom`](../../vendor/wecom/README.md)、[`lyn-dingtalk`](../../vendor/dingtalk/README.md) 与 [`lyn-feishu`](../../vendor/feishu/README.md) —— 一套部署可以被配置成的那些种类。
-- [`lyn-credentials`](../../credentials/credentials/README.zh.md) —— 每个实例的密钥存在哪。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选中的那个组合。
+- [`dsh-sign-in`](../sign-in/README.zh.md) —— 它们挂进去的那个注册表，以及种类注册表。
+- [`dsh-wecom`](../../vendor/wecom/README.md)、[`dsh-dingtalk`](../../vendor/dingtalk/README.md) 与 [`dsh-feishu`](../../vendor/feishu/README.md) —— 一套部署可以被配置成的那些种类。
+- [`dsh-credentials`](../../credentials/credentials/README.zh.md) —— 每个实例的密钥存在哪。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选中的那个组合。
 
 -----
 
@@ -101,7 +101,7 @@ await ctx.signInChannels.save({
 
 - **没有东西说明一条记录为何挂不上** —— `mounted: false` 汇报的是「种类拒绝了它的设置」或「没有插件提供这个种类」，却不说是哪一种、哪里不对。
 - **一个渠道只属于一个组织** —— 要么属于部署，要么恰好属于一个组织；想把一个目录提供给自己客户中指定的一部分的平台，没有办法表达。
-- **删渠道不会删点名过它的那些绑定** —— 准入绑定现在由 [`lyn-managed-people`](../managed-people/README.zh.md) 在运行时维护，点名过已删渠道的那些会留着、匹配不到任何东西，直到有人去撤回。
+- **删渠道不会删点名过它的那些绑定** —— 准入绑定现在由 [`dsh-managed-people`](../managed-people/README.zh.md) 在运行时维护，点名过已删渠道的那些会留着、匹配不到任何东西，直到有人去撤回。
 - **它自己不留审计** —— 记录点出是谁在何时配置的，而一次替换把两者都覆盖；谁改过什么的历史没有保留。
 
 **运行时不变量：** 不发布伴生检查。已挂载的渠道完全由本服务从已存记录派生，而 `mounted` 读的就是持有它们 disposer 的那张表。

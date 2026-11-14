@@ -14,8 +14,8 @@ After changing those dependencies, the adapter, or its qualification scripts, ru
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm --filter @lyness/lyn-desktop exec install-electron
-pnpm --filter @lyness/lyn-desktop run test:updates:channels --record
+pnpm --filter @deepseek-ai/dsh-desktop exec install-electron
+pnpm --filter @deepseek-ai/dsh-desktop run test:updates:channels --record
 ```
 
 Workspace dependencies must already be built (`pnpm run build:artifacts` on a fresh checkout). The final command rebuilds Desktop, runs Electron without opening a window, and records only the current platform after successful exit. Commit the JSON change with the dependency or adapter change. Omit `--record` to test without changing records. The lightweight check compares versions only; unchanged versions do not certify modified adapter code.

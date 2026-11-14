@@ -3,11 +3,11 @@
  *
  * Types only — no runtime code, and nothing here reaches a Host-only symbol,
  * so a Client compilation face reads exactly the signatures the Host emits.
- * @module @lyness/lyn-tenant-config/types
+ * @module @deepseek-ai/dsh-tenant-config/types
  */
 
-import type { CredentialRef } from '@lyness/lyn-credentials/types'
-import type { TenantId } from '@lyness/lyn-tenant'
+import type { CredentialRef } from '@deepseek-ai/dsh-credentials/types'
+import type { TenantId } from '@deepseek-ai/dsh-tenant'
 
 /** A kind of model a tenant grants itself: text, or one of the three media kinds. */
 export type Modality = 'language' | 'image' | 'video' | 'music'

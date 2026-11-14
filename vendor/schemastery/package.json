@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/schemastery",
+  "name": "@deepseek-ai/schemastery",
   "description": "Type driven schema validator",
   "version": "3.18.6-alpha.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "vendor/schemastery"
   },
   "type": "module",
@@ -33,7 +33,7 @@
   "author": "Shigma <shigma10826@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@lyness/cosmokit": "workspace:~",
+    "@deepseek-ai/cosmokit": "workspace:~",
     "@standard-schema/spec": "^1.1.0"
   }
 }

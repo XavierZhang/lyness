@@ -6,16 +6,16 @@
  * leaves on the Host's own answer rather than being spliced out locally, and
  * a refusal is reported with the reason the deployment gave.
  *
- * @module @lyness/lyn-client-ui-settings-data/client/operations
+ * @module @deepseek-ai/dsh-client-ui-settings-data/client/operations
  */
 
-import type { Context } from '@lyness/cordis'
-import { messageOf } from '@lyness/lyn-client-store'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-session-controller/client'
-import type {} from '@lyness/lyn-api-session-data-controller/remote'
-import type { SessionDeleteValue } from '@lyness/lyn-api-session-data-controller/types'
+import type { Context } from '@deepseek-ai/cordis'
+import { messageOf } from '@deepseek-ai/dsh-client-store'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+import type {} from '@deepseek-ai/dsh-api-session-data-controller/remote'
+import type { SessionDeleteValue } from '@deepseek-ai/dsh-api-session-data-controller/types'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
 export type CallOutcome<T> =

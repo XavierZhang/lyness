@@ -11,7 +11,7 @@
  * epoch milliseconds directly; `Duration` holds a span in milliseconds with no
  * implicit numeric conversion. Cron and RRule parse distinct recurrence types
  * and compute occurrences from explicit times without task state or timers.
- * @module @lyness/lyn-util-time
+ * @module @deepseek-ai/dsh-util-time
  */
 
 import { canonicalizeTimeZone } from './instant.ts'

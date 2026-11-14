@@ -1,11 +1,11 @@
 /** Discover the caller's entire subagent tree; the control plugin owns registration. */
 
-import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/lyn-tools'
-import type { ToolDefinition } from '@lyness/lyn-tools'
-import type { Agent } from '@lyness/lyn-agent'
-import type { SessionId } from '@lyness/lyn-session'
-import type { SubagentDescendantListEntry } from '@lyness/lyn-subagent'
+import type { Context } from '@deepseek-ai/cordis'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SubagentDescendantListEntry } from '@deepseek-ai/dsh-subagent'
 
 
 type ListAgentsEntry =

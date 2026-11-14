@@ -10,13 +10,13 @@
  */
 
 .shell {
-  --lyn-admin-sider-bg: var(--lyness-black);
-  --lyn-admin-sider-strong: var(--lyness-white);
-  --lyn-admin-sider-text: var(--lyness-dark-label-secondary);
-  --lyn-admin-sider-muted: var(--lyness-gray-600);
-  --lyn-admin-sider-hover: var(--lyness-dark-surface-2);
-  --lyn-admin-sider-border: var(--lyness-dark-surface-2);
-  --lyn-admin-sider-selected: var(--lyness-blue);
+  --dsh-admin-sider-bg: var(--deepseek-harness-black);
+  --dsh-admin-sider-strong: var(--deepseek-harness-white);
+  --dsh-admin-sider-text: var(--deepseek-harness-dark-label-secondary);
+  --dsh-admin-sider-muted: var(--deepseek-harness-gray-600);
+  --dsh-admin-sider-hover: var(--deepseek-harness-dark-surface-2);
+  --dsh-admin-sider-border: var(--deepseek-harness-dark-surface-2);
+  --dsh-admin-sider-selected: var(--deepseek-harness-blue);
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
@@ -32,8 +32,8 @@
   flex-direction: column;
   gap: 22px;
   padding: 20px 14px 18px;
-  background: var(--lyn-admin-sider-bg);
-  color: var(--lyn-admin-sider-text);
+  background: var(--dsh-admin-sider-bg);
+  color: var(--dsh-admin-sider-text);
 }
 
 .brand {
@@ -44,7 +44,7 @@
 }
 
 .brandName {
-  color: var(--lyn-admin-sider-strong);
+  color: var(--dsh-admin-sider-strong);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -64,7 +64,7 @@
 
 .groupHeading {
   padding: 0 10px 6px;
-  color: var(--lyn-admin-sider-muted);
+  color: var(--dsh-admin-sider-muted);
   font-size: 11px;
   letter-spacing: 0.6px;
 }
@@ -74,7 +74,7 @@
   border-radius: var(--dsw-radius-sm);
   padding: 8px 10px;
   background: transparent;
-  color: var(--lyn-admin-sider-text);
+  color: var(--dsh-admin-sider-text);
   font: inherit;
   font-size: 13px;
   text-align: start;
@@ -82,20 +82,20 @@
 }
 
 .navRow[aria-current='page'] {
-  background: var(--lyn-admin-sider-selected);
-  color: var(--lyn-admin-sider-strong);
+  background: var(--dsh-admin-sider-selected);
+  color: var(--dsh-admin-sider-strong);
   font-weight: 500;
 }
 
 /* Hover stays behind a hover-capable pointer so a tap cannot latch it. */
 @media (hover: hover) {
   .navRow:not([aria-current='page']):hover {
-    background: var(--lyn-admin-sider-hover);
+    background: var(--dsh-admin-sider-hover);
   }
 }
 
 .navRow:active {
-  background: var(--lyn-admin-sider-hover);
+  background: var(--dsh-admin-sider-hover);
 }
 
 .siderFooter {
@@ -103,18 +103,18 @@
   flex-direction: column;
   gap: 6px;
   margin-top: auto;
-  border-top: 1px solid var(--lyn-admin-sider-border);
+  border-top: 1px solid var(--dsh-admin-sider-border);
   padding-top: 12px;
 }
 
 .viewer {
-  color: var(--lyn-admin-sider-muted);
+  color: var(--dsh-admin-sider-muted);
   font-size: 11px;
   overflow-wrap: anywhere;
 }
 
 .siderLink {
-  color: var(--lyn-admin-sider-text);
+  color: var(--dsh-admin-sider-text);
   font-size: 12px;
   text-decoration: none;
 }
@@ -162,7 +162,7 @@
   align-items: center;
   justify-content: center;
   padding: 48px 16px;
-  background: var(--lyness-black);
+  background: var(--deepseek-harness-black);
 }
 
 .signInCard {
@@ -218,7 +218,7 @@
   border-radius: var(--dsw-radius-md);
   padding: 11px 14px;
   background: var(--dsw-alias-interactive-accent);
-  color: var(--lyness-white);
+  color: var(--deepseek-harness-white);
   font-size: 13px;
   font-weight: 500;
   text-align: center;
@@ -227,7 +227,7 @@
 
 @media (hover: hover) {
   .signInChannel:hover {
-    background: var(--lyness-blue-dark);
+    background: var(--deepseek-harness-blue-dark);
   }
 }
 

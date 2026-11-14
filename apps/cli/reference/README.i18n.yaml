@@ -2,30 +2,30 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/cli/reference/README.md
-/lyn-cli-behavior-reference:
+/dsh-cli-behavior-reference:
   en: 4df030d9694ee0c3
   zh: 91676c4ec7ea83c9
-/lyn-cli-behavior-reference/profile-boot:
+/dsh-cli-behavior-reference/profile-boot:
   en: 8d61d91c0b721955
   zh: 4fbb5e7ac04181a1
-/lyn-cli-behavior-reference/profile-boot/app-arguments:
+/dsh-cli-behavior-reference/profile-boot/app-arguments:
   en: 9871d56528402914
   zh: 64b711af9f43c358
-/lyn-cli-behavior-reference/profile-boot/config-schema-dump:
+/dsh-cli-behavior-reference/profile-boot/config-schema-dump:
   en: 3680b89265e3e185
   zh: cb447f1f5a9819f2
-/lyn-cli-behavior-reference/startup-diagnostics:
+/dsh-cli-behavior-reference/startup-diagnostics:
   en: 0eaf9c9f87f6c073
   zh: dd541b9505582480
-/lyn-cli-behavior-reference/plugin-management:
+/dsh-cli-behavior-reference/plugin-management:
   en: c402bd7b8a0e714b
   zh: c46773bb24c10f77
-/lyn-cli-behavior-reference/web-profile:
+/dsh-cli-behavior-reference/web-profile:
   en: 5ce9275999c716bd
   zh: dd6396b5ca7f2244
-/lyn-cli-behavior-reference/shared-deployment-behavior:
+/dsh-cli-behavior-reference/shared-deployment-behavior:
   en: 7c2e1ac19000cd07
   zh: 61c9a0a8b9feee4f
-/lyn-cli-behavior-reference/source-execution:
+/dsh-cli-behavior-reference/source-execution:
   en: c3575bb67863f419
   zh: 6685575888580715

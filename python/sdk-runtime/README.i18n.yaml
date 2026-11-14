@@ -2,18 +2,18 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/sdk-runtime/README.md
-/lyness-runtime-bin:
+/deepseek-harness-runtime-bin:
   en: b7228fcb357cf5e8
   zh: 3b9169c4b16b3495
-/lyness-runtime-bin/installed-commands-and-artifacts:
+/deepseek-harness-runtime-bin/installed-commands-and-artifacts:
   en: 3e0167781dde1c5b
   zh: 6dc4c4f1e9c74ae1
-/lyness-runtime-bin/python-module-api:
+/deepseek-harness-runtime-bin/python-module-api:
   en: b3342082269e2246
   zh: 80827c84a45cd87c
-/lyness-runtime-bin/packaged-profile-resolution:
+/deepseek-harness-runtime-bin/packaged-profile-resolution:
   en: d8f01dbdbe89d578
   zh: 94dff888fa353754
-/lyness-runtime-bin/build-and-distribution:
+/deepseek-harness-runtime-bin/build-and-distribution:
   en: 06d296095b41afb1
   zh: f0a7231a439dfcdd

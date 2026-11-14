@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-admin-setup",
-  "description": "The lyn admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile",
+  "name": "@deepseek-ai/dsh-admin-setup",
+  "description": "The dsh admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/admin-setup"
   },
   "type": "module",
@@ -30,26 +30,26 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-atomic-write": "workspace:*",
-    "@lyness/lyn-cmdline": "workspace:*",
-    "@lyness/lyn-credentials": "workspace:*",
-    "@lyness/lyn-home-paths": "workspace:*",
-    "@lyness/lyn-official-bundles": "workspace:*",
-    "@lyness/lyn-oidc": "workspace:*",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-atomic-write": "workspace:*",
+    "@deepseek-ai/dsh-cmdline": "workspace:*",
+    "@deepseek-ai/dsh-credentials": "workspace:*",
+    "@deepseek-ai/dsh-home-paths": "workspace:*",
+    "@deepseek-ai/dsh-official-bundles": "workspace:*",
+    "@deepseek-ai/dsh-oidc": "workspace:*",
     "commander": "^15.0.0",
     "yaml": "^2.9.0"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

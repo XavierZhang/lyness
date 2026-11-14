@@ -1,8 +1,8 @@
 /** Package-private manager state used to place deterministic lifecycle races. */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import type { SessionId } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import { SubagentRunId, type SubagentResult } from '../src/types.ts'
 import type { LocalActivation } from '../src/activation.ts'
 import type SubagentManager from '../src/manager.ts'

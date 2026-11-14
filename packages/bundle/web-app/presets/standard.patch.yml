@@ -1,9 +1,9 @@
-# Agent preset standard: one `@lyness/lyn-agent-preset` declaration inserted
+# Agent preset standard: one `@deepseek-ai/dsh-agent-preset` declaration inserted
 # after the web patch. Edits saved from the Web editor override this row's
 # `config.plugins` by id from the profile patch.
 - insert:
     - id: preset-standard
-      name: '@lyness/lyn-agent-preset'
+      name: '@deepseek-ai/dsh-agent-preset'
       config:
         id: standard
         order: 3
@@ -14,42 +14,42 @@
         offered: false
         plugins:
           - id: persona
-            name: '@lyness/lyn-persona'
+            name: '@deepseek-ai/dsh-persona'
             config:
               prefix: You are a coding agent powered by the {{model}} model.
           - id: agent-instructions
-            name: '@lyness/lyn-agent-instructions'
+            name: '@deepseek-ai/dsh-agent-instructions'
             config:
               maxBytes: 65536
           - id: time-context
-            name: '@lyness/lyn-time-context'
+            name: '@deepseek-ai/dsh-time-context'
           - id: tool-bash
-            name: '@lyness/lyn-tool-bash'
+            name: '@deepseek-ai/dsh-tool-bash'
             disabled: !!js process.platform === 'win32'
           - id: tool-pwsh
-            name: '@lyness/lyn-tool-pwsh'
+            name: '@deepseek-ai/dsh-tool-pwsh'
             disabled: !!js process.platform !== 'win32'
           - id: tool-fs
-            name: '@lyness/lyn-tool-fs'
+            name: '@deepseek-ai/dsh-tool-fs'
             config:
               # Set false to drop the apply_patch tool beside edit.
               applyPatch: false
           - id: tool-fs-search
-            name: '@lyness/lyn-tool-fs-search'
+            name: '@deepseek-ai/dsh-tool-fs-search'
             config:
               sampleOverCapGlobResults: false
           - id: tool-jobs
-            name: '@lyness/lyn-tool-jobs'
+            name: '@deepseek-ai/dsh-tool-jobs'
           - id: tool-schedule
-            name: '@lyness/lyn-tool-schedule'
+            name: '@deepseek-ai/dsh-tool-schedule'
           - id: skill-filesystem
-            name: '@lyness/lyn-skill-filesystem'
+            name: '@deepseek-ai/dsh-skill-filesystem'
           - id: tool-skill
-            name: '@lyness/lyn-tool-skill'
+            name: '@deepseek-ai/dsh-tool-skill'
           - id: command-goal
-            name: '@lyness/lyn-command-goal'
+            name: '@deepseek-ai/dsh-command-goal'
           - id: tool-goal
-            name: '@lyness/lyn-tool-goal'
+            name: '@deepseek-ai/dsh-tool-goal'
           - id: planning
             name: cordis:group
             group: true
@@ -57,7 +57,7 @@
               planMode: true
             config:
               - id: plan-mode
-                name: '@lyness/lyn-plan-mode'
+                name: '@deepseek-ai/dsh-plan-mode'
                 config:
                   section: |
                     You are in plan mode. Stay in plan mode until the user approves your plan through exit_plan_mode or switches the session mode. Imperative language to implement changes means plan the implementation, not execute it. A user's conversational agreement — including an answer confirming something you asked — approves nothing and does not end plan mode; fold the confirmed decision into the plan and submit it through exit_plan_mode.
@@ -79,11 +79,11 @@
               toolResultPruner: true
             config:
               - id: compaction-basic
-                name: '@lyness/lyn-compaction-basic'
+                name: '@deepseek-ai/dsh-compaction-basic'
               - id: command-compact
-                name: '@lyness/lyn-command-compact'
+                name: '@deepseek-ai/dsh-command-compact'
               - id: tool-result-pruner
-                name: '@lyness/lyn-compaction-tool-result-pruner'
+                name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
                 config:
                   thresholdChars: 8192
                   headChars: 4096
@@ -95,41 +95,41 @@
               workflowEngine: true
             config:
               - id: tool-subagent-control
-                name: '@lyness/lyn-tool-subagent-control'
+                name: '@deepseek-ai/dsh-tool-subagent-control'
               - id: tool-subagent
-                name: '@lyness/lyn-tool-subagent'
+                name: '@deepseek-ai/dsh-tool-subagent'
                 config:
                   provider: spawn
                   toolName: subagent
                   modelSelection: true
                   modelDiscovery: true
               - id: tool-subagent-fork
-                name: '@lyness/lyn-tool-subagent'
+                name: '@deepseek-ai/dsh-tool-subagent'
                 config:
                   provider: fork
                   toolName: subagent_fork
               - id: workflow-ptc
-                name: '@lyness/lyn-workflow-ptc'
+                name: '@deepseek-ai/dsh-workflow-ptc'
                 config:
                   provider: spawn
               - id: tool-workflow
-                name: '@lyness/lyn-tool-workflow'
+                name: '@deepseek-ai/dsh-tool-workflow'
           - id: tool-ask-user
-            name: '@lyness/lyn-tool-ask-user'
+            name: '@deepseek-ai/dsh-tool-ask-user'
           - id: tool-todo
-            name: '@lyness/lyn-tool-todo'
+            name: '@deepseek-ai/dsh-tool-todo'
             config:
               allowParallelInProgress: true
           - id: tool-web
-            name: '@lyness/lyn-tool-web'
+            name: '@deepseek-ai/dsh-tool-web'
             config:
               fetch: true
               searchTimeoutMs: 60000
           - id: present
-            name: '@lyness/lyn-tool-present'
+            name: '@deepseek-ai/dsh-tool-present'
           - id: tool-plugin-manager
-            name: '@lyness/lyn-plugin-manager/tools'
+            name: '@deepseek-ai/dsh-plugin-manager/tools'
             disabled: !!js "!ctx.get('profileContext')"
           - id: tool-plugin-market
-            name: '@lyness/lyn-plugin-market/tools'
+            name: '@deepseek-ai/dsh-plugin-market/tools'
             disabled: true

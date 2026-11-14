@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from lyness.models import CommandExecution
-from lyness import RunResult
-from lyness.errors import JsonRpcError
+from DeepSeek Harness.models import CommandExecution
+from DeepSeek Harness import RunResult
+from DeepSeek Harness.errors import JsonRpcError
 from test_commands_runtime import (
     _Completion, _SESSION_ID, _WAIT_SECONDS, _command_pair, _native_result, _of_type,
     _read_events, _request_texts, _runtime, _wait_activity,

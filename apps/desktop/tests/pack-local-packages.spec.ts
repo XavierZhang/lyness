@@ -16,7 +16,7 @@ const require = createRequire(import.meta.url)
 const pnpmEntry = join(dirname(require.resolve('pnpm')), 'bin/pnpm.cjs')
 const tsxHook = pathToFileURL(require.resolve('tsx/esm')).href
 const roots: string[] = []
-const metadata = { LYNESS_CLIENT_COMMIT_HASH: 'abcdef0', LYNESS_CLIENT_VERSION: '1.2.3' }
+const metadata = { DSH_CLIENT_COMMIT_HASH: 'abcdef0', DSH_CLIENT_VERSION: '1.2.3' }
 const testTimeout = Math.max(120_000, coverageTestTimeoutOptions(process.env[COVERAGE_TEST_TIMEOUT_ENV]).testTimeout ?? 0)
 const activeRuns = new Map<AbortController, ReturnType<typeof runGate>>()
 
@@ -26,16 +26,16 @@ function write(root: string, path: string, text: string): void {
 }
 
 function fixture(profile: 'local' | 'official' = 'local'): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-local-desktop-pack-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-local-desktop-pack-'))
   roots.push(root)
   write(root, 'package.json', JSON.stringify({ name: 'desktop-pack-fixture', version: '1.2.3', private: true }))
   write(root, 'pnpm-workspace.yaml', 'packages:\n  - packages/*/*\n')
   write(root, 'packages/client/probe/package.json', JSON.stringify({
-    name: '@lyness/lyn-probe', version: '1.2.3', files: ['lib', 'src'],
+    name: '@deepseek-ai/dsh-probe', version: '1.2.3', files: ['lib', 'src'],
   }))
   write(root, 'packages/client/probe/lib/index.js', 'export const probe = true\n')
   write(root, 'packages/client/probe/lib/client.js', 'export const client = true\n')
-  write(root, 'apps/web/dist/index.html', '<title>LYN Local Build</title>\n')
+  write(root, 'apps/web/dist/index.html', '<title>DSH Local Build</title>\n')
   writeClientBuildRecord(root, resolveClientBuildEnvironment(metadata, profile))
   return root
 }
@@ -51,8 +51,8 @@ async function pack(root: string, release = false, extra: string[] = []) {
       id: 'desktop-pack-fixture', label: 'Desktop packing', displayCommand: script,
       command: process.execPath,
       args: [pnpmEntry, '--dir', root, 'exec', process.execPath, '--import', tsxHook, script,
-        ...(release ? ['--family', 'lyn'] : []), '--out', 'packed', '--concurrency', '2', ...extra],
-      env: { npm_execpath: pnpmEntry, LYNESS_CLIENT_COMMIT_HASH: metadata.LYNESS_CLIENT_COMMIT_HASH },
+        ...(release ? ['--family', 'dsh'] : []), '--out', 'packed', '--concurrency', '2', ...extra],
+      env: { npm_execpath: pnpmEntry, DSH_CLIENT_COMMIT_HASH: metadata.DSH_CLIENT_COMMIT_HASH },
     }, controller.signal)
     activeRuns.set(controller, pending)
     const result = await pending
@@ -73,7 +73,7 @@ afterEach(async () => {
 }, testTimeout)
 
 /** The fixture package's name, which `pnpm pack` also spells into the archive's filename. */
-const probePackageName = '@lyness/lyn-probe'
+const probePackageName = '@deepseek-ai/dsh-probe'
 
 it('packs local client artifacts without a release publication record', async () => {
   const root = fixture()
@@ -90,11 +90,11 @@ it('packs local client artifacts without a release publication record', async ()
 it.each(['official', 'stale', 'missing'] as const)('rejects %s client artifacts before replacing local packages', async (kind) => {
   const root = fixture(kind === 'official' ? 'official' : 'local')
   if (kind === 'stale') write(root, 'packages/client/probe/lib/client.js', 'export const changed = true\n')
-  if (kind === 'missing') unlinkSync(join(root, '.lyn-build/client-build-environment.json'))
+  if (kind === 'missing') unlinkSync(join(root, '.dsh-build/client-build-environment.json'))
   write(root, 'packed/retained.txt', 'previous output\n')
   const result = await pack(root)
   expect(result.code).not.toBe(0)
-  expect(result.output).toMatch(kind === 'official' ? /LYNESS_CLIENT_BUILD_PROFILE/ : kind === 'stale' ? /artifacts differ/ : /client build record/)
+  expect(result.output).toMatch(kind === 'official' ? /DSH_CLIENT_BUILD_PROFILE/ : kind === 'stale' ? /artifacts differ/ : /client build record/)
   expect(readFileSync(join(root, 'packed/retained.txt'), 'utf8')).toBe('previous output\n')
 }, testTimeout)
 
@@ -102,7 +102,7 @@ it('rejects local client artifacts in the release packing command', async () => 
   const root = fixture()
   const result = await pack(root, true)
   expect(result.code).not.toBe(0)
-  expect(result.output).toMatch(/LYNESS_CLIENT_BUILD_PROFILE/)
+  expect(result.output).toMatch(/DSH_CLIENT_BUILD_PROFILE/)
   expect(existsSync(join(root, 'packed'))).toBe(false)
 }, testTimeout)
 

@@ -12,13 +12,13 @@ macOS privileges authorize an execution host, not a user's choice of target appl
 
 The CUA executor owns application consent for every object-API and native-tool dispatch. It uses the existing User Questions service for human decisions and profile-scoped domain storage for saved grants. Its fixed approval presentation reuses the tool-approval card without adopting the session's tool-approval policy. Native icons and names are presentation metadata, excluded from saved identities and model results. General tool approval and operating-system privileges remain separate requirements. Arbitrary persistent PTC code and separately authorized shell tools retain their own execution authority.
 
-System-permission buttons call the native helper on the LYN host and remain available to remote browsers. The [usage documentation](../../../../packages/experimental/cua/README.md#use-this-package) explains where to complete authorization; the page has no persistent remote-access notice.
+System-permission buttons call the native helper on the DSH host and remain available to remote browsers. The [usage documentation](../../../../packages/experimental/cua/README.md#use-this-package) explains where to complete authorization; the page has no persistent remote-access notice.
 
 Application identity is owned by [bundle-ID consent](2026-10-25-cua-bundle-id-consent.md), which supersedes this note's original path/signature choice. That original choice prevented copied or replaced applications from inheriting access, at the cost of separate grants per installation and no saved grants for unsigned applications. Enforcement and human decision ownership remain as described here.
 
 Cold application selection prepares an executable identity and handle without launching. The same consent decision guards the private launch continuation, and the helper checks the executable again before launch and binds the resulting process afterward. Selections with a bundle identifier retain that identity after launch; an application without one uses its canonical executable path before and after launch and can save that grant. Preparing metadata before asking avoids starting an application the user refuses.
 
-Conversation decisions survive provider disposal and LYN restart according to [profile consent storage](2026-10-19-cua-profile-consent-storage.md). That decision owns persistence, migration and cross-process revocation. The executor continues to serialize application selections within a conversation, refuse repeated prompts after denial, and give an explicit long-term grant precedence over conversation refusals.
+Conversation decisions survive provider disposal and DSH restart according to [profile consent storage](2026-10-19-cua-profile-consent-storage.md). That decision owns persistence, migration and cross-process revocation. The executor continues to serialize application selections within a conversation, refuse repeated prompts after denial, and give an explicit long-term grant precedence over conversation refusals.
 
 Revocation invalidates the Agent connections that retain the application's handles, then awaits native cleanup. Reauthorization uses a fresh connection, so old app and window snapshots cannot become valid again. The [native object decision](2026-09-17-experimental-cua-object-api.md) continues to own process identity, coordinate semantics, and separation from the evaluator.
 
@@ -30,7 +30,7 @@ Revocation invalidates the Agent connections that retain the application's handl
 
 **Add an approval database or Session control stream.** User Questions already owns interactive answers. The existing domain service provides durable state without introducing a dedicated database or Session control stream; storage tradeoffs are owned by the profile consent decision.
 
-**Disable permission buttons based on the browser address.** A user may operate the LYN host through screen sharing and complete authorization there. Port forwarding and proxies make the address an unreliable indication of whether the browser and LYN run on the same computer.
+**Disable permission buttons based on the browser address.** A user may operate the DSH host through screen sharing and complete authorization there. Port forwarding and proxies make the address an unreliable indication of whether the browser and DSH run on the same computer.
 
 **Use the nearest GUI ancestor as the permission target.** A source-built Desktop app can sit between Terminal and the helper while macOS still attributes Accessibility and Screen Recording to Terminal. Process responsibility supplies the system’s attribution; ancestry alone does not. The optional SPI adds compatibility risk, so lookup failure omits the application instead of guessing.
 

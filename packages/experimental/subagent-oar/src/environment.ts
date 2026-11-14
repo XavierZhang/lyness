@@ -1,6 +1,6 @@
 /** Environment removals preserve the shared credential policy across OAR's overlay API. */
 
-import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
+import { scrubbedParentEnv } from '@deepseek-ai/dsh-subprocess'
 
 /**
  * Translate the shared scrub into OAR's inherited-environment overlay.

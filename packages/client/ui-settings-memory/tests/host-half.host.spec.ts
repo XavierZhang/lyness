@@ -1,6 +1,6 @@
 /** The Host half contributes nothing, which is what lets a browserless Host mount it. */
-import { Context } from '@lyness/cordis'
-import { FiberState } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
+import { FiberState } from '@deepseek-ai/cordis'
 import { afterEach, expect, it } from 'vitest'
 import * as hostPlugin from '../src/index.ts'
 
@@ -12,7 +12,7 @@ it('mounts with nothing injected and provides no service', async () => {
   roots.push(ctx)
   const fiber = await ctx.plugin(hostPlugin).await()
   expect(fiber.state).toBe(FiberState.ACTIVE)
-  // The store belongs to lyn-memory; this half exists only so the package has
+  // The store belongs to dsh-memory; this half exists only so the package has
   // a Host entry.
   expect(ctx.get('memory')).toBeUndefined()
 })

@@ -10,21 +10,21 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { mkdtemp, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/lyn-llm'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
-import type { SessionHeader } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
-import Storage from '@lyness/lyn-storage'
+import { Context } from '@deepseek-ai/cordis'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
+import type { SessionHeader } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
+import Storage from '@deepseek-ai/dsh-storage'
 import {
   apply as storageJsonApply, Config as storageJsonConfig, inject as storageJsonInject, name as storageJsonName,
-} from '@lyness/lyn-storage-json'
+} from '@deepseek-ai/dsh-storage-json'
 import {
   apply as storageDomainApply, Config as storageDomainConfig, inject as storageDomainInject, name as storageDomainName,
-} from '@lyness/lyn-storage-domain'
-import SessionProjectionCache from '@lyness/lyn-session-projection-cache'
+} from '@deepseek-ai/dsh-storage-domain'
+import SessionProjectionCache from '@deepseek-ai/dsh-session-projection-cache'
 import SessionDeletion, { SessionDeletionLiveError } from '../src/index.ts'
 
 const contexts: Context[] = []
@@ -47,7 +47,7 @@ const headerOf = (id: string, parent?: string): SessionHeader => ({
 
 /** Mount the shipped stack over a temporary root. */
 async function harness(options: { cache?: boolean } = {}) {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-session-deletion-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-session-deletion-'))
   roots.push(root)
   const ctx = new Context()
   contexts.push(ctx)

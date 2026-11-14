@@ -1,13 +1,13 @@
-/** Canonical tool-definition fixtures for repository tests. @module @lyness/lyn-tool-testkit */
+/** Canonical tool-definition fixtures for repository tests. @module @deepseek-ai/dsh-tool-testkit */
 
-import type { Context } from '@lyness/cordis'
-import { ToolExecutionPipeline } from '@lyness/lyn-tools/pipeline'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import { defineTool } from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import { ToolExecutionPipeline } from '@deepseek-ai/dsh-tools/pipeline'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import { defineTool } from '@deepseek-ai/dsh-tools'
 import type {
   DefineToolOptions, InferArgs, ParameterSchemaSpec, ToolDefinition,
   ToolExecutionInput, ToolExecutionResult, ToolRunContext,
-} from '@lyness/lyn-tools'
+} from '@deepseek-ai/dsh-tools'
 
 // Expand interface fields so the fixture's content value is checked as JSON without changing runtime values.
 type JsonFields<T> = T extends string | number | boolean | null | undefined ? T

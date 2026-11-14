@@ -19,8 +19,8 @@ describe('explicit CLI references', () => {
   })
 
   it('resolves a repo without a host through the same gh configuration and literal environment', () => {
-    expect(ghReferences('gh pr view 5960 --repo lyness/lyness --json number,title,state,author,baseRefName,headRefName,additions,deletions,changedFiles,labels,body 2>&1 | head -200'))
-      .toEqual([{ url: null, lookup: 'env gh pr view 5960 --repo lyness/lyness --json url' }])
+    expect(ghReferences('gh pr view 5960 --repo DeepSeek Harness/DeepSeek Harness --json number,title,state,author,baseRefName,headRefName,additions,deletions,changedFiles,labels,body 2>&1 | head -200'))
+      .toEqual([{ url: null, lookup: 'env gh pr view 5960 --repo DeepSeek Harness/DeepSeek Harness --json url' }])
     expect(ghReferences('GH_CONFIG_DIR="/tmp/gh config" gh pr edit 12 -R octo/demo --title "A title"'))
       .toEqual([{ url: null, lookup: "env 'GH_CONFIG_DIR=/tmp/gh config' gh pr view 12 --repo octo/demo --json url" }])
   })

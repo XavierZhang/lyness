@@ -6,11 +6,11 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { startMockLlmServer, type MockLlmServer } from '@lyness/lyn-llm-mock-server'
-import { parseSessionHeader } from '@lyness/lyn-llm-replay'
-import type {} from '@lyness/lyn-plugin-manager'
-import type {} from '@lyness/lyn-tools'
-import type {} from '@lyness/lyn-subagent'
+import { startMockLlmServer, type MockLlmServer } from '@deepseek-ai/dsh-llm-mock-server'
+import { parseSessionHeader } from '@deepseek-ai/dsh-llm-replay'
+import type {} from '@deepseek-ai/dsh-plugin-manager'
+import type {} from '@deepseek-ai/dsh-tools'
+import type {} from '@deepseek-ai/dsh-subagent'
 import {
   assertFinalWorkspaceSnapshot, assertFixtureInventory, captureExpandedTurnProcessAria, compareOrRefreshGolden,
   fixtureUserPrompts, launchWebScaffold, seedSession, selectedSessionFixture, watchConsole, webSnapshotMode, type WebScaffold,
@@ -20,7 +20,7 @@ import { connectFreshWorkspace, newEnglishPage, saveFailureShot } from './suppor
 const DIR = fileURLToPath(new URL('../../../snapshots/web/official-subagent-bundle', import.meta.url))
 const FIXTURE = join(DIR, 'session.v4.jsonl')
 const PACKAGE = fileURLToPath(new URL('../../../packages/subagent/subagent-claude-code', import.meta.url))
-const BUNDLE = '@lyness/lyn-subagent-claude-code'
+const BUNDLE = '@deepseek-ai/dsh-subagent-claude-code'
 const RESPONSE = 'OFFICIAL_SUBAGENT_OK'
 const MODE = webSnapshotMode()
 
@@ -76,7 +76,7 @@ describe.skipIf(MODE === 'record')('web snapshot: Official native subagent bundl
   let nativeEndpoint: Awaited<ReturnType<typeof heldNativeEndpoint>>
 
   beforeAll(async () => {
-    root = await mkdtemp(join(tmpdir(), 'lyn-official-subagent-'))
+    root = await mkdtemp(join(tmpdir(), 'dsh-official-subagent-'))
     const config = join(root, 'claude-config')
     const xdg = join(root, 'xdg')
     await Promise.all([mkdir(config), mkdir(xdg)])

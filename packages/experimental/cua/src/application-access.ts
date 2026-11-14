@@ -1,7 +1,7 @@
 /** Application consent checked before native observations and input. */
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { UserQuestionError, type AskUserQuestionAnswer } from '@lyness/lyn-user-questions'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { UserQuestionError, type AskUserQuestionAnswer } from '@deepseek-ai/dsh-user-questions'
 import { z } from 'zod'
 import { applicationAccessDisplay } from './locales.ts'
 import { NativeError, type NativeClient } from './native-client.ts'

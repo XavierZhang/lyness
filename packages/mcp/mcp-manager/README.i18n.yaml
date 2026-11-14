@@ -5,60 +5,60 @@
 /:
   en: 706845526cca8ee3
   zh: 8807cb31259da85a
-/lyness-lyn-mcp-manager:
+/deepseek-harness-dsh-mcp-manager:
   en: 16a172f481e69f8e
   zh: de5118274f5b3001
-/lyness-lyn-mcp-manager/summary:
+/deepseek-harness-dsh-mcp-manager/summary:
   en: c424d8e1b552dade
   zh: 4ef9b17ab613a0ff
-/lyness-lyn-mcp-manager/table-of-contents:
+/deepseek-harness-dsh-mcp-manager/table-of-contents:
   en: d152484eb41ac6b4
   zh: f14f34fce35a8d90
-/lyness-lyn-mcp-manager/use-this-package:
+/deepseek-harness-dsh-mcp-manager/use-this-package:
   en: e11d13e521efb522
   zh: 77ca3a7245afec22
-/lyness-lyn-mcp-manager/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-mcp-manager/use-this-package/when-to-choose-it:
   en: 7c89e83496d25a7a
   zh: 1d2352cc112be1ba
-/lyness-lyn-mcp-manager/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-mcp-manager/use-this-package/minimal-configuration:
   en: 842c459fb87df553
   zh: 737154aa40c1a7a1
-/lyness-lyn-mcp-manager/use-this-package/managing-configured-servers:
+/deepseek-harness-dsh-mcp-manager/use-this-package/managing-configured-servers:
   en: e9c92dca91d1f9e3
   zh: 077f6450cb002efc
-/lyness-lyn-mcp-manager/use-this-package/registering-a-server-from-a-plugin:
+/deepseek-harness-dsh-mcp-manager/use-this-package/registering-a-server-from-a-plugin:
   en: 313bcb35b12be8e1
   zh: a85f75db6b138547
-/lyness-lyn-mcp-manager/use-this-package/observing-and-recovering:
+/deepseek-harness-dsh-mcp-manager/use-this-package/observing-and-recovering:
   en: 1aab15d93a450282
   zh: 2c3a04ab964db576
-/lyness-lyn-mcp-manager/use-this-package/remote-operations:
+/deepseek-harness-dsh-mcp-manager/use-this-package/remote-operations:
   en: 9abf7ff9483c01ca
   zh: a5fe709020d906e0
-/lyness-lyn-mcp-manager/understand-the-implementation:
+/deepseek-harness-dsh-mcp-manager/understand-the-implementation:
   en: 8a74186fa5bfe79d
   zh: c7c952876ca2992b
-/lyness-lyn-mcp-manager/understand-the-implementation/design-philosophy:
+/deepseek-harness-dsh-mcp-manager/understand-the-implementation/design-philosophy:
   en: 910e4cfd420dad93
   zh: 4985a140ffd51160
-/lyness-lyn-mcp-manager/understand-the-implementation/source-map:
+/deepseek-harness-dsh-mcp-manager/understand-the-implementation/source-map:
   en: 874fe61698123da8
   zh: 85f9cb1eb4881cbc
-/lyness-lyn-mcp-manager/understand-the-implementation/lifecycle-notes:
+/deepseek-harness-dsh-mcp-manager/understand-the-implementation/lifecycle-notes:
   en: 22a062b31ef64262
   zh: db244dae206d56fc
-/lyness-lyn-mcp-manager/further-exploration:
+/deepseek-harness-dsh-mcp-manager/further-exploration:
   en: edee44c4646e385a
   zh: c30f7916da3d405d
-/lyness-lyn-mcp-manager/model-experience:
+/deepseek-harness-dsh-mcp-manager/model-experience:
   en: 3d5831fa669c6b0f
   zh: a324cdb6fba7d7d5
-/lyness-lyn-mcp-manager/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-mcp-manager/model-experience/kv-cache-effect:
   en: 7a8d0bf11425040b
   zh: b39181f89ba4fbe8
-/lyness-lyn-mcp-manager/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-mcp-manager/known-limitations-and-deferred-work:
   en: 4c85bea0533cc44a
   zh: 73fdc5d1a90a3011
-/lyness-lyn-mcp-manager/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-mcp-manager/known-limitations-and-deferred-work/dev-note:
   en: 8b2c53fe07fdaf2d
   zh: 7839d0302f02fa5b

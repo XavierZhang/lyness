@@ -1,6 +1,6 @@
 /** Concrete Session query using the standard live and persisted projections. */
 
-import SessionQueryEngine from '@lyness/lyn-session-query'
+import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
 
 /** Session query implementation whose search faces are outside these tests. */
 export class TestSessionQuery extends SessionQueryEngine {

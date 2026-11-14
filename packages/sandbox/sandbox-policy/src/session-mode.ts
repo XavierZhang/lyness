@@ -15,13 +15,13 @@
  * filesystem alike), so it lives here in the policy package rather than in any
  * one capability's seam.
  *
- * @module lyn-sandbox-policy/session-mode
+ * @module dsh-sandbox-policy/session-mode
  */
 
-import type { Session } from '@lyness/lyn-session'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
+import type { Session } from '@deepseek-ai/dsh-session'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * The session's sandbox mode was switched — log-only (like `approval/*`;

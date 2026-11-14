@@ -7,7 +7,7 @@
  * milliseconds from being added, while an instance can. The published surface
  * is the set the migrated consumers call; a further member lands with the caller
  * that needs it.
- * @module @lyness/lyn-util-time
+ * @module @deepseek-ai/dsh-util-time
  */
 
 const MS_PER_SECOND = 1_000

@@ -5,93 +5,93 @@
 /:
   en: bbaec84fc235ea72
   zh: 27cf5497047053b7
-/lyness-lyn-agent-team:
+/deepseek-harness-dsh-agent-team:
   en: 820b689dcc0ab83b
   zh: 2177c93db933613c
-/lyness-lyn-agent-team/summary:
+/deepseek-harness-dsh-agent-team/summary:
   en: d77219a87aec4478
   zh: d1496c8e77521e21
-/lyness-lyn-agent-team/table-of-contents:
+/deepseek-harness-dsh-agent-team/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-agent-team/use-this-package:
+/deepseek-harness-dsh-agent-team/use-this-package:
   en: df2567602b7b27b8
   zh: 2334f58a79d6ab6a
-/lyness-lyn-agent-team/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-agent-team/use-this-package/when-to-choose-it:
   en: 41e193fafb0b96f9
   zh: 3265330fe77b3707
-/lyness-lyn-agent-team/use-this-package/smallest-working-setup:
+/deepseek-harness-dsh-agent-team/use-this-package/smallest-working-setup:
   en: cc6a05e1f2125ef7
   zh: 8d36292bebe49068
-/lyness-lyn-agent-team/use-this-package/teammates:
+/deepseek-harness-dsh-agent-team/use-this-package/teammates:
   en: bd1318bd58930b8d
   zh: e141c1b08cdb9dcc
-/lyness-lyn-agent-team/use-this-package/messages-between-teammates:
+/deepseek-harness-dsh-agent-team/use-this-package/messages-between-teammates:
   en: 5ebaa8681a92ee97
   zh: a9be3e8e5f9bbaf1
-/lyness-lyn-agent-team/use-this-package/shared-task-board:
+/deepseek-harness-dsh-agent-team/use-this-package/shared-task-board:
   en: dfecbb3adbc360da
   zh: 4855fd99f03675f4
-/lyness-lyn-agent-team/use-this-package/waiting-and-interruption:
+/deepseek-harness-dsh-agent-team/use-this-package/waiting-and-interruption:
   en: c4b8a849a0bdc267
   zh: 1274bda922981725
-/lyness-lyn-agent-team/use-this-package/what-success-and-failure-look-like:
+/deepseek-harness-dsh-agent-team/use-this-package/what-success-and-failure-look-like:
   en: 36814f2b06dc2359
   zh: c46af795bc89942f
-/lyness-lyn-agent-team/understand-the-implementation:
+/deepseek-harness-dsh-agent-team/understand-the-implementation:
   en: 6a18034f1ccc247a
   zh: e08b0eb0ccb41ea8
-/lyness-lyn-agent-team/understand-the-implementation/design-philosophy:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/design-philosophy:
   en: 2fc398725d775616
   zh: 0332183e7d8a5e16
-/lyness-lyn-agent-team/understand-the-implementation/source-map:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/source-map:
   en: 5831a7143e7a1fa9
   zh: c828f09ffef9b74f
-/lyness-lyn-agent-team/understand-the-implementation/team-identity-and-membership:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/team-identity-and-membership:
   en: 6edb88f9d3fde16a
   zh: 7918022f3e09ef46
-/lyness-lyn-agent-team/understand-the-implementation/task-assignees:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/task-assignees:
   en: 7fa01f9974908f37
   zh: 2181e6180a867e32
-/lyness-lyn-agent-team/understand-the-implementation/messages-and-historical-mailbox:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/messages-and-historical-mailbox:
   en: d8a199f2e66db836
   zh: 65578fa4a8766ce6
-/lyness-lyn-agent-team/understand-the-implementation/shared-task-board:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/shared-task-board:
   en: a3eaccd15b02cc8f
   zh: c2829d437a1dfe57
-/lyness-lyn-agent-team/understand-the-implementation/durability-model:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/durability-model:
   en: 17a8cad758bbba7b
   zh: baee24b850a9278a
-/lyness-lyn-agent-team/understand-the-implementation/disposal:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/disposal:
   en: a8baf51f2fcd6d49
   zh: 357c8db36823fe0e
-/lyness-lyn-agent-team/understand-the-implementation/browser-projection:
+/deepseek-harness-dsh-agent-team/understand-the-implementation/browser-projection:
   en: 08ad2ce494f7505d
   zh: 5f5600364b1a36a5
-/lyness-lyn-agent-team/further-exploration:
+/deepseek-harness-dsh-agent-team/further-exploration:
   en: 5fb53caa2160dc3f
   zh: 26bdf66cd6d8bb66
-/lyness-lyn-agent-team/model-experience:
+/deepseek-harness-dsh-agent-team/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-agent-team/model-experience/task-views-and-errors:
+/deepseek-harness-dsh-agent-team/model-experience/task-views-and-errors:
   en: 8b29cb821f80db40
   zh: 43e402736a553ce5
-/lyness-lyn-agent-team/model-experience/task-views-and-errors/what-the-model-sees:
+/deepseek-harness-dsh-agent-team/model-experience/task-views-and-errors/what-the-model-sees:
   en: 6ec90541f0b387a9
   zh: 3bd7e44385cef22b
-/lyness-lyn-agent-team/model-experience/task-views-and-errors/token-effect:
+/deepseek-harness-dsh-agent-team/model-experience/task-views-and-errors/token-effect:
   en: 9e87d5f5aec04775
   zh: da4230e3cad15de6
-/lyness-lyn-agent-team/model-experience/task-views-and-errors/kv-cache-effect:
+/deepseek-harness-dsh-agent-team/model-experience/task-views-and-errors/kv-cache-effect:
   en: 2b6842dc044d70ce
   zh: 9f120fb4eb656f5f
-/lyness-lyn-agent-team/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-agent-team/known-limitations-and-deferred-work:
   en: ee7ee8f5c77955cd
   zh: 6ff2c042468d375b
-/lyness-lyn-agent-team/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-agent-team/known-limitations-and-deferred-work/dev-note:
   en: 498e4cf9fe5741a7
   zh: 9d2bab630e655c99
-/lyness-lyn-agent-team/known-limitations-and-deferred-work/dev-note/future-directions:
+/deepseek-harness-dsh-agent-team/known-limitations-and-deferred-work/dev-note/future-directions:
   en: 39d7ee66217a58eb
   zh: 229016fb44c10ce5

@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from lyness.models import CommandExecution
-from lyness import RunResult, Session, UserQuestionRequest
+from DeepSeek Harness.models import CommandExecution
+from DeepSeek Harness import RunResult, Session, UserQuestionRequest
 from test_commands_runtime import (
     _Completion, _Runtime, _SESSION_ID, _WAIT_SECONDS, _assert_request_permission,
     _command_pair, _native_result, _of_type, _permission_facts, _read_events,
@@ -60,7 +60,7 @@ def test_bare_plan_and_off_change_only_plan_state_without_a_model_request(tmp_pa
         repeated = _command(runtime, session, "/plan off")
         assert runtime.model.captured() == []
         assert "already inactive" in repeated.result.text
-        assert runtime.harness.config.env["LYNESS_PERMISSION_MODE"] == "workspace-write"
+        assert runtime.harness.config.env["DSH_PERMISSION_MODE"] == "workspace-write"
     events = _read_events(runtime.logs)
     for execution in [on, off, repeated]:
         _command_pair(events, execution, "plan")

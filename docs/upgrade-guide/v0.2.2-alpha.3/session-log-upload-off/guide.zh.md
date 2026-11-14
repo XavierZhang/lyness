@@ -9,7 +9,7 @@ description: "Session Log 上传默认关闭，其设置行也不再挂载；想
 
 ## 变更
 
-`@lyness/lyn-base` 给 `session-log-deepseek` 行写了 `enabled: false`，`@lyness/lyn-web-app` 不再挂载 `@lyness/lyn-client-ui-settings-session-log`。没有任何上传，设置里也不再提供这个选项。
+`@deepseek-ai/dsh-base` 给 `session-log-deepseek` 行写了 `enabled: false`，`@deepseek-ai/dsh-web-app` 不再挂载 `@deepseek-ai/dsh-client-ui-settings-session-log`。没有任何上传，设置里也不再提供这个选项。
 
 这项上传不是单独的请求：日志作为 `dsh_session_log` 字段挂在模型请求里，因此它到达的是**提供官方模型 API 的那一方**，而不是本项目。以自己品牌出货的产品不应默认把用户的会话送给上游厂商，而一句不点名接收方的「帮助改进」也不构成知情选择。
 

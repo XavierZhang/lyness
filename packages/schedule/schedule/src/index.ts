@@ -1,16 +1,16 @@
 /** Host-wide durable reminders and shared human/model management. */
 import { randomUUID } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
-import z from '@lyness/schemastery'
-import { Context, Service } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { createUserMessage } from '@lyness/lyn-llm'
-import { RemoteError, TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import { delegationDepthOf } from '@lyness/lyn-subagent'
-import { SessionId as toSessionId, type SessionId } from '@lyness/lyn-session'
-import type { SessionActivity } from '@lyness/lyn-workspace'
-import type {} from '@lyness/lyn-api-session-controller'
+import z from '@deepseek-ai/schemastery'
+import { Context, Service } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { RemoteError, TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import { delegationDepthOf } from '@deepseek-ai/dsh-subagent'
+import { SessionId as toSessionId, type SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionActivity } from '@deepseek-ai/dsh-workspace'
+import type {} from '@deepseek-ai/dsh-api-session-controller'
 import { ScheduleRuntime, type ScheduleRuntimeLimits } from './runtime.ts'
 import { scheduleDomain, scheduleTaskSchema, type ScheduleTask } from './storage.ts'
 import { deliveryHistoryPage } from './delivery-history.ts'
@@ -60,7 +60,7 @@ export {
 } from './domain.ts'
 
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * Restore a reminder's Session through its embedding's owning controller.

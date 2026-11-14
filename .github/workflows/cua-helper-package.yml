@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       source_ref:
-        description: '同仓库可信源码分支或 lyn-v* tag'
+        description: '同仓库可信源码分支或 dsh-v* tag'
         type: string
         default: master
         required: true
@@ -37,13 +37,13 @@ concurrency:
 
 jobs:
   package:
-    runs-on: [self-hosted, macOS, ARM64, lyn-mac-package-trial]
+    runs-on: [self-hosted, macOS, ARM64, dsh-mac-package-trial]
     timeout-minutes: 60
     outputs:
       artifact: ${{ steps.artifact.outputs.name }}
     env:
-      LYNESS_PACKAGING_PRESET: ${{ inputs.preset }}
-      LYNESS_TELEMETRY_DISABLED: '1'
+      DSH_PACKAGING_PRESET: ${{ inputs.preset }}
+      DSH_TELEMETRY_DISABLED: '1'
       PACKAGE_SOURCE_REF: ${{ inputs.source_ref }}
     steps:
       - uses: actions/checkout@v7.0.1
@@ -56,8 +56,8 @@ jobs:
           node -e 'const cp=require("node:child_process"); const fs=require("node:fs"); const ref=process.env.PACKAGE_SOURCE_REF;
           if(ref.startsWith("refs/pull/") || /^[a-f0-9]{40}$/i.test(ref)) throw Error("Select a trusted repository branch or release tag");
           const tag=ref.replace(/^refs\/tags\//, "");
-          if(tag.startsWith("lyn-v") && tag!=="lyn-v"+JSON.parse(fs.readFileSync("package.json","utf8")).version) throw Error("Release tag must match product version");
-          if(!["test","production"].includes(process.env.LYNESS_PACKAGING_PRESET)) throw Error("Invalid preset");'
+          if(tag.startsWith("dsh-v") && tag!=="dsh-v"+JSON.parse(fs.readFileSync("package.json","utf8")).version) throw Error("Release tag must match product version");
+          if(!["test","production"].includes(process.env.DSH_PACKAGING_PRESET)) throw Error("Invalid preset");'
       - uses: pnpm/action-setup@v5.0.0
         with:
           dest: ${{ runner.temp }}/setup-pnpm-cua-${{ github.run_id }}-${{ github.run_attempt }}

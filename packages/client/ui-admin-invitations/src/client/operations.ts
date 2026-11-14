@@ -7,15 +7,15 @@
  * from a read that broke, and a refusal reported with the fields the server
  * named so the form can mark them.
  *
- * @module @lyness/lyn-client-ui-admin-invitations/client/operations
+ * @module @deepseek-ai/dsh-client-ui-admin-invitations/client/operations
  */
 
-import type { Context } from '@lyness/cordis'
-import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-invitations-controller/remote'
-import type { InvitationInput, InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
+import type { Context } from '@deepseek-ai/cordis'
+import { createSharedRead, messageOf } from '@deepseek-ai/dsh-client-store'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-invitations-controller/remote'
+import type { InvitationInput, InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
 export type CallOutcome<T> =

@@ -17,12 +17,12 @@
  * Either can stop a turn, and the refusal says which, because a customer told
  * the wrong one sends the wrong person looking.
  *
- * @module @lyness/lyn-credits/enforce
+ * @module @deepseek-ai/dsh-credits/enforce
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type { GenerateOptions, StreamChunk, TokenUsage } from '@lyness/lyn-llm'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type { GenerateOptions, StreamChunk, TokenUsage } from '@deepseek-ai/dsh-llm'
 import { CreditsExhausted } from './index.ts'
 import type {} from './subject.ts'
 import { DEFAULT_CREDITS_PER_MILLION, DEFAULT_MINIMUM_DEBIT, creditsFor } from './pricing.ts'

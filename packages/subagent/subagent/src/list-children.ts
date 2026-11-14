@@ -1,11 +1,11 @@
 /**
  * Direct-child and recursive descendant discovery from parent-owned catalogs.
  * Each catalog read releases its Session observation before the next branch.
- * @module @lyness/lyn-subagent
+ * @module @deepseek-ai/dsh-subagent
  */
 
-import type { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import type { SubagentListEntry } from './control-types.ts'
 import { SubagentError } from './error.ts'
 import type { SubagentCatalogEntry } from './projection-types.ts'
@@ -36,7 +36,7 @@ export async function listChildren(
   const query = ctx.get('sessionQuery')
   if (query === undefined) {
     throw new SubagentError(
-      'listing subagents requires the sessionQuery service (load @lyness/lyn-session-query)',
+      'listing subagents requires the sessionQuery service (load @deepseek-ai/dsh-session-query)',
       'SUBAGENT_CONTROL_QUERY_UNAVAILABLE',
     )
   }
@@ -69,7 +69,7 @@ export async function listDescendants(
   const sessions = ctx.get('sessions')
   if (sessions === undefined) {
     throw new SubagentError(
-      'listing subagents requires the session store (load @lyness/lyn-session)',
+      'listing subagents requires the session store (load @deepseek-ai/dsh-session)',
       'SUBAGENT_CONTROL_SESSION_STORE_UNAVAILABLE',
     )
   }

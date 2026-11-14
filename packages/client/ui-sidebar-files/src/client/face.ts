@@ -7,15 +7,15 @@
  * lifetimes are stated on `attach` and `hold`. Beside the face live its
  * inputs: the Remote listing and watch bindings and `canOpenOf`.
  */
-import type { ClientRemote, RemoteResult } from '@lyness/lyn-api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
-import type { PaneId, TabId } from '@lyness/lyn-client-ui-dockkit'
-import type { SidebarRightTabDefinition, SidebarRightTabNavigation } from '@lyness/lyn-client-ui-sidebar-right/client'
-import type { HostObservable } from '@lyness/lyn-client-ui-slots'
-import type { SessionId } from '@lyness/lyn-session/types'
+import type { ClientRemote, RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { PaneId, TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
+import type { SidebarRightTabDefinition, SidebarRightTabNavigation } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { childPath, locateFile, relativeFileOf, type DirLevel, type FilesStoreInstance } from './store.ts'
-import type { WorkspaceFileWatchFrame } from '@lyness/lyn-api-workspace-files/types'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { WorkspaceFileWatchFrame } from '@deepseek-ai/dsh-api-workspace-files/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import { DirectoryNode } from './directory-node.ts'
 import { FILL_BELOW, FULLSCREEN_QUERY } from './navigator-layout.ts'
 

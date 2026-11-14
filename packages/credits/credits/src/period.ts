@@ -5,7 +5,7 @@
  * a timezone, and a deployment serving one region differs from one serving
  * several.
  *
- * @module @lyness/lyn-credits/period
+ * @module @deepseek-ai/dsh-credits/period
  */
 
 /** How often a periodic allowance arrives. */

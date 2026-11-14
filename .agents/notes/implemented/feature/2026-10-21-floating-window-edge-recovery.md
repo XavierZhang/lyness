@@ -6,7 +6,7 @@ English | [中文](2026-10-21-floating-window-edge-recovery.zh.md)
 
 ## Problem
 
-The dock kit's floating panels are the client's floating windows. `FloatLayer` and the retained `DockLayout` renderer draw them in viewport coordinates through one shared gesture hook, `useFloatGestures`, and the right Sidebar embeds them, so the same panels run in the Web client and inside the Desktop window. Their drag followed the pointer one to one with only a top floor (`--lyn-dockkit-float-top`, which keeps the header below the Windows caption). A panel could therefore be dragged past the left, right or bottom edge until its header was out of reach; a viewport that shrank left a panel outside it; and the creation cascade could place a new panel outside a small viewport. The required behavior is that a panel pushed past an edge visibly resists, and on release is pulled back inside with spring physics instead of being stopped by a wall or left outside.
+The dock kit's floating panels are the client's floating windows. `FloatLayer` and the retained `DockLayout` renderer draw them in viewport coordinates through one shared gesture hook, `useFloatGestures`, and the right Sidebar embeds them, so the same panels run in the Web client and inside the Desktop window. Their drag followed the pointer one to one with only a top floor (`--dsh-dockkit-float-top`, which keeps the header below the Windows caption). A panel could therefore be dragged past the left, right or bottom edge until its header was out of reach; a viewport that shrank left a panel outside it; and the creation cascade could place a new panel outside a small viewport. The required behavior is that a panel pushed past an edge visibly resists, and on release is pulled back inside with spring physics instead of being stopped by a wall or left outside.
 
 The reference implementation examined, Claude Desktop, has no portable edge-recovery rule: its Electron fallback corrects an off-screen window once, without animation, on the right and bottom edges only. The behavior had to be designed, not ported.
 
@@ -59,7 +59,7 @@ When `matchMedia('(prefers-reduced-motion: reduce)')` matches, a move clamps to 
 
 ### Change scope
 
-The change touches one package, `@lyness/lyn-client-ui-dockkit`, and leaves its exports and `DockIntents` unchanged; the `TabRenderer` contract now states when the kit reuses a body.
+The change touches one package, `@deepseek-ai/dsh-client-ui-dockkit`, and leaves its exports and `DockIntents` unchanged; the `TabRenderer` contract now states when the kit reuses a body.
 
 | File | Change |
 |---|---|

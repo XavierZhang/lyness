@@ -3,7 +3,7 @@ description: "给每个会话打上它所属的租户，以及该租户贡献的
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-session
+# @deepseek-ai/dsh-tenant-session
 
 [English](README.md) | 中文
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: tenant-session
-  name: '@lyness/lyn-tenant-session'
+  name: '@deepseek-ai/dsh-tenant-session'
   config:
     tenantId: acme
 ```

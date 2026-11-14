@@ -2,8 +2,8 @@
 import { constants } from 'node:fs'
 import { access, mkdir, readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
-import { withFileLock } from '@lyness/lyn-atomic-write'
-import type { SubprocessOutcome, SubprocessRuntime } from '@lyness/lyn-subprocess'
+import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
+import type { SubprocessOutcome, SubprocessRuntime } from '@deepseek-ai/dsh-subprocess'
 import { z } from 'zod'
 
 const NativeApplication = z.object({ bundle: z.string().regex(/^[a-f0-9]{64}$/) }).strict()
@@ -52,8 +52,8 @@ export interface NativeBuildSpec {
  */
 export async function nativeExecutablePath(directory: string, variant: 'release' | 'dev'): Promise<string> {
   const receipt = NativeApplication.parse(JSON.parse(await readFile(join(directory, 'current.json'), 'utf8')))
-  const application = variant === 'dev' ? 'LYN Computer Use Dev.app' : 'LYN Computer Use.app'
-  const executable = join(directory, receipt.bundle, application, 'Contents', 'MacOS', 'lyn-cua-native')
+  const application = variant === 'dev' ? 'DSH Computer Use Dev.app' : 'DSH Computer Use.app'
+  const executable = join(directory, receipt.bundle, application, 'Contents', 'MacOS', 'dsh-cua-native')
   await access(executable, constants.X_OK)
   return executable
 }
@@ -61,14 +61,14 @@ export async function nativeExecutablePath(directory: string, variant: 'release'
 /**
  * Recognize the repository-owned package location before allowing local compilation.
  * @param packageRoot - Real directory containing the CUA package manifest.
- * @returns True only for a CUA package in a LYN source checkout.
+ * @returns True only for a CUA package in a DSH source checkout.
  */
 export async function isSourcePackage(packageRoot: string): Promise<boolean> {
   const root = resolve(packageRoot, '../../..')
   if (join(root, 'packages/experimental/cua-macos') !== packageRoot) return false
   try {
     const manifest: unknown = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
-    return typeof manifest === 'object' && manifest !== null && 'name' in manifest && manifest.name === '@lyness/lyn-root'
+    return typeof manifest === 'object' && manifest !== null && 'name' in manifest && manifest.name === '@deepseek-ai/dsh-root'
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
     throw error

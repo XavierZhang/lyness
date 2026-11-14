@@ -1,13 +1,13 @@
-import { createUserMessage } from '@lyness/lyn-llm'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { spawnSync } from 'node:child_process'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { SessionId } from '@lyness/lyn-session'
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
  * The swebench-style smoke test: a real model fixes a real bug in a temp
@@ -47,7 +47,7 @@ afterEach(async () => {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('coding task: fix a failing test via bash', () => {
   it('repairs add.js so node add.test.js passes', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-coding-task-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-coding-task-'))
     await writeFile(join(workdir, 'add.js'), BUGGY_ADD)
     await writeFile(join(workdir, 'add.test.js'), TEST_FILE)
 

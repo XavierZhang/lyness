@@ -24,8 +24,8 @@ import {
   FishLogo, IconAppsAddOutlineRegular, IconNewChatOutlineMedium, IconNewChatOutlineRegular,
   IconPanelLeftOutlineRegular, IconPinFillRegular, focusWithoutRing, isBehindModal, isDarwinDesktop, Menu, ShortcutKeys, Toast,
   Tooltip, useModalLayer, writeClipboard,
-} from '@lyness/lyn-client-ui-primitives'
-import type { InjectFace, PropsRenderFactories, PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { InjectFace, PropsRenderFactories, PropsRenderSlots, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {
   SidebarPanelActionsOwnerProps, SidebarPanelMetadata, SidebarRootComponentProps, SidebarRootInjected, SidebarSectionHookContext,
   SidebarSectionOwnerProps,
@@ -47,12 +47,12 @@ const SCROLLBAR_LINGER_MS = 2000
 
 /** Format complete-build metadata for the local brand badge. */
 function localBuildVersion(): string | undefined {
-  const version = process.env.LYNESS_CLIENT_VERSION
+  const version = process.env.DSH_CLIENT_VERSION
   if (version === undefined) return undefined
-  const commit = process.env.LYNESS_CLIENT_COMMIT_HASH
+  const commit = process.env.DSH_CLIENT_COMMIT_HASH
   return version
     + (commit === undefined ? '' : `-${commit}`)
-    + (process.env.LYNESS_CLIENT_GIT_DIRTY === 'true' ? '-dirty' : '')
+    + (process.env.DSH_CLIENT_GIT_DIRTY === 'true' ? '-dirty' : '')
 }
 
 type PanelRowProps =
@@ -197,7 +197,7 @@ export function SidebarRoot({
     startSession()
   }
   // The Windows caption menus occupy the strip to the right of these controls
-  // (that is what --lyn-windows-menu-start reserves), so a right-side bubble
+  // (that is what --dsh-windows-menu-start reserves), so a right-side bubble
   // lands under their text. Below the caption is the only clear side.
   const captionTooltipSide = windowsTitlebar ? 'bottom' : 'right'
   // Freeze the content at its expanded width while it fades out (collapsed

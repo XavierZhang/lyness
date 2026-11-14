@@ -3,13 +3,13 @@ description: "管理端的邀请码页：签一张码、读出仍然有效的那
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-admin-invitations
+# @deepseek-ai/dsh-client-ui-admin-invitations
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-admin-invitations` 是管理员签发邀请码的那一页。它注册进 `admin.section`、读 `remote.invitations`，并提供一张表单：这张码叫什么、它授出什么标准、那个标准在哪个组织、允许兑换几次、保持多久有效。新签出的码只展示这一次，并带上用本部署自己的 origin 拼出的兑换链接——因为签发它的那次应答是它唯一存在过的地方。撤回要走一次确认，并且那一行会留下来，只是不再有效。
+`dsh-client-ui-admin-invitations` 是管理员签发邀请码的那一页。它注册进 `admin.section`、读 `remote.invitations`，并提供一张表单：这张码叫什么、它授出什么标准、那个标准在哪个组织、允许兑换几次、保持多久有效。新签出的码只展示这一次，并带上用本部署自己的 origin 拼出的兑换链接——因为签发它的那次应答是它唯一存在过的地方。撤回要走一次确认，并且那一行会留下来，只是不再有效。
 
 ## 目录
 
@@ -29,9 +29,9 @@ kind: "package-reference"
 
 ```yaml
 - id: invitations-controller
-  name: '@lyness/lyn-api-invitations-controller'
+  name: '@deepseek-ai/dsh-api-invitations-controller'
 - id: ui-admin-invitations
-  name: '@lyness/lyn-client-ui-admin-invitations'
+  name: '@deepseek-ai/dsh-client-ui-admin-invitations'
   config:
     joinPath: /join
 ```
@@ -58,10 +58,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-invitations-controller`](../../api/invitations-controller/README.zh.md) —— 这一页读的那个命名空间，以及它能汇报的每种拒绝。
-- [`lyn-invitations`](../../identity/invitations/README.zh.md) —— 一次提交被拿去对照的那些边界。
-- [`lyn-client-ui-admin-console`](../ui-admin-console/README.zh.md) —— 这一页渲染在里面的那个页面。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一整套选进来的那个组合。
+- [`dsh-api-invitations-controller`](../../api/invitations-controller/README.zh.md) —— 这一页读的那个命名空间，以及它能汇报的每种拒绝。
+- [`dsh-invitations`](../../identity/invitations/README.zh.md) —— 一次提交被拿去对照的那些边界。
+- [`dsh-client-ui-admin-console`](../ui-admin-console/README.zh.md) —— 这一页渲染在里面的那个页面。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一整套选进来的那个组合。
 
 -----
 

@@ -8,10 +8,10 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 import { SignInScreen, signInHref } from '../src/client/SignInScreen.tsx'
 import type { SignInScreenProps } from '../src/client/SignInScreen.tsx'
-import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
+import type { ViewerSnapshot } from '@deepseek-ai/dsh-client-ui-viewer/client'
 import { zh } from '../src/client/locales.ts'
 
 afterEach(cleanup)

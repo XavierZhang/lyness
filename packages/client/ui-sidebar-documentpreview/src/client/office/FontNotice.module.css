@@ -24,13 +24,13 @@
 }
 
 .panel {
-  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   position: fixed;
   z-index: 100;
   box-sizing: border-box;
   width: min(340px, calc(100vw - 24px));
-  max-height: min(calc(100dvh - 24px), var(--lyn-anchored-max-height, 100vh));
+  max-height: min(calc(100dvh - 24px), var(--dsh-anchored-max-height, 100vh));
   padding: 16px;
   overflow: auto;
   color: var(--dsw-alias-label-primary);
@@ -40,7 +40,7 @@
   box-shadow: var(--dsw-elevation-prominent);
   font-size: 13px;
   line-height: 1.6;
-  max-width: var(--lyn-anchored-max-width, none);
+  max-width: var(--dsh-anchored-max-width, none);
 }
 
 .panelHeader {

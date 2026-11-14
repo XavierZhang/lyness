@@ -3,7 +3,7 @@ description: "Show completed-answer creation cards with location choice, Undo an
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-creation-recommendations
+# @deepseek-ai/dsh-client-ui-creation-recommendations
 
 English | [中文](README.zh.md)
 

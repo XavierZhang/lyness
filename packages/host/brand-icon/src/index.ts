@@ -1,5 +1,5 @@
 /**
- * @lyness/lyn-host-brand-icon — turns a brand icon PNG into the single-colour
+ * @deepseek-ai/dsh-host-brand-icon — turns a brand icon PNG into the single-colour
  * SVG icon and favicon a deployment serves.
  *
  * Every brand SVG a deployment serves is written by this toolchain rather than
@@ -8,7 +8,7 @@
  * separated into ink and background by brightness, cropped to its ink, and
  * traced into paths. {@link isBrandSvg} confirms a document is exactly the form
  * these tools write before a caller stores it.
- * @module @lyness/lyn-host-brand-icon
+ * @module @deepseek-ai/dsh-host-brand-icon
  */
 
 import * as vectorizer from '@neplex/vectorizer'

@@ -1,5 +1,5 @@
 /** Directory navigation derived only from the files in one loaded diff. */
-import { assertNever } from '@lyness/lyn-util-values'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { ForgeDiffFile } from '../types.ts'
 
 /** A changed file or a compacted chain of directories containing changed files. */

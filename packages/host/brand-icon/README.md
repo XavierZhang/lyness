@@ -3,7 +3,7 @@ description: "Turns a brand icon PNG into the single-colour SVG icon and square 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-host-brand-icon
+# @deepseek-ai/dsh-host-brand-icon
 
 English | [中文](README.zh.md)
 
@@ -31,7 +31,7 @@ This is a library, not a plugin: it registers nothing and reads no configuration
 
 ```ts
 import { readFile, writeFile } from 'node:fs/promises'
-import { isBrandSvg, vectorizeIcon } from '@lyness/lyn-host-brand-icon'
+import { isBrandSvg, vectorizeIcon } from '@deepseek-ai/dsh-host-brand-icon'
 
 const traced = vectorizeIcon(new Uint8Array(await readFile('/srv/acme/upload/icon.png')))
 for (const [name, svg] of [['mark.svg', traced.icon], ['favicon.svg', traced.favicon]] as const) {

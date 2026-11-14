@@ -1,14 +1,14 @@
 /** API-key authentication, credential-gated discovery, and the official model listing for the official DeepSeek route. */
-import type { Context } from '@lyness/cordis'
-import { APP_IDENTITY, LlmError } from '@lyness/lyn-llm'
-import type { LlmModelBadge } from '@lyness/lyn-llm'
-import type {} from '@lyness/cordis-plugin-loader'
-import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import type { Context } from '@deepseek-ai/cordis'
+import { APP_IDENTITY, LlmError } from '@deepseek-ai/dsh-llm'
+import type { LlmModelBadge } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
+import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
 import {
   catalogModelInfo, createModelListingCache, refuseListedModel, registerDeepSeekProvider, requestModelListing, resolveListedCatalog,
   resolveDeepSeekApiKey,
-} from '@lyness/lyn-llm-deepseek'
-import type { CatalogRefusal, DeepSeekCatalogModel, ListingView, ModelListing } from '@lyness/lyn-llm-deepseek'
+} from '@deepseek-ai/dsh-llm-deepseek'
+import type { CatalogRefusal, DeepSeekCatalogModel, ListingView, ModelListing } from '@deepseek-ai/dsh-llm-deepseek'
 import { Config, plainOptions, resolveAdapterOptions } from './config.ts'
 import type { ResolvedDeepSeekOptions } from './config.ts'
 

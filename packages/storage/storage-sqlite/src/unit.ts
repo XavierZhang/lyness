@@ -5,12 +5,12 @@
  * its data and current version stamp in one transaction. Batch deletes also
  * use one transaction; other writes remain single statements. Write ordering
  * belongs to the caller per the KV contract.
- * @module @lyness/lyn-storage-sqlite/unit
+ * @module @deepseek-ai/dsh-storage-sqlite/unit
  */
 
 import type { DatabaseSync, StatementSync } from 'node:sqlite'
-import { StorageError } from '@lyness/lyn-storage'
-import type { KvUnit, KvUnitDescriptor } from '@lyness/lyn-storage'
+import { StorageError } from '@deepseek-ai/dsh-storage'
+import type { KvUnit, KvUnitDescriptor } from '@deepseek-ai/dsh-storage'
 import { recordTableName } from './schema.ts'
 
 /** Prepared statements for one declared table. */

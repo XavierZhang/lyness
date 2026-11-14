@@ -1,6 +1,6 @@
 /** Provider-neutral vocabulary for code hosts, their change requests, and provider contracts. */
 
-import type { Branded } from '@lyness/lyn-brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
 
 /** One repository on a code host, identified the way its provider addresses it. */
 export interface ForgeRepository {

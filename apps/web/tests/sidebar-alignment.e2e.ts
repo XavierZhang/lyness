@@ -6,9 +6,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, onTestFailed, vi } from 'vitest'
-import type { AccountView } from '@lyness/lyn-deepseek-account/types'
-import type {} from '@lyness/lyn-deepseek-account'
-import type {} from '@lyness/lyn-api-session-controller'
+import type { AccountView } from '@deepseek-ai/dsh-deepseek-account/types'
+import type {} from '@deepseek-ai/dsh-deepseek-account'
+import type {} from '@deepseek-ai/dsh-api-session-controller'
 import {
   compareOrRefreshGolden, launchWebScaffold, seedSession, watchConsole,
   webSnapshotMode, type WebScaffold,
@@ -410,7 +410,7 @@ describe('web e2e: sidebar search alignment and row action targets', () => {
 
   it('spans the first root workspace with its insertion marker during a native drag', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-sidebar-first-workspace-drop'))
-    const directory = await mkdtemp(join(tmpdir(), 'lyn-sidebar-drag-'))
+    const directory = await mkdtemp(join(tmpdir(), 'dsh-sidebar-drag-'))
     try {
       const extra = await scaffold.ctx.workspaceRegistry.create(directory, 'Sidebar drag workspace')
       try {
@@ -463,7 +463,7 @@ describe('web e2e: sidebar search alignment and row action targets', () => {
       ? page.locator('[data-row-key="session:sidebar-action-geometry"]')
       : page.locator('[data-row-key^="workspace:"]').filter({ hasText: workspaceTitle })
     await row.evaluate((element) => {
-      element.parentElement!.style.setProperty('--lyn-workspace-indent', '24px')
+      element.parentElement!.style.setProperty('--dsh-workspace-indent', '24px')
       element.parentElement!.style.setProperty('--unrelated-preview-variable', '17px')
     })
     const box = await row.boundingBox()
@@ -489,7 +489,7 @@ describe('web e2e: sidebar search alignment and row action targets', () => {
       })
       expect(await spacing(preview)).toEqual(await spacing(row))
       expect(await preview.evaluate(element => [...element.parentElement!.style].filter(name => name.startsWith('--')).sort()))
-        .toEqual(['--lyn-sidebar-label-gap', '--lyn-sidebar-paint-inset', '--lyn-sidebar-row-padding'])
+        .toEqual(['--dsh-sidebar-label-gap', '--dsh-sidebar-paint-inset', '--dsh-sidebar-row-padding'])
       const titleOffset = (target: Locator) => target.evaluate((element) => {
         const title = element.querySelector<HTMLElement>('[class*="title"]')
         if (title === null) throw new Error('Row title is missing')

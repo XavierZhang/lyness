@@ -1,13 +1,13 @@
-.lyn-table-controls {
+.dsh-table-controls {
   margin-top: 20px;
 }
 
-.lyn-table-toolbar {
+.dsh-table-toolbar {
   position: relative;
   display: flex;
 }
 
-.lyn-table-toolbar input {
+.dsh-table-toolbar input {
   min-width: 0;
   width: 100%;
   border: 1px solid var(--vp-c-divider);
@@ -18,15 +18,15 @@
   font: inherit;
 }
 
-.lyn-table-toolbar input::placeholder {
+.dsh-table-toolbar input::placeholder {
   color: var(--vp-c-text-2);
 }
 
-.lyn-table-toolbar input::-webkit-search-cancel-button {
+.dsh-table-toolbar input::-webkit-search-cancel-button {
   display: none;
 }
 
-.lyn-table-toolbar button {
+.dsh-table-toolbar button {
   position: absolute;
   inset: 4px 4px 4px auto;
   display: grid;
@@ -37,64 +37,64 @@
   background: transparent;
 }
 
-.lyn-table-toolbar button[hidden] {
+.dsh-table-toolbar button[hidden] {
   display: none;
 }
 
-.lyn-table-toolbar button:hover {
+.dsh-table-toolbar button:hover {
   color: var(--vp-c-brand-1);
   background: var(--vp-c-bg-soft);
 }
 
-.lyn-table-toolbar button span {
+.dsh-table-toolbar button span {
   font-size: 22px;
   line-height: 1;
 }
 
-.lyn-table-toolbar input:focus-visible,
-.lyn-table-toolbar button:focus-visible {
+.dsh-table-toolbar input:focus-visible,
+.dsh-table-toolbar button:focus-visible {
   outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 2px;
 }
 
-.vp-doc .lyn-table-controls p {
+.vp-doc .dsh-table-controls p {
   margin: 8px 0 0;
   color: var(--vp-c-text-2);
   font-size: 14px;
 }
 
-.vp-doc .lyn-table-controls p:empty {
+.vp-doc .dsh-table-controls p:empty {
   margin: 0;
 }
 
-.vp-doc table.lyn-filterable-table {
+.vp-doc table.dsh-filterable-table {
   margin-top: 8px;
 }
 
-.vp-doc .lyn-filterable-table tbody tr {
+.vp-doc .dsh-filterable-table tbody tr {
   background-color: var(--vp-c-bg);
 }
 
-.vp-doc .lyn-filterable-table tbody tr:nth-child(2n of :not([hidden])) {
+.vp-doc .dsh-filterable-table tbody tr:nth-child(2n of :not([hidden])) {
   background-color: var(--vp-c-bg-soft);
 }
 
-.lyn-filterable-table > thead {
+.dsh-filterable-table > thead {
   position: relative;
   z-index: 1;
-  transform: translateY(var(--lyn-table-header-offset, 0px));
+  transform: translateY(var(--dsh-table-header-offset, 0px));
 }
 
 @media print {
-  .lyn-table-controls {
+  .dsh-table-controls {
     display: none;
   }
 
-  .lyn-filterable-table > thead {
+  .dsh-filterable-table > thead {
     transform: none;
   }
 
-  .lyn-filterable-table > tbody > tr[hidden] {
+  .dsh-filterable-table > tbody > tr[hidden] {
     display: table-row;
   }
 }

@@ -7,18 +7,18 @@ import sys
 from collections.abc import Callable
 from pathlib import Path
 
-import lyness_runtime
+import deepseek_harness_runtime
 import pytest
 
-from lyness.errors import SdkProtocolError
-from lyness.office import ConversionResult, OfficeError, OfficeOptions, convert, recalculate, render_images
+from DeepSeek Harness.errors import SdkProtocolError
+from DeepSeek Harness.office import ConversionResult, OfficeError, OfficeOptions, convert, recalculate, render_images
 
 
 @pytest.fixture
 def office_cli(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     receipt = tmp_path / "arguments.json"
     script = Path(__file__).parent / "fixtures" / "office_cli.py"
-    monkeypatch.setattr(lyness_runtime, "resolve_office_launch_args",
+    monkeypatch.setattr(deepseek_harness_runtime, "resolve_office_launch_args",
                         lambda: (sys.executable, str(script), str(receipt)))
     return receipt
 

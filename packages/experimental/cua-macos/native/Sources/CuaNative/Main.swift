@@ -18,7 +18,7 @@ import Dispatch
                     withExtendedLifetime(server) { app.run() }
                 } catch {
                     do { try options.recordStartupFailure(error) }
-                    catch { fputs("lyn-cua-native: could not record startup failure: \(error)\n", stderr) }
+                    catch { fputs("dsh-cua-native: could not record startup failure: \(error)\n", stderr) }
                     fail(error)
                 }
             } catch { fail(error) }
@@ -44,7 +44,7 @@ import Dispatch
                                             "message": .string(diagnostic)])
             if let data = try? JSONEncoder().encode(failure) { try? FileHandle.standardOutput.write(contentsOf: data + Data([10])) }
         }
-        if let data = "lyn-cua-native: \(diagnostic)\n".data(using: .utf8) { try? FileHandle.standardError.write(contentsOf: data) }
+        if let data = "dsh-cua-native: \(diagnostic)\n".data(using: .utf8) { try? FileHandle.standardError.write(contentsOf: data) }
         exit(1)
     }
 }

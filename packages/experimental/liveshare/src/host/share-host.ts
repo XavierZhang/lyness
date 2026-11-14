@@ -2,12 +2,12 @@
 
 import { homedir } from 'node:os'
 import { dirname, join } from 'node:path'
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-api-remote-access'
-import type {} from '@lyness/lyn-api-session-controller'
-import type {} from '@lyness/lyn-client-connection'
-import { SessionId } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-workspace'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-api-remote-access'
+import type {} from '@deepseek-ai/dsh-api-session-controller'
+import type {} from '@deepseek-ai/dsh-client-connection'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-workspace'
 import {
   loadOwnerState,
   writeOwnerState,
@@ -43,11 +43,11 @@ import {
 import { readViewerAsset } from './viewer-assets.ts'
 import type { ForkShareState } from './fork-policy.ts'
 import type { ForkToolExecution } from './fork-tool-guard.ts'
-import type { ShareRpcActor } from '@lyness/lyn-experimental-liveshare-protocol'
+import type { ShareRpcActor } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
 import {
   identityKeyOf,
   type IdentityActor,
-} from '@lyness/lyn-experimental-liveshare-protocol'
+} from '@deepseek-ai/dsh-experimental-liveshare-protocol'
 
 export const name = 'liveshare-share-host'
 export const inject = ['connection']
@@ -614,8 +614,8 @@ export async function apply(ctx: Context, config: Config): Promise<() => Promise
 }
 
 function defaultOwnerStateFile(): string {
-  const lynHome = nonEmpty(process.env.LYNESS_HOME) ?? join(homedir(), '.lyn')
-  return join(lynHome, 'liveshare', 'owner-shares.json')
+  const dshHome = nonEmpty(process.env.DSH_HOME) ?? join(homedir(), '.dsh')
+  return join(dshHome, 'liveshare', 'owner-shares.json')
 }
 
 function nonEmpty(value: string | undefined): string | undefined {

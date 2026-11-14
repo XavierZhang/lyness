@@ -3,13 +3,13 @@ description: "`ctx.fs` 的宿主文件系统后端：面向选择或排查本地
 kind: "package-reference"
 ---
 
-# @lyness/lyn-fs-local
+# @deepseek-ai/dsh-fs-local
 
 [English](README.md) | 中文
 
 ## 概述
 
-使用 `lyn-fs-local` 可在宿主上读取、列出、监听、写入、编辑、打补丁、删除和移动文件。相对路径使用可配置的基准目录；绝对路径和父目录遍历不受限制。别名共享身份。可选防护拒绝陈旧版本，文本发布保留权限。移动还可应用 hunk，并分别报告已发布目标与源删除。需要约束变更时使用 `fs-sandbox`。
+使用 `dsh-fs-local` 可在宿主上读取、列出、监听、写入、编辑、打补丁、删除和移动文件。相对路径使用可配置的基准目录；绝对路径和父目录遍历不受限制。别名共享身份。可选防护拒绝陈旧版本，文本发布保留权限。移动还可应用 hunk，并分别报告已发布目标与源删除。需要约束变更时使用 `fs-sandbox`。
 
 ## 目录
 
@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-当组合需要由真实宿主文件系统支撑的 `ctx.fs`、且可以接受进程本地实现时，挂载此后端。常用路径是显式的：加载后端、给出基准目录，然后面向模型的工具（`lyn-tool-fs`）或你自己的插件即可读取、写入和编辑文件。
+当组合需要由真实宿主文件系统支撑的 `ctx.fs`、且可以接受进程本地实现时，挂载此后端。常用路径是显式的：加载后端、给出基准目录，然后面向模型的工具（`dsh-tool-fs`）或你自己的插件即可读取、写入和编辑文件。
 
 ### 何时选择
 
@@ -36,7 +36,7 @@ kind: "package-reference"
 用一个基础目录加载后端；相对路径基于它解析，绝对路径则忽略它。请求路径为 `~` 或以 `~/`（Windows 上也包括 `~\`）开头时，从宿主用户主目录开始；`~user`、后续的 `~` 段与目录项名称保持字面含义。相对基础目录以提供方进程工作目录为起点，展示路径始终保持绝对路径。在 POSIX 上，解析先遵循文件系统语义，再进行词法规范化：`symlink/..` 到达链接目标的父目录，即使最终文件尚不存在也如此。目录列表中的子项展示路径保留同样的物理遍历语义。Windows 保留原生的驱动器相对路径规范化行为。
 
 ```yaml
-- name: '@lyness/lyn-fs-local'
+- name: '@deepseek-ai/dsh-fs-local'
   config:
     cwd: /absolute/path/to/workspace
 ```
@@ -46,7 +46,7 @@ kind: "package-reference"
 | `cwd` | `process.cwd()` | 相对路径的基准目录 |
 | `diffBasisMaxBytes` | `10 MiB` | 每次覆写 diff 一侧的 UTF-8 字节上限；更大的覆写返回 `before: null` |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-fs-local)完整列出了所有受支持字段及其 JSDoc。
+生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-fs-local)完整列出了所有受支持字段及其 JSDoc。
 
 ### 你能做什么
 
@@ -106,7 +106,7 @@ Chokidar 通过 OS 事件观察单个文件或目录的直接子项，不使用�
 当包级约定不够用时阅读以下页面。它们从约定逐步进入相邻的后端、工具与策略。
 
 - [文件系统子系统](../../../docs/subsystems/filesystem.zh.md)——穷尽式提供方约定、策略事件与错误分类体系。
-- [lyn-fs](../fs/README.zh.md)——本后端实现的 `ctx.fs` 约定。
+- [dsh-fs](../fs/README.zh.md)——本后端实现的 `ctx.fs` 约定。
 - [fs-sandbox](../fs-sandbox/README.zh.md)——扩展本后端的沙箱强制后端。
 - [tool-fs](../tool-fs/README.zh.md)——消费 `ctx.fs` 的面向模型工具。
 - [fs-observation-policy](../fs-observation-policy/README.zh.md)——通过 `fs/*` 事件防护变更的策略插件。
@@ -117,7 +117,7 @@ Chokidar 通过 OS 事件观察单个文件或目录的直接子项，不使用�
 <a id="model-experience"></a>
 ## 模型体验
 
-通过 `lyn-tool-fs` 间接产生影响；该消费方把本提供方带行窗口的 UTF-8 内容、变更确认与提供方消息原文渲染为有保留上限的结果，而版本、原子写入机制与目录元数据仍属内部细节。
+通过 `dsh-tool-fs` 间接产生影响；该消费方把本提供方带行窗口的 UTF-8 内容、变更确认与提供方消息原文渲染为有保留上限的结果，而版本、原子写入机制与目录元数据仍属内部细节。
 
 #### KV Cache 影响
 

@@ -3,7 +3,7 @@ description: "The runtime self-modification module as its own bundle, whose tool
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-extensions
+# @deepseek-ai/dsh-module-extensions
 
 English | [中文](README.zh.md)
 
@@ -51,10 +51,10 @@ The bundle is its patch document. `src/index.ts` exports nothing and exists beca
 
 | Row | Module | Plane | Role |
 |---|---|---|---|
-| `cordis-host-runner` | `@lyness/lyn-cordis-host-runner` | Host | Runs composition reads and edits |
-| `cordis-inspect-providers` | `@lyness/lyn-tool-cordis/host` | Host | The inspect providers the tool rows read |
-| `cordis-client-runner` | `@lyness/lyn-cordis-client-runner` | browser | The browser half of the runner |
-| `ui-cordis` | `@lyness/lyn-client-ui-cordis` | browser | The composition view |
+| `cordis-host-runner` | `@deepseek-ai/dsh-cordis-host-runner` | Host | Runs composition reads and edits |
+| `cordis-inspect-providers` | `@deepseek-ai/dsh-tool-cordis/host` | Host | The inspect providers the tool rows read |
+| `cordis-client-runner` | `@deepseek-ai/dsh-cordis-client-runner` | browser | The browser half of the runner |
+| `ui-cordis` | `@deepseek-ai/dsh-client-ui-cordis` | browser | The composition view |
 
 The inspect providers are process-global: the registry rejects a duplicate id, so they register once here and every preset's `tool-cordis` row reads them. That is why they are a Host row rather than part of the per-agent tool.
 
@@ -73,14 +73,14 @@ The absent contribution is the point of interest. Every other default module han
 - [`extensions/`](../../extensions/README.md) — the runners, the tool, and the view.
 - [Default modules and the two views](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md) — which view carries which capability.
 - [Preset row contributions](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md) — the seam this module deliberately does not use.
-- [`lyn-module-deliverables`](../module-deliverables/README.md) — the module whose contributed row coexists with preset-declared ones.
+- [`dsh-module-deliverables`](../module-deliverables/README.md) — the module whose contributed row coexists with preset-declared ones.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the rows it inserts: `lyn-tool-cordis` owns the composition tool's schema and results, and this bundle supplies the Host runner and inspect providers those calls depend on.
+Indirectly, through the rows it inserts: `dsh-tool-cordis` owns the composition tool's schema and results, and this bundle supplies the Host runner and inspect providers those calls depend on.
 
 #### KV Cache effect
 

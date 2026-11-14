@@ -5,39 +5,39 @@
 /:
   en: e9fc634b58a500a1
   zh: a0b98be02976e0cb
-/lyn-util-time:
+/dsh-util-time:
   en: ce940dd5939d64ea
   zh: bd0fcdba1f769f34
-/lyn-util-time/summary:
+/dsh-util-time/summary:
   en: ba3133430a3f11b7
   zh: 8e3c6c74d1a9b064
-/lyn-util-time/table-of-contents:
+/dsh-util-time/table-of-contents:
   en: d152484eb41ac6b4
   zh: f14f34fce35a8d90
-/lyn-util-time/use-this-package:
+/dsh-util-time/use-this-package:
   en: bbff250eba0f1b89
   zh: 0a618f05cc88ee2b
-/lyn-util-time/use-this-package/when-to-use-it:
+/dsh-util-time/use-this-package/when-to-use-it:
   en: cd904cc4dc73239a
   zh: 9a9ef9b8627535d7
-/lyn-util-time/use-this-package/entry-point:
+/dsh-util-time/use-this-package/entry-point:
   en: 7ca7ddebcb6af6be
   zh: 4702a29079d6b8a7
-/lyn-util-time/understand-the-implementation:
+/dsh-util-time/understand-the-implementation:
   en: 402cdc78fc0f0dda
   zh: 3ddbee420e1a70a6
-/lyn-util-time/further-exploration:
+/dsh-util-time/further-exploration:
   en: 678675414a1364bc
   zh: 78640c33ad5e89a1
-/lyn-util-time/model-experience:
+/dsh-util-time/model-experience:
   en: e0ae2feeb35ae5d5
   zh: ab6bf10d2f17d519
-/lyn-util-time/model-experience/kv-cache-effect:
+/dsh-util-time/model-experience/kv-cache-effect:
   en: daf6e45a18c087b0
   zh: e6714f1e65ed55ce
-/lyn-util-time/known-limitations-and-deferred-work:
+/dsh-util-time/known-limitations-and-deferred-work:
   en: 662f480924d1b5c2
   zh: 330939fcb58540a5
-/lyn-util-time/known-limitations-and-deferred-work/dev-note:
+/dsh-util-time/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

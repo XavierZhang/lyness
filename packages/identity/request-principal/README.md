@@ -3,13 +3,13 @@ description: "Publish who the call in progress is, resolved from the bearer iden
 kind: "package-reference"
 ---
 
-# @lyness/lyn-request-principal
+# @deepseek-ai/dsh-request-principal
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Mount `lyn-request-principal` so anything needing to know whose call it is reads one place instead of re-parsing a header. It registers a Connection request scope, resolves the presented bearer identity into the signed-in person and the context their session has in force, and publishes that for the duration of the call. It resolves and never refuses: a call presenting no session, or a lapsed one, proceeds with no principal, and the operation that requires one refuses it where the reason can be explained.
+Mount `dsh-request-principal` so anything needing to know whose call it is reads one place instead of re-parsing a header. It registers a Connection request scope, resolves the presented bearer identity into the signed-in person and the context their session has in force, and publishes that for the duration of the call. It resolves and never refuses: a call presenting no session, or a lapsed one, proceeds with no principal, and the operation that requires one refuses it where the reason can be explained.
 
 ## Table of Contents
 
@@ -27,13 +27,13 @@ Mount `lyn-request-principal` so anything needing to know whose call it is reads
 
 ```yaml
 - id: request-principal
-  name: '@lyness/lyn-request-principal'
+  name: '@deepseek-ai/dsh-request-principal'
 ```
 
 It takes no configuration and needs a session store plus the Host connection. An operation reads the principal of the call it is serving:
 
 ```ts
-import type { RequestPrincipal } from '@lyness/lyn-request-principal'
+import type { RequestPrincipal } from '@deepseek-ai/dsh-request-principal'
 
 declare const principals: RequestPrincipal
 
@@ -46,7 +46,7 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-**Both credential forms are read**, because both callers exist: a browser holds the `lyn_identity` cookie while a desktop client or a script sends `Authorization: Bearer`. Reading only one would silently leave the other anonymous. The header wins when both are present, so an explicit credential beats an ambient one.
+**Both credential forms are read**, because both callers exist: a browser holds the `dsh_identity` cookie while a desktop client or a script sends `Authorization: Bearer`. Reading only one would silently leave the other anonymous. The header wins when both are present, so an explicit credential beats an ambient one.
 
 **It resolves and never refuses.** The request scope runs after authentication, host trust, and envelope decoding have all accepted the call, so by contract it is not a place to reject one. Unknown and lapsed sessions are therefore the same answer — this call speaks for nobody — and the refusal belongs to the operation that requires a principal, which is also where the reason can be given.
 
@@ -61,8 +61,8 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-auth-session`](../auth-session/README.md) — the sessions this scope reads.
-- [`lyn-credits`](../../credits/credits/README.md) — the first consumer: `./subject-request` charges a call to the person it speaks for.
+- [`dsh-auth-session`](../auth-session/README.md) — the sessions this scope reads.
+- [`dsh-credits`](../../credits/credits/README.md) — the first consumer: `./subject-request` charges a call to the person it speaks for.
 - [People, memberships, and the acting context](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.md) — why a context is session state rather than a request field.
 
 -----

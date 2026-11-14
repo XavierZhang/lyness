@@ -8,24 +8,24 @@
  * so what the model saw stays reconstructable from the logged `system/message`
  * without a bespoke session event.
  *
- * @module @lyness/lyn-memory
+ * @module @deepseek-ai/dsh-memory
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import type {} from '@lyness/lyn-system-prompt'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import type {} from '@deepseek-ai/dsh-system-prompt'
 import { MAX_ENTRY_CHARS, PERSONAL_TABLE, SHARED_TABLE, memoryDomain } from './storage.ts'
 import { memoryOwnerOfPerson, personalKey, readPersonalKey } from './partition.ts'
 import type { MemoryEntry, MemoryId, MemoryOwnerId, MemoryRecord, MemoryScope } from './types.ts'
-import { ownerProjectionDefinition } from '@lyness/lyn-session-ownership/projection'
-import type { SessionOwnerRecord } from '@lyness/lyn-session-ownership/types'
-import type { ProjectionHandle } from '@lyness/lyn-session-projection'
-import type { Agent } from '@lyness/lyn-agent'
-import type { AssembleContext } from '@lyness/lyn-system-prompt'
+import { ownerProjectionDefinition } from '@deepseek-ai/dsh-session-ownership/projection'
+import type { SessionOwnerRecord } from '@deepseek-ai/dsh-session-ownership/types'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { AssembleContext } from '@deepseek-ai/dsh-system-prompt'
 
 export { MAX_ENTRY_CHARS, PERSONAL_TABLE, SHARED_TABLE, memoryDomain } from './storage.ts'
 export { memoryOwnerOfPerson, personalKey, readPersonalKey } from './partition.ts'
@@ -33,7 +33,7 @@ export type {
   MemoryEntry, MemoryId, MemoryOwnerId, MemoryPartitionKey, MemoryRecord, MemoryScope,
 } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Durable facts kept across sessions, written only by an explicit call. */
     memory: MemoryService

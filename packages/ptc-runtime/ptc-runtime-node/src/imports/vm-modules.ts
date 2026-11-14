@@ -210,7 +210,7 @@ export class VmModuleImportLoader {
 
 /** Resolve with the native loader's conditions and flags while retaining the importing filename. */
 function resolveImport(specifier: string, parentURL: string): ResolveFnOutput {
-  const marker = 'lyn-ptc:resolve'
+  const marker = 'dsh-ptc:resolve'
   let format: ResolveFnOutput['format']
   const hooks = registerHooks({
     resolve(request, context, nextResolve) {

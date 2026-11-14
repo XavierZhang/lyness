@@ -3,9 +3,9 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
-import type { SessionHeader } from '@lyness/lyn-session'
-import type { SessionLineageNode } from '@lyness/lyn-session-query'
+import { SessionId, SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
+import type { SessionHeader } from '@deepseek-ai/dsh-session'
+import type { SessionLineageNode } from '@deepseek-ai/dsh-session-query'
 import { liveMemberOf, membersOf } from '../src/members.ts'
 
 /**

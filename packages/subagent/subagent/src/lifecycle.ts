@@ -4,13 +4,13 @@
  * The service owns scoped dispatch and listener containment; the manager
  * supplies event payloads from each activation.
  *
- * @module @lyness/lyn-subagent/lifecycle
+ * @module @deepseek-ai/dsh-subagent/lifecycle
  */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { foldConsumedWork } from '@lyness/lyn-agent'
-import type { SessionEvent } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { foldConsumedWork } from '@deepseek-ai/dsh-agent'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import type { SubagentResult, SubagentRunEndInfo, SubagentRunInfo } from './types.ts'
 
 /**

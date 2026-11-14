@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CommandId } from '@lyness/lyn-commands/brand'
+import { CommandId } from '@deepseek-ai/dsh-commands/brand'
 import type { ChatNode } from '../src/client/contract/chat-nodes.ts'
 import { isVisibleChatNode } from '../src/client/contract/chat-visibility.ts'
 

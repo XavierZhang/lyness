@@ -15,7 +15,7 @@ import { launchWebScaffold, captureStableAria, compareOrRefreshGolden, webSnapsh
 import { ZH_BROWSER_LOCALE } from './support.ts'
 
 it.each(['network', 'timeout'] as const)('offers a mirror after a GitHub %s, then another way on the mirror, and waits for replacement input', async (failure) => {
-  const scratch = await mkdtemp(join(tmpdir(), 'lyn-install-github-'))
+  const scratch = await mkdtemp(join(tmpdir(), 'dsh-install-github-'))
   onTestFinished(() => rm(scratch, { recursive: true, force: true }))
   const sockets = new Set<Socket>()
   let connections = 0
@@ -62,7 +62,7 @@ it.each(['network', 'timeout'] as const)('offers a mirror after a GitHub %s, the
   if (await page.getByRole('dialog', { name: '设置' }).count() > 0) await page.keyboard.press('Escape')
   await page.getByRole('navigation', { name: '全局面板' }).getByRole('button', { name: '插件', exact: true }).click()
   await page.getByRole('button', { name: '添加插件', exact: true }).click()
-  const spec = 'https://github.com/example/lyn-plugin.git'
+  const spec = 'https://github.com/example/dsh-plugin.git'
   const title = failure === 'timeout' ? '连接 GitHub 超时' : '无法访问 GitHub'
   let dialog = page.getByRole('dialog', { name: '添加插件', exact: true })
   await dialog.getByRole('button', { name: '安装源 npm 官方源', exact: true }).waitFor()
@@ -125,7 +125,7 @@ it.each(['network', 'timeout'] as const)('offers a mirror after a GitHub %s, the
 })
 
 it("shows the failed check's Git run and complete log in the installation details when no mirror is offered", async () => {
-  const scratch = await mkdtemp(join(tmpdir(), 'lyn-install-github-details-'))
+  const scratch = await mkdtemp(join(tmpdir(), 'dsh-install-github-details-'))
   onTestFinished(() => rm(scratch, { recursive: true, force: true }))
   const sockets = new Set<Socket>()
   const proxy = createServer((socket) => {
@@ -171,7 +171,7 @@ it("shows the failed check's Git run and complete log in the installation detail
   if (await page.getByRole('dialog', { name: '设置' }).count() > 0) await page.keyboard.press('Escape')
   await page.getByRole('navigation', { name: '全局面板' }).getByRole('button', { name: '插件', exact: true }).click()
   await page.getByRole('button', { name: '添加插件', exact: true }).click()
-  const spec = 'https://github.com/example/lyn-plugin.git'
+  const spec = 'https://github.com/example/dsh-plugin.git'
   let dialog = page.getByRole('dialog', { name: '添加插件', exact: true })
   await dialog.getByRole('textbox', { name: '包名或地址' }).fill(spec)
   await dialog.getByRole('button', { name: '安装', exact: true }).click()
@@ -180,7 +180,7 @@ it("shows the failed check's Git run and complete log in the installation detail
   expect(await dialog.getByText('无法连接 github.com', { exact: false }).count()).toBe(1)
   // The details carry the failed check's own Git run and the complete log, not an empty terminal.
   await dialog.getByRole('button', { name: '查看安装详情', exact: true }).click()
-  await dialog.getByText(/git -c credential\.helper= ls-remote -- https:\/\/github\.com\/example\/lyn-plugin\.git HEAD/).waitFor()
+  await dialog.getByText(/git -c credential\.helper= ls-remote -- https:\/\/github\.com\/example\/dsh-plugin\.git HEAD/).waitFor()
   await dialog.getByText(/fatal: unable to access/).waitFor()
   expect(await dialog.getByText(/^完整日志：.*github-connection-.*git\.log$/).count()).toBe(1)
   expect(await readFile(attempts, 'utf8')).toBe('')

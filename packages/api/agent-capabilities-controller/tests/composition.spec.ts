@@ -15,11 +15,11 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import { PluginPackages } from '@lyness/lyn-app-boot'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { PluginPackages } from '@deepseek-ai/dsh-app-boot'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
 import AgentCapabilitiesController from '../src/index.ts'
 
 const contexts: Context[] = []
@@ -32,7 +32,7 @@ afterEach(async () => {
 
 /** A package on disk whose plugin registers two tools and declares its own title. */
 function packageFixture(): { baseUrl: string } {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-capabilities-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-capabilities-'))
   roots.push(root)
   const dir = join(root, 'node_modules', 'local-plugin')
   mkdirSync(join(dir, 'locale'), { recursive: true })

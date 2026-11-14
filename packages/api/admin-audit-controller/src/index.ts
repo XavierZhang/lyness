@@ -14,21 +14,21 @@
  * administer, and a platform standing holds none, so an unnamed read stays
  * the every-organization read the trail already refuses to anyone else.
  *
- * @module @lyness/lyn-api-admin-audit-controller
+ * @module @deepseek-ai/dsh-api-admin-audit-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { AuditRefusedError } from '@lyness/lyn-admin-audit'
-import type { AuditEntry, AuditEntryId, AuditQuery, AuditRefusal } from '@lyness/lyn-admin-audit'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership } from '@lyness/lyn-people'
-import { callingStanding } from '@lyness/lyn-request-principal'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import { AuditRefusedError } from '@deepseek-ai/dsh-admin-audit'
+import type { AuditEntry, AuditEntryId, AuditQuery, AuditRefusal } from '@deepseek-ai/dsh-admin-audit'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership } from '@deepseek-ai/dsh-people'
+import { callingStanding } from '@deepseek-ai/dsh-request-principal'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import type { AuditEntryView, AuditQueryInput } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `audit` Remote namespace. */
     adminAuditController: AdminAuditController

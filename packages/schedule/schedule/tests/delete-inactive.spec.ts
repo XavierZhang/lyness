@@ -1,11 +1,11 @@
 /** Host-wide removal of every ended task shares per-row deletion's durability rules. */
-import { SessionId } from '@lyness/lyn-session'
-import { MessageId } from '@lyness/lyn-llm/brand'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { MessageId } from '@deepseek-ai/dsh-llm/brand'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { createAfterScheduleRecord, createEveryScheduleRecord, ScheduleId } from '../src/domain.ts'
-import type { DomainFacility } from '@lyness/lyn-storage-domain'
+import type { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
 import { scheduleDomain, scheduleTaskSchema, type ScheduleTask } from '../src/storage.ts'
-import { StorageError } from '@lyness/lyn-storage'
+import { StorageError } from '@deepseek-ai/dsh-storage'
 import { MemoryMediaPool } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
 import { agentFor, gatedScheduleBackend, harness } from './harness.ts'
 

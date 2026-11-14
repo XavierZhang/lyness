@@ -6,11 +6,11 @@
  * the lineage trace the same way, so the archive and the deletion can never
  * mean different things by "this conversation".
  *
- * @module @lyness/lyn-session-deletion/members
+ * @module @deepseek-ai/dsh-session-deletion/members
  */
 
-import type { SessionId } from '@lyness/lyn-session'
-import type { SessionLineageNode } from '@lyness/lyn-session-query'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionLineageNode } from '@deepseek-ai/dsh-session-query'
 
 /**
  * Every member of one conversation, the named session first and each

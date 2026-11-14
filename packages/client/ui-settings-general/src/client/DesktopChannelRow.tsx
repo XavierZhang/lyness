@@ -1,7 +1,7 @@
 /** Desktop channel selection; persistence and updater transitions remain in Electron. */
 import { useState } from 'react'
-import { Menu, Toast, IconWarningOutlineRegular, IconLoadingOutlineRegular, IconChevronDownOutlineRegular } from '@lyness/lyn-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import { Menu, Toast, IconWarningOutlineRegular, IconLoadingOutlineRegular, IconChevronDownOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type { DesktopChannelSource } from './desktop-channel-source.ts'
 import type { DesktopUpdateChannel } from '../types.ts'
 import css from './DesktopChannelRow.module.css'

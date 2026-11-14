@@ -9,15 +9,15 @@
  * The calls live here rather than in the component so one in-flight read is
  * shared: opening the section twice does not ask the deployment twice.
  *
- * @module @lyness/lyn-client-ui-settings-sign-in-channels/client
+ * @module @deepseek-ai/dsh-client-ui-settings-sign-in-channels/client
  */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-sign-in-channel-controller/remote'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-sign-in-channel-controller/remote'
 import { ChannelsSection } from './ChannelsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { channelsCallsOf, createChannelsOperations } from './operations.ts'
@@ -34,7 +34,7 @@ export type { CallOutcome, ChannelsCalls, ChannelsOperations, ChannelsSink } fro
 export { SectionBinding, sectionFace } from './binding.ts'
 export type { ChannelsActions } from './binding.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.sign-in-channels': ChannelsKey }
 }
 

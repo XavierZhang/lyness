@@ -5,57 +5,57 @@
 /:
   en: eb989828a8f6f512
   zh: 6080443ed905ff5d
-/lyness-lyn-sdk-client:
+/deepseek-harness-dsh-sdk-client:
   en: 76fddd6b75e084c3
   zh: 89232428bf22851a
-/lyness-lyn-sdk-client/summary:
+/deepseek-harness-dsh-sdk-client/summary:
   en: 8ec91831a04a8c75
   zh: 1b99590fc11291c7
-/lyness-lyn-sdk-client/table-of-contents:
+/deepseek-harness-dsh-sdk-client/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-sdk-client/use-this-package:
+/deepseek-harness-dsh-sdk-client/use-this-package:
   en: a920362734106891
   zh: 295a5a308c36d280
-/lyness-lyn-sdk-client/use-this-package/running-agent-turns-with-lyness:
+/deepseek-harness-dsh-sdk-client/use-this-package/running-agent-turns-with-deepseek-harness:
   en: 11c9369d97276161
   zh: 1ec7fad74452df61
-/lyness-lyn-sdk-client/use-this-package/run-text-and-native-commands:
+/deepseek-harness-dsh-sdk-client/use-this-package/run-text-and-native-commands:
   en: 83791434589116a5
   zh: 1af0c2d3429a361d
-/lyness-lyn-sdk-client/use-this-package/lower-level-control-with-harnessclient:
+/deepseek-harness-dsh-sdk-client/use-this-package/lower-level-control-with-harnessclient:
   en: 33d017d989795a6f
   zh: e10ec21d4928afe2
-/lyness-lyn-sdk-client/use-this-package/native-user-questions:
+/deepseek-harness-dsh-sdk-client/use-this-package/native-user-questions:
   en: 7f43a593bc54805c
   zh: c8078e093a594569
-/lyness-lyn-sdk-client/understand-the-implementation:
+/deepseek-harness-dsh-sdk-client/understand-the-implementation:
   en: 8773f50c51da85f0
   zh: 4649ebc69357deb0
-/lyness-lyn-sdk-client/understand-the-implementation/design-concept:
+/deepseek-harness-dsh-sdk-client/understand-the-implementation/design-concept:
   en: 0a39e97053bf48ef
   zh: 5ed343f580ee8a65
-/lyness-lyn-sdk-client/understand-the-implementation/source-map:
+/deepseek-harness-dsh-sdk-client/understand-the-implementation/source-map:
   en: f1e295adc2639fc9
   zh: 82072b0dda9cf1d1
-/lyness-lyn-sdk-client/understand-the-implementation/owned-activity-flow:
+/deepseek-harness-dsh-sdk-client/understand-the-implementation/owned-activity-flow:
   en: 94a42babac5f1c7d
   zh: df9e42ed02f7d002
-/lyness-lyn-sdk-client/understand-the-implementation/errors-and-teardown:
+/deepseek-harness-dsh-sdk-client/understand-the-implementation/errors-and-teardown:
   en: 165364de2cee0a9f
   zh: c4dc37b44e1e621e
-/lyness-lyn-sdk-client/further-exploration:
+/deepseek-harness-dsh-sdk-client/further-exploration:
   en: 8ad04b0ec10a8835
   zh: 8ecd335366d5ef3a
-/lyness-lyn-sdk-client/model-experience:
+/deepseek-harness-dsh-sdk-client/model-experience:
   en: e82a55513d3cd30e
   zh: ecd8c0875ff2fb87
-/lyness-lyn-sdk-client/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-sdk-client/model-experience/kv-cache-effect:
   en: 7abe0be104a791e7
   zh: 445311f78b1069ca
-/lyness-lyn-sdk-client/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-sdk-client/known-limitations-and-deferred-work:
   en: 5ce5fcca24da5715
   zh: a48b5206b7dfb487
-/lyness-lyn-sdk-client/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-sdk-client/known-limitations-and-deferred-work/dev-note:
   en: 6177a56f053936a4
   zh: 0f4b20228c2d15da

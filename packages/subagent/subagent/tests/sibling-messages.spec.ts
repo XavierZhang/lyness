@@ -4,15 +4,15 @@ import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
-import { SessionId } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
-import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
+import { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import SubagentRuntime from '../src/index.ts'
 import { loadStoredSession } from './persistence-helpers.ts'
@@ -63,7 +63,7 @@ async function setup(replies: Record<string, Reply[]>, maxActiveSubagents = 16) 
   const ctx = new Context()
   disposers.push(() => ctx.fiber.dispose())
   await mountAgentLoopTestDependencies(ctx)
-  const root = mkdtempSync(join(tmpdir(), 'lyn-subagent-siblings-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-subagent-siblings-'))
   roots.push(root)
   await ctx.plugin(JsonlSessionPersistence, { root })
   await ctx.plugin(AgentLoop, { agents: [] })

@@ -9,4 +9,4 @@ header:
 platform: posix
 permission: read-only
 environment:
-  LYNESS_SNAPSHOT_PROVIDER_CWD: /recorded-provider/workspace
+  DSH_SNAPSHOT_PROVIDER_CWD: /recorded-provider/workspace

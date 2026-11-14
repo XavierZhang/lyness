@@ -10,9 +10,9 @@ import {
   type ReplayEnvelope,
   type StreamChunk,
   type TokenUsage,
-} from '@lyness/lyn-llm'
-import type { AssistantStreamFrame } from '@lyness/lyn-agent'
-import type { SessionEventMap, SessionId, SessionSeq } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-llm'
+import type { AssistantStreamFrame } from '@deepseek-ai/dsh-agent'
+import type { SessionEventMap, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
 
 /** Folds one model attempt into one compact stream plus ordered transient frames. */
 export class AssistantStreamAttempt {

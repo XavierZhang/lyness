@@ -1,10 +1,10 @@
 {
-  "name": "@lyness/lyn-experimental-liveshare-protocol",
+  "name": "@deepseek-ai/dsh-experimental-liveshare-protocol",
   "description": "Liveshare wire frames and the identity contract shared by the owner bundle and the Relay",
   "version": "0.2.2-alpha.3",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/liveshare-protocol"
   },
   "type": "module",
@@ -23,13 +23,13 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:*"
+    "@deepseek-ai/dsh-brand": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "publishConfig": {
     "access": "public"

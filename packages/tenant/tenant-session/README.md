@@ -3,7 +3,7 @@ description: "Stamps every session with the tenant it belongs to and the identit
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-session
+# @deepseek-ai/dsh-tenant-session
 
 English | [中文](README.zh.md)
 
@@ -27,7 +27,7 @@ This plugin writes one durable event per session: which tenant the session belon
 
 ```yaml
 - id: tenant-session
-  name: '@lyness/lyn-tenant-session'
+  name: '@deepseek-ai/dsh-tenant-session'
   config:
     tenantId: acme
 ```

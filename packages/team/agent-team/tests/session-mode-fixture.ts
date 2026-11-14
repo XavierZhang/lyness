@@ -1,7 +1,7 @@
 /** Exercise Session mode selection through assembled headless and SDK profiles. */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-agent-team'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-agent-team'
 
 /** Runtime dependencies of the keyless mode fixture. */
 export const inject = ['agentTeams', 'tools']

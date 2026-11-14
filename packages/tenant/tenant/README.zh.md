@@ -3,7 +3,7 @@ description: "ctx.tenants 目录能力缝：部署服务哪些租户，以及请
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant
+# @deepseek-ai/dsh-tenant
 
 [English](README.md) | 中文
 
@@ -25,12 +25,12 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-组合一个后端——[`lyn-tenant-static`](../tenant-static/README.zh.md) 从组合配置读取租户清单——然后通过 `ctx.tenants` 读取目录：
+组合一个后端——[`dsh-tenant-static`](../tenant-static/README.zh.md) 从组合配置读取租户清单——然后通过 `ctx.tenants` 读取目录：
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import { TenantError } from '@lyness/lyn-tenant'
-import type { Tenant } from '@lyness/lyn-tenant'
+import type { Context } from '@deepseek-ai/cordis'
+import { TenantError } from '@deepseek-ai/dsh-tenant'
+import type { Tenant } from '@deepseek-ai/dsh-tenant'
 
 export async function tenantOf(ctx: Context, hostname: string): Promise<Tenant> {
   const tenant = await ctx.tenants.byHost(hostname)

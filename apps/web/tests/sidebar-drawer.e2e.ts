@@ -237,7 +237,7 @@ it('overlays the conversation and closes after navigation without losing its sid
       await opener.waitFor()
       const frame = page.locator('[data-sidebar-drawer]')
       expect(await page.locator('[data-shell-leading]').getByRole('button').count()).toBe(1)
-      expect(await frame.evaluate(el => getComputedStyle(el).getPropertyValue('--lyn-frame-leading-clearance').trim()))
+      expect(await frame.evaluate(el => getComputedStyle(el).getPropertyValue('--dsh-frame-leading-clearance').trim()))
         .toBe('48px')
       await expect.poll(() => frame.getAttribute('data-sidebar-collapsed')).toBe('true')
       const sidebar = page.locator('[data-slot="sidebar"]')

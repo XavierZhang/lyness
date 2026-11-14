@@ -5,7 +5,7 @@
   box-sizing: border-box;
   width: 100%;
   flex: none;
-  min-height: var(--lyn-trajectory-toolbar-height);
+  min-height: var(--dsh-trajectory-toolbar-height);
   border-bottom: 0.5px solid var(--dsw-alias-border-l2);
   background: var(--dsw-alias-bg-layer-1);
 }
@@ -15,7 +15,7 @@
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: var(--lyn-trajectory-toolbar-height);
+  min-height: var(--dsh-trajectory-toolbar-height);
   flex-wrap: wrap;
   padding: 4px 6px;
   gap: 4px 8px;

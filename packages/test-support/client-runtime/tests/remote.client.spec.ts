@@ -3,7 +3,7 @@
  * internal plumbing event, the silent drop for an unsubscribed name, and the
  * `$mount` refusal that sends a spec to the real Client Remote service.
  */
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it } from 'vitest'
 import { TestRemote } from '../src/remote.ts'
 
@@ -37,7 +37,7 @@ describe('TestRemote', () => {
   it('records a mounted contribution and withdraws it on disposal', async () => {
     const ctx = new Context()
     const remote = new TestRemote(ctx)
-    const contribution = { package: '@lyness/lyn-example' }
+    const contribution = { package: '@deepseek-ai/dsh-example' }
     const unmount = await remote.$mount(contribution)
     expect(remote.mounted).toEqual([contribution])
     await unmount()

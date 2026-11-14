@@ -3,13 +3,13 @@ description: "一次远程调用能不能被服务，在每个线上调用都要
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-remote-authority
+# @deepseek-ai/dsh-api-remote-authority
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-remote-authority` 是那条规则：拒绝调用方身份到不了的远程调用。它监听网关的授权点——每个线上调用都要经过那里——把请求所处的身份与端点声明的要求比对：先看方法自己的要求，否则看它命名空间的。没有人分类过的端点被拒绝，而不是被放行。这一切是否适用，是一个组合选择：键盘前只有一个人的安装既不挂账户也不挂规则，没有任何东西会拒绝他们自己的机器。
+`dsh-api-remote-authority` 是那条规则：拒绝调用方身份到不了的远程调用。它监听网关的授权点——每个线上调用都要经过那里——把请求所处的身份与端点声明的要求比对：先看方法自己的要求，否则看它命名空间的。没有人分类过的端点被拒绝，而不是被放行。这一切是否适用，是一个组合选择：键盘前只有一个人的安装既不挂账户也不挂规则，没有任何东西会拒绝他们自己的机器。
 
 ## 目录
 
@@ -25,18 +25,18 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-`@lyness/lyn-module-accounts` 把它与目录、请求主体一并选中；自己写行的组合同样加上一行：
+`@deepseek-ai/dsh-module-accounts` 把它与目录、请求主体一并选中；自己写行的组合同样加上一行：
 
 ```yaml
 - id: remote-authority
-  name: '@lyness/lyn-api-remote-authority'
+  name: '@deepseek-ai/dsh-api-remote-authority'
 ```
 
 它不需要配置。每个端点要求什么，声明在那个端点所在之处——命名空间声明默认值，方法可以抬高或降低它：
 
 ```ts
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { Context } from '@lyness/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
 
 declare const nothing: unique symbol
 
@@ -79,9 +79,9 @@ export class LedgerController extends TypertRemoteService {
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-gateway`](../gateway/README.zh.md) —— 它所搭乘的授权点，以及它产生的 `gateway/forbidden` 拒绝。
-- [`lyn-people`](../../identity/people/README.zh.md) —— 身份，以及每种角色能做什么。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 选中它的那个组合。
+- [`dsh-api-gateway`](../gateway/README.zh.md) —— 它所搭乘的授权点，以及它产生的 `gateway/forbidden` 拒绝。
+- [`dsh-people`](../../identity/people/README.zh.md) —— 身份，以及每种角色能做什么。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 选中它的那个组合。
 - [离开单操作者 Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.zh.md) —— 共享运行时为什么需要它。
 
 -----
@@ -100,7 +100,7 @@ export class LedgerController extends TypertRemoteService {
 <a id="known-limitations-and-deferred-work"></a>
 
 - **管角色，不管行** —— 它回答一个身份能否调用某个操作，从不回答它能否碰某一条具体的会话、工作区或任务。一个成员读另一个成员的对话属于归属问题；归属人已被记下，但还没有任何东西按它过滤。
-- **组织之间不分彼此** —— 某个组织的租户管理员，满足任何 `tenant-administrator` 端点，无论那次调用关于哪个组织。每个对组织行事的命名空间，仍需自己核对是哪一个，像 `lyn-credits` 那样。
+- **组织之间不分彼此** —— 某个组织的租户管理员，满足任何 `tenant-administrator` 端点，无论那次调用关于哪个组织。每个对组织行事的命名空间，仍需自己核对是哪一个，像 `dsh-credits` 那样。
 - **声明按命名空间，不按部署** —— 想让自己成员去配置某项、而本仓库把它归为平台级的部署，无法从组合层面降低它。
 - **拒绝文本会到达调用方** —— 它点出所要求的与所持有的身份，这等于告诉未授权的调用方这个端点存在。而端点列表本来就已经告诉他们了。
 - **什么都不记录** —— 一次拒绝只是被回答，不被记下，所以部署还无法回顾谁曾被拦住。

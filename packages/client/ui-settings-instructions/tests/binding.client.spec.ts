@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
+import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { InstructionsOperations } from '../src/client/operations.ts'
 

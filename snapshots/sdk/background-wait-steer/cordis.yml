@@ -3,14 +3,14 @@
 # next-step inbox, where the fixture checks the single notice the released read
 # withheld; no provider title or durable session-log mirror may add records.
 - id: skill-filesystem
-  name: '@lyness/lyn-skill-filesystem'
+  name: '@deepseek-ai/dsh-skill-filesystem'
   config:
     includeDefaultRoots: false
 
 - id: session-persistence-jsonl
-  name: '@lyness/lyn-session-persistence-jsonl'
+  name: '@deepseek-ai/dsh-session-persistence-jsonl'
   config:
-    root: !!js lynHomePath('sessions')
+    root: !!js dshHomePath('sessions')
     compression: none
 
 - id: session-log-deepseek
@@ -30,7 +30,7 @@
   disabled: true
 
 - id: tool-jobs
-  name: '@lyness/lyn-tool-jobs'
+  name: '@deepseek-ai/dsh-tool-jobs'
   config:
     completionDelivery: quiet
 

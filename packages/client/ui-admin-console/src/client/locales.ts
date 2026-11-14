@@ -5,7 +5,7 @@
  * Each page inside the console brings its own dictionary; nothing here names a
  * page, because the nav label is the page's own localized text.
  *
- * @module @lyness/lyn-client-ui-admin-console/client/locales
+ * @module @deepseek-ai/dsh-client-ui-admin-console/client/locales
  */
 
 /** English copy; the key set every locale answers. */

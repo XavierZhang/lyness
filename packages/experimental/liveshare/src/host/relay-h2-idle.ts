@@ -4,7 +4,7 @@
  * undici reports an idle h2 close as `InformationalError('socket idle timeout')` on a socket no
  * request owns. The Relay keeps HTTP/2, so this guard observes connected sockets only while a
  * Relay request is on the async call stack. Sockets opened by any other component are left alone.
- * @module @lyness/lyn-experimental-liveshare/src/host/relay-h2-idle
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/host/relay-h2-idle
  */
 
 /** The undici diagnostics channel that announces every connected client socket. */

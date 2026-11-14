@@ -1,5 +1,5 @@
 /** Configuration shared by plugin mounting and direct executor construction. @module */
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
 /** Program execution limits. */
 export interface Config {

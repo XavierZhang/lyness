@@ -9,9 +9,9 @@ import threading
 import pytest
 from pathlib import Path
 
-from lyness.models import CommandExecution
-from lyness import RunResult, Session
-from lyness.client import NotificationSubscription
+from DeepSeek Harness.models import CommandExecution
+from DeepSeek Harness import RunResult, Session
+from DeepSeek Harness.client import NotificationSubscription
 from test_commands_runtime import (
     _Completion, _Runtime, _SESSION_ID, _WAIT_SECONDS, _WaitResult, _assert_request_permission,
     _command_pair, _of_type, _permission_facts, _read_events,

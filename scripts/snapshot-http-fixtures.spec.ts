@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const httpMock = vi.hoisted(() => ({ createServer: vi.fn() }))

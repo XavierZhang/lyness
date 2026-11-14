@@ -2,22 +2,22 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import TypertGatewayService from '@lyness/lyn-api-gateway'
-import type { RemoteAccessBinding } from '@lyness/lyn-api-remote-access'
-import { SessionId } from '@lyness/lyn-session'
-import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import type { PeerId, PeerScope, Principal } from '@lyness/lyn-typert-protocol'
-import TypertRegistry from '@lyness/lyn-typert-registry'
+import { Context } from '@deepseek-ai/cordis'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import TypertGatewayService from '@deepseek-ai/dsh-api-gateway'
+import type { RemoteAccessBinding } from '@deepseek-ai/dsh-api-remote-access'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import type { PeerId, PeerScope, Principal } from '@deepseek-ai/dsh-typert-protocol'
+import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MockAdapter } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { mountWorkingDirectoryFixture } from '../../../subagent/subagent/tests/working-directory-fixture.ts'
 import { createSessionTestController } from './test-remote.ts'
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface PrincipalMap {
     /** Test-only non-owner caller shared by the access specs. */
     'test-guest': { readonly kind: 'test-guest'; readonly guest: string }
@@ -32,7 +32,7 @@ afterEach(async () => {
 })
 
 async function harness() {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-subagent-access-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-subagent-access-'))
   const ctx = new Context()
   cleanups.push(async () => {
     try { await ctx.fiber.dispose() } finally { await rm(root, { recursive: true, force: true }) }

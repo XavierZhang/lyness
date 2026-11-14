@@ -9,7 +9,7 @@ let workspace: string
 let outside: string
 
 beforeEach(async () => {
-  harness = await openWorkspace('lyn-workspace-files-list-')
+  harness = await openWorkspace('dsh-workspace-files-list-')
   workspace = harness.workspace
   outside = harness.outside
 })

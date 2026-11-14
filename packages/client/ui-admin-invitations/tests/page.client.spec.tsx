@@ -9,7 +9,7 @@
 
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import type { InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
+import type { InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
 import { InvitationsPage } from '../src/client/InvitationsPage.tsx'
 import type { InvitationsPageProps } from '../src/client/InvitationsPage.tsx'
 import type { InvitationsPageState } from '../src/client/store.ts'

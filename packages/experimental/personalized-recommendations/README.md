@@ -3,7 +3,7 @@ description: "Enable personalized page proposals and built-in plugin recommendat
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-personalized-recommendations
+# @deepseek-ai/dsh-personalized-recommendations
 
 English | [中文](README.zh.md)
 

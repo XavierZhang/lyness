@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-api-agent-capabilities-controller",
+  "name": "@deepseek-ai/dsh-api-agent-capabilities-controller",
   "description": "What one reader's agents may use, and who decided each part of it",
   "version": "0.2.2-alpha.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/api/agent-capabilities-controller"
   },
   "type": "module",
@@ -46,21 +46,21 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-skill": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-skill": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-package-manifest": "workspace:*",
-    "@lyness/lyn-skill": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-package-manifest": "workspace:*",
+    "@deepseek-ai/dsh-skill": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
   }
 }

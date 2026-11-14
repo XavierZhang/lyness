@@ -1,12 +1,12 @@
-import { createUserMessage } from '@lyness/lyn-llm'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import { SessionId } from '@deepseek-ai/dsh-session'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
  * Proves durable conversation continuity end-to-end: run 1 tells the REAL model
@@ -33,7 +33,7 @@ afterEach(async () => {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('resume: continue a persisted session across processes', () => {
   it('recalls a fact stored in a prior, separately-disposed session', async () => {
-    root = await mkdtemp(join(tmpdir(), 'lyn-resume-e2e-'))
+    root = await mkdtemp(join(tmpdir(), 'dsh-resume-e2e-'))
 
     // Run 1: a fresh agent on a KNOWN session id learns a secret, then we
     // dispose the whole context (simulating process exit) so only the JSONL

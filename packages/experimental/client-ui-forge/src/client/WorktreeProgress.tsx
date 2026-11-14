@@ -7,10 +7,10 @@
 import { useState, type ReactNode } from 'react'
 import {
   Button, IconBranchOutlineRegular, IconCheckOutlineRegular, IconChevronRightOutlineRegular, IconCloseOutlineRegular, StateDot,
-} from '@lyness/lyn-client-ui-primitives'
-import type { HostObservable, InjectFace, PropsLocale } from '@lyness/lyn-client-ui-slots'
-import type {} from '@lyness/lyn-client-ui-conversation/client'
-import { assertNever } from '@lyness/lyn-util-values'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { HostObservable, InjectFace, PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { ForgeMissingWorktree, ForgePanelWorktree, ForgeSessionWorktree, ForgeWorktreeRestoration } from '../types.ts'
 import type { ForgePanelKey, NS } from './locales.ts'
 import type { PanelSnapshot } from './source.ts'

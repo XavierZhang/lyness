@@ -5,69 +5,69 @@
 /:
   en: fa3201ce01a99d6b
   zh: e78ed79701e26ea7
-/lyness-lyn-headless:
+/deepseek-harness-dsh-headless:
   en: c7971e99ed5f8da3
   zh: dbab781fd32346aa
-/lyness-lyn-headless/summary:
+/deepseek-harness-dsh-headless/summary:
   en: 2e74863ee0ada0d7
   zh: 081c8498da281d1f
-/lyness-lyn-headless/table-of-contents:
+/deepseek-harness-dsh-headless/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-headless/use-this-package:
+/deepseek-harness-dsh-headless/use-this-package:
   en: 4447012f4c84100d
   zh: faf579ae9f04c096
-/lyness-lyn-headless/use-this-package/running-a-one-shot-task:
+/deepseek-harness-dsh-headless/use-this-package/running-a-one-shot-task:
   en: bab88ace58ef33a7
   zh: 9f8fb72c9e87a743
-/lyness-lyn-headless/use-this-package/credentials:
+/deepseek-harness-dsh-headless/use-this-package/credentials:
   en: 7c02575a02d3651c
   zh: a62d26cb0f6539e1
-/lyness-lyn-headless/use-this-package/choosing-the-session-identity:
+/deepseek-harness-dsh-headless/use-this-package/choosing-the-session-identity:
   en: 85120c2d6db2cac4
   zh: bac532df6c84e755
-/lyness-lyn-headless/use-this-package/supervising-implementation-tasks:
+/deepseek-harness-dsh-headless/use-this-package/supervising-implementation-tasks:
   en: 240a283a09a01866
   zh: d865c397d90d3b76
-/lyness-lyn-headless/use-this-package/experimental-auto-review:
+/deepseek-harness-dsh-headless/use-this-package/experimental-auto-review:
   en: b695861713ad6e50
   zh: 30b822654e1f8a56
-/lyness-lyn-headless/use-this-package/machine-readable-output:
+/deepseek-harness-dsh-headless/use-this-package/machine-readable-output:
   en: 6c7a23f4d4227907
   zh: 13fe8b1e6f25d09e
-/lyness-lyn-headless/use-this-package/when-to-use-it:
+/deepseek-harness-dsh-headless/use-this-package/when-to-use-it:
   en: 7779855c88df001a
   zh: 84d636152fd39634
-/lyness-lyn-headless/use-this-package/help-and-task-errors:
+/deepseek-harness-dsh-headless/use-this-package/help-and-task-errors:
   en: 626d58aceb4b3f62
   zh: b1d154cda5de7947
-/lyness-lyn-headless/understand-the-implementation:
+/deepseek-harness-dsh-headless/understand-the-implementation:
   en: be1b73a6d0ee3902
   zh: bdba099685d68b27
-/lyness-lyn-headless/understand-the-implementation/run-flow:
+/deepseek-harness-dsh-headless/understand-the-implementation/run-flow:
   en: d0b2deb9353d263b
   zh: fd0142197be94c57
-/lyness-lyn-headless/understand-the-implementation/patch-surface-over-base:
+/deepseek-harness-dsh-headless/understand-the-implementation/patch-surface-over-base:
   en: 072f7fc419ccf108
   zh: dd9be70772d24d3f
-/lyness-lyn-headless/understand-the-implementation/exit-mapping:
+/deepseek-harness-dsh-headless/understand-the-implementation/exit-mapping:
   en: 0b5a505a12d7fc55
   zh: 122b239b35ca9482
-/lyness-lyn-headless/understand-the-implementation/source-map:
+/deepseek-harness-dsh-headless/understand-the-implementation/source-map:
   en: 36a635fad25b9ef0
   zh: e271db999b11f0ed
-/lyness-lyn-headless/further-exploration:
+/deepseek-harness-dsh-headless/further-exploration:
   en: 487ec5fad3e64fcd
   zh: c90356c08dd812e9
-/lyness-lyn-headless/model-experience:
+/deepseek-harness-dsh-headless/model-experience:
   en: c5a0991833f64dd7
   zh: 46f9feb255778f11
-/lyness-lyn-headless/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-headless/model-experience/kv-cache-effect:
   en: 0b0f74b412c7c6d8
   zh: 6e8f918d0c4bf342
-/lyness-lyn-headless/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-headless/known-limitations-and-deferred-work:
   en: 8a7f726e6192e02f
   zh: d8376e30c9603d39
-/lyness-lyn-headless/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-headless/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

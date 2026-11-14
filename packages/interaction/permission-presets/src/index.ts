@@ -9,40 +9,40 @@
  * side exposes a process catalog plus the current-value-only `permissions`
  * Session projection; the write side ships as the `/permission` command.
  *
- * @module lyn-permission-presets
+ * @module dsh-permission-presets
  */
-import type {} from '@lyness/lyn-settings'
-import type {} from '@lyness/lyn-agent'
+import type {} from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-agent'
 
-import type { Volatile } from '@lyness/cordis'
+import type { Volatile } from '@deepseek-ai/cordis'
 
-import { Context, Service } from '@lyness/cordis'
-import { CommandDefinitionId } from '@lyness/lyn-commands/brand'
-import z from '@lyness/schemastery'
+import { Context, Service } from '@deepseek-ai/cordis'
+import { CommandDefinitionId } from '@deepseek-ai/dsh-commands/brand'
+import z from '@deepseek-ai/schemastery'
 import { z as zod } from 'zod'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { Session, SessionEvent } from '@lyness/lyn-session'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
-import { SANDBOX_MODES, setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { SANDBOX_MODES, setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
 // Side-effect type import: declaration-merges `ctx.shell` (the capability fact
 // `sandboxMode` this service reads), without a value dependency on the seam.
-import type {} from '@lyness/lyn-shell'
-import type { ApprovalPolicy } from '@lyness/lyn-user-approval'
-import { APPROVAL_POLICIES, setApprovalPolicy } from '@lyness/lyn-user-approval'
+import type {} from '@deepseek-ai/dsh-shell'
+import type { ApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
+import { APPROVAL_POLICIES, setApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
 // Type-only: resolves the required projection service and optional settings/command children.
-import type { ProjectionHandle } from '@lyness/lyn-session-projection'
-import type {} from '@lyness/lyn-commands'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
+import type {} from '@deepseek-ai/dsh-commands'
 import type { PermissionCatalog, PermissionSelection, PresetOption } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     permissionPresets: PermissionPresetService
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Records the selected preset as durable, log-only user intent. The knob
@@ -253,7 +253,7 @@ export class PermissionPresetService extends TypertRemoteService {
     // activates only when a command registry is composed.
     ctx.inject(['commands'], (commandCtx) => {
       commandCtx.commands.register({
-        definitionId: CommandDefinitionId('@lyness/lyn-permission-presets'),
+        definitionId: CommandDefinitionId('@deepseek-ai/dsh-permission-presets'),
         name: 'permission',
         description: 'Switch the permission preset (sandbox mode + approval policy)',
         input: { hint: '<preset>' },

@@ -84,7 +84,7 @@ interface RunningGate {
   promise: Promise<GateResult>
 }
 
-/** The worker count an aggregate uses when `LYNESS_GATE_CONCURRENCY` is unset, with its diagnostic source. */
+/** The worker count an aggregate uses when `DSH_GATE_CONCURRENCY` is unset, with its diagnostic source. */
 export interface ConcurrencyDefault {
   workers: number
   source: string
@@ -115,21 +115,21 @@ async function main(args: string[]): Promise<number> {
 
 /**
  * Run one aggregate through the real child-process executor with the CLI's
- * environment-selected scheduling and reporting: `LYNESS_GATE_CONCURRENCY`
- * overrides the worker default, `LYNESS_GATE_FAIL_FAST=1` stops at the first
+ * environment-selected scheduling and reporting: `DSH_GATE_CONCURRENCY`
+ * overrides the worker default, `DSH_GATE_FAIL_FAST=1` stops at the first
  * blocking failure, and every settled gate plus a final summary is printed.
  * @param name - aggregate name printed in the start line.
  * @param gates - complete aggregate to execute.
- * @param concurrencyDefault - worker count used when `LYNESS_GATE_CONCURRENCY` is unset.
+ * @param concurrencyDefault - worker count used when `DSH_GATE_CONCURRENCY` is unset.
  * @returns 1 when a blocking gate failed or was skipped, otherwise 0.
  */
 export async function runAggregate(name: string, gates: Gate[], concurrencyDefault: ConcurrencyDefault): Promise<number> {
-  const concurrencyOverride = process.env.LYNESS_GATE_CONCURRENCY
-  const maxConcurrency = concurrencyFromEnv('LYNESS_GATE_CONCURRENCY', concurrencyDefault.workers)
+  const concurrencyOverride = process.env.DSH_GATE_CONCURRENCY
+  const maxConcurrency = concurrencyFromEnv('DSH_GATE_CONCURRENCY', concurrencyDefault.workers)
   const concurrencySource = concurrencyOverride === undefined || concurrencyOverride === ''
     ? concurrencyDefault.source
-    : '$LYNESS_GATE_CONCURRENCY'
-  const failFast = flagEnabled('LYNESS_GATE_FAIL_FAST')
+    : '$DSH_GATE_CONCURRENCY'
+  const failFast = flagEnabled('DSH_GATE_FAIL_FAST')
   const startedAt = performance.now()
   console.log(`run-gates: ${name} running ${gates.length} gate(s) with ${maxConcurrency} worker(s) from ${concurrencySource}${failFast ? ', fail-fast after first blocking failure' : ''}.`)
 
@@ -144,7 +144,7 @@ export async function runAggregate(name: string, gates: Gate[], concurrencyDefau
  * The options the CLI entrypoint hands to the scheduler. Host signal
  * forwarding always follows fail-fast: children are detached only then, so
  * without it the forwarding would have no tree to drain.
- * @param failFast - whether `LYNESS_GATE_FAIL_FAST` is enabled.
+ * @param failFast - whether `DSH_GATE_FAIL_FAST` is enabled.
  * @returns the scheduler options for the entrypoint.
  */
 export function cliGateOptions(failFast: boolean): RunGatesOptions {
@@ -224,8 +224,8 @@ export function ciWorkerEnvironment(
 ): Record<string, string> {
   // ci-unit's gates read none of these settings, while the inventory it runs
   // reads the same variables (run-gates.spec.ts builds coverage gates from
-  // LYNESS_COVERAGE_PARTITIONS; the oxlint contract spawns run-oxlint, which
-  // reads LYNESS_OXLINT_THREADS), so the aggregate leaves the environment as
+  // DSH_COVERAGE_PARTITIONS; the oxlint contract spawns run-oxlint, which
+  // reads DSH_OXLINT_THREADS), so the aggregate leaves the environment as
   // `pnpm run test` finds it.
   if (!mode.startsWith('ci-') || mode === 'ci-unit') return {}
   const budget = defaultParallelism(env, cpus)
@@ -235,16 +235,16 @@ export function ciWorkerEnvironment(
     if (env[name] === undefined || env[name] === '') additions[name] = String(value)
   }
   const shared = Math.max(1, Math.floor(budget / 2))
-  setDefault('LYNESS_OXLINT_THREADS', shared)
-  setDefault('LYNESS_PUBLINT_CONCURRENCY', shared)
-  setDefault('LYNESS_SNAPSHOT_MAX_WORKERS', 1)
-  setDefault('LYNESS_SNAPSHOT_MAX_CONCURRENCY', shared)
-  setDefault('LYNESS_WEB_SNAPSHOT_WORKERS', env.LYNESS_GATE_CONCURRENCY === '1' ? 1 : budget)
-  setDefault('LYNESS_COVERAGE_MAX_WORKERS', testBudget)
-  const coverageBudget = env.LYNESS_COVERAGE_MAX_WORKERS || String(testBudget)
+  setDefault('DSH_OXLINT_THREADS', shared)
+  setDefault('DSH_PUBLINT_CONCURRENCY', shared)
+  setDefault('DSH_SNAPSHOT_MAX_WORKERS', 1)
+  setDefault('DSH_SNAPSHOT_MAX_CONCURRENCY', shared)
+  setDefault('DSH_WEB_SNAPSHOT_WORKERS', env.DSH_GATE_CONCURRENCY === '1' ? 1 : budget)
+  setDefault('DSH_COVERAGE_MAX_WORKERS', testBudget)
+  const coverageBudget = env.DSH_COVERAGE_MAX_WORKERS || String(testBudget)
   const total = Number(coverageBudget)
   if (!Number.isSafeInteger(total) || total < 1) {
-    throw new Error(`run-gates: LYNESS_COVERAGE_MAX_WORKERS must be a positive integer, got ${JSON.stringify(coverageBudget)}.`)
+    throw new Error(`run-gates: DSH_COVERAGE_MAX_WORKERS must be a positive integer, got ${JSON.stringify(coverageBudget)}.`)
   }
   const instrumented = Math.max(1, total - Math.max(1, Math.floor(total / 3)))
   if (instrumented > 1) setDefault(COVERAGE_PARTITIONS_ENV, instrumented)
@@ -361,7 +361,7 @@ export function gatesForMode(selected: Mode): Gate[] {
         ...hygieneLeafGates({ artifactNeeds: ['build'] }),
         ...docSyncLeafGates({
           docTypecheckNeeds: ['build'],
-          docTypecheckEnv: { LYNESS_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
+          docTypecheckEnv: { DSH_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
           docTypecheckScript: 'doc-typecheck:contracts-ready',
         }),
         pnpmScript('module-graph', 'verify-module-graph', { label: 'module graph' }),
@@ -394,7 +394,7 @@ function ciSharedStaticGates(): Gate[] {
     pnpmScript('client-remote-namespaces', 'verify-client-remote-namespaces', {
       label: 'client Remote namespaces',
     }),
-    pnpmScript('lyn-package-licenses', 'verify-lyn-package-licenses', { label: 'LYN package licenses' }),
+    pnpmScript('dsh-package-licenses', 'verify-dsh-package-licenses', { label: 'DSH package licenses' }),
     pnpmScript('package-meta', 'verify-package-meta', { label: 'package metadata' }),
     pnpmScript('cordis-config', 'verify-cordis-config', { label: 'Cordis config' }),
     ...sharedHygieneGates(),
@@ -472,7 +472,7 @@ function ciPrimaryGates(): Gate[] {
 }
 
 function nodeCompatGates(): Gate[] {
-  const typecheck = flagEnabled('LYNESS_NODE_COMPAT_SKIP_TYPECHECK')
+  const typecheck = flagEnabled('DSH_NODE_COMPAT_SKIP_TYPECHECK')
     ? []
     : [pnpmScript('typecheck', 'typecheck')]
   if (!process.versions.node.startsWith(`${BUILD_BACKED_NODE_COMPAT_VERSION}.`)) {
@@ -514,7 +514,7 @@ function nodeCompatSmokeGates(options: { cliSmoke?: boolean } = {}): Gate[] {
         'apps/cli/tests/lazy-search-startup.compat.spec.ts',
       ], {
         label: 'CLI lazy-search startup smoke',
-        env: { LYNESS_REQUIRE_BUILT_CLI_SMOKE: '1' },
+        env: { DSH_REQUIRE_BUILT_CLI_SMOKE: '1' },
         needs: ['build'],
       }),
     )
@@ -531,7 +531,7 @@ function ciStaticGates(options: { ownsBuild: boolean }): Gate[] {
       ...options.ownsBuild
         ? {
           docTypecheckNeeds: ['build'],
-          docTypecheckEnv: { LYNESS_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
+          docTypecheckEnv: { DSH_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
           docTypecheckScript: 'doc-typecheck:contracts-ready',
         }
         : {},
@@ -590,7 +590,7 @@ function ciConsumerGates(): Gate[] {
     webSnapshotGate(builtTree, buildArtifactReaders),
     pnpmScript('doc-typecheck', 'doc-typecheck:contracts-ready', {
       needs: builtTree,
-      env: { LYNESS_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
+      env: { DSH_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1' },
     }),
     pnpmScript('node-next-types', 'verify-node-next-types', {
       label: 'node-next types',
@@ -602,24 +602,24 @@ function ciConsumerGates(): Gate[] {
 
 function webSnapshotGate(needs: string[], after?: string[]): Gate {
   const order = after === undefined ? { needs } : { needs, after }
-  const workerRaw = process.env.LYNESS_WEB_SNAPSHOT_WORKERS
+  const workerRaw = process.env.DSH_WEB_SNAPSHOT_WORKERS
   if (workerRaw !== undefined && workerRaw !== '') {
     const workers = Number.parseInt(workerRaw, 10)
     if (!Number.isSafeInteger(workers) || workers < 1 || String(workers) !== workerRaw) {
-      throw new Error(`run-gates: LYNESS_WEB_SNAPSHOT_WORKERS must be a positive integer, got ${JSON.stringify(workerRaw)}.`)
+      throw new Error(`run-gates: DSH_WEB_SNAPSHOT_WORKERS must be a positive integer, got ${JSON.stringify(workerRaw)}.`)
     }
     return pnpmScript('web-snapshot', 'test:web:ci', {
       label: 'web browser snapshot',
-      displayCommand: `LYNESS_SNAPSHOT=replay LYNESS_WEB_SNAPSHOT_WORKERS=${workers} pnpm run test:web:ci`,
-      env: { LYNESS_SNAPSHOT: 'replay' },
+      displayCommand: `DSH_SNAPSHOT=replay DSH_WEB_SNAPSHOT_WORKERS=${workers} pnpm run test:web:ci`,
+      env: { DSH_SNAPSHOT: 'replay' },
       ...order,
       streamOutput: true,
     })
   }
   return pnpmScript('web-snapshot', 'test:web:built', {
     label: 'web browser snapshot',
-    displayCommand: 'LYNESS_SNAPSHOT=replay pnpm run test:web:built',
-    env: { LYNESS_SNAPSHOT: 'replay' },
+    displayCommand: 'DSH_SNAPSHOT=replay pnpm run test:web:built',
+    env: { DSH_SNAPSHOT: 'replay' },
     ...order,
   })
 }
@@ -662,8 +662,8 @@ function electronInstallGate(): Gate {
   return {
     id: 'electron-install',
     label: 'Electron binary',
-    displayCommand: 'pnpm --filter @lyness/lyn-desktop exec install-electron',
-    ...pnpmInvocation(['--filter', '@lyness/lyn-desktop', 'exec', 'install-electron']),
+    displayCommand: 'pnpm --filter @deepseek-ai/dsh-desktop exec install-electron',
+    ...pnpmInvocation(['--filter', '@deepseek-ai/dsh-desktop', 'exec', 'install-electron']),
     env: { ELECTRON_GET_USE_PROXY: '1' },
   }
 }
@@ -702,12 +702,12 @@ function typertContractsGate(): Gate {
 }
 
 function lintGate(options: { needs?: string[] } = {}): Gate {
-  const raw = process.env.LYNESS_OXLINT_THREADS
+  const raw = process.env.DSH_OXLINT_THREADS
   const script = 'lint:contracts-ready'
   return pnpmScript('lint', script, {
     ...raw === undefined || raw === ''
       ? {}
-      : { displayCommand: `LYNESS_OXLINT_THREADS=${raw} pnpm run ${script}` },
+      : { displayCommand: `DSH_OXLINT_THREADS=${raw} pnpm run ${script}` },
     ...options.needs === undefined ? {} : { needs: options.needs },
   })
 }
@@ -717,17 +717,17 @@ function lintGate(options: { needs?: string[] } = {}): Gate {
 // under v8 instrumentation while contributing nothing the thresholds need
 // (membership rules in scripts/coverage-exempt.ts).
 //
-// LYNESS_COVERAGE_MAX_WORKERS is shared between the two parallel gates. CI
+// DSH_COVERAGE_MAX_WORKERS is shared between the two parallel gates. CI
 // defaults its partition count to the instrumented share; an explicit
-// LYNESS_COVERAGE_PARTITIONS overrides that share independently. The exempt
+// DSH_COVERAGE_PARTITIONS overrides that share independently. The exempt
 // gate's wall clock is dominated by its longest single file, so it takes the
 // small share. A budget of 1 gives each gate 1 worker; lanes that need a strict
-// total of one (the serial reference jobs) also set LYNESS_GATE_CONCURRENCY=1,
+// total of one (the serial reference jobs) also set DSH_GATE_CONCURRENCY=1,
 // which keeps the gates from overlapping at all.
-// LYNESS_COVERAGE_TEST_TIMEOUT_MS is not a gate argument: vitest.config.ts reads
+// DSH_COVERAGE_TEST_TIMEOUT_MS is not a gate argument: vitest.config.ts reads
 // it from the environment every gate inherits (coverageTestTimeoutOptions).
 function coverageWorkerArgs(): { instrumented: string[]; exempt: string[] } {
-  const [flag] = positiveIntArg('LYNESS_COVERAGE_MAX_WORKERS', '--maxWorkers')
+  const [flag] = positiveIntArg('DSH_COVERAGE_MAX_WORKERS', '--maxWorkers')
   if (flag === undefined) return { instrumented: [], exempt: [] }
   const total = Number.parseInt(flag.split('=')[1] ?? '', 10)
   const exempt = Math.max(1, Math.floor(total / 3))
@@ -776,7 +776,7 @@ function coverageGates(platform: NodeJS.Platform = process.platform): Gate[] {
 
 // The uninstrumented unit inventory for a whole-inventory reference lane
 // (the Sandbox workflow's darwin parity job). It is `pnpm run test`; the lane
-// sets LYNESS_COVERAGE_TEST_TIMEOUT_MS, which vitest.config.ts reads from the
+// sets DSH_COVERAGE_TEST_TIMEOUT_MS, which vitest.config.ts reads from the
 // inherited environment, because a shared hosted runner delays cases that
 // inherit Vitest's defaults past them. Output streams so the job log keeps
 // per-file timestamps for a 15–30 minute run.
@@ -795,7 +795,7 @@ function ciUnitGates(): Gate[] {
 // either on `build` or on a validation gate that transitively owns that build.
 function snapshotGate(needs: string[] = ['build']): Gate {
   return pnpmScript('snapshot', 'test:snapshot', {
-    env: { LYNESS_EXAMPLE_MODE: 'lib' },
+    env: { DSH_EXAMPLE_MODE: 'lib' },
     needs,
   })
 }
@@ -804,7 +804,7 @@ function snapshotGate(needs: string[] = ['build']): Gate {
 // the recorded-session corpus or the credentialed provider lane.
 function expectedOutputGate(needs: string[] = ['build']): Gate {
   return pnpmScript('expected-output', 'test:expected', {
-    env: { LYNESS_EXAMPLE_MODE: 'lib' },
+    env: { DSH_EXAMPLE_MODE: 'lib' },
     needs,
   })
 }
@@ -843,7 +843,7 @@ function hygieneLeafGates(options: { artifactNeeds?: string[] } = {}): Gate[] {
       label: 'client Remote namespaces',
     }),
     pnpmScript('application-entrypoints', 'verify-application-entrypoints', { label: 'application entrypoints' }),
-    pnpmScript('lyn-package-licenses', 'verify-lyn-package-licenses', { label: 'LYN package licenses' }),
+    pnpmScript('dsh-package-licenses', 'verify-dsh-package-licenses', { label: 'DSH package licenses' }),
     pnpmScript('node-next-types', 'verify-node-next-types', {
       label: 'node-next types',
       ...artifactOptions,
@@ -872,7 +872,7 @@ function docSyncLeafGates(options: {
     pnpmScript('cli-help', 'verify-cli-help', {
       label: 'CLI help reference',
       // Other gate workers already run beside this leaf; direct help generation keeps its own worker budget.
-      env: { LYNESS_CLI_HELP_CONCURRENCY: process.env.LYNESS_CLI_HELP_CONCURRENCY || '1' },
+      env: { DSH_CLI_HELP_CONCURRENCY: process.env.DSH_CLI_HELP_CONCURRENCY || '1' },
     }),
     pnpmScript('markdown-links', 'verify-md-links', { label: 'markdown links', quick: true }),
     pnpmScript('type-equivalence', 'verify-type-equiv', { label: 'type equivalence', quick: true }),
@@ -966,7 +966,7 @@ function builtBinSmokeGate(needs: string[] = ['build']): Gate {
   ], {
     label: 'built-bin smoke',
     needs,
-    env: { LYNESS_EXAMPLE_MODE: 'lib' },
+    env: { DSH_EXAMPLE_MODE: 'lib' },
   })
 }
 
@@ -1711,7 +1711,7 @@ export function formatGateResultReason(result: GateResult): string {
 }
 
 function printResult(result: GateResult): void {
-  const verbose = process.env.LYNESS_GATE_VERBOSE === '1'
+  const verbose = process.env.DSH_GATE_VERBOSE === '1'
   const seconds = (result.durationMs / 1000).toFixed(2)
   if (result.status === 'passed' && !verbose) {
     console.log(`run-gates: PASS ${result.gate.label} (${seconds}s)`)

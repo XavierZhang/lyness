@@ -5,48 +5,48 @@
 /:
   en: 93b346254eff025a
   zh: 69aa6364ca2ffa7d
-/lyness-lyn-tool-executor-ptc:
+/deepseek-harness-dsh-tool-executor-ptc:
   en: 483cbdbce7812568
   zh: df4bfc5d5c3a228b
-/lyness-lyn-tool-executor-ptc/summary:
+/deepseek-harness-dsh-tool-executor-ptc/summary:
   en: 66e159c308afb6c1
   zh: 29b1a646ae7f918a
-/lyness-lyn-tool-executor-ptc/table-of-contents:
+/deepseek-harness-dsh-tool-executor-ptc/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-tool-executor-ptc/use-this-package:
+/deepseek-harness-dsh-tool-executor-ptc/use-this-package:
   en: a6ae950318ffcc13
   zh: 65bc678637c30c4f
-/lyness-lyn-tool-executor-ptc/understand-the-implementation:
+/deepseek-harness-dsh-tool-executor-ptc/understand-the-implementation:
   en: 9d4f61c351945d30
   zh: 1c575526230b0e02
-/lyness-lyn-tool-executor-ptc/understand-the-implementation/ptc-mode:
+/deepseek-harness-dsh-tool-executor-ptc/understand-the-implementation/ptc-mode:
   en: 210804e4763afe84
   zh: 5469703133b09bc3
-/lyness-lyn-tool-executor-ptc/further-exploration:
+/deepseek-harness-dsh-tool-executor-ptc/further-exploration:
   en: 2b0719be506a87e4
   zh: 0c584372b115fa4e
-/lyness-lyn-tool-executor-ptc/model-experience:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt:
   en: eaefd7303f22977d
   zh: 9c425f9501128224
-/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees:
   en: 5261edf06f916849
   zh: 646d0ea5796acf62
-/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees/typescript-ptc-mode-sdk-instructions-with-bash:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees/typescript-ptc-mode-sdk-instructions-with-bash:
   en: 3a8df15e4ae32f9e
   zh: fc4a800ba363e835
-/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/token-effect:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/token-effect:
   en: 12296fcafc14562c
   zh: f8e9351bb8c6437d
-/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/kv-cache-effect:
+/deepseek-harness-dsh-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/kv-cache-effect:
   en: 78906628d634441f
   zh: 492f133aea50cfe3
-/lyness-lyn-tool-executor-ptc/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tool-executor-ptc/known-limitations-and-deferred-work:
   en: 5030c17a9c6a2a85
   zh: 6334bbe1a1d19cb4
-/lyness-lyn-tool-executor-ptc/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tool-executor-ptc/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

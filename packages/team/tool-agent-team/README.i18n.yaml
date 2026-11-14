@@ -5,81 +5,81 @@
 /:
   en: ca1947ba4777c2a0
   zh: bed18854b761aae4
-/lyness-lyn-tool-agent-team:
+/deepseek-harness-dsh-tool-agent-team:
   en: a4e9680590b2ad30
   zh: b0f9855c2a8812de
-/lyness-lyn-tool-agent-team/summary:
+/deepseek-harness-dsh-tool-agent-team/summary:
   en: 3cfb2bbd5dd3b89e
   zh: 070007c2ee2cec11
-/lyness-lyn-tool-agent-team/table-of-contents:
+/deepseek-harness-dsh-tool-agent-team/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-tool-agent-team/use-this-package:
+/deepseek-harness-dsh-tool-agent-team/use-this-package:
   en: 5c08cdff08df162b
   zh: 33fe1cb435dd94a1
-/lyness-lyn-tool-agent-team/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-tool-agent-team/use-this-package/when-to-choose-it:
   en: 4eaba7d19e3b198d
   zh: 6e18662721051075
-/lyness-lyn-tool-agent-team/use-this-package/smallest-working-example:
+/deepseek-harness-dsh-tool-agent-team/use-this-package/smallest-working-example:
   en: bc02ccc5b461d2c4
   zh: c9a7b47973b73ea4
-/lyness-lyn-tool-agent-team/use-this-package/what-the-model-can-do:
+/deepseek-harness-dsh-tool-agent-team/use-this-package/what-the-model-can-do:
   en: e1c9833c8ee02540
   zh: b22aa78c13ed4494
-/lyness-lyn-tool-agent-team/use-this-package/what-success-and-failure-look-like:
+/deepseek-harness-dsh-tool-agent-team/use-this-package/what-success-and-failure-look-like:
   en: bf1eb0e693610f5b
   zh: 2b29e5cf63623909
-/lyness-lyn-tool-agent-team/understand-the-implementation:
+/deepseek-harness-dsh-tool-agent-team/understand-the-implementation:
   en: 3952eb1d9de1f988
   zh: 789d51b88f41b710
-/lyness-lyn-tool-agent-team/understand-the-implementation/design-philosophy:
+/deepseek-harness-dsh-tool-agent-team/understand-the-implementation/design-philosophy:
   en: 5b6544144090f822
   zh: 3715ea3b34a1ddd4
-/lyness-lyn-tool-agent-team/understand-the-implementation/source-map:
+/deepseek-harness-dsh-tool-agent-team/understand-the-implementation/source-map:
   en: 3b906bae9ec19393
   zh: 42c8dd145c704cb3
-/lyness-lyn-tool-agent-team/understand-the-implementation/policy-and-tools:
+/deepseek-harness-dsh-tool-agent-team/understand-the-implementation/policy-and-tools:
   en: f2e2e2b31a03c12b
   zh: f4af2c0f35fc9de4
-/lyness-lyn-tool-agent-team/understand-the-implementation/scoped-registration-and-teardown:
+/deepseek-harness-dsh-tool-agent-team/understand-the-implementation/scoped-registration-and-teardown:
   en: ee8db166c0bc8a9b
   zh: 6bfe192220e931a6
-/lyness-lyn-tool-agent-team/further-exploration:
+/deepseek-harness-dsh-tool-agent-team/further-exploration:
   en: 20079b77e07c09a4
   zh: 74fb8099eefe526d
-/lyness-lyn-tool-agent-team/model-experience:
+/deepseek-harness-dsh-tool-agent-team/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-tool-agent-team/model-experience/team-policy-system-prompt:
+/deepseek-harness-dsh-tool-agent-team/model-experience/team-policy-system-prompt:
   en: 8757dc3caca9e4e2
   zh: fd0b7535a1b24189
-/lyness-lyn-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees:
+/deepseek-harness-dsh-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees:
   en: 25079a70c9a3ed87
   zh: 34301e390669a887
-/lyness-lyn-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees/team-policy:
+/deepseek-harness-dsh-tool-agent-team/model-experience/team-policy-system-prompt/what-the-model-sees/team-policy:
   en: 824ebdbe434d7b6c
   zh: 6a442dbca7cf3625
-/lyness-lyn-tool-agent-team/model-experience/team-policy-system-prompt/token-effect:
+/deepseek-harness-dsh-tool-agent-team/model-experience/team-policy-system-prompt/token-effect:
   en: 7e2583f482a60938
   zh: d3e68b204cd3d2b3
-/lyness-lyn-tool-agent-team/model-experience/team-policy-system-prompt/kv-cache-effect:
+/deepseek-harness-dsh-tool-agent-team/model-experience/team-policy-system-prompt/kv-cache-effect:
   en: 6723f8e3f2497338
   zh: ca68851b279362e1
-/lyness-lyn-tool-agent-team/model-experience/task-tool-schemas:
+/deepseek-harness-dsh-tool-agent-team/model-experience/task-tool-schemas:
   en: d6918434714cf05a
   zh: eef799d16e0c8f4b
-/lyness-lyn-tool-agent-team/model-experience/task-tool-schemas/what-the-model-sees:
+/deepseek-harness-dsh-tool-agent-team/model-experience/task-tool-schemas/what-the-model-sees:
   en: 54075bf6f818ce18
   zh: 946205204ecebe07
-/lyness-lyn-tool-agent-team/model-experience/task-tool-schemas/token-effect:
+/deepseek-harness-dsh-tool-agent-team/model-experience/task-tool-schemas/token-effect:
   en: 5ae789db90ce9606
   zh: 3b26fe33c811815c
-/lyness-lyn-tool-agent-team/model-experience/task-tool-schemas/kv-cache-effect:
+/deepseek-harness-dsh-tool-agent-team/model-experience/task-tool-schemas/kv-cache-effect:
   en: 41bfcd6adb8058f5
   zh: 73363ee21021a96a
-/lyness-lyn-tool-agent-team/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tool-agent-team/known-limitations-and-deferred-work:
   en: 863e528107d3b510
   zh: bd0551f1f7e4607f
-/lyness-lyn-tool-agent-team/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tool-agent-team/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

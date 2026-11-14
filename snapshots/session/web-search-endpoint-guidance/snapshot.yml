@@ -9,4 +9,4 @@ header:
   systemPromptSource: text-turn
   toolSchemasSource: text-turn
 environment:
-  LYNESS_SNAPSHOT_SEARCH_KEY: snapshot-key
+  DSH_SNAPSHOT_SEARCH_KEY: snapshot-key

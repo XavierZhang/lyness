@@ -1,5 +1,5 @@
 /** A real extra registration used to detect one-sided profile additions. */
-import { defineTool } from '@lyness/lyn-tools'
+import { defineTool } from '@deepseek-ai/dsh-tools'
 
 export const inject = ['tools']
 

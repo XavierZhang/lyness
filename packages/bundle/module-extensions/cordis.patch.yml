@@ -10,16 +10,16 @@
 # (../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md).
 - insert:
     - id: cordis-host-runner
-      name: '@lyness/lyn-cordis-host-runner'
+      name: '@deepseek-ai/dsh-cordis-host-runner'
 
     # The Host inspect providers are process-global: the registry rejects a
     # duplicate id, so they register here once and every preset's `tool-cordis`
     # row reads them.
     - id: cordis-inspect-providers
-      name: '@lyness/lyn-tool-cordis/host'
+      name: '@deepseek-ai/dsh-tool-cordis/host'
 
     - id: cordis-client-runner
-      name: '@lyness/lyn-cordis-client-runner'
+      name: '@deepseek-ai/dsh-cordis-client-runner'
 
     - id: ui-cordis
-      name: '@lyness/lyn-client-ui-cordis'
+      name: '@deepseek-ai/dsh-client-ui-cordis'

@@ -3,13 +3,13 @@ description: "The administration console: its own page, its own shell, and every
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-admin-console
+# @deepseek-ai/dsh-client-ui-admin-console
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-admin-console` is the administration console: a page of its own, at a path the Host answers with the application document, holding every page an administrator maintains. It takes the built-in `root` seat on that page and nothing anywhere else, so a person using the product never loads the console's chrome, and an administrator opens a URL rather than a panel inside the workbench. The pages themselves belong to their own packages and register into `admin.section`; this one owns the navigation, the header, its own sign-in page, and what the console says when a deployment composed no administration page at all.
+`dsh-client-ui-admin-console` is the administration console: a page of its own, at a path the Host answers with the application document, holding every page an administrator maintains. It takes the built-in `root` seat on that page and nothing anywhere else, so a person using the product never loads the console's chrome, and an administrator opens a URL rather than a panel inside the workbench. The pages themselves belong to their own packages and register into `admin.section`; this one owns the navigation, the header, its own sign-in page, and what the console says when a deployment composed no administration page at all.
 
 ## Table of Contents
 
@@ -29,12 +29,12 @@ Two rows: the Host answers the console's path with the document, and the console
 
 ```yaml
 - id: frontend-static
-  name: '@lyness/lyn-host-frontend-static'
+  name: '@deepseek-ai/dsh-host-frontend-static'
   config:
     documentPaths:
       - /admin
 - id: ui-admin-console
-  name: '@lyness/lyn-client-ui-admin-console'
+  name: '@deepseek-ai/dsh-client-ui-admin-console'
   config:
     path: /admin
 ```
@@ -63,10 +63,10 @@ The two paths are one decision stated twice: the Host decides which paths serve 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-host-frontend-static`](../../host/frontend-static/README.md) — answers the console's path with the document.
-- [`lyn-client-ui-settings`](../ui-settings/README.md) — types `admin.section` and the owner share a page receives.
-- [`lyn-client-ui-viewer`](../ui-viewer/README.md) — the one read answering who is viewing.
-- [`lyn-client-ui-layout`](../ui-layout/README.md) — the workbench frame this console shadows on its own page.
+- [`dsh-host-frontend-static`](../../host/frontend-static/README.md) — answers the console's path with the document.
+- [`dsh-client-ui-settings`](../ui-settings/README.md) — types `admin.section` and the owner share a page receives.
+- [`dsh-client-ui-viewer`](../ui-viewer/README.md) — the one read answering who is viewing.
+- [`dsh-client-ui-layout`](../ui-layout/README.md) — the workbench frame this console shadows on its own page.
 
 -----
 

@@ -10,7 +10,7 @@
  */
 
 import { Client } from '@modelcontextprotocol/client'
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type { McpProbeFailure, McpProbeResult, McpProbeStage, McpProbeSuccess } from './types.ts'
 import { McpTemplateBinding } from './credentials.ts'
 import { McpGeneration } from './generation.ts'
@@ -63,7 +63,7 @@ export async function probeServer(ctx: Context, config: Config, options: McpProb
   const startedAt = Date.now()
   const remaining = (): number => spec.timeoutMs - (Date.now() - startedAt)
   const binding = new McpTemplateBinding(ctx, config)
-  const client = new Client({ name: 'lyn-mcp-probe', version: '0.0.1' }, { capabilities: {}, versionNegotiation: { mode: 'auto' } })
+  const client = new Client({ name: 'dsh-mcp-probe', version: '0.0.1' }, { capabilities: {}, versionNegotiation: { mode: 'auto' } })
   const generation = new McpGeneration(client, config.closeTimeoutMs, error => binding.diagnostic(error, 'cleanup'))
   const abort = (): void => { void generation.close() }
   spec.signal?.addEventListener('abort', abort, { once: true })

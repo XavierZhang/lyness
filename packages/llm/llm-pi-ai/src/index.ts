@@ -11,7 +11,7 @@
  *
  * ```yaml
  * - id: llm
- *   name: '@lyness/lyn-llm-pi-ai'
+ *   name: '@deepseek-ai/dsh-llm-pi-ai'
  *   config:
  *     providers:
  *       # Catalog route: everything but the credential comes from pi-ai.
@@ -52,18 +52,18 @@
  *               max: ultra
  * ```
  *
- * @module @lyness/lyn-llm-pi-ai
+ * @module @deepseek-ai/dsh-llm-pi-ai
  */
-import type {} from '@lyness/lyn-settings'
+import type {} from '@deepseek-ai/dsh-settings'
 
-import type {} from '@lyness/cordis-plugin-loader'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
 
-import type { Context } from '@lyness/cordis'
-import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
-import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess } from '@lyness/lyn-llm'
-import type { AdapterRegistrationHandle, DirectoryRegistrationHandle, LlmConfigurableProvider } from '@lyness/lyn-llm'
-import type {} from '@lyness/lyn-fs'
-import { deepEqualJson } from '@lyness/lyn-util-values'
+import type { Context } from '@deepseek-ai/cordis'
+import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
+import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess } from '@deepseek-ai/dsh-llm'
+import type { AdapterRegistrationHandle, DirectoryRegistrationHandle, LlmConfigurableProvider } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/dsh-fs'
+import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
 import { PiAiAdapter } from './adapter.ts'
 import { authContextFrom, credentialStoreFrom } from './auth.ts'
 import { catalogProvider, catalogProviderIds } from './catalog.ts'
@@ -96,7 +96,7 @@ export { supportedProtocols } from './provider.ts'
 export const name = 'llm-pi-ai'
 export const inject = ['llm']
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * Prepare headers for one pi-ai inference call, excluding model discovery.

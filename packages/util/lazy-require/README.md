@@ -3,13 +3,13 @@ description: "Caller-relative lazy loading for CommonJS-compatible Host dependen
 kind: "package-library"
 ---
 
-# @lyness/lyn-lazy-require
+# @deepseek-ai/dsh-lazy-require
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-lazy-require` keeps a CommonJS-compatible Host dependency unloaded until its first real operation. Resolution remains relative to the consuming package, and one successful module value is reused for the rest of the process realm.
+`dsh-lazy-require` keeps a CommonJS-compatible Host dependency unloaded until its first real operation. Resolution remains relative to the consuming package, and one successful module value is reused for the rest of the process realm.
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ English | [中文](README.zh.md)
 Pass the dependency's literal specifier and the caller's `import.meta.url`:
 
 ```ts
-import { createLazyRequire } from '@lyness/lyn-lazy-require'
+import { createLazyRequire } from '@deepseek-ai/dsh-lazy-require'
 
 interface NativeModule { open(): void }
 const requireNative = createLazyRequire<NativeModule>('native-package', import.meta.url)

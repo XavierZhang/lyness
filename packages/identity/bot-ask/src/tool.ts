@@ -7,15 +7,15 @@
  * decision — a tool that re-derived either would be a second rule to keep in
  * step with the first.
  *
- * @module @lyness/lyn-bot-ask/tool
+ * @module @deepseek-ai/dsh-bot-ask/tool
  */
 
-import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
-import { defineTool } from '@lyness/lyn-tools'
-import type {} from '@lyness/lyn-managed-bots'
-import type {} from '@lyness/lyn-session-projection'
+import type { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type {} from '@deepseek-ai/dsh-session-projection'
 import type {} from './index.ts'
 import { MAX_ROUNDS } from './room.ts'
 import type {} from './room.ts'

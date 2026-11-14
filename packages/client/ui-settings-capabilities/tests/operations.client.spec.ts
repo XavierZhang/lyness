@@ -4,10 +4,10 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type { AgentCapabilitiesView } from '@lyness/lyn-api-agent-capabilities-controller/types'
-import type { ModelCatalog } from '@lyness/lyn-api-session-controller/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type { AgentCapabilitiesView } from '@deepseek-ai/dsh-api-agent-capabilities-controller/types'
+import type { ModelCatalog } from '@deepseek-ai/dsh-api-session-controller/types'
 import { createCapabilitiesOperations } from '../src/client/operations.ts'
 import type { CapabilitiesCalls, CapabilitiesSink } from '../src/client/operations.ts'
 

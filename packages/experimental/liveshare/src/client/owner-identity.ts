@@ -6,7 +6,7 @@
  * only states what the host reported, and states nothing it did not report — an unreadable or
  * absent answer is `unknown`, never a guess from a display name.
  *
- * @module @lyness/lyn-experimental-liveshare/src/client/owner-identity
+ * @module @deepseek-ai/dsh-experimental-liveshare/src/client/owner-identity
  */
 
 /**

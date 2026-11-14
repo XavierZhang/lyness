@@ -3,13 +3,13 @@ description: "共享的 viewer 读取：谁登录了，以及这个身份会被�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-viewer
+# @deepseek-ai/dsh-client-ui-viewer
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-viewer` 持有浏览器端「谁在看」的唯一答案。它读一次 `remote.identity` 的 viewer，把这次读取共享给所有来问的界面，并发布一份快照：读取所处的状态、viewer 本身，以及管理平面是否属于他。它自己不渲染任何东西——登录页、账户行、设置导航的平面切分都读这份快照，所以它们不会向部署问三次，也不会显示三个互相矛盾的答案。
+`dsh-client-ui-viewer` 持有浏览器端「谁在看」的唯一答案。它读一次 `remote.identity` 的 viewer，把这次读取共享给所有来问的界面，并发布一份快照：读取所处的状态、viewer 本身，以及管理平面是否属于他。它自己不渲染任何东西——登录页、账户行、设置导航的平面切分都读这份快照，所以它们不会向部署问三次，也不会显示三个互相矛盾的答案。
 
 ## 目录
 
@@ -29,9 +29,9 @@ kind: "package-reference"
 
 ```yaml
 - id: identity-controller
-  name: '@lyness/lyn-api-identity-controller'
+  name: '@deepseek-ai/dsh-api-identity-controller'
 - id: ui-viewer
-  name: '@lyness/lyn-client-ui-viewer'
+  name: '@deepseek-ai/dsh-client-ui-viewer'
 ```
 
 一个界面在自己的 `inject` 里声明 `uiViewer`，把 `ctx.uiViewer.state` 以 `viewer` 之名交给槽位注册的 `hooks` 隔间，并在挂载时调用 `ctx.uiViewer.load()`；它的组件随后通过框架生成的 `useViewer` 钩子从快照里取值。可能运行在没有目录的组合里的界面，用 `ctx.get('uiViewer')` 读这个服务，并自行决定「它不存在」意味着什么——设置外壳在无人作答时提供全部平面。
@@ -56,10 +56,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-identity-controller`](../../api/identity-controller/README.zh.md)：这个服务读取的命名空间。
-- [`lyn-client-ui-sign-in`](../ui-sign-in/README.zh.md)：渲染这份快照的登录页与账户行。
-- [`lyn-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
-- [`lyn-api-remote-authority`](../../api/remote-authority/README.zh.md)：真正拒绝身份不足的调用的地方。
+- [`dsh-api-identity-controller`](../../api/identity-controller/README.zh.md)：这个服务读取的命名空间。
+- [`dsh-client-ui-sign-in`](../ui-sign-in/README.zh.md)：渲染这份快照的登录页与账户行。
+- [`dsh-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
+- [`dsh-api-remote-authority`](../../api/remote-authority/README.zh.md)：真正拒绝身份不足的调用的地方。
 
 -----
 

@@ -11,17 +11,17 @@
  * this deployment routes, and a surface showing them twice would invite the
  * two answers to drift.
  *
- * @module @lyness/lyn-api-agent-capabilities-controller
+ * @module @deepseek-ai/dsh-api-agent-capabilities-controller
  */
 
-import { Context } from '@lyness/cordis'
-import type { Fiber } from '@lyness/cordis'
-import type {} from '@lyness/cordis-plugin-loader'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { RegisteredTool } from '@lyness/lyn-tools'
-import type {} from '@lyness/lyn-agent-preset-registry'
-import type {} from '@lyness/lyn-app-boot'
-import type {} from '@lyness/lyn-skill'
+import { Context } from '@deepseek-ai/cordis'
+import type { Fiber } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { RegisteredTool } from '@deepseek-ai/dsh-tools'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type {} from '@deepseek-ai/dsh-app-boot'
+import type {} from '@deepseek-ai/dsh-skill'
 import { connectionsOf, toolsOf } from './project.ts'
 import type { ToolOrigin } from './project.ts'
 import type { AgentCapabilitiesView, SkillAvailabilityView } from './types.ts'
@@ -30,7 +30,7 @@ export type * from './types.ts'
 export type { ToolOrigin } from './project.ts'
 export { MCP_TOOL_PREFIX, connectionsOf, serverOfToolName, toolsOf } from './project.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `agentCapabilities` Remote namespace. */
     agentCapabilitiesController: AgentCapabilitiesController

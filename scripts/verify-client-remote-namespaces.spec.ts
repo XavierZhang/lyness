@@ -40,9 +40,9 @@ function write(root: string, relativePath: string, content: string): void {
  * @returns the fixture root.
  */
 function repository(mounts: readonly string[], packages: readonly Fixture[]): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-remote-namespaces-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-remote-namespaces-'))
   roots.push(root)
-  write(root, 'packages/api/remotes/package.json', JSON.stringify({ name: '@lyness/lyn-api-remotes' }))
+  write(root, 'packages/api/remotes/package.json', JSON.stringify({ name: '@deepseek-ai/dsh-api-remotes' }))
   write(root, 'packages/api/remotes/src/client/index.ts', [
     ...mounts.map((name, index) => `import contribution${String(index)} from '${name}/remote'`),
     `export const mounted = [${mounts.map((_name, index) => `contribution${String(index)}`).join(', ')}]`,
@@ -59,7 +59,7 @@ function repository(mounts: readonly string[], packages: readonly Fixture[]): st
 /** A provider declaring one Remote namespace. */
 function provider(namespace: string, options = ''): string {
   return [
-    "import { TypertRemoteService } from '@lyness/lyn-typert-protocol'",
+    "import { TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'",
     'export class Controller extends TypertRemoteService {',
     `  constructor(ctx: Context) { super(ctx, '${namespace}'${options}) }`,
     '}',
@@ -92,9 +92,9 @@ describe('what counts as an injection', () => {
 
 describe('the verdict', () => {
   it('accepts an injection of a namespace the assembly mounts', () => {
-    const root = repository(['@lyness/lyn-api-people-controller'], [
-      { name: '@lyness/lyn-api-people-controller', source: provider('people') },
-      { name: '@lyness/lyn-client-ui-people', source: "export const inject = ['remote.people']\n" },
+    const root = repository(['@deepseek-ai/dsh-api-people-controller'], [
+      { name: '@deepseek-ai/dsh-api-people-controller', source: provider('people') },
+      { name: '@deepseek-ai/dsh-client-ui-people', source: "export const inject = ['remote.people']\n" },
     ])
     expect(unmountedClientInjections(root)).toEqual([])
   })
@@ -104,7 +104,7 @@ describe('the verdict', () => {
     // injected the namespace and the assembly mounted no contribution for it,
     // so the page never appeared and its retry could never succeed.
     const root = repository([], [
-      { name: '@lyness/lyn-client-ui-people', source: "export const inject = ['slots', 'remote.people']\n" },
+      { name: '@deepseek-ai/dsh-client-ui-people', source: "export const inject = ['slots', 'remote.people']\n" },
     ])
     expect(unmountedClientInjections(root)).toEqual([
       'packages/api/remotes/src/client/index.ts: mounts no Remote namespace at all',
@@ -113,21 +113,21 @@ describe('the verdict', () => {
   })
 
   it('honours a provider that renames its wire namespace', () => {
-    const root = repository(['@lyness/lyn-api-announcement-controller'], [
+    const root = repository(['@deepseek-ai/dsh-api-announcement-controller'], [
       {
-        name: '@lyness/lyn-api-announcement-controller',
+        name: '@deepseek-ai/dsh-api-announcement-controller',
         source: provider('announcementController', ", { namespace: 'announcements', requires: 'anyone' }"),
       },
-      { name: '@lyness/lyn-client-ui-announcements', source: "export const inject = ['remote.announcements']\n" },
+      { name: '@deepseek-ai/dsh-client-ui-announcements', source: "export const inject = ['remote.announcements']\n" },
     ])
     expect(unmountedClientInjections(root)).toEqual([])
   })
 
   it('leaves a package that mounts contributions itself to answer for its own injections', () => {
-    const root = repository(['@lyness/lyn-api-people-controller'], [
-      { name: '@lyness/lyn-api-people-controller', source: provider('people') },
+    const root = repository(['@deepseek-ai/dsh-api-people-controller'], [
+      { name: '@deepseek-ai/dsh-api-people-controller', source: provider('people') },
       {
-        name: '@lyness/lyn-experimental-liveshare',
+        name: '@deepseek-ai/dsh-experimental-liveshare',
         source: [
           "export const inject = ['remote', 'remote.liveshareShares']",
           'export async function apply(ctx: Context) { await ctx.remote.$mount(contribution) }',
@@ -139,14 +139,14 @@ describe('the verdict', () => {
   })
 
   it('reports an empty corpus rather than passing silently', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-remote-namespaces-empty-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-remote-namespaces-empty-'))
     roots.push(root)
     expect(unmountedClientInjections(root)).toEqual([`${root}: no workspace package manifests found`])
   })
 
   it('names an assembly import that is not a workspace package', () => {
     const root = repository(['@elsewhere/thing'], [
-      { name: '@lyness/lyn-api-people-controller', source: provider('people') },
+      { name: '@deepseek-ai/dsh-api-people-controller', source: provider('people') },
     ])
     expect(unmountedClientInjections(root)).toEqual([
       'packages/api/remotes/src/client/index.ts: mounts @elsewhere/thing/remote, which is not a workspace package',
@@ -158,7 +158,7 @@ describe('the verdict', () => {
 describe('the reserved method names', () => {
   it('reads the name a decorator exports, not only the method\'s own', () => {
     const found = remoteMethodNames(parse([
-      "import { TypertRemoteService } from '@lyness/lyn-typert-protocol'",
+      "import { TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'",
       'export class Controller extends TypertRemoteService {',
       '  @Remote async save(input: Input) { return input }',
       "  @Remote('list') async remoteExportList() { return [] }",
@@ -174,9 +174,9 @@ describe('the reserved method names', () => {
     // boot failed the moment their namespaces were mounted.
     const root = repository([], [
       {
-        name: '@lyness/lyn-api-people-controller',
+        name: '@deepseek-ai/dsh-api-people-controller',
         source: [
-          "import { TypertRemoteService } from '@lyness/lyn-typert-protocol'",
+          "import { TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'",
           'export class Controller extends TypertRemoteService {',
           "  constructor(ctx: Context) { super(ctx, 'people') }",
           '  @Remote async remove(id: string) { return id }',

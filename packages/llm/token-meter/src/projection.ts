@@ -1,10 +1,10 @@
 /**
  * Pure client-safe token-projection vocabulary.
  *
- * @module @lyness/lyn-token-meter/projection
+ * @module @deepseek-ai/dsh-token-meter/projection
  */
 
-import type { SessionProjectionSummaryExcluded } from '@lyness/lyn-session-projection/types'
+import type { SessionProjectionSummaryExcluded } from '@deepseek-ai/dsh-session-projection/types'
 
 /**
  * Durable cumulative provider usage for a complete session log.
@@ -67,7 +67,7 @@ export interface ContextBreakdownProjection {
   messageTokens: number
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionMap {
     /** Provider-reported usage accumulated across the complete durable log. */
     tokenUsage: TokenUsageProjection

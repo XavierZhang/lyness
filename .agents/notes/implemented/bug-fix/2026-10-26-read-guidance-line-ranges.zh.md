@@ -12,7 +12,7 @@ read 指导只把 `cat` 点名为 read 工具替代的 shell 命令，并把 `of
 
 ## 决策
 
-逐字恢复 #6054 的措辞：`Use the read tool — not shell commands like cat, sed, head, or tail — to inspect text files. Use offset and limit to read a line range or continue a large file.` read 工具及其指导归 `@lyness/lyn-tool-fs` 所有；write 与 edit 的指导不变。
+逐字恢复 #6054 的措辞：`Use the read tool — not shell commands like cat, sed, head, or tail — to inspect text files. Use offset and limit to read a line range or continue a large file.` read 工具及其指导归 `@deepseek-ai/dsh-tool-fs` 所有；write 与 edit 的指导不变。
 
 ## 考虑过的替代方案
 

@@ -2,12 +2,12 @@
 
 import type {
   ConversationLocation, ConversationNodeDefinition,
-} from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-compaction/types'
-import type {} from '@lyness/lyn-tools'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-compaction/types'
+import type {} from '@deepseek-ai/dsh-tools'
 
-import type {} from '@lyness/lyn-user-approval/types'
-import type { SessionEventMap } from '@lyness/lyn-session/types'
+import type {} from '@deepseek-ai/dsh-user-approval/types'
+import type { SessionEventMap } from '@deepseek-ai/dsh-session/types'
 import type { StatsEventMetrics } from './stats-contract.ts'
 
 /** Event shape a Conversation Definition receives. */

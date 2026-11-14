@@ -9,11 +9,11 @@
  */
 
 import { useEffect } from 'react'
-import { Button } from '@lyness/lyn-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type { CapabilitySource, ToolPluginView } from '@lyness/lyn-api-agent-capabilities-controller/types'
-import type { LocalizedText } from '@lyness/lyn-package-manifest'
+import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { CapabilitySource, ToolPluginView } from '@deepseek-ai/dsh-api-agent-capabilities-controller/types'
+import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
 import type { createCapabilitiesSectionStore } from './store.ts'
 import css from './CapabilitiesSection.module.css'
 

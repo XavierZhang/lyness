@@ -1,11 +1,11 @@
 /** Session-header action that opens the Liveshare owner-side share dialog. */
 
 import { useEffect, useState, type ReactNode } from 'react'
-import { IconShareOutlineRegular } from '@lyness/lyn-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type {} from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-client-ui-session/client'
+import { IconShareOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-ui-session/client'
 import { LiveshareManageSharesDialog } from './ManageSharesDialog.tsx'
 import { openManagedSession, rememberManagedShare, takeManagedShare } from './share-navigation.ts'
 import { LiveshareShareDialog } from './ShareDialog.tsx'

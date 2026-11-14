@@ -26,7 +26,7 @@ export async function qualifyUpdateDialogs(root, fixture) {
   const locale = resolveDesktopLocale('zh-CN')
   const messages = locale.messages
   const screenshots = []
-  protocol.handle('lyn-app', async request => {
+  protocol.handle('dsh-app', async request => {
     const name = new URL(request.url).pathname.slice(1)
     assert.ok(['design-platform.css', 'shell-theme.js', 'update-dialog.html', 'update-dialog.js', 'update-dialog.css', 'update-close.svg'].includes(name))
     const mime = name.endsWith('.js') ? 'text/javascript' : name.endsWith('.css') ? 'text/css'
@@ -163,7 +163,7 @@ export async function qualifyUpdateDialogs(root, fixture) {
   } finally {
     dialogs.dispose()
     parent.destroy()
-    protocol.unhandle('lyn-app')
+    protocol.unhandle('dsh-app')
     nativeTheme.themeSource = theme
   }
 }

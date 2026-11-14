@@ -5,13 +5,13 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { CHANNEL_ID, FeishuChannel, FeishuSignInError, asExternalSubject } from '../src/index.ts'
 import type { Config as FeishuConfig } from '../src/index.ts'
 import type { FeishuTenantKey, FeishuUnionId } from '../src/types.ts'
 
-const RETURN_TO = 'https://lyn.example/oauth/callback/feishu'
+const RETURN_TO = 'https://dsh.example/oauth/callback/feishu'
 
 /** Overrides a test may make to the fixture application's configuration. */
 interface Over {

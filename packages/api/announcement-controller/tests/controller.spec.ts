@@ -1,5 +1,5 @@
 /** The Remote read hands back the source's own list, unchanged and unsorted here. */
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, expect, it, vi } from 'vitest'
 import type { Announcement } from '../src/types.ts'
 import AnnouncementController from '../src/index.ts'

@@ -2,9 +2,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "LYNCUANative",
+    name: "DSHCUANative",
     platforms: [.macOS(.v14)],
-    products: [.executable(name: "lyn-cua-native", targets: ["CuaNative"])],
+    products: [.executable(name: "dsh-cua-native", targets: ["CuaNative"])],
     targets: [
         .executableTarget(name: "CuaNative"),
         .testTarget(name: "CuaNativeTests", dependencies: ["CuaNative"], path: "tests/swift"),
