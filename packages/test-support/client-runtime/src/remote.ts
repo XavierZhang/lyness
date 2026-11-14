@@ -1,13 +1,13 @@
 /** Test-owned Remote face: `$on` subscriptions with an explicit test event driver, and reconnecting streams. */
-import type { Context } from '@deepseek-ai/cordis'
-import { RemoteStream, type RemoteStreamOptions } from '@deepseek-ai/dsh-api-gateway/client'
-import type { ConnectionGeneration, ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { Context } from '@lyness/cordis'
+import { RemoteStream, type RemoteStreamOptions } from '@lyness/lyn-api-gateway/client'
+import type { ConnectionGeneration, ConnectionHandle } from '@lyness/lyn-client-connection/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 
 // Value re-export for spec-side failure construction: the api-remotes facade
 // cannot carry it — its src top-level imports owner /remote lib artifacts, so a
 // value import from a spec would load the unbuilt assembly chain.
-export { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+export { RemoteError } from '@lyness/lyn-typert-protocol'
 
 /**
  * Remote service test double for the forwarded-event path. Feature specs need

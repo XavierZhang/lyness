@@ -1,7 +1,7 @@
 /** Typed `plugin_market` tool failures converted from the market service's Remote failures. */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
-import type { RemoteErrorCode } from '@deepseek-ai/dsh-typert-protocol'
+import { HarnessError } from '@lyness/lyn-error'
+import type { RemoteErrorCode } from '@lyness/lyn-typert-protocol'
 
 /**
  * Every {@link PluginMarketError} code:

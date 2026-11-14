@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it, onTestFinished, vi } from 'vitest'
-import type { SubprocessHandle, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 import { prepareWsl, retainWslHelper, windowsHost } from '../src/windows-host.ts'
 
 it('distinguishes Windows Node, WSL Linux Node, and ordinary Linux', () => {
@@ -12,7 +12,7 @@ it('distinguishes Windows Node, WSL Linux Node, and ordinary Linux', () => {
   expect(() => windowsHost({ platform: 'linux', env: {}, osRelease: '6.8.0-generic' })).toThrow('ordinary Linux')
 })
 
-function fixture(output = '{"architecture":"arm64","cache":"C:\\\\Users\\\\test user\\\\AppData\\\\Local\\\\DeepSeekHarness\\\\cua"}', exitCode = 0, translated = '/mnt/c/Users/test user/AppData/Local/DeepSeekHarness/cua\n') {
+function fixture(output = '{"architecture":"arm64","cache":"C:\\\\Users\\\\test user\\\\AppData\\\\Local\\\\Lyness\\\\cua"}', exitCode = 0, translated = '/mnt/c/Users/test user/AppData/Local/Lyness/cua\n') {
   const terminate = vi.fn(), waitForExit = vi.fn(async () => true)
   const collectedOutput = { available: true }
   const spawn = vi.fn((spec: SubprocessSpawnSpec): SubprocessHandle => {
@@ -29,8 +29,8 @@ function fixture(output = '{"architecture":"arm64","cache":"C:\\\\Users\\\\test 
 
 it('uses the Windows architecture and translates the cache without shell interpolation', async () => {
   const f = fixture()
-  expect(await prepareWsl(f.spec)).toEqual({ architecture: 'arm64', cacheDirectory: '/mnt/c/Users/test user/AppData/Local/DeepSeekHarness/cua' })
-  expect(f.spawn.mock.calls[1]![0].argv).toEqual(['wslpath', '-u', 'C:\\Users\\test user\\AppData\\Local\\DeepSeekHarness\\cua'])
+  expect(await prepareWsl(f.spec)).toEqual({ architecture: 'arm64', cacheDirectory: '/mnt/c/Users/test user/AppData/Local/Lyness/cua' })
+  expect(f.spawn.mock.calls[1]![0].argv).toEqual(['wslpath', '-u', 'C:\\Users\\test user\\AppData\\Local\\Lyness\\cua'])
   expect(f.waitForExit).toHaveBeenCalledTimes(2)
 })
 

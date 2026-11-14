@@ -10,14 +10,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { createAssistantMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import * as SessionTurnOutlinePlugin from '@deepseek-ai/dsh-session-turn-outline'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
+import { brandString } from '@lyness/lyn-brand'
 
 let root: string | undefined
 let context: Context | undefined
@@ -30,7 +30,7 @@ afterEach(async () => {
 })
 
 async function loadYaml(lines: readonly string[]): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-session-turn-outline-loader-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-session-turn-outline-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [...lines, ''].join('\n'))
 
@@ -39,9 +39,9 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-    ['@deepseek-ai/dsh-session-turn-outline', SessionTurnOutlinePlugin],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-session-turn-outline', SessionTurnOutlinePlugin],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -61,9 +61,9 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
 describe('real Loader composition', () => {
   it('loads the shipped session-turn-outline YAML shape and serves the outline', async () => {
     const loaded = await loadYaml([
-      "- name: '@deepseek-ai/dsh-session'",
-      "- name: '@deepseek-ai/dsh-session-projection'",
-      "- name: '@deepseek-ai/dsh-session-turn-outline'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-session-turn-outline'",
     ])
 
     const unloaded = [...loaded.loader.entries()]

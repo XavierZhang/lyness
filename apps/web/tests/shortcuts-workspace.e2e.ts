@@ -4,15 +4,15 @@ import { basename, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import { createUserMessage } from '@lyness/lyn-llm'
 import {
   captureStableAria, compareOrRefreshGolden, launchWebScaffold, readPersistedEvents,
   seedSession, watchConsole, webSnapshotMode, type WebScaffold,
 } from './scaffold.ts'
 import { connectFreshWorkspace } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const root = fileURLToPath(new URL('./expected/shortcuts-workspace', import.meta.url))
 const seed = fileURLToPath(new URL('../../../snapshots/web/seeded-history/session.v3.jsonl', import.meta.url))
@@ -33,7 +33,7 @@ describe.skipIf(mode === 'record')('web e2e: workspace shortcuts', () => {
     const context = await browser.newContext({ locale: 'en-US', viewport: { width: 1440, height: 1000 } })
     await context.addInitScript(() => {
       Object.defineProperty(navigator, 'platform', { value: 'MacIntel' })
-      localStorage.setItem('dsh.open-in-app.choice', JSON.stringify('vscode'))
+      localStorage.setItem('lyn.open-in-app.choice', JSON.stringify('vscode'))
     })
     page = await context.newPage()
     // OS application discovery and launch are the external boundary; the command and HTTP carrier stay real.

@@ -5,5 +5,5 @@
       name: '../src/index.ts'
       config:
         agentPreset: false
-        # DSH_CUA_HELPER must name DSH Computer Use.app/Contents/MacOS/dsh-cua-native.
-        helperPath: !!js process.env.DSH_CUA_HELPER
+        # LYNESS_CUA_HELPER must name LYN Computer Use.app/Contents/MacOS/lyn-cua-native.
+        helperPath: !!js process.env.LYNESS_CUA_HELPER

@@ -2,9 +2,9 @@
 
 English | [中文](filesystem.zh.md)
 
-The optional filesystem capability composes these roles: [dsh-fs](../../packages/fs/fs) owns `ctx.fs` and guarded file mutations, [dsh-fs-local](../../packages/fs/fs-local) implements local disk, [dsh-fs-observation-policy](../../packages/fs/fs-observation-policy) records observed presence or absence and adds freshness rules through events rather than a service, and [dsh-tool-fs](../../packages/fs/tool-fs) directly executes model-facing read/write/edit calls and renders windows. It is outside the agent-loop spine; alternate backends do not change policy or tool schemas. The pure [dsh-fs-patch](../../packages/fs/fs-patch/README.md) library supplies patch parsing and text application.
+The optional filesystem capability composes these roles: [lyn-fs](../../packages/fs/fs) owns `ctx.fs` and guarded file mutations, [lyn-fs-local](../../packages/fs/fs-local) implements local disk, [lyn-fs-observation-policy](../../packages/fs/fs-observation-policy) records observed presence or absence and adds freshness rules through events rather than a service, and [lyn-tool-fs](../../packages/fs/tool-fs) directly executes model-facing read/write/edit calls and renders windows. It is outside the agent-loop spine; alternate backends do not change policy or tool schemas. The pure [lyn-fs-patch](../../packages/fs/fs-patch/README.md) library supplies patch parsing and text application.
 
-`dsh-fs-observation-policy` is optional. Without it, the `FileSystem` Service Definition, a provider, and the `dsh-tool-fs` Consumer form the complete, unconstrained filesystem seam: `write` unconditionally creates or overwrites, and `edit` unconditionally replaces literal text. The policy plugin changes these operations by deciding the `fs/*` waterfalls. Removing it does not break the tool because the tool calls `ctx.fs` and dispatches events; it does not call policy methods. The shipped compositions run without it: `dsh-base` lists the `fs-observation-policy` row `disabled: true`, and a deployment that wants read-before-write/edit sets that row to `disabled: false`.
+`lyn-fs-observation-policy` is optional. Without it, the `FileSystem` Service Definition, a provider, and the `lyn-tool-fs` Consumer form the complete, unconstrained filesystem seam: `write` unconditionally creates or overwrites, and `edit` unconditionally replaces literal text. The policy plugin changes these operations by deciding the `fs/*` waterfalls. Removing it does not break the tool because the tool calls `ctx.fs` and dispatches events; it does not call policy methods. The shipped compositions run without it: `lyn-base` lists the `fs-observation-policy` row `disabled: true`, and a deployment that wants read-before-write/edit sets that row to `disabled: false`.
 
 Provider source: [`packages/fs/fs/src/types.ts`](../../packages/fs/fs/src/types.ts) and [`packages/fs/fs/src/index.ts`](../../packages/fs/fs/src/index.ts). Policy source: [`packages/fs/fs-observation-policy/src/types.ts`](../../packages/fs/fs-observation-policy/src/types.ts). Read-rendering source: [`packages/fs/tool-fs/src/read-render.ts`](../../packages/fs/tool-fs/src/read-render.ts).
 
@@ -114,7 +114,7 @@ interface FsDirEntry {
 <a id="patch-syntax-records"></a>
 ## Patch syntax records
 
-[dsh-fs-patch](../../packages/fs/fs-patch/README.md) parses complete patch text into serializable operations whose paths are unresolved strings, and `applyHunks` applies hunks to caller-supplied LF-normalized text, returning complete new text or a structured match failure. The package README owns the pinned parsing and matching rules.
+[lyn-fs-patch](../../packages/fs/fs-patch/README.md) parses complete patch text into serializable operations whose paths are unresolved strings, and `applyHunks` applies hunks to caller-supplied LF-normalized text, returning complete new text or a structured match failure. The package README owns the pinned parsing and matching rules.
 
 ```ts type-equiv
 /** One contiguous update. */
@@ -286,7 +286,7 @@ interface FsEditOutcome {
 
 ## The fs policy events (provider contract vocabulary)
 
-`dsh-fs` owns four events for mutation consumers and observation policy. Consumers dispatch intents before operations and record completed effects; they do not depend on the policy plugin. They carry only `dsh-fs` vocabulary plus an opaque `object` actor — no model-facing concepts and no agent/session owner structure.
+`lyn-fs` owns four events for mutation consumers and observation policy. Consumers dispatch intents before operations and record completed effects; they do not depend on the policy plugin. They carry only `lyn-fs` vocabulary plus an opaque `object` actor — no model-facing concepts and no agent/session owner structure.
 
 `fs/write-intent`, `fs/edit-intent`, and `fs/delete-intent` are **single-slot decision waterfalls**: the tool dispatches each with a default thunk returning `undefined` (the bare provider), and a listener fully decides without calling `next()`. The slot is first-wins by registration order — the policy plugin owning it is a deployment convention, not an enforced invariant. `fs/observed` is a fire-and-forget recording event carrying an `FsObservation`: present at a version or confirmed absent. It is dispatched with a plain `ctx.emit`; its listener MUST be synchronous and side-effect-only, because the tool does NOT guard the emit — a throwing listener can replace a read error or surface as the tool's `isError` result after a mutation already succeeded. The generated [cordis surface](#cordis-surface) below shows the exact signatures.
 
@@ -303,15 +303,15 @@ type FsObservation =
 
 ## Execution context (policy plugin)
 
-The policy plugin needs just enough execution context to derive the observed-state owner by narrowing the opaque `object` actor the `fs/*` events carry. `ToolExecution` has the required fields, so `dsh-tool-fs` passes its execution object through as the actor without making `dsh-fs-observation-policy` import the tool, agent, or session packages.
+The policy plugin needs just enough execution context to derive the observed-state owner by narrowing the opaque `object` actor the `fs/*` events carry. `ToolExecution` has the required fields, so `lyn-tool-fs` passes its execution object through as the actor without making `lyn-fs-observation-policy` import the tool, agent, or session packages.
 
 ```ts type-equiv
 /**
  * Minimal structural view of a tool execution the policy plugin needs to derive
- * an observed-state owner. `@deepseek-ai/dsh-tools`' `ToolExecution` contains
+ * an observed-state owner. `@lyness/lyn-tools`' `ToolExecution` contains
  * these fields, so the tool passes its `exec` straight through as the opaque
  * `object` actor on the `fs/*` events; this plugin narrows that actor to
- * `FsObservationActor` without importing `dsh-tools`, `dsh-agent`, or `dsh-session`.
+ * `FsObservationActor` without importing `lyn-tools`, `lyn-agent`, or `lyn-session`.
  *
  * The owner is `agent.session` when present. It is treated as an opaque object
  * identity (a `WeakMap` key); this package never reads any of its fields.
@@ -327,7 +327,7 @@ interface FsObservationActor {
 
 ## Read outcome (consumer / read rendering)
 
-A text read is bounded by line window, byte cap, and backend limits. After the byte cap is reached, scanning continues without retaining more lines so `totalLines` remains exact. The result the model-facing `read` tool renders is purely presentational; there is no `full`/`partial` view — authorization is freshness-based (the tool emits a present `fs/observed` directly with the stat's version), so any windowed read can authorize a later write/edit when the file is unchanged. A metadata miss emits an absent observation before the tool returns `FS_NOT_FOUND`, allowing a later guarded write to recreate an externally deleted target without authorizing edit. `dsh-tool-fs`, the executor that owns the read, implements read windowing and constructs this result; the policy plugin does not.
+A text read is bounded by line window, byte cap, and backend limits. After the byte cap is reached, scanning continues without retaining more lines so `totalLines` remains exact. The result the model-facing `read` tool renders is purely presentational; there is no `full`/`partial` view — authorization is freshness-based (the tool emits a present `fs/observed` directly with the stat's version), so any windowed read can authorize a later write/edit when the file is unchanged. A metadata miss emits an absent observation before the tool returns `FS_NOT_FOUND`, allowing a later guarded write to recreate an externally deleted target without authorizing edit. `lyn-tool-fs`, the executor that owns the read, implements read windowing and constructs this result; the policy plugin does not.
 
 ```ts type-equiv
 /** Outcome of a bounded text read — what {@link formatReadOutput} renders. */
@@ -345,7 +345,7 @@ interface FileReadOutcome {
 
 ## Observed-file state (policy plugin)
 
-Observed state is a `WeakMap<owner, Map<targetKey, FsObservation>>` held inside the `dsh-fs-observation-policy` plugin. Missing map entry means unseen; `{ kind: 'absent' }` means a `read` or `str_replace_editor` `view`, `str_replace`, or `insert` metadata miss confirmed absence; `{ kind: 'present', version }` means a read, write, or edit observed that version. The write decision maps unseen and absent to `createIfAbsent`, while present maps to `replaceIfVersion`; the edit/delete decision maps unseen to `FS_NOT_OBSERVED`, absent to `FS_NOT_FOUND`, and present to its version guard. The owner is derived from the event actor (normally `exec.agent.session`), treated as opaque and never read. Disposal drops everything (HMR safety), and the policy performs no filesystem I/O.
+Observed state is a `WeakMap<owner, Map<targetKey, FsObservation>>` held inside the `lyn-fs-observation-policy` plugin. Missing map entry means unseen; `{ kind: 'absent' }` means a `read` or `str_replace_editor` `view`, `str_replace`, or `insert` metadata miss confirmed absence; `{ kind: 'present', version }` means a read, write, or edit observed that version. The write decision maps unseen and absent to `createIfAbsent`, while present maps to `replaceIfVersion`; the edit/delete decision maps unseen to `FS_NOT_OBSERVED`, absent to `FS_NOT_FOUND`, and present to its version guard. The owner is derived from the event actor (normally `exec.agent.session`), treated as opaque and never read. Disposal drops everything (HMR safety), and the policy performs no filesystem I/O.
 
 ## Patch execution (consumer)
 
@@ -367,7 +367,7 @@ Filesystem failures use stable `FsErrorCode` strings carried by `FsError` (`Harn
 `FS_PATCH_MISMATCH` means a hunk failed inside the provider commit; its message names the patch line and failed search stage. `FS_SAME_TARGET` means a move source and destination share the resolved identity. Delete intent follows edit intent: unseen is `FS_NOT_OBSERVED`, observed absence is `FS_NOT_FOUND`, and present state supplies a version. Provider-side missing patch/delete/move sources use `FS_STALE_VERSION` even without a guard.
 
 ```ts
-import { FS_ERROR_CODES } from '@deepseek-ai/dsh-fs'
+import { FS_ERROR_CODES } from '@lyness/lyn-fs'
 ```
 
 ```ts type-equiv
@@ -375,15 +375,15 @@ import { FS_ERROR_CODES } from '@deepseek-ai/dsh-fs'
 type FsErrorCode = typeof FS_ERROR_CODES[number]
 ```
 
-`FS_NOT_DIRECTORY`, `FS_PERMISSION_DENIED`, and `FS_IO_ERROR` are used by directory listing to distinguish an existing non-directory target, a denied listing, and an unexpected backend I/O failure. `FS_SANDBOX_DENIED` is a POLICY refusal from a sandbox-enforcing backend (`dsh-fs-sandbox`) — the mode fence denied a mutation — distinct from `FS_PERMISSION_DENIED` (the host kernel refusing). `FS_NOT_OBSERVED` means the policy plugin has no prior-observation record for this owner (or a `createIfAbsent` hit an existing file). `FS_NOT_FOUND` also represents an edit rejected from confirmed absence. `FS_STALE_VERSION` means the backend version no longer matches the observed one (or the provider itself receives an edit for a missing target). Freshness authorization has no partial/full distinction, so there is no `FS_PARTIAL_OBSERVATION`. `FS_ALREADY_EXISTS` means a create-only tool command found an existing target; the caller chooses another path or edits the existing file. `dsh-fs-local` and the `dsh-fs-sandbox` containment check classify errno failures from resolution, metadata, reads, and listing with the `dsh-fs` function `fsErrorFromErrno`: `ENOENT` and `ENOTDIR` report `FS_NOT_FOUND`, `EACCES` and `EPERM` report `FS_PERMISSION_DENIED`, `EISDIR` reports `FS_NOT_REGULAR_FILE`, and other errno values report `FS_IO_ERROR`, each with the Node error as `cause`.
+`FS_NOT_DIRECTORY`, `FS_PERMISSION_DENIED`, and `FS_IO_ERROR` are used by directory listing to distinguish an existing non-directory target, a denied listing, and an unexpected backend I/O failure. `FS_SANDBOX_DENIED` is a POLICY refusal from a sandbox-enforcing backend (`lyn-fs-sandbox`) — the mode fence denied a mutation — distinct from `FS_PERMISSION_DENIED` (the host kernel refusing). `FS_NOT_OBSERVED` means the policy plugin has no prior-observation record for this owner (or a `createIfAbsent` hit an existing file). `FS_NOT_FOUND` also represents an edit rejected from confirmed absence. `FS_STALE_VERSION` means the backend version no longer matches the observed one (or the provider itself receives an edit for a missing target). Freshness authorization has no partial/full distinction, so there is no `FS_PARTIAL_OBSERVATION`. `FS_ALREADY_EXISTS` means a create-only tool command found an existing target; the caller chooses another path or edits the existing file. `lyn-fs-local` and the `lyn-fs-sandbox` containment check classify errno failures from resolution, metadata, reads, and listing with the `lyn-fs` function `fsErrorFromErrno`: `ENOENT` and `ENOTDIR` report `FS_NOT_FOUND`, `EACCES` and `EPERM` report `FS_PERMISSION_DENIED`, `EISDIR` reports `FS_NOT_REGULAR_FILE`, and other errno values report `FS_IO_ERROR`, each with the Node error as `cause`.
 
 ## No timeouts on file IO
 
-`read`/`write`/`edit` take **no** `timeoutMs`, and the provider contract arms no deadline — unlike bash and web (which consume [`@deepseek-ai/dsh-timeout`](../../packages/util/timeout/README.md)) and the subprocess-backed `glob`/`grep` (whose declared `timeoutMs` is enforced by `@deepseek-ai/dsh-tool-call-timeout-policy`): those are process-backed, where a deadline can really kill the work. A local syscall is best-effort-abortable at most — a timeout could not force an in-progress `fsync`/`rename` to stop, so a `timeoutMs` here would be a deadline the seam cannot enforce, and an implicit default in the exact place explicit-over-implicit forbids. Cancellation still propagates through the tool-execution signal for best-effort abort at syscall boundaries.
+`read`/`write`/`edit` take **no** `timeoutMs`, and the provider contract arms no deadline — unlike bash and web (which consume [`@lyness/lyn-timeout`](../../packages/util/timeout/README.md)) and the subprocess-backed `glob`/`grep` (whose declared `timeoutMs` is enforced by `@lyness/lyn-tool-call-timeout-policy`): those are process-backed, where a deadline can really kill the work. A local syscall is best-effort-abortable at most — a timeout could not force an in-progress `fsync`/`rename` to stop, so a `timeoutMs` here would be a deadline the seam cannot enforce, and an implicit default in the exact place explicit-over-implicit forbids. Cancellation still propagates through the tool-execution signal for best-effort abort at syscall boundaries.
 
 ## The service and the plugin
 
-`FileSystem` (`ctx.fs`, abstract) owns the provider primitives: `resolve`, `processPath`, `processPathFromHostPath`, `fileUrl`, `contains`, `stat`, `lstat`, `readText`, `streamText`, `readBytes`, `listDir`, `writeText`, `editText`, `patchText`, `deleteFile`, and `moveFile`. `dsh-fs-observation-policy` registers **no service** — it is a plugin that adds policy through the `fs/*` event gate: it decides the write/edit/delete intent waterfalls from unseen/absent/present state and records `FsObservation` values. The executor is `dsh-tool-fs`: it reads/writes/edits through `ctx.fs`, dispatches the waterfalls, and emits the recording event. The generated [`ctx.fs` section](#ctxfs--filesystem-abstract-seam) below shows the exact signatures.
+`FileSystem` (`ctx.fs`, abstract) owns the provider primitives: `resolve`, `processPath`, `processPathFromHostPath`, `fileUrl`, `contains`, `stat`, `lstat`, `readText`, `streamText`, `readBytes`, `listDir`, `writeText`, `editText`, `patchText`, `deleteFile`, and `moveFile`. `lyn-fs-observation-policy` registers **no service** — it is a plugin that adds policy through the `fs/*` event gate: it decides the write/edit/delete intent waterfalls from unseen/absent/present state and records `FsObservation` values. The executor is `lyn-tool-fs`: it reads/writes/edits through `ctx.fs`, dispatches the waterfalls, and emits the recording event. The generated [`ctx.fs` section](#ctxfs--filesystem-abstract-seam) below shows the exact signatures.
 
 <!-- BEGIN GENERATED cordis-surface (gen-cordis-catalog.ts) — do not edit between markers -->
 

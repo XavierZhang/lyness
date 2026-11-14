@@ -1,7 +1,7 @@
 /** Shared Files resolution, bounded stale-id recovery, and normalized-image diagnostics. */
 
-import type { RequestImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { deadline } from '@deepseek-ai/dsh-timeout'
+import type { RequestImageAttachment } from '@lyness/lyn-attachment'
+import { deadline } from '@lyness/lyn-timeout'
 import { FILES_API_TIMEOUT, type DeepSeekFileStore, type DeepSeekFileConnection, type DeepSeekFilePolicy } from './file-store.ts'
 import type { DeepSeekFileId } from './file-id.ts'
 

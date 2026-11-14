@@ -1,8 +1,8 @@
-/** DeepSeek Files API upload reuse, invalidation, and quota recovery. @module dsh-llm-deepseek/file-store */
+/** DeepSeek Files API upload reuse, invalidation, and quota recovery. @module lyn-llm-deepseek/file-store */
 
-import { timeoutOf, type TimeoutReason } from '@deepseek-ai/dsh-timeout'
-import type { RequestImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { LlmError } from '@deepseek-ai/dsh-llm'
+import { timeoutOf, type TimeoutReason } from '@lyness/lyn-timeout'
+import type { RequestImageAttachment } from '@lyness/lyn-attachment'
+import { LlmError } from '@lyness/lyn-llm'
 import { DeepSeekFilesClient, isFilesQuotaError } from './files-api.ts'
 import type { DeepSeekFileId } from './file-id.ts'
 import { messagesApiRoot } from './messages-api.ts'
@@ -11,7 +11,7 @@ import type { DeepSeekUploadRecord } from './upload-index.ts'
 
 /** Shared Files-store limit for each request image, including file-id references. */
 export const MAX_IMAGE_BYTES = 32 * 1024 * 1024
-const OWNED_FILE_PREFIX = 'dsh-'
+const OWNED_FILE_PREFIX = 'lyn-'
 /** Per-image deadline whose expiry during upload starts Files backoff. */
 export const FILES_API_TIMEOUT = 'DEEPSEEK_FILES_API_TIMEOUT'
 

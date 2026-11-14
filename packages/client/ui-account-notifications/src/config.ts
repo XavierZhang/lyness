@@ -1,5 +1,5 @@
 /** Public polling configuration shared by the notification Host and Client halves. */
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 
 /** Initial polling interval before the server supplies its next delay. */
 export interface Config {
@@ -11,4 +11,4 @@ export const Config = Schema.object({
   notificationPollIntervalMs: Schema.natural().min(1).max(2_147_483_647).default(600_000),
 })
 /** Bootstrap key for public notification configuration. */
-export const NOTIFICATIONS_CONFIG_GLOBAL = '__DSH_ACCOUNT_NOTIFICATIONS_CONFIG__'
+export const NOTIFICATIONS_CONFIG_GLOBAL = '__LYNESS_ACCOUNT_NOTIFICATIONS_CONFIG__'

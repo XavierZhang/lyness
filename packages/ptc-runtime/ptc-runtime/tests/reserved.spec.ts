@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { RESERVED_BINDING_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@deepseek-ai/dsh-ptc-runtime'
+import { RESERVED_BINDING_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/lyn-ptc-runtime'
 
 describe('runtime binding exclusions', () => {
   it('reserves output globals', () => {

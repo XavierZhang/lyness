@@ -5,7 +5,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { ModelListEditor } from '../src/client/ModelListEditor.tsx'
 import type { ModelDiscoveryOutcome, ModelsOperations } from '../src/client/operations.ts'
 import { en } from '../src/client/locales.ts'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 
 afterEach(cleanup)
 

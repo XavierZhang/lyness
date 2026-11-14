@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { assembleContextFor } from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import { assembleContextFor } from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
 import * as tool from '../src/index.ts'
 import { disposeSetupProvider, modelSelectionSetupAgent, setup } from './harness.ts'
 import { mountScriptedProvider } from './scripted-provider.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Read the current tool-owned depth context through real prompt assembly. */
 async function depthContext(ctx: Context, agent?: Agent): Promise<string[]> {

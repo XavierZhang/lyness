@@ -16,19 +16,19 @@
  * Which pages exist is the deployment's answer, not this package's: a
  * composition that mounts no administration module gets a console that says so.
  *
- * @module @deepseek-ai/dsh-client-ui-admin-console/client
+ * @module @lyness/lyn-client-ui-admin-console/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the settings shell's SlotMap merge, which types the
 // administration pages' own seat and owner share.
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-viewer/client'
-import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-viewer/client'
+import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import { AdminFrame } from './AdminFrame.tsx'
 import type {
   AdminChannelRow, AdminFrameInjected, AdminSectionRow, AdminStandingRow, AdminViewerRow,
@@ -46,7 +46,7 @@ export type { AdminConsoleState } from './store.ts'
 export type { AdminConsoleKey } from './locales.ts'
 export { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The console's own chrome: nav groups, header, and its empty state. */
     'admin.console': AdminConsoleKey

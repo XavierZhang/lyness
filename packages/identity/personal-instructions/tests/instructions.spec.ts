@@ -8,17 +8,17 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import * as PersonalInstructions from '../src/index.ts'
 import { MAX_INSTRUCTIONS_CHARS, SOLE_OPERATOR, ownerOfPerson, resolveConfig } from '../src/index.ts'
 import type { PersonalInstructionsRecord } from '../src/index.ts'
@@ -39,7 +39,7 @@ const ADA = brandString<PersonId>('ada')
  * @returns the booted context.
  */
 async function bench(options: { person?: PersonId; accounts?: boolean; root?: string } = {}): Promise<Context> {
-  const root = options.root ?? mkdtempSync(join(tmpdir(), 'dsh-instructions-'))
+  const root = options.root ?? mkdtempSync(join(tmpdir(), 'lyn-instructions-'))
   if (options.root === undefined) roots.push(root)
   const ctx = new Context()
   live.push(ctx)
@@ -128,7 +128,7 @@ describe('the store', () => {
   })
 
   it('survives a restart over the same storage root', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-instructions-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-instructions-'))
     roots.push(root)
     const first = await bench({ accounts: true, person: ADA, root })
     await first.personalInstructions.save(ownerOfPerson(ADA), 'Call me Sam.')
@@ -197,7 +197,7 @@ describe('the session stamp', () => {
   })
 
   it('stamps a session that existed before the plugin mounted, once', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-instructions-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-instructions-'))
     roots.push(root)
     const ctx = new Context()
     live.push(ctx)

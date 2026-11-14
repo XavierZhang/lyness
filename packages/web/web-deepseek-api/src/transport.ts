@@ -2,12 +2,12 @@
  * Authentication and redirect-rejecting transport shared by the Search and
  * Fetch API providers in this package
  * ([rationale](../../../../.agents/notes/implemented/feature/2026-10-15-deepseek-search-fetch-api.md)).
- * @module @deepseek-ai/dsh-web-deepseek-api/transport
+ * @module @lyness/lyn-web-deepseek-api/transport
  */
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
-import { WebError } from '@deepseek-ai/dsh-web'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import { WebError } from '@lyness/lyn-web'
 
-const USER_AGENT = 'DeepSeek Harness/0.0.1'
+const USER_AGENT = 'lyness/0.0.1'
 
 /**
  * API key of one {@link DeepSeekWebAuthSource}: a literal value, where an empty string means no key, or a credential
@@ -27,7 +27,7 @@ export type DeepSeekWebApiKey = string | {
  * `/search`, to `baseURL`.
  */
 export type DeepSeekWebAuthSource =
-  /** The account token released for the dispatch endpoint, sent as `x-dsh-auth-token`. */
+  /** The account token released for the dispatch endpoint, sent as `x-lyn-auth-token`. */
   | {
     kind: 'account'
     /** API base the token is sent to, including its path prefix. */
@@ -319,7 +319,7 @@ async function authHeaders(
         const endpoint = joinPath(source.baseURL, request.path)
         const token = await resolveCredential(() => source.resolveToken(endpoint), signal)
         if (token !== undefined && token.length > 0) return {
-          kind: 'account', endpoint, headers: { 'x-dsh-auth-token': token },
+          kind: 'account', endpoint, headers: { 'x-lyn-auth-token': token },
           reject: async () => { await source.rejectToken(token) },
         }
         break

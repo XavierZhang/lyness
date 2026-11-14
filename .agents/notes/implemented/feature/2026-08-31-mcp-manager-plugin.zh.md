@@ -6,13 +6,13 @@ Status: implemented
 
 ## 问题
 
-一台 MCP 服务器就是 `cordis.yml` 里的一条 `dsh-mcp-client` 行。这对组合钉死的服务器是对的，但与产品目标相悖：要从 Web 界面在运行时添加、修改、测试、启用、停用、删除并恢复服务器，且每台服务器的连接状态可见。客户端插件除日志外没有任何状态出口，激活继承了无界的 SDK 启动等待，也没有任何"不挂载就测试一份配置"的途径。对六个同类 agent 产品（Claude Code、Codex、OpenCode、Kimi Code、DeepSeek-Reasonix、Pi）的调研收敛到同一形态：配置注册表、管理门面、带"状态到动作"映射的连接状态机，密钥绝不回读到界面。
+一台 MCP 服务器就是 `cordis.yml` 里的一条 `lyn-mcp-client` 行。这对组合钉死的服务器是对的，但与产品目标相悖：要从 Web 界面在运行时添加、修改、测试、启用、停用、删除并恢复服务器，且每台服务器的连接状态可见。客户端插件除日志外没有任何状态出口，激活继承了无界的 SDK 启动等待，也没有任何"不挂载就测试一份配置"的途径。对六个同类 agent 产品（Claude Code、Codex、OpenCode、Kimi Code、DeepSeek-Reasonix、Pi）的调研收敛到同一形态：配置注册表、管理门面、带"状态到动作"映射的连接状态机，密钥绝不回读到界面。
 
 已安装的应用插件也会带来自己的服务器。每个插件都必须在不编辑用户配置、不依赖其他应用的前提下加入服务器，停用或卸载插件时还必须撤回该服务器的工具。
 
 ## 决策
 
-`packages/mcp/mcp-manager` 是一个服务插件（`ctx.mcpManager`），拥有 volatile `servers` 配置并对一支普通 `dsh-mcp-client` 子实例编队做对账；`packages/mcp/mcp-client` 拥有连接监督、状态、探测与逐次启动预算。
+`packages/mcp/mcp-manager` 是一个服务插件（`ctx.mcpManager`），拥有 volatile `servers` 配置并对一支普通 `lyn-mcp-client` 子实例编队做对账；`packages/mcp/mcp-client` 拥有连接监督、状态、探测与逐次启动预算。
 
 **配置由 volatile Config 提供，CRUD 不需要新 API。** Settings 按管理器条目的 Loader id 展示其 Config；ConfigEditor 拥有 profile 持久化、继承和 revision 检查。Settings 编辑保留继承的服务器，重置继承条目会恢复其基层值。直接编写 profile patch 会替换完整 `servers` 映射。Loader 先提交引用，再通知管理器现有的协调队列。
 
@@ -20,7 +20,7 @@ Status: implemented
 
 **扁平条目 schema，跨字段校验。** 条目是带 `transport` 判别字段的扁平结构，写入期校验在写入处强制逐传输要求与拒绝（缺 `command`/`url`、跨传输字段、模板写错）——schema 合法但不可执行的条目永远不会被存下，且拒绝会点名出错字段，union 的形状错误做不到。
 
-**子实例是插件实例，不是库调用。** 每个启用条目经 `ctx.plugin()` 在管理器 fiber 下挂载 `dsh-mcp-client`。这复用了经过测试的激活/销毁语义，让 `serverName` 预留与静态组合实例正确冲突（以带可操作消息的 `failed`/`load` 状态浮出），并让管理器销毁经普通 fiber 收卷解除每个实例及其工具。
+**子实例是插件实例，不是库调用。** 每个启用条目经 `ctx.plugin()` 在管理器 fiber 下挂载 `lyn-mcp-client`。这复用了经过测试的激活/销毁语义，让 `serverName` 预留与静态组合实例正确冲突（以带可操作消息的 `failed`/`load` 状态浮出），并让管理器销毁经普通 fiber 收卷解除每个实例及其工具。
 
 **整条目决定实例；`enabled` 控制挂载。** 条目变化会重建子实例，停用或删除条目会销毁子实例。对账与 `restart` 在同一操作队列中串行执行。探测独立运行，配置变更先取消受影响的探测，再由队列中的清理操作等待它们结束。管理器保留清理失败记录，并在 Host 重启前拒绝替换，防止服务器生命周期重叠。
 

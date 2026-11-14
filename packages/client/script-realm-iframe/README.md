@@ -3,7 +3,7 @@ description: "Provide optional same-origin iframe script environments through th
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-script-realm-iframe
+# @lyness/lyn-client-script-realm-iframe
 
 English | [中文](README.zh.md)
 

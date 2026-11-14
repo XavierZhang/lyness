@@ -3,7 +3,7 @@
  * nobody rather than failing, and every one afterwards reaches it.
  */
 
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
 import { describe, expect, it, vi } from 'vitest'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { CapabilitiesOperations } from '../src/client/operations.ts'

@@ -1,6 +1,6 @@
 /** Machine-routable Ralph loop failures. @module */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link RalphError} code:

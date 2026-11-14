@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-history/client/binding
+ * @module @lyness/lyn-client-ui-settings-history/client/binding
  */
 
-import type { AuditEntryView } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
+import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
 import type { ExportOutcome, HistoryOperations, HistorySink } from './operations.ts'
 import type { HistorySectionInjected } from './HistorySection.tsx'
 

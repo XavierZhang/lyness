@@ -1,9 +1,9 @@
 /** Chat-owned event-to-view projection. */
 
 import { describe, expect, it } from 'vitest'
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ContentBlock } from '@deepseek-ai/dsh-api-remotes/client'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { ContentBlock } from '@lyness/lyn-api-remotes/client'
 import {
   displayFailure, emptyAssistantBlock, toAssistantBlock, toAssistantBlocks,
   isTokenDelta,

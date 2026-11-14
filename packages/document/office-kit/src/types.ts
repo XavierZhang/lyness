@@ -1,6 +1,6 @@
 /** Authorized Office input and complete outputs of the shared Host converter. */
-import type { WorkspaceFileBytes } from '@deepseek-ai/dsh-api-workspace-files/types'
-import type {} from '@deepseek-ai/dsh-typert-protocol'
+import type { WorkspaceFileBytes } from '@lyness/lyn-api-workspace-files/types'
+import type {} from '@lyness/lyn-typert-protocol'
 import type { OfficeSourceKey, OfficeKitGeneration, OfficeKitKey } from './identity.ts'
 export type { OfficeSourceKey, OfficeKitGeneration, OfficeKitKey } from './identity.ts'
 
@@ -160,7 +160,7 @@ export interface RenderedDocumentBytes extends WorkspaceFileBytes {
   readonly generation: OfficeKitGeneration
 }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The source was authorized, but its conversion failed. */
     'document-render/failed': { readonly reason: OfficeKitErrorCode }

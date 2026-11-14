@@ -1,8 +1,8 @@
 /** Reads the review threads of the change request a changes view shows and places them in its files. */
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { ForgeReviewData, ForgeReviewThread } from '@deepseek-ai/dsh-experimental-forge/types'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import type { ForgeReviewData, ForgeReviewThread } from '@lyness/lyn-experimental-forge/types'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { LineThread } from './ReviewThreads.tsx'
 import { placeThread, type ThreadPlace, type ThreadView } from './review-threads.ts'
 

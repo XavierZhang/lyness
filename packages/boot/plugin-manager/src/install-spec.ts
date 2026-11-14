@@ -2,7 +2,7 @@
  * Reading an install spec before pnpm sees it: which of pnpm's spec forms it
  * takes, for a registry name whether it is one the registry can accept, and
  * for a Git spec pinned to a commit the repository directory it installs from.
- * @module @deepseek-ai/dsh-plugin-manager/install-spec
+ * @module @lyness/lyn-plugin-manager/install-spec
  */
 
 import { homedir } from 'node:os'

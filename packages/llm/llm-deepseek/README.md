@@ -3,7 +3,7 @@ description: "Configure DeepSeek Messages, reasoning, and image input."
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-llm-deepseek
+# @lyness/lyn-llm-deepseek
 
 English | [中文](README.zh.md)
 
@@ -33,13 +33,13 @@ The adapter accepts the LLM service's [request-only user inputs](../llm/README.m
 
 ### When to choose it
 
-Choose this adapter for DeepSeek's official API or a Messages-compatible gateway through `baseURL`. Choose `dsh-llm-pi-ai` when the same composition also routes other providers or hand-declared gateways through pi-ai's catalogs; the two adapters can be mounted together because their route names do not collide. Registering any other adapter for `deepseek-official` fails with `DUPLICATE_ADAPTER`.
+Choose this adapter for DeepSeek's official API or a Messages-compatible gateway through `baseURL`. Choose `lyn-llm-pi-ai` when the same composition also routes other providers or hand-declared gateways through pi-ai's catalogs; the two adapters can be mounted together because their route names do not collide. Registering any other adapter for `deepseek-official` fails with `DUPLICATE_ADAPTER`.
 
 <a id="minimal-configuration"></a>
 ### Minimal configuration
 
 ```yaml
-- name: '@deepseek-ai/dsh-llm-deepseek-api-key'
+- name: '@lyness/lyn-llm-deepseek-api-key'
   config:
     apiKeyEnv: DEEPSEEK_API_KEY  # credential reference, resolved per request
     reasoningEffort: high        # optional; off | low | high | max
@@ -72,16 +72,16 @@ A request selects the route with `provider: deepseek-official`; the model id pas
 | `fileExpiresAfterSeconds` | `604,800` | Requested uploaded-image lifetime and local reuse bound |
 | `fileRefreshMarginSeconds` | `3,600` | Remaining reuse lifetime below which an id is replaced |
 | `fileQuotaCleanupBatch` | `100` | Oldest harness-owned files removed before one quota retry |
-| `retryPolicy` | normal, 5 retries | Provider-owned retry policy executed by `dsh-llm-retry` |
+| `retryPolicy` | normal, 5 retries | Provider-owned retry policy executed by `lyn-llm-retry` |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-llm-deepseek-api-key) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-llm-deepseek-api-key) is the exhaustive source for every accepted field and its JSDoc.
 
 When [proactive compaction](../../compaction/compaction-basic/README.md#use-this-package) is enabled, `models[].contextWindow` (or `defaultContextWindow` when absent) must exceed the effective request `maxTokens` plus the compaction policy’s `headroomTokens`. Requests without an explicit output cap use the model’s `maxTokens` or the adapter default. For small-window deployments, configure headroom within that capacity; lower `thresholdRatio` to compact earlier.
 
 <a id="endpoint-and-wire-format"></a>
 ### Endpoint and wire format
 
-The official root is `https://api.deepseek.com/anthropic`. An explicit `baseURL` or `$DEEPSEEK_BASE_URL` supplies a Messages-compatible root; the `dsh` launcher accepts that variable from the launching environment or `$DSH_HOME/.env`, never from a project `.env` ([app-boot](../../boot/app-boot/README.md)). Model and Files requests append `/v1/messages` and `/v1/files`, except that an exact final `/v1` segment is reused. Trailing slashes do not change these results. A base URL must use HTTP(S) without credentials, query, or fragment.
+The official root is `https://api.deepseek.com/anthropic`. An explicit `baseURL` or `$DEEPSEEK_BASE_URL` supplies a Messages-compatible root; the `lyn` launcher accepts that variable from the launching environment or `$LYNESS_HOME/.env`, never from a project `.env` ([app-boot](../../boot/app-boot/README.md)). Model and Files requests append `/v1/messages` and `/v1/files`, except that an exact final `/v1` segment is reused. Trailing slashes do not change these results. A base URL must use HTTP(S) without credentials, query, or fragment.
 
 Messages sends text, thinking, tool calls, and tool results as content blocks, reasoning effort as `output_config.effort`, and images as Files references or inline base64. Models declaring `systemPromptUpdate: in-history` retain the initial top-level system and send new system snapshots after their corresponding user/tool-result turn; undeclared models use the latest snapshot as the top-level system. Replay metadata preserves the model and thinking signatures. Invalid replay metadata emits a warning and omits signatures while retaining text and tool history. Model entries may declare `toolUpdate: addition-only` or `in-history`; the default `deepseek-flash` entry declares `addition-only`. Projected developer tool updates become system-role `tool_addition` and `tool_removal` blocks referencing declared names, and deferred declarations carry `defer_loading`. Requests containing those blocks send the `mid-conversation-tool-changes-2026-07-01` beta header. Messages omits empty assistant text blocks and skips assistant messages left without content, including saved history from other protocols. The stored Session content remains intact.
 
@@ -90,7 +90,7 @@ Messages sends text, thinking, tool calls, and tool results as content blocks, r
 
 `deepseek-official` resolves only its configured API-key reference. `deepseek-account` resolves only the stored grant from the [account service](../../credentials/deepseek-account/README.md), whose allowed `inferenceOrigin` defaults to `https://api.deepseek.com`. Neither route falls back to the other. Signing out removes the account grant and preserves API keys.
 
-Messages and Files requests send account tokens as `x-dsh-auth-token` without a Bearer prefix; API keys use `x-api-key`. Neither credential mode follows redirects. The account service owns HTTP 401 classification and credential invalidation; the transport passes failures to its callback.
+Messages and Files requests send account tokens as `x-lyn-auth-token` without a Bearer prefix; API keys use `x-api-key`. Neither credential mode follows redirects. The account service owns HTTP 401 classification and credential invalidation; the transport passes failures to its callback.
 
 The [shared credential helpers](src/credential.ts) serve model routes and web providers without choosing request headers. `resolveDeepSeekApiKey(ctx, ref)` returns a normalized, validated key or `undefined`; an installed credentials service is authoritative, and only its absence enables launch-environment lookup. Store and key-format failures propagate. `deepSeekApiKeyConfigured(ctx, ref)` checks presence without reading stored key values. Account helpers delegate allowed-destination resolution and exact-token invalidation to the account service; invalidation contains storage failures so the original request error remains visible.
 
@@ -132,7 +132,7 @@ When `ctx.deepseekLlmApiExtensions` is present, the adapter prepares its registe
 
 ### Failures and recovery
 
-Configuration accepts Messages only and has no `protocol` field. If resolution reports `protocol is not configurable`, remove `protocol` from the `config` of the `llm-deepseek` entry in `$DSH_HOME/profiles/<profile>/cordis.patch.yml` and from any overriding home patch or command-line overlay. Keep the intended `baseURL`, `apiKeyEnv`, and `models` fields. A stored configuration rejected by adapter validation makes subsequent requests fail until corrected; saving other fields in the Models card does not remove an unknown property. Edit the configuration file, then let the profile reload it through HMR or restart the profile if HMR is disabled.
+Configuration accepts Messages only and has no `protocol` field. If resolution reports `protocol is not configurable`, remove `protocol` from the `config` of the `llm-deepseek` entry in `$LYNESS_HOME/profiles/<profile>/cordis.patch.yml` and from any overriding home patch or command-line overlay. Keep the intended `baseURL`, `apiKeyEnv`, and `models` fields. A stored configuration rejected by adapter validation makes subsequent requests fail until corrected; saving other fields in the Models card does not remove an unknown property. Edit the configuration file, then let the profile reload it through HMR or restart the profile if HMR is disabled.
 
 Successful Files responses must contain valid JSON. JSON decoding failures from upload, list, retrieve, and delete throw `INVALID_RESPONSE` with the operation and HTTP status in the message, the status in `LlmError.failure`, and the original parser error as `cause`. Body-read transport and cancellation errors retain their identity.
 
@@ -171,7 +171,7 @@ One `stream()` call normally makes one model request: resolve deterministic requ
 
 Read these pages when the package-level contract is not enough. They move from the service contract to the twin adapter, the retry executor, and the shared types.
 
-- [dsh-llm service](../llm/README.md) — the provider-neutral service this adapter registers on.
+- [lyn-llm service](../llm/README.md) — the provider-neutral service this adapter registers on.
 - [llm-pi-ai adapter](../llm-pi-ai/README.md) — the library-backed twin serving other providers and gateways.
 - [LLM streaming subsystem](../../../docs/subsystems/llm-streaming.md) — the `StreamChunk` protocol and adapter contract.
 - [llm-retry](../llm-retry/README.md) — the retry executor that applies this adapter's `retryPolicy`.
@@ -235,4 +235,4 @@ These limits define where the adapter stops and future work begins. They are cur
 
 None.
 
-`deepseek-official` uses only its configured API-key reference; `deepseek-account` uses only the stored DSH grant for the account provider’s allowed inference origin. Both routes share the Messages transport with independently configured model and file settings. Missing or ineligible account credentials reject the request with a sign-in prompt; neither route falls back to the other. Chat and Files requests reject redirects. The account service owns sign-out cancellation using running Agents’ logged request contexts, including tool execution; the transport receives the existing request abort signal.
+`deepseek-official` uses only its configured API-key reference; `deepseek-account` uses only the stored LYN grant for the account provider’s allowed inference origin. Both routes share the Messages transport with independently configured model and file settings. Missing or ineligible account credentials reject the request with a sign-in prompt; neither route falls back to the other. Chat and Files requests reject redirects. The account service owns sign-out cancellation using running Agents’ logged request contexts, including tool execution; the transport receives the existing request abort signal.

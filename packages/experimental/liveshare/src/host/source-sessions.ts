@@ -4,7 +4,7 @@
  * A share carries one or more source Sessions, primary first. Code that needs the single Session a
  * wire field or a page target names reads {@link primarySessionIdOf} instead of keeping a second copy
  * of that id on the record.
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/source-sessions
+ * @module @lyness/lyn-experimental-liveshare/src/host/source-sessions
  */
 
 /** Anything that carries a share's source Session ids, primary first. */

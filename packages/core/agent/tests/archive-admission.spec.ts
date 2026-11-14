@@ -1,12 +1,12 @@
-import { unsupportedModel } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { unsupportedModel } from '@lyness/lyn-agent-loop-testkit'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { Session, type SessionId } from '@deepseek-ai/dsh-session'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentCancelCause, AgentStatus, CancelOptions } from '@deepseek-ai/dsh-agent'
-import type { SessionActivity } from '@deepseek-ai/dsh-workspace'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import { Session, type SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentCancelCause, AgentStatus, CancelOptions } from '@lyness/lyn-agent'
+import type { SessionActivity } from '@lyness/lyn-workspace'
+import { brandString } from '@lyness/lyn-brand'
 
 type CancelCall = [AgentCancelCause, CancelOptions | undefined]
 
@@ -92,7 +92,7 @@ describe('Turn archive admission', () => {
 })
 
 // The registry knows only its own family; this suite merges a second one to observe ordering.
-declare module '@deepseek-ai/dsh-workspace/types' {
+declare module '@lyness/lyn-workspace/types' {
   interface SessionActivityKindMap {
     probe: true
   }

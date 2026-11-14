@@ -16,7 +16,7 @@ afterEach(() => {
 
 /** A repository root holding built contributions for the named directories only. */
 function rootWithBuilt(directories: readonly string[]): URL {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-stand-in-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-stand-in-'))
   roots.push(root)
   for (const directory of directories) {
     mkdirSync(join(root, directory, 'lib'), { recursive: true })
@@ -28,7 +28,7 @@ function rootWithBuilt(directories: readonly string[]): URL {
 describe('self-mounted Remote stand-ins', () => {
   it('names a stand-in module and an environment variable for the recorded namespaces', () => {
     expect(STAND_IN_MODULE).toBe('tests/generated-remote-stub.ts')
-    expect(STAND_IN_NAMESPACES_ENV).toBe('DSH_STAND_IN_REMOTE_NAMESPACES')
+    expect(STAND_IN_NAMESPACES_ENV).toBe('LYNESS_STAND_IN_REMOTE_NAMESPACES')
   })
 
   it('reports built output per package', () => {
@@ -60,7 +60,7 @@ describe('self-mounted Remote stand-ins', () => {
 
   it('carries a stand-in and a namespace list for every row', () => {
     for (const remote of SELF_MOUNTED_REMOTES) {
-      expect(remote.package.startsWith('@deepseek-ai/'), remote.package).toBe(true)
+      expect(remote.package.startsWith('@lyness/'), remote.package).toBe(true)
       expect(remote.directory.startsWith('packages/'), remote.directory).toBe(true)
       expect(new Set(remote.namespaces).size).toBe(remote.namespaces.length)
     }

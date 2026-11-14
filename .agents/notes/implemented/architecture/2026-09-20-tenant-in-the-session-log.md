@@ -14,7 +14,7 @@ The obvious home is closed. `SessionHeader` is a fixed field list copied out of 
 
 ## Decision
 
-One log-only event, `tenant/identity`, appended once per session on `session/created` by `@deepseek-ai/dsh-tenant-session`. It carries a versioned explicit field set — the tenant id, the slug as it read at creation, and the tenant's constraints and personality verbatim. Adding an event type needs no format bump; the per-event `ignorable` guard covers vocabulary growth.
+One log-only event, `tenant/identity`, appended once per session on `session/created` by `@lyness/lyn-tenant-session`. It carries a versioned explicit field set — the tenant id, the slug as it read at creation, and the tenant's constraints and personality verbatim. Adding an event type needs no format bump; the per-event `ignorable` guard covers vocabulary growth.
 
 The identity text is recorded in full rather than by reference. The repository has two shapes for recording what reached a model — verbatim text when the text is the thing, and a resolvable id when it is resolvable — and a tenant's identity is the first kind: the configuration it came from is mutable, so an id does not resolve to what the session actually ran under.
 

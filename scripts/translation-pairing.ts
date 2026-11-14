@@ -144,7 +144,7 @@ export const TRANSLATION_SCOPE_GLOB_EXCLUDES = [
   'apps/web/dist/**',
   'apps/cli/docs/**',
   '.artifacts/**',
-  'python/sdk-runtime/src/deepseek_harness_runtime/runtime/**',
+  'python/sdk-runtime/src/lyness_runtime/runtime/**',
   'vendor/**',
 ]
 
@@ -156,7 +156,7 @@ function isTranslationSourceExcluded(file: string): boolean {
     || segment.startsWith('.node-next-types-'))
     || file.startsWith('apps/web/dist/')
     || file.startsWith('apps/cli/docs/')
-    || file.startsWith('python/sdk-runtime/src/deepseek_harness_runtime/runtime/')
+    || file.startsWith('python/sdk-runtime/src/lyness_runtime/runtime/')
 }
 
 /** Whether one discovered Markdown or sidecar path belongs to the bilingual source corpus. */
@@ -301,7 +301,7 @@ export function parseTranslationMarkdown(content: string): Nodes {
   return fromMarkdown(content, { extensions: [gfm()], mdastExtensions: [gfmFromMarkdown()] })
 }
 
-const PUBLIC_REPOSITORY_BLOB_ROOT = 'https://github.com/deepseek-ai/deepseek-harness/blob/master/'
+const PUBLIC_REPOSITORY_BLOB_ROOT = 'https://github.com/XavierZhang/lyness/blob/master/'
 
 /** Return the accepted relative and public-repository links to one counterpart. */
 export function languageSwitcherTargets(counterpart: string): string[] {

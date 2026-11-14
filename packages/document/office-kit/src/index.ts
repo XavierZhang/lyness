@@ -3,16 +3,16 @@ import { randomUUID } from 'node:crypto'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { extname, isAbsolute, join, relative, sep } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import type { Converter, ConverterOptions } from '@deepseek-ai/libreoffice-kit'
-import z from '@deepseek-ai/schemastery'
-import type { WorkspaceFileScope, WorkspaceFileStat } from '@deepseek-ai/dsh-api-workspace-files'
-import type {} from '@deepseek-ai/dsh-fs'
-import type {} from '@deepseek-ai/dsh-session'
-import { dshHomePath } from '@deepseek-ai/dsh-home-paths'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import z from '@lyness/schemastery'
+import type { WorkspaceFileScope, WorkspaceFileStat } from '@lyness/lyn-api-workspace-files'
+import type {} from '@lyness/lyn-fs'
+import type {} from '@lyness/lyn-session'
+import { lynHomePath } from '@lyness/lyn-home-paths'
+import { brandString } from '@lyness/lyn-brand'
 import { resolveKitModule } from './locate.ts'
-import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { OfficeKitError } from './errors.ts'
 import type { OfficeKitGeneration, OfficeSourceKey } from './identity.ts'
 import type {
@@ -27,7 +27,7 @@ export * from './errors.ts'
 export * from './identity.ts'
 export * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Shared Office rendering, conversion, recalculation, and authorized workspace-file previews. */
     officeKit: OfficeKit
@@ -58,7 +58,7 @@ export interface Config {
   outputRetentionMs: number
   /** Maximum bytes across retained converted and recalculated files; the oldest leave first. */
   maxOutputStoreBytes: number
-  /** Conversion deadline in milliseconds; excludes the DSH queue. */
+  /** Conversion deadline in milliseconds; excludes the LYN queue. */
   timeoutMs: number
   /** Maximum authorized source bytes. */
   maxInputBytes: number
@@ -92,7 +92,7 @@ export const Config: z<Partial<Config>, Config> = z.object({
   maxCachedEntries: z.natural().min(1).max(Number.MAX_SAFE_INTEGER).default(8),
   maxCachedBytes: z.natural().min(1).max(Number.MAX_SAFE_INTEGER).default(134217728),
   maxSourceEntries: z.natural().min(1).max(Number.MAX_SAFE_INTEGER).default(64),
-  outputDirectory: z.string().min(1).default(dshHomePath('office-kit', 'outputs')),
+  outputDirectory: z.string().min(1).default(lynHomePath('office-kit', 'outputs')),
   outputRetentionMs: z.natural().min(1).max(2_147_483_647).default(24 * 60 * 60 * 1000),
   maxOutputStoreBytes: z.natural().min(1).max(Number.MAX_SAFE_INTEGER).default(512 * 1024 * 1024),
   timeoutMs: z.natural().min(1).max(2_147_483_647).default(60_000),
@@ -384,7 +384,7 @@ export class OfficeKit extends TypertRemoteService {
       }
       const converter = await slot.converter
       signal.throwIfAborted()
-      directory = await mkdtemp(join(tmpdir(), 'dsh-office-kit-'))
+      directory = await mkdtemp(join(tmpdir(), 'lyn-office-kit-'))
       const inputPath = join(directory, `source.${request.extension}`)
       await writeFile(inputPath, bytes, { flag: 'wx', mode: 0o600, signal })
       signal.throwIfAborted()

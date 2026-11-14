@@ -1,10 +1,10 @@
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 // @vitest-environment jsdom
 import { cloneElement, forwardRef, useState, useSyncExternalStore } from 'react'
 import type { ButtonHTMLAttributes, ComponentProps, ReactElement, ReactNode } from 'react'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
+import { SessionId } from '@lyness/lyn-session/types'
 import { Panel } from '../src/client/Panel.tsx'
 import { Details } from '../src/client/Details.tsx'
 import { en } from '../src/client/locales.ts'
@@ -21,7 +21,7 @@ import type { TreeTransferActions } from '../src/client/TreeTransfer.tsx'
 import checkpoint from './checkpoint.timeline.json' with { type: 'json' }
 import { treeId } from '../src/records.ts'
 
-vi.mock('@deepseek-ai/dsh-client-ui-primitives', () => ({
+vi.mock('@lyness/lyn-client-ui-primitives', () => ({
   MarkdownText: ({ text }: { text: string }) => <div>{text}</div>,
   Button: forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => (
     <button {...props} ref={ref} />

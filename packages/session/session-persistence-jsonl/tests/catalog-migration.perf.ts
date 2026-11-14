@@ -1,22 +1,22 @@
 /** Threshold-free, built-runtime measurements of historical catalog reads as the corpus grows. */
 
-import { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { spawnSync } from 'node:child_process'
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { fileURLToPath } from 'node:url'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const CHILDREN = 4
 const CHILD_EVENTS = 1_000
 const SAMPLES = 3
 
 async function measure(unrelated: number) {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-catalog-perf-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-catalog-perf-'))
   const ctx = new Context()
   try {
     for (let i = 0; i < unrelated + CHILDREN + 1; i++) {

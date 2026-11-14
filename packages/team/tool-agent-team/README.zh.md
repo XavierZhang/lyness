@@ -3,7 +3,7 @@ description: "为开启 Team 的 Session提供四个任务板工具和共享任�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-agent-team
+# @lyness/lyn-tool-agent-team
 
 [English](README.md) | 中文
 
@@ -27,11 +27,11 @@ kind: "package-reference"
 
 仅当根 Session 开启 Team 模式时，各模型步骤才可使用 Team 工具。提示词提供方在求值时读取同一选择。普通 subagent 控制工具始终可用。
 
-模型需要共享任务板时，将此包与 `@deepseek-ai/dsh-agent-team` 一起挂载。根和后代接收相同的任务 schema 和任务策略。
+模型需要共享任务板时，将此包与 `@lyness/lyn-agent-team` 一起挂载。根和后代接收相同的任务 schema 和任务策略。
 
 ### 何时选择
 
-只要挂载了 Team 领域包且模型需要使用任务板，就选择本包；没有它时，只能通过 `ctx.agentTeams` 访问任务板。teammate 通过标准 `subagent`、`subagent_fork`、`send_message`、`list_agents` 与 `interrupt_agent` 工具创建和联系，因此组合还需要 `@deepseek-ai/dsh-tool-subagent` 与 `@deepseek-ai/dsh-tool-subagent-control`。
+只要挂载了 Team 领域包且模型需要使用任务板，就选择本包；没有它时，只能通过 `ctx.agentTeams` 访问任务板。teammate 通过标准 `subagent`、`subagent_fork`、`send_message`、`list_agents` 与 `interrupt_agent` 工具创建和联系，因此组合还需要 `@lyness/lyn-tool-subagent` 与 `@lyness/lyn-tool-subagent-control`。
 
 ### 最小工作示例
 
@@ -39,10 +39,10 @@ kind: "package-reference"
 
 ```yaml
 - id: tool-agent-team
-  name: '@deepseek-ai/dsh-tool-agent-team'
+  name: '@lyness/lyn-tool-agent-team'
 ```
 
-设置 `interrupt`、`freshProvider` 或 `forkProvider` 的配置行不会激活，dsh 会在启动警告中指出该键。[升级指南](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.zh.md)把已移除的工具与键对应到替代方式，生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-tool-agent-team)记录空配置。
+设置 `interrupt`、`freshProvider` 或 `forkProvider` 的配置行不会激活，lyn 会在启动警告中指出该键。[升级指南](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.zh.md)把已移除的工具与键对应到替代方式，生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-tool-agent-team)记录空配置。
 
 让 Lead 启动子代理审查差异、创建审查任务并等待结果。`description` 说明子代理的工作；返回的名称用于寻址。
 
@@ -51,7 +51,7 @@ kind: "package-reference"
 任务工具补充普通 subagent 控制工具：
 
 - **管理任务板**——`team_task_create`、`team_task_list`、`team_task_get` 与 `team_task_update` 添加、浏览、读取与更新共享任务。
-- **等待收件箱输入** — `wait_agent` 属于 `@deepseek-ai/dsh-tool-subagent-control`，无需此包即可使用。
+- **等待收件箱输入** — `wait_agent` 属于 `@lyness/lyn-tool-subagent-control`，无需此包即可使用。
 - **创建和联系队友**——`subagent`、`subagent_fork`、`send_message`、`list_agents` 和 `interrupt_agent` 来自子代理工具包，本包不修改它们。
 
 任务 `owner` 参数接受 `list_agents` 显示的名称：`lead`、完整名称（例如 `reviewer/checker`）或 Session id。任务结果以 `owner` 报告该名称；所有者没有名称时报告其 Session id；`unowned: true` 筛选没有所有者的任务，`unowned: false` 筛选已分配任务。`owner` 和 `unowned` 筛选不可同时使用。Team 服务以 `ownerId` Session id 授权所有者，并在分配时将完整名称保存到 `ownerName`。根可将任务重新分配给自身或任意可达的可继续执行后代；历史名册记录不授予权限。其他 agent 自行认领就绪任务。更新会检查归属和修订。
@@ -107,7 +107,7 @@ kind: "package-reference"
 - [agent-team 包](../agent-team/README.zh.md)——这些工具背后的 `ctx.agentTeams` 领域服务。
 - [Agent Teams 子系统](../../../docs/subsystems/agent-team.zh.md)——持久 Team 类型与服务 API。
 - [subagent 控制工具](../../subagent/tool-subagent-control/README.zh.md) — 通信、列表、中断和收件箱等待。
-- [生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-agent-team)——模型接收的每个工具 schema。
+- [生成的工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-tool-agent-team)——模型接收的每个工具 schema。
 - [subagent teammate Agent Note](../../../.agents/notes/implemented/architecture/2026-10-15-agent-teams-as-subagents.zh.md)——模型侧、scoping 与工具族决策。
 
 -----
@@ -145,7 +145,7 @@ Task changes do not end wait_agent calls, add inbox messages, or start idle agen
 
 #### 模型看到什么
 
-每个成员接收[生成工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-agent-team)中的相同四个任务 schema。结果是紧凑的 JSON 任务视图或分页。仅根可重新分配的限制在执行时实施，而非通过不同 schema 实施。
+每个成员接收[生成工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-tool-agent-team)中的相同四个任务 schema。结果是紧凑的 JSON 任务视图或分页。仅根可重新分配的限制在执行时实施，而非通过不同 schema 实施。
 
 #### Token 影响
 

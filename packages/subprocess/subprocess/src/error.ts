@@ -1,6 +1,6 @@
 /** Machine-routable subprocess failures shared by every `ctx.subprocess` provider and its consumers. @module */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link SubprocessError} code:

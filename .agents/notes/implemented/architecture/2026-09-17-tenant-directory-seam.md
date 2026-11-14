@@ -12,7 +12,7 @@ The answer has to survive three constraints the repository already sets. A capab
 
 ## Decision
 
-`ctx.tenants` is a directory with three lookups — the immutable id a caller states, the hostname a request arrived on, and the slug a direct subdomain carries — and each answers `undefined` for a subject it does not know. `@deepseek-ai/dsh-tenant-static` provides the roster from composition config, validating every row at load and refusing two rows that claim one id, slug, or hostname. `@deepseek-ai/dsh-tenant-http` consumes the directory: it applies the resolution order (header, then hostname, then subdomain), answers which tenant the asking request belongs to on its own route, and refuses what it cannot resolve.
+`ctx.tenants` is a directory with three lookups — the immutable id a caller states, the hostname a request arrived on, and the slug a direct subdomain carries — and each answers `undefined` for a subject it does not know. `@lyness/lyn-tenant-static` provides the roster from composition config, validating every row at load and refusing two rows that claim one id, slug, or hostname. `@lyness/lyn-tenant-http` consumes the directory: it applies the resolution order (header, then hostname, then subdomain), answers which tenant the asking request belongs to on its own route, and refuses what it cannot resolve.
 
 A tenant id is opaque and immutable, and it is neither the slug nor a hostname, because both are presentation an operator changes while durable records that name a tenant must keep resolving.
 

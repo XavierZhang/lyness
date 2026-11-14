@@ -9,22 +9,22 @@ private struct ApplicationFixture {
     let root: URL
     let application: URL
     let cache: URL
-    var executable: URL { application.appendingPathComponent("Contents/MacOS/dsh-cua-native") }
+    var executable: URL { application.appendingPathComponent("Contents/MacOS/lyn-cua-native") }
     var resource: URL { application.appendingPathComponent("Contents/Resources/value.txt") }
     var key: String { get throws { SHA256.hash(data: try Data(contentsOf: executable)).map { String(format: "%02x", $0) }.joined() } }
     var deadline: UInt64 { DispatchTime.now().uptimeNanoseconds + 30_000_000_000 }
 
     init() throws {
         root = FileManager.default.temporaryDirectory.appendingPathComponent("cua-application-\(UUID().uuidString)")
-        application = root.appendingPathComponent("Desktop.app/Contents/Resources/DSH Computer Use.app")
+        application = root.appendingPathComponent("Desktop.app/Contents/Resources/LYN Computer Use.app")
         cache = root.appendingPathComponent("support")
         try FileManager.default.createDirectory(at: executable.deletingLastPathComponent(), withIntermediateDirectories: true)
         try FileManager.default.createDirectory(at: resource.deletingLastPathComponent(), withIntermediateDirectories: true)
         try FileManager.default.copyItem(at: URL(fileURLWithPath: "/usr/bin/true"), to: executable)
         try Data("original resource".utf8).write(to: resource)
         let plist = try PropertyListSerialization.data(fromPropertyList: [
-            "CFBundleIdentifier": "dev.dsh.cua.cache-test.\(UUID().uuidString)",
-            "CFBundleExecutable": "dsh-cua-native", "CFBundleName": "DSH Computer Use", "CFBundlePackageType": "APPL",
+            "CFBundleIdentifier": "dev.lyn.cua.cache-test.\(UUID().uuidString)",
+            "CFBundleExecutable": "lyn-cua-native", "CFBundleName": "LYN Computer Use", "CFBundlePackageType": "APPL",
         ], format: .xml, options: 0)
         try plist.write(to: application.appendingPathComponent("Contents/Info.plist"))
         try sign()
@@ -66,7 +66,7 @@ private struct ApplicationFixture {
     let key = try f.key
     let installed = try StandaloneApplication.install(f.application, runtimeKey: key, root: f.cache, deadline: f.deadline)
     #expect(!StandaloneApplication.hasApplicationAncestor(installed))
-    #expect(try Data(contentsOf: installed.appendingPathComponent("Contents/MacOS/dsh-cua-native")) == Data(contentsOf: f.executable))
+    #expect(try Data(contentsOf: installed.appendingPathComponent("Contents/MacOS/lyn-cua-native")) == Data(contentsOf: f.executable))
     #expect(try Data(contentsOf: installed.appendingPathComponent("Contents/Resources/value.txt")) == Data(contentsOf: f.resource))
     #expect(try StandaloneApplication.install(f.application, runtimeKey: key, root: f.cache, deadline: f.deadline) == installed)
 }
@@ -82,7 +82,7 @@ private struct ApplicationFixture {
     #expect(try String(contentsOf: new.appendingPathComponent("Contents/Resources/value.txt"), encoding: .utf8) == "new resource")
 }
 
-@Test(arguments: ["Contents/Resources/value.txt", "Contents/MacOS/dsh-cua-native"])
+@Test(arguments: ["Contents/Resources/value.txt", "Contents/MacOS/lyn-cua-native"])
 func aChangedCachedApplicationIsRejected(file: String) throws {
     let f = try ApplicationFixture(); defer { f.close() }
     let key = try f.key

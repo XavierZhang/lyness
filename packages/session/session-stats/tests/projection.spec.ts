@@ -11,16 +11,16 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createMessage, type ToolCallId } from '@deepseek-ai/dsh-llm'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { StreamChunk, TokenUsage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import * as SessionStatsPlugin from '@deepseek-ai/dsh-session-stats'
-import { sessionStatsProjectionDefinition } from '@deepseek-ai/dsh-session-stats/src/projection.ts'
-import type { SessionStatsProjection } from '@deepseek-ai/dsh-session-stats/types'
+import { Context } from '@lyness/cordis'
+import { createMessage, type ToolCallId } from '@lyness/lyn-llm'
+import { brandString } from '@lyness/lyn-brand'
+import type { StreamChunk, TokenUsage } from '@lyness/lyn-llm'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionStatsPlugin from '@lyness/lyn-session-stats'
+import { sessionStatsProjectionDefinition } from '@lyness/lyn-session-stats/src/projection.ts'
+import type { SessionStatsProjection } from '@lyness/lyn-session-stats/types'
 
 async function harness(withStatsPlugin: boolean): Promise<{ ctx: Context; session: Session }> {
   const ctx = new Context()

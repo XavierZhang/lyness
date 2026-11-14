@@ -8,7 +8,7 @@
     ".": "./index.js",
     "./client": "./client.js"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "platform": "web"
     }

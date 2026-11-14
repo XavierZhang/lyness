@@ -13,7 +13,7 @@ English | [中文](guide.zh.md)
 
 `ManagementError['code']` gains `unexpected-package`: an installation run with `InstallBundleOptions.expected`, which `updateBundle` always passes, fails with it when the spec installs another package or version.
 
-This affects code that reads `listBundles()` through the Host API, `@deepseek-ai/dsh-plugin-manager/types`, or the remote client in `@deepseek-ai/dsh-api-remotes/client`, and code that switches exhaustively over `ManagementError['code']`. The `plugin_manager` tool never returned the field and is unchanged.
+This affects code that reads `listBundles()` through the Host API, `@lyness/lyn-plugin-manager/types`, or the remote client in `@lyness/lyn-api-remotes/client`, and code that switches exhaustively over `ManagementError['code']`. The `plugin_manager` tool never returned the field and is unchanged.
 
 ## Migration
 

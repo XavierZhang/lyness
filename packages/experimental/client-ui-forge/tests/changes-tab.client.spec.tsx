@@ -4,12 +4,12 @@ import { useSyncExternalStore } from 'react'
 import { act, cleanup, fireEvent, render, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import './fonts-dom.client.ts'
-import type { PaneId, SidebarRightTabActions, SidebarRightTabInfo, TabId } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { RemoteError, type RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
-import { fileAddressFor } from '@deepseek-ai/dsh-util-workspace-path'
+import type { PaneId, SidebarRightTabActions, SidebarRightTabInfo, TabId } from '@lyness/lyn-client-ui-sidebar-right/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError, type RemoteResult } from '@lyness/lyn-typert-protocol'
+import { fileAddressFor } from '@lyness/lyn-util-workspace-path'
 import { CHANGES_KIND, changesAddress, type ChangesParams, type ChangesSource } from '../src/client/changes-address.ts'
 import * as DiffFileModule from '../src/client/DiffFile.tsx'
 import type { ReviewActions } from '../src/client/ReviewComposer.tsx'
@@ -31,10 +31,10 @@ import type {
 } from '../src/types.ts'
 import type {
   ChangeRequestKey, ForgeCommitList, ForgeReviewData, ForgeReviewId, ForgeReviewThread, ForgeReviewWriteResult, ForgeThreadId,
-} from '@deepseek-ai/dsh-experimental-forge/types'
+} from '@lyness/lyn-experimental-forge/types'
 import { entry, ready, snapshot } from './client-fixtures.client.ts'
 import { reviewComment, reviewThread } from './thread-fixtures.client.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const t = makeTranslate(en)
 const SESSION = brandString<SessionId>('s1')
@@ -786,7 +786,7 @@ describe('ChangesTab local reads', () => {
     m.view.unmount()
 
     vi.spyOn(console, 'error').mockImplementation(() => {})
-    expect(() => mount({ contentId: 'dsh-resource://forge-changes/s1/remote' })).toThrow('not a changes address')
+    expect(() => mount({ contentId: 'lyn-resource://forge-changes/s1/remote' })).toThrow('not a changes address')
   })
 })
 

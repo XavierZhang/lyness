@@ -13,9 +13,9 @@ Tool failures from the CUA, browser-use, Cua Driver, worktree, Ralph, terminal, 
 
 Code that handles these failures in-process sees these changes:
 
-- `NativeError` from `@deepseek-ai/dsh-cua` and `OarFailure` from `@deepseek-ai/dsh-experimental-subagent-oar` now extend `HarnessError` from `@deepseek-ai/dsh-error`. `NativeError` keeps its name, codes, and `CODE: message` text. `OarFailure` drops its `stage` and `category` fields; the same summary stays in `message`, and `code` names the stage. Cancellation before an OAR run starts rejects with a `DOMException` named `AbortError` instead of an `OarFailure`.
-- `StagehandDrainError` from `@deepseek-ai/dsh-experimental-browser-use-stagehand-native` now extends `StagehandError` and has the code `STAGEHAND_CLEANUP_FAILED`.
-- `SessionResources.dispose()` from `@deepseek-ai/dsh-experimental-browser-use-runtime` rejects with `BrowserSessionError` (`BROWSER_CLEANUP_FAILED`) whose `cause` is the `AggregateError` it previously threw; `instanceof AggregateError` no longer matches.
+- `NativeError` from `@lyness/lyn-cua` and `OarFailure` from `@lyness/lyn-experimental-subagent-oar` now extend `HarnessError` from `@lyness/lyn-error`. `NativeError` keeps its name, codes, and `CODE: message` text. `OarFailure` drops its `stage` and `category` fields; the same summary stays in `message`, and `code` names the stage. Cancellation before an OAR run starts rejects with a `DOMException` named `AbortError` instead of an `OarFailure`.
+- `StagehandDrainError` from `@lyness/lyn-experimental-browser-use-stagehand-native` now extends `StagehandError` and has the code `STAGEHAND_CLEANUP_FAILED`.
+- `SessionResources.dispose()` from `@lyness/lyn-experimental-browser-use-runtime` rejects with `BrowserSessionError` (`BROWSER_CLEANUP_FAILED`) whose `cause` is the `AggregateError` it previously threw; `instanceof AggregateError` no longer matches.
 - Liveshare guard functions return `{ reason, info }` instead of a reason string.
 - Argument failures that now throw `ToolArgsError` show `invalid arguments: ` before the message the model sees, and a CUA screenshot request for a model without image input shows `MODEL_DOES_NOT_SUPPORT_IMAGES: ` before its message.
 

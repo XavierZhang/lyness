@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-script-realm-iframe",
+  "name": "@lyness/lyn-client-script-realm-iframe",
   "description": "Optional iframe ScriptRealm provider",
   "version": "0.2.2-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/script-realm-iframe"
   },
   "type": "module",
@@ -28,11 +28,11 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-client-script-realm": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-client-script-realm": "workspace:*"
   },
   "files": [
     "locale/*.json",
@@ -43,10 +43,10 @@
     "lib/**/*.js.map",
     "src"
   ],
-  "dsh": {
+  "lyn": {
     "client": {
       "platform": "web",
-      "external": ["@deepseek-ai/dsh-client-script-realm/client"]
+      "external": ["@lyness/lyn-client-script-realm/client"]
     }
   },
   "scripts": {

@@ -1,7 +1,7 @@
 /**
  * PDF export through the shipped SDK profile: the agent loads an Office skill, converts with `office_convert`, and
  * copies the temporary PDF into the workspace with the shell, with no Node on PATH.
- * Defaults to built Node packages. DSH_OFFICE_TEST_EXECUTABLE/ENTRY select a relocated Node or Electron carrier;
+ * Defaults to built Node packages. LYNESS_OFFICE_TEST_EXECUTABLE/ENTRY select a relocated Node or Electron carrier;
  * CARRIER=sdk selects the standalone executable. API=openai-completions selects a development gateway instead of the
  * default Messages API.
  */
@@ -16,9 +16,9 @@ import { strToU8, zipSync } from 'fflate'
 import { expect, it } from 'vitest'
 
 const repo = fileURLToPath(new URL('../../../../../', import.meta.url))
-const carrier = process.env.DSH_OFFICE_TEST_CARRIER ?? 'npm'
-const executable = process.env.DSH_OFFICE_TEST_EXECUTABLE ?? process.execPath
-const entry = process.env.DSH_OFFICE_TEST_ENTRY ?? join(repo, 'apps/cli/lib/bin.js')
+const carrier = process.env.LYNESS_OFFICE_TEST_CARRIER ?? 'npm'
+const executable = process.env.LYNESS_OFFICE_TEST_EXECUTABLE ?? process.execPath
+const entry = process.env.LYNESS_OFFICE_TEST_ENTRY ?? join(repo, 'apps/cli/lib/bin.js')
 
 /** One model tool call reported by the SDK event stream. */
 interface ToolCall {
@@ -32,7 +32,7 @@ function callArguments(call: ToolCall): Record<string, unknown> {
 }
 
 it.skipIf(!process.env.DEEPSEEK_API_KEY || process.platform === 'win32')(`agent exports a PDF with office_convert in the ${carrier} carrier without Node on PATH`, async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh office export '))
+  const root = await mkdtemp(join(tmpdir(), 'lyn office export '))
   try {
     const source = zipSync({
       '[Content_Types].xml': strToU8('<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>'),
@@ -42,7 +42,7 @@ it.skipIf(!process.env.DEEPSEEK_API_KEY || process.platform === 'win32')(`agent 
     await writeFile(join(root, 'input.docx'), source)
     const patch = join(root, 'office.patch.yml')
     await writeFile(patch, JSON.stringify([
-      ...(process.env.DSH_OFFICE_TEST_API === 'openai-completions' ? [{ id: 'llm-deepseek', disabled: true }, { id: 'llm-pi-ai', config: { providers: { 'office-test': { api: 'openai-completions', apiKeyEnv: 'DEEPSEEK_API_KEY', baseURL: process.env.DEEPSEEK_BASE_URL, compat: { thinkingFormat: 'deepseek' }, models: [{ id: process.env.MODEL_NAME ?? 'deepseek-v4-flash', contextWindow: 128000, maxTokens: 8000 }] } } } }] : []),
+      ...(process.env.LYNESS_OFFICE_TEST_API === 'openai-completions' ? [{ id: 'llm-deepseek', disabled: true }, { id: 'llm-pi-ai', config: { providers: { 'office-test': { api: 'openai-completions', apiKeyEnv: 'DEEPSEEK_API_KEY', baseURL: process.env.DEEPSEEK_BASE_URL, compat: { thinkingFormat: 'deepseek' }, models: [{ id: process.env.MODEL_NAME ?? 'deepseek-v4-flash', contextWindow: 128000, maxTokens: 8000 }] } } } }] : []),
       { id: 'session-persistence-jsonl', config: { root: join(root, 'sessions'), compression: 'none' } },
     ]))
     // A private POSIX tool directory also excludes /usr/bin/node on Linux.
@@ -65,9 +65,9 @@ it.skipIf(!process.env.DEEPSEEK_API_KEY || process.platform === 'win32')(`agent 
       ...carrier === 'sdk' ? [] : [entry], '--profile', 'sdk', '--patch', patch,
     ], {
       cwd: root, env: {
-        PATH: path, DSH_HOME: join(root, 'home'), DSH_AGENTS_HOME: join(root, 'agents'),
-        DSH_PERMISSION_MODE: 'danger-full-access', DSH_TELEMETRY_DISABLED: '1',
-        DSH_PRIMARY_RUNTIME: carrier === 'sdk' ? undefined : process.env.DSH_PRIMARY_RUNTIME,
+        PATH: path, LYNESS_HOME: join(root, 'home'), LYNESS_AGENTS_HOME: join(root, 'agents'),
+        LYNESS_PERMISSION_MODE: 'danger-full-access', LYNESS_TELEMETRY_DISABLED: '1',
+        LYNESS_PRIMARY_RUNTIME: carrier === 'sdk' ? undefined : process.env.LYNESS_PRIMARY_RUNTIME,
       },
       timeout: 110_000, killSignal: 'SIGKILL', reject: false,
     })
@@ -92,7 +92,7 @@ it.skipIf(!process.env.DEEPSEEK_API_KEY || process.platform === 'win32')(`agent 
       }
     })
     try {
-      send(1, 'initialize', { cwd: root, provider: process.env.DSH_OFFICE_TEST_API === 'openai-completions' ? 'office-test' : 'deepseek-official', model: process.env.MODEL_NAME ?? 'deepseek-v4-flash', maxTokens: 8000 })
+      send(1, 'initialize', { cwd: root, provider: process.env.LYNESS_OFFICE_TEST_API === 'openai-completions' ? 'office-test' : 'deepseek-official', model: process.env.MODEL_NAME ?? 'deepseek-v4-flash', maxTokens: 8000 })
       const result = await child
       const diagnostic = `${result.stderr}\n${result.stdout}`
       expect(protocolError, diagnostic).toBeUndefined()

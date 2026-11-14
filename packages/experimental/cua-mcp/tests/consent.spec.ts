@@ -1,7 +1,7 @@
 /** Consent answering: unattended approval of the connection's Agent, or an elicitation round trip. */
 import { describe, expect, it, vi } from 'vitest'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { UserQuestionError, type AskUserQuestionItem } from '@deepseek-ai/dsh-user-questions'
+import type { Agent } from '@lyness/lyn-agent'
+import { UserQuestionError, type AskUserQuestionItem } from '@lyness/lyn-user-questions'
 import { approveAll, CONSENT_MODES, createConsentAnswerer, elicitAnswer, type ElicitationClient } from '../src/consent.ts'
 
 const approval: AskUserQuestionItem = {
@@ -63,7 +63,7 @@ describe('elicit mode', () => {
     const { client: optionless, elicit } = client({ action: 'accept', content: { decision: 'yes' } })
     await expect(elicitAnswer(optionless, { id: 'free', question: 'Continue?' }, undefined)).rejects.toThrow('without one of the offered answers: []')
     expect(elicit).toHaveBeenCalledWith('Continue?', [], undefined)
-    await expect(elicitAnswer(client({ action: 'accept' }, false).client, approval, undefined)).rejects.toThrow('DSH_CUA_CONSENT=allow')
+    await expect(elicitAnswer(client({ action: 'accept' }, false).client, approval, undefined)).rejects.toThrow('LYNESS_CUA_CONSENT=allow')
     await expect(elicitAnswer(client({ action: 'later' as 'accept' }).client, approval, undefined)).rejects.toThrow('unknown elicitation action later')
   })
 

@@ -1,14 +1,14 @@
 /**
  * Tests for the filesystem Service Definition: registration, duplicate-service
  * behavior and disposal. The provider primitives and
- * policy live in `dsh-fs-local` and `dsh-fs-observation-policy`; this seam owns only the
+ * policy live in `lyn-fs-local` and `lyn-fs-observation-policy`; this seam owns only the
  * abstract service contract, so a minimal fake backend exercises it.
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { FileSystem, FsError, type FsTargetKey, type FsVersion } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import { FileSystem, FsError, type FsTargetKey, type FsVersion } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -18,7 +18,7 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@deepseek-ai/dsh-fs'
+} from '@lyness/lyn-fs'
 
 /** A minimal in-memory fake implementing the provider primitives. */
 class FakeFileSystem extends FileSystem {

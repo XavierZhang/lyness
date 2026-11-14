@@ -1,5 +1,5 @@
 /** Optional browser provider; registering it does not allocate an iframe. */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { createIFrameScriptRealmFactory } from './iframe.ts'
 
 /** Provider plugin identity. */

@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`ProcessActivity`, exported from `@deepseek-ai/dsh-client-ui-chat/client`, gains the member `context`. A closed process group whose members are all Context injections reports it as its only category. `ProcessActivitySummary.running` is now typed as the new exported `RunningProcessActivity`, which excludes `context`. This affects extensions that switch exhaustively over `ProcessActivity` or map every member to a label or icon.
+`ProcessActivity`, exported from `@lyness/lyn-client-ui-chat/client`, gains the member `context`. A closed process group whose members are all Context injections reports it as its only category. `ProcessActivitySummary.running` is now typed as the new exported `RunningProcessActivity`, which excludes `context`. This affects extensions that switch exhaustively over `ProcessActivity` or map every member to a label or icon.
 
 ## Migration
 

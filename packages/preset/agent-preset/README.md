@@ -3,7 +3,7 @@ description: "Define an Agent’s child plugins in ordinary Cordis YAML. Declare
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-agent-preset
+# @lyness/lyn-agent-preset
 
 English | [中文](README.zh.md)
 
@@ -27,11 +27,11 @@ Define an Agent’s child plugins in ordinary Cordis YAML. Declare several prese
 
 ```yaml
 - id: agent-preset-registry
-  name: '@deepseek-ai/dsh-agent-preset-registry'
+  name: '@lyness/lyn-agent-preset-registry'
   config:
     default: standard
 - id: preset-standard
-  name: '@deepseek-ai/dsh-agent-preset'
+  name: '@lyness/lyn-agent-preset'
   config:
     id: standard
     plugins: []
@@ -50,9 +50,9 @@ Define an Agent’s child plugins in ordinary Cordis YAML. Declare several prese
 
 The declaration row’s `id` addresses Loader edits; `config.id` is the preset identity saved by sessions. Child entry IDs may be omitted and assigned by Loader.
 
-The package also ships the `skills/` directory that creator mode mounts through `skill-filesystem`. It holds one skill, `dsh-doc`: a short `SKILL.md` that sets the order for finding DSH facts (runtime inspection when its tools are available, then the installed documentation and package sources) and states that loading the skill authorizes no file or profile change, plus `references/` read on demand and copyable `templates/` bundles. The references cover locating documentation, plugin development, bundle display metadata and detail documents, Web UI plugins, MCP bundles, extension practices, user actions, verification and user experience review, icon and feature-image drawing, agent presets, the Loader patch dialect, tool design, upgrades across DSH releases, and `references/packages.md`, which `scripts/gen-plugin-packages.ts` generates and `doc-sync` checks for freshness. The rendered `SKILL.md` and every reference except `packages.md`, read with line numbers, stay under the 8192-character threshold above which the standard preset's tool-result pruner trims results.
+The package also ships the `skills/` directory that creator mode mounts through `skill-filesystem`. It holds one skill, `lyn-doc`: a short `SKILL.md` that sets the order for finding LYN facts (runtime inspection when its tools are available, then the installed documentation and package sources) and states that loading the skill authorizes no file or profile change, plus `references/` read on demand and copyable `templates/` bundles. The references cover locating documentation, plugin development, bundle display metadata and detail documents, Web UI plugins, MCP bundles, extension practices, user actions, verification and user experience review, icon and feature-image drawing, agent presets, the Loader patch dialect, tool design, upgrades across LYN releases, and `references/packages.md`, which `scripts/gen-plugin-packages.ts` generates and `doc-sync` checks for freshness. The rendered `SKILL.md` and every reference except `packages.md`, read with line numbers, stay under the 8192-character threshold above which the standard preset's tool-result pruner trims results.
 
-Edit tool design rules in [skills/dsh-doc/references/tool-design.md](skills/dsh-doc/references/tool-design.md). The repository skill `.agents/skills/agent-experience/SKILL.md` only links to that file.
+Edit tool design rules in [skills/lyn-doc/references/tool-design.md](skills/lyn-doc/references/tool-design.md). The repository skill `.agents/skills/agent-experience/SKILL.md` only links to that file.
 
 <a id="understand-the-implementation"></a>
 ## Understand the implementation

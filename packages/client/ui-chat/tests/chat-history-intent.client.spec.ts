@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SessionSeq } from '@deepseek-ai/dsh-session/types'
+import { SessionSeq } from '@lyness/lyn-session/types'
 import { ChatNavigation, type ChatNavigationInput } from '../src/client/chat/use-chat-navigation.ts'
 import { ChatReading } from '../src/client/chat/use-chat-reading.ts'
 import { ChatViewport } from '../src/client/chat/use-chat-viewport.ts'

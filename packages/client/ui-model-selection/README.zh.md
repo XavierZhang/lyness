@@ -3,7 +3,7 @@ description: "Web GUI 的模型选择：/model 弹窗与 composer 模型位共�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-model-selection
+# @lyness/lyn-client-ui-model-selection
 
 [English](README.md) | 中文
 
@@ -59,7 +59,7 @@ composer 菜单中的模型名称和推理等级均使用 400（regular）字重
 
 ### 选择失败
 
-当会话被其他写句柄占用时，模型选择失败提示用户退出其他正在运行的 DSH 后重试。
+当会话被其他写句柄占用时，模型选择失败提示用户退出其他正在运行的 LYN 后重试。
 
 会话级列表 slot `conversation.input.model.options` 在模型与推理等级选项下方追加控件。贡献项调用 `openPane({ key, title })`，显示注册到会话级 keyed slot `conversation.input.model.pane` 的内容；入口按钮的 `data-model-menu-pane` 必须与注册键一致。一级与二级贡献项均收到 `locked`、`reportFailure(message)` 和 `dismiss()`：锁定包含模型或推理等级保存中状态，失败由菜单宿主的 toast 提示，关闭时同步聚焦触发按钮，供贡献方随后打开其他浮层。设置与确认逻辑由贡献插件负责。一级与二级面板共用 240px 宽度，并保持视口两侧的 12px 边距；模型与推理等级列表仍按内容定宽。菜单把二级面板呈现为以 `title` 命名的分组；面板自行设置初始焦点，未设置时焦点停留在菜单容器上。Escape 将焦点还给入口行；Tab 关闭二级面板而不激活开关。
 
@@ -88,7 +88,7 @@ composer 的 `ModelSelect` 与 `/model` 选项构建器共用[提供方排序](s
 
 - [ui-commands](../ui-commands/README.zh.md)——`/model` 贡献项注册进的 popupSelect 外壳。
 - [ui-conversation](../ui-conversation/README.zh.md)——声明 composer 的 `conversation.input.model` 位。
-- [dsh-agent-default-model](../../core/agent-default-model/README.zh.md)——为从未选择的会话提供默认模型的默认模型服务。
+- [lyn-agent-default-model](../../core/agent-default-model/README.zh.md)——为从未选择的会话提供默认模型的默认模型服务。
 - [客户端包映射](../README.zh.md)——相邻的浏览器 UI 包。
 
 -----

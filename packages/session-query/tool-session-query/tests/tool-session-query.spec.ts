@@ -1,14 +1,14 @@
-import { ToolExecutionPipeline } from '@deepseek-ai/dsh-tools/pipeline'
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import { ToolExecutionPipeline } from '@lyness/lyn-tools/pipeline'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context, type Fiber } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage, type ToolCallId, HarnessError , createMessage } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@deepseek-ai/dsh-timeout'
-import * as TimeoutPolicy from '@deepseek-ai/dsh-tool-call-timeout-policy'
+import { Context, type Fiber } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import { createUserMessage, type ToolCallId, HarnessError , createMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@lyness/lyn-timeout'
+import * as TimeoutPolicy from '@lyness/lyn-tool-call-timeout-policy'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   type SessionId,
@@ -17,8 +17,8 @@ import SessionStore, {
   type SessionEvent,
   type SessionHeader,
   type SessionId as SessionIdValue,
-} from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+} from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SessionQueryEngine, {
   SessionQueryError,
   type SessionSearchCursor,
@@ -31,13 +31,13 @@ import SessionQueryEngine, {
   type SessionSearchPage,
   type SessionSearchRequest,
   type SessionTitleObservationResult,
-} from '@deepseek-ai/dsh-session-query'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { type ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import type { Config as ToolSessionQueryConfig } from '@deepseek-ai/dsh-tool-session-query'
-import * as ToolSessionQuery from '@deepseek-ai/dsh-tool-session-query'
+} from '@lyness/lyn-session-query'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { type ToolExecutionResult } from '@lyness/lyn-tools'
+import type { Config as ToolSessionQueryConfig } from '@lyness/lyn-tool-session-query'
+import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

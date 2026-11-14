@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import { type RpcId, resultOf, transportError } from '../src/client/api.ts'
 
 describe('transportError', () => {

@@ -1,7 +1,7 @@
 /** Worker-side source buffer behavior. */
 
 import { MessageChannel } from 'node:worker_threads'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
 import { resolveInspectorOptions } from '../src/host/bridge/controller.ts'
 import { HostBridgePublisher } from '../src/host/bridge/publisher.ts'

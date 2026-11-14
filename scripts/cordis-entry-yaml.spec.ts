@@ -1,5 +1,5 @@
-/** Include's YAML dialect exports used by DSH configuration tools. */
-import { entryYamlErrorPosition, parseEntryYaml, stringifyEntryYaml } from '@deepseek-ai/cordis-plugin-include'
+/** Include's YAML dialect exports used by LYN configuration tools. */
+import { entryYamlErrorPosition, parseEntryYaml, stringifyEntryYaml } from '@lyness/cordis-plugin-include'
 import { describe, expect, it } from 'vitest'
 
 describe('Include YAML dialect', () => {

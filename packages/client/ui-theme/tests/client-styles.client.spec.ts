@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 /** Theme plugin owns DPR presentation; compiled module resources own CSS installation. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { installThemeStyles } from '../src/client/styles.ts'
 
-const HAIRLINE_WIDTH = '--dsh-hairline-width'
+const HAIRLINE_WIDTH = '--lyn-hairline-width'
 const contexts = new Set<Context>()
 let previousWidth: string
 let previousPriority: string

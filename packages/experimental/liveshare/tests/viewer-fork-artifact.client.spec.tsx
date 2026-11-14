@@ -13,7 +13,7 @@ import type { ViewerInputFixture } from './viewer-input-fixture.client.ts'
 import { installViewerRelay } from './viewer-relay.client.ts'
 
 /** The generated contribution is a build artifact; the mount boundary is what this face test covers. */
-vi.mock('@deepseek-ai/dsh-experimental-liveshare/remote', () => ({ default: { package: '@deepseek-ai/dsh-experimental-liveshare', methods: {} } }))
+vi.mock('@lyness/lyn-experimental-liveshare/remote', () => ({ default: { package: '@lyness/lyn-experimental-liveshare', methods: {} } }))
 
 let inputFixture: ViewerInputFixture | undefined
 let owner: FixtureWorld | undefined
@@ -47,7 +47,7 @@ function contextAnswer(mode: { readonly sessionMode: string; readonly sessionMod
     shareId: 'share-1',
     sessionId: 'fx-alpha',
     ownerDisplayName: 'Owner',
-    dshVersion: '0.1.5-rc.2+fixture',
+    lynVersion: '0.1.5-rc.2+fixture',
     capabilities: {
       readOnly: true,
       ...mode,

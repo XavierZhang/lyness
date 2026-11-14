@@ -2,8 +2,8 @@
 import { once } from 'node:events'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { connect } from 'node:net'
-import { Context } from '@deepseek-ai/cordis'
-import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import { expect, it, onTestFinished } from 'vitest'
 import WebServer from '../src/index.ts'
 

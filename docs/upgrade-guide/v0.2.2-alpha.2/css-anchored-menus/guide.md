@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`@deepseek-ai/dsh-client-ui-primitives` removes the `useAnchoredPosition` value export and `AnchoredPositionOptions` type export. `Menu` replaces `getAnchorRect` with `anchorRef` for an external trigger element or `anchorPoint` for a point-triggered menu. Custom Client UI that imports the removed exports or passes the removed prop must migrate.
+`@lyness/lyn-client-ui-primitives` removes the `useAnchoredPosition` value export and `AnchoredPositionOptions` type export. `Menu` replaces `getAnchorRect` with `anchorRef` for an external trigger element or `anchorPoint` for a point-triggered menu. Custom Client UI that imports the removed exports or passes the removed prop must migrate.
 
 Portaled menus follow their anchors through CSS Anchor Positioning. Their size limits use the layout viewport; browser zoom and panning move them with the page, and the panels may extend beyond the visual viewport, including while the keyboard is open. Menu dismissal, keyboard navigation, and internal scrolling remain available. The browser must support the CSS anchor positioning properties used by the component.
 

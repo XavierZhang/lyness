@@ -3,13 +3,13 @@ description: "The page an invitation link opens: the directories that redeem it,
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-join
+# @lyness/lyn-client-ui-join
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-join` is the page an invitation link opens. It takes the built-in `root` seat on its own path and nothing anywhere else, because whoever follows such a link may have no account here and the workbench would be unusable to them. It reads the code from its own query string and offers one link per directory a browser can begin, each carrying it. Somebody already signed in gets one button instead: pressing it adds the standing the code carries to their account. Two visits get a message instead: a link with no code, and a deployment with no accounts.
+`lyn-client-ui-join` is the page an invitation link opens. It takes the built-in `root` seat on its own path and nothing anywhere else, because whoever follows such a link may have no account here and the workbench would be unusable to them. It reads the code from its own query string and offers one link per directory a browser can begin, each carrying it. Somebody already signed in gets one button instead: pressing it adds the standing the code carries to their account. Two visits get a message instead: a link with no code, and a deployment with no accounts.
 
 ## Table of Contents
 
@@ -29,16 +29,16 @@ Two rows, and a third that must agree with them:
 
 ```yaml
 - id: web-runtime
-  name: '@deepseek-ai/dsh-web-app'
+  name: '@lyness/lyn-web-app'
   config:
     documentPaths:
       - /join
 - id: ui-join
-  name: '@deepseek-ai/dsh-client-ui-join'
+  name: '@lyness/lyn-client-ui-join'
   config:
     path: /join
 - id: ui-admin-invitations
-  name: '@deepseek-ai/dsh-client-ui-admin-invitations'
+  name: '@lyness/lyn-client-ui-admin-invitations'
   config:
     joinPath: /join
 ```
@@ -67,10 +67,10 @@ One decision stated three times: the Host decides which paths serve a page, `pat
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-client-ui-admin-invitations`](../ui-admin-invitations/README.md) — where the link this page answers is built.
-- [`dsh-invitations`](../../identity/invitations/README.md) — the bounds a redemption is checked against.
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.md) — the route that carries the code across the directory round trip.
-- [`dsh-host-frontend-static`](../../host/frontend-static/README.md) — what makes this path serve a page at all.
+- [`lyn-client-ui-admin-invitations`](../ui-admin-invitations/README.md) — where the link this page answers is built.
+- [`lyn-invitations`](../../identity/invitations/README.md) — the bounds a redemption is checked against.
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the route that carries the code across the directory round trip.
+- [`lyn-host-frontend-static`](../../host/frontend-static/README.md) — what makes this path serve a page at all.
 
 -----
 

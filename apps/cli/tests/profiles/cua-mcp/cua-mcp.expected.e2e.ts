@@ -27,7 +27,7 @@ function textOf(block: CallResult['content'][number] | undefined): string {
 
 describe.skipIf(!existsSync(bin))('cua-mcp profile', { retry: 0 }, () => {
   it('serves programs over stdio from a profile that selects only this bundle, and exits on EOF', async () => {
-    const temporary = await mkdtemp(join(tmpdir(), 'dsh-cua-mcp-profile-'))
+    const temporary = await mkdtemp(join(tmpdir(), 'lyn-cua-mcp-profile-'))
     const home = join(temporary, 'home')
     // The directory the client launches the server from; programs must not start there.
     const launch = join(temporary, 'launch')
@@ -36,17 +36,17 @@ describe.skipIf(!existsSync(bin))('cua-mcp profile', { retry: 0 }, () => {
       try { await owned.probe?.terminate() } finally { await rm(temporary, { recursive: true, force: true }) }
     })
     const env: NodeJS.ProcessEnv = {
-      ...process.env, DSH_HOME: home, DSH_TELEMETRY_DISABLED: '1', DSH_PERMISSION_MODE: 'danger-full-access', DSH_CUA_CONSENT: 'allow',
+      ...process.env, LYNESS_HOME: home, LYNESS_TELEMETRY_DISABLED: '1', LYNESS_PERMISSION_MODE: 'danger-full-access', LYNESS_CUA_CONSENT: 'allow',
     }
     clearAmbientProxyEnv(env)
     // The default workspace is under test, whatever the developer's shell exports.
-    delete env.DSH_CUA_WORKSPACE
+    delete env.LYNESS_CUA_WORKSPACE
     await execFileAsync(process.execPath, ['-e', 'require("node:fs").mkdirSync(process.argv[1], { recursive: true })', launch])
     // The profile manifest the README documents: the installation's shipped bundle as the only layer, no pnpm step.
     const profileDir = join(home, 'profiles', 'cua-mcp')
     await mkdir(profileDir, { recursive: true })
     await writeFile(join(profileDir, 'package.json'), `${JSON.stringify({
-      name: 'dsh-profile-cua-mcp', private: true, dependencies: {}, dsh: { profile: { bundles: ['@deepseek-ai/dsh-cua-mcp'] } },
+      name: 'lyn-profile-cua-mcp', private: true, dependencies: {}, lyn: { profile: { bundles: ['@lyness/lyn-cua-mcp'] } },
     }, null, 2)}\n`)
 
     const probe = owned.probe = startProbe({ args: [bin, '--profile', 'cua-mcp', '--patch', fixturePatch], cwd: launch, env })
@@ -54,7 +54,7 @@ describe.skipIf(!existsSync(bin))('cua-mcp profile', { retry: 0 }, () => {
       protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'cua-mcp-e2e', version: '1' },
     }) as { serverInfo: { name: string; version: string }; instructions: string; capabilities: object }
     probe.notify('notifications/initialized')
-    expect(initialized.serverInfo.name).toBe('dsh_cua')
+    expect(initialized.serverInfo.name).toBe('lyn_cua')
     expect(initialized.capabilities).toMatchObject({ tools: { listChanged: false } })
     await expect(`${initialized.instructions}\n`).toMatchFileSnapshot('./expected/instructions.txt')
     const listed = await probe.request('tools/list') as { tools: { name: string }[] }
@@ -75,7 +75,7 @@ describe.skipIf(!existsSync(bin))('cua-mcp profile', { retry: 0 }, () => {
     expect(first.content.map(block => block.type)).toEqual(['text', 'image'])
     const state = JSON.parse(textOf(first.content[0])) as { visits: number; window: string; pid: number; cwd: string }
     expect(state).toMatchObject({ visits: 1, window: '7' })
-    // Without DSH_CUA_WORKSPACE the profile creates its workspace inside the Harness home and starts programs there.
+    // Without LYNESS_CUA_WORKSPACE the profile creates its workspace inside the Harness home and starts programs there.
     // Both spellings are resolved: the temporary directory is a symlink on macOS and an 8.3 short name on Windows.
     const programDirectory = await realpath(state.cwd)
     expect(programDirectory).toBe(await realpath(join(home, 'cua-mcp', 'workspace')))

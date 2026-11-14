@@ -1,13 +1,13 @@
 // @vitest-environment jsdom
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
 import { describe, expect, it, vi } from 'vitest'
-import type { ClientModuleMeta, DshClientModuleManifest } from '@deepseek-ai/dsh-package-manifest'
+import type { ClientModuleMeta, LynClientModuleManifest } from '@lyness/lyn-package-manifest'
 import { createClientModuleSystem, type ClientModuleLoaderTarget } from '../src/client/index.ts'
 
 const row = (id: string) => ({ id, url: `/plugins/??${id}/client.js&rev=0`, rev: '0' })
 function fixture(
-  staticModules: readonly DshClientModuleManifest[] = [], ids: readonly string[] = [], loadBundle?: (url: string) => Promise<void>,
+  staticModules: readonly LynClientModuleManifest[] = [], ids: readonly string[] = [], loadBundle?: (url: string) => Promise<void>,
 ) {
   const target: ClientModuleLoaderTarget = {
     mode: 'queue', pendingQueue: [], load: () => {},

@@ -1,10 +1,10 @@
 /** Select program syntax and own temporary or retained Node processes. */
 import { stripTypeScriptTypes } from 'node:module'
 import { isAbsolute } from 'node:path'
-import type { Context } from '@deepseek-ai/cordis'
-import { PtcRuntimeError, type PtcProgramFormat, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@deepseek-ai/dsh-ptc-runtime'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import { clampTimeout } from '@deepseek-ai/dsh-timeout'
+import type { Context } from '@lyness/cordis'
+import { PtcRuntimeError, type PtcProgramFormat, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@lyness/lyn-ptc-runtime'
+import { assertNever } from '@lyness/lyn-util-values'
+import { clampTimeout } from '@lyness/lyn-timeout'
 import type { ResolvedConfig } from './config.ts'
 import { validateBindings } from './bindings.ts'
 import type { PolicyProcesses } from './policy-processes.ts'
@@ -132,7 +132,7 @@ function stripTypeScript(source: string): string {
   return quietRuntimeCall(() => stripTypeScriptTypes(source))
 }
 
-const STRIP_PREFIX = 'async function __dsh_program__() {\n'
+const STRIP_PREFIX = 'async function __lyn_program__() {\n'
 const STRIP_SUFFIX = '\n}'
 const RETAINED_STATE_INSTRUCTIONS = 'Timeout and cancellation results say whether retained variables were preserved or cleared. Restart, sandbox changes, output overflow, or process failure clears them. Recreate missing variables and resources; conversation history does not restore state. Earlier mutations and tool effects are not rolled back. Approved sandbox escalations use a fresh environment and discard its variables afterward. Do not redeclare existing let, const, or class names; reuse mutable bindings or choose new names. Await tools and cleanup before the program ends; unfinished tools reject. After completion, timeout, or cancellation, new tool calls are rejected and captured output is discarded; background work may still change state. Await child-process completion before the program ends; raw output belongs to the active evaluation.'
 /** Scoped REPL guidance; its output sentence is shared with the other modes. */

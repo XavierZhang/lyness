@@ -6,29 +6,29 @@
  * experimental name only through this map.
  */
 export const EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS: Readonly<Record<string, string>> = {
-  'packages/experimental/cua': '@deepseek-ai/dsh-cua',
-  'packages/experimental/cua-bundle': '@deepseek-ai/dsh-cua-bundle',
-  'packages/experimental/cua-macos': '@deepseek-ai/dsh-cua-macos',
-  'packages/experimental/cua-mcp': '@deepseek-ai/dsh-cua-mcp',
-  'packages/experimental/cua-windows': '@deepseek-ai/dsh-cua-windows',
-  'packages/experimental/timeline': '@deepseek-ai/dsh-timeline',
-  'packages/experimental/session-title-all-prompts-llm': '@deepseek-ai/dsh-session-title-all-prompts-llm',
-  'packages/experimental/terminal-panel': '@deepseek-ai/dsh-terminal-panel',
-  'packages/experimental/hook-protocol': '@deepseek-ai/dsh-hook-protocol',
-  'packages/experimental/hooks-claude-code': '@deepseek-ai/dsh-hooks-claude-code',
-  'packages/experimental/hooks-codex': '@deepseek-ai/dsh-hooks-codex',
-  'packages/experimental/action-cards': '@deepseek-ai/dsh-action-cards',
-  'packages/experimental/client-ui-action-cards': '@deepseek-ai/dsh-client-ui-action-cards',
-  'packages/experimental/creation-recommendations': '@deepseek-ai/dsh-creation-recommendations',
-  'packages/experimental/client-ui-creation-recommendations': '@deepseek-ai/dsh-client-ui-creation-recommendations',
-  'packages/experimental/plugin-recommendations': '@deepseek-ai/dsh-plugin-recommendations',
-  'packages/experimental/client-ui-plugin-recommendations': '@deepseek-ai/dsh-client-ui-plugin-recommendations',
-  'packages/experimental/personalized-recommendations': '@deepseek-ai/dsh-personalized-recommendations',
-  'packages/experimental/deepseek-chat-import': '@deepseek-ai/dsh-deepseek-chat-import',
-} satisfies Record<`packages/experimental/${string}`, `@deepseek-ai/dsh-${string}`>
+  'packages/experimental/cua': '@lyness/lyn-cua',
+  'packages/experimental/cua-bundle': '@lyness/lyn-cua-bundle',
+  'packages/experimental/cua-macos': '@lyness/lyn-cua-macos',
+  'packages/experimental/cua-mcp': '@lyness/lyn-cua-mcp',
+  'packages/experimental/cua-windows': '@lyness/lyn-cua-windows',
+  'packages/experimental/timeline': '@lyness/lyn-timeline',
+  'packages/experimental/session-title-all-prompts-llm': '@lyness/lyn-session-title-all-prompts-llm',
+  'packages/experimental/terminal-panel': '@lyness/lyn-terminal-panel',
+  'packages/experimental/hook-protocol': '@lyness/lyn-hook-protocol',
+  'packages/experimental/hooks-claude-code': '@lyness/lyn-hooks-claude-code',
+  'packages/experimental/hooks-codex': '@lyness/lyn-hooks-codex',
+  'packages/experimental/action-cards': '@lyness/lyn-action-cards',
+  'packages/experimental/client-ui-action-cards': '@lyness/lyn-client-ui-action-cards',
+  'packages/experimental/creation-recommendations': '@lyness/lyn-creation-recommendations',
+  'packages/experimental/client-ui-creation-recommendations': '@lyness/lyn-client-ui-creation-recommendations',
+  'packages/experimental/plugin-recommendations': '@lyness/lyn-plugin-recommendations',
+  'packages/experimental/client-ui-plugin-recommendations': '@lyness/lyn-client-ui-plugin-recommendations',
+  'packages/experimental/personalized-recommendations': '@lyness/lyn-personalized-recommendations',
+  'packages/experimental/deepseek-chat-import': '@lyness/lyn-deepseek-chat-import',
+} satisfies Record<`packages/experimental/${string}`, `@lyness/lyn-${string}`>
 
 /** Legacy npm namespace, allowed only in `LEGACY_PREFIXED_EXPERIMENTAL_PACKAGE_DIRECTORIES`. */
-export const EXPERIMENTAL_PACKAGE_NAME_PREFIX = '@deepseek-ai/dsh-experimental-'
+export const EXPERIMENTAL_PACKAGE_NAME_PREFIX = '@lyness/lyn-experimental-'
 
 /** Existing experimental packages that keep the legacy prefix until a rename; this list must not grow. */
 export const LEGACY_PREFIXED_EXPERIMENTAL_PACKAGE_DIRECTORIES: readonly string[] = [
@@ -91,7 +91,7 @@ export function isExperimentalPackageName(name: string): boolean {
  */
 export function hasExperimentalPackageReference(reference: string): boolean {
   const normalized = reference.replaceAll('\\', '/')
-  return [...normalized.matchAll(/(?:^|[/:\u0000])(@deepseek-ai\/[^/@?#:\s]+)(?=$|[/@?#:])/g)]
+  return [...normalized.matchAll(/(?:^|[/:\u0000])(@lyness\/[^/@?#:\s]+)(?=$|[/@?#:])/g)]
     .some(([, name]) => name !== undefined && isExperimentalPackageName(name))
 }
 
@@ -102,7 +102,7 @@ export function hasExperimentalPackageReference(reference: string): boolean {
  */
 export function experimentalPackageRecordNamespace(name: string): string | undefined {
   if (!isExperimentalPackageName(name)) return undefined
-  return name.slice(name.startsWith(EXPERIMENTAL_PACKAGE_NAME_PREFIX) ? EXPERIMENTAL_PACKAGE_NAME_PREFIX.length : '@deepseek-ai/dsh-'.length)
+  return name.slice(name.startsWith(EXPERIMENTAL_PACKAGE_NAME_PREFIX) ? EXPERIMENTAL_PACKAGE_NAME_PREFIX.length : '@lyness/lyn-'.length)
 }
 
 /** Experimental packages excluded from public releases and npm baselines. */
@@ -112,7 +112,7 @@ export const PRIVATE_EXPERIMENTAL_PACKAGE_DIRECTORIES: readonly string[] = []
  * Whether an experimental package publishes under the default-public policy.
  * @param directory - repository-relative package directory.
  * @param privateDirectories - experimental directories excluded from publication.
- * @returns Whether the package publishes with the dsh family.
+ * @returns Whether the package publishes with the lyn family.
  */
 export function isPublicExperimentalPackageDirectory(
   directory: string,

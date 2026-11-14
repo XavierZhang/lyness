@@ -1,5 +1,5 @@
 /** Platform setup guidance prefixed to the shared application and window instructions. */
-import { COMMON_GUIDANCE } from '@deepseek-ai/dsh-cua/guidance'
+import { COMMON_GUIDANCE } from '@lyness/lyn-cua/guidance'
 
 /** Windows operation levels, application selectors, and input availability. */
 export const PLATFORM_GUIDANCE = 'Windows: accessibility tree operations are available only at window level. Simulated mouse and keyboard input are available at window level. Supported modifiers: ctrl, alt, shift, win. control is an alias for ctrl.'

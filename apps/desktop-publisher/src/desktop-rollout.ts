@@ -42,7 +42,7 @@ export async function prepareDesktopRollout(directory: string, manifest: Desktop
   const source = manifest.source
   const windows = source.target === 'win-x64'
   const platform = windows ? 'win32' : 'darwin'
-  const update = resolveDesktopUploadConfig({ ...environment, DSH_DESKTOP_UPDATE_CHANNEL: source.channel },
+  const update = resolveDesktopUploadConfig({ ...environment, LYNESS_DESKTOP_UPDATE_CHANNEL: source.channel },
     platform, source.target === 'mac-arm64' ? 'arm64' : 'x64')
   if (update.environment !== source.preset) throw new Error('desktop rollout: environment differs from original package')
   const filename = desktopUpdateMetadataFilename(source.version, platform, source.channel)
@@ -54,7 +54,7 @@ export async function prepareDesktopRollout(directory: string, manifest: Desktop
     throw new Error('desktop rollout: retained update metadata differs from manifest')
   }
   const parsed = metadata(contents)
-  const payload = `deepseek-harness-${source.version}-${source.target}.${windows ? 'exe' : 'zip'}`
+  const payload = `lyness-${source.version}-${source.target}.${windows ? 'exe' : 'zip'}`
   const file = manifest.files.find(entry => entry.name === payload)
   const entry = parsed.files[0]
   if (parsed.version !== source.version || entry.url !== payload || !file

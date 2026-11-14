@@ -3,7 +3,7 @@ description: "按 AUMID 发现 Windows 应用，并观察或操作明确选择�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-cua-windows
+# @lyness/lyn-cua-windows
 
 [English](README.md) | 中文
 

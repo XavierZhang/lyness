@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import { builtinCommandName, builtinCommandTokens, resolveCommand } from '../src/builtin.ts'
 import type { CommandDefinitionId, CommandDescriptor } from '../src/types.ts'
 
 const definitions = [
-  ['goal', '@deepseek-ai/dsh-command-goal'],
-  ['plan', '@deepseek-ai/dsh-plan-mode'],
-  ['feedback', '@deepseek-ai/dsh-command-feedback'],
-  ['compact', '@deepseek-ai/dsh-command-compact'],
-  ['permission', '@deepseek-ai/dsh-permission-presets'],
-  ['export', '@deepseek-ai/dsh-session-log-export'],
+  ['goal', '@lyness/lyn-command-goal'],
+  ['plan', '@lyness/lyn-plan-mode'],
+  ['feedback', '@lyness/lyn-command-feedback'],
+  ['compact', '@lyness/lyn-command-compact'],
+  ['permission', '@lyness/lyn-permission-presets'],
+  ['export', '@lyness/lyn-session-log-export'],
 ] as const
 
 describe('builtin command resolution', () => {
@@ -25,7 +25,7 @@ describe('builtin command resolution', () => {
 
   it('retains exact-name priority without assigning builtin identity to the replacement', () => {
     const builtin: CommandDescriptor = {
-      name: 'planning', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan',
+      name: 'planning', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan',
     }
     const replacement: CommandDescriptor = {
       name: 'plan', definitionId: brandString<CommandDefinitionId>('example/plan'), description: 'Other command',

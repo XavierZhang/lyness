@@ -1,13 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { MockInstance } from 'vitest'
-import { type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import { type SessionId, SessionSeq } from '@lyness/lyn-session'
 import { agentFor, boundTask, gatedScheduleBackend, harness, recordOf, seededTask, seedTasks } from './harness.ts'
 import { MemoryMediaPool } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
 import { scheduleDomain } from '../src/storage.ts'
 import { createRRuleScheduleRecord } from '../src/domain.ts'
 import type { ScheduleCatalogEntry, ScheduleId } from '../src/types.ts'
 import { createAfterScheduleRecord, createAtScheduleRecord, createEveryScheduleRecord } from '../src/domain.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const NOW = '2026-09-16T00:00:00.000Z'
 const tests: Awaited<ReturnType<typeof harness>>[] = []

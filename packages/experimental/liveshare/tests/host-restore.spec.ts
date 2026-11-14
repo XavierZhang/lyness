@@ -6,8 +6,8 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { ownerHostClaimPath } from '../src/host/owner-host-claim.ts'
-import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { WebSocketServer } from 'ws'
 import { apply, type Config } from '../src/host/share-host.ts'
 import { TunnelWorker, type TunnelWorkerInput } from '../src/host/tunnel-worker.ts'
@@ -551,7 +551,7 @@ describe('liveshare owner host', () => {
   }, 20_000)
 
   it('leaves restored shares unregistered while another live host holds the owner state', async () => {
-    // A second dsh on the same home must not move the holder's Relay registrations: the holder's next
+    // A second lyn on the same home must not move the holder's Relay registrations: the holder's next
     // authority read would then answer for a registration the Relay has already replaced.
     const holder = spawn(process.execPath, ['-e', 'setInterval(() => {}, 1000)'], { stdio: 'ignore' })
     await new Promise<void>((resolve) => { holder.once('spawn', resolve) })

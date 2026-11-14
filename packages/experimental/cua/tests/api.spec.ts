@@ -1,7 +1,7 @@
 /** App and window behavior over a fixture operation dispatcher, without desktop access. */
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { brandString } from '@lyness/lyn-brand'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { createCuaApi } from '../src/api.ts'
 import { NativeError } from '../src/native-client.ts'
 import type { CuaApp, CuaCapabilities, CuaCoordinateOptions, CuaElementId, CuaOperation, CuaWindow } from '../src/types.ts'

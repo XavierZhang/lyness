@@ -1,8 +1,8 @@
-/** DeepSeek Files API transport. @module dsh-llm-deepseek/files-api */
+/** DeepSeek Files API transport. @module lyn-llm-deepseek/files-api */
 
-import { attributionHeaders, LlmError } from '@deepseek-ai/dsh-llm'
-import type { ImageMediaType } from '@deepseek-ai/dsh-attachment'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { attributionHeaders, LlmError } from '@lyness/lyn-llm'
+import type { ImageMediaType } from '@lyness/lyn-attachment'
+import { brandString } from '@lyness/lyn-brand'
 import type { DeepSeekFileId as DeepSeekFileIdType } from './file-id.ts'
 import { messagesApiRoot, MESSAGES_FILES_BETA } from './messages-api.ts'
 

@@ -1,15 +1,15 @@
 /** Agent-scoped raw CUA and persistent program tool registrations. */
 import { extname } from 'node:path'
-import type { Context, Fiber } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createScope, type Scope } from '@deepseek-ai/dsh-scope'
-import NodePtcRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
-import { createRunCodeTool } from '@deepseek-ai/dsh-tool-executor-ptc/run-code'
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
-import { longEdgeDimensions, type ImageAttachmentRef, type ImageRequestTarget } from '@deepseek-ai/dsh-attachment'
-import type { PromptSection } from '@deepseek-ai/dsh-system-prompt'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import type {} from '@deepseek-ai/dsh-working-directory'
+import type { Context, Fiber } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import { createScope, type Scope } from '@lyness/lyn-scope'
+import NodePtcRuntime from '@lyness/lyn-ptc-runtime-node'
+import { createRunCodeTool } from '@lyness/lyn-tool-executor-ptc/run-code'
+import type { ToolDefinition } from '@lyness/lyn-tools'
+import { longEdgeDimensions, type ImageAttachmentRef, type ImageRequestTarget } from '@lyness/lyn-attachment'
+import type { PromptSection } from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import type {} from '@lyness/lyn-working-directory'
 import type { CuaConfig } from './index.ts'
 import type { CuaScreenshotTargetConfig } from './config.ts'
 import { CUA_PROMPT_SECTION_NAME } from './guidance.ts'
@@ -43,7 +43,7 @@ export interface CuaPrograms {
   screenshotRequestTarget(image: ImageAttachmentRef): ImageRequestTarget | undefined
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Present while the CUA provider owns a dedicated program runtime. */
     cuaPrograms: CuaPrograms

@@ -5,10 +5,10 @@
  * the deletion to its controller, and this half exists so the package has a
  * Host entry its client bundle can be mounted beside.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-data
+ * @module @lyness/lyn-client-ui-settings-data
  */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 
 /**
  * Mount the Host half, which contributes nothing of its own.

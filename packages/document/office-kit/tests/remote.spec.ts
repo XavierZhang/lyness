@@ -2,13 +2,13 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { WorkspaceFiles } from '@deepseek-ai/dsh-api-workspace-files'
-import type { FileSystem, FsInfo, FsTarget } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceFiles } from '@lyness/lyn-api-workspace-files'
+import type { FileSystem, FsInfo, FsTarget } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
 import { OfficeKitError, type OfficeKitKey, type OfficeKitResult } from '../src/index.ts'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import OfficeKit from '../src/index.ts'
 import { expectDefaultOutputsUntouched } from './default-outputs.ts'
@@ -16,11 +16,11 @@ import { expectDefaultOutputsUntouched } from './default-outputs.ts'
 const home = await vi.hoisted(async () => {
   const { mkdtemp } = await import('node:fs/promises')
   const { tmpdir } = await import('node:os')
-  return mkdtemp(`${tmpdir()}/dsh-office-kit-home-`)
+  return mkdtemp(`${tmpdir()}/lyn-office-kit-home-`)
 })
-vi.mock('@deepseek-ai/dsh-home-paths', async (original) => {
+vi.mock('@lyness/lyn-home-paths', async (original) => {
   const path = await import('node:path')
-  return { ...await original<typeof import('@deepseek-ai/dsh-home-paths')>(), dshHomePath: (...segments: string[]) => path.join(home, ...segments) }
+  return { ...await original<typeof import('@lyness/lyn-home-paths')>(), lynHomePath: (...segments: string[]) => path.join(home, ...segments) }
 })
 expectDefaultOutputsUntouched(home)
 
@@ -43,7 +43,7 @@ let render: ReturnType<typeof vi.fn<OfficeKit['convert']>>
 let outputDirectory: string
 
 beforeEach(async () => {
-  outputDirectory = await mkdtemp(join(tmpdir(), 'dsh-office-kit-outputs-'))
+  outputDirectory = await mkdtemp(join(tmpdir(), 'lyn-office-kit-outputs-'))
   ctx = new Context()
   read = vi.fn<FileSystem['readBytes']>().mockResolvedValue(rawSource.data)
   fileInfo = vi.fn<FileSystem['stat']>().mockResolvedValue(sourceInfo)

@@ -2,7 +2,7 @@
 description: "React and Slot adapters for Session Controller lists, interaction state, and per-session context."
 kind: "package-reference"
 ---
-# @deepseek-ai/dsh-client-ui-session
+# @lyness/lyn-client-ui-session
 
 English | [中文](README.zh.md)
 
@@ -10,7 +10,7 @@ English | [中文](README.zh.md)
 
 Use this package to expose the Session catalog and retain information through standard Slot hooks. It materializes per-`SessionBinding` hooks and props, while `SessionProvider` can inherit an outer binding or bind an explicit `SessionReference`. It owns process-local pending-interaction policy without owning Controller transport, history, or references.
 
-Domain plugins publish requests awaiting the user through `ctx.uiSession.registerPendingInteraction(precedence)`, and `ctx.uiSession.pendingInteractions` exposes each Session's highest-precedence request read-only. The Session status table and `useSessionStatus` belong to [`dsh-client-ui-session-status`](../ui-session-status/README.md).
+Domain plugins publish requests awaiting the user through `ctx.uiSession.registerPendingInteraction(precedence)`, and `ctx.uiSession.pendingInteractions` exposes each Session's highest-precedence request read-only. The Session status table and `useSessionStatus` belong to [`lyn-client-ui-session-status`](../ui-session-status/README.md).
 
 ## Table of Contents
 
@@ -25,12 +25,12 @@ Domain plugins publish requests awaiting the user through `ctx.uiSession.registe
 <a id="access-hooks"></a>
 ## Access Hooks
 
-The package injects the Client `remoteAccess` service and publishes Session access Hooks over its `source()`: the root `useSessionAccess(sessionId, action)` answers on one Session resource, and the Session-scope `useAccess(action)` answers on the bound Session's resource; the `global` resource's answer is a different Hook, `useRemoteAccess(action)`, so neither shadows the other. `ctx.uiSession.whenAccess(sessionId, action, callback)` is the JS counterpart of `useSessionAccess`: it keeps the callback's effects installed while the current Peer may call `action` on that Session, with the semantics of `ctx.remoteAccess.whenAccess`. The SessionMaybe-scope `useAccess(action)` returns `undefined` while no Session is bound, which callers treat as not allowed; a decision on the `global` resource reads `useRemoteAccess` instead. Snapshot semantics belong to [`dsh-api-remote-access`](../../api/remote-access/README.md#client-face).
+The package injects the Client `remoteAccess` service and publishes Session access Hooks over its `source()`: the root `useSessionAccess(sessionId, action)` answers on one Session resource, and the Session-scope `useAccess(action)` answers on the bound Session's resource; the `global` resource's answer is a different Hook, `useRemoteAccess(action)`, so neither shadows the other. `ctx.uiSession.whenAccess(sessionId, action, callback)` is the JS counterpart of `useSessionAccess`: it keeps the callback's effects installed while the current Peer may call `action` on that Session, with the semantics of `ctx.remoteAccess.whenAccess`. The SessionMaybe-scope `useAccess(action)` returns `undefined` while no Session is bound, which callers treat as not allowed; a decision on the `global` resource reads `useRemoteAccess` instead. Snapshot semantics belong to [`lyn-api-remote-access`](../../api/remote-access/README.md#client-face).
 
 <a id="sub-services"></a>
 ## Sub-services
 
-`ctx.uiSession` has the type `UiSessionService`. A package that provides a sub-service `x` as the Cordis service `uiSession.x`, read as `ctx.uiSession.x`, merges the member `x` into that interface; [`dsh-client-ui-session-status`](../ui-session-status/README.md) provides `ctx.uiSession.sessionStatus` this way.
+`ctx.uiSession` has the type `UiSessionService`. A package that provides a sub-service `x` as the Cordis service `uiSession.x`, read as `ctx.uiSession.x`, merges the member `x` into that interface; [`lyn-client-ui-session-status`](../ui-session-status/README.md) provides `ctx.uiSession.sessionStatus` this way.
 
 <a id="model-experience"></a>
 ## Model Experience

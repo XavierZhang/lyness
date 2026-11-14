@@ -14,11 +14,11 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { isMap, isSeq, parseDocument, YAMLMap, YAMLSeq } from 'yaml'
 import type { Document } from 'yaml'
-import { initProfile, PROFILE_PATCH_FILENAME, resolveProfileDir } from '@deepseek-ai/dsh-app-boot'
-import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
-import { isCredentialRefName } from '@deepseek-ai/dsh-credentials'
-import { CHANNEL_ID } from '@deepseek-ai/dsh-oidc'
+import { initProfile, PROFILE_PATCH_FILENAME, resolveProfileDir } from '@lyness/lyn-app-boot'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
+import { writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { isCredentialRefName } from '@lyness/lyn-credentials'
+import { CHANNEL_ID } from '@lyness/lyn-oidc'
 
 /** Loader id of the roster row the accounts module mounts. */
 export const PEOPLE_ROW_ID = 'people'
@@ -33,7 +33,7 @@ export const ROUTES_ROW_ID = 'sign-in-http'
 export const CHANNEL_ROW_ID = 'sign-in-channel-oidc'
 
 /** Package the provider row loads. */
-export const CHANNEL_PACKAGE = '@deepseek-ai/dsh-oidc'
+export const CHANNEL_PACKAGE = '@lyness/lyn-oidc'
 
 /** The standing the first administrator holds; the only one that administers a whole deployment. */
 export const PLATFORM_ROLE = 'platform-administrator'
@@ -87,7 +87,7 @@ export class SetupError extends Error {
  * Locate a profile's patch layer, initializing a shipped profile that has
  * never launched exactly as its first launch would.
  * @param profile - profile name.
- * @param home - dsh home directory.
+ * @param home - lyn home directory.
  * @returns the absolute patch-layer path.
  * @throws {SetupError} when the profile neither exists nor is shipped.
  */

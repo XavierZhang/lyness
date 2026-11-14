@@ -3,7 +3,7 @@ description: "注册可选脚本环境提供方，并创建由调用者持有的
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-script-realm
+# @lyness/lyn-client-script-realm
 
 [English](README.md) | 中文
 

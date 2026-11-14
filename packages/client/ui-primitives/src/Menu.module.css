@@ -20,8 +20,8 @@
      because the elevation is a property of this surface, and the custom
      properties inherit down to whichever descendant actually scrolls (see
      ui-theme styles/scrollbar.css for the rebinding contract). */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 /* Primary cards grow with their content between compact and readable bounds. */
@@ -41,88 +41,88 @@
 
 /* Every candidate reserves layout-window margins while browser zoom moves the page. */
 .portal {
-  --dsh-menu-window-top: max(12px, var(--dsh-frame-overlay-top, 12px));
+  --lyn-menu-window-top: max(12px, var(--lyn-frame-overlay-top, 12px));
   position: fixed;
   position-area: none;
-  top: max(var(--dsh-menu-window-top), calc(anchor(bottom) + 4px));
+  top: max(var(--lyn-menu-window-top), calc(anchor(bottom) + 4px));
   bottom: 12px;
   left: max(12px, anchor(left));
   right: 12px;
   justify-self: start;
   align-self: start;
   margin: 0;
-  position-try-fallbacks: --dsh-menu-wide-below, --dsh-menu-above, --dsh-menu-wide-above, --dsh-menu-window, --dsh-menu-wide-window;
+  position-try-fallbacks: --lyn-menu-wide-below, --lyn-menu-above, --lyn-menu-wide-above, --lyn-menu-window, --lyn-menu-wide-window;
   width: max-content;
   height: fit-content;
   z-index: 1100;
 }
 .portal[data-anchor-side='top'] {
-  top: var(--dsh-menu-window-top);
+  top: var(--lyn-menu-window-top);
   bottom: max(12px, calc(anchor(top) + 4px));
   align-self: end;
-  position-try-fallbacks: --dsh-menu-wide-above, --dsh-menu-below, --dsh-menu-wide-below, --dsh-menu-window, --dsh-menu-wide-window;
+  position-try-fallbacks: --lyn-menu-wide-above, --lyn-menu-below, --lyn-menu-wide-below, --lyn-menu-window, --lyn-menu-wide-window;
 }
 .portal[data-anchor-side='right'] {
-  top: max(var(--dsh-menu-window-top), anchor(top));
+  top: max(var(--lyn-menu-window-top), anchor(top));
   bottom: 12px;
   left: max(12px, calc(anchor(right) + 4px));
   right: 12px;
-  position-try-fallbacks: --dsh-menu-left, --dsh-menu-wide-below, --dsh-menu-window, --dsh-menu-wide-window;
+  position-try-fallbacks: --lyn-menu-left, --lyn-menu-wide-below, --lyn-menu-window, --lyn-menu-wide-window;
 }
 .portal[data-anchor-align='end']:not([data-anchor-side='right']) {
   left: 12px;
   right: max(12px, anchor(right));
   justify-self: end;
-  --dsh-menu-wide-align: start;
+  --lyn-menu-wide-align: start;
 }
 .portal[data-match-anchor-width] { min-width: min(anchor-size(width), calc(100vw - 24px)); }
-.portal[data-context-menu] { --dsh-menu-window-top: 12px; }
+.portal[data-context-menu] { --lyn-menu-window-top: 12px; }
 
-@position-try --dsh-menu-below {
-  top: max(var(--dsh-menu-window-top), calc(anchor(bottom) + 4px));
+@position-try --lyn-menu-below {
+  top: max(var(--lyn-menu-window-top), calc(anchor(bottom) + 4px));
   bottom: 12px;
   align-self: start;
 }
-@position-try --dsh-menu-above {
-  top: var(--dsh-menu-window-top);
+@position-try --lyn-menu-above {
+  top: var(--lyn-menu-window-top);
   bottom: max(12px, calc(anchor(top) + 4px));
   align-self: end;
 }
-@position-try --dsh-menu-wide-below {
-  top: max(var(--dsh-menu-window-top), calc(anchor(bottom) + 4px));
+@position-try --lyn-menu-wide-below {
+  top: max(var(--lyn-menu-window-top), calc(anchor(bottom) + 4px));
   bottom: 12px;
   left: 12px;
   right: 12px;
   align-self: start;
-  justify-self: safe var(--dsh-menu-wide-align, end);
+  justify-self: safe var(--lyn-menu-wide-align, end);
 }
-@position-try --dsh-menu-wide-above {
-  top: var(--dsh-menu-window-top);
+@position-try --lyn-menu-wide-above {
+  top: var(--lyn-menu-window-top);
   bottom: max(12px, calc(anchor(top) + 4px));
   left: 12px;
   right: 12px;
   align-self: end;
-  justify-self: safe var(--dsh-menu-wide-align, end);
+  justify-self: safe var(--lyn-menu-wide-align, end);
 }
-@position-try --dsh-menu-left {
+@position-try --lyn-menu-left {
   left: 12px;
   right: max(12px, calc(anchor(left) + 4px));
   justify-self: end;
 }
 /* A tall card keeps its trigger alignment before horizontal clamping is needed. */
-@position-try --dsh-menu-window {
-  top: var(--dsh-menu-window-top);
+@position-try --lyn-menu-window {
+  top: var(--lyn-menu-window-top);
   bottom: 12px;
   align-self: safe start;
 }
 
-@position-try --dsh-menu-wide-window {
-  top: var(--dsh-menu-window-top);
+@position-try --lyn-menu-wide-window {
+  top: var(--lyn-menu-window-top);
   left: 12px;
   right: 12px;
   bottom: 12px;
   align-self: safe start;
-  justify-self: safe var(--dsh-menu-wide-align, end);
+  justify-self: safe var(--lyn-menu-wide-align, end);
 }
 
 /* Open above the anchor (empty-state workspace chip: figma 122:9481). */
@@ -139,8 +139,8 @@
 /* Tall lists scroll within the layout viewport, independently of pinch zoom.
  * Child cards use their own body portal, so a scrolling parent never clips them. */
 .scrollable {
-  max-height: calc(100vh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));
-  max-height: calc(100dvh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));
+  max-height: calc(100vh - 12px - max(12px, var(--lyn-frame-overlay-top, 12px)));
+  max-height: calc(100dvh - 12px - max(12px, var(--lyn-frame-overlay-top, 12px)));
 }
 
 .viewport {
@@ -379,34 +379,34 @@
  * supplies the active row's offset within the parent card and the child card's
  * natural height. */
 .submenu {
-  --dsh-menu-window-top: max(12px, var(--dsh-frame-overlay-top, 12px));
+  --lyn-menu-window-top: max(12px, var(--lyn-frame-overlay-top, 12px));
   position: fixed;
-  position-anchor: var(--dsh-submenu-parent);
+  position-anchor: var(--lyn-submenu-parent);
   position-visibility: always;
   margin: 0;
   z-index: 1101;
   width: max-content;
   min-width: min(163px, calc(100vw - 24px));
   max-width: min(360px, calc(100vw - 24px));
-  max-height: calc(100dvh - 12px - var(--dsh-menu-window-top));
+  max-height: calc(100dvh - 12px - var(--lyn-menu-window-top));
 }
-.submenu[data-contextual] { --dsh-menu-window-top: 12px; }
+.submenu[data-contextual] { --lyn-menu-window-top: 12px; }
 
 /* Side card: beside the parent card with a 4px gap, top edge on the active row,
  * moved up when its height does not fit below the row. The only placement
  * fallback is the left side. */
 .submenu[data-submenu-layout='side'] {
-  top: max(var(--dsh-menu-window-top), min(
-    calc(anchor(top) + var(--dsh-submenu-row-offset, 0px)),
-    calc(100dvh - 12px - var(--dsh-submenu-height, 0px))
+  top: max(var(--lyn-menu-window-top), min(
+    calc(anchor(top) + var(--lyn-submenu-row-offset, 0px)),
+    calc(100dvh - 12px - var(--lyn-submenu-height, 0px))
   ));
   left: calc(anchor(right) + 4px);
   right: 12px;
   justify-self: start;
   height: max-content;
-  position-try-fallbacks: --dsh-submenu-left;
+  position-try-fallbacks: --lyn-submenu-left;
 }
-@position-try --dsh-submenu-left {
+@position-try --lyn-submenu-left {
   left: 12px;
   right: calc(anchor(left) + 4px);
   justify-self: end;
@@ -414,7 +414,7 @@
 
 /* Single-panel page: the child takes the parent card's place and at least its width. */
 .submenu[data-submenu-layout='page'] {
-  top: max(var(--dsh-menu-window-top), anchor(top));
+  top: max(var(--lyn-menu-window-top), anchor(top));
   bottom: 12px;
   left: max(12px, anchor(left));
   right: 12px;

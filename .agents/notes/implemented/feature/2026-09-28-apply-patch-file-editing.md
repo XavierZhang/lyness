@@ -10,7 +10,7 @@ A model editing several files or separated regions needs multiple literal-edit c
 
 ## Decision
 
-`apply_patch` accepts one Codex-style patch for add, update, delete, and move operations, including multiple files and hunks. The pure [dsh-fs-patch library](../../../../packages/fs/fs-patch/README.md) follows Codex `rust-v0.158.0` parsing, sequential matching, whitespace tolerance, and `NormalizeToLf` reconstruction; the matcher receives LF text only, so Codex `PreserveLineEndings` is not implemented.
+`apply_patch` accepts one Codex-style patch for add, update, delete, and move operations, including multiple files and hunks. The pure [lyn-fs-patch library](../../../../packages/fs/fs-patch/README.md) follows Codex `rust-v0.158.0` parsing, sequential matching, whitespace tolerance, and `NormalizeToLf` reconstruction; the matcher receives LF text only, so Codex `PreserveLineEndings` is not implemented.
 
 The [filesystem service](../../../../packages/fs/fs/README.md) exposes `patchText`, `deleteFile`, and `moveFile`; local, sandboxed, and SSH providers implement them. `fs/delete-intent` requires the same present observation as `fs/edit-intent`, while move destinations use `fs/write-intent`. Version guards and sandbox enforcement remain with the provider. A move publishes its destination before deleting its source, and `sourceDeleted` distinguishes a completed move from a published destination whose source could not be removed.
 

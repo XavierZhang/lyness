@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-forge-bundle",
+  "name": "@lyness/lyn-experimental-forge-bundle",
   "description": "Experimental change request panel and worktree option for Sessions in Git repositories",
   "version": "0.2.2-rc.3",
   "icon": "./icon.svg",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/experimental/forge-bundle"
   },
   "type": "module",
@@ -37,20 +37,20 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-experimental-client-ui-forge": "workspace:*",
-    "@deepseek-ai/dsh-experimental-forge": "workspace:*",
-    "@deepseek-ai/dsh-experimental-forge-github": "workspace:*",
-    "@deepseek-ai/dsh-experimental-forge-session": "workspace:*",
-    "@deepseek-ai/dsh-experimental-tool-worktree": "workspace:*",
-    "@deepseek-ai/dsh-experimental-worktree": "workspace:*"
+    "@lyness/lyn-experimental-client-ui-forge": "workspace:*",
+    "@lyness/lyn-experimental-forge": "workspace:*",
+    "@lyness/lyn-experimental-forge-github": "workspace:*",
+    "@lyness/lyn-experimental-forge-session": "workspace:*",
+    "@lyness/lyn-experimental-tool-worktree": "workspace:*",
+    "@lyness/lyn-experimental-worktree": "workspace:*"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }

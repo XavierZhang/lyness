@@ -1,23 +1,23 @@
 /** Agent controls use the same manager methods as the Web and bound inventory reads. */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
-import { Context } from '@deepseek-ai/cordis'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { type ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm/types'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
-import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import SessionProjections from '@deepseek-ai/dsh-session-projection'
-import ApprovalService, { type ApprovalOutcome } from '@deepseek-ai/dsh-user-approval'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import { Context } from '@lyness/cordis'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { type ToolExecutionResult } from '@lyness/lyn-tools'
+import { brandString } from '@lyness/lyn-brand'
+import type { ToolCallId } from '@lyness/lyn-llm/types'
+import type { Agent } from '@lyness/lyn-agent'
+import SandboxPolicy from '@lyness/lyn-sandbox-policy'
+import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import SessionProjections from '@lyness/lyn-session-projection'
+import ApprovalService, { type ApprovalOutcome } from '@lyness/lyn-user-approval'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import type PluginManager from '../src/index.ts'
 import type { BundleInfo } from '../src/types.ts'
 import * as tool from '../src/tools.ts'
 import { PluginManagerError } from '../src/error.ts'
-import { FileLockError } from '@deepseek-ai/dsh-atomic-write'
+import { FileLockError } from '@lyness/lyn-atomic-write'
 
 function resultText(result: ToolExecutionResult): string {
   if (typeof result.value !== 'string') throw new Error('Expected a serialized manager result')
@@ -91,9 +91,9 @@ it('preserves selected bundle load errors in the agent list result', async () =>
 it('exposes an absent Official bundle installation target without display metadata', async () => {
   const { manager, call } = await fixture()
   const offered: BundleInfo = {
-    name: '@deepseek-ai/dsh-subagent-codex', official: true, availability: 'missing',
+    name: '@lyness/lyn-subagent-codex', official: true, availability: 'missing',
     installed: false, enabled: false, optional: false, removable: false, rows: [], overrides: [],
-    installTarget: { spec: '@deepseek-ai/dsh-subagent-codex@1.2.3', version: '1.2.3' },
+    installTarget: { spec: '@lyness/lyn-subagent-codex@1.2.3', version: '1.2.3' },
     meta: { title: 'Codex subagent' },
   }
   manager.listBundles.mockResolvedValue([offered])
@@ -104,11 +104,11 @@ it('exposes an absent Official bundle installation target without display metada
           "availability": "missing",
           "enabled": false,
           "installTarget": {
-            "spec": "@deepseek-ai/dsh-subagent-codex@1.2.3",
+            "spec": "@lyness/lyn-subagent-codex@1.2.3",
             "version": "1.2.3",
           },
           "installed": false,
-          "name": "@deepseek-ai/dsh-subagent-codex",
+          "name": "@lyness/lyn-subagent-codex",
           "official": true,
           "optional": false,
           "overrides": [],
@@ -311,8 +311,8 @@ it('tells the agent the next step for each change outcome it can act on', async 
   expect(await outcome({ changed: false, application: 'cancelled' })).toContain('nothing changed')
   expect(await outcome({ changed: true, application: 'overridden' })).toContain('higher-priority layer')
   expect(await outcome({ changed: true, application: 'restart-required', restartReason: 'host-module' }))
-    .toBe('Tell the user to restart DSH to apply this change: the change reaches modules DSH itself loaded.')
-  expect(await outcome({ changed: true, application: 'restart-required' })).toBe('Tell the user to restart DSH to apply this change.')
+    .toBe('Tell the user to restart LYN to apply this change: the change reaches modules LYN itself loaded.')
+  expect(await outcome({ changed: true, application: 'restart-required' })).toBe('Tell the user to restart LYN to apply this change.')
   expect(await outcome({ changed: false, application: 'failed', packageResult: { kind: 'build-blocked' } })).toContain('approvedBuilds')
   // A refusal code is more specific than the package manager's failure kind.
   expect(await outcome({ changed: false, application: 'failed', packageResult: { kind: 'network' }, error: { code: 'stale-approval' } }))

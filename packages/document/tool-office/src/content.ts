@@ -1,12 +1,12 @@
 /**
  * Canonical Office tool results and their model-facing content.
- * @module @deepseek-ai/dsh-tool-office/content
+ * @module @lyness/lyn-tool-office/content
  */
 
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { AttachmentId, ImageAttachmentRef, ImageMediaType } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { OfficeConversionFormat, OfficeRecalculationFormat } from '@deepseek-ai/dsh-office-kit'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { AttachmentId, ImageAttachmentRef, ImageMediaType } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { OfficeConversionFormat, OfficeRecalculationFormat } from '@lyness/lyn-office-kit'
 
 /**
  * One rendered image and the document location it shows. The attachment fields are those of the stored reference;

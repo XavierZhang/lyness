@@ -1,5 +1,5 @@
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { PluginLocalizedMeta } from '@deepseek-ai/dsh-package-manifest'
+import type { Branded } from '@lyness/lyn-brand'
+import type { PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
 
 /** Stable Loader-tree identity of one configured plugin entry. */
 export type PluginEntryId = Branded<'PluginEntryId'>

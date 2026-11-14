@@ -1,6 +1,6 @@
 /** Machine-routable worktree creation and restoration failures. @module */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link WorktreeError} code:

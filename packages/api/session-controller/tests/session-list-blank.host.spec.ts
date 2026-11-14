@@ -14,20 +14,20 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionSeq } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CommandId } from '@deepseek-ai/dsh-commands/types'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionId } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { brandString } from '@lyness/lyn-brand'
+import type { CommandId } from '@lyness/lyn-commands/types'
 // Side-effect type imports: the configuration-event SessionEventMap merges.
-import type {} from '@deepseek-ai/dsh-permission-presets'
-import type {} from '@deepseek-ai/dsh-sandbox-policy'
+import type {} from '@lyness/lyn-permission-presets'
+import type {} from '@lyness/lyn-sandbox-policy'
 import type { SessionSummary } from '../src/types.ts'
 import { createSessionTestRemote, type TestSessionRemote } from './test-remote.ts'
 
@@ -101,7 +101,7 @@ describe('summary blank = conversation not started', () => {
  * the Session Controller observes the published Session.
  */
 async function resumeHarness(): Promise<{ ctx: Context; remote: TestSessionRemote; cwd: string }> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-list-blank-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-list-blank-'))
   ownedRoots.add(root)
   const ctx = new Context()
   ownedContexts.add(ctx)

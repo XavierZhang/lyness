@@ -1,8 +1,8 @@
 /** Admitted input and a settled turn for manual-continuation tests. */
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SessionSeq } from '@deepseek-ai/dsh-session/types'
-import type { TurnEndReason } from '@deepseek-ai/dsh-session/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import type { TurnEndReason } from '@lyness/lyn-session/types'
 
 /**
  * Build one settled turn with ordinary user input.

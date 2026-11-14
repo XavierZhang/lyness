@@ -1,11 +1,11 @@
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { describe, expect, expectTypeOf, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { Session, type SessionId } from '@deepseek-ai/dsh-session'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import TerminalSessionService, { TerminalBackendCleanupError, TerminalError, type TerminalSessionId } from '@deepseek-ai/dsh-terminal'
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { Context } from '@lyness/cordis'
+import { Session, type SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import TerminalSessionService, { TerminalBackendCleanupError, TerminalError, type TerminalSessionId } from '@lyness/lyn-terminal'
+import { HarnessError } from '@lyness/lyn-error'
 import type {
   TerminalBackend,
   TerminalBackendSession,
@@ -15,9 +15,9 @@ import type {
   TerminalSessionId as TerminalSessionIdType,
   TerminalSessionStatus,
   TerminalSignal,
-} from '@deepseek-ai/dsh-terminal'
-import { unsupportedModel, unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { brandString } from '@deepseek-ai/dsh-brand'
+} from '@lyness/lyn-terminal'
+import { unsupportedModel, unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
+import { brandString } from '@lyness/lyn-brand'
 
 const agentScopeDisposers = new WeakMap<Agent, () => Promise<void>>()
 const ptyServiceDisposers = new WeakMap<Context, () => Promise<void>>()

@@ -9,9 +9,9 @@
  * ui-settings-general too.
  */
 
-import type {} from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-slots'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Optional sidebar account launcher; opens the shell-owned settings panel. */
     'settings.launcher': { kind: 'single'; scope: 'root'; owner: SettingsLauncherOwnerProps }
@@ -66,7 +66,7 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
      * its own registration.
      *
      * Declared at runtime by the administration console
-     * (`dsh-client-ui-admin-console`), which is a page of its own rather than
+     * (`lyn-client-ui-admin-console`), which is a page of its own rather than
      * a plane inside Settings: the type lives here so every administration
      * page collaborates with it without depending on it, the way
      * `settings.plugins.tab` does. A composition that mounts no console leaves

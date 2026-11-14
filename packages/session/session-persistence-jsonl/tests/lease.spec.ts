@@ -16,20 +16,20 @@ import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { SessionHeader } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionHeader } from '@lyness/lyn-session'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,
   SessionPersistenceNotFoundError,
-} from '@deepseek-ai/dsh-session-persistence'
-import type { SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
+} from '@lyness/lyn-session-persistence'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
 import * as JsonlSessionPersistence from '../src/index.ts'
 import { LEASE_FILENAME, SessionWriteLease } from '../src/lease.ts'
 import type { JsonlSessionHandle } from '../src/storage.ts'
 import { sessionDir } from '../src/format.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 // The lock's base name, duplicated for the hoisted mock factories: they run
 // while `../src/lease.ts` is still evaluating, before LEASE_FILENAME exists.
@@ -85,8 +85,8 @@ vi.mock('node:fs/promises', async (importOriginal) => {
   }
 })
 
-vi.mock('@deepseek-ai/node-addon-system/flock', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@deepseek-ai/node-addon-system/flock')>()
+vi.mock('@lyness/node-addon-system/flock', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@lyness/node-addon-system/flock')>()
   return {
     tryLockExclusive: async (fd: number): Promise<void> => {
       if (refuse.flock) {
@@ -121,7 +121,7 @@ function meta(id: string, cwd = '/work'): SessionHeader {
 }
 
 async function freshRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-jsonl-lease-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-jsonl-lease-'))
   dirs.push(root)
   return root
 }

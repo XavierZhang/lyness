@@ -13,22 +13,22 @@ Upgrading from v0.2.2-rc.2 removes the seven package subpaths below. Existing id
 
 | Removed subpath | Type import or supported replacement |
 |---|---|
-| `@deepseek-ai/dsh-commands/brand` | `@deepseek-ai/dsh-commands/types` |
-| `@deepseek-ai/dsh-browser-use/brand` | `@deepseek-ai/dsh-browser-use/types` |
-| `@deepseek-ai/dsh-computer-use/brand` | `@deepseek-ai/dsh-computer-use/types` |
-| `@deepseek-ai/dsh-jobs/brand` | `@deepseek-ai/dsh-jobs/types` |
-| `@deepseek-ai/dsh-llm/brand` | `@deepseek-ai/dsh-llm/types` |
-| `@deepseek-ai/dsh-tools/presentation` | Type imports from `@deepseek-ai/dsh-tools` |
-| `@deepseek-ai/dsh-file-reference-local/search` | The `fileReferences` service; no replacement public search helper |
+| `@lyness/lyn-commands/brand` | `@lyness/lyn-commands/types` |
+| `@lyness/lyn-browser-use/brand` | `@lyness/lyn-browser-use/types` |
+| `@lyness/lyn-computer-use/brand` | `@lyness/lyn-computer-use/types` |
+| `@lyness/lyn-jobs/brand` | `@lyness/lyn-jobs/types` |
+| `@lyness/lyn-llm/brand` | `@lyness/lyn-llm/types` |
+| `@lyness/lyn-tools/presentation` | Type imports from `@lyness/lyn-tools` |
+| `@lyness/lyn-file-reference-local/search` | The `fileReferences` service; no replacement public search helper |
 
 ## Migration
 
 1. Move identifier type imports from the five `/brand` paths to the corresponding `/types` entries, using `import type`. These entries do not replace runtime constructor imports.
-2. For existing constructor calls from the removed paths, commands, jobs and LLM callers can import the retained constructor from the package root. Browser/computer provider-name constructors were not root exports; use `brandString<ProviderName>(value)` with the type from `/types`. Add `@deepseek-ai/dsh-brand` as a direct dependency when importing its runtime helper. Keep validation and UUID/counter generation where they already occur.
+2. For existing constructor calls from the removed paths, commands, jobs and LLM callers can import the retained constructor from the package root. Browser/computer provider-name constructors were not root exports; use `brandString<ProviderName>(value)` with the type from `/types`. Add `@lyness/lyn-brand` as a direct dependency when importing its runtime helper. Keep validation and UUID/counter generation where they already occur.
 
    ```ts
-   import { brandString } from '@deepseek-ai/dsh-brand'
-   import type { BrowserUseProviderName } from '@deepseek-ai/dsh-browser-use/types'
+   import { brandString } from '@lyness/lyn-brand'
+   import type { BrowserUseProviderName } from '@lyness/lyn-browser-use/types'
 
    const providerName = brandString<BrowserUseProviderName>('my-browser-provider')
    ```

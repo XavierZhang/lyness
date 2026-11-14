@@ -5,8 +5,8 @@
  */
 
 import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
-import { IconChevronDownOutlineRegular, Menu, Switch, Tooltip, type MenuEntry } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import { IconChevronDownOutlineRegular, Menu, Switch, Tooltip, type MenuEntry } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ChangesLens } from './changes-store.ts'
 import type { ForgePanelKey, NS } from './locales.ts'
 import css from './ReviewControls.module.css'

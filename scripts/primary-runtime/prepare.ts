@@ -10,7 +10,7 @@ import { basename, dirname, join, resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import extractZip from 'extract-zip'
 import { x as extractTar } from 'tar'
-import { copyPrimaryRuntime, parsePrimaryRuntime, workspaceDependencyPaths, type PrimaryRuntimeManifest } from '@deepseek-ai/dsh-tool-workspace-dependencies'
+import { copyPrimaryRuntime, parsePrimaryRuntime, workspaceDependencyPaths, type PrimaryRuntimeManifest } from '@lyness/lyn-tool-workspace-dependencies'
 import { acceptsNpmPlatform } from '../npm-platform.ts'
 import lock from './lock.json' with { type: 'json' }
 import { prunePrimaryRuntimePythonTests } from './prune-python-tests.ts'
@@ -31,8 +31,8 @@ export async function downloadPrimaryRuntimeAsset(url: string, sha256: string, c
   try { bytes = readFileSync(destination) } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
     cached = false
-    const timeout = Number(process.env.DSH_RESOURCE_DOWNLOAD_TIMEOUT_MS ?? '300000')
-    if (!Number.isSafeInteger(timeout) || timeout < 1 || timeout > 2_147_483_647) throw new Error('DSH_RESOURCE_DOWNLOAD_TIMEOUT_MS must be an integer from 1 to 2147483647')
+    const timeout = Number(process.env.LYNESS_RESOURCE_DOWNLOAD_TIMEOUT_MS ?? '300000')
+    if (!Number.isSafeInteger(timeout) || timeout < 1 || timeout > 2_147_483_647) throw new Error('LYNESS_RESOURCE_DOWNLOAD_TIMEOUT_MS must be an integer from 1 to 2147483647')
     const response = await fetch(url, { signal: AbortSignal.timeout(timeout) })
     if (!response.ok) throw new Error(`primary runtime download: ${String(response.status)} ${url}`)
     bytes = Buffer.from(await response.arrayBuffer())
@@ -92,7 +92,7 @@ export async function downloadNodeRuntime(target: PrimaryRuntimeTarget, destinat
   const artifact = lock.targets[target]
   const filename = `node-v${lock.nodeVersion}-${artifact.nodeArchive}`
   const archive = await downloadPrimaryRuntimeAsset(`https://nodejs.org/dist/v${lock.nodeVersion}/${filename}`, artifact.nodeSha256, cache)
-  const staging = mkdtempSync(join(tmpdir(), 'dsh-node-'))
+  const staging = mkdtempSync(join(tmpdir(), 'lyn-node-'))
   try {
     if (target === 'win-x64') await extractZip(archive, { dir: staging })
     else await extractTar({ file: archive, cwd: staging })
@@ -201,7 +201,7 @@ export async function preparePrimaryRuntime(options: PreparePrimaryRuntimeOption
   const paths = { runtime: resolve(options.output), downloads: resolve(options.cache) }
   mkdirSync(paths.runtime, { recursive: true })
   mkdirSync(paths.downloads, { recursive: true })
-  const staging = mkdtempSync(join(tmpdir(), 'dsh-primary-'))
+  const staging = mkdtempSync(join(tmpdir(), 'lyn-primary-'))
   try {
     const output = join(staging, 'payload')
     const dependencies = join(output, 'dependencies')
@@ -291,7 +291,7 @@ if (import.meta.main) {
   const output = resolve(values.output)
   await preparePrimaryRuntime({
     target: values.target as PrimaryRuntimeTarget, output,
-    cache: values.cache ?? join(tmpdir(), 'dsh-primary-runtime-downloads'), version,
+    cache: values.cache ?? join(tmpdir(), 'lyn-primary-runtime-downloads'), version,
     pythonOnly: values['python-only'],
   })
   smokePrimaryRuntime(join(output, 'primary-runtime'))

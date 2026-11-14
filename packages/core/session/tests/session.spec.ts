@@ -1,9 +1,9 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createDeveloperMessage, createSystemMessage, createUserMessage, type ToolCallId, createMessage, createToolResultMessage, type MessageId, type ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { createDeveloperMessage, createSystemMessage, createUserMessage, type ToolCallId, createMessage, createToolResultMessage, type MessageId, type ReasoningEffortId } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import SessionStore, {
   adoptSessionEvent,
   SESSION_FORMAT_VERSION,
@@ -13,10 +13,10 @@ import SessionStore, {
   SessionLogOffset,
   SessionSeq,
   snapshotSessionEvent,
-} from '@deepseek-ai/dsh-session'
-import type { CreateSessionOptions, SessionEventType, SessionHeader, SessionSurface } from '@deepseek-ai/dsh-session'
+} from '@lyness/lyn-session'
+import type { CreateSessionOptions, SessionEventType, SessionHeader, SessionSurface } from '@lyness/lyn-session'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
     'watcher': { kind: 'watcher' } & ContextFormed

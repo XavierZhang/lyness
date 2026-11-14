@@ -1,12 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
-import { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { generationLogPath, scanLog } from '../src/format.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const id = brandString<SessionId>('current-admission')
 const header = { type: 'session', version: SESSION_FORMAT_VERSION, id, createdAt: 1000, isSeeded: false, delegationDepth: 0 }
@@ -27,7 +27,7 @@ describe('current event admission at EOF', () => {
   let ctx: Context
 
   beforeEach(async () => {
-    root = await mkdtemp(join(tmpdir(), 'dsh-current-admission-'))
+    root = await mkdtemp(join(tmpdir(), 'lyn-current-admission-'))
     ctx = new Context()
     await ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
   })

@@ -1,7 +1,7 @@
 /**
  * Vocabulary for the models a deployment allows.
  *
- * @module @deepseek-ai/dsh-model-policy/types
+ * @module @lyness/lyn-model-policy/types
  */
 
 /** One model a policy allows, named the way a request names it. */

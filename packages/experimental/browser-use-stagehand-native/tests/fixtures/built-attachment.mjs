@@ -1,14 +1,14 @@
 /** Plain-Node smoke of the published provider and its independently configured attachment Worker. */
-import { Context } from '@deepseek-ai/cordis'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import BrowserUseRegistry from '@deepseek-ai/dsh-browser-use'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { executeModelToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { Context } from '@lyness/cordis'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import BrowserUseRegistry from '@lyness/lyn-browser-use'
+import { brandString } from '@lyness/lyn-brand'
+import { executeModelToolFixture } from '@lyness/lyn-tool-testkit'
 import * as Provider from '../../lib/index.js'
 
-/** @type {(value: string) => import('@deepseek-ai/dsh-llm').ToolCallId} */
+/** @type {(value: string) => import('@lyness/lyn-llm').ToolCallId} */
 const toolCallId = brandString
-/** @type {(value: string) => import('@deepseek-ai/dsh-session/types').SessionId} */
+/** @type {(value: string) => import('@lyness/lyn-session/types').SessionId} */
 const sessionId = brandString
 
 const [endpoint, url] = process.argv.slice(2)

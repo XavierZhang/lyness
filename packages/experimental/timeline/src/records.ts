@@ -1,8 +1,8 @@
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 // Shared durable data and legacy Session record readers.
 import { z } from 'zod'
-import type { GenerateOptions } from '@deepseek-ai/dsh-llm'
-import type { PluginRecordMap, SessionId } from '@deepseek-ai/dsh-session/types'
+import type { GenerateOptions } from '@lyness/lyn-llm'
+import type { PluginRecordMap, SessionId } from '@lyness/lyn-session/types'
 
 const id = z.string().trim().min(1).max(80)
 /** Validate an agent-assigned identifier within a tree. */
@@ -250,7 +250,7 @@ interface ReportRecord {
 /** Import continuation admitted through the normal user inbox. */
 export const importContinuationSchema = z.object({ id: z.uuid(), text: z.string().min(1) })
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface PluginRecordMap {
     /** Restore a user-selected task tree and its discussions. */
     'plugin:timeline/import': TreeRecord & {
@@ -315,7 +315,7 @@ declare module '@deepseek-ai/dsh-session/types' {
 /** Timeline changes stored as ignorable Session records. */
 export type TimelineRecordMap = Pick<PluginRecordMap, Extract<keyof PluginRecordMap, `plugin:timeline/${string}`>>
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     timeline: TimelineView
   }

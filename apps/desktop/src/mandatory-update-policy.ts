@@ -1,13 +1,13 @@
 /** Mandatory-update policy, independent of local business traffic and updater artifacts. */
 
 import { valid } from 'semver'
-import type { AccountClientMetadata } from '@deepseek-ai/dsh-deepseek-account'
-import { platformClientHeaders } from '@deepseek-ai/dsh-deepseek-account/client-metadata'
+import type { AccountClientMetadata } from '@lyness/lyn-deepseek-account'
+import { platformClientHeaders } from '@lyness/lyn-deepseek-account/client-metadata'
 
 /** Installed release identity; no field is supplied by a renderer. */
 export interface DesktopPolicyIdentity {
   readonly platform: 'win32' | 'darwin'
-  readonly bundledDshVersion: string
+  readonly bundledLynVersion: string
   readonly arch: 'x64' | 'arm64'
   readonly channel: 'nightly' | 'stable'
 }
@@ -153,7 +153,7 @@ export class DesktopMandatoryUpdatePolicy {
     private readonly client: () => AccountClientMetadata,
     private readonly random: () => number = Math.random,
   ) {
-    if (valid(this.client().version) === null || valid(identity.bundledDshVersion) === null
+    if (valid(this.client().version) === null || valid(identity.bundledLynVersion) === null
       || (identity.platform === 'win32' && identity.arch !== 'x64')) throw new Error('desktop policy: invalid installed client identity')
   }
 
@@ -162,7 +162,7 @@ export class DesktopMandatoryUpdatePolicy {
     return {
       ...platformClientHeaders(this.identity.platform, this.client()),
       'x-client-arch': this.identity.arch, 'x-client-update-channel': channel,
-      'x-client-bundled-dsh-version': this.identity.bundledDshVersion,
+      'x-client-bundled-lyn-version': this.identity.bundledLynVersion,
     }
   }
 

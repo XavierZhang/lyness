@@ -23,7 +23,7 @@ describe('fixed report limits', () => {
     const f = await setup()
     try {
       await f.plugin.dispose()
-      const standalone = { disabled: true, options: { name: 'cordis:@magolor/dsh-timeline' } }
+      const standalone = { disabled: true, options: { name: 'cordis:@magolor/lyn-timeline' } }
       f.ctx.provide('loader', { entries: () => [
         { disabled: false, options: { name: 'other-plugin' } }, standalone,
       ] } as never)

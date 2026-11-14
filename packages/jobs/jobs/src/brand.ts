@@ -1,6 +1,6 @@
 /** Job identities and compatibility constructors, independent of the registry implementation. */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /**
  * Identifies one job across registry lifetimes. The registry generates `<kind>-<short-uuid>`;

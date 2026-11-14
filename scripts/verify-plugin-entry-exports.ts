@@ -134,7 +134,7 @@ export function discoverEntries(repositoryRoot: string): PluginEntry[] {
 function cordisService(project: TypeScriptProject): ts.Symbol | undefined {
   const { checker, program } = project
   const resolved = ts.resolveModuleName(
-    '@deepseek-ai/cordis', join(project.projectRoot, 'package.json'), program.getCompilerOptions(), ts.sys,
+    '@lyness/cordis', join(project.projectRoot, 'package.json'), program.getCompilerOptions(), ts.sys,
   ).resolvedModule
   const sourceFile = resolved === undefined ? undefined : program.getSourceFile(resolved.resolvedFileName)
   const moduleSymbol = sourceFile === undefined ? undefined : checker.getSymbolAtLocation(sourceFile)

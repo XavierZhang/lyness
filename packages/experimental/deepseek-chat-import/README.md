@@ -3,13 +3,13 @@ description: "Import DeepSeek website chat exports: upload a deepseek_data ZIP f
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-deepseek-chat-import
+# @lyness/lyn-deepseek-chat-import
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Bring the chats exported from the DeepSeek website (chat.deepseek.com) into DSH and continue them. After you enable this optional bundle, a button right of "New session" uploads the `deepseek_data-*.zip` file to the Host, which stores the most recent conversations as Sessions in the Workspace you choose. Imported Sessions keep their original titles and times and show the original questions with their attached files, reasoning, web search cards, read links, and answers. The [Agent Note](../../../.agents/notes/implemented/feature/2026-11-11-deepseek-chat-export-import.md) records the design and its trade-offs.
+Bring the chats exported from the DeepSeek website (chat.deepseek.com) into LYN and continue them. After you enable this optional bundle, a button right of "New session" uploads the `deepseek_data-*.zip` file to the Host, which stores the most recent conversations as Sessions in the Workspace you choose. Imported Sessions keep their original titles and times and show the original questions with their attached files, reasoning, web search cards, read links, and answers. The [Agent Note](../../../.agents/notes/implemented/feature/2026-11-11-deepseek-chat-export-import.md) records the design and its trade-offs.
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ The bundle inserts one Host row, which an explicit composition can also mount:
 
 ```yaml
 - id: deepseek-chat-import
-  name: '@deepseek-ai/dsh-deepseek-chat-import'
+  name: '@lyness/lyn-deepseek-chat-import'
 ```
 
 The Host half injects `typert`, `connection`, `sessionPersistence`, and `workspaceRegistry`, and reads `sessionProjectionCache` and `attachments` when they are mounted. The browser half injects `remote`, `slots`, `locale`, and `sessions`, and wraps the ui-sidebar New Session row through its `sidebar.session.action` HOC slot: it returns the row content followed by its own button, or the content alone for a Peer that may not import. Only the owner imports: the upload route admits only owner Peers, `limits()` refuses every other principal, and the button shows only for a Peer that may call `deepseekChatImport/limits`.
@@ -106,7 +106,7 @@ A conversation file that is oversized, damaged, cannot be parsed or converted, o
 
 ### Upload
 
-The browser calls `limits()` and rejects a file over `maxUploadBytes` before sending it. A served page posts the file with `XMLHttpRequest` (for upload progress) to `api/deepseek-chat-import/archive?workspaceId=…`, resolved against the document base. A page whose Host runs in another execution context, such as the static Cloudflare Pages preview, supplies `__DSH_TRANSPORT__.fetch` instead: the archive goes through that carrier, which reports no byte progress, so the dialog moves straight to the reading and importing phases. The Host registers this path as an exact route on `ctx.connection.fetch`, which only owner Peers reach. The route requires `application/octet-stream`, takes the service's single import slot, resolves the Workspace, and reads the streaming body into one buffer sized from `content-length` until it ends or exceeds the limit. The upload is never written to disk. The answer is `application/x-ndjson`: `{ type: 'progress', done, total }` lines while Sessions are written, then one `{ type: 'outcome', outcome }` line whose `outcome` is `{ ok: true, value }` or `{ ok: false, error: { reason, message } }`; the browser reads complete lines as they arrive and settles the answer as invalid at the first line that is not a valid protocol value, cancelling the rest of the stream so a later outcome cannot replace it. Closing the dialog, a dropped connection, or unloading the plugin aborts the import, and unloading completes only after the import stops writing.
+The browser calls `limits()` and rejects a file over `maxUploadBytes` before sending it. A served page posts the file with `XMLHttpRequest` (for upload progress) to `api/deepseek-chat-import/archive?workspaceId=…`, resolved against the document base. A page whose Host runs in another execution context, such as the static Cloudflare Pages preview, supplies `__LYNESS_TRANSPORT__.fetch` instead: the archive goes through that carrier, which reports no byte progress, so the dialog moves straight to the reading and importing phases. The Host registers this path as an exact route on `ctx.connection.fetch`, which only owner Peers reach. The route requires `application/octet-stream`, takes the service's single import slot, resolves the Workspace, and reads the streaming body into one buffer sized from `content-length` until it ends or exceeds the limit. The upload is never written to disk. The answer is `application/x-ndjson`: `{ type: 'progress', done, total }` lines while Sessions are written, then one `{ type: 'outcome', outcome }` line whose `outcome` is `{ ok: true, value }` or `{ ok: false, error: { reason, message } }`; the browser reads complete lines as they arrive and settles the answer as invalid at the first line that is not a valid protocol value, cancelling the rest of the stream so a later outcome cannot replace it. Closing the dialog, a dropped connection, or unloading the plugin aborts the import, and unloading completes only after the import stops writing.
 
 ### Event mapping
 
@@ -156,7 +156,7 @@ The first request after resume has no reusable cached prefix; later requests ext
 - **Duplicate local file headers** — duplicate detection covers the central directory only. A second local file header renamed to an existing entry name is not detected, so an archive can deliver more conversations than the index lists, and the write count is not additionally guarded.
 - **Partial writes on a corrupted archive** — an archive whose structure breaks after some entries were delivered fails as `unreadable-archive` after those Sessions were written, and the failure response does not list them.
 - **`read()` truncates** — `ExportArchive.read` returns at most the size an entry declares, truncating one that inflates to more, while `stream` reports that condition as a size failure. The manifest, the index, and a replacement conversation are read by name, so one of them can arrive truncated. Each by-name read also re-parses the whole central directory: the manifest and the index pay it once each, and a replacement conversation pays once more.
-- **No upload percentage on the carrier path** — a page that carries the archive through `__DSH_TRANSPORT__.fetch` reports no byte progress; the dialog shows only the reading and importing phases.
+- **No upload percentage on the carrier path** — a page that carries the archive through `__LYNESS_TRANSPORT__.fetch` reports no byte progress; the dialog shows only the reading and importing phases.
 - **One export structure** — the importer targets the 2026-11-12 structure: `current_message_id`, `stage_id`, the tool statuses, the link and find fields, and the new record types. The fields that structure added are read as optional, so an older v3 archive still imports, but it is not a supported target.
 - **ZIP upload only** — an extracted export directory or a Host path cannot be imported.
 - **Re-import duplicates** — importing the same export again writes new Sessions; the import does not track which conversations it already imported.

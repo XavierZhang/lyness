@@ -3,13 +3,13 @@ description: "管理端：独立成页、自带外壳，所有管理页都在它
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-admin-console
+# @lyness/lyn-client-ui-admin-console
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-admin-console` 就是管理端：它是一个独立的页面，由宿主在某个路径上以应用文档作答，里面装着管理员维护的每一页。它只在那个页面上占住内建的 `root` 席位，别处什么都不注册，因此使用产品的人根本不会加载管理端的外壳，而管理员打开的是一个 URL，而不是工作台里的一块面板。那些页面属于它们自己的包、注册到 `admin.section`；这个包负责导航、页头、它自己的登录页，以及当一个部署没有组合任何管理页时它该说什么。
+`lyn-client-ui-admin-console` 就是管理端：它是一个独立的页面，由宿主在某个路径上以应用文档作答，里面装着管理员维护的每一页。它只在那个页面上占住内建的 `root` 席位，别处什么都不注册，因此使用产品的人根本不会加载管理端的外壳，而管理员打开的是一个 URL，而不是工作台里的一块面板。那些页面属于它们自己的包、注册到 `admin.section`；这个包负责导航、页头、它自己的登录页，以及当一个部署没有组合任何管理页时它该说什么。
 
 ## 目录
 
@@ -29,12 +29,12 @@ kind: "package-reference"
 
 ```yaml
 - id: frontend-static
-  name: '@deepseek-ai/dsh-host-frontend-static'
+  name: '@lyness/lyn-host-frontend-static'
   config:
     documentPaths:
       - /admin
 - id: ui-admin-console
-  name: '@deepseek-ai/dsh-client-ui-admin-console'
+  name: '@lyness/lyn-client-ui-admin-console'
   config:
     path: /admin
 ```
@@ -63,10 +63,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-host-frontend-static`](../../host/frontend-static/README.zh.md) —— 用文档作答管理端那个路径。
-- [`dsh-client-ui-settings`](../ui-settings/README.zh.md) —— `admin.section` 的类型与一页收到的 owner 份额在那里声明。
-- [`dsh-client-ui-viewer`](../ui-viewer/README.zh.md) —— 回答「谁在看」的那一次读取。
-- [`dsh-client-ui-layout`](../ui-layout/README.zh.md) —— 管理端在自己页面上遮住的那个工作台 frame。
+- [`lyn-host-frontend-static`](../../host/frontend-static/README.zh.md) —— 用文档作答管理端那个路径。
+- [`lyn-client-ui-settings`](../ui-settings/README.zh.md) —— `admin.section` 的类型与一页收到的 owner 份额在那里声明。
+- [`lyn-client-ui-viewer`](../ui-viewer/README.zh.md) —— 回答「谁在看」的那一次读取。
+- [`lyn-client-ui-layout`](../ui-layout/README.zh.md) —— 管理端在自己页面上遮住的那个工作台 frame。
 
 -----
 

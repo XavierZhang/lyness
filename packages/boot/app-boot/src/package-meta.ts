@@ -3,8 +3,8 @@
 import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs'
 import { dirname, extname, isAbsolute, join, relative, resolve, sep, win32 } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ModuleLoader } from '@deepseek-ai/cordis-plugin-loader'
-import type { LocalizedText, PluginLocalizedMeta } from '@deepseek-ai/dsh-package-manifest'
+import { ModuleLoader } from '@lyness/cordis-plugin-loader'
+import type { LocalizedText, PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
 import { barePackageName } from './profile-resolution/resolver.ts'
 import { realModuleFile } from './profile-resolution/legacy-links.ts'
 

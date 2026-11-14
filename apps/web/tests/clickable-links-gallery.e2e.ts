@@ -21,11 +21,11 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { type ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@deepseek-ai/dsh-session'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import type {} from '@deepseek-ai/dsh-session-title'
+import { brandString } from '@lyness/lyn-brand'
+import { type ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@lyness/lyn-session'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,

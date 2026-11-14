@@ -1,8 +1,8 @@
 /** Normalize HTTP and in-band Messages errors into provider-neutral failures. */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { isContextWindowExceededError, isQuotaExceededError, LlmError, type ProviderRequestId } from '@deepseek-ai/dsh-llm'
-import type { BuiltinLlmFailureCode } from '@deepseek-ai/dsh-llm'
+import { brandString } from '@lyness/lyn-brand'
+import { isContextWindowExceededError, isQuotaExceededError, LlmError, type ProviderRequestId } from '@lyness/lyn-llm'
+import type { BuiltinLlmFailureCode } from '@lyness/lyn-llm'
 
 /** Read only provider error fields used by bounded Files recovery.
  * @param raw - decoded HTTP error response.

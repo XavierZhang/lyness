@@ -1,5 +1,5 @@
 ---
-description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明问题，并验证有依据的修改。"
+description: "把 LYN 页面或弹窗作为整体审查，按设计原则说明问题，并验证有依据的修改。"
 ---
 
 # Cookbook：审查 UI 设计
@@ -8,11 +8,11 @@ description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明�
 
 ## 概览
 
-本手册用于明确要求的完整审查，以及由改动影响或回归风险决定需要采用的证据步骤。普通开发按 [UI 改动流程](../../.agents/skills/dsh-client-ui-ux/SKILL.md#required-review-loop)走轻量路径，不逐节执行本手册。[原则与案例参考](../ui-design-review-cases.zh.md)提供判断依据，不是必做清单。既有测试、GUI PR GIF 和设计／产品审批继续按原有规则执行。
+本手册用于明确要求的完整审查，以及由改动影响或回归风险决定需要采用的证据步骤。普通开发按 [UI 改动流程](../../.agents/skills/lyn-client-ui-ux/SKILL.md#required-review-loop)走轻量路径，不逐节执行本手册。[原则与案例参考](../ui-design-review-cases.zh.md)提供判断依据，不是必做清单。既有测试、GUI PR GIF 和设计／产品审批继续按原有规则执行。
 
 对齐审查先核对图标完整空间（含有意保留的内部留白）、文字列和间距，再检查实际轮廓。热区不等于图标框；不逐个拉齐 glyph 的像素边缘。判断顺序见[对齐原则](../ui-design-review-cases.zh.md#alignment)。
 
-按[同前景色规则](../../.agents/skills/dsh-client-ui-ux/references/icons.md#placement-and-use)核对关联图标与文字，包括子菜单值与箭头、搜索占位文字与放大镜；检查明暗主题中的实际颜色和透明度，保留语义例外。
+按[同前景色规则](../../.agents/skills/lyn-client-ui-ux/references/icons.md#placement-and-use)核对关联图标与文字，包括子菜单值与箭头、搜索占位文字与放大镜；检查明暗主题中的实际颜色和透明度，保留语义例外。
 
 ## 目录
 
@@ -30,9 +30,9 @@ description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明�
 
 确定用户任务和受影响页面或弹窗。涉及多个区域、使用方或设计取舍时记录范围；明确的局部修改不需要单独写计划。用户明确要求完整审查时，列出指定页面／弹窗及相关状态。不能把局部检查表述成整页结论。
 
-在这个范围内应用[判断优先级](../ui-design-review-cases.zh.md#judgment)：先检查对齐与空间分组，再审查密度、层级、状态、组件选型、图标光学和几何。每个发现写成可观察的关系，例如内容与隔壁组的距离反而小于与自身标签的距离。遵循用户指定的顺序和授权；完整审查可以发现多个相关问题，常规调整的实施授权不能替代[既有设计／产品审查要求](../../.agents/skills/dsh-client-ui-ux/SKILL.md#design-review-escalation)。
+在这个范围内应用[判断优先级](../ui-design-review-cases.zh.md#judgment)：先检查对齐与空间分组，再审查密度、层级、状态、组件选型、图标光学和几何。每个发现写成可观察的关系，例如内容与隔壁组的距离反而小于与自身标签的距离。遵循用户指定的顺序和授权；完整审查可以发现多个相关问题，常规调整的实施授权不能替代[既有设计／产品审查要求](../../.agents/skills/lyn-client-ui-ux/SKILL.md#design-review-escalation)。
 
-编辑前阅读[客户端 UI Skill](../../.agents/skills/dsh-client-ui-ux/SKILL.md)和适用架构。宽度与输入方式变更使用[响应式 Skill](../../.agents/skills/dsh-responsive-ui/SKILL.md)，令牌规则查阅[样式参考](../web-styling.zh.md)，圆角几何查阅[圆角标准](../ui-radius.zh.md)。本流程补充审查和证据步骤，不另建一套视觉令牌。
+编辑前阅读[客户端 UI Skill](../../.agents/skills/lyn-client-ui-ux/SKILL.md)和适用架构。宽度与输入方式变更使用[响应式 Skill](../../.agents/skills/lyn-responsive-ui/SKILL.md)，令牌规则查阅[样式参考](../web-styling.zh.md)，圆角几何查阅[圆角标准](../ui-radius.zh.md)。本流程补充审查和证据步骤，不另建一套视觉令牌。
 
 <a id="review-scope"></a>
 ### 按视觉影响选择范围
@@ -49,7 +49,7 @@ description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明�
 
 只有相关实现、尺寸、容器约束、内容行为和状态等价时，共享组件使用方才能复用证据；记录归类和依据。不确定的场景直接检查。源码排查全部使用方不等于逐页打开过。问题在初始区域外重复出现，或改法影响邻接关系时，扩大范围。无关发现单独记录，不静默开始整个产品重设计。
 
-对每项变化执行[最低检查要求](../../.agents/skills/dsh-client-ui-ux/SKILL.md#minimum-checks-for-affected-ui)：颜色必须查明暗主题；布局、间距、字体和尺寸必须查窄容器与长内容；交互必须查受影响路径和状态。局部修改也要完成这些检查，但不要求每个条件都保存截图。遵守所属响应式与行为要求，不穷举无关组合，也不用固定截图数替代覆盖判断。同一任务中复用未变规则和有效证据，一组相关修改完成后再截图，不逐条 CSS 调整都重拍。只读取相关原则和案例；设计判断不明确时再补充查阅。
+对每项变化执行[最低检查要求](../../.agents/skills/lyn-client-ui-ux/SKILL.md#minimum-checks-for-affected-ui)：颜色必须查明暗主题；布局、间距、字体和尺寸必须查窄容器与长内容；交互必须查受影响路径和状态。局部修改也要完成这些检查，但不要求每个条件都保存截图。遵守所属响应式与行为要求，不穷举无关组合，也不用固定截图数替代覆盖判断。同一任务中复用未变规则和有效证据，一组相关修改完成后再截图，不逐条 CSS 调整都重拍。只读取相关原则和案例；设计判断不明确时再补充查阅。
 
 <a id="inspect"></a>
 ## 2. 检查任务路径与实现
@@ -141,7 +141,7 @@ description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明�
 
 报告实际运行的检查及结果，区分自动元数据校验、行为测试与人工读图。说明重要限制，例如应用状态暂不可达或某个平台尚未测试。必需场景或检查未完成时，不要声称已经完整验证。
 
-交付、评审和推送时按 [UI 改动流程](../../.agents/skills/dsh-client-ui-ux/SKILL.md#required-review-loop)检查新增累计影响或失效证据，不重复已经完成的检查。结果未变时无需额外报告。测试和 agent 检查不能替代既有[设计／产品审批要求](../../.agents/skills/dsh-client-ui-ux/SKILL.md#design-review-escalation)。
+交付、评审和推送时按 [UI 改动流程](../../.agents/skills/lyn-client-ui-ux/SKILL.md#required-review-loop)检查新增累计影响或失效证据，不重复已经完成的检查。结果未变时无需额外报告。测试和 agent 检查不能替代既有[设计／产品审批要求](../../.agents/skills/lyn-client-ui-ux/SKILL.md#design-review-escalation)。
 
 ### 对比交付与累计改动
 
@@ -157,7 +157,7 @@ description: "把 DSH 页面或弹窗作为整体审查，按设计原则说明�
 按本次审查需要查阅对应归属文档。
 
 - [UI 设计原则与审查案例](../ui-design-review-cases.zh.md)——整页与整个弹窗的判断原则、适用规则及解释性案例。
-- [规则归属与维护](../../.agents/skills/dsh-client-ui-ux/SKILL.md#maintain-one-owner-per-rule)——原则的修改位置及本地工具的读取方式。
+- [规则归属与维护](../../.agents/skills/lyn-client-ui-ux/SKILL.md#maintain-one-owner-per-rule)——原则的修改位置及本地工具的读取方式。
 - [Web UI 样式参考](../web-styling.zh.md)——组件复用与样式归属。
 
 <a id="dev-note"></a>

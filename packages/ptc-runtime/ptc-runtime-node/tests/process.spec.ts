@@ -10,7 +10,7 @@ import type { HostMethods, ProgramMethods } from '../src/protocol.ts'
 import { decodePtcJsonWire, encodePtcJsonWire } from '../src/json-wire.ts'
 
 it.each(['awaited', 'unawaited', 'unawaited script'] as const)('boots an unbuilt source closure outside the workspace with %s tool calls', async (scenario) => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-node-source-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-node-source-'))
   onTestFinished(async () => { await rm(directory, { recursive: true, force: true }) })
   for (const file of ['process.ts', 'bootstrap.ts', 'rpc.ts', 'json-wire.ts', 'output-json.ts', 'protocol.ts', 'environment.ts']) {
     await copyFile(new URL(`../src/${file}`, import.meta.url), join(directory, file))

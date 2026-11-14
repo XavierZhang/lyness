@@ -4,7 +4,7 @@
  */
 
 import { Buffer } from 'node:buffer'
-import type { ChangeRequestKey } from '@deepseek-ai/dsh-experimental-forge'
+import type { ChangeRequestKey } from '@lyness/lyn-experimental-forge'
 
 /** One change request's patch and the root `.gitattributes` text at its head commit, empty without one. */
 export interface CachedPatch {

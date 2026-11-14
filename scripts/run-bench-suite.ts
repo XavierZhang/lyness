@@ -59,7 +59,7 @@ export function runBenchPhase(root: string, phase: 'first' | 'last' | 'observati
   // `last` is what the report's setup and teardown read as "continue the
   // report rather than clear it, then render", which is what an appended
   // observational run needs too.
-  process.env.DSH_BENCH_REPORT_PHASE = phase === 'first' ? 'first' : 'last'
+  process.env.LYNESS_BENCH_REPORT_PHASE = phase === 'first' ? 'first' : 'last'
   try {
     if (phase === 'first') {
       runPnpmCommand(root, [
@@ -74,7 +74,7 @@ export function runBenchPhase(root: string, phase: 'first' | 'last' | 'observati
       ...(phase === 'observational' ? OBSERVATIONAL_BENCH_FILES : BLOCKING_SERIAL_BENCH_FILES),
     ])
   } finally {
-    delete process.env.DSH_BENCH_REPORT_PHASE
+    delete process.env.LYNESS_BENCH_REPORT_PHASE
   }
 }
 

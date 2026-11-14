@@ -1,9 +1,9 @@
 /** Deterministic keyless LLM for the real-profile acceptance base: one file write, then text. */
 
 import { existsSync, writeFileSync } from 'node:fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { LlmAdapter } from '@deepseek-ai/dsh-llm'
-/** @import { ToolCallId } from '@deepseek-ai/dsh-llm/types' */
+import { brandString } from '@lyness/lyn-brand'
+import { LlmAdapter } from '@lyness/lyn-llm'
+/** @import { ToolCallId } from '@lyness/lyn-llm/types' */
 
 let nextCall = 0
 let callCount = 0

@@ -2,9 +2,9 @@
 /** Provider retry-policy fields of the Models editor card. */
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import Schema from '@deepseek-ai/schemastery'
-import type { SettingsNamespaceView } from '@deepseek-ai/dsh-api-remotes/client'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import Schema from '@lyness/schemastery'
+import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { ProviderEditor } from '../src/client/ProviderEditor.tsx'
 import type { ModelsOperations } from '../src/client/operations.ts'
 import { en } from '../src/client/locales.ts'
@@ -12,7 +12,7 @@ import { settingsSchema } from './settings-schema.client.ts'
 
 afterEach(cleanup)
 
-// The `retryPolicy` schema both adapters embed (`RetryPolicySchema` in dsh-llm).
+// The `retryPolicy` schema both adapters embed (`RetryPolicySchema` in lyn-llm).
 const backoff = Schema.object({
   initialDelayMs: Schema.number().min(Number.MIN_VALUE).max(2_147_483_647).default(500),
   maxDelayMs: Schema.number().min(Number.MIN_VALUE).max(2_147_483_647).default(10_000),

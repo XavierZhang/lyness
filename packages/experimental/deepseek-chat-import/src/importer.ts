@@ -10,11 +10,11 @@
 
 import { stat } from 'node:fs/promises'
 import { extname } from 'node:path'
-import type { ImageAttachmentRef, ImageMediaType, SaveImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { brandNumber, brandString } from '@deepseek-ai/dsh-brand'
-import { Session, SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
-import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+import type { ImageAttachmentRef, ImageMediaType, SaveImageAttachment } from '@lyness/lyn-attachment'
+import { brandNumber, brandString } from '@lyness/lyn-brand'
+import { Session, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionHandle } from '@lyness/lyn-session-persistence'
 import { convertConversation, selectBranch } from './conversation.ts'
 import type { ConvertConversationOptions, ConvertedConversation } from './conversation.ts'
 import {

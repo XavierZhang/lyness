@@ -7,8 +7,8 @@ import { PassThrough } from 'node:stream'
 import { randomUUID } from 'node:crypto'
 import { once } from 'node:events'
 import { expect, it, onTestFinished, vi } from 'vitest'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
-import { NativeClient, type NativeClientConfig } from '@deepseek-ai/dsh-cua/native-client'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import { NativeClient, type NativeClientConfig } from '@lyness/lyn-cua/native-client'
 import { WindowsNativeRuntime } from '../src/native-runtime.ts'
 
 interface Frame { type?: string; id?: string; method?: string; runtimeKey?: string; config?: Record<string, unknown> }

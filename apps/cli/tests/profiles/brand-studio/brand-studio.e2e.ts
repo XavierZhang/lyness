@@ -1,6 +1,6 @@
 /**
  * The shipped brand-studio profile launched the way an operator launches it:
- * `dsh --profile brand-studio` boots its bundle through the Loader, writes the
+ * `lyn --profile brand-studio` boots its bundle through the Loader, writes the
  * brand SVGs, and leaves a `brand-deployment` row in the web profile's layer.
  */
 
@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { execa } from 'execa'
 import { afterEach, describe, expect, it } from 'vitest'
-import { resolveExampleLaunch } from '@deepseek-ai/dsh-loader-smoke'
+import { resolveExampleLaunch } from '@lyness/lyn-loader-smoke'
 
 const repoRoot = resolve(import.meta.dirname, '../../../../..')
 const studioPackage = join(repoRoot, 'packages', 'bundle', 'brand-studio')
@@ -26,13 +26,13 @@ afterEach(async () => {
 
 async function launch(args: readonly string[]) {
   root = await mkdtemp(join(tmpdir(), 'brand-studio-e2e-'))
-  const home = join(root, '.dsh')
+  const home = join(root, '.lyn')
   const spawn = resolveExampleLaunch({
     srcBin: join(repoRoot, 'apps', 'cli', 'src', 'bin.ts'),
     configArgs: ['--profile', 'brand-studio', ...args],
     tsconfigPath: join(repoRoot, 'tsconfig.base.json'),
     sourceImport: 'tsx/esm',
-    env: { DSH_HOME: home },
+    env: { LYNESS_HOME: home },
   })
   const result = await execa(spawn.command, spawn.args, {
     cwd: root,
@@ -44,12 +44,12 @@ async function launch(args: readonly string[]) {
   return { home, result }
 }
 
-describe('dsh --profile brand-studio', () => {
+describe('lyn --profile brand-studio', () => {
   it('writes the brand and the web profile row that serves it', async () => {
-    const { home, result } = await launch(['--name', 'HARNESS', '--icon', icon, '--font', font, '--theme-color', 'teal', '--accept-trademark', '--accept-font-license'])
+    const { home, result } = await launch(['--name', 'lyness', '--icon', icon, '--font', font, '--theme-color', 'teal', '--accept-trademark', '--accept-font-license'])
     expect(result.stderr).not.toContain('brand-studio:')
     expect(result.exitCode).toBe(0)
-    expect(result.stdout).toContain('brand-studio: wrote the brand for "DeepSeek Harness"')
+    expect(result.stdout).toContain('brand-studio: wrote the brand for "lyness"')
 
     for (const file of ['mark.svg', 'wordmark.svg', 'favicon.svg']) {
       expect(await readFile(join(home, 'brand', file), 'utf8')).toMatch(/^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" /u)
@@ -61,7 +61,7 @@ describe('dsh --profile brand-studio', () => {
   })
 
   it('refuses an invocation without the trademark confirmation and writes nothing', async () => {
-    const { home, result } = await launch(['--name', 'HARNESS', '--icon', icon, '--font', font])
+    const { home, result } = await launch(['--name', 'lyness', '--icon', icon, '--font', font])
     expect(result.exitCode).toBe(1)
     expect(result.stderr).toContain('pass --accept-trademark')
     await expect(readFile(join(home, 'profiles', 'web', 'cordis.patch.yml'), 'utf8')).rejects.toThrow(/ENOENT/u)

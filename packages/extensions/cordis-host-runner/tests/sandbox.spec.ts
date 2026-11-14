@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 import { sandboxDefineTool } from '../src/guard.ts'
 import { syntaxErrorContext } from '../src/sandbox.ts'
 import { AGENT_A, call, CONTENT_OUTPUT_CODE, mount, setup, text, running } from './helpers.ts'

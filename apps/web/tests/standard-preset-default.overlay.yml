@@ -1,7 +1,7 @@
-# Loader overlay for the real-host smoke (`dsh web --patch`): select the
+# Loader overlay for the real-host smoke (`lyn web --patch`): select the
 # `standard` preset instead of the shipped `work` default.
 #
-# `DSH_TOOLS_MODE` configures the host `tools` row, which decides tool
+# `LYNESS_TOOLS_MODE` configures the host `tools` row, which decides tool
 # presentation only for a preset that declares no presentation row of its own.
 # `work`, `build`, and `ptc` each declare one, so a session on them takes the
 # preset's mode and the environment is correctly inert. Pinning `standard`,

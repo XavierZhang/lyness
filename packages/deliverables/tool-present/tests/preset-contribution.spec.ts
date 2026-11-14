@@ -7,7 +7,7 @@
  * expects the contribution to reach every preset.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it } from 'vitest'
 import * as PresetContribution from '../src/preset-contribution.ts'
 
@@ -40,8 +40,8 @@ it('contributes the present tool under the allocated row id', async () => {
 
   expect(recorded.contributions).toEqual([{
     id: 'module-deliverables-tool',
-    module: '@deepseek-ai/dsh-module-deliverables',
-    row: { name: '@deepseek-ai/dsh-tool-present' },
+    module: '@lyness/lyn-module-deliverables',
+    row: { name: '@lyness/lyn-tool-present' },
   }])
 })
 
@@ -58,7 +58,7 @@ it('withdraws the contribution when its fiber is disposed', async () => {
 it('names the module the registry reports in a collision', () => {
   // The diagnostic names the bundle a deployment would disable, not the
   // package the row resolves through.
-  expect(PresetContribution.MODULE).toBe('@deepseek-ai/dsh-module-deliverables')
+  expect(PresetContribution.MODULE).toBe('@lyness/lyn-module-deliverables')
   expect(PresetContribution.ROW_ID).toBe('module-deliverables-tool')
   expect(PresetContribution.name).toBe('deliverables-preset-contribution')
   expect(PresetContribution.inject).toEqual(['agentPresets'])

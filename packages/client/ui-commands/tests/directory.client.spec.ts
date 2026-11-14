@@ -6,9 +6,9 @@
  * gate, and the per-key ensureReady strong-wait policy.
  */
 import { describe, expect, it } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-api-remotes/client'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CommandDefinitionId } from '@deepseek-ai/dsh-commands/types'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import { brandString } from '@lyness/lyn-brand'
+import type { CommandDefinitionId } from '@lyness/lyn-commands/types'
 import type { CommandDescriptor } from '../src/client/directory.ts'
 import { CommandDirectory } from '../src/client/directory.ts'
 
@@ -56,7 +56,7 @@ function bench() {
 describe('status and resolve (per key)', () => {
   it('resolves bilingual aliases by definition identity and retains exact-name priority', async () => {
     const goal = {
-      definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-goal'),
+      definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-goal'),
       name: 'objective',
       description: 'Reworded description.',
     }

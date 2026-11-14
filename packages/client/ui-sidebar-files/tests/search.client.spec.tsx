@@ -7,16 +7,16 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, within } from '@testing-library/react'
-import { sessionFileAddress } from '@deepseek-ai/dsh-util-workspace-path'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import { zh } from '../src/client/locales.ts'
 import { defaultRules, enabledPaths } from '../src/client/search-rules.ts'
 import type { WorkspaceSearchPreferences } from '../src/client/search-rules.ts'
 import type { DirLevel } from '../src/client/store.ts'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { mountNavigator, PANE, ROOT, SESSION } from './mount.client.tsx'
 import type { Mounted } from './mount.client.tsx'
 import { answer, memoryBook, searchesSettled } from './search-fixture.client.ts'
-import { RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 
 const ROOT_LEVEL: DirLevel = {
   entries: [

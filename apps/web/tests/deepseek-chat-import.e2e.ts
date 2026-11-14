@@ -5,8 +5,8 @@
  * history the model receives: the newest-leaf branch, reasoning, the
  * `web_search` / `web_fetch` pair, and an excluded reply; a content-filtered
  * round is left out entirely.
- * Record: DSH_SNAPSHOT=record writes the current Session generation; a keyless
- * DSH_SNAPSHOT=refresh then writes the system-prompt and tool-schema pins.
+ * Record: LYNESS_SNAPSHOT=record writes the current Session generation; a keyless
+ * LYNESS_SNAPSHOT=refresh then writes the system-prompt and tool-schema pins.
  */
 import { readFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url'
 import { strToU8, zipSync } from 'fflate'
 import { chromium, type Browser } from 'playwright'
 import { expect, it, onTestFailed } from 'vitest'
-import { SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, fixtureUserPrompts, launchWebScaffold, recordFixture, selectedSessionFixture,
   watchConsole, webSnapshotMode, type WebScaffold,

@@ -1,13 +1,13 @@
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import type { SessionId } from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * Key-gated smoke for mid-session compaction. It verifies the compact event
@@ -28,7 +28,7 @@ afterEach(async () => {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('compaction: a long session compacts mid-flight and keeps running', () => {
   it('summarizes older history into a checkpoint without breaking the task', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-compaction-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-compaction-'))
     // An older file result must exceed the framed checkpoint's fixed sections.
     for (let i = 1; i <= 4; i++) {
       await writeFile(join(workdir, `file${i}.txt`), `This is file number ${i}. `.repeat(200))

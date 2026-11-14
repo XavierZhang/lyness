@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { promisify } from 'node:util'
 import { expect, it } from 'vitest'
-import { createDesktopPublicationRecord, wasDesktopAttemptPublished, withDesktopChannelLock } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-record.ts'
+import { createDesktopPublicationRecord, wasDesktopAttemptPublished, withDesktopChannelLock } from '@lyness/lyn-desktop-publisher/desktop-publish-record.ts'
 
 it('excludes another process while a channel lock is held and admits it after release', async () => {
   const root = await mkdtemp(join(tmpdir(), 'desktop-process-lock-'))

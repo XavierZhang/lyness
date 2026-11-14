@@ -1,7 +1,7 @@
 /** The tenant id brand and the syntax an id and a slug must obey. */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /**
  * Identifies one tenant of this deployment.

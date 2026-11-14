@@ -2,14 +2,14 @@
 import { StrictMode, useEffect, useState, type ReactNode } from 'react'
 import { act, fireEvent } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionReference } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import type { SessionReference } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   ActionsDecl, FactoryComponentPropsOf, FactoryLocalComponentPropsOf, HostObservable,
   PropsRenderFactories, PropsRuntime, StoreHandle, StoreInstanceLike,
-} from '@deepseek-ai/dsh-client-ui-slots'
-import { StaleAuthorizationError } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
+import { StaleAuthorizationError } from '@lyness/lyn-client-ui-slots'
 
 interface CounterState { count: number }
 interface CounterActions extends ActionsDecl<CounterState> {
@@ -17,7 +17,7 @@ interface CounterActions extends ActionsDecl<CounterState> {
 }
 type CounterStore = StoreHandle<CounterState, CounterActions>
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'renderer.factory.child': { kind: 'list'; scope: 'root' }
     'renderer.factory.chain': { kind: 'chain'; scope: 'root'; owner: { enabled: boolean } }

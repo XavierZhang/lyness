@@ -3,13 +3,13 @@ description: "邀请码：管理员发出的一张有边界的码，让名册上
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-invitations
+# @lyness/lyn-invitations
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-invitations` 是一个陌生人成为成员的那条路，也是一个已经在这里的人获得第二个身份的那条路。管理员签发一张携带**一个标准**的码——一个角色，以及它所在的组织——并把它发出去。陌生人在登录处出示它，出来时就是名册上一条带着**正是那个标准**的记录；已经在名册上的人则自己接受它。码就是授权，而它四面都有边界：它授出的不会多于签发者本可以直接授出的、它会过期、它只允许被兑换计数内的次数、可以被撤回，并且随签发它的那个标准一同作废。部署只存它的哈希。
+`lyn-invitations` 是一个陌生人成为成员的那条路，也是一个已经在这里的人获得第二个身份的那条路。管理员签发一张携带**一个标准**的码——一个角色，以及它所在的组织——并把它发出去。陌生人在登录处出示它，出来时就是名册上一条带着**正是那个标准**的记录；已经在名册上的人则自己接受它。码就是授权，而它四面都有边界：它授出的不会多于签发者本可以直接授出的、它会过期、它只允许被兑换计数内的次数、可以被撤回，并且随签发它的那个标准一同作废。部署只存它的哈希。
 
 ## 目录
 
@@ -25,16 +25,16 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用这个包
 
-两行：邀请码本身，以及**取代** `dsh-managed-people/admission` 的那条准入规则。
+两行：邀请码本身，以及**取代** `lyn-managed-people/admission` 的那条准入规则。
 
 ```yaml
 - id: invitations
-  name: '@deepseek-ai/dsh-invitations'
+  name: '@lyness/lyn-invitations'
   config:
     defaultLifetimeMs: 604800000
     defaultMaxUses: 1
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-invitations/admission'
+  name: '@lyness/lyn-invitations/admission'
   config:
     bindings: []
 ```
@@ -71,10 +71,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-managed-people`](../managed-people/README.zh.md) —— 兑换写入的那本名册，以及它复述的那些规则。
-- [`dsh-sign-in`](../sign-in/README.zh.md) —— 出示这张码的流程，以及它到达的准入接缝。
-- [`dsh-sign-in-http`](../sign-in-http/README.zh.md) —— 让码跨过浏览器往返的那只 cookie。
-- [`dsh-admin-audit`](../admin-audit/README.zh.md) —— 签发、撤回与兑换记在哪里。
+- [`lyn-managed-people`](../managed-people/README.zh.md) —— 兑换写入的那本名册，以及它复述的那些规则。
+- [`lyn-sign-in`](../sign-in/README.zh.md) —— 出示这张码的流程，以及它到达的准入接缝。
+- [`lyn-sign-in-http`](../sign-in-http/README.zh.md) —— 让码跨过浏览器往返的那只 cookie。
+- [`lyn-admin-audit`](../admin-audit/README.zh.md) —— 签发、撤回与兑换记在哪里。
 
 -----
 

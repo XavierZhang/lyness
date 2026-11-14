@@ -5,13 +5,13 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SESSION_FORMAT_VERSION, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionHeader } from '@deepseek-ai/dsh-session'
-import { SessionDeletionLiveError } from '@deepseek-ai/dsh-session-deletion'
-import { SessionAlreadyOwnedError, SessionPersistenceNotFoundError } from '@deepseek-ai/dsh-session-persistence'
-import { SessionQueryError } from '@deepseek-ai/dsh-session-query'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import { SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { SessionHeader } from '@lyness/lyn-session'
+import { SessionDeletionLiveError } from '@lyness/lyn-session-deletion'
+import { SessionAlreadyOwnedError, SessionPersistenceNotFoundError } from '@lyness/lyn-session-persistence'
+import { SessionQueryError } from '@lyness/lyn-session-query'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import SessionDataController from '../src/index.ts'
 
 const CONVERSATION = SessionId('mine')
@@ -39,7 +39,7 @@ interface HarnessOptions {
  * Mount the controller over doubles for the rule and the deletion.
  *
  * Doubles rather than the real stack because what this unit owns is the
- * authorization and the wire vocabulary; `dsh-session-deletion` has its own
+ * authorization and the wire vocabulary; `lyn-session-deletion` has its own
  * spec over the shipped backends.
  * @param options - what the rule answers and what the deletion does.
  * @returns the controller and the conversations it was asked to delete.

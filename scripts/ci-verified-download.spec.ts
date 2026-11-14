@@ -44,7 +44,7 @@ afterEach(() => {
 })
 
 function createFixture(served?: Buffer): Fixture {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-ci-verified-download-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-ci-verified-download-'))
   fixtureRoots.push(root)
   const bin = join(root, 'bin')
   mkdirSync(bin)

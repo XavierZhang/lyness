@@ -9,13 +9,13 @@
  * The code is stored as a hash. A store that held the codes themselves would
  * be a store of live credentials for joining the deployment.
  *
- * @module @deepseek-ai/dsh-invitations/storage
+ * @module @lyness/lyn-invitations/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
-import { ROLES } from '@deepseek-ai/dsh-people'
-import type { MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
+import { ROLES } from '@lyness/lyn-people'
+import type { MembershipId, PersonId, Role } from '@lyness/lyn-people'
 import type { InvitationId, InvitationRecord } from './types.ts'
 
 const role: z.ZodType<Role> = z.enum([...ROLES] as [Role, ...Role[]])

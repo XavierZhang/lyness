@@ -5,42 +5,42 @@
 /:
   en: d0825db7a1a9d8ee
   zh: d0825db7a1a9d8ee
-/deepseek-harness-dsh-llm-deepseek-api-key:
+/lyness-lyn-llm-deepseek-api-key:
   en: bc005cb529efbbd4
   zh: 35d671eeef839150
-/deepseek-harness-dsh-llm-deepseek-api-key/summary:
+/lyness-lyn-llm-deepseek-api-key/summary:
   en: 9d43d5bb439f7cdd
   zh: 444e0549410f5b31
-/deepseek-harness-dsh-llm-deepseek-api-key/table-of-contents:
+/lyness-lyn-llm-deepseek-api-key/table-of-contents:
   en: 23386452a66b2fbd
   zh: 4cf93c4bf17b3da2
-/deepseek-harness-dsh-llm-deepseek-api-key/use-this-package:
+/lyness-lyn-llm-deepseek-api-key/use-this-package:
   en: be0ac1cdc04bc3d1
   zh: e7494dc12391488d
-/deepseek-harness-dsh-llm-deepseek-api-key/understand-the-implementation:
+/lyness-lyn-llm-deepseek-api-key/understand-the-implementation:
   en: 1b9584855817eddb
   zh: feb2c883ca355d31
-/deepseek-harness-dsh-llm-deepseek-api-key/further-exploration:
+/lyness-lyn-llm-deepseek-api-key/further-exploration:
   en: 8f1c52ea030de1fc
   zh: 0fb189f65ec46423
-/deepseek-harness-dsh-llm-deepseek-api-key/model-experience:
+/lyness-lyn-llm-deepseek-api-key/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-llm-deepseek-api-key/model-experience/authenticated-model-requests:
+/lyness-lyn-llm-deepseek-api-key/model-experience/authenticated-model-requests:
   en: 5cf024f0d3370159
   zh: ed480db8f348a42f
-/deepseek-harness-dsh-llm-deepseek-api-key/model-experience/authenticated-model-requests/what-the-model-sees:
+/lyness-lyn-llm-deepseek-api-key/model-experience/authenticated-model-requests/what-the-model-sees:
   en: e5624a2c7bb26e90
   zh: 44da0286a548f24a
-/deepseek-harness-dsh-llm-deepseek-api-key/model-experience/authenticated-model-requests/token-effect:
+/lyness-lyn-llm-deepseek-api-key/model-experience/authenticated-model-requests/token-effect:
   en: 9dd6430752202069
   zh: 53068bf7f828156f
-/deepseek-harness-dsh-llm-deepseek-api-key/model-experience/authenticated-model-requests/kv-cache-effect:
+/lyness-lyn-llm-deepseek-api-key/model-experience/authenticated-model-requests/kv-cache-effect:
   en: 8226f9d956013ad9
   zh: bace9524b7acc1fa
-/deepseek-harness-dsh-llm-deepseek-api-key/known-limitations-and-deferred-work:
+/lyness-lyn-llm-deepseek-api-key/known-limitations-and-deferred-work:
   en: e0a41598c126c187
   zh: 857ab65c27f41612
-/deepseek-harness-dsh-llm-deepseek-api-key/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-llm-deepseek-api-key/known-limitations-and-deferred-work/dev-note:
   en: 0525041e573e96b6
   zh: b05ed8d852498e6b

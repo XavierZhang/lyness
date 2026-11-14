@@ -9,7 +9,7 @@ description: "sandbox 包移除 SandboxUnsupportedPolicyError；Windows 进程�
 
 ## 变更
 
-`@deepseek-ai/dsh-sandbox` 不再导出 `SandboxUnsupportedPolicyError`。Windows 子进程隔离忽略额外可写目录，不再以 `SANDBOX_UNSUPPORTED_POLICY` 拒绝执行。Harness 的 `write` 与 `edit` 工具仍执行这些目录的授权；Windows 进程在 `workspace-write` 下保留工作区与私有临时目录访问权限。
+`@lyness/lyn-sandbox` 不再导出 `SandboxUnsupportedPolicyError`。Windows 子进程隔离忽略额外可写目录，不再以 `SANDBOX_UNSUPPORTED_POLICY` 拒绝执行。Harness 的 `write` 与 `edit` 工具仍执行这些目录的授权；Windows 进程在 `workspace-write` 下保留工作区与私有临时目录访问权限。
 
 ## 迁移
 

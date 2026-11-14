@@ -6,33 +6,33 @@ English | [中文](2026-11-11-deepseek-chat-export-import.zh.md)
 
 ## Problem
 
-The "export all chats" action on the DeepSeek website (chat.deepseek.com) produces a `deepseek_data-*.zip`. Users want to bring these conversations into DSH and keep using them: browse the original questions, reasoning, and answers in the Web GUI, and continue any conversation with the model seeing its original context. Without an import, DSH can only start from a blank Session.
+The "export all chats" action on the DeepSeek website (chat.deepseek.com) produces a `deepseek_data-*.zip`. Users want to bring these conversations into LYN and keep using them: browse the original questions, reasoning, and answers in the Web GUI, and continue any conversation with the model seeing its original context. Without an import, LYN can only start from a blank Session.
 
-The export format (`export_format_version: 3`) differs from a DSH Session in four structural ways that the import must handle:
+The export format (`export_format_version: 3`) differs from a LYN Session in four structural ways that the import must handle:
 
-- Each conversation's `messages` form a tree linked by `parent_id` (regenerating a reply or editing a question creates a branch); a DSH Session is a linear append-only log.
+- Each conversation's `messages` form a tree linked by `parent_id` (regenerating a reply or editing a question creates a branch); a LYN Session is a linear append-only log.
 - Message `id` values increase only within one conversation and cannot be compared across conversations; `inserted_at` is not monotonic even within one conversation (an assistant reply is often a few milliseconds earlier than its user message).
-- The `fragments` of one assistant message interleave reasoning, web search, opened pages, and answer text; DSH expresses the same process with `assistant/message` plus `tool/call` / `tool/result` inside steps.
+- The `fragments` of one assistant message interleave reasoning, web search, opened pages, and answer text; LYN expresses the same process with `assistant/message` plus `tool/call` / `tool/result` inside steps.
 - The export also contains template replies, failure states, encrypted link bodies, and notices that must **not** enter the model context.
 
 One export can contain thousands of conversations and hundreds of megabytes of images; users need only the most recent conversations, in a Workspace they choose, and the Host must stay responsive while it imports them.
 
 ## Decision
 
-The experimental package [`@deepseek-ai/dsh-deepseek-chat-import`](../../../../packages/experimental/deepseek-chat-import/README.md) has a Host face and a Client face:
+The experimental package [`@lyness/lyn-deepseek-chat-import`](../../../../packages/experimental/deepseek-chat-import/README.md) has a Host face and a Client face:
 
-- Host face: a `TypertRemoteService` that registers the exact upload route `POST /api/deepseek-chat-import/archive?workspaceId=…` on `ctx.connection.fetch` and the `@Remote limits()` method. The route buffers the uploaded ZIP in memory, imports the most recent conversations one at a time as stored DSH Sessions in the chosen Workspace, and streams progress.
+- Host face: a `TypertRemoteService` that registers the exact upload route `POST /api/deepseek-chat-import/archive?workspaceId=…` on `ctx.connection.fetch` and the `@Remote limits()` method. The route buffers the uploaded ZIP in memory, imports the most recent conversations one at a time as stored LYN Sessions in the chosen Workspace, and streams progress.
 - Client face: an import button right of "New session" in the sidebar. It opens a dialog with an export file field (the browser-native file input, `accept=.zip`) and a Workspace field that renders the `workspace.picker` Factory from ui-workspace; the browser uploads the file and shows upload and import progress and the result.
 
 The button position comes from the ui-sidebar HOC slot `sidebar.session.action`; the plugin wraps the New-session row content there and returns it followed by its button, so decorating the row adds no wrapper element. ui-sidebar does not hard-code the button, because the sidebar shell would then call the import plugin's Remote namespace and carry business logic. The Workspace field reuses the New-session Workspace menu as the `workspace.picker` Factory: existing Workspaces plus "Add workspace…", which runs the composed directory picker through the `workspace.picker.directoryFlow` hole.
 
-The capability ships as an Official experimental optional bundle: the package declares `dsh.bundle.patch` with its own `deepseek-chat-import` row, is listed in `OPTIONAL_BUNDLES`, and is switched off until the user enables it on the Plugins page. The default Web composition does not mount it.
+The capability ships as an Official experimental optional bundle: the package declares `lyn.bundle.patch` with its own `deepseek-chat-import` row, is listed in `OPTIONAL_BUNDLES`, and is switched off until the user enables it on the Plugins page. The default Web composition does not mount it.
 
 ### User flow
 
 1. The user enables "DeepSeek chat import" on the Plugins page, then clicks the import button right of "New session" (an icon button below the "New session" icon in the narrow sidebar). Only the owner sees the button.
 2. The dialog takes the ZIP file exported from the DeepSeek website (`deepseek_data-*.zip`) and the Workspace that receives the Sessions. The Workspace field preselects the current Session's Workspace; "Add workspace…" adds a new directory through the directory picker.
-3. On import, the browser first calls `limits()`; a file larger than `maxUploadBytes` is rejected before upload. A served page then shows the upload percentage, an indeterminate phase while the Host reads the archive, and "Importing n/K" while Sessions are written. A page whose Host runs in another execution context carries the archive over `__DSH_TRANSPORT__.fetch`, which reports no byte progress, so the dialog starts at the reading phase. Closing the dialog aborts the request.
+3. On import, the browser first calls `limits()`; a file larger than `maxUploadBytes` is rejected before upload. A served page then shows the upload percentage, an indeterminate phase while the Host reads the archive, and "Importing n/K" while Sessions are written. A page whose Host runs in another execution context carries the archive over `__LYNESS_TRANSPORT__.fetch`, which reports no byte progress, so the dialog starts at the reading phase. Closing the dialog aborts the request.
 4. On success the dialog shows how many Sessions were imported into which Workspace, how many conversations exceeded the limit, and how many could not be imported, in singular or plural form.
 5. On failure the dialog shows the localized explanation of the failure reason, or the message of an unexpected error.
 6. However the attempt ends, the browser refreshes the Session list, so Sessions written before a failure or cancellation appear.
@@ -104,7 +104,7 @@ The answer is `application/x-ndjson` with `cache-control: no-store, no-transform
 
 ### Message chain to Session events (`convertConversation`)
 
-Messages on the chain are grouped as one turn per USER message: a USER message and the ASSISTANT message right after it form a turn. An ASSISTANT message without a preceding USER message (only possible in malformed data) is dropped. A USER message whose reply has status `CONTENT_FILTER` is dropped together with that reply: neither node produces an event, nothing is displayed, and later turns are numbered without a gap. A chain ending with USER yields a last turn with only the question. User and assistant need not alternate strictly: an excluded reply produces no `assistant/message`, so the next question follows the previous one directly, matching the history of a DSH turn that received several steered messages. A conversation without any remaining turn fails conversion and goes into `skipped`.
+Messages on the chain are grouped as one turn per USER message: a USER message and the ASSISTANT message right after it form a turn. An ASSISTANT message without a preceding USER message (only possible in malformed data) is dropped. A USER message whose reply has status `CONTENT_FILTER` is dropped together with that reply: neither node produces an event, nothing is displayed, and later turns are numbered without a gap. A chain ending with USER yields a last turn with only the question. User and assistant need not alternate strictly: an excluded reply produces no `assistant/message`, so the next question follows the previous one directly, matching the history of a LYN turn that received several steered messages. A conversation without any remaining turn fails conversion and goes into `skipped`.
 
 Events of one turn:
 
@@ -138,7 +138,7 @@ The assistant message `source` is `{ kind: 'model', provider: 'deepseek-chat-exp
 | `FILE` (not an image) | USER | Synthetic file card: `{ type: 'file', attachment }` whose reference is `attachmentId = sha256('deepseek-chat-export:' + file.id)`, `name = file_name`, `bytes = file_size` (0 when absent); the file body is not in the export, so no object exists for it and the handle's path holds nothing | Yes, as file handle text |
 | `THINK` | ASSISTANT | `{ type: 'reasoning', text }` in the current step; empty text is ignored | Yes (per adapter rules) |
 | `RESPONSE` | ASSISTANT | `{ type: 'text', text }` in the current step; empty text is ignored | Yes |
-| `TOOL_SEARCH` | ASSISTANT | `web_search` call with arguments `{"queries": [...]}`; the result body comes from `formatSearchOutput` of `dsh-tool-web`; `meta` is `{ sources: [{ url, title, snippet, publishedAt }], truncated: false }`, rendered as the standard search card. `WIP` is skipped as incomplete; `FAILED` yields `isError: true` with the fixed text `Error: the export records this search as failed.`; a missing `status` behaves as `FINISHED`. Ignored when every query is empty or blank | Yes |
+| `TOOL_SEARCH` | ASSISTANT | `web_search` call with arguments `{"queries": [...]}`; the result body comes from `formatSearchOutput` of `lyn-tool-web`; `meta` is `{ sources: [{ url, title, snippet, publishedAt }], truncated: false }`, rendered as the standard search card. `WIP` is skipped as incomplete; `FAILED` yields `isError: true` with the fixed text `Error: the export records this search as failed.`; a missing `status` behaves as `FINISHED`. Ignored when every query is empty or blank | Yes |
 | `TOOL_OPEN` (with url) | ASSISTANT | `web_fetch` call with arguments `{"url": ...}`; the result body holds the title, URL, and a note that the page body is not in the export; with `status: FINISHED`, `meta` is `{ url, statusCode: 200, truncated: false }`, rendered as the standard fetch card; `FAILED` yields `isError: true`; `WIP` is ignored | Yes |
 | `TOOL_OPEN` (url null or empty) | ASSISTANT | Nothing: the exporter writes one all-null record with `stage_id` and `group_id` beside the real opens of a stage, which names no page | No |
 | `TOOL_FIND` | ASSISTANT | Nothing: the website shows the find as its own row, which has no counterpart message block | No |
@@ -188,9 +188,9 @@ The converted events are released before the next conversation, and the import y
 ### Client
 
 - ui-sidebar declares the HOC slot `sidebar.session.action` (`scope: 'root'`, owner `{ wide: boolean }`) around the New-session row content, so an occupant receives that content as `children` and returns it, possibly wrapped, plus its own controls. The trigger renders right of "New session" (on the same row in the wide sidebar, where "New session" takes the remaining width; stacked below the "New session" icon in the narrow sidebar).
-- The plugin's Client face `$mount`s its own `/remote` contribution (the self-mounting form of `dsh-api-remote-access`, outside the `dsh-api-remotes` aggregate) and registers `ImportSessionsAction` as the `sidebar.session.action` layer. It renders the row content first, then its trigger, then the dialog; a Peer that may not import gets the row content unchanged, so the New-session button keeps rendering. The button shows only when `useRemoteAccess('deepseekChatImport/limits')` is true; the dialog is local state of the layer rendered through the `Modal` portal.
-- The upload uses `XMLHttpRequest` on a served page because Fetch exposes no upload progress. A page whose Host runs in another execution context (the static Cloudflare Pages preview) supplies `__DSH_TRANSPORT__.fetch`: the archive goes through that carrier with no byte progress, straight to the reading and importing phases. The URL is `UPLOAD_ROUTE` resolved against `document.baseURI`, so a path-prefixing proxy keeps working. A non-200 answer, an answer without an outcome line, a line that is not a valid protocol value, or a connection failure becomes the `upload-failed` outcome; a thrown error is shown with the unknown-failure copy.
-- The carrier selection does not reuse `@deepseek-ai/dsh-client-file-upload`. That package's service buffers the whole response, which would lose the streamed NDJSON progress, and its `post` method is not part of its public surface; keeping the selection here preserves both the progress lines and the package edge.
+- The plugin's Client face `$mount`s its own `/remote` contribution (the self-mounting form of `lyn-api-remote-access`, outside the `lyn-api-remotes` aggregate) and registers `ImportSessionsAction` as the `sidebar.session.action` layer. It renders the row content first, then its trigger, then the dialog; a Peer that may not import gets the row content unchanged, so the New-session button keeps rendering. The button shows only when `useRemoteAccess('deepseekChatImport/limits')` is true; the dialog is local state of the layer rendered through the `Modal` portal.
+- The upload uses `XMLHttpRequest` on a served page because Fetch exposes no upload progress. A page whose Host runs in another execution context (the static Cloudflare Pages preview) supplies `__LYNESS_TRANSPORT__.fetch`: the archive goes through that carrier with no byte progress, straight to the reading and importing phases. The URL is `UPLOAD_ROUTE` resolved against `document.baseURI`, so a path-prefixing proxy keeps working. A non-200 answer, an answer without an outcome line, a line that is not a valid protocol value, or a connection failure becomes the `upload-failed` outcome; a thrown error is shown with the unknown-failure copy.
+- The carrier selection does not reuse `@lyness/lyn-client-file-upload`. That package's service buffers the whole response, which would lose the streamed NDJSON progress, and its `post` method is not part of its public surface; keeping the selection here preserves both the progress lines and the package edge.
 - Copy goes through locale dictionaries in eight languages, with sentence case in English; summary lines have `.one` / `.other` forms chosen by `count === 1`.
 
 ### Realization
@@ -238,7 +238,7 @@ The obligation is contract-only. An occupant that adds nothing, or may not act, 
 
 **Create live Agents through `ctx.agents.create({ seed })`.** It is the existing supported entry, but `createdAt` can only be the current time, so every imported Session would crowd the top of the sidebar, and importing thousands of conversations would create thousands of live Agents. Writing persistence directly keeps the original times and uses no runtime resources.
 
-**One Session per branch, or branches inside DSH.** A DSH Session is a linear log; a Session per branch turns one website conversation into several hard-to-tell-apart Sessions. The requirement is the newest chain only.
+**One Session per branch, or branches inside LYN.** A LYN Session is a linear log; a Session per branch turns one website conversation into several hard-to-tell-apart Sessions. The requirement is the newest chain only.
 
 **Keep the question of a content-filtered reply with an error row.** The website shows such rounds as withdrawn, and the user decided that neither node is imported; the remaining turns read as the user saw them.
 
@@ -252,7 +252,7 @@ The obligation is contract-only. An occupant that adds nothing, or may not act, 
 
 ## Consequences
 
-The import brings website history into DSH with original titles, times, reasoning, and search cards, and the imported Sessions continue through the ordinary resume path. Host memory is bounded by the archive (`maxUploadBytes`) plus one entry (`maxEntryBytes`), one converted conversation, and the references of the stored images, and the event loop stays responsive between conversations. The price is that only conversations already written survive a cancellation or a mid-import failure, and a conversation a failure pulls in is read by name and gets one further image pass.
+The import brings website history into LYN with original titles, times, reasoning, and search cards, and the imported Sessions continue through the ordinary resume path. Host memory is bounded by the archive (`maxUploadBytes`) plus one entry (`maxEntryBytes`), one converted conversation, and the references of the stored images, and the event loop stays responsive between conversations. The price is that only conversations already written survive a cancellation or a mid-import failure, and a conversation a failure pulls in is read by name and gets one further image pass.
 
 - **Cold writes are a production writer outside the agent loop.** The import uses fresh Session ids and closes each handle after writing, so it does not compete for ownership with live Sessions; if the persistence layer later assumes that every write goes through the agent loop (for example by registering derived state at creation), the import path must change with it.
 - **A Session stored but not attached stays stored.** `SessionPersistence` offers no removal; the import reports such a Session in `skipped` with its id.

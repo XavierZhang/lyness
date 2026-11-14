@@ -142,7 +142,7 @@ export function createGitHubJsonReader(environment: NodeJS.ProcessEnv, request: 
       try {
         response = await request(target, {
           headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json',
-            'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'deepseek-harness-cua-helper' },
+            'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'lyness-cua-helper' },
           redirect: 'error', signal,
         })
       } catch (error) {

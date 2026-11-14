@@ -2,11 +2,11 @@
 
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { TeamModePane, TeamModeToggle, type TeamModePaneProps, type TeamModeToggleProps } from '../src/client/TeamModeToggle.tsx'
 import { de, en, es, fr, ja, pt, ru, zh } from '../src/client/locales.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(cleanup)
 

@@ -10,9 +10,9 @@ readonly BUBBLEWRAP_SHA256='db4d572a7927bfd34cc9b8e24b56983efa8e0483d03da6c810f6
 # The recorded build remains addressable after Ubuntu prunes its live package pool.
 readonly BUBBLEWRAP_URL="https://launchpad.net/ubuntu/+source/bubblewrap/${BUBBLEWRAP_VERSION}/+build/33546835/+files/bubblewrap_${BUBBLEWRAP_VERSION}_amd64.deb"
 # Workflows that run on ephemeral runners restore and save this directory as
-# `~/.cache/dsh-ci/bubblewrap` with actions/cache, so a warm cache needs no
+# `~/.cache/lyn-ci/bubblewrap` with actions/cache, so a warm cache needs no
 # Launchpad request; the persistent self-hosted pool keeps the directory itself.
-readonly BUBBLEWRAP_CACHE_DIR="${HOME}/.cache/dsh-ci/bubblewrap"
+readonly BUBBLEWRAP_CACHE_DIR="${HOME}/.cache/lyn-ci/bubblewrap"
 
 # shellcheck source=scripts/ci-verified-download.sh
 source "$(dirname -- "${BASH_SOURCE[0]}")/ci-verified-download.sh"
@@ -26,7 +26,7 @@ if [[ "$(uname -s)" != 'Linux' || "$(uname -m)" != 'x86_64' ]]; then
 fi
 
 archive="${BUBBLEWRAP_CACHE_DIR}/bubblewrap_${BUBBLEWRAP_VERSION}_amd64.deb"
-root="${RUNNER_TEMP}/dsh-bubblewrap"
+root="${RUNNER_TEMP}/lyn-bubblewrap"
 
 acquire_verified_archive "$BUBBLEWRAP_URL" "$BUBBLEWRAP_SHA256" "$archive"
 mkdir -p "$root"

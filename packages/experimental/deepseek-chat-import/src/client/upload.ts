@@ -18,7 +18,7 @@ type PageTransportFetch = (input: string | URL, init: RequestInit) => Promise<Re
 
 /** Page global carrying the shell transport, absent in the served web app. */
 interface PageTransportGlobal {
-  __DSH_TRANSPORT__?: { fetch?: PageTransportFetch }
+  __LYNESS_TRANSPORT__?: { fetch?: PageTransportFetch }
 }
 
 /** One decoded answer step: streamed progress, the outcome, or a line that is not JSON. */
@@ -100,7 +100,7 @@ function createAnswerCollector(onProgress: (progress: UploadProgress) => void): 
 /**
  * Send one archive and follow the streamed answer to its outcome line.
  * A page whose Host runs in another execution context supplies the pre-boot
- * `__DSH_TRANSPORT__.fetch` carrier, which carries the body and the streamed
+ * `__LYNESS_TRANSPORT__.fetch` carrier, which carries the body and the streamed
  * answer over its own channel; that carrier reports no byte progress. Served
  * pages send the archive with XMLHttpRequest, so the browser streams it from
  * disk and reports upload progress.
@@ -117,7 +117,7 @@ export function uploadArchive(
   signal: AbortSignal,
 ): Promise<UploadAnswer> {
   const url = new URL(`${UPLOAD_ROUTE}?${new URLSearchParams({ workspaceId }).toString()}`, document.baseURI)
-  const carrier = (globalThis as PageTransportGlobal).__DSH_TRANSPORT__?.fetch
+  const carrier = (globalThis as PageTransportGlobal).__LYNESS_TRANSPORT__?.fetch
   return carrier === undefined ? sendWithXhr(file, url, onProgress, signal) : sendWithCarrier(carrier, file, url, onProgress, signal)
 }
 

@@ -1,9 +1,9 @@
 import { expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createToolResultMessage, createUserMessage, type ToolCallId } from '@deepseek-ai/dsh-llm'
+import { brandString } from '@lyness/lyn-brand'
+import { createToolResultMessage, createUserMessage, type ToolCallId } from '@lyness/lyn-llm'
 import {
   appendPluginRecord, Session, SESSION_FORMAT_VERSION, type SessionId, SessionLogOffset, SessionSeq, type SessionEvent, type SessionHeader,
-} from '@deepseek-ai/dsh-session'
+} from '@lyness/lyn-session'
 import { actionCardProjection, type ActionCardState } from '../src/projection.ts'
 import type { ActionCardDecision } from '../src/types.ts'
 

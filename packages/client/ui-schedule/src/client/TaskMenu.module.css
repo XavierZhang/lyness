@@ -25,8 +25,8 @@
      because the elevation is a property of this surface, and the custom
      properties inherit down to whichever descendant actually scrolls (see
      ui-theme styles/scrollbar.css for the rebinding contract). */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
@@ -39,7 +39,7 @@
 .portal {
   position: fixed;
   position-area: none;
-  position-try-fallbacks: --dsh-schedule-task-above, --dsh-schedule-task-end, --dsh-schedule-task-above-end, --dsh-schedule-task-window, --dsh-schedule-task-viewport;
+  position-try-fallbacks: --lyn-schedule-task-above, --lyn-schedule-task-end, --lyn-schedule-task-above-end, --lyn-schedule-task-window, --lyn-schedule-task-viewport;
   top: max(12px, calc(anchor(bottom) + 4px));
   bottom: 12px;
   left: max(12px, anchor(left));
@@ -61,12 +61,12 @@
   left: 12px;
   right: max(12px, anchor(right));
   justify-self: end;
-  position-try-fallbacks: --dsh-schedule-task-above, --dsh-schedule-task-start, --dsh-schedule-task-above-start, --dsh-schedule-task-window, --dsh-schedule-task-viewport;
+  position-try-fallbacks: --lyn-schedule-task-above, --lyn-schedule-task-start, --lyn-schedule-task-above-start, --lyn-schedule-task-window, --lyn-schedule-task-viewport;
 }
 
 /* Tall lists scroll inside the window's layout bounds. */
 .scrollable {
-  max-height: calc(100dvh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));
+  max-height: calc(100dvh - 12px - max(12px, var(--lyn-frame-overlay-top, 12px)));
 }
 
 .viewport {
@@ -206,20 +206,20 @@
 }
 
 /* Every candidate reserves the same window insets, including flipped placements. */
-@position-try --dsh-schedule-task-above {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-schedule-task-above {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 4px));
   align-self: end;
 }
 
-@position-try --dsh-schedule-task-end {
+@position-try --lyn-schedule-task-end {
   left: 12px;
   right: max(12px, anchor(right));
   justify-self: end;
 }
 
-@position-try --dsh-schedule-task-above-end {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-schedule-task-above-end {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 4px));
   left: 12px;
   right: max(12px, anchor(right));
@@ -227,14 +227,14 @@
   justify-self: end;
 }
 
-@position-try --dsh-schedule-task-start {
+@position-try --lyn-schedule-task-start {
   left: max(12px, anchor(left));
   right: 12px;
   justify-self: start;
 }
 
-@position-try --dsh-schedule-task-above-start {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-schedule-task-above-start {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 4px));
   left: max(12px, anchor(left));
   right: 12px;
@@ -242,16 +242,16 @@
   justify-self: start;
 }
 
-@position-try --dsh-schedule-task-window {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-schedule-task-window {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: 12px;
   margin: 0;
   align-self: safe end;
 }
 
-@position-try --dsh-schedule-task-viewport {
+@position-try --lyn-schedule-task-viewport {
   position-area: none;
-  inset: max(12px, var(--dsh-frame-overlay-top, 12px)) 12px 12px;
+  inset: max(12px, var(--lyn-frame-overlay-top, 12px)) 12px 12px;
   margin: 0;
   align-self: safe end;
   justify-self: safe end;

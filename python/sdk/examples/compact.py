@@ -7,7 +7,7 @@ import argparse
 import os
 from pathlib import Path
 
-from DeepSeek Harness import DeepSeekHarness, RunResult
+from lyness import Lyness, RunResult
 
 
 def display(result: RunResult) -> None:
@@ -20,11 +20,11 @@ def display(result: RunResult) -> None:
 def main() -> None:
     """Create conversation history, compact it, and ask a follow-up question."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dsh-home", required=True, type=Path)
+    parser.add_argument("--lyn-home", required=True, type=Path)
     parser.add_argument("--workspace", type=Path, default=Path.cwd())
     parser.add_argument("--session-id")
     parser.add_argument("--provider", default="deepseek-official")
-    parser.add_argument("--model", default=os.environ.get("DSH_MODEL", "deepseek-v4-flash"))
+    parser.add_argument("--model", default=os.environ.get("LYNESS_MODEL", "deepseek-v4-flash"))
     parser.add_argument("--max-tokens", type=int)
     args = parser.parse_args()
 
@@ -33,8 +33,8 @@ def main() -> None:
     if not readme.is_file():
         parser.error("--workspace must contain README.md to provide conversation history")
 
-    with DeepSeekHarness(
-        dsh_home=str(args.dsh_home.resolve()),
+    with Lyness(
+        lyn_home=str(args.lyn_home.resolve()),
         cwd=str(workspace),
         profile="sdk",
         provider=args.provider,

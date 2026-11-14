@@ -4,11 +4,11 @@
  * A malformed record rejects opening the domain, so a corrupt store fails
  * loudly instead of silently serving an allowance nobody saved.
  *
- * @module @deepseek-ai/dsh-model-policy/storage
+ * @module @lyness/lyn-model-policy/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable } from '@deepseek-ai/dsh-storage-domain'
+import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
 
 /** One stored allowance: the models and the authority a refusal names. */
 export interface StoredAllowance {

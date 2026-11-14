@@ -9,7 +9,7 @@ description: "Client UI 使用方必须将 JavaScript 面板定位和 Menu 矩�
 
 ## 变更
 
-`@deepseek-ai/dsh-client-ui-primitives` 移除 `useAnchoredPosition` 值导出和 `AnchoredPositionOptions` 类型导出。`Menu` 将 `getAnchorRect` 替换为指向外部触发元素的 `anchorRef`，或用于按坐标打开菜单的 `anchorPoint`。导入已移除导出或传入已移除 prop 的自定义 Client UI 必须迁移。
+`@lyness/lyn-client-ui-primitives` 移除 `useAnchoredPosition` 值导出和 `AnchoredPositionOptions` 类型导出。`Menu` 将 `getAnchorRect` 替换为指向外部触发元素的 `anchorRef`，或用于按坐标打开菜单的 `anchorPoint`。导入已移除导出或传入已移除 prop 的自定义 Client UI 必须迁移。
 
 使用 portal 的菜单通过 CSS Anchor Positioning 跟随锚点。尺寸限制采用布局视口；浏览器缩放和平移时菜单随页面移动，面板可以超出视觉视口，包括键盘打开时。菜单关闭、键盘导航和内部滚动保持可用。浏览器必须支持组件使用的 CSS 锚点定位属性。
 

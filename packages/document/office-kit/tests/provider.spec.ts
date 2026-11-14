@@ -2,10 +2,10 @@
 import { access, mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import type { Converter, ConverterOptions } from '@deepseek-ai/libreoffice-kit'
 import { afterEach, beforeEach, expect, it, onTestFinished, vi } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import OfficeKit, { Config, type OfficeSourceKey, type OfficeKitRequest } from '../src/index.ts'
 import { resolveKitModule, type KitModuleResolution } from '../src/locate.ts'
 import { expectDefaultOutputsUntouched } from './default-outputs.ts'
@@ -13,11 +13,11 @@ import { expectDefaultOutputsUntouched } from './default-outputs.ts'
 const home = await vi.hoisted(async () => {
   const { mkdtemp } = await import('node:fs/promises')
   const { tmpdir } = await import('node:os')
-  return mkdtemp(`${tmpdir()}/dsh-office-kit-home-`)
+  return mkdtemp(`${tmpdir()}/lyn-office-kit-home-`)
 })
-vi.mock('@deepseek-ai/dsh-home-paths', async (original) => {
+vi.mock('@lyness/lyn-home-paths', async (original) => {
   const path = await import('node:path')
-  return { ...await original<typeof import('@deepseek-ai/dsh-home-paths')>(), dshHomePath: (...segments: string[]) => path.join(home, ...segments) }
+  return { ...await original<typeof import('@lyness/lyn-home-paths')>(), lynHomePath: (...segments: string[]) => path.join(home, ...segments) }
 })
 expectDefaultOutputsUntouched(home)
 
@@ -64,7 +64,7 @@ beforeEach(() => {
 afterEach(async () => { await ctx.fiber.dispose() })
 
 async function mount(config: Partial<Config> = {}): Promise<OfficeKit> {
-  const outputDirectory = await mkdtemp(join(tmpdir(), 'dsh-office-kit-outputs-'))
+  const outputDirectory = await mkdtemp(join(tmpdir(), 'lyn-office-kit-outputs-'))
   // Runs after the afterEach provider disposal, which deletes the provider's own outputs first.
   onTestFinished(() => rm(outputDirectory, { recursive: true, force: true }))
   await ctx.plugin(OfficeKit, { ...config, outputDirectory })

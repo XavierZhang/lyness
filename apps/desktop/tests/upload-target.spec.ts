@@ -13,7 +13,7 @@ vi.mock('../scripts/desktop-edgeone.ts', async importOriginal => ({
 
 vi.mock('../scripts/desktop-package-environment.mjs', () => ({ loadDesktopPackageEnvironment: vi.fn() }))
 vi.mock('../scripts/desktop-upload-plan.ts', () => ({ createDesktopUploadPlan: vi.fn() }))
-vi.mock('@deepseek-ai/dsh-desktop-publisher/desktop-cos.ts', () => ({ createDesktopCos: vi.fn() }))
+vi.mock('@lyness/lyn-desktop-publisher/desktop-cos.ts', () => ({ createDesktopCos: vi.fn() }))
 vi.mock('../scripts/desktop-upload-run.ts', () => ({ uploadDesktopRelease: vi.fn() }))
 vi.mock('../scripts/desktop-release-tag.ts', async importOriginal => ({
   ...await importOriginal<typeof import('../scripts/desktop-release-tag.ts')>(),
@@ -33,10 +33,10 @@ describe('desktop upload command', () => {
     { environment: 'test', latest: false, tagged: false },
   ] as const)('uploads $environment latest=$latest with tagged=$tagged', async ({ environment, latest, tagged }) => {
     vi.spyOn(process.stdout, 'write').mockReturnValue(true)
-    const credentials = { ...productionEnvironment, DSH_DESKTOP_AUTO_UPDATE_ENV: environment, DOWNLOAD_TEST_COS_SECRET_ID: 'fixture-id', DOWNLOAD_TEST_COS_SECRET_KEY: 'fixture-key' }
+    const credentials = { ...productionEnvironment, LYNESS_DESKTOP_AUTO_UPDATE_ENV: environment, DOWNLOAD_TEST_COS_SECRET_ID: 'fixture-id', DOWNLOAD_TEST_COS_SECRET_KEY: 'fixture-key' }
     const plan: DesktopUploadPlan = {
       environment, target: 'win-x64', version: '1.2.3-alpha.4',
-      publicUrl: 'https://desktop-updates.example.com/desktop/dsh-latest-windows-x64.exe',
+      publicUrl: 'https://desktop-updates.example.com/desktop/lyn-latest-windows-x64.exe',
       bucket: 'fixture-bucket', secretIdEnvName: 'DOWNLOAD_TEST_COS_SECRET_ID',
       secretKeyEnvName: 'DOWNLOAD_TEST_COS_SECRET_KEY', artifacts: [], commit: '0'.repeat(40), dirty: false,
     }
@@ -71,7 +71,7 @@ describe('desktop upload command', () => {
 })
 
 const productionEnvironment = {
-  DSH_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: 'fixture-bucket',
+  LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: 'fixture-bucket',
   DOWNLOAD_PROD_COS_SECRET_ID: 'fixture-id', DOWNLOAD_PROD_COS_SECRET_KEY: 'fixture-key', DOWNLOAD_PROD_EO_ZONE_ID: 'zone-fixture',
 }
 
@@ -86,7 +86,7 @@ describe('cache-only submission command', () => {
     expect(uploadDesktopRelease).not.toHaveBeenCalled()
     expect(tagDesktopRelease).not.toHaveBeenCalled()
     expect(purgeDesktopInstaller).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
-      publicUrl: 'https://download.deepseek.com/desktop/dsh-latest-macos-arm64.dmg',
+      publicUrl: 'https://download.deepseek.com/desktop/lyn-latest-macos-arm64.dmg',
     }))
   })
 
@@ -114,7 +114,7 @@ describe('cache-only submission command', () => {
     const previousExitCode = process.exitCode
     const stdout = vi.spyOn(process.stdout, 'write').mockReturnValue(true)
     const stderr = vi.spyOn(process.stderr, 'write').mockReturnValue(true)
-    vi.stubEnv('DSH_DESKTOP_AUTO_UPDATE_ENV', 'production')
+    vi.stubEnv('LYNESS_DESKTOP_AUTO_UPDATE_ENV', 'production')
     vi.stubEnv('DOWNLOAD_PROD_COS_BUCKET', 'fixture-bucket')
     vi.stubEnv('DOWNLOAD_PROD_COS_SECRET_ID', 'injected-id')
     vi.stubEnv('DOWNLOAD_PROD_COS_SECRET_KEY', 'injected-key')

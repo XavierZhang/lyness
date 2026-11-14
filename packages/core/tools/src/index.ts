@@ -1,13 +1,13 @@
 /** Tool definitions and scoped dispatch to plugin-owned executors. @module */
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { Fiber } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { AnonymousEntries, NamedEntries, ScopedLayers, scopeOf, scopeChainOf } from '@deepseek-ai/dsh-scope'
-import type { ScopeKey, ScopeLayer } from '@deepseek-ai/dsh-scope'
+import { Context, Service } from '@lyness/cordis'
+import type { Fiber } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { AnonymousEntries, NamedEntries, ScopedLayers, scopeOf, scopeChainOf } from '@lyness/lyn-scope'
+import type { ScopeKey, ScopeLayer } from '@lyness/lyn-scope'
 import { ToolExecutorUnavailableError } from './executor.ts'
 import type { ToolExecutor, ToolBatchInput, ToolBatchResult } from './executor.ts'
 import './events.ts'
-import type { ToolSchema } from '@deepseek-ai/dsh-llm'
+import type { ToolSchema } from '@lyness/lyn-llm'
 import { projectToolSchema } from './schema.ts'
 import { assertSupportedJsonSchema } from './json-schema.ts'
 import { RUN_CODE_NAME, ToolActivationError } from './contracts.ts'
@@ -16,21 +16,21 @@ import type {
   ResolvedToolSet, ToolActivationContext, ToolRegistrationOptions,
 } from './contracts.ts'
 
-declare module '@deepseek-ai/dsh-system-prompt' {
+declare module '@lyness/lyn-system-prompt' {
   interface AssembleContext {
     /** Step-owned tool selection; absent when inspecting registered definitions. */
     toolSet?: ResolvedToolSet
   }
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     /** Tool availability changes supplied by the tool registry. */
     'tool-registry': { kind: 'tool-registry' }
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     tools: ToolsService
   }
@@ -60,7 +60,7 @@ interface ToolRegistration {
    * Held so a surface can name the plugin a tool comes from. The registry
    * knows the Fiber and nothing beyond it: which composition entry mounted
    * that Fiber, and what that package calls itself, are the Loader's answers,
-   * read by whoever needs them (`dsh-api-agent-capabilities-controller`).
+   * read by whoever needs them (`lyn-api-agent-capabilities-controller`).
    * The reference lives exactly as long as the registration, which the same
    * Fiber's disposal removes.
    */

@@ -11,7 +11,7 @@ import { build, type Rolldown, type TsdownBundle, type UserConfig } from 'tsdown
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { clientBundle, requestedExternals, staticLinked } from '../packages/client/tsdown.client.ts'
 import { STATIC_MODULE_MANIFEST_EXPORT } from '../packages/client/web/src/platform.ts'
-import type { DshClientModuleManifest } from '@deepseek-ai/dsh-package-manifest'
+import type { LynClientModuleManifest } from '@lyness/lyn-package-manifest'
 
 type ResolveId = (source: string) => null | { id: string; external: boolean }
 
@@ -43,34 +43,34 @@ function packageDir(packagePath: string): string {
 }
 
 /** A representative dynamic bundle using the shared client baseline. */
-const REQUESTING_PACKAGE = '@deepseek-ai/dsh-client-ui-conversation'
+const REQUESTING_PACKAGE = '@lyness/lyn-client-ui-conversation'
 const REQUESTING_PACKAGE_DIR = packageDir('client/ui-conversation')
 
 function clientConfigs(dir = REQUESTING_PACKAGE_DIR) {
   return clientBundle(dir, ['lib/types/index.js'])(
-    { env: { DSH_BUILD_FACE: 'client' } },
+    { env: { LYNESS_BUILD_FACE: 'client' } },
   ).filter(config => config.platform === 'browser')
 }
 
 describe('client bundle build faces', () => {
   it('names both configs and the loader registration after the package directory manifest', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-client-manifest-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-client-manifest-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
-    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-client-fixture' }))
-    const configs = clientBundle(root, ['lib/types/index.js'])({ env: { DSH_BUILD_FACE: 'client' } })
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: '@lyness/lyn-client-fixture' }))
+    const configs = clientBundle(root, ['lib/types/index.js'])({ env: { LYNESS_BUILD_FACE: 'client' } })
     expect(configs.map(config => config.name)).toEqual([
-      '@deepseek-ai/dsh-client-fixture', '@deepseek-ai/dsh-client-fixture/client',
+      '@lyness/lyn-client-fixture', '@lyness/lyn-client-fixture/client',
     ])
     const outputOptions = configs[1]?.outputOptions
     if (typeof outputOptions !== 'object' || typeof outputOptions.banner !== 'function') {
       throw new Error('client banner missing')
     }
     expect(outputOptions.banner({ isEntry: true, fileName: 'client.js' } as Rolldown.RenderedChunk))
-      .toBe('window.__ModuleLoader__.load({ id: "@deepseek-ai/dsh-client-fixture", factory: (require) => {')
+      .toBe('window.__ModuleLoader__.load({ id: "@lyness/lyn-client-fixture", factory: (require) => {')
   })
 
   it('rejects a package directory without a named manifest', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-client-manifest-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-client-manifest-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     expect(() => clientBundle(root, ['lib/types/index.js']))
       .toThrow(/cannot read .*package\.json; pass the package directory/)
@@ -81,7 +81,7 @@ describe('client bundle build faces', () => {
   it('opts shared Clients into independent Node ESM and browser factory entries', () => {
     for (const dir of ['client/connection', 'api/gateway', 'typert/registry']) {
       const configs = clientBundle(packageDir(dir), ['lib/types/index.js'], { dualClient: true })(
-        { env: { DSH_BUILD_FACE: 'client' } },
+        { env: { LYNESS_BUILD_FACE: 'client' } },
       )
       const node = configs.find(config => config.name?.endsWith('/client-node'))
       const browser = configs.find(config => config.name?.endsWith('/client'))
@@ -94,7 +94,7 @@ describe('client bundle build faces', () => {
       expect(configs.find(config => config.platform === 'node' && config.name?.endsWith('/client'))).toBeUndefined()
     }
     const ordinary = clientBundle(REQUESTING_PACKAGE_DIR, ['lib/types/index.js'])(
-      { env: { DSH_BUILD_FACE: 'client' } },
+      { env: { LYNESS_BUILD_FACE: 'client' } },
     )
     expect(ordinary.some(config => config.name?.endsWith('/client-node'))).toBe(false)
     expect(ordinary.find(config => config.platform === 'browser')?.outputOptions)
@@ -104,7 +104,7 @@ describe('client bundle build faces', () => {
   it('watches source in development and consumes emitted JavaScript in the Client build', () => {
     const bundle = clientBundle(REQUESTING_PACKAGE_DIR, ['lib/types/index.js'])
     const development = bundle({ env: {} }).find(config => config.platform === 'browser')
-    const artifact = bundle({ env: { DSH_BUILD_FACE: 'client' } })
+    const artifact = bundle({ env: { LYNESS_BUILD_FACE: 'client' } })
       .find(config => config.platform === 'browser')
 
     expect(development?.entry).toEqual({ client: 'src/client/index.ts' })
@@ -129,7 +129,7 @@ async function clientChunkOutput(root: string, config: UserConfig, fileName: str
 }
 
 /** A built `staticLinked` index module. */
-type StaticArtifact = { readonly [STATIC_MODULE_MANIFEST_EXPORT]: DshClientModuleManifest }
+type StaticArtifact = { readonly [STATIC_MODULE_MANIFEST_EXPORT]: LynClientModuleManifest }
 
 /** Exports of the counter fixture library. */
 interface CounterExports {
@@ -151,7 +151,7 @@ describe('statically linked client build modes', () => {
     { label: 'defaults to production', mode: undefined, expectedMode: 'production', frozen: false },
     { label: 'retains explicit development', mode: 'development', expectedMode: 'development', frozen: true },
   ])('$label when compiling conditional branches', async ({ mode, expectedMode, frozen }) => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-static-client-mode-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-static-client-mode-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     const entry = join(root, 'lib/types/client/index.js')
     mkdirSync(dirname(entry), { recursive: true })
@@ -168,7 +168,7 @@ describe('statically linked client build modes', () => {
     try {
       if (mode === undefined) Reflect.deleteProperty(process.env, 'NODE_ENV')
       else process.env.NODE_ENV = mode
-      config = staticLinked(root, ['lib/types/client/index.js'])({ env: { DSH_BUILD_FACE: 'client' } })
+      config = staticLinked(root, ['lib/types/client/index.js'])({ env: { LYNESS_BUILD_FACE: 'client' } })
         .find(candidate => candidate.platform === 'browser')
     } finally {
       if (previousMode === undefined) Reflect.deleteProperty(process.env, 'NODE_ENV')
@@ -191,7 +191,7 @@ describe('statically linked client build modes', () => {
 
 describe('static Client dependency delivery', () => {
   function fixture(source: string): string {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-static-delivery-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-static-delivery-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     mkdirSync(join(root, 'lib/types'), { recursive: true })
     writeFileSync(join(root, 'package.json'), JSON.stringify({ name: REQUESTING_PACKAGE, type: 'module' }))
@@ -200,7 +200,7 @@ describe('static Client dependency delivery', () => {
   }
 
   function config(root: string): UserConfig {
-    const result = staticLinked(root, ['lib/types/index.js'])({ env: { DSH_BUILD_FACE: 'client' } })[0]
+    const result = staticLinked(root, ['lib/types/index.js'])({ env: { LYNESS_BUILD_FACE: 'client' } })[0]
     if (result === undefined) throw new Error('static client config missing')
     return result
   }
@@ -229,8 +229,8 @@ describe('static Client dependency delivery', () => {
 
   it('keeps shared Client library imports as ordinary imports and requires them from the manifest factory', async () => {
     const dependencies = [
-      '@deepseek-ai/dsh-client-store', '@deepseek-ai/dsh-client-ui-slots',
-      '@deepseek-ai/dsh-client-ui-primitives', '@deepseek-ai/dsh-client-ui-dockkit',
+      '@lyness/lyn-client-store', '@lyness/lyn-client-ui-slots',
+      '@lyness/lyn-client-ui-primitives', '@lyness/lyn-client-ui-dockkit',
     ]
     const root = fixture([
       ...dependencies.map((id, index) => `import * as dependency${index} from ${JSON.stringify(id)}`),
@@ -332,7 +332,7 @@ function dynamicImportFixture(prefix: string): string {
 
 describe('client bundle dynamic imports', () => {
   it.each([false, true])('emits metadata only for chunks containing styles (styles=%s)', async (withStyles) => {
-    const root = dynamicImportFixture('dsh-client-optional-meta-')
+    const root = dynamicImportFixture('lyn-client-optional-meta-')
     if (withStyles) {
       mkdirSync(join(root, 'src/client'), { recursive: true })
       writeFileSync(join(root, 'src/client/global.css'), '.fixture { display: flex; }\n')
@@ -345,11 +345,11 @@ describe('client bundle dynamic imports', () => {
       write: false, clean: false, exports: false, report: false, logLevel: 'silent',
     })
     try {
-      const registrations: DshClientModuleManifest[] = []
-      const target = { __ModuleLoader__: { load: (manifest: DshClientModuleManifest) => { registrations.push(manifest) } } }
+      const registrations: LynClientModuleManifest[] = []
+      const target = { __ModuleLoader__: { load: (manifest: LynClientModuleManifest) => { registrations.push(manifest) } } }
       for (const bundle of builds) for (const chunk of bundle.chunks) {
         if (chunk.type !== 'chunk') continue
-        expect(chunk.code).not.toContain('__dshChunkStyles_')
+        expect(chunk.code).not.toContain('__lynChunkStyles_')
         runInNewContext(chunk.code, { window: target })
       }
       expect(registrations).toHaveLength(2)
@@ -371,9 +371,9 @@ describe('client bundle dynamic imports', () => {
   })
 
   it('keeps a dual Client browser chunk disjoint from its Node output', async () => {
-    const root = dynamicImportFixture('dsh-dual-client-chunk-')
+    const root = dynamicImportFixture('lyn-dual-client-chunk-')
     const configs = clientBundle(root, ['lib/types/index.js'], { dualClient: true })(
-      { env: { DSH_BUILD_FACE: 'client' } },
+      { env: { LYNESS_BUILD_FACE: 'client' } },
     )
     for (const platform of ['node', 'browser'] as const) {
       const config = configs.find(config => config.name?.endsWith(platform === 'node' ? '/client-node' : '/client'))
@@ -393,7 +393,7 @@ describe('client bundle dynamic imports', () => {
   })
 
   it('compiles import() to the module loader asynchronous operation', async () => {
-    const root = dynamicImportFixture('dsh-client-dynamic-import-')
+    const root = dynamicImportFixture('lyn-client-dynamic-import-')
     const config = clientConfigs()[0]
     if (config === undefined) throw new Error('client config missing')
 
@@ -411,7 +411,7 @@ function clientSourceMapPath(packagePath: string): string {
 function purityResolveId(dir = REQUESTING_PACKAGE_DIR): ResolveId {
   const configs = clientConfigs(dir)
   const plugins = (configs[0] as { plugins: { name: string; resolveId?: unknown }[] }).plugins
-  const gate = plugins.find(p => p.name === 'dsh-client-bundle-purity')
+  const gate = plugins.find(p => p.name === 'lyn-client-bundle-purity')
   if (gate?.resolveId === undefined) throw new Error('purity plugin missing from client config')
   return gate.resolveId as ResolveId
 }
@@ -419,7 +419,7 @@ function purityResolveId(dir = REQUESTING_PACKAGE_DIR): ResolveId {
 function cssModulePlugin(): CssModulePlugin {
   const configs = clientConfigs()
   const plugins = (configs[0] as { plugins: CssModulePlugin[] }).plugins
-  const plugin = plugins.find(candidate => candidate.name === 'dsh-css-modules-inline')
+  const plugin = plugins.find(candidate => candidate.name === 'lyn-css-modules-inline')
   if (plugin?.resolveId === undefined || plugin.load === undefined) {
     throw new Error('CSS Modules plugin missing from client config')
   }
@@ -429,7 +429,7 @@ function cssModulePlugin(): CssModulePlugin {
 function sourceMapPlugin(): SourceMapPlugin {
   const configs = clientConfigs()
   const plugins = (configs[0] as { plugins: SourceMapPlugin[] }).plugins
-  const plugin = plugins.find(candidate => candidate.name === 'dsh-tsc-sourcemap')
+  const plugin = plugins.find(candidate => candidate.name === 'lyn-tsc-sourcemap')
   if (plugin?.load === undefined) throw new Error('tsc sourcemap plugin missing from client config')
   return plugin
 }
@@ -438,34 +438,34 @@ describe('client bundle purity gate', () => {
   const resolveId = purityResolveId()
 
   it('leaves default externals and non-scoped specifiers alone', () => {
-    expect(resolveId('@deepseek-ai/dsh-client-store')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-client-ui-slots')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-client-ui-primitives')).toBeNull()
+    expect(resolveId('@lyness/lyn-client-store')).toBeNull()
+    expect(resolveId('@lyness/lyn-client-ui-slots')).toBeNull()
+    expect(resolveId('@lyness/lyn-client-ui-primitives')).toBeNull()
     expect(resolveId('react')).toBeNull()
     expect(resolveId('zod')).toBeNull()
   })
 
   it('rejects the retired web-react platform package', () => {
-    expect(() => resolveId('@deepseek-ai/dsh-client-web-react')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-client-web-react/store')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-web-react')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-web-react/store')).toThrow(/purity/)
   })
 
   it('lets inline-safe libraries inline', () => {
-    expect(resolveId('@deepseek-ai/dsh-session/surface')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-brand')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-deque')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-util-time')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-util-values')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-token-meter/client')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-token-meter')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-token-meter/client/internal')).toThrow(/purity/)
-    expect(resolveId('@deepseek-ai/dsh-host-open-in-app/shared')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-native-command/types')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-native-command')).toThrow('client bundle purity')
-    expect(() => resolveId('@deepseek-ai/dsh-host-open-in-app')).toThrow(/purity/)
-    expect(resolveId('@deepseek-ai/dsh-plugin-manager/registry')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-plugin-manager')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-plugin-manager/registry/internal')).toThrow(/purity/)
+    expect(resolveId('@lyness/lyn-session/surface')).toBeNull()
+    expect(resolveId('@lyness/lyn-brand')).toBeNull()
+    expect(resolveId('@lyness/lyn-deque')).toBeNull()
+    expect(resolveId('@lyness/lyn-util-time')).toBeNull()
+    expect(resolveId('@lyness/lyn-util-values')).toBeNull()
+    expect(resolveId('@lyness/lyn-token-meter/client')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-token-meter')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-token-meter/client/internal')).toThrow(/purity/)
+    expect(resolveId('@lyness/lyn-host-open-in-app/shared')).toBeNull()
+    expect(resolveId('@lyness/lyn-native-command/types')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-native-command')).toThrow('client bundle purity')
+    expect(() => resolveId('@lyness/lyn-host-open-in-app')).toThrow(/purity/)
+    expect(resolveId('@lyness/lyn-plugin-manager/registry')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-plugin-manager')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-plugin-manager/registry/internal')).toThrow(/purity/)
   })
 
   it('omits unused RRULE code from a Cron-only browser import', async () => {
@@ -490,54 +490,54 @@ describe('client bundle purity gate', () => {
   })
 
   it('admits only the pure spill notice entry, not its Host policy', () => {
-    expect(resolveId('@deepseek-ai/dsh-spill-policy/notice')).toBeNull()
-    expect(resolveId('@deepseek-ai/dsh-output-retention')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-spill-policy')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-spill-policy/notice/internal')).toThrow(/purity/)
+    expect(resolveId('@lyness/lyn-spill-policy/notice')).toBeNull()
+    expect(resolveId('@lyness/lyn-output-retention')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-spill-policy')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-spill-policy/notice/internal')).toThrow(/purity/)
   })
 
   it.each(['file-drag'])('inlines the stateless %s entry without admitting its subpaths or UI plugin', (name) => {
-    expect(resolveId(`@deepseek-ai/dsh-util-${name}`)).toBeNull()
-    expect(() => resolveId(`@deepseek-ai/dsh-util-${name}/internal`)).toThrow(/purity/)
-    expect(() => resolveId(`@deepseek-ai/dsh-client-ui-${name}`)).toThrow(/purity/)
+    expect(resolveId(`@lyness/lyn-util-${name}`)).toBeNull()
+    expect(() => resolveId(`@lyness/lyn-util-${name}/internal`)).toThrow(/purity/)
+    expect(() => resolveId(`@lyness/lyn-client-ui-${name}`)).toThrow(/purity/)
     const deps = clientConfigs()[0]?.deps as { neverBundle: (specifier: string) => boolean }
-    expect(deps.neverBundle(`@deepseek-ai/dsh-util-${name}`)).toBe(false)
+    expect(deps.neverBundle(`@lyness/lyn-util-${name}`)).toBe(false)
   })
 
   it('inlines the browser-safe Timer entry while sharing Cordis through the module table', () => {
-    const timer = '@deepseek-ai/cordis-plugin-timer'
+    const timer = '@lyness/cordis-plugin-timer'
     expect(resolveId(timer)).toBeNull()
     expect(() => resolveId(`${timer}/src/index.ts`)).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/cordis-plugin-hmr')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/cordis-plugin-hmr')).toThrow(/purity/)
     const config = clientConfigs(packageDir('extensions/cordis-client-runner'))[0]
     const deps = config?.deps as { neverBundle: (specifier: string) => boolean }
     expect(deps.neverBundle(timer)).toBe(false)
-    expect(deps.neverBundle('@deepseek-ai/cordis')).toBe(true)
+    expect(deps.neverBundle('@lyness/cordis')).toBe(true)
   })
 
   it('lets exact generated Remote contributions inline without admitting their package implementation', () => {
-    expect(resolveId('@deepseek-ai/dsh-goal/remote')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-goal')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-goal/client')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-goal/remote/nested')).toThrow(/purity/)
+    expect(resolveId('@lyness/lyn-goal/remote')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-goal')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-goal/client')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-goal/remote/nested')).toThrow(/purity/)
   })
 
-  it('throws on any other @deepseek-ai leak', () => {
-    expect(() => resolveId('@deepseek-ai/dsh-agent')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-client-web')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-util-code-language')).toThrow(/purity/)
+  it('throws on any other @lyness leak', () => {
+    expect(() => resolveId('@lyness/lyn-agent')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-web')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-util-code-language')).toThrow(/purity/)
   })
 
   it('throws on cross-plugin value imports — bare plugin names and /client subpaths alike', () => {
-    expect(() => resolveId('@deepseek-ai/dsh-client-connection')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-client-ui-session')).toThrow(/purity/)
-    expect(() => resolveId('@deepseek-ai/dsh-client-ui-layout/client')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-connection')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-ui-session')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/lyn-client-ui-layout/client')).toThrow(/purity/)
   })
 
   it('admits package-specific requests only for the declaring bundle', () => {
     const requesting = purityResolveId(packageDir('api/session-controller'))
-    expect(requesting('@deepseek-ai/dsh-api-gateway/client')).toBeNull()
-    expect(() => resolveId('@deepseek-ai/dsh-api-gateway/client')).toThrow(/purity/)
+    expect(requesting('@lyness/lyn-api-gateway/client')).toBeNull()
+    expect(() => resolveId('@lyness/lyn-api-gateway/client')).toThrow(/purity/)
   })
 
   it('externalizes the baseline independently of each package manifest', () => {
@@ -547,7 +547,7 @@ describe('client bundle purity gate', () => {
     }
 
     for (const bundle of [requesting, plain]) {
-      for (const specifier of ['react', 'zod', '@tanstack/react-virtual', '@deepseek-ai/dsh-client-store']) {
+      for (const specifier of ['react', 'zod', '@tanstack/react-virtual', '@lyness/lyn-client-store']) {
         expect(bundle.neverBundle(specifier)).toBe(true)
       }
       expect(bundle.neverBundle('zod/v3')).toBe(false)
@@ -556,11 +556,11 @@ describe('client bundle purity gate', () => {
 })
 
 describe('client bundle experimental input isolation', () => {
-  const experimental = '@deepseek-ai/dsh-experimental-client-ui-voice-input'
+  const experimental = '@lyness/lyn-experimental-client-ui-voice-input'
   const experimentalDir = packageDir('experimental/client-ui-voice-input')
 
   function fixture() {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-client-inputs-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-client-inputs-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     const owner = join(root, 'client')
     const entry = join(owner, 'lib/types/client/index.js')
@@ -574,7 +574,7 @@ describe('client bundle experimental input isolation', () => {
 
   function config(kind: 'static' | 'dynamic', dir = REQUESTING_PACKAGE_DIR): UserConfig {
     const configs = kind === 'static'
-      ? staticLinked(dir, ['lib/types/client/index.js'])({ env: { DSH_BUILD_FACE: 'client' } })
+      ? staticLinked(dir, ['lib/types/client/index.js'])({ env: { LYNESS_BUILD_FACE: 'client' } })
       : clientConfigs(dir)
     const browser = configs.find(config => config.platform === 'browser')
     if (browser === undefined) throw new Error('client config missing')
@@ -600,7 +600,7 @@ describe('client bundle experimental input isolation', () => {
 
   function checkCompilerModule(module: string, imports?: string[]): void {
     const plugins = config('dynamic').plugins as InputIsolationPlugin[]
-    const plugin = plugins.find(plugin => plugin.name === 'dsh-client-input-isolation')
+    const plugin = plugins.find(plugin => plugin.name === 'lyn-client-input-isolation')
     if (plugin === undefined) throw new Error('client input isolation plugin missing')
     plugin.generateBundle.call({
       getModuleInfo: () => imports === undefined ? null : { importedIds: imports, dynamicallyImportedIds: [] },
@@ -638,7 +638,7 @@ describe('client bundle experimental input isolation', () => {
     const { root, owner, entry, prototype } = fixture()
     // `action-cards` keeps its npm name outside the experimental prefix, so
     // the rejection has to come from its directory rather than its name.
-    const name = '@deepseek-ai/dsh-action-cards'
+    const name = '@lyness/lyn-action-cards'
     writeFileSync(join(root, 'prototype/package.json'), JSON.stringify({ name, type: 'module' }))
     writeFileSync(entry, `export { marker } from ${JSON.stringify(importPath(entry, prototype))}\n`)
     await expect(bundle(owner, config(kind))).rejects.toThrow(/client bundle isolation.*experimental/)
@@ -655,7 +655,7 @@ describe('client bundle experimental input isolation', () => {
     delete outputOptions.sourcemapPathTransform
     const unguarded: UserConfig = {
       ...guarded,
-      plugins: plugins.filter(plugin => plugin.name !== 'dsh-client-input-isolation'),
+      plugins: plugins.filter(plugin => plugin.name !== 'lyn-client-input-isolation'),
       outputOptions,
     }
 
@@ -741,22 +741,22 @@ describe('client bundle experimental input isolation', () => {
 
 describe('client bundle module requests', () => {
   it('requests what the declaration lists', () => {
-    const requests = requestedExternals('@deepseek-ai/dsh-client-fixture', {
-      external: ['react', 'react/jsx-runtime', '@deepseek-ai/dsh-client-ui-slots'],
+    const requests = requestedExternals('@lyness/lyn-client-fixture', {
+      external: ['react', 'react/jsx-runtime', '@lyness/lyn-client-ui-slots'],
     })
 
     expect([...requests].sort()).toEqual([
-      '@deepseek-ai/dsh-client-ui-slots', 'react', 'react/jsx-runtime',
+      '@lyness/lyn-client-ui-slots', 'react', 'react/jsx-runtime',
     ])
   })
 
   it('requests nothing when the declaration is absent', () => {
-    expect(requestedExternals('@deepseek-ai/dsh-client-fixture', {}).size).toBe(0)
+    expect(requestedExternals('@lyness/lyn-client-fixture', {}).size).toBe(0)
   })
 
   it('rejects a malformed declaration instead of reading past it', () => {
-    expect(() => requestedExternals('@deepseek-ai/dsh-client-fixture', { external: 'react' }))
-      .toThrow(/dsh\.client\.external must be a string array/)
+    expect(() => requestedExternals('@lyness/lyn-client-fixture', { external: 'react' }))
+      .toThrow(/lyn\.client\.external must be a string array/)
   })
 })
 
@@ -768,7 +768,7 @@ describe('client bundle debug artifacts', () => {
   })
 
   it('chains emitted tsc maps when the production Client build consumes lib/types', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-client-sourcemap-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-client-sourcemap-'))
     try {
       const entry = join(root, 'lib', 'types', 'client', 'index.js')
       const source = join(root, 'src', 'client', 'index.ts')
@@ -797,7 +797,7 @@ describe('client bundle debug artifacts', () => {
 
     const source = transform('../src/client/GoalBar.tsx', clientSourceMapPath('client/ui-goal'))
     expect(source).toBe('../../../packages/client/ui-goal/src/client/GoalBar.tsx')
-    const resolved = new URL(source, 'https://dsh.test/plugins/@deepseek-ai/dsh-client-ui-goal/client.js.map')
+    const resolved = new URL(source, 'https://lyn.test/plugins/@lyness/lyn-client-ui-goal/client.js.map')
     expect(resolved.pathname).toBe('/packages/client/ui-goal/src/client/GoalBar.tsx')
   })
 
@@ -822,7 +822,7 @@ describe('client bundle debug artifacts', () => {
     const sourceMapPath = clientSourceMapPath('client/connection')
     const workspaceSource = transform('../src/rpc.ts', sourceMapPath)
     expect(workspaceSource).toBe('../../../packages/client/connection/src/rpc.ts')
-    const resolved = new URL(workspaceSource, 'https://dsh.test/plugins/@deepseek-ai/dsh-client-connection/client.js.map')
+    const resolved = new URL(workspaceSource, 'https://lyn.test/plugins/@lyness/lyn-client-connection/client.js.map')
     expect(resolved.pathname).toBe('/packages/client/connection/src/rpc.ts')
 
     const dependencySource = '../../../../node_modules/.pnpm/zod@4.6.6/node_modules/zod/index.js'

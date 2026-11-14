@@ -1,7 +1,7 @@
 import { executeTool } from './execute-tool.ts'
 import { randomUUID } from 'node:crypto'
 import { afterEach, describe, expect, it } from 'vitest'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { ToolCallId } from '@lyness/lyn-llm'
 import { newId, reportSchema, taskId } from '../src/records.ts'
 import { Adapter, setup } from './fixture.ts'
 

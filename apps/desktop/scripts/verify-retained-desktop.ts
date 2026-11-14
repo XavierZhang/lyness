@@ -3,8 +3,8 @@ import { execFileSync } from 'node:child_process'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { DesktopRetainedManifest } from '@deepseek-ai/dsh-desktop-publisher/desktop-release-store.ts'
-import type { DesktopPublishConfig } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-config.ts'
+import type { DesktopRetainedManifest } from '@lyness/lyn-desktop-publisher/desktop-release-store.ts'
+import type { DesktopPublishConfig } from '@lyness/lyn-desktop-publisher/desktop-publish-config.ts'
 import { verifyMacOSDiskImage, verifyMacOSNotarizedApplication } from './verify-macos-signature.mjs'
 
 /**
@@ -39,6 +39,6 @@ export async function verifyRetainedDesktopSignatures(
   const extracted = await mkdtemp(join(tmpdir(), 'desktop-publish-verify-'))
   try {
     run('/usr/bin/ditto', ['-x', '-k', zipPath, extracted])
-    verifyMacOSNotarizedApplication(join(extracted, 'DeepSeek Harness.app'), config.macOS)
+    verifyMacOSNotarizedApplication(join(extracted, 'lyness.app'), config.macOS)
   } finally { await rm(extracted, { recursive: true, force: true }) }
 }

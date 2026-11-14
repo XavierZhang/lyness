@@ -3,7 +3,7 @@ description: "平台内置的字标字体 Inter SemiBold 与 Noto Sans CJK SC Me
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-brand-fonts
+# @lyness/lyn-host-brand-fonts
 
 [English](README.md) | 中文
 
@@ -28,10 +28,10 @@ kind: "package-reference"
 这是库而不是插件：它不注册任何内容，也不读取配置。
 
 ```ts
-import { loadBrandFonts } from '@deepseek-ai/dsh-host-brand-fonts'
-import { typesetWordmark } from '@deepseek-ai/dsh-host-brand-wordmark'
+import { loadBrandFonts } from '@lyness/lyn-host-brand-fonts'
+import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
 
-const mark = typesetWordmark('领驭 DeepSeek Harness', loadBrandFonts())
+const mark = typesetWordmark('领驭 lyness', loadBrandFonts())
 ```
 
 | 字体 | 平台依赖它绘制的文字 |
@@ -41,7 +41,7 @@ const mark = typesetWordmark('领驭 DeepSeek Harness', loadBrandFonts())
 
 Inter 排在前面，因此即使 Noto Sans CJK 也能绘制拉丁字母，拉丁字母仍保持 Inter 的字形。两个字重经过挑选，使名称混排多种文字时笔画粗细看起来一致。
 
-SaaS 租户只使用这些字体。私有化部署的品牌方可以改用自有字体，通过 `dsh --profile brand-studio --font` 提供。
+SaaS 租户只使用这些字体。私有化部署的品牌方可以改用自有字体，通过 `lyn --profile brand-studio --font` 提供。
 
 -----
 

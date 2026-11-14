@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CommandId } from '@deepseek-ai/dsh-commands/types'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { IconUsersOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
+import { brandString } from '@lyness/lyn-brand'
+import type { CommandId } from '@lyness/lyn-commands/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { IconUsersOutlineRegular } from '@lyness/lyn-client-ui-primitives'
 import { TeamCommandRow, type TeamCommandRowProps } from '../src/client/TeamCommandRow.tsx'
 import { zh, en, ja, es, fr, de, ru, pt } from '../src/client/locales.ts'
 

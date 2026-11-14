@@ -16,13 +16,13 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import { composeBotPersona } from '@deepseek-ai/dsh-managed-bots/session'
-import type { EngagedBot } from '@deepseek-ai/dsh-managed-bots/session'
-import LlmRuntime, { BlockAssembler, createSystemMessage, createUserMessage, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import * as Messages from '@deepseek-ai/dsh-llm-deepseek-api-key'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import { Context } from '@lyness/cordis'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import { composeBotPersona } from '@lyness/lyn-managed-bots/session'
+import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
+import LlmRuntime, { BlockAssembler, createSystemMessage, createUserMessage, ReasoningEffortId } from '@lyness/lyn-llm'
+import * as Messages from '@lyness/lyn-llm-deepseek-api-key'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /** One bot whose character is impossible to follow by accident. */
 const TRIAGE: EngagedBot = {

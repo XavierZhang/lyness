@@ -3,13 +3,13 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Storage from '@deepseek-ai/dsh-storage'
-import { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
-import { JsonStorageBackend } from '@deepseek-ai/dsh-storage-json'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { MessageId } from '@deepseek-ai/dsh-llm/types'
+import { Context } from '@lyness/cordis'
+import Storage from '@lyness/lyn-storage'
+import { DomainFacility } from '@lyness/lyn-storage-domain'
+import { JsonStorageBackend } from '@lyness/lyn-storage-json'
+import type { SessionId } from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { MessageId } from '@lyness/lyn-llm/types'
 import { scheduleDomain, scheduleTaskSchema, type ScheduleTask } from '../src/storage.ts'
 import {
   createAfterScheduleRecord,
@@ -48,7 +48,7 @@ function receipt(sessionId: string, scheduledAt: string, deliveredAt: string, me
 }
 
 it('reopens persisted task bindings and coalesces an overdue recurring schedule', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-domain-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-domain-')); roots.push(root)
   const createdAt = Date.parse('2026-09-16T00:00:00Z')
   const rule = createEveryScheduleRecord(brandString<ScheduleId>('persisted'), 'Check progress', 300, createdAt, 'Check progress')
   const task = boundTask(brandString<SessionId>('cold-session'), rule)
@@ -69,7 +69,7 @@ it('reopens persisted task bindings and coalesces an overdue recurring schedule'
 })
 
 it('retains an ended task and receipt in JSON storage until explicit deletion', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-ended-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-ended-')); roots.push(root)
   const rule = createAfterScheduleRecord(brandString<ScheduleId>('ended'), 'Delivered', 1, Date.parse('2026-09-16T00:00:00Z'), 'Delivered')
   const delivered = receipt('original', rule.scheduledAt, '2026-09-16T00:00:02.000Z', 'delivered-message')
   const task = boundTask(brandString<SessionId>('original'), rule, {
@@ -88,7 +88,7 @@ it('retains an ended task and receipt in JSON storage until explicit deletion', 
 })
 
 it('reopens active and ended daily tasks with their rules and receipts alongside all three existing kinds', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-daily-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-daily-')); roots.push(root)
   const createdAt = Date.parse('2026-09-16T00:00:00.000Z')
   const daily = createDailyScheduleRecord(brandString<ScheduleId>('daily-active'), 'Daily check', {
     time: '08:30:00.125', time_zone: 'Asia/Shanghai',
@@ -124,7 +124,7 @@ it('reopens active and ended daily tasks with their rules and receipts alongside
 })
 
 it('preserves a stored daily zone alias and pinned UTC target across JSON reopen', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-daily-alias-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-daily-alias-')); roots.push(root)
   const latest = receipt('alias-session', '2026-09-15T14:00:00.000Z', '2026-09-15T14:00:03.000Z', 'alias-receipt')
   const task = boundTask(brandString<SessionId>('alias-session'), {
     id: brandString<ScheduleId>('daily-alias'), kind: 'daily', title: 'Preserve stored rule', prompt: 'Preserve stored rule',
@@ -142,7 +142,7 @@ it('preserves a stored daily zone alias and pinned UTC target across JSON reopen
 })
 
 it('reopens a weekly task with its stored zone alias, weekday set, receipts, and history', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-weekly-alias-')); roots.push(root)
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-weekly-alias-')); roots.push(root)
   const previous = receipt('weekly-session', '2026-09-14T12:30:00.125Z', '2026-09-14T12:30:02.000Z', 'previous-weekly')
   const task = boundTask(brandString<SessionId>('weekly-session'), {
     id: brandString<ScheduleId>('weekly-alias'), kind: 'weekly', title: 'Weekly check', prompt: 'Weekly check',

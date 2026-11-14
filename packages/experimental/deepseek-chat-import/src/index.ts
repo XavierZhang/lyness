@@ -1,20 +1,20 @@
 /**
  * Host plugin importing a DeepSeek chat export (chat.deepseek.com
- * `deepseek_data-*.zip`) uploaded by the browser as stored DSH Sessions in a
+ * `deepseek_data-*.zip`) uploaded by the browser as stored LYN Sessions in a
  * chosen Workspace. The upload is processed in memory and never written to disk.
- * @module @deepseek-ai/dsh-deepseek-chat-import
+ * @module @lyness/lyn-deepseek-chat-import
  */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import Schema from '@deepseek-ai/schemastery'
-import { principalOf, Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-attachment'
-import type {} from '@deepseek-ai/dsh-client-connection'
-import type {} from '@deepseek-ai/dsh-session-persistence'
-import type {} from '@deepseek-ai/dsh-session-projection-cache'
-import type {} from '@deepseek-ai/dsh-workspace'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+import type { Context } from '@lyness/cordis'
+import Schema from '@lyness/schemastery'
+import { principalOf, Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-attachment'
+import type {} from '@lyness/lyn-client-connection'
+import type {} from '@lyness/lyn-session-persistence'
+import type {} from '@lyness/lyn-session-projection-cache'
+import type {} from '@lyness/lyn-workspace'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import { importDeepseekChatExport } from './importer.ts'
 import { UPLOAD_PATH } from './protocol.ts'
 import { createUploadRoute } from './upload.ts'
@@ -44,7 +44,7 @@ export interface Config {
   maxTitleBytes: number
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Upload route and Remote limits of the DeepSeek chat export importer. */
     deepseekChatImport: DeepseekChatImportService

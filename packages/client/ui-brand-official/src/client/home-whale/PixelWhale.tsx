@@ -1,6 +1,6 @@
 /** Home frame layer: a decorative canvas below the Conversation content, played by clicks on blank home space. */
 import { useCallback, useRef, type MouseEvent, type ReactNode } from 'react'
-import type { HeroFrameOwnerProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { HeroFrameOwnerProps } from '@lyness/lyn-client-ui-conversation/client'
 import atlasUrl from '../assets/breach-atlas.webp'
 import { WHALE_ARTWORK } from './artwork.ts'
 import { attachPixelWhale, type PixelWhaleHandle } from './renderer.ts'

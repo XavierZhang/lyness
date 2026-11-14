@@ -1,15 +1,15 @@
 /** One sidebar terminal behind the terminal registry: sends, screen reads, signals and release to the person. */
 
-import { AgentTerminalError } from '@deepseek-ai/dsh-api-terminal-controller'
-import type { AgentTerminal, TerminalScreenMark, WebTerminalInfo } from '@deepseek-ai/dsh-api-terminal-controller'
-import { TextRetainer } from '@deepseek-ai/dsh-output-retention'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type { SubprocessTerminalForeground } from '@deepseek-ai/dsh-subprocess'
-import { TerminalError } from '@deepseek-ai/dsh-terminal'
+import { AgentTerminalError } from '@lyness/lyn-api-terminal-controller'
+import type { AgentTerminal, TerminalScreenMark, WebTerminalInfo } from '@lyness/lyn-api-terminal-controller'
+import { TextRetainer } from '@lyness/lyn-output-retention'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type { SubprocessTerminalForeground } from '@lyness/lyn-subprocess'
+import { TerminalError } from '@lyness/lyn-terminal'
 import type {
   TerminalBackendSession, TerminalReadRequest, TerminalReadResult, TerminalSendOperation, TerminalSendRead,
   TerminalSendRequest, TerminalSendResult, TerminalSessionStatus, TerminalSignal, TerminalSignalResult, TerminalWaitReason,
-} from '@deepseek-ai/dsh-terminal'
+} from '@lyness/lyn-terminal'
 
 /** Refusal the model receives once the person has typed into an Agent terminal. */
 export const TAKEN_OVER = 'The user has taken over this terminal; read it with terminal_read or open a new terminal.'

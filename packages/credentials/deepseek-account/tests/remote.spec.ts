@@ -2,12 +2,12 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AuthorizationService from '@deepseek-ai/dsh-authorization'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
-import { credentialKey } from '@deepseek-ai/dsh-credentials'
-import { remoteMethods } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import AuthorizationService from '@lyness/lyn-authorization'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
+import { credentialKey } from '@lyness/lyn-credentials'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
 import { afterEach, expect, it } from 'vitest'
 import { DeepSeekAccount } from '../src/index.ts'
 
@@ -15,7 +15,7 @@ const cleanups: Array<() => Promise<unknown>> = []
 afterEach(async () => { while (cleanups.length) await cleanups.pop()!() })
 
 async function fixture() {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-account-remote-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-account-remote-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
   const ctx = new Context()
   cleanups.push(() => ctx.fiber.dispose())

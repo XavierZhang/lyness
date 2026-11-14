@@ -2,7 +2,7 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { SubprocessHandle } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle } from '@lyness/lyn-subprocess'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { buildNativeExecutable } from '../src/native-build.ts'
 

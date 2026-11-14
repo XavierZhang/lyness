@@ -12,17 +12,17 @@
  * mount rather than answering requests with a configuration nobody wrote —
  * a model whose provider the tenant has no key for would fail at the provider,
  * far from the line that caused it.
- * @module @deepseek-ai/dsh-tenant-config-static
+ * @module @lyness/lyn-tenant-config-static
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { credentialRef, isCredentialRefName } from '@deepseek-ai/dsh-credentials'
-import { TENANT_ID_SYNTAX, TenantId } from '@deepseek-ai/dsh-tenant'
-import { MODALITIES, TenantConfigStore, validateTenantConfig } from '@deepseek-ai/dsh-tenant-config'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
+import { TENANT_ID_SYNTAX, TenantId } from '@lyness/lyn-tenant'
+import { MODALITIES, TenantConfigStore, validateTenantConfig } from '@lyness/lyn-tenant-config'
 import type {
   Modality, ModalityModels, ModelChoice, ProviderGrant, TenantConfig, TenantConfigCapability,
-} from '@deepseek-ai/dsh-tenant-config'
+} from '@lyness/lyn-tenant-config'
 
 /** One configured model. */
 export interface ModelEntry {

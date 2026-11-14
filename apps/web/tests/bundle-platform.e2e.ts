@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser } from 'playwright'
-import type {} from '@deepseek-ai/dsh-ptc-runtime'
+import type {} from '@lyness/lyn-ptc-runtime'
 import { expect, it, onTestFinished } from 'vitest'
 import { captureStableAria, compareOrRefreshGolden, launchWebScaffold, webSnapshotMode, type WebScaffold } from './scaffold.ts'
 import { connectFreshWorkspaceZh, ZH_BROWSER_LOCALE } from './support.ts'
@@ -18,7 +18,7 @@ it('disables unsupported bundles, shows the Host restriction, and refuses direct
     }
   })
   const name = 'host-platform-only'
-  await writeFile(join(root, 'package.json'), JSON.stringify({ name, version: '1.0.0', dsh: { bundle: {
+  await writeFile(join(root, 'package.json'), JSON.stringify({ name, version: '1.0.0', lyn: { bundle: {
     patch: './cordis.patch.yml', platforms: [process.platform === 'darwin' ? 'win32' : 'darwin'],
   } } }))
   await writeFile(join(root, 'cordis.patch.yml'), '- id: ptc-runtime\n  config:\n    executionMode: persistent-in-memory\n    replScoped: false\n')
@@ -28,7 +28,7 @@ it('disables unsupported bundles, shows the Host restriction, and refuses direct
   await page.goto(scaffold.authenticatedUrl)
   await connectFreshWorkspaceZh(page, scaffold.workspaceCwd)
   await page.getByRole('navigation', { name: '全局面板' }).getByRole('button', { name: '插件', exact: true }).click()
-  const reason = '此插件不支持运行 DSH 的主机操作系统'
+  const reason = '此插件不支持运行 LYN 的主机操作系统'
   const card = page.locator(`[data-plugin-package="${name}"]`)
   await card.getByText(reason, { exact: true }).waitFor()
   expect(await card.getByRole('switch').isEnabled()).toBe(false)
@@ -43,13 +43,13 @@ it('disables unsupported bundles, shows the Host restriction, and refuses direct
   expect(scaffold.ctx.ptcRuntime.programFormat).toBe('function-body')
   const names = [name]
   await page.locator('[data-plugin-panel]').getByRole('button', { name: '更多', exact: true }).click()
-  const cua = page.locator('[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]')
+  const cua = page.locator('[data-plugin-package="@lyness/lyn-cua-bundle"]')
   const cuaSupported = process.platform === 'darwin' || process.platform === 'win32'
   expect(await cua.count()).toBe(cuaSupported ? 1 : 0)
   if (!cuaSupported) {
-    expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === '@deepseek-ai/dsh-cua-bundle'))
+    expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === '@lyness/lyn-cua-bundle'))
       .toMatchObject({ listedByDefault: false, enabled: false, error: { code: 'unsupported-platform' } })
-    names.push('@deepseek-ai/dsh-cua-bundle')
+    names.push('@lyness/lyn-cua-bundle')
   }
   for (const bundle of names) {
     expect(await scaffold.ctx.pluginManager.setBundleEnabled(bundle, true)).toMatchObject({

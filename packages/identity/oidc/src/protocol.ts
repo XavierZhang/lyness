@@ -10,7 +10,7 @@
  * them itself could point the token exchange at one host and the
  * authorization at another, which is the shape of a code-theft attack.
  *
- * @module @deepseek-ai/dsh-oidc/protocol
+ * @module @lyness/lyn-oidc/protocol
  */
 
 import { createHash, randomBytes } from 'node:crypto'

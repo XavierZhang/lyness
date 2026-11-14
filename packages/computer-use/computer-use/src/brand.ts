@@ -1,6 +1,6 @@
-/** Computer-use provider identities. @module @deepseek-ai/dsh-computer-use/src/brand.ts */
+/** Computer-use provider identities. @module @lyness/lyn-computer-use/src/brand.ts */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Provider-owned name identifying a computer-use registration. */
 export type ComputerUseProviderName = Branded<'ComputerUseProviderName'>

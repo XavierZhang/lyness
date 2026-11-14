@@ -6,17 +6,17 @@ import { join } from 'node:path'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { ReplayOverrideDoc } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { formatSessionReferenceMention } from '@deepseek-ai/dsh-session-reference'
-import { formatQuoteText } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionId } from '@lyness/lyn-session'
+import { formatSessionReferenceMention } from '@lyness/lyn-session-reference'
+import { formatQuoteText } from '@lyness/lyn-client-ui-primitives'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, launchWebScaffold,
   parseSeedFixture, renderSeedFixture, seedSession, selectedSessionFixture, watchConsole, webSnapshotMode,
   type WebScaffold,
 } from './scaffold.ts'
 import { newEnglishPage, pinBrowserClock, pinHostClock, saveFailureShot } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/rich-text-quotes', import.meta.url))
 const BORROWED = fileURLToPath(new URL('../../../snapshots/web/seeded-history/session.jsonl', import.meta.url))
@@ -24,8 +24,8 @@ const UI_EXPECTED = fileURLToPath(new URL('../../../snapshots/web/rich-text-quot
 const MODE = webSnapshotMode()
 const SESSION_ID = 'rich-text-quotes-web-e2e'
 const OTHER_ID = 'rich-text-quotes-other'
-const LEGACY_DRAFT_KEY = `dsh.conversation.${SESSION_ID}`
-const CURRENT_DRAFT_KEY = `dsh.conversation.${SESSION_ID}`
+const LEGACY_DRAFT_KEY = `lyn.conversation.${SESSION_ID}`
+const CURRENT_DRAFT_KEY = `lyn.conversation.${SESSION_ID}`
 const LEGACY_DRAFT = JSON.stringify({ draft: 'Imported plain draft', view: 'chat', viewRequest: null })
 const SOURCE_TEXT = 'Durable source phrase selected from an earlier message and preserved as structured quote metadata.'
 const THINKING_TEXT = 'Settled reasoning source'
@@ -294,7 +294,7 @@ describe.skipIf(MODE === 'record')('web e2e: rich-text quotes', () => {
 
   beforeAll(async () => {
     hostClock = pinHostClock()
-    replayDir = await mkdtemp(join(tmpdir(), 'dsh-rich-text-quotes-replay-'))
+    replayDir = await mkdtemp(join(tmpdir(), 'lyn-rich-text-quotes-replay-'))
     const replayOverride = join(replayDir, 'replay.override.json')
     await writeFile(replayOverride, JSON.stringify(REPLAY))
     scaffold = await launchWebScaffold({

@@ -1,20 +1,20 @@
 /** Account settings registration and reconnecting Remote subscription. */
-import type {} from '@deepseek-ai/dsh-client-product-analytics/client'
-import type { TranscriptViewMode } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-theme/client'
-import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type {} from '@deepseek-ai/dsh-api-remote-access/client'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type { AccountUpdate, AccountDetails } from '@deepseek-ai/dsh-deepseek-account/types'
+import type {} from '@lyness/lyn-client-product-analytics/client'
+import type { TranscriptViewMode } from '@lyness/lyn-client-ui-chat/client'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-theme/client'
+import type {} from '@lyness/lyn-client-ui-chat/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type {} from '@lyness/lyn-api-remote-access/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { AccountUpdate, AccountDetails } from '@lyness/lyn-deepseek-account/types'
 import type { OnboardingChange } from './onboarding-contract.ts'
 import type { PlatformBridge } from './PlatformOverlay.tsx'
 import { ContactConfig, CONTACT_CONFIG_GLOBAL } from '../contact-config.ts'
-import z from '@deepseek-ai/schemastery'
+import z from '@lyness/schemastery'
 import { SignInGate, type SignInGateInjected } from './SignInGate.tsx'
 import { contactUrl } from './contact-url.ts'
 import { authorizeUrlWithTheme } from './authorize-url.ts'
@@ -39,7 +39,7 @@ export type { AccountSnapshot } from './AccountSection.tsx'
 export type { AccountKey } from './locales.ts'
 export type { AccountUi, AccountUiState, AccountNotificationsOwnerProps } from './account-ui.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.account': AccountKey }
 }
 
@@ -70,7 +70,7 @@ export const Config: z<Config> = z.object({
  * @param pluginConfig - the deployment's sign-in requirement.
  */
 export function apply(ctx: Context, pluginConfig: Config): void {
-  const desktop = 'dshDesktop' in globalThis
+  const desktop = 'lynDesktop' in globalThis
   ctx.effect(() => ctx.locale.register('settings.account', { en, zh, ja, es, fr, de, ru, pt }), 'account: dictionaries')
   const t = ctx.locale.bind('settings.account')
   const page = globalThis as Partial<Record<typeof CONTACT_CONFIG_GLOBAL, unknown>>
@@ -86,7 +86,7 @@ export function apply(ctx: Context, pluginConfig: Config): void {
   const avatar = new AccountAvatarLoader((value) => { publish({ ...snapshot, avatar: value }) })
   ctx.effect(() => () => { avatar.dispose() }, 'account: profile picture lifetime')
   /** @param locale - requested language. @returns client metadata with the current timezone. */
-  const client = (locale: string) => accountClientMetadata(locale, process.env.DSH_CLIENT_VERSION)
+  const client = (locale: string) => accountClientMetadata(locale, process.env.LYNESS_CLIENT_VERSION)
   ctx.provide('accountUi', { getSnapshot: () => snapshot, clientMetadata: client })
   let revision = 0
   let refreshing: Promise<void> | undefined
@@ -179,7 +179,7 @@ export function apply(ctx: Context, pluginConfig: Config): void {
       }
     })
   })
-  const nativePlatform = (globalThis as typeof globalThis & { dshPlatform?: PlatformBridge }).dshPlatform
+  const nativePlatform = (globalThis as typeof globalThis & { lynPlatform?: PlatformBridge }).lynPlatform
   // One request channel for the single native Platform view. It always exists
   // so every entry can observe whether a page is showing; only a native bridge
   // lets an entry request one.
@@ -216,15 +216,15 @@ export function apply(ctx: Context, pluginConfig: Config): void {
       const profile = snapshot.details?.profile
       const context = {
         uid: profile?.status === 'ready' ? profile.value.id : null,
-        version: process.env.DSH_CLIENT_VERSION,
+        version: process.env.LYNESS_CLIENT_VERSION,
         width: window.screen.width, height: window.screen.height, pixelRatio: window.devicePixelRatio,
       }
       const openForm = (deviceInfo: string): void => {
         window.open(contactUrl(config, { ...context, deviceInfo }), '_blank', 'noopener,noreferrer')
       }
       const readDeviceInfo = (globalThis as typeof globalThis & {
-        dshDesktop?: { deviceInfo?: () => Promise<string> }
-      }).dshDesktop?.deviceInfo
+        lynDesktop?: { deviceInfo?: () => Promise<string> }
+      }).lynDesktop?.deviceInfo
       if (readDeviceInfo === undefined) {
         // A plain browser, or a Desktop bridge without the optional reader, reports the renderer user agent.
         openForm(navigator.userAgent)
@@ -254,8 +254,8 @@ export function apply(ctx: Context, pluginConfig: Config): void {
     async start() {
       publish({ ...snapshot, loginVisible: true, loginFailed: false })
       const transport = (globalThis as typeof globalThis & {
-        __DSH_TRANSPORT__?: { streamBaseUrl?: string }
-      }).__DSH_TRANSPORT__
+        __LYNESS_TRANSPORT__?: { streamBaseUrl?: string }
+      }).__LYNESS_TRANSPORT__
       const request = async () => {
         const result = await ctx.remote.account.startSignIn(client(ctx.locale.getSnapshot().active),
           desktop && transport?.streamBaseUrl !== undefined ? new URL(transport.streamBaseUrl).origin : window.location.origin,

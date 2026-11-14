@@ -44,8 +44,8 @@ it('keeps ordered legacy Session menu rows before Archive and removes them with 
     await row.waitFor({ timeout: 20_000 })
     // Static library styles follow their module dependencies: dockkit imports primitives, so primitives install first.
     const styleOwners = await page.evaluate(() => [...document.head.querySelectorAll('style[data-plugin]')].map(style => style.getAttribute('data-plugin')))
-    const primitives = styleOwners.flatMap((owner, index) => owner === '@deepseek-ai/dsh-client-ui-primitives' ? [index] : [])
-    const dockkit = styleOwners.indexOf('@deepseek-ai/dsh-client-ui-dockkit')
+    const primitives = styleOwners.flatMap((owner, index) => owner === '@lyness/lyn-client-ui-primitives' ? [index] : [])
+    const dockkit = styleOwners.indexOf('@lyness/lyn-client-ui-dockkit')
     expect(primitives.length).toBeGreaterThan(0)
     expect(dockkit).toBeGreaterThan(Math.max(...primitives))
     const trigger = row.getByRole('button', { name: `Session actions for ${SESSION_TITLE}` })
@@ -252,7 +252,7 @@ it('synchronizes two pages, disposes effects and restores an offline page from t
       liveDisposals: document.documentElement.dataset.liveDisposals,
       liveHits: document.documentElement.dataset.liveHits,
     }))
-    const ping = (target: Page) => target.evaluate(() => { window.dispatchEvent(new Event('dsh-fixture-ping')) })
+    const ping = (target: Page) => target.evaluate(() => { window.dispatchEvent(new Event('lyn-fixture-ping')) })
     expect(await live(page).count()).toBe(0)
     expect(scaffold.ctx.clientModules.graph().entries.some(row => row.id === '@fixture/live-client')).toBe(false)
 
@@ -289,7 +289,7 @@ it('synchronizes two pages, disposes effects and restores an offline page from t
     await otherContext.setOffline(true)
     // Chromium offline emulation leaves established SSE sockets open. Cycling this
     // fixture's transport plugin closes them without replacing the Host or profile.
-    const transport = [...scaffold.ctx.loader.entries()].find(entry => entry.options.name === '@deepseek-ai/dsh-client-hmr')!.fiber!
+    const transport = [...scaffold.ctx.loader.entries()].find(entry => entry.options.name === '@lyness/lyn-client-hmr')!.fiber!
     const reconnected = page.waitForResponse(response => response.url().includes('/plugins/events') && response.status() === 200)
     await transport.restart()
     await disconnected
@@ -336,7 +336,7 @@ it('keeps a failed client download local and retries without changing Host enabl
 }, 90_000)
 
 it('recovers an uncreated client entry with rebuilt factory code without navigation', async () => {
-  const fixture = await mkdtemp(join(tmpdir(), 'dsh-client-rebuild-'))
+  const fixture = await mkdtemp(join(tmpdir(), 'lyn-client-rebuild-'))
   // Finished hooks unwind in reverse order, so the Host closes before its fixture is removed.
   onTestFinished(() => rm(fixture, { recursive: true, force: true }))
   await cp(FIXTURE, fixture, { recursive: true })
@@ -392,11 +392,11 @@ it('reports bootstrap rebuilds without remounting the settings page or navigatin
     const originalInput = await draft.elementHandle()
     let navigations = 0
     page.on('framenavigated', () => { navigations++ })
-    const clientPath = scaffold.ctx.clientModules.clientPath('@deepseek-ai/dsh-client-modules')!
+    const clientPath = scaffold.ctx.clientModules.clientPath('@lyness/lyn-client-modules')!
     const originalStat = await stat(clientPath)
     onTestFinished(() => utimes(clientPath, originalStat.atime, originalStat.mtime))
     await utimes(clientPath, originalStat.atime, new Date(originalStat.mtimeMs + 1_000))
-    scaffold.ctx.clientModules.rebuilt('@deepseek-ai/dsh-client-modules')
+    scaffold.ctx.clientModules.rebuilt('@lyness/lyn-client-modules')
     const failure = page.locator('[data-client-sync-failure]')
     await failure.getByText(/replacing bootstrap module .* requires a page reload/).waitFor()
     await failure.getByRole('button', { name: '重试本页面同步' }).click()
@@ -434,7 +434,7 @@ it('removes the client UI and resources while Host cleanup is still pending', as
     await expect.poll(() => live.count()).toBe(0)
     await expect.poll(() => page.evaluate(() => document.documentElement.dataset.liveDisposals)).toBe('1')
     expect(await page.locator('style[data-plugin="@fixture/live-client"]').count()).toBe(0)
-    await page.evaluate(() => { window.dispatchEvent(new Event('dsh-fixture-ping')) })
+    await page.evaluate(() => { window.dispatchEvent(new Event('lyn-fixture-ping')) })
     expect(await page.evaluate(() => document.documentElement.dataset.liveHits)).toBeUndefined()
     expect(hostDisposed).toBe(false)
     expect(scaffold.ctx.loader.ctx.fiber.uid).toBe(host)

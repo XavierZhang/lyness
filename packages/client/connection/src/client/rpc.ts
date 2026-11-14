@@ -1,6 +1,6 @@
 /** Browser caller for generic Connection unary RPC channels. */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import type { ClientRequest, RpcId as RpcIdType } from '../rpc.ts'
 import type { ClientConnectionRpc, ConnectionRpcResult } from '../rpc.ts'
 import { randomUuid } from './random-uuid.ts'

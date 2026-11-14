@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom'
 import {
   Button, IconWarningOutlineRegular, MenuSurface, Tag,
   isBehindModal, observeComposition, useDismissOnOutsidePointer, usePointerGrace,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type { ApprovalCardInput } from './contract/slots.ts'
 import css from './ApprovalPanel.module.css'
 
@@ -21,7 +21,7 @@ export function ApprovalWarning({ warning }: {
   const panel = useRef<HTMLDivElement>(null)
   const id = useId()
   const titleId = useId()
-  const anchorName = `--dsh-approval-warning-${id.replaceAll(':', '')}`
+  const anchorName = `--lyn-approval-warning-${id.replaceAll(':', '')}`
   useDismissOnOutsidePointer(anchor, open, setOpen, panel)
   const { arm: armClose, cancel: cancelClose } = usePointerGrace(() => {
     if (anchor.current?.matches(':focus-visible')

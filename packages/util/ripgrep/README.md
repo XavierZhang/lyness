@@ -3,7 +3,7 @@ description: "Run the packaged ripgrep binary through the composed subprocess pr
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-util-ripgrep
+# @lyness/lyn-util-ripgrep
 
 English | [中文](README.zh.md)
 

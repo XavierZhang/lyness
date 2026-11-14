@@ -4,7 +4,7 @@
  * mounted when one arrives.
  */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { expect, it, onTestFinished } from 'vitest'
 import { CONTRIBUTION_ORDERS, isContributionId, mergeContributions } from '../src/contribution.ts'
 import type { ContributionId, PresetContribution } from '../src/contribution.ts'
@@ -126,9 +126,9 @@ it('drops a contribution whose plugin the preset already carries', () => {
   // The deliverables module contributes `present` while the official modes
   // declare it; a view extending one of those modes inherits that row, and
   // mounting both would register one tool name twice.
-  const declared = [{ id: 'present', name: '@deepseek-ai/dsh-tool-present' }]
+  const declared = [{ id: 'present', name: '@lyness/lyn-tool-present' }]
   const merged = mergeContributions(declared, [
-    { id: 'module-deliverables-tool', module: 'module-deliverables', row: { name: '@deepseek-ai/dsh-tool-present' } },
+    { id: 'module-deliverables-tool', module: 'module-deliverables', row: { name: '@lyness/lyn-tool-present' } },
     contributed('module-memory-tools', 'module-memory', 'memory'),
   ])
   expect(merged.map(row => row.id)).toEqual(['present', 'module-memory-tools'])

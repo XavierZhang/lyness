@@ -1,6 +1,6 @@
 import { executeTool } from './execute-tool.ts'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { ToolCallId } from '@lyness/lyn-llm'
 import { Checkpoint } from '../src/checkpoint.ts'
 import { taskId, treeSchema } from '../src/records.ts'
 import { setup } from './fixture.ts'

@@ -3,10 +3,10 @@ import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promis
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import { brandString } from '@lyness/lyn-brand'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-agent-preset-registry'
 import { chromium, type Browser } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished, vi } from 'vitest'
 import { captureStableAria, compareOrRefreshGolden, launchWebScaffold, webSnapshotMode, watchConsole, type WebScaffold } from './scaffold.ts'
@@ -18,7 +18,7 @@ const expected = fileURLToPath(new URL('./expected/cua-permissions/missing.expec
 
 // System-permission onboarding belongs to the macOS-only bundle; rendering and policy units remain portable.
 it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fresh observation and persists application revocation', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-permissions-web-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-permissions-web-'))
   const resources: { scaffold?: WebScaffold; browser?: Browser; closeFixture?: () => Promise<void> } = {}
   onTestFinished(async () => {
     try { await resources.browser?.close() } finally {
@@ -30,7 +30,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   const helper = await installNativeFixture(root)
   resources.closeFixture = await startFixtureHost(helper)
   const state = join(root, 'permissions.json'), audit = join(root, 'helper-events.jsonl')
-  const launchApplication = { name: 'DSH Computer Use.app', path: '/Applications/DSH Computer Use.app',
+  const launchApplication = { name: 'LYN Computer Use.app', path: '/Applications/LYN Computer Use.app',
     icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAADElEQVQImWNgZGIGAAAOAAeCcsnOAAAAAElFTkSuQmCC' }
   await writeFile(state, JSON.stringify({ platform: 'darwin' as const, accessibility: false, screenRecording: false, launchApplication }))
   await writeFile(join(root, 'observe-helper'), '')
@@ -42,7 +42,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
     extraOverlayPath: fixturePatch,
   })
   resources.scaffold = scaffold
-  expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === '@deepseek-ai/dsh-cua-bundle'))
+  expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === '@lyness/lyn-cua-bundle'))
     .toMatchObject({ availability: 'installation', enabled: true, installed: true })
   const browser = await chromium.launch()
   resources.browser = browser
@@ -148,7 +148,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   expect((await grant).results).toMatchObject([{ result: { isError: false } }])
   await approval.waitFor({ state: 'hidden' })
   await page.getByRole('button', { name: 'Plugins', exact: true }).click()
-  const card = page.locator('[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]')
+  const card = page.locator('[data-plugin-package="@lyness/lyn-cua-bundle"]')
   expect(await card.getByRole('button', { name: /Accessibility permission|Screen Recording permission/ }).count()).toBe(0)
   await page.setViewportSize({ width: 1680, height: 600 })
   const plugins = page.locator('[data-plugin-panel]')
@@ -163,10 +163,10 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   expect(await panel.getByRole('region', { name: 'Manage applications computer use can access', exact: true }).count()).toBe(1)
   await expect.poll(() => panel.locator('li img').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(1)
   expect(await panel.getByText('/fixture/app', { exact: true }).count()).toBe(0)
-  expect(await accessibility.getByText('DSH Computer Use.app', { exact: true }).count()).toBe(1)
+  expect(await accessibility.getByText('LYN Computer Use.app', { exact: true }).count()).toBe(1)
   expect(await accessibility.textContent()).toContain('In System Settings, allow')
   expect(await accessibility.textContent()).toContain('to read interface controls, click, and type.')
-  expect(await panel.getByRole('group', { name: 'Screen Recording', exact: true }).getByText('DSH Computer Use.app', { exact: true }).count()).toBe(1)
+  expect(await panel.getByRole('group', { name: 'Screen Recording', exact: true }).getByText('LYN Computer Use.app', { exact: true }).count()).toBe(1)
   await expect.poll(() => accessibility.locator('img').evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(1)
   await expect.poll(() => panel.getAttribute('aria-busy')).toBe('false')
   await compareOrRefreshGolden(expected, await captureStableAria(page, '[data-cua-settings]', scaffold.workspaceCwd), webSnapshotMode())
@@ -218,7 +218,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   await panel.getByText('Fixture', { exact: true }).waitFor({ state: 'hidden' })
   const saved = await readFile(join(scaffold.harnessHome, 'profiles/scaffold/cordis.patch.yml'), 'utf8')
   expect(saved).not.toContain('allowedApps:')
-  const files = await readdir(join(scaffold.workspaceCwd, '.dsh-storages'))
+  const files = await readdir(join(scaffold.workspaceCwd, '.lyn-storages'))
   expect(files.some(file => file.startsWith('cua_permissions_') && file.endsWith('.json'))).toBe(true)
   expect((await scaffold.ctx.cuaAccess.applications()).allowedApps).toEqual([])
   const events = (await readFile(audit, 'utf8')).trim().split('\n').map(line => JSON.parse(line) as { event: string; method: string; params: object })
@@ -275,7 +275,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
       for (let cycle = 0; cycle < 3; cycle++) {
         await toggle.click()
         await expect.poll(async () => (await scaffold.ctx.pluginManager.listBundles())
-          .find(bundle => bundle.name === '@deepseek-ai/dsh-cua-bundle'))
+          .find(bundle => bundle.name === '@lyness/lyn-cua-bundle'))
           .toMatchObject({ enabled: false, installed: true })
         await expect.poll(() => toggle.getAttribute('aria-checked'), { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toBe('false')
         await expect.poll(() => toggle.isEnabled(), { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toBe(true)

@@ -6,9 +6,9 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, webkit, type Browser, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { BlockAssembler, createUserMessage, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import { credentialRef } from '@deepseek-ai/dsh-credentials'
-import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { BlockAssembler, createUserMessage, type StreamChunk } from '@lyness/lyn-llm'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import {
   captureStableAria, compareOrRefreshGolden, launchWebScaffold,
   watchConsole, webSnapshotMode, type WebScaffold,

@@ -1,14 +1,14 @@
 /** Turn-node Locations and Assistant timing across partial windows and transient retirement. */
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createAssistantMessage, createToolResultMessage, type LlmAttemptId, type ToolCallId } from '@deepseek-ai/dsh-llm'
-import { AssistantStreamAccumulator } from '@deepseek-ai/dsh-llm/assistant-stream'
-import { SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session/types'
+import { brandString } from '@lyness/lyn-brand'
+import { createAssistantMessage, createToolResultMessage, type LlmAttemptId, type ToolCallId } from '@lyness/lyn-llm'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session/types'
 import type {
   SessionAssistantSettlementEntry, SessionEventLikeEntry, SessionLiveEventEntry, SessionTransientEventEntry,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import { ConversationNodeAssembler } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { ChatSnapshot } from '@deepseek-ai/dsh-client-ui-chat/client'
+} from '@lyness/lyn-api-session-controller/client'
+import { ConversationNodeAssembler } from '@lyness/lyn-client-ui-conversation/client'
+import type { ChatSnapshot } from '@lyness/lyn-client-ui-chat/client'
 import { assistantDefinition } from '../src/client/conversation-nodes/assistant.ts'
 import { chatViewDefinition } from '../src/client/conversation-nodes/chat-snapshot-builder.ts'
 import { turnProcessDefinition } from '../src/client/conversation-nodes/turn-process.ts'

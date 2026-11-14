@@ -1,13 +1,13 @@
 /** Developer field classification matches native admission and metadata preservation. */
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { Session, type SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
-import type { SessionFormatEvent } from '@deepseek-ai/dsh-session-format'
-import { sessionFormatCatalog } from '@deepseek-ai/dsh-session-format-catalog'
+import { Session, type SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import type { SessionFormatEvent } from '@lyness/lyn-session-format'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
 import { canonicalizeSchema, schemaDigest } from './persistence-schema-model.ts'
 import { classifyPersistenceChange, parsePersistenceSnapshot } from './persistence-changes.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 function toolAdditionSchema() {
   const inventory = parsePersistenceSnapshot(readFileSync(new URL('../docs/persistence-schema.json', import.meta.url), 'utf8'))

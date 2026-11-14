@@ -2,7 +2,7 @@
 import { expect, it } from 'vitest'
 import { createScheduleRecord, updateScheduleRecord } from '../src/update.ts'
 import type { ScheduleTiming, ScheduleId } from '../src/types.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const now = Date.parse('2026-09-16T00:00:00.125Z')
 const id = brandString<ScheduleId>('unchanged-identity')

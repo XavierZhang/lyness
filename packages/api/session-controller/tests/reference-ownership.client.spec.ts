@@ -1,18 +1,18 @@
 /** Source-labelled Client references over real history transport and scoped Contexts. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, onTestFinished, vi } from 'vitest'
 import type {
   SessionReference, SessionReferenceSource, SessionRetainInfo,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import { ok, type RemoteMock } from '@deepseek-ai/dsh-remote-mock'
-import { createClientTest, webApp, type TestClient } from '@deepseek-ai/dsh-client-test-runtime/src/assembly/index.ts'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { ok, type RemoteMock } from '@lyness/lyn-remote-mock'
+import { createClientTest, webApp, type TestClient } from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
 import { ClientSessions } from '../src/client/sessions/service.ts'
 import { FOLLOW, followScript, type HistoryAnswer } from './remote/session.client.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
-declare module '@deepseek-ai/dsh-api-session-controller/client' {
+declare module '@lyness/lyn-api-session-controller/client' {
   interface SessionReferenceSourceMap {
     referenceTestView: unknown
     referenceTestWork: unknown
@@ -23,7 +23,7 @@ const viewSource: SessionReferenceSource = 'referenceTestView'
 const workSource: SessionReferenceSource = 'referenceTestWork'
 const ID = brandString<SessionId>('reference-session')
 const EMPTY_HISTORY = ok({ cursor: -1, records: [], hasMore: false })
-const it = createClientTest({ roster: webApp.closure(['@deepseek-ai/dsh-api-gateway']) })
+const it = createClientTest({ roster: webApp.closure(['@lyness/lyn-api-gateway']) })
 
 async function bench(mock: RemoteMock, start: () => Promise<TestClient>, listed = true) {
   const client = await start()

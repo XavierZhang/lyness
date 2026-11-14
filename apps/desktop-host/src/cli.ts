@@ -1,7 +1,7 @@
-/** Public dsh commands using the immutable runtime carried by the Desktop installation. */
+/** Public lyn commands using the immutable runtime carried by the Desktop installation. */
 
 import { basename, delimiter, dirname, join, resolve } from 'node:path'
-import { runCli } from '@deepseek-ai/dsh/lib/bin.js'
+import { runCli } from '@lyness/lyn/lib/bin.js'
 
 /**
  * Locate the archive containing a packaged runtime.
@@ -26,7 +26,7 @@ export async function runDesktopCli(supportDir: string): Promise<void> {
       args: ['--expose-internals', join(supportDir, 'primary-runtime', 'dependencies', 'pnpm', 'bin', 'pnpm.mjs')],
       env: {
         ELECTRON_RUN_AS_NODE: '1',
-        DSH_DESKTOP_NODE_EXECUTABLE: process.execPath,
+        LYNESS_DESKTOP_NODE_EXECUTABLE: process.execPath,
         PATH: `${join(supportDir, 'bin')}${delimiter}${process.env.PATH ?? ''}`,
       },
     },

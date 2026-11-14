@@ -35,7 +35,7 @@ it('persists a Desktop channel from Settings and keeps external edits startup-on
           openUpdateDetails(): Promise<void>
           setChannel(channel: 'nightly' | 'stable'): Promise<DesktopChannelChangeResult>
         }
-        Object.assign(globalThis, { dshDesktop: { protocolVersion: 1, updates: {
+        Object.assign(globalThis, { lynDesktop: { protocolVersion: 1, updates: {
           status: async () => ({ phase: 'idle' }), open: () => bridge.openUpdateDetails(), subscribe: () => () => {},
           channels: { get: () => bridge.readChannel(), set: (channel: 'nightly' | 'stable') => bridge.setChannel(channel),
             subscribe: () => () => {} },

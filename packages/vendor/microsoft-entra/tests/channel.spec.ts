@@ -6,23 +6,23 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
-import SignIn from '@deepseek-ai/dsh-sign-in'
-import RosterAdmission from '@deepseek-ai/dsh-sign-in/admission-roster'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import StoredAuthSessions from '@lyness/lyn-auth-session/store'
+import SignIn from '@lyness/lyn-sign-in'
+import RosterAdmission from '@lyness/lyn-sign-in/admission-roster'
 import * as EntraChannelPlugin from '../src/channel.ts'
 import {
   CHANNEL_ID, DEFAULT_ATTEMPT_TTL_MS, EntraChannel, asExternalSubject, resolveAttemptTtl,
 } from '../src/channel.ts'
 
 const DIRECTORY = 'contoso.onmicrosoft.com'
-const RETURN_TO = 'https://DeepSeek Harness.example/oauth/callback/microsoft-entra'
+const RETURN_TO = 'https://lyness.example/oauth/callback/microsoft-entra'
 
 /**
  * The configuration fields these tests set, as a plain record: the package's
@@ -193,7 +193,7 @@ describe('EntraChannel.complete', () => {
 describe('mounted as a channel', () => {
   it('signs a bound person in through the real sign-in flow', async () => {
     directoryAnswering({ id: '7a1f', displayName: 'Ada Lovelace' })
-    const root = mkdtempSync(join(tmpdir(), 'dsh-entra-channel-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-entra-channel-'))
     const ctx = new Context()
     try {
       await ctx.plugin(Storage)
@@ -222,7 +222,7 @@ describe('mounted as a channel', () => {
 
   it('admits nobody the deployment did not bind', async () => {
     directoryAnswering({ id: 'unknown-person' })
-    const root = mkdtempSync(join(tmpdir(), 'dsh-entra-channel-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-entra-channel-'))
     const ctx = new Context()
     try {
       await ctx.plugin(Storage)

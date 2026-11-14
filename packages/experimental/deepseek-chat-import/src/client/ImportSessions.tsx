@@ -4,12 +4,12 @@ import clsx from 'clsx'
 import {
   Button, fileSizeText, IconChevronDownOutlineRegular, IconFolderCloseRegular, IconUploadOutlineMedium, IconUploadOutlineRegular,
   Modal, Tooltip,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { HocShare, InjectFace, PropsLocale, PropsRenderFactories, PropsRuntime, SlotMap } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
-import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
-import type {} from '@deepseek-ai/dsh-api-remote-access/client'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+} from '@lyness/lyn-client-ui-primitives'
+import type { HocShare, InjectFace, PropsLocale, PropsRenderFactories, PropsRuntime, SlotMap } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-sidebar/client'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
+import type {} from '@lyness/lyn-api-remote-access/client'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type { DeepseekChatImportFailureReason, DeepseekChatImportResult } from '../types.ts'
 import type { UploadProgress } from './upload.ts'
 import css from './ImportSessions.module.css'

@@ -3,8 +3,8 @@
 import { resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import type { DesktopPackageTargetName } from './package-target.ts'
-import { createDesktopCos } from '@deepseek-ai/dsh-desktop-publisher/desktop-cos.ts'
-import { requiredEnvironmentValue, resolveDesktopAutoUpdateEnvironment, resolveDesktopUploadConfig } from '@deepseek-ai/dsh-desktop-publisher/desktop-auto-update-environment.mjs'
+import { createDesktopCos } from '@lyness/lyn-desktop-publisher/desktop-cos.ts'
+import { requiredEnvironmentValue, resolveDesktopAutoUpdateEnvironment, resolveDesktopUploadConfig } from '@lyness/lyn-desktop-publisher/desktop-auto-update-environment.mjs'
 import { desktopTargetPlatform } from './desktop-build-paths.mjs'
 import { loadDesktopPackageEnvironment } from './desktop-package-environment.mjs'
 import { createDesktopUploadPlan, type DesktopUploadPlan } from './desktop-upload-plan.ts'
@@ -43,7 +43,7 @@ export function resolveCredentialUploadEnvironment(
   if (destination.environment !== selected || destination.bucket !== bucket) {
     throw new DesktopUploadUsageError('desktop upload: credential launcher deployment or bucket differs from the packaged release destination')
   }
-  if (injectedEnvironment.DSH_DESKTOP_AUTO_UPDATE_ENV !== selected
+  if (injectedEnvironment.LYNESS_DESKTOP_AUTO_UPDATE_ENV !== selected
     || injectedEnvironment[`${selected === 'test' ? 'DOWNLOAD_TEST' : 'DOWNLOAD_PROD'}_COS_BUCKET`] !== bucket) {
     throw new DesktopUploadUsageError('desktop upload: credential launcher environment differs from its explicit arguments')
   }
@@ -103,7 +103,7 @@ export async function uploadDesktopTarget(args: string[]): Promise<void> {
   try {
     resolveDesktopAutoUpdateEnvironment(environment)
   } catch (error) {
-    throw new DesktopUploadUsageError('DSH_DESKTOP_AUTO_UPDATE_ENV must be "test" or "production".')
+    throw new DesktopUploadUsageError('LYNESS_DESKTOP_AUTO_UPDATE_ENV must be "test" or "production".')
   }
   const recordsRoot = resolve(import.meta.dirname, '../.desktop-build/upload-records')
   if (values['purge-only']) {

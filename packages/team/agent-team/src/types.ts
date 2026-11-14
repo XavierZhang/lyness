@@ -1,8 +1,8 @@
 /** Public Agent Teams identities, durable records, and service request values. */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Identifies the implicit team rooted at one top-level Session. */
 export type TeamId = Branded<'TeamId'>
@@ -101,7 +101,7 @@ export interface TeamProjection {
   readonly failure?: string
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Saved selection and non-deleted task board of the Team rooted at the projected Session. */
     agentTeam: TeamProjection
@@ -126,7 +126,7 @@ export interface TeamMessageSource {
   readonly senderName: string
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'team-message': TeamMessageSource
   }
@@ -171,7 +171,7 @@ export interface UpdateTeamTaskRequest {
   readonly owner?: SessionId
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** User-selected Team mode; child Agents use the selection of their runtime root. */
     'team/mode': { enabled: boolean }

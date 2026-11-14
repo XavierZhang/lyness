@@ -3,7 +3,7 @@ description: "Model selection for the Web GUI: the /model popup and the composer
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-model-selection
+# @lyness/lyn-client-ui-model-selection
 
 English | [中文](README.zh.md)
 
@@ -59,7 +59,7 @@ Catalog availability does not block sending with a saved selection; request exec
 
 ### Selection failures
 
-When another writer owns the Session, model-selection failures tell the user to quit other running DSH instances and retry.
+When another writer owns the Session, model-selection failures tell the user to quit other running LYN instances and retry.
 
 The session-scoped `conversation.input.model.options` list appends root controls below model and reasoning options. Entries call `openPane({ key, title })` to show content registered in the session-scoped keyed `conversation.input.model.pane` slot; the invoking button's `data-model-menu-pane` must match the key. Root and detail entries receive `locked`, `reportFailure(message)`, and `dismiss()`: the lock includes model or effort saves, failures use the menu owner's toast, and dismissal focuses its trigger synchronously before another overlay opens. Contributing plugins own settings and confirmation logic. Root and detail panes share a 240px width within 12px viewport insets; model and effort lists remain content-sized. The menu exposes a detail pane as a group named by `title`; the pane places its own initial focus, and focus otherwise stays on the menu surface. Escape returns focus to the invoking row; Tab closes a detail pane without activating its switch.
 
@@ -88,7 +88,7 @@ Read these pages when the model surface is not enough. They move from the browse
 
 - [ui-commands](../ui-commands/README.md) — the popupSelect shell the `/model` contribution registers into.
 - [ui-conversation](../ui-conversation/README.md) — declares the composer's `conversation.input.model` seat.
-- [dsh-agent-default-model](../../core/agent-default-model/README.md) — the default-model service for sessions that never choose.
+- [lyn-agent-default-model](../../core/agent-default-model/README.md) — the default-model service for sessions that never choose.
 - [Client package map](../README.md) — adjacent browser UI packages.
 
 -----

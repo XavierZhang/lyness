@@ -6,19 +6,19 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { teo } from 'tencentcloud-sdk-nodejs-teo'
-import { readDesktopPublishConfig } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-config.ts'
+import { readDesktopPublishConfig } from '@lyness/lyn-desktop-publisher/desktop-publish-config.ts'
 import { createDesktopUploadPlan } from '../scripts/desktop-upload-plan.ts'
-import { desktopBuildRecordFilename, desktopWebsiteInstallerUrl } from '@deepseek-ai/dsh-desktop-publisher/desktop-auto-update-environment.mjs'
+import { desktopBuildRecordFilename, desktopWebsiteInstallerUrl } from '@lyness/lyn-desktop-publisher/desktop-auto-update-environment.mjs'
 import { dump, load } from 'js-yaml'
 import { expect, it, vi } from 'vitest'
-import { prepareDesktopRollout, rolloutDesktopRelease } from '@deepseek-ai/dsh-desktop-publisher/desktop-rollout.ts'
-import * as cosTransport from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-cos.ts'
-import * as websitePublisher from '@deepseek-ai/dsh-desktop-publisher/publish-website-ci.ts'
-import { prepareDesktopRolloutCi, publishDesktopRolloutCi } from '@deepseek-ai/dsh-desktop-publisher/publish-desktop-rollout-ci.ts'
-import { createDesktopPublicationRecord } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-record.ts'
-import { readRetainedDesktopManifest, type DesktopRetainedManifest } from '@deepseek-ai/dsh-desktop-publisher/desktop-release-store.ts'
-import { resolveRetainedDesktopPublication } from '@deepseek-ai/dsh-desktop-publisher/resolve-retained-desktop-publish-ci.ts'
-import type { DesktopPublishEvent, DesktopRemoteObject, DesktopPublishTransport } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish.ts'
+import { prepareDesktopRollout, rolloutDesktopRelease } from '@lyness/lyn-desktop-publisher/desktop-rollout.ts'
+import * as cosTransport from '@lyness/lyn-desktop-publisher/desktop-publish-cos.ts'
+import * as websitePublisher from '@lyness/lyn-desktop-publisher/publish-website-ci.ts'
+import { prepareDesktopRolloutCi, publishDesktopRolloutCi } from '@lyness/lyn-desktop-publisher/publish-desktop-rollout-ci.ts'
+import { createDesktopPublicationRecord } from '@lyness/lyn-desktop-publisher/desktop-publish-record.ts'
+import { readRetainedDesktopManifest, type DesktopRetainedManifest } from '@lyness/lyn-desktop-publisher/desktop-release-store.ts'
+import { resolveRetainedDesktopPublication } from '@lyness/lyn-desktop-publisher/resolve-retained-desktop-publish-ci.ts'
+import type { DesktopPublishEvent, DesktopRemoteObject, DesktopPublishTransport } from '@lyness/lyn-desktop-publisher/desktop-publish.ts'
 
 const digest = (contents: string) => ({
   size: Buffer.byteLength(contents), sha512: createHash('sha512').update(contents).digest('base64'),
@@ -31,18 +31,18 @@ async function fixture(target: 'mac-arm64' | 'mac-x64' | 'win-x64' = 'mac-arm64'
     const directory = join(root, 'releases', '42', '1')
     await mkdir(directory, { recursive: true })
     const version = '0.2.2-rc.1'
-    const payload = `deepseek-harness-${version}-${target}.${target === 'win-x64' ? 'exe' : 'zip'}`
+    const payload = `lyness-${version}-${target}.${target === 'win-x64' ? 'exe' : 'zip'}`
     const contents = dump({ version, files: [{ url: payload, ...digest('installer') }],
       path: payload, sha512: digest('installer').sha512, releaseDate: '2026-11-04T00:00:00.000Z' })
     const filename = `${channel}${target === 'win-x64' ? '' : '-mac'}.yml`
     const manifest: DesktopRetainedManifest = { schemaVersion: 1, source: {
       repository: 'owner/repo', runId: '42', attempt: '1', commit: 'a'.repeat(40), workflowCommit: 'b'.repeat(40),
-      sourceRef: 'dsh-v0.2.2-rc.1', runnerName: 'runner', target, preset, channel,
+      sourceRef: 'lyn-v0.2.2-rc.1', runnerName: 'runner', target, preset, channel,
       productVersion: version, version, testReleaseId: preset === 'test' ? 'a'.repeat(32) : null, qualification: target === 'win-x64' ? 'signed' : 'notarized',
     }, files: [{ name: filename, ...digest(contents) }, { name: payload, ...digest('installer') }] }
     await writeFile(join(directory, filename), contents)
     await writeFile(join(directory, 'manifest.json'), JSON.stringify(manifest))
-    const environment = { DSH_DESKTOP_AUTO_UPDATE_ENV: preset, DOWNLOAD_PROD_COS_BUCKET: 'bucket-123',
+    const environment = { LYNESS_DESKTOP_AUTO_UPDATE_ENV: preset, DOWNLOAD_PROD_COS_BUCKET: 'bucket-123',
       DOWNLOAD_TEST_ORIGIN: 'https://test.example.com', DOWNLOAD_TEST_COS_BUCKET: 'test-123', DOWNLOAD_TEST_RELEASE_ID: 'a'.repeat(32) }
     const plan = await prepareDesktopRollout(directory, manifest, environment)
     return { root, directory, manifest, plan, filename, environment }
@@ -140,8 +140,8 @@ it('requires initial publication evidence and prepares approval without installe
       bucket: 'bucket-123', origin: 'https://download.deepseek.com', credentialsFile: join(f.root, 'absent-secret'),
       githubApp: { clientId: 'app', privateKeyFile: join(f.root, 'absent-key') },
     }))
-    const route = { ...f.manifest.source, runnerLabel: 'dsh-runner' }
-    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', DSH_PACKAGING_CONFIG_DIR: config,
+    const route = { ...f.manifest.source, runnerLabel: 'lyn-runner' }
+    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', LYNESS_PACKAGING_CONFIG_DIR: config,
       DESKTOP_PUBLISH_ROUTE: JSON.stringify(route), DESKTOP_ROLLOUT_PERCENTAGE: '30', DESKTOP_UPLOAD_WEBSITE: 'false' }
     await expect(prepareDesktopRolloutCi(env)).rejects.toThrow(/initial COS/u)
     const record = await createDesktopPublicationRecord(join(f.root, 'upload-records'), {
@@ -221,8 +221,8 @@ it.each(['apply', 'changed-approval', 'replaced-feed', 'website'] as const)('che
       destination: `bucket-123/${f.plan.upload.publicUrl}nightly`, operation: 'publish', reason: 'fixture',
     })
     await record.record({ type: 'feeds-complete' })
-    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', DSH_PACKAGING_CONFIG_DIR: config,
-      DESKTOP_PUBLISH_ROUTE: JSON.stringify({ ...f.manifest.source, runnerLabel: 'dsh-runner' }),
+    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', LYNESS_PACKAGING_CONFIG_DIR: config,
+      DESKTOP_PUBLISH_ROUTE: JSON.stringify({ ...f.manifest.source, runnerLabel: 'lyn-runner' }),
       DESKTOP_ROLLOUT_PERCENTAGE: scenario === 'website' ? '   ' : '30', DESKTOP_UPLOAD_WEBSITE: scenario === 'website' ? 'true' : 'false',
       GITHUB_OUTPUT: join(f.root, 'output'), GITHUB_STEP_SUMMARY: join(f.root, 'summary') }
     const context = await prepareDesktopRolloutCi(env)
@@ -267,12 +267,12 @@ it.each(['apply', 'changed-approval', 'replaced-feed', 'website'] as const)('che
 it('routes without package binaries only for the explicit metadata-only reader and keeps reviewer checks', async () => {
   const f = await fixture()
   try {
-    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', DSH_PACKAGING_CONFIG_DIR: join(f.root, 'config'),
+    const env = { RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', LYNESS_PACKAGING_CONFIG_DIR: join(f.root, 'config'),
       DESKTOP_PACKAGE_SELECTION: JSON.stringify({ runnerName: 'runner',
         run: { id: 42, run_attempt: 1, head_sha: f.manifest.source.workflowCommit, path: '.github/workflows/macos-package.yml',
           conclusion: 'success', event: 'workflow_dispatch', repository: { full_name: 'owner/repo' } },
-        jobs: [{ name: 'package', runner_name: 'runner', conclusion: 'success', labels: ['self-hosted', 'dsh-runner'] }],
-        routes: { runner: { label: 'dsh-runner', target: 'mac-arm64' } },
+        jobs: [{ name: 'package', runner_name: 'runner', conclusion: 'success', labels: ['self-hosted', 'lyn-runner'] }],
+        routes: { runner: { label: 'lyn-runner', target: 'mac-arm64' } },
       }) }
     const api = async (path: string) => path.includes('/environments/')
       ? { protection_rules: [{ type: 'required_reviewers', reviewers: [{}] }] } : { sha: f.manifest.source.commit }
@@ -305,15 +305,15 @@ it('runs the real route CLI without gh and emits the selected route and preset',
     const selection = { runnerName: 'runner',
       run: { id: 42, run_attempt: 1, head_sha: f.manifest.source.workflowCommit, path: '.github/workflows/macos-package.yml',
         conclusion: 'success', event: 'workflow_dispatch', repository: { full_name: 'owner/repo' } },
-      jobs: [{ name: 'package', runner_name: 'runner', conclusion: 'success', labels: ['self-hosted', 'dsh-runner'] }],
-      routes: { runner: { label: 'dsh-runner', target: 'mac-arm64' } },
+      jobs: [{ name: 'package', runner_name: 'runner', conclusion: 'success', labels: ['self-hosted', 'lyn-runner'] }],
+      routes: { runner: { label: 'lyn-runner', target: 'mac-arm64' } },
     }
     const result = await promisify(execFile)(process.execPath,
       ['--import', 'tsx/esm', 'apps/desktop-publisher/src/publish-desktop-rollout-ci.ts', 'route'], {
         timeout: 30_000, env: {
           ...Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toLowerCase() !== 'path')), PATH: '',
           GH_TOKEN: 'fixture-token', GITHUB_API_URL: `http://127.0.0.1:${address.port}`, GITHUB_OUTPUT: output,
-          RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', DSH_PACKAGING_CONFIG_DIR: join(f.root, 'config'),
+          RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', LYNESS_PACKAGING_CONFIG_DIR: join(f.root, 'config'),
           DESKTOP_PACKAGE_SELECTION: JSON.stringify(selection),
         },
       })
@@ -339,7 +339,7 @@ it('runs the real route CLI without gh and emits the selected route and preset',
 it.each(['mac-arm64', 'win-x64'] as const)('accepts %s metadata produced by the original full upload planner', async (target) => {
   const f = await fixture(target)
   try {
-    const base = `deepseek-harness-${f.manifest.source.version}-${target}`
+    const base = `lyness-${f.manifest.source.version}-${target}`
     const extension = target === 'win-x64' ? 'exe' : 'zip'
     await writeFile(join(f.directory, `${base}.${extension}`), 'installer')
     await writeFile(join(f.directory, `${base}.${extension}.blockmap`), 'blockmap')
@@ -392,7 +392,7 @@ it.each(['missing-yaml', 'wrong-approval', 'not-uploaded', 'wrong-zone', 'not-se
       vi.spyOn(process.stdout, 'write').mockReturnValue(true)
       const execution = publishDesktopRolloutCi('website-purge', {
         RUNNER_NAME: 'runner', GITHUB_REPOSITORY: 'owner/repo', GITHUB_RUN_ID: '99', GITHUB_RUN_ATTEMPT: '2',
-        DSH_PACKAGING_CONFIG_DIR: config, DESKTOP_PUBLISH_ROUTE: JSON.stringify({ ...f.manifest.source, runnerLabel: 'dsh-runner' }),
+        LYNESS_PACKAGING_CONFIG_DIR: config, DESKTOP_PUBLISH_ROUTE: JSON.stringify({ ...f.manifest.source, runnerLabel: 'lyn-runner' }),
         DESKTOP_UPLOAD_WEBSITE: scenario === 'not-selected' ? 'false' : 'true',
         DESKTOP_WEBSITE_APPROVAL: scenario === 'wrong-approval' ? 'changed' : approval,
       })
@@ -432,6 +432,6 @@ it('executes the master guard and keeps all rollout preflights ahead of dependen
     if (name === 'route') continue
     const local = job.steps.findIndex(step => step.run?.includes('preflight-desktop-publish-local.mjs'))
     expect(local).toBeGreaterThanOrEqual(0)
-    expect(local).toBeLessThan(job.steps.findIndex(step => step.run === 'pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts'))
+    expect(local).toBeLessThan(job.steps.findIndex(step => step.run === 'pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts'))
   }
 })

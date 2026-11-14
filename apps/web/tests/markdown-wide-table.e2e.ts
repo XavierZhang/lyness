@@ -22,13 +22,13 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium, webkit } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed, onTestFinished } from 'vitest'
-import { createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   type SessionId,
-} from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-title'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   compareOrRefreshGolden,
@@ -39,7 +39,7 @@ import {
   type WebScaffold,
 } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('./expected/markdown-wide-table', import.meta.url))
 const GEOMETRY_EXPECTED = fileURLToPath(
@@ -75,7 +75,7 @@ const WIDTHS = [1680, 1100, 640]
 /** A sentence long enough that three of them cannot sit unwrapped in the 748px column. */
 const SENTENCE = 'This cell carries one full sentence so the unwrapped table is far wider than the message column.'
 /** Unbroken path-like token (no scheme, so GFM does not autolink it and no anchor joins the tab order). */
-const LONG_TOKEN = 'workspace/DeepSeek Harness/packages/client/ui-primitives/src/markdown/render.tsx/'.repeat(3)
+const LONG_TOKEN = 'workspace/lyness/packages/client/ui-primitives/src/markdown/render.tsx/'.repeat(3)
 const CJK_SENTENCE = '这个单元格包含一段较长的中文说明，用来验证长内容在窄列宽下按最小可读宽度换行而不是把列压缩到无法阅读。'
 
 /** The assistant markdown includes fitting and overflowing wide tables. */
@@ -222,7 +222,7 @@ async function awaitTableLayout(target: Page): Promise<void> {
       && element.getAnimations().every(animation =>
         animation.playState === 'finished' || animation.playState === 'idle')
       && root !== null
-      && root.style.getPropertyValue('--dsh-conversation-column-width') === `${String(root.offsetWidth)}px`
+      && root.style.getPropertyValue('--lyn-conversation-column-width') === `${String(root.offsetWidth)}px`
   }, undefined, { timeout: 10_000 })
 }
 

@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { AuditEntryView } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
+import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { HistoryActions } from '../src/client/binding.ts'
 import type { HistoryOperations } from '../src/client/operations.ts'

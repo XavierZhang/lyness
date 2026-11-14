@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
+import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { allowAllAccess, makeTranslate, RemoteError, sessionSnapshot } from '@deepseek-ai/dsh-client-test-runtime'
+import { allowAllAccess, makeTranslate, RemoteError, sessionSnapshot } from '@lyness/lyn-client-test-runtime'
 import type {
   SessionListState, SessionSummary, SessionSnapshot,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SubagentAddress, SubagentCatalogEntry } from '@deepseek-ai/dsh-subagent/client'
-import type { TeamProjection, TeamTaskId, TeamTaskView } from '@deepseek-ai/dsh-agent-team/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SessionStatusSnapshot } from '@deepseek-ai/dsh-client-ui-session-status/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SubagentAddress, SubagentCatalogEntry } from '@lyness/lyn-subagent/client'
+import type { TeamProjection, TeamTaskId, TeamTaskView } from '@lyness/lyn-agent-team/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SessionStatusSnapshot } from '@lyness/lyn-client-ui-session-status/client'
 import {
   SubagentCatalogAction, SubagentHeaderLineage,
   type SubagentCatalogActionProps, type SubagentHeaderLineageProps,
@@ -943,8 +943,8 @@ describe('SubagentHeaderLineage', () => {
     expect(menu.style.positionAnchor).toBe(placement)
     expect(menu.style.left).toBe('')
     expect(menu.style.top).toBe('')
-    expect(menu.style.getPropertyValue('--dsh-anchored-max-width')).toBe('')
-    expect(menu.style.getPropertyValue('--dsh-anchored-max-height')).toBe('')
+    expect(menu.style.getPropertyValue('--lyn-anchored-max-width')).toBe('')
+    expect(menu.style.getPropertyValue('--lyn-anchored-max-height')).toBe('')
     expect(listen).not.toHaveBeenCalled()
   })
 

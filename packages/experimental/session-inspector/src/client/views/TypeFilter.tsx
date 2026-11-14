@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { MenuSurface } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import { MenuSurface } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import css from './inspector.module.css'
 
 /** Current confirmed query and an asynchronous candidate source. */
@@ -28,7 +28,7 @@ export function TypeFilter({ value, suggest, apply, t }: InspectorTypeFilterProp
   const input = useRef<HTMLInputElement>(null)
   const id = useId()
   const listId = `${id}-types`
-  const anchorName = `--dsh-type-filter-${id.replaceAll(':', '')}`
+  const anchorName = `--lyn-type-filter-${id.replaceAll(':', '')}`
   const close = useCallback((restoreFocus: boolean) => {
     setOpen(false)
     if (restoreFocus) anchor.current?.focus({ preventScroll: true })

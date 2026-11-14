@@ -1,9 +1,9 @@
 /** Atomic composer quote node and whole-node removal command. */
 
 import type { JSX } from 'react'
-import { QuotePreview } from '@deepseek-ai/dsh-client-ui-primitives'
-import { formatQuoteText } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { QuoteSummary } from '@deepseek-ai/dsh-client-ui-primitives'
+import { QuotePreview } from '@lyness/lyn-client-ui-primitives'
+import { formatQuoteText } from '@lyness/lyn-client-ui-primitives'
+import type { QuoteSummary } from '@lyness/lyn-client-ui-primitives'
 import type {
   EditorConfig, LexicalEditor, LexicalNode, NodeKey, SerializedLexicalNode, Spread,
 } from 'lexical'

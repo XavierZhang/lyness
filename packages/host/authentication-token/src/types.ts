@@ -1,5 +1,5 @@
 /** Internal HTTP facts consumed by the default token and cookie implementation. */
-import type { ConnectionTrustRequest } from '@deepseek-ai/dsh-client-connection'
+import type { ConnectionTrustRequest } from '@lyness/lyn-client-connection'
 
 /** Request metadata accepted by the token exchange. */
 export interface ConnectionIndexRequest extends ConnectionTrustRequest {

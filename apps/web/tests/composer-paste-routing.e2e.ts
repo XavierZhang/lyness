@@ -5,10 +5,10 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { prepareSessionSnapshotFixtureForComparison } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-subagent'
+import { prepareSessionSnapshotFixtureForComparison } from '@lyness/lyn-llm-replay'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-subagent'
 import { launchWebScaffold, selectedSessionFixture, webSnapshotMode, type WebScaffold } from './scaffold.ts'
 import { connectFreshWorkspace, newEnglishPage, openSettings, saveFailureShot } from './support.ts'
 
@@ -76,7 +76,7 @@ describe('web e2e: composer paste routing', () => {
     if (webSnapshotMode() === 'record') throw new Error('composer paste routing is a keyless assembled scenario')
     const selectedBaseFixture = await selectedSessionFixture(BASE_FIXTURE)
     const baseFixture = prepareSessionSnapshotFixtureForComparison(await readFile(selectedBaseFixture, 'utf8'))
-    sidecarRoot = await mkdtemp(join(tmpdir(), 'dsh-web-paste-'))
+    sidecarRoot = await mkdtemp(join(tmpdir(), 'lyn-web-paste-'))
     const childFixturePath = join(sidecarRoot, 'child.jsonl')
     await writeFile(childFixturePath, childFixture(baseFixture, 'recorded-subagent'))
     scaffold = await launchWebScaffold({

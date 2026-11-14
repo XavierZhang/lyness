@@ -8,9 +8,9 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { ReplayEntry, ReplayOverrideDoc } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionId, SessionEvent } from '@deepseek-ai/dsh-session'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionId, SessionEvent } from '@lyness/lyn-session'
 import { createChatScrollFixture } from './chat-scroll-fixture.ts'
 import {
   launchWebScaffold,
@@ -20,7 +20,7 @@ import {
   type WebScaffold,
 } from './scaffold.ts'
 import { conversationContextKey, expandOwningTurnProcess, loadEarlierChatPage, newEnglishPage, saveFailureShot } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const MODE = webSnapshotMode()
 const SESSION_ID = 'chat-long-interactions-e2e'
@@ -141,7 +141,7 @@ describe('web e2e: long Chat interaction contract', () => {
   let tripwire: ReturnType<typeof watchConsole>
 
   beforeAll(async () => {
-    replayDir = await mkdtemp(join(tmpdir(), 'dsh-chat-interaction-replay-'))
+    replayDir = await mkdtemp(join(tmpdir(), 'lyn-chat-interaction-replay-'))
     const replayOverride = join(replayDir, 'replay.override.json')
     const replay: ReplayOverrideDoc = [replayEntry(continuationChunks())]
     await writeFile(replayOverride, JSON.stringify(replay))

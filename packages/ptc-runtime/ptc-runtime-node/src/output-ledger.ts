@@ -1,5 +1,5 @@
 /** Combined byte accounting for retained program output. */
-import type { PtcOutput, PtcJsonValue, PtcRunFailure, PtcRunResult } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcOutput, PtcJsonValue, PtcRunFailure, PtcRunResult } from '@lyness/lyn-ptc-runtime'
 import { jsonStringBytesUpTo, jsonValueBytesUpTo, truncateJsonStringBytes } from './output-json.ts'
 
 /** Measure a text entry or an image descriptor against the remaining JSON-byte budget. */

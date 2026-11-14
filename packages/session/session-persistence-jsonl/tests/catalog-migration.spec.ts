@@ -1,7 +1,7 @@
-import { Context } from '@deepseek-ai/cordis'
-import type { SessionId, SessionHeader } from '@deepseek-ai/dsh-session'
-import { SessionFormatUnsupportedError, SessionPersistenceCorruptionError } from '@deepseek-ai/dsh-session-persistence'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import type { SessionId, SessionHeader } from '@lyness/lyn-session'
+import { SessionFormatUnsupportedError, SessionPersistenceCorruptionError } from '@lyness/lyn-session-persistence'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path'
 import { generationLogPath } from '../src/format.ts'
 import { prepareCatalogFacts } from '../src/catalog-migration.ts'
 import { compressZstdFrame } from '../src/zstd.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const roots: string[] = []
 const contexts: Context[] = []
@@ -22,7 +22,7 @@ afterEach(async () => {
 
 describe.each(['none', 'zstd'] as const)('historical catalog publication (%s)', (compression) => {
   async function fixture() {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-catalog-migration-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-catalog-migration-'))
     roots.push(root)
     const ctx = new Context()
     contexts.push(ctx)
@@ -378,7 +378,7 @@ describe.each(['none', 'zstd'] as const)('historical catalog publication (%s)', 
   })
 
   it('lists historical headers, prepares read-only membership, and publishes an unchanged-prefix successor', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-catalog-migration-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-catalog-migration-'))
     roots.push(root)
     const parent = brandString<SessionId>('parent')
     const child = brandString<SessionId>('child')

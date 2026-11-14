@@ -16,11 +16,11 @@ The [Provider decision](2026-11-07-browser-authentication-providers.md) owns the
 
 The Connection plugin provides the independent nested `connection.authentication` Service. A Provider plugin injects both `connection` and `connection.authentication`: the former creates Peers, while the latter owns registration and credential verification. The access path is a real Cordis service, not a getter constructing a temporary registry object.
 
-This complete function-plugin example receives a trusted in-process verifier and principal from its Host. Its `Config.verify` is an illustrative application input, not a new DSH API or a substitute for implementing the credential algorithm.
+This complete function-plugin example receives a trusted in-process verifier and principal from its Host. Its `Config.verify` is an illustrative application input, not a new LYN API or a substitute for implementing the credential algorithm.
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { ConnectionTrustRequest, Principal } from '@deepseek-ai/dsh-client-connection'
+import type { Context } from '@lyness/cordis'
+import type { ConnectionTrustRequest, Principal } from '@lyness/lyn-client-connection'
 
 export const name = 'example-authentication'
 export const inject = ['connection', 'connection.authentication']
@@ -51,8 +51,8 @@ export function apply(ctx: Context, config: Config): void {
 The example below registers ordinary business handlers. The Host supplies `Config.upgrade`, its existing protocol implementation; it is not another framework operation. The HTTP assertion reflects this route's `required` policy, while the shared handler type also supports anonymous routes with no Peer.
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { WebUpgradeRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { Context } from '@lyness/cordis'
+import type { WebUpgradeRoute } from '@lyness/lyn-host-webserver'
 
 export const name = 'example-protected-routes'
 export const inject = ['webServer']
@@ -107,7 +107,7 @@ An upgrade fixes the Peer for that connection. Later HTTP requests authenticate 
 
 WebApp keeps `publicUrl`, `printUrl`, and `openBrowser`; both output flags default true. After Loader settlement and startup audit, it emits `webserver/entry-url` with its WebServer subject, ordinary base URL, and an initially empty `WebEntryUrl[]`. Each entry carries `label`, complete `url`, and boolean `open`.
 
-Token contributes its signed `dsh web` URL without reading WebApp services. A Provider with no user-facing entry contributes nothing; another product can contribute its own label and complete URL. WebApp prints each `label: url` line when enabled, and opens only the first `open: true` entry when browser opening is enabled outside SSH. An empty list causes no output or browser opening. The process credential remains sensitive even though the integration exposes no raw Token getter.
+Token contributes its signed `lyn web` URL without reading WebApp services. A Provider with no user-facing entry contributes nothing; another product can contribute its own label and complete URL. WebApp prints each `label: url` line when enabled, and opens only the first `open: true` entry when browser opening is enabled outside SSH. An empty list causes no output or browser opening. The process credential remains sensitive even though the integration exposes no raw Token getter.
 
 Desktop's parent owns a fresh private credential per Host process and delivers it before ready. The Desktop Provider creates its Peer and registers verification through the same authentication Service. Electron uses its locally assembled `authenticationCookie`; runtime smoke and other parent-process consumers do not attempt a Token exchange using the ordinary ready URL. Renderer startup data and the wire ready message contain no private credential.
 

@@ -1,13 +1,13 @@
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import { Context } from '@deepseek-ai/cordis'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, onTestFinished } from 'vitest'
 import * as HostPlugin from '../src/index.ts'
 import { liveConfig, omitsGeneratedPage } from '../../../settings/settings/tests/live-config.ts'
 import { plainConfig } from '../../../settings/settings/src/schema.ts'
 import {
   DEFAULT_BUSY_ENTER_BEHAVIOR,
-} from '@deepseek-ai/dsh-client-ui-conversation'
+} from '@lyness/lyn-client-ui-conversation'
 
 
 describe('ui-conversation host', () => {

@@ -1,6 +1,6 @@
 .root {
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
@@ -59,7 +59,7 @@
   bottom: 12px;
   left: max(12px, anchor(left));
   right: 12px;
-  position-try-fallbacks: --dsh-types-window, --dsh-types-opposite, --dsh-types-wide-opposite, --dsh-types-tall, --dsh-types-viewport;
+  position-try-fallbacks: --lyn-types-window, --lyn-types-opposite, --lyn-types-wide-opposite, --lyn-types-tall, --lyn-types-viewport;
   align-self: start;
   justify-self: start;
   height: fit-content;
@@ -135,7 +135,7 @@
   .table tr { animation: none; }
 }
 
-@position-try --dsh-types-window {
+@position-try --lyn-types-window {
   position-area: none;
   top: max(12px, calc(anchor(bottom) + 4px));
   bottom: 12px;
@@ -146,14 +146,14 @@
   justify-self: safe end;
 }
 
-@position-try --dsh-types-opposite {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-types-opposite {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 4px));
   align-self: end;
 }
 
-@position-try --dsh-types-wide-opposite {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-types-wide-opposite {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 4px));
   left: 12px;
   right: 12px;
@@ -161,9 +161,9 @@
   justify-self: safe end;
 }
 
-@position-try --dsh-types-tall {
+@position-try --lyn-types-tall {
   position-area: none;
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: 12px;
   left: max(12px, anchor(left));
   right: 12px;
@@ -172,9 +172,9 @@
   justify-self: start;
 }
 
-@position-try --dsh-types-viewport {
+@position-try --lyn-types-viewport {
   position-area: none;
-  inset: max(12px, var(--dsh-frame-overlay-top, 12px)) 12px 12px;
+  inset: max(12px, var(--lyn-frame-overlay-top, 12px)) 12px 12px;
   margin: 0;
   align-self: safe start;
   justify-self: safe end;

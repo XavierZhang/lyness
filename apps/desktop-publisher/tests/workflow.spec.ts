@@ -18,7 +18,7 @@ it('loads every rollout entry from its own installed package and the correct job
     const checkout = job.steps.find(entry => entry.uses?.startsWith('actions/checkout@'))
     const checkoutRoot = resolve(root, checkout?.with?.path ?? '.')
     const install = job.steps.find(entry => entry.run?.includes(' install '))
-    expect(install?.run).toContain('--filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts')
+    expect(install?.run).toContain('--filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts')
     for (const entry of job.steps) {
       if (!entry.run?.startsWith('node --import tsx ')) continue
       const directory = relative(checkoutRoot, resolve(root, entry['working-directory'] ?? '.'))

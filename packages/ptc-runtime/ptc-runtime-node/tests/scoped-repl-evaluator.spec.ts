@@ -215,7 +215,7 @@ describe('environment', () => {
   })
 
   it('resolves relative import() from the working directory at creation, after later calls change directory', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-scoped-repl-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-scoped-repl-'))
     onTestFinished(async () => { await rm(root, { recursive: true, force: true }) })
     await Promise.all([mkdir(join(root, 'first')), mkdir(join(root, 'second'))])
     await writeFile(join(root, 'first', 'dep.mjs'), 'export default "first"')

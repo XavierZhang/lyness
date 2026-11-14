@@ -1,6 +1,6 @@
 # Third-party notices
 
-The scheduler, independent model query, and compact report format are adapted from [kermanx/dsh-progress-check](https://github.com/kermanx/dsh-progress-check/tree/8e6928affbfcc494049159794f604a18abde0200), MIT licensed.
+The scheduler, independent model query, and compact report format are adapted from [kermanx/lyn-progress-check](https://github.com/kermanx/lyn-progress-check/tree/8e6928affbfcc494049159794f604a18abde0200), MIT licensed.
 
 ```text
 MIT License

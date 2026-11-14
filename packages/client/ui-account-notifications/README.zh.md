@@ -3,7 +3,7 @@ description: "展示账号通知并刷新本地化内容。"
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-account-notifications
+# @lyness/lyn-client-ui-account-notifications
 
 [English](README.md) | 中文
 

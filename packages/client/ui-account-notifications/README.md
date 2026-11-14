@@ -3,7 +3,7 @@ description: "Display account notifications and refresh their localized content.
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-account-notifications
+# @lyness/lyn-client-ui-account-notifications
 
 English | [中文](README.zh.md)
 

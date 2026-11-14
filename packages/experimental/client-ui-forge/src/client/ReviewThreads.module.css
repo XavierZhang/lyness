@@ -35,8 +35,8 @@
 .card[data-resolved] {
   /* An elevated surface: the excerpt and the file at that commit scroll inside it, so the thumb takes the l2 pair,
      which inherits down to them (see ui-theme styles/scrollbar.css for the rebinding contract). */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   background: var(--dsw-alias-bg-layer-2);
 }
 

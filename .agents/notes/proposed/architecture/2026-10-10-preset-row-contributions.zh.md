@@ -8,7 +8,7 @@ Status: proposed
 
 [每个默认模块各自是一个出厂 bundle](2026-10-08-default-modules-and-views.zh.md)，正是这一点让平台拥有"单独升级一个模块而不必发布整个产品"的通路。而其中一半的模块无法这样打包。
 
-贡献面向模型的工具的模块，它的行在某个 agent preset 内部。一个 preset 是一个 `@deepseek-ai/dsh-agent-preset` 行，它的 `config.plugins` 持有整份清单，而[补丁替换目标行的整个 `config`](../../../../packages/bundle/web-app/README.zh.md)。所以另一个 bundle 想给 `work` 加一个工具，就得把 `work` 已有的每一行重述一遍。这不是打包，是复制；而这份复制会在 preset 第一次变动时过期。
+贡献面向模型的工具的模块，它的行在某个 agent preset 内部。一个 preset 是一个 `@lyness/lyn-agent-preset` 行，它的 `config.plugins` 持有整份清单，而[补丁替换目标行的整个 `config`](../../../../packages/bundle/web-app/README.zh.md)。所以另一个 bundle 想给 `work` 加一个工具，就得把 `work` 已有的每一行重述一遍。这不是打包，是复制；而这份复制会在 preset 第一次变动时过期。
 
 这个劈分很干净，也很没用。agent 终端、语言服务器、计算机操作、浏览器操作、轮次交付物、运行时自修改，以及持久记忆的写入工具，全都在 preset 面上。其余模块在宿主面，今天就能打成 bundle。十二个里有六个被一个不存在的机制挡住。
 
@@ -26,7 +26,7 @@ Status: proposed
 
 ### 位置来自中央分配
 
-被贡献的行在工具顺序里的位置由中央分配，正如 [`dsh-system-prompt`](../../../../packages/core/system-prompt/README.zh.md) 已经在分配提示词段与运行时上下文的位置那样。到达顺序不得决定它：工具目录的顺序是请求前缀的一部分，所以开着同样模块的两个部署必须产出同样的目录、同样的顺序，否则相同配置会产出不同的缓存。
+被贡献的行在工具顺序里的位置由中央分配，正如 [`lyn-system-prompt`](../../../../packages/core/system-prompt/README.zh.md) 已经在分配提示词段与运行时上下文的位置那样。到达顺序不得决定它：工具目录的顺序是请求前缀的一部分，所以开着同样模块的两个部署必须产出同样的目录、同样的顺序，否则相同配置会产出不同的缓存。
 
 ### 重复 id 在挂载时失败
 

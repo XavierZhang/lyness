@@ -1,13 +1,13 @@
-// Auxiliary-call mechanism adapted from kermanx/dsh-progress-check (MIT).
-import type { Context } from '@deepseek-ai/cordis'
-import { BlockAssembler } from '@deepseek-ai/dsh-llm'
+// Auxiliary-call mechanism adapted from kermanx/lyn-progress-check (MIT).
+import type { Context } from '@lyness/cordis'
+import { BlockAssembler } from '@lyness/lyn-llm'
 import { ZodError } from 'zod'
 import type { Config } from './config.ts'
 import type { IntervalReport, StoredRequest, Summary } from './records.ts'
 import { languageInstruction, outputLanguage } from './policy.ts'
 import { parseSummary, reportStyle } from './prompt.ts'
 
-declare module '@deepseek-ai/dsh-llm/types' {
+declare module '@lyness/lyn-llm/types' {
   interface LlmRequestPurposeMap {
     'timeline-report': true
   }

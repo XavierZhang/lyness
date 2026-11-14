@@ -3,11 +3,11 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AuthorizationService from '@deepseek-ai/dsh-authorization'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
-import { credentialKey } from '@deepseek-ai/dsh-credentials'
-import type { AccountNotificationId } from '@deepseek-ai/dsh-deepseek-account'
+import { Context } from '@lyness/cordis'
+import AuthorizationService from '@lyness/lyn-authorization'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
+import { credentialKey } from '@lyness/lyn-credentials'
+import type { AccountNotificationId } from '@lyness/lyn-deepseek-account'
 import { DeepSeekAccount, type Config } from '../src/index.ts'
 
 const cleanups: Array<() => Promise<unknown>> = []
@@ -17,7 +17,7 @@ afterEach(async () => {
 })
 
 async function fixture(issuer: string, config: Config = {}) {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-account-origin-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-account-origin-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
   const ctx = new Context()
   cleanups.push(() => ctx.fiber.dispose())
@@ -78,7 +78,7 @@ it('keeps private grants and embedded pages on Platform while allowing a notific
   })
   const fetcher = vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
     expect(input).toBe('https://notifications.example/api/v0/users/notifications/list')
-    expect(init?.headers).toMatchObject({ 'x-deployment': 'base', 'x-account': 'account', 'x-dsh-auth-token': 'fixture-token' })
+    expect(init?.headers).toMatchObject({ 'x-deployment': 'base', 'x-account': 'account', 'x-lyn-auth-token': 'fixture-token' })
     return new Response(JSON.stringify({ code: 0, data: { biz_code: 0, biz_data: { notifications: [], next_poll_after: 600 } } }))
   })
   await account.getNotifications({ version: 'test', locale: 'en', timezoneOffsetSeconds: 0 })

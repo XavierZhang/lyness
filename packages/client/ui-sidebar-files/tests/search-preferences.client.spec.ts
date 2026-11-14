@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 /** The workspace search preferences kept in browser storage, read back without trusting what storage holds. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { createSearchPreferenceBook, SEARCH_PREFERENCES_KEY, workspaceKey } from '../src/client/search-preferences.ts'
 import { defaultSearchPreferences } from '../src/client/search-rules.ts'
 

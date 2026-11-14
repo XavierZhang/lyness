@@ -1,5 +1,5 @@
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
 // @vitest-environment jsdom
 /**
  * SlotTestRuntime behavior: root declaration + rendering, session
@@ -9,20 +9,20 @@ import { brandString } from '@deepseek-ai/dsh-brand'
  * stack — this suite is the fixture the migrated feature specs rely on.
  */
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { stubConfigForm } from '../src/config-form.ts'
 import { act, cleanup } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
-import { createSnapshotStore, defineStore } from '@deepseek-ai/dsh-client-store'
-import { createScope, type SessionReference } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceId } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { createSnapshotStore, defineStore } from '@lyness/lyn-client-store'
+import { createScope, type SessionReference } from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   GlobalStandardProps, PropsRenderSlots, SessionStandardProps, SlotRendererHost,
-} from '@deepseek-ai/dsh-client-ui-slots'
-import { SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
+} from '@lyness/lyn-client-ui-slots'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'trt.panel': { kind: 'single'; scope: 'root'; owner: { label?: string } }
     'trt.chat': { kind: 'single'; scope: 'session' }

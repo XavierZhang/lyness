@@ -36,7 +36,7 @@ export function gitFixture(root: string, ...args: string[]): void {
  * @returns the repository root, tracked for {@link removeInventoryRepos}.
  */
 export function createInventoryRepo(baselinePath: string, seed: string): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-inventory-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-inventory-'))
   roots.push(root)
   gitFixture(root, 'init', '--quiet')
   for (const area of ['packages', 'apps', 'scripts', 'website']) {

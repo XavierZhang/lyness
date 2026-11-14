@@ -3,13 +3,13 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, it } from 'vitest'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import WorkingDirectoryService from '@deepseek-ai/dsh-working-directory'
+import AgentRegistry from '@lyness/lyn-agent'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import WorkingDirectoryService from '@lyness/lyn-working-directory'
 import { omitsGeneratedPage } from '../../../settings/settings/tests/live-config.ts'
 import WorktreeService from '../src/index.ts'
 import { UnusedSandbox } from './harness.ts'
@@ -20,7 +20,7 @@ afterEach(async () => {
 })
 
 it('keeps its own instance off the generated Settings pages', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-worktree-settings-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-worktree-settings-'))
   cleanups.push(() => rm(root, { recursive: true, force: true }))
   await omitsGeneratedPage(async (ctx) => {
     await ctx.plugin(SessionProjectionRegistry)

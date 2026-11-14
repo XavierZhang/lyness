@@ -4,11 +4,11 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http'
-import { Context } from '@deepseek-ai/cordis'
-import AuthorizationService from '@deepseek-ai/dsh-authorization'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
-import { credentialKey } from '@deepseek-ai/dsh-credentials'
-import type { AccountNotificationBatch, AccountNotificationId, AccountClientMetadata } from '@deepseek-ai/dsh-deepseek-account'
+import { Context } from '@lyness/cordis'
+import AuthorizationService from '@lyness/lyn-authorization'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
+import { credentialKey } from '@lyness/lyn-credentials'
+import type { AccountNotificationBatch, AccountNotificationId, AccountClientMetadata } from '@lyness/lyn-deepseek-account'
 import { DeepSeekAccount } from '../src/index.ts'
 
 const cleanups: Array<() => Promise<unknown>> = []
@@ -52,7 +52,7 @@ function wire(id: string, fields: Record<string, unknown> = {}) {
 }
 
 async function fixture() {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-bonus-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-bonus-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
   const requests: Recorded[] = []
   let profileId: string | null = USER
@@ -76,7 +76,7 @@ async function fixture() {
   const handle = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     expect(req.headers.authorization).toBeUndefined()
     const body = await requestBody(req)
-    requests.push({ method: req.method, url: req.url, token: req.headers['x-dsh-auth-token'] as string | undefined,
+    requests.push({ method: req.method, url: req.url, token: req.headers['x-lyn-auth-token'] as string | undefined,
       locale: req.headers['x-client-locale'] as string | undefined,
       bundleId: req.headers['x-client-bundle-id'] as string | undefined,
       platform: req.headers['x-client-platform'] as string | undefined,

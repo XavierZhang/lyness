@@ -1,18 +1,18 @@
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import { describe, expect, it, vi } from 'vitest'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import { SessionId } from '@lyness/lyn-session'
 import type {
   ISessions,
   SessionFace,
   SessionReference,
   SessionSnapshot,
-} from '@deepseek-ai/dsh-api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import { createTaskRequester } from '../src/client/actions.ts'
 import type { TaskRequest } from '../src/client/actions.ts'
 import { en } from '../src/client/locales.ts'
 import { reportId, taskId, treeId } from '../src/records.ts'
 import { editRequestSchema, TIMELINE_CHANNEL, TIMELINE_EDIT } from '../src/protocol.ts'
-import type { ConnectionRpcResult } from '@deepseek-ai/dsh-client-connection/client'
+import type { ConnectionRpcResult } from '@lyness/lyn-client-connection/client'
 
 const id = SessionId('timeline-action-test')
 const request: TaskRequest = {
@@ -125,7 +125,7 @@ describe('task controls through normal Session admission', () => {
     try {
       f.edit.mockResolvedValueOnce({ ok: true, value: { action: 'annotate', annotation, context } })
       const error = Object.assign(new Error('Admission declined'), {
-        isDSHRemoteError: true as const,
+        isLYNRemoteError: true as const,
         code: 'session/agent-busy' as const,
         details: { reason: 'Conversation closed' },
       })

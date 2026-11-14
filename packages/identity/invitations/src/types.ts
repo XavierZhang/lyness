@@ -2,11 +2,11 @@
  * Vocabulary of invitations: what an administrator issues, what a deployment
  * stores, and what a surface shows.
  *
- * @module @deepseek-ai/dsh-invitations/types
+ * @module @lyness/lyn-invitations/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import type { Branded } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId, Role } from '@lyness/lyn-people'
 
 /** Opaque identity of one invitation, safe to show and to address. */
 export type InvitationId = Branded<'InvitationId'>

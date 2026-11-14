@@ -9,12 +9,12 @@
  * (`host/viewer-read.ts`) is the only producer, and a client reads the value back from a session
  * list row's projection values.
  *
- * @module @deepseek-ai/dsh-experimental-liveshare/src/fork-lineage
+ * @module @lyness/lyn-experimental-liveshare/src/fork-lineage
  */
 
 // Loads the projection package's type namespace, which the augmentation below merges into; the
 // `/types` outlet it augments is reached through that package, never through its host runtime.
-import type {} from '@deepseek-ai/dsh-session-projection'
+import type {} from '@lyness/lyn-session-projection'
 
 /** Projection key carrying {@link ForkLineage} for one session list row. */
 export const FORK_LINEAGE_KEY = 'forkLineage'
@@ -36,7 +36,7 @@ export interface ForkLineage {
   readonly workspaceReadOnly: boolean
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Branch facts one reader was given for a branch of a shared Session. */
     forkLineage: ForkLineage

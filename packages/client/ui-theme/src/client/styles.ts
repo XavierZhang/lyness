@@ -1,5 +1,5 @@
 /** Theme CSS is compiled into module resources; DPR presentation follows the plugin lifetime. */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import '../styles/base.css'
 import '../styles/corner-shape.css'
 import '../styles/design-platform.css'
@@ -9,7 +9,7 @@ import '../styles/scrollbar.css'
 import '../styles/gradient-shadow-text.css'
 import '../styles/shiki.css'
 
-const HAIRLINE_WIDTH = '--dsh-hairline-width'
+const HAIRLINE_WIDTH = '--lyn-hairline-width'
 
 /**
  * Publish the current document's DPR-aware stroke width for the theme plugin lifetime.

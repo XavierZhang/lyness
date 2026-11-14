@@ -1,11 +1,11 @@
 /** Token plugin owns its HTTP exchange and returns existing Connection Peers. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, expect, it, vi } from 'vitest'
-import { ConnectionAuthentication, type AuthenticationProvider, type HostConnectionHandle, type PeerScope } from '@deepseek-ai/dsh-client-connection'
+import { ConnectionAuthentication, type AuthenticationProvider, type HostConnectionHandle, type PeerScope } from '@lyness/lyn-client-connection'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { once } from 'node:events'
 import { PassThrough } from 'node:stream'
-import type { WebEntryUrl, WebRoute, WebServer } from '@deepseek-ai/dsh-host-webserver'
+import type { WebEntryUrl, WebRoute, WebServer } from '@lyness/lyn-host-webserver'
 import * as Token from '../src/index.ts'
 import { RecordCredentials } from './browser-credentials.ts'
 import { BrowserAuth } from '../src/browser-auth.ts'
@@ -221,7 +221,7 @@ it('contributes its complete login URL only while the provider is mounted', asyn
   const { ctx, fiber, auth } = await mounted()
   const entries: WebEntryUrl[] = []
   ctx.emit('webserver/entry-url', 'https://public.test/ui/', entries)
-  expect(entries).toEqual([{ label: 'dsh web', url: auth.authenticatedUrl('https://public.test/ui/'), open: true }])
+  expect(entries).toEqual([{ label: 'lyn web', url: auth.authenticatedUrl('https://public.test/ui/'), open: true }])
   await fiber.dispose()
   const after: WebEntryUrl[] = []
   ctx.emit('webserver/entry-url', 'https://public.test/ui/', after)

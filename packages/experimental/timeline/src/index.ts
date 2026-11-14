@@ -1,5 +1,5 @@
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-settings'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-settings'
 import { TimelineError } from './error.ts'
 import { Config, liveConfig } from './config.ts'
 import type { PluginConfig } from './config.ts'
@@ -31,7 +31,7 @@ export const inject = [
  */
 export async function apply(ctx: Context, input: PluginConfig): Promise<void> {
   const standalone = [...(ctx.get('loader')?.entries() ?? [])].some(
-    entry => !entry.disabled && entry.options.name.replace(/^cordis:/u, '') === '@magolor/dsh-timeline',
+    entry => !entry.disabled && entry.options.name.replace(/^cordis:/u, '') === '@magolor/lyn-timeline',
   )
   if (standalone) throw new TimelineError('Disable the standalone Timeline plugin before enabling experimental Timeline.', 'TIMELINE_PLUGIN_CONFLICT')
   let browserLanguage: OutputLanguage | undefined

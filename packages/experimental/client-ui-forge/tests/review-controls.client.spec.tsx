@@ -2,9 +2,9 @@
 /** Review controls of the changes view: the lens in both forms, the test file switch, viewed progress, and the commit picker. */
 import { act, cleanup, fireEvent, render, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { ForgeCommitList } from '@deepseek-ai/dsh-experimental-forge/types'
-import { RemoteError, type RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { ForgeCommitList } from '@lyness/lyn-experimental-forge/types'
+import { RemoteError, type RemoteResult } from '@lyness/lyn-typert-protocol'
 import { CommitMenu, commitsLabel, type CommitMenuProps } from '../src/client/CommitMenu.tsx'
 import { en } from '../src/client/locales.ts'
 import { HideTestsSwitch, LensControl, LensMenu, ViewedProgress, type LensProps } from '../src/client/ReviewControls.tsx'

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import type {
   ApprovalRequestId as ApprovalRequestIdType, CordisDynamicPluginId,
 } from '../src/types.ts'
@@ -491,7 +491,7 @@ describe('dynamic runner teardown', () => {
     const receipt = await runner.undefine(AGENT_A, brandString<CordisDynamicPluginId>('dyn-404'))
 
     expect(receipt).toMatchObject({ ok: false, reason: 'plugin-missing' })
-    expect((receipt as { message: string }).message).toContain('lost on DSH restart')
+    expect((receipt as { message: string }).message).toContain('lost on LYN restart')
   })
 
   it('unwinds every host half when the runner itself is disposed', async () => {

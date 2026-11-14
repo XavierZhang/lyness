@@ -5,10 +5,10 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineTool } from '@deepseek-ai/dsh-tools'
-import type { SkillSummary } from '@deepseek-ai/dsh-skill'
+import { Context } from '@lyness/cordis'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineTool } from '@lyness/lyn-tools'
+import type { SkillSummary } from '@lyness/lyn-skill'
 import AgentCapabilitiesController from '../src/index.ts'
 
 const live: Context[] = []

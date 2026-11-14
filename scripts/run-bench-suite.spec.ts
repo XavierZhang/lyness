@@ -16,7 +16,7 @@ const ROOT = '/repo'
 
 afterEach(() => {
   vi.mocked(runPnpmCommand).mockReset()
-  delete process.env.DSH_BENCH_REPORT_PHASE
+  delete process.env.LYNESS_BENCH_REPORT_PHASE
 })
 
 /** The positional benchmark files one recorded invocation ran. */
@@ -52,18 +52,18 @@ describe('the phases', () => {
 
   it('continues the report rather than clearing it, so appended samples survive', () => {
     const phases: (string | undefined)[] = []
-    vi.mocked(runPnpmCommand).mockImplementation(() => { phases.push(process.env.DSH_BENCH_REPORT_PHASE) })
+    vi.mocked(runPnpmCommand).mockImplementation(() => { phases.push(process.env.LYNESS_BENCH_REPORT_PHASE) })
     runBenchSuite(ROOT)
     // Only the first invocation clears; the rendering phase and the appended
     // observational run both continue that same report.
     expect(phases).toEqual(['first', 'last', 'last'])
-    expect(process.env.DSH_BENCH_REPORT_PHASE).toBeUndefined()
+    expect(process.env.LYNESS_BENCH_REPORT_PHASE).toBeUndefined()
   })
 
   it('releases the report phase even when its invocation throws', () => {
     vi.mocked(runPnpmCommand).mockImplementation(() => { throw new Error('vitest failed') })
     expect(() => { runBenchPhase(ROOT, 'first') }).toThrow('vitest failed')
-    expect(process.env.DSH_BENCH_REPORT_PHASE).toBeUndefined()
+    expect(process.env.LYNESS_BENCH_REPORT_PHASE).toBeUndefined()
   })
 })
 

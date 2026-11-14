@@ -3,7 +3,7 @@ description: "Run TypeScript programs in Node processes with optional retained m
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-ptc-runtime-node
+# @lyness/lyn-ptc-runtime-node
 
 English | [中文](README.zh.md)
 
@@ -25,7 +25,7 @@ Execute model-written TypeScript with host-provided async functions. The default
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount this provider in a composition that supplies `fs`, `subprocess`, `sandbox` and `sandboxPolicy`. `dsh-tool-executor-ptc` supplies the calling Session's directory and standing policy; direct runtime consumers resolve those options before execution.
+Mount this provider in a composition that supplies `fs`, `subprocess`, `sandbox` and `sandboxPolicy`. `lyn-tool-executor-ptc` supplies the calling Session's directory and standing policy; direct runtime consumers resolve those options before execution.
 
 Programs display text, objects, and `Image` values through top-level `inspect(...values)`. One call can mix multiple texts and images, including images nested in arrays and objects. `Image.attachmentId` matches the attachment ID in the model's image description. `Image.path` names a stored attachment file readable in the execution environment; `width` and `height` describe that file’s pixels. Image descriptors share the `maxOutputBytes` budget with text.
 
@@ -34,7 +34,7 @@ Programs display text, objects, and `Image` values through top-level `inspect(..
 Configure the provider row after its required services are available:
 
 ```yaml
-- name: '@deepseek-ai/dsh-ptc-runtime-node'
+- name: '@lyness/lyn-ptc-runtime-node'
   config:
     executionMode: per-call
     timeoutMs: 120000
@@ -62,9 +62,9 @@ Configure the provider row after its required services are available:
 | `graceMs` | `3,000` | Managed termination and output-drain grace |
 | `launch` | Local carrier | Explicit `{ kind: "node-script", executable, bootstrapPath? }` or `{ kind: "embedded", executable }` in the subprocess world |
 
-The [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-ptc-runtime-node) defines accepted config fields. `resolve(request)` defaults cwd to the sandbox policy workspace root and supplies the numeric or null deadline choice and execution policy; `run(spec)` accepts those resolved inputs and does not fill missing values.
+The [configuration catalog](../../../docs/config-catalog.md#lynesslyn-ptc-runtime-node) defines accepted config fields. `resolve(request)` defaults cwd to the sandbox policy workspace root and supplies the numeric or null deadline choice and execution policy; `run(spec)` accepts those resolved inputs and does not fill missing values.
 
-Profile editors can import `resolvePersistentExecution` from `@deepseek-ai/dsh-ptc-runtime-node/configuration` to select retained execution from the effective program format. Merge all three returned settings atomically: Script and scoped REPL keep their syntax, while function bodies and REPL statements switch to `persistent-in-memory` with its default `replScoped`, the scoped REPL.
+Profile editors can import `resolvePersistentExecution` from `@lyness/lyn-ptc-runtime-node/configuration` to select retained execution from the effective program format. Merge all three returned settings atomically: Script and scoped REPL keep their syntax, while function bodies and REPL statements switch to `persistent-in-memory` with its default `replScoped`, the scoped REPL.
 
 ### Execution and results
 
@@ -92,7 +92,7 @@ Set `executionMode: vm-script` to evaluate erasable TypeScript through `node:vm`
 <a id="persistent-repl"></a>
 ### In-memory modes
 
-The `persistent-in-memory` mode and Script mode with `scriptPersistence: true` retain state per owner. To retain a REPL, set `executionMode: persistent-in-memory` on the existing `@deepseek-ai/dsh-ptc-runtime-node` plugin; it runs the scoped REPL unless `replScoped: false` selects Node's REPL evaluator. All modes require `fs`, `subprocess`, `sandbox` and `sandboxPolicy` and apply the file sandbox policy at process launch. Enable it deliberately with a profile patch:
+The `persistent-in-memory` mode and Script mode with `scriptPersistence: true` retain state per owner. To retain a REPL, set `executionMode: persistent-in-memory` on the existing `@lyness/lyn-ptc-runtime-node` plugin; it runs the scoped REPL unless `replScoped: false` selects Node's REPL evaluator. All modes require `fs`, `subprocess`, `sandbox` and `sandboxPolicy` and apply the file sandbox policy at process launch. Enable it deliberately with a profile patch:
 
 ```yaml
 - id: ptc-runtime
@@ -100,7 +100,7 @@ The `persistent-in-memory` mode and Script mode with `scriptPersistence: true` r
     executionMode: persistent-in-memory
 ```
 
-Save the patch and pass its path to `dsh headless --patch <path>` in a composition with PTC tool presentation. The `per-call` mode and Script mode with `scriptPersistence: false` retain no program memory between calls. Changing the configuration reloads the provider and releases its execution resources. Packaged single-executable hosts use their embedded carrier by default; the host sends the selected program format and retention flag with each evaluation, so the embedded `process.js` bootstrap serves both per-call and retained execution. Remote script deployments use a `node-script` launch with `launch.bootstrapPath` pointing to this package's built `persistent-process.js`.
+Save the patch and pass its path to `lyn headless --patch <path>` in a composition with PTC tool presentation. The `per-call` mode and Script mode with `scriptPersistence: false` retain no program memory between calls. Changing the configuration reloads the provider and releases its execution resources. Packaged single-executable hosts use their embedded carrier by default; the host sends the selected program format and retention flag with each evaluation, so the embedded `process.js` bootstrap serves both per-call and retained execution. Remote script deployments use a `node-script` launch with `launch.bootstrapPath` pointing to this package's built `persistent-process.js`.
 
 In REPL mode, each live Agent keeps its own process and top-level variables, functions, and imported modules across `run_code` calls and turns. Use `await import(...)` and `inspect(...)`; top-level `return` is not supported. A leading `{ ... }` is a statement block and can contain top-level await and temporary declarations; parenthesize an object expression to return it. Retained functions and saved tool methods call the current evaluation's bindings. All tool calls must be awaited; callbacks from a completed evaluation cannot invoke tools in a later evaluation. With `replScoped: false`, assignments to undeclared names create retained globals under Node REPL’s non-strict evaluation, `_` and `_error` are ordinary retained globals without interactive REPL result setters, and Node REPL declaration rules apply, including errors on redeclaring existing `let`, `const`, or `class` names; assign to a mutable binding or choose a new name.
 
@@ -118,7 +118,7 @@ Service consumers pass an object as `stateOwner` to reuse its environment and aw
 
 For calls carrying a Session policy, a mode change cancels admission even while waiting for cleanup or process startup. Restoring the previous mode does not revive a canceled call.
 
-The PTC consumer exposes per-call timeout and approved sandbox choices as described in [dsh-tool-executor-ptc](../../core/tool-executor-ptc/README.md). The runtime's readonly `timeout` descriptor reports its effective default and maximum to that consumer. The provider owns execution syntax, output syntax and state-retention guidance in `executionInstructions`. The tool consumer appends those mode-specific rules to its model-visible schema without inferring persistence from `programFormat`.
+The PTC consumer exposes per-call timeout and approved sandbox choices as described in [lyn-tool-executor-ptc](../../core/tool-executor-ptc/README.md). The runtime's readonly `timeout` descriptor reports its effective default and maximum to that consumer. The provider owns execution syntax, output syntax and state-retention guidance in `executionInstructions`. The tool consumer appends those mode-specific rules to its model-visible schema without inferring persistence from `programFormat`.
 
 Omitting `timeoutMs` uses the configured elapsed default; numeric requests are validated and capped. Service callers can explicitly pass `timeoutMs: null` to omit the elapsed timer, as the workflow adapter does; `run_code` continues to accept only positive numeric overrides. An enabled deadline covers runtime setup and execution, including time awaiting nested tools or approval. It is not a CPU meter. Timeout results retain captured output and report `execution timed out before code started` until the program is submitted to the ready process, or `execution timed out during execution` afterward. Timeout or cancellation during retained execution requests cooperative revocation. Captured output produced after the stop request is discarded, including output from `catch` and `finally` handlers. Acknowledgment preserves the VM and variables, including earlier mutations. If the execution thread cannot acknowledge within `stopGraceMs`, or the acknowledgment fails, the host terminates the managed process range and waits for cleanup. The result remains `timeout` or `abort` and reports whether variables were preserved or cleared; timeout messages also report the elapsed budget. After confirmed termination, the next call creates an empty environment. Cleanup failure returns `worker-exit` and blocks reuse until host release succeeds. Startup timeouts, temporary execution stops and successful per-call completion terminate the managed process range immediately. The timer stops when an outcome is selected, before cleanup, so the returned call can take longer than its execution deadline while cleanup settles.
 
@@ -219,7 +219,7 @@ Read the service contract before using the provider directly; the decisions expl
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through `dsh-tool-executor-ptc` and `dsh-workflow-ptc`, which present program outcomes through their own tool results. Intermediate binding traffic stays outside model history; the outer result follows the ordinary tool spill policy.
+Indirectly, through `lyn-tool-executor-ptc` and `lyn-workflow-ptc`, which present program outcomes through their own tool results. Intermediate binding traffic stays outside model history; the outer result follows the ordinary tool spill policy.
 
 #### KV Cache effect
 

@@ -1,6 +1,6 @@
 /** Filter lenses registered on the forge panel host, the runs that classify one diff with one of them, and the kept results. */
 
-import { deadline, timeoutOf } from '@deepseek-ai/dsh-timeout'
+import { deadline, timeoutOf } from '@lyness/lyn-timeout'
 import type {
   ForgeLens, ForgeLensFile, ForgeLensFrame, ForgeLensInput, ForgeLensKeep, ForgeLensSource, ForgeRegisteredLens,
 } from './types.ts'

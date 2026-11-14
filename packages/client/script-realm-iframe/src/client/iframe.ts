@@ -2,7 +2,7 @@
 import {
   ScriptRealmError,
   type ScriptRealm, type ScriptRealmCreateOptions, type ScriptRealmFactory, type ScriptRealmId, type ScriptRealmScript,
-} from '@deepseek-ai/dsh-client-script-realm/client'
+} from '@lyness/lyn-client-script-realm/client'
 
 /** Page carrier supplying the iframe mount and script URL base. */
 export interface IFrameScriptRealmOptions {

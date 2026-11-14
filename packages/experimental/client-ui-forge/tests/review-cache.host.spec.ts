@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Buffer } from 'node:buffer'
-import type { ChangeRequestKey, ForgeReviewData } from '@deepseek-ai/dsh-experimental-forge'
+import type { ChangeRequestKey, ForgeReviewData } from '@lyness/lyn-experimental-forge'
 import { ReviewCache } from '../src/review-cache.ts'
 
 const a = 'fake:a#1' as ChangeRequestKey

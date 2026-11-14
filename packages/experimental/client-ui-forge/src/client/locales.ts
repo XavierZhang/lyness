@@ -894,7 +894,7 @@ export const en: Record<ForgePanelKey, string> = {
   'thread.writeUnsupported': 'This code host does not support changing threads here.',
 }
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Forge panel tab, changes view, header button, worktree option and creation card, and action notices. */
     forgePanel: ForgePanelKey

@@ -1,19 +1,19 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
+import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
 import { realpathSync } from 'node:fs'
 import { mkdtemp, mkdir, readFile, rm } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { Context } from '@deepseek-ai/cordis'
-import { SandboxUnavailableError } from '@deepseek-ai/dsh-sandbox'
+import type { SessionId } from '@lyness/lyn-session'
+import { Context } from '@lyness/cordis'
+import { SandboxUnavailableError } from '@lyness/lyn-sandbox'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { mountRuntime } from './setup.ts'
 import type { Config } from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 async function setup(mode: 'read-only' | 'workspace-write' = 'read-only', executionMode: NonNullable<Config['executionMode']> = 'persistent-in-memory') {
-  const root = realpathSync.native(await mkdtemp(join(homedir(), '.dsh-persistent-sandbox-')))
+  const root = realpathSync.native(await mkdtemp(join(homedir(), '.lyn-persistent-sandbox-')))
   const cwd = join(root, 'workspace')
   await mkdir(cwd)
   const ctx = new Context()

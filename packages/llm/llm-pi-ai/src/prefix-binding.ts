@@ -16,7 +16,7 @@
  * Anthropic messages are serialized without changing those objects requires a
  * new {@link DIGEST_SEED}.
  *
- * @module dsh-llm-pi-ai/prefix-binding
+ * @module lyn-llm-pi-ai/prefix-binding
  */
 
 import { createHash } from 'node:crypto'
@@ -29,7 +29,7 @@ export type PrefixDigests = Map<AssistantMessage, string>
 const PREFIX_BOUND_API = 'anthropic-messages'
 
 /** Seed of every digest chain; changing the digest input or its serialization requires a new seed. */
-const DIGEST_SEED = 'dsh-llm-pi-ai/prefix-binding/v1'
+const DIGEST_SEED = 'lyn-llm-pi-ai/prefix-binding/v1'
 
 function chain(previous: string, value: unknown): string {
   return createHash('sha256').update(previous).update('\0').update(JSON.stringify(value)).digest('hex')

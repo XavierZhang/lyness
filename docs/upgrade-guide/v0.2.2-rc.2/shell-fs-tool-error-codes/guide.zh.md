@@ -21,7 +21,7 @@ v0.2.2-rc.2 记录的三种 `tool/result` 错误标识发生变化：
 
 shell 消息现在以 `invalid arguments: ` 开头，升权消息同时点名两个字段：`invalid arguments: sandbox_permissions and justification are not available in this composition (no sandboxing executor to escalate)`。对于有沙箱执行器、但缺少审批服务、调用方 Agent 或审批通道的组合，`SANDBOX_ESCALATION_UNAVAILABLE` 的含义不变。
 
-`@deepseek-ai/dsh-jobs` 的 `JOB_ERROR_CODES` 与 `JobErrorCode` 类型删除了 `JOB_BACKGROUND_DISABLED`。`@deepseek-ai/dsh-tool-fs` 的 `ImageInputErrorCode` 用 `MODEL_DOES_NOT_SUPPORT_IMAGES` 替换 `IMAGE_UNSUPPORTED_MODEL`，子 agent 附件与 Session 附件拒绝已在使用这个值。
+`@lyness/lyn-jobs` 的 `JOB_ERROR_CODES` 与 `JobErrorCode` 类型删除了 `JOB_BACKGROUND_DISABLED`。`@lyness/lyn-tool-fs` 的 `ImageInputErrorCode` 用 `MODEL_DOES_NOT_SUPPORT_IMAGES` 替换 `IMAGE_UNSUPPORTED_MODEL`，子 agent 附件与 Session 附件拒绝已在使用这个值。
 
 ## 迁移
 

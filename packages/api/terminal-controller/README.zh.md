@@ -3,7 +3,7 @@ description: "用户交互式终端：执行环境默认 shell、有界屏幕恢
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-terminal-controller
+# @lyness/lyn-api-terminal-controller
 
 [English](README.md) | 中文
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 Web bundle 将此包与 subprocess provider、working-directory 服务、sandbox policy 和 Typert Gateway 一起挂载。`remote.terminal` 提供 `environment`、`shells`、`list`、`watch`、`create`、`retain`、`attach`、`rename` 和 `close`；每个操作均按 Session 标识限定范围。列表直接读取 Host 保留的终端，因此查看离线 Session 不会激活 Agent，也不会产生恢复错误。`watch` 在终端创建、移除以及每次状态发布后，以完整集合推送同一列表。
 
-Shell 探测结果首先列出执行环境声明的默认 shell。仅当 provider 未声明默认值时，才在 POSIX 使用 `/bin/sh`，在 Windows 使用 `cmd.exe`。可选的 `shell` profile 通过可执行路径 `path`、显示名称 `name` 和参数 `args`（默认 `[]`）覆盖这一选择。选择器还会通过执行 provider 探测 `shellCandidates`，并省略确定未找到的候选。同一可执行文件名（不区分大小写，忽略 `.exe`）只列出最早的一项，因为 PATH 查找可能经由其他目录找到默认 shell，例如 merged-`/usr` 系统上 `/bin/bash` 对应的 `/usr/bin/bash`。创建请求接受探测返回的 `shellPath` 并再次验证；解析或传输失败会直接报告，不启动其他 shell。环境查询读取当前目录和限制，不校验文件系统或解析 shell，因此目录或默认 shell 不可用时仍可重新连接已有进程。POSIX 自动 profile 以交互模式启动，PowerShell 使用 `-NoLogo`，补全和启动配置仍由 shell 提供。新终端启动前通过[工作目录服务](../../session/working-directory/README.zh.md)校验当前目录，并采用该服务的恢复行为。已有终端保留其进程目录。用户终端使用执行环境中系统用户的权限，独立于 Agent 的沙箱模式和审批策略。操作系统和容器的限制仍然生效；DSH 不提升用户权限。Subprocess provider 继续清除环境中的凭据变量。
+Shell 探测结果首先列出执行环境声明的默认 shell。仅当 provider 未声明默认值时，才在 POSIX 使用 `/bin/sh`，在 Windows 使用 `cmd.exe`。可选的 `shell` profile 通过可执行路径 `path`、显示名称 `name` 和参数 `args`（默认 `[]`）覆盖这一选择。选择器还会通过执行 provider 探测 `shellCandidates`，并省略确定未找到的候选。同一可执行文件名（不区分大小写，忽略 `.exe`）只列出最早的一项，因为 PATH 查找可能经由其他目录找到默认 shell，例如 merged-`/usr` 系统上 `/bin/bash` 对应的 `/usr/bin/bash`。创建请求接受探测返回的 `shellPath` 并再次验证；解析或传输失败会直接报告，不启动其他 shell。环境查询读取当前目录和限制，不校验文件系统或解析 shell，因此目录或默认 shell 不可用时仍可重新连接已有进程。POSIX 自动 profile 以交互模式启动，PowerShell 使用 `-NoLogo`，补全和启动配置仍由 shell 提供。新终端启动前通过[工作目录服务](../../session/working-directory/README.zh.md)校验当前目录，并采用该服务的恢复行为。已有终端保留其进程目录。用户终端使用执行环境中系统用户的权限，独立于 Agent 的沙箱模式和审批策略。操作系统和容器的限制仍然生效；LYN 不提升用户权限。Subprocess provider 继续清除环境中的凭据变量。
 
 | 配置 | 默认值 | 含义 |
 |---|---|---|
@@ -48,7 +48,7 @@ Shell 探测结果首先列出执行环境声明的默认 shell。仅当 provide
 
 ### Agent 终端
 
-Host 代码通过 `openForAgent(agent, request, signal)` 为 Session 的 Agent 打开终端。调用方传入它为该 Session 解析出的沙箱策略：`danger-full-access` 直接启动 shell，受限模式通过执行环境的 `ctx.sandbox` provider 包裹 shell，缺少 provider 时在分配前失败。受限的 POSIX shell 不会读写人的历史文件，因为它不在可写目录内：`workspace-write` 下的 shell 把历史保存在 `/tmp/dsh-agent-history-<id>`，shell 结束后由控制器删除；`read-only` 下的 shell 得到空的 `HISTFILE`，不保存历史。`preferredShells` 列出在已探测 shell 中优先尝试的可执行文件，之后才用默认 shell；`env` 向 shell 环境添加变量，但不能替换 `DSH_SESSION_ID`，也不能替换受限 POSIX shell 的 `HISTFILE`；不受限的 shell 沿用继承的 `HISTFILE`，除非 `env` 另行设置。终端记录 `origin: 'agent'`、`control: 'agent'` 和 `sandboxMode`；它计入 `maxTerminals`，在 Agent 控制且仍在运行期间也计入 `maxAgentTerminals`。标题去掉首尾空白后必须为 1–120 个字符。
+Host 代码通过 `openForAgent(agent, request, signal)` 为 Session 的 Agent 打开终端。调用方传入它为该 Session 解析出的沙箱策略：`danger-full-access` 直接启动 shell，受限模式通过执行环境的 `ctx.sandbox` provider 包裹 shell，缺少 provider 时在分配前失败。受限的 POSIX shell 不会读写人的历史文件，因为它不在可写目录内：`workspace-write` 下的 shell 把历史保存在 `/tmp/lyn-agent-history-<id>`，shell 结束后由控制器删除；`read-only` 下的 shell 得到空的 `HISTFILE`，不保存历史。`preferredShells` 列出在已探测 shell 中优先尝试的可执行文件，之后才用默认 shell；`env` 向 shell 环境添加变量，但不能替换 `LYNESS_SESSION_ID`，也不能替换受限 POSIX shell 的 `HISTFILE`；不受限的 shell 沿用继承的 `HISTFILE`，除非 `env` 另行设置。终端记录 `origin: 'agent'`、`control: 'agent'` 和 `sandboxMode`；它计入 `maxTerminals`，在 Agent 控制且仍在运行期间也计入 `maxAgentTerminals`。标题去掉首尾空白后必须为 1–120 个字符。
 
 返回的 `AgentTerminal` 提供顶层进程 id，可以写入输入、把屏幕渲染为文本、标记屏幕位置以便之后渲染新输出、等待输出或状态变化、查询并向前台进程组发信号，以及关闭终端。它的读屏和标记是同步的，只看到已处理的输出；`drain` 会等到调用前收到的输出处理完。Agent 输入既不需要也不抢占 Web 的输入控制权。浏览器第一次发出标记为 `typed` 的写入后，控制权转给人；此后写入、发信号和关闭都会以 `AgentTerminalError` 的 `user-control` 代码失败，读取不受影响。控制器的 `readScreen` 会先等输出处理完再渲染；它和 `inspectActivity` 可读取 Agent 所在 Session 的任意终端，包括人自己打开的终端。终端不存在或在读取屏幕前关闭时，`readScreen` 以 `RemoteError` 失败，错误码为 `terminal/unavailable`。
 
@@ -66,13 +66,13 @@ Agent 终端复用同一套分配、回滚和保留流程，标识由 Host 生�
 
 初始快照公布载体的完整帧 `inputWindow`；没有 inbox 限额的进程内载体省略该字段。Client 对输入和尺寸调整都计入 JSON 转义、命令字段及载体封装的开销。未确认帧占满窗口时，命令在本地等待；提供者确认后释放额度。`maxInputBytes` 限制原始 UTF-8 输入，`maxBufferedBytes` 限制全部排队及未确认的编码输入帧。单帧无法容纳于载体窗口或 Client 缓存耗尽时，报告 `inputFull` 并取消附件，不重放排队命令。
 
-Client 在分配前将每条 Session/内容与终端身份的关联保存到独立的 localStorage key `dsh.terminal.binding.v1.*`。内容身份全局唯一；布局内的 tab id 只标识活动视图 occurrence。逐条记录的写入和删除会保留其他窗口的关联。恢复视图复用该身份；侧栏 terminal provider 先恢复自己的视图，再查询尚无视图的 Host 终端。新视图可以创建进程，恢复视图在目标缺失时显示错误，不创建替代进程。显式关闭先保存清理请求，再删除关联。当前进程元数据和屏幕内容由 Host 提供，不保存在浏览器中。Client 模型在浏览器完成屏幕解析后确认帧，在未确认 UTF-8 字节预算内连续发送输入，并忽略旧连接迟到的响应。重连建立新的命令序列，绝不重放未确认输入。提供者输入失败会结束附件；进程和恢复屏幕仍可供显式重连使用。Client 自产错误携带本地化键。插件卸载等待活跃及先前断开的输出流结束，不关闭 Host 进程。
+Client 在分配前将每条 Session/内容与终端身份的关联保存到独立的 localStorage key `lyn.terminal.binding.v1.*`。内容身份全局唯一；布局内的 tab id 只标识活动视图 occurrence。逐条记录的写入和删除会保留其他窗口的关联。恢复视图复用该身份；侧栏 terminal provider 先恢复自己的视图，再查询尚无视图的 Host 终端。新视图可以创建进程，恢复视图在目标缺失时显示错误，不创建替代进程。显式关闭先保存清理请求，再删除关联。当前进程元数据和屏幕内容由 Host 提供，不保存在浏览器中。Client 模型在浏览器完成屏幕解析后确认帧，在未确认 UTF-8 字节预算内连续发送输入，并忽略旧连接迟到的响应。重连建立新的命令序列，绝不重放未确认输入。提供者输入失败会结束附件；进程和恢复屏幕仍可供显式重连使用。Client 自产错误携带本地化键。插件卸载等待活跃及先前断开的输出流结束，不关闭 Host 进程。
 
 客户端发现状态由当前窗口中的各个 Session 持有。并发及稍后恢复的视图共享一次列表查询，包括空结果；新标识直接通过 `create` 分配终端。显式重试会替换已完成的结果或失败，重连则为每个已经查询过的 Session 刷新一次列表。失败视图重新挂载时保留错误，不会重试。已确认的操作和 attachment 元数据优先于较早发起的列表响应，被替换连接的响应不能发布状态。单个视图释放 DOM 或结束生命周期不会取消其他视图的查询。插件卸载会丢弃缓存元数据并等待未完成的发现请求结束。其他窗口中尚未出现在本窗口的终端可通过显式刷新或重连发现；当前 attachment 自行传递实时元数据。`watch(sessionId, listener)` 在一个窗口内为每个 Session 共享一条终端列表流，并在调用监听者前把每份完整列表应用到共享列表，移除列表中已不存在的终端；`boundTerminal` 读取标签绑定的终端；监听期间失败的列表流会在该 Session 下一次被监听时或连接重置后为剩余监听者重新打开；`bind` 在标签内容挂载前保存标签与已有终端的关联。环境查询保持独立，因为工作目录可能变化。
 
 独立的 `retain(sessionId, id, signal)` Remote 流确认窗口持有关系，不激活 Agent、发送屏幕输出、转移输入权或创建进程。终端 provider 提供侧栏的完整打开标签清单，Client 将其与自己保存的身份取交集。同一窗口中的重复 occurrence 共用一个持有流；孤立的旧关联不会保活任何终端。恢复输出连接前必须等待当前持有关系确认。传输取消只释放对应的物理流代次；插件卸载等待全部持有流结束。清理失败时保留所有权并重试，不重新接受连接，也不重新计算空闲宽限期。
 
-新视图自动启动，使用开始页明确选中的 shell，或上次选择且仍可用的 shell。上次选择的路径保存在当前站点 localStorage 的 `dsh.terminal.shell` 中。默认启动通过 Host 探测验证保存的路径，不可用时回到当前默认项。开始页在打开标签页前记录选择，每个新标签页保留自己的 shell 路径和分配身份。存储失败不影响启动。恢复已有终端既不读取这一偏好，也不探测 shell。
+新视图自动启动，使用开始页明确选中的 shell，或上次选择且仍可用的 shell。上次选择的路径保存在当前站点 localStorage 的 `lyn.terminal.shell` 中。默认启动通过 Host 探测验证保存的路径，不可用时回到当前默认项。开始页在打开标签页前记录选择，每个新标签页保留自己的 shell 路径和分配身份。存储失败不影响启动。恢复已有终端既不读取这一偏好，也不探测 shell。
 
 关闭时先保存未完成的清理请求并释放标签页，再在后台等待 Host 清理。失败时提供重试通知。每个请求使用独立的终端 ID localStorage key，清理成功或收到明确的 `session/not-found` 响应后删除；启动时重试已保存的请求。传输失败时保留请求。清理请求独立于标签关联和侧栏布局持久化。浏览器存储不可用时，内存中的清理仍可工作，但刷新后无法恢复该请求。
 

@@ -2,8 +2,8 @@
 import { constants } from 'node:fs'
 import { access } from 'node:fs/promises'
 import { join } from 'node:path'
-import { buildNativeExecutable as compileExecutable, sourceNativePackage } from '@deepseek-ai/dsh-cua/native-build'
-import type { SubprocessRuntime } from '@deepseek-ai/dsh-subprocess'
+import { buildNativeExecutable as compileExecutable, sourceNativePackage } from '@lyness/lyn-cua/native-build'
+import type { SubprocessRuntime } from '@lyness/lyn-subprocess'
 
 /** Architectures supported by the Windows helper payload. */
 export type NativeArchitecture = 'arm64' | 'x64'
@@ -39,7 +39,7 @@ export function nativeHostArchitecture(platform: string, architecture: string): 
 export function nativeExecutablePath(packageRoot: string, architecture: NativeArchitecture): string {
   // TODO: Installed-package paths are placeholders until the Windows package layout is finalized.
   const root = packageRoot.replace(/([\\/])app\.asar(?=[\\/])/u, '$1app.asar.unpacked')
-  return join(root, 'native', 'bin', `win-${architecture}`, 'dsh-cua-windows.exe')
+  return join(root, 'native', 'bin', `win-${architecture}`, 'lyn-cua-windows.exe')
 }
 
 async function checkedExecutable(executable: string, signal: AbortSignal): Promise<string> {
@@ -63,7 +63,7 @@ export async function buildNativeExecutable(spec: NativeBuildSpec): Promise<stri
     argv: ['dotnet', 'publish', join(nativeRoot, 'entry', 'CuaWindows.csproj'),
       '--configuration', 'Release', '--runtime', runtime, '--self-contained', 'true',
       '--output', directory, '-p:EnableWindowsTargeting=true'],
-    resolveExecutable: () => checkedExecutable(join(directory, 'dsh-cua-windows.exe'), spec.signal),
+    resolveExecutable: () => checkedExecutable(join(directory, 'lyn-cua-windows.exe'), spec.signal),
   })
 }
 

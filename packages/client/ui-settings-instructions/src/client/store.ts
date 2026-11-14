@@ -5,12 +5,12 @@
  * `props.useStore`. Keeping the read in the plugin rather than in the
  * component is what lets one in-flight read be shared by every open surface.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-instructions/client/store
+ * @module @lyness/lyn-client-ui-settings-instructions/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
 
 /** Where the read stands. */
 export type InstructionsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unowned'

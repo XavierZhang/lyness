@@ -3,7 +3,7 @@ description: "在 Node 进程中运行 TypeScript 程序，可选择保留内存
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-ptc-runtime-node
+# @lyness/lyn-ptc-runtime-node
 
 [English](README.md) | 中文
 
@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-在提供 `fs`、`subprocess`、`sandbox` 和 `sandboxPolicy` 的组合中挂载本提供方。`dsh-tool-executor-ptc`传入调用 Session 的目录和常设策略；直接运行时消费方在执行前解析这些选项。
+在提供 `fs`、`subprocess`、`sandbox` 和 `sandboxPolicy` 的组合中挂载本提供方。`lyn-tool-executor-ptc`传入调用 Session 的目录和常设策略；直接运行时消费方在执行前解析这些选项。
 
 程序通过顶层 `inspect(...values)` 展示文本、对象与 `Image`；同一次调用可混合多段文本和多张图片，图片也可嵌入数组或对象。`Image.attachmentId` 与模型收到的图片说明中的附件 ID 一致。`Image.path` 是执行环境可读取的已存储附件文件，`width` 与 `height` 为该文件的像素尺寸。图片元数据与文本共用 `maxOutputBytes` 预算。
 
@@ -34,7 +34,7 @@ kind: "package-reference"
 在所需服务可用后，配置提供方条目：
 
 ```yaml
-- name: '@deepseek-ai/dsh-ptc-runtime-node'
+- name: '@lyness/lyn-ptc-runtime-node'
   config:
     executionMode: per-call
     timeoutMs: 120000
@@ -62,9 +62,9 @@ kind: "package-reference"
 | `graceMs` | `3,000` | 受管终止与输出排空宽限时间 |
 | `launch` | 本地载体 | 子进程环境中显式的 `{ kind: "node-script", executable, bootstrapPath? }` 或 `{ kind: "embedded", executable }` |
 
-[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-ptc-runtime-node)定义可接受的配置字段。`resolve(request)` 将 cwd 默认设为沙箱策略的工作区根目录，并补全数值或 null 截止选择与执行策略；`run(spec)` 接受这些已解析输入，不补缺省值。
+[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-ptc-runtime-node)定义可接受的配置字段。`resolve(request)` 将 cwd 默认设为沙箱策略的工作区根目录，并补全数值或 null 截止选择与执行策略；`run(spec)` 接受这些已解析输入，不补缺省值。
 
-profile 编辑器可从 `@deepseek-ai/dsh-ptc-runtime-node/configuration` 导入 `resolvePersistentExecution`，根据当前有效程序格式选择持久执行设置。返回的三个设置必须原子合入：Script 和 scoped REPL 保留原语法，函数体和 REPL 语句切换为使用默认 `replScoped` 的 `persistent-in-memory`，也就是 scoped REPL。
+profile 编辑器可从 `@lyness/lyn-ptc-runtime-node/configuration` 导入 `resolvePersistentExecution`，根据当前有效程序格式选择持久执行设置。返回的三个设置必须原子合入：Script 和 scoped REPL 保留原语法，函数体和 REPL 语句切换为使用默认 `replScoped` 的 `persistent-in-memory`，也就是 scoped REPL。
 
 ### 执行与结果
 
@@ -92,7 +92,7 @@ profile 编辑器可从 `@deepseek-ai/dsh-ptc-runtime-node/configuration` 导入
 <a id="persistent-repl"></a>
 ### 内存保留模式
 
-`persistent-in-memory` 模式和启用 `scriptPersistence: true` 的 Script 模式都按所有者保留状态。要保留 REPL，在现有 `@deepseek-ai/dsh-ptc-runtime-node` 插件上设置 `executionMode: persistent-in-memory`；默认运行 scoped REPL，设置 `replScoped: false` 时使用 Node 的 REPL 求值器。所有模式都需要 `fs`、`subprocess`、`sandbox` 和 `sandboxPolicy`，并在进程启动时应用文件沙箱策略。通过配置档补丁显式启用：
+`persistent-in-memory` 模式和启用 `scriptPersistence: true` 的 Script 模式都按所有者保留状态。要保留 REPL，在现有 `@lyness/lyn-ptc-runtime-node` 插件上设置 `executionMode: persistent-in-memory`；默认运行 scoped REPL，设置 `replScoped: false` 时使用 Node 的 REPL 求值器。所有模式都需要 `fs`、`subprocess`、`sandbox` 和 `sandboxPolicy`，并在进程启动时应用文件沙箱策略。通过配置档补丁显式启用：
 
 ```yaml
 - id: ptc-runtime
@@ -100,7 +100,7 @@ profile 编辑器可从 `@deepseek-ai/dsh-ptc-runtime-node/configuration` 导入
     executionMode: persistent-in-memory
 ```
 
-保存补丁，在使用 PTC 工具展示的配置中通过 `dsh headless --patch <path>` 加载。`per-call` 模式和 `scriptPersistence: false` 的 Script 模式不跨调用保留程序内存。修改配置会重载提供方并释放其执行资源。单文件打包宿主默认使用内嵌载体；宿主在每次执行中发送所选的程序格式和保留标志，因此内嵌的 `process.js` bootstrap 同时服务单次执行和保留执行。远端脚本部署使用 `node-script` 启动方式，并将 `launch.bootstrapPath` 指向本包构建出的 `persistent-process.js`。
+保存补丁，在使用 PTC 工具展示的配置中通过 `lyn headless --patch <path>` 加载。`per-call` 模式和 `scriptPersistence: false` 的 Script 模式不跨调用保留程序内存。修改配置会重载提供方并释放其执行资源。单文件打包宿主默认使用内嵌载体；宿主在每次执行中发送所选的程序格式和保留标志，因此内嵌的 `process.js` bootstrap 同时服务单次执行和保留执行。远端脚本部署使用 `node-script` 启动方式，并将 `launch.bootstrapPath` 指向本包构建出的 `persistent-process.js`。
 
 在 REPL 模式下，每个存活 Agent 保留独立进程，跨 `run_code` 调用和轮次保留顶层变量、函数及导入模块。使用 `await import(...)` 和 `inspect(...)`；不支持顶层 `return`。开头的 `{ ... }` 按语句块执行，可以包含顶层 await 和临时声明；需要返回对象表达式时，用圆括号包裹。保留的函数和工具方法引用调用当前执行的绑定。必须等待所有工具调用；已完成执行的回调不能在后续执行中调用工具。设置 `replScoped: false` 时，Node REPL 使用非严格模式，给未声明的名称赋值会创建保留的全局变量；`_` 和 `_error` 是普通的保留全局变量，不使用交互式 REPL 的结果设置器；声明遵循 Node REPL 规则，包括重复声明已有 `let`、`const` 或 `class` 名称时报错，应给可变绑定赋值或选择新名称。
 
@@ -118,7 +118,7 @@ profile 编辑器可从 `@deepseek-ai/dsh-ptc-runtime-node/configuration` 导入
 
 对于携带 Session 策略的调用，模式变化会取消其准入，即使调用仍在等待清理或进程启动。恢复先前的模式不会重新启用已取消的调用。
 
-PTC 消费方按 [dsh-tool-executor-ptc](../../core/tool-executor-ptc/README.zh.md) 的说明公开逐次超时与经审批的沙箱选择。运行时只读 `timeout` 描述符向该消费方报告有效默认值与上限。提供方通过 `executionInstructions` 负责求值语法、输出方式和状态保留指引。工具消费者将对应模式的规则附加到面向模型的 schema，不根据 `programFormat` 推断是否保留状态。
+PTC 消费方按 [lyn-tool-executor-ptc](../../core/tool-executor-ptc/README.zh.md) 的说明公开逐次超时与经审批的沙箱选择。运行时只读 `timeout` 描述符向该消费方报告有效默认值与上限。提供方通过 `executionInstructions` 负责求值语法、输出方式和状态保留指引。工具消费者将对应模式的规则附加到面向模型的 schema，不根据 `programFormat` 推断是否保留状态。
 
 省略 `timeoutMs` 使用配置的经过时间默认值；数值请求经过验证并封顶。服务调用方可以显式传入 `timeoutMs: null` 来省略经过时间定时器，工作流适配器即如此；`run_code` 仍只接受正数覆盖值。启用的截止覆盖运行时准备和执行，包括等待嵌套工具或审批的时间。它不是 CPU 计量器。超时结果保留已捕获的输出；在程序提交给就绪进程之前报告 `execution timed out before code started`，提交后报告 `execution timed out during execution`。保留环境中的执行超时或取消会请求协作式撤销。发出停止请求后产生的捕获输出会被丢弃，包括 `catch` 和 `finally` 处理器的捕获输出。收到确认后保留 VM 和变量，包括此前发生的修改。如果执行线程未在 `stopGraceMs` 内确认，或确认失败，宿主终止受管进程范围并等待清理。结果仍为 `timeout` 或 `abort`，并说明变量被保留还是清空；超时消息还会报告经过时间预算。确认终止后，下一次调用创建空环境。清理失败返回 `worker-exit`，并阻止复用，直到宿主释放成功。启动前超时、临时执行停止以及逐次执行成功完成均立即终止受管进程范围。选择结果后、清理前停止计时器，因此调用可能要在执行截止之后等待清理结算才返回。
 
@@ -219,7 +219,7 @@ AsyncFunction 和 Node REPL 共用同步 `registerHooks` 和以 symbol 为键的
 <a id="model-experience"></a>
 ## 模型体验
 
-通过 `dsh-tool-executor-ptc`与 `dsh-workflow-ptc` 间接提供；它们通过各自的工具结果呈现程序结果。中间绑定通信不进入模型历史；外层结果遵循普通工具溢出策略。
+通过 `lyn-tool-executor-ptc`与 `lyn-workflow-ptc` 间接提供；它们通过各自的工具结果呈现程序结果。中间绑定通信不进入模型历史；外层结果遵循普通工具溢出策略。
 
 #### KV Cache effect
 

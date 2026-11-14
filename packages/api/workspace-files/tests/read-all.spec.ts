@@ -2,13 +2,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, realpath, symlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import type { FsVersion } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { FsVersion } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
 import { failureOf, openWorkspace, signal, type Harness } from './harness.ts'
 
 let harness: Harness
 
-beforeEach(async () => { harness = await openWorkspace('dsh-workspace-files-read-all-') })
+beforeEach(async () => { harness = await openWorkspace('lyn-workspace-files-read-all-') })
 afterEach(async () => { await harness.dispose() })
 
 describe('workspaceFiles.readBytes — complete files', () => {

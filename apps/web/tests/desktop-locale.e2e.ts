@@ -34,13 +34,13 @@ describe.skipIf(MODE === 'record')('web e2e: native and Client locale preference
     })
     await page.exposeFunction('nativeLocaleChanged', (locale: string) => { reported.push(locale) })
     await page.addInitScript(() => {
-      Object.defineProperty(globalThis, 'dshDesktop', { value: { protocolVersion: 1 } })
+      Object.defineProperty(globalThis, 'lynDesktop', { value: { protocolVersion: 1 } })
       const bridge = globalThis as typeof globalThis & {
         nativeLocaleRead(): Promise<unknown>
         nativeLocaleChanged(locale: string): Promise<void>
-        __DSH_LOCALE__: { read(): Promise<unknown>; onChange(locale: string): void }
+        __LYNESS_LOCALE__: { read(): Promise<unknown>; onChange(locale: string): void }
       }
-      bridge.__DSH_LOCALE__ = {
+      bridge.__LYNESS_LOCALE__ = {
         read: () => bridge.nativeLocaleRead(),
         onChange: (locale) => { void bridge.nativeLocaleChanged(locale) },
       }
@@ -89,7 +89,7 @@ describe.skipIf(MODE === 'record')('web e2e: native and Client locale preference
     await enDialog.getByRole('button', { name: 'English', exact: true }).waitFor()
     await expect.poll(() => reported).toEqual(['en'])
     expect(await page.evaluate(() => document.documentElement.lang)).toBe('en')
-    expect(await page.evaluate(() => localStorage.getItem('dsh.locale'))).toBeNull()
+    expect(await page.evaluate(() => localStorage.getItem('lyn.locale'))).toBeNull()
     await enDialog.getByRole('button', { name: 'English', exact: true }).click()
     await page.getByRole('menuitem', { name: '日本語', exact: true }).click()
     await jaDialog.getByRole('button', { name: '日本語', exact: true }).waitFor()

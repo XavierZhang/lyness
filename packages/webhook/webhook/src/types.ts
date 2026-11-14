@@ -1,6 +1,6 @@
 /** Provider-neutral webhook deliveries, rules, and Session requests. */
 
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type { WebhookDeliveryId, WebhookRuleId, WebhookSourceId } from './brand.ts'
 export type { WebhookDeliveryId, WebhookRuleId, WebhookSourceId } from './brand.ts'
 
@@ -69,7 +69,7 @@ export interface WebhookRule<K extends string = string> {
   ): WebhookSessionRequest | null | Promise<WebhookSessionRequest | null>
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     /** Programmatic input admitted from one verified webhook rule. */
     webhook: {

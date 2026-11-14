@@ -5,10 +5,10 @@
  */
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type {
   ChangeRequestReviewer, ChangeRequestSnapshot, ForgeCheckId, ForgeReviewerCandidate,
-} from '@deepseek-ai/dsh-experimental-forge/types'
+} from '@lyness/lyn-experimental-forge/types'
 import { ChangeRequestCard, type ChangeRequestActions } from '../src/client/ChangeRequestCard.tsx'
 import { en } from '../src/client/locales.ts'
 import css from '../src/client/ForgeTab.module.css'

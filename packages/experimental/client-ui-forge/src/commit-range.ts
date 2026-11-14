@@ -3,7 +3,7 @@
  * commit picker, which refuses a run before asking for them.
  */
 
-import type { ForgeCommit } from '@deepseek-ai/dsh-experimental-forge/types'
+import type { ForgeCommit } from '@lyness/lyn-experimental-forge/types'
 import type { ForgeCommitRange } from './types.ts'
 
 /**

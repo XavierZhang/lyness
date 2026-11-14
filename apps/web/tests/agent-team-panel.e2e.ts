@@ -5,11 +5,11 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed, onTestFinished, vi } from 'vitest'
-import type {} from '@deepseek-ai/dsh-agent-team'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CommandId } from '@deepseek-ai/dsh-commands/types'
-import { createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type {} from '@lyness/lyn-agent-team'
+import type { SessionId } from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { CommandId } from '@lyness/lyn-commands/types'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, watchConsole, webSnapshotMode, type WebScaffold,
@@ -749,7 +749,7 @@ describe('web e2e: agent teamwork panel', () => {
         clientWidth: scroller.clientWidth, clientHeight: scroller.clientHeight, scrollHeight: scroller.scrollHeight,
         overflowing: scroller.scrollHeight > scroller.clientHeight,
         gutter: scrollStyle.scrollbarGutter, marginRight: scrollStyle.marginRight,
-        trackMargin: scrollStyle.getPropertyValue('--dsh-scrollbar-track-margin').trim(),
+        trackMargin: scrollStyle.getPropertyValue('--lyn-scrollbar-track-margin').trim(),
         taskLeft: taskBounds.left, taskRight: taskBounds.right,
         trackLeft: scrollBounds.right - scrollbarWidth, trackRight: scrollBounds.right, panelRight: bounds.right,
         arrowsBeforeTrack: [...element.querySelectorAll('[data-team-task] button svg')]

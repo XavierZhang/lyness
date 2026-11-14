@@ -1,21 +1,21 @@
 /**
- * Shared filesystem path helpers for DeepSeek Harness user data.
+ * Shared filesystem path helpers for lyness user data.
  *
- * @module @deepseek-ai/dsh-home-paths
+ * @module @lyness/lyn-home-paths
  */
 
 import { opendir, realpath } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 
-/** Directory name for the default DeepSeek Harness home under the OS home. */
-export const DSH_HOME_DIR_NAME = '.dsh'
+/** Directory name for the default lyness home under the OS home. */
+export const LYNESS_HOME_DIR_NAME = '.lyn'
 
-/** Stable user-facing display form for the default DeepSeek Harness home. */
-export const DEFAULT_DSH_HOME_DISPLAY = `~/${DSH_HOME_DIR_NAME}`
+/** Stable user-facing display form for the default lyness home. */
+export const DEFAULT_LYNESS_HOME_DISPLAY = `~/${LYNESS_HOME_DIR_NAME}`
 
-/** Environment variable that overrides the default DeepSeek Harness home. */
-export const DSH_HOME_ENV = 'DSH_HOME'
+/** Environment variable that overrides the default lyness home. */
+export const LYNESS_HOME_ENV = 'LYNESS_HOME'
 
 /** Directory name for the default shared agent configuration root under the OS home. */
 export const AGENTS_HOME_DIR_NAME = '.agents'
@@ -24,7 +24,7 @@ export const AGENTS_HOME_DIR_NAME = '.agents'
 export const DEFAULT_AGENTS_HOME_DISPLAY = `~/${AGENTS_HOME_DIR_NAME}`
 
 /** Environment variable that overrides the default shared agent configuration root. */
-export const AGENTS_HOME_ENV = 'DSH_AGENTS_HOME'
+export const AGENTS_HOME_ENV = 'LYNESS_AGENTS_HOME'
 
 /**
  * Give a native filesystem watcher one canonical spelling of a path, even
@@ -64,11 +64,11 @@ export async function canonicalizeWatchPath(path: string): Promise<string> {
 }
 
 /**
- * Resolve the default DeepSeek Harness home using Node's platform path rules.
+ * Resolve the default lyness home using Node's platform path rules.
  * @returns the absolute default harness home path.
  */
-export function defaultDshHome(): string {
-  return join(homedir(), DSH_HOME_DIR_NAME)
+export function defaultLynHome(): string {
+  return join(homedir(), LYNESS_HOME_DIR_NAME)
 }
 
 /**
@@ -122,30 +122,30 @@ function rootDisplay(resolvedRoot: string, defaultRoot: string, defaultLabel: st
 }
 
 /**
- * Resolve the single-root DeepSeek Harness home.
+ * Resolve the single-root lyness home.
  *
- * Precedence, highest first: an explicit configured path, `$DSH_HOME`, then
- * `~/.dsh`. The harness keeps all user data under one root. An empty or
- * whitespace-only `$DSH_HOME` is treated as unset, so a blank override never
+ * Precedence, highest first: an explicit configured path, `$LYNESS_HOME`, then
+ * `~/.lyn`. The harness keeps all user data under one root. An empty or
+ * whitespace-only `$LYNESS_HOME` is treated as unset, so a blank override never
  * resolves the home to the current working directory.
  * @param configured - explicit harness-home override, which has highest precedence.
- * @param env - environment mapping used to read `DSH_HOME`.
+ * @param env - environment mapping used to read `LYNESS_HOME`.
  * @returns the normalized absolute harness home path.
  */
-export function resolveDshHome(configured?: string, env: Record<string, string | undefined> = process.env): string {
-  return resolveRoot(configured, env, DSH_HOME_ENV, defaultDshHome)
+export function resolveLynHome(configured?: string, env: Record<string, string | undefined> = process.env): string {
+  return resolveRoot(configured, env, LYNESS_HOME_ENV, defaultLynHome)
 }
 
 /**
  * Resolve the shared agent configuration root.
  *
- * Precedence, highest first: an explicit configured path, `$DSH_AGENTS_HOME`,
+ * Precedence, highest first: an explicit configured path, `$LYNESS_AGENTS_HOME`,
  * then `~/.agents`. The root holds configuration shared with other agent tools,
- * so it stays independent of the DeepSeek Harness home. An empty or
- * whitespace-only `$DSH_AGENTS_HOME` is treated as unset, so a blank override
+ * so it stays independent of the lyness home. An empty or
+ * whitespace-only `$LYNESS_AGENTS_HOME` is treated as unset, so a blank override
  * never resolves the root to the current working directory.
  * @param configured - explicit shared-root override, which has highest precedence.
- * @param env - environment mapping used to read `DSH_AGENTS_HOME`.
+ * @param env - environment mapping used to read `LYNESS_AGENTS_HOME`.
  * @returns the normalized absolute shared agent configuration root.
  */
 export function resolveAgentsHome(configured?: string, env: Record<string, string | undefined> = process.env): string {
@@ -153,13 +153,13 @@ export function resolveAgentsHome(configured?: string, env: Record<string, strin
 }
 
 /**
- * Join path segments onto the resolved DeepSeek Harness home. It addresses the
- * existing top-level entries; a new path uses {@link dshPath} with its category.
+ * Join path segments onto the resolved lyness home. It addresses the
+ * existing top-level entries; a new path uses {@link lynPath} with its category.
  * @param segments - path segments appended to the Harness home; an empty list returns the home itself.
  * @returns the normalized absolute joined path.
  */
-export function dshHomePath(...segments: string[]): string {
-  return join(resolveDshHome(), ...segments)
+export function lynHomePath(...segments: string[]): string {
+  return join(resolveLynHome(), ...segments)
 }
 
 /**
@@ -168,17 +168,17 @@ export function dshHomePath(...segments: string[]): string {
  * @param segments - additional path segments after the first child, if any.
  * @returns the normalized absolute cache path.
  */
-export function dshCachePath(optionsOrSegment: { dshHome?: string } | string = {}, ...segments: string[]): string {
-  if (typeof optionsOrSegment === 'string') return dshPath('cache', optionsOrSegment, ...segments)
-  return dshPath({ category: 'cache', dshHome: optionsOrSegment.dshHome }, ...segments)
+export function lynCachePath(optionsOrSegment: { lynHome?: string } | string = {}, ...segments: string[]): string {
+  if (typeof optionsOrSegment === 'string') return lynPath('cache', optionsOrSegment, ...segments)
+  return lynPath({ category: 'cache', lynHome: optionsOrSegment.lynHome }, ...segments)
 }
 
 /**
  * Category directory under the Harness home, named after the XDG Base Directory
- * kinds. A new file kept under `$DSH_HOME` belongs to exactly one category, and
+ * kinds. A new file kept under `$LYNESS_HOME` belongs to exactly one category, and
  * the category directory name equals the category. Existing top-level entries,
  * such as `sessions/`, `profiles/`, and `.credentials.yaml`, keep their current
- * locations; the [home path categories proposal](../../../../.agents/notes/proposed/architecture/2026-11-04-dsh-home-path-categories.md)
+ * locations; the [home path categories proposal](../../../../.agents/notes/proposed/architecture/2026-11-04-lyn-home-path-categories.md)
  * lists every path and its category:
  *
  * - `config`: files a person writes or edits to configure the harness.
@@ -190,48 +190,48 @@ export function dshCachePath(optionsOrSegment: { dshHome?: string } | string = {
  * - `backup`: backup archives the harness writes; deleting them never affects
  *   a running harness or the records they copy.
  */
-export type DshHomeCategory = 'config' | 'data' | 'state' | 'cache' | 'backup'
+export type LynHomeCategory = 'config' | 'data' | 'state' | 'cache' | 'backup'
 
 /** A category directory under an explicitly configured Harness home. */
-export interface DshPathLocation {
+export interface LynPathLocation {
   /** Category directory to join under. */
-  category: DshHomeCategory
-  /** Explicit harness-home override, resolved by {@link resolveDshHome}; omission uses `$DSH_HOME`, then `~/.dsh`. */
-  dshHome?: string | undefined
+  category: LynHomeCategory
+  /** Explicit harness-home override, resolved by {@link resolveLynHome}; omission uses `$LYNESS_HOME`, then `~/.lyn`. */
+  lynHome?: string | undefined
 }
 
 /**
  * Join path segments onto one category directory of the Harness home without
  * creating it. An owner passes its own directory name, normally its package
- * name without the `@deepseek-ai/dsh-` prefix, as the first segment.
+ * name without the `@lyness/lyn-` prefix, as the first segment.
  * @param location - category under the resolved home, or a category with an explicit home override.
  * @param segments - path segments appended to the category directory; an empty list returns the directory itself.
  * @returns the normalized absolute path.
  */
-export function dshPath(location: DshHomeCategory | DshPathLocation, ...segments: string[]): string {
-  const { category, dshHome } = typeof location === 'string' ? { category: location, dshHome: undefined } : location
-  return join(resolveDshHome(dshHome), category, ...segments)
+export function lynPath(location: LynHomeCategory | LynPathLocation, ...segments: string[]): string {
+  const { category, lynHome } = typeof location === 'string' ? { category: location, lynHome: undefined } : location
+  return join(resolveLynHome(lynHome), category, ...segments)
 }
 
 /**
  * Describe a resolved harness home symbolically for user-facing display.
  *
  * It never returns an absolute machine path: the default home is labelled
- * `~/.dsh`, and any configured home is labelled `$DSH_HOME`.
- * @param resolvedHome - the absolute path returned by {@link resolveDshHome}.
- * @returns `~/.dsh` for the default home, otherwise `$DSH_HOME`.
+ * `~/.lyn`, and any configured home is labelled `$LYNESS_HOME`.
+ * @param resolvedHome - the absolute path returned by {@link resolveLynHome}.
+ * @returns `~/.lyn` for the default home, otherwise `$LYNESS_HOME`.
  */
-export function dshHomeDisplay(resolvedHome: string): string {
-  return rootDisplay(resolvedHome, defaultDshHome(), DEFAULT_DSH_HOME_DISPLAY, DSH_HOME_ENV)
+export function lynHomeDisplay(resolvedHome: string): string {
+  return rootDisplay(resolvedHome, defaultLynHome(), DEFAULT_LYNESS_HOME_DISPLAY, LYNESS_HOME_ENV)
 }
 
 /**
  * Describe a resolved shared agent configuration root symbolically for user-facing display.
  *
  * It never returns an absolute machine path: the default root is labelled
- * `~/.agents`, and any configured root is labelled `$DSH_AGENTS_HOME`.
+ * `~/.agents`, and any configured root is labelled `$LYNESS_AGENTS_HOME`.
  * @param resolvedHome - the absolute path returned by {@link resolveAgentsHome}.
- * @returns `~/.agents` for the default root, otherwise `$DSH_AGENTS_HOME`.
+ * @returns `~/.agents` for the default root, otherwise `$LYNESS_AGENTS_HOME`.
  */
 export function agentsHomeDisplay(resolvedHome: string): string {
   return rootDisplay(resolvedHome, defaultAgentsHome(), DEFAULT_AGENTS_HOME_DISPLAY, AGENTS_HOME_ENV)

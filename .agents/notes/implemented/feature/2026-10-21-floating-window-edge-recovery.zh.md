@@ -6,7 +6,7 @@ Status: implemented
 
 ## 问题
 
-dock kit 的悬浮面板就是客户端里的悬浮窗。`FloatLayer` 与保留式 `DockLayout` 渲染器通过同一个手势 hook `useFloatGestures` 以视口坐标绘制它们，右侧 Sidebar 嵌入了它们，因此同一套面板既运行在 Web 客户端中，也运行在 Desktop 窗口内。它们的拖拽过去一比一跟随指针，只有一个顶部下限（`--dsh-dockkit-float-top`，让标题栏保持在 Windows 标题栏之下）。因此面板可以被拖过左、右或下边界，直到标题栏够不着；视口缩小会把面板留在外面；新建面板的级联位置也可能落在小视口之外。期望行为是：面板被推过边界时可见地受到阻力，松手后以弹簧物理被拉回视口内，而不是像撞墙一样被挡住或被留在外面。
+dock kit 的悬浮面板就是客户端里的悬浮窗。`FloatLayer` 与保留式 `DockLayout` 渲染器通过同一个手势 hook `useFloatGestures` 以视口坐标绘制它们，右侧 Sidebar 嵌入了它们，因此同一套面板既运行在 Web 客户端中，也运行在 Desktop 窗口内。它们的拖拽过去一比一跟随指针，只有一个顶部下限（`--lyn-dockkit-float-top`，让标题栏保持在 Windows 标题栏之下）。因此面板可以被拖过左、右或下边界，直到标题栏够不着；视口缩小会把面板留在外面；新建面板的级联位置也可能落在小视口之外。期望行为是：面板被推过边界时可见地受到阻力，松手后以弹簧物理被拉回视口内，而不是像撞墙一样被挡住或被留在外面。
 
 所考察的参考实现 Claude Desktop 没有可移植的边界收回规则：它的 Electron 回退只对屏幕外窗口做一次无动画修正，且只修正右边界和下边界。该行为必须被设计，而不是移植。
 
@@ -59,7 +59,7 @@ x = x + v * h
 
 ### 改动范围
 
-变更只涉及一个包 `@deepseek-ai/dsh-client-ui-dockkit`，其导出与 `DockIntents` 保持不变；`TabRenderer` 的约定写明了套件何时复用标签页内容。
+变更只涉及一个包 `@lyness/lyn-client-ui-dockkit`，其导出与 `DockIntents` 保持不变；`TabRenderer` 的约定写明了套件何时复用标签页内容。
 
 | 文件 | 变更 |
 |---|---|

@@ -1,5 +1,5 @@
 /** Exercise host reset and a tool that remains pending until its evaluation ends. */
-import { CodeResetFailedError, PtcExecutor, inject as executorInject } from '@deepseek-ai/dsh-tool-executor-ptc'
+import { CodeResetFailedError, PtcExecutor, inject as executorInject } from '@lyness/lyn-tool-executor-ptc'
 
 export const name = 'ptc-host-reset-fixture'
 export const inject = executorInject

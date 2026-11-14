@@ -20,7 +20,7 @@ const { createRequire: nodeCreateRequire } = await vi.importActual<typeof import
 afterEach(() => { vi.resetAllMocks() })
 
 function engineTree() {
-  const root = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-engine-package-')))
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-engine-package-')))
   onTestFinished(() => { rmSync(root, { recursive: true, force: true, maxRetries: 3, retryDelay: 10 }) })
   const kitDirectory = join(root, 'node_modules', '@deepseek-ai', 'libreoffice-kit')
   const kitSource = join(kitDirectory, 'lib', 'index.js')
@@ -48,11 +48,11 @@ function thrownBy(action: () => void): unknown {
 }
 
 it.each([
-  ['/App.app/Contents/Resources/app.asar/dsh/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json',
-    '/App.app/Contents/Resources/app.asar.unpacked/dsh/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json'],
-  ['C:\\DSH\\resources\\app.asar\\dsh\\node_modules\\@deepseek-ai\\libreoffice-kit-win32-x64\\package.json',
-    'C:\\DSH\\resources\\app.asar.unpacked\\dsh\\node_modules\\@deepseek-ai\\libreoffice-kit-win32-x64\\package.json'],
-  ['/App/resources/app.asar.unpacked/dsh/node_modules/x/package.json', '/App/resources/app.asar.unpacked/dsh/node_modules/x/package.json'],
+  ['/App.app/Contents/Resources/app.asar/lyn/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json',
+    '/App.app/Contents/Resources/app.asar.unpacked/lyn/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json'],
+  ['C:\\LYN\\resources\\app.asar\\lyn\\node_modules\\@lyness\\libreoffice-kit-win32-x64\\package.json',
+    'C:\\LYN\\resources\\app.asar.unpacked\\lyn\\node_modules\\@lyness\\libreoffice-kit-win32-x64\\package.json'],
+  ['/App/resources/app.asar.unpacked/lyn/node_modules/x/package.json', '/App/resources/app.asar.unpacked/lyn/node_modules/x/package.json'],
   ['/workspace/node_modules/x/package.json', '/workspace/node_modules/x/package.json'],
   ['/workspace/notes.asar.txt/package.json', '/workspace/notes.asar.txt/package.json'],
   ['/app.asar/nested.asar/package.json', '/app.asar.unpacked/nested.asar/package.json'],
@@ -63,7 +63,7 @@ it.each([
 })
 
 it('uses physical native paths and preserves the WASM logical path in an archive', () => {
-  const root = '/App/resources/app.asar/dsh/node_modules'
+  const root = '/App/resources/app.asar/lyn/node_modules'
   const kitEntry = `${root}/@deepseek-ai/libreoffice-kit/lib/index.js`
   const kit = nodeCreateRequire(import.meta.url)
   kit.resolve = Object.assign((id: string) => `${root}/${id}`, { paths: kit.resolve.paths.bind(kit.resolve) })
@@ -73,9 +73,9 @@ it('uses physical native paths and preserves the WASM logical path in an archive
   })
   const resolveEnginePackage = createEnginePackageResolver(kitEntry)
   expect(resolveEnginePackage('@deepseek-ai/libreoffice-kit-darwin-arm64'))
-    .toBe('/App/resources/app.asar.unpacked/dsh/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json')
+    .toBe('/App/resources/app.asar.unpacked/lyn/node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/package.json')
   expect(resolveEnginePackage('@deepseek-ai/libreoffice-kit-wasm'))
-    .toBe('/App/resources/app.asar/dsh/node_modules/@deepseek-ai/libreoffice-kit-wasm/package.json')
+    .toBe('/App/resources/app.asar/lyn/node_modules/@deepseek-ai/libreoffice-kit-wasm/package.json')
 })
 
 it.each(['missing manifest', 'dangling symlink', 'absent'] as const)(

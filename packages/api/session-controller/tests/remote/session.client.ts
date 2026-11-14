@@ -6,11 +6,11 @@
  * derives them from its log, and builders for the attachment references
  * the Host's log carries.
  */
-import type { AttachmentId, FileAttachmentRef, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { ok, type RemoteMock, type RemoteTable, type StreamScript, type UnaryRuleFn } from '@deepseek-ai/dsh-remote-mock'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
-import type { RemoteFailure, RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import type { AttachmentId, FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
+import { ok, type RemoteMock, type RemoteTable, type StreamScript, type UnaryRuleFn } from '@lyness/lyn-remote-mock'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
 import type {
   SessionAssistantStreamBaseline, SessionFollowFrame, SessionFollowRequest,
   SessionEventsPage, SessionPageRequest,

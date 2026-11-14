@@ -1,8 +1,8 @@
 /** Scripted search answers and in-memory preferences for the search specs. */
 import { vi } from 'vitest'
 import type { Mock } from 'vitest'
-import type { RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { createSearchPreferenceBook } from '../src/client/search-preferences.ts'
 import type { WorkspaceSearchPreferenceBook } from '../src/client/search-preferences.ts'
 import type { SearchMatch } from '../src/client/search-tree.ts'

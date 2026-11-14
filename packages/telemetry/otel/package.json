@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-otel",
+  "name": "@lyness/lyn-otel",
   "description": "Cordis service for independent ordinary-event and byte-bounded Session-log OTLP channels",
   "version": "0.2.2-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/telemetry/otel"
   },
   "type": "module",
@@ -42,12 +42,12 @@
     "got": "^14.6.6"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-session": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-session": "workspace:*"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   }
 }

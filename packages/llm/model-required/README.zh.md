@@ -3,13 +3,13 @@ description: "拒绝服务一个到达不了任何模型的部署，并在「空
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-model-required
+# @lyness/lyn-model-required
 
 [English](README.md) | 中文
 
 ## 概述
 
-挂载 `dsh-model-required`，可以让一个到达不了任何模型的部署在启动时失败，而不是把服务提供出去。没有它，一个「声明的默认模型没有可到达适配器」的部署会启动起来、把界面服务出去、并创建出在第一条提示词处失败的会话——失败发生在一个无力修它的用户面前。检查在启动提交时运行，写出一条面向运营方、点名三种可能缺失项的诊断，并请求启动器退出。
+挂载 `lyn-model-required`，可以让一个到达不了任何模型的部署在启动时失败，而不是把服务提供出去。没有它，一个「声明的默认模型没有可到达适配器」的部署会启动起来、把界面服务出去、并创建出在第一条提示词处失败的会话——失败发生在一个无力修它的用户面前。检查在启动提交时运行，写出一条面向运营方、点名三种可能缺失项的诊断，并请求启动器退出。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: model-required
-  name: '@deepseek-ai/dsh-model-required'
+  name: '@lyness/lyn-model-required'
 ```
 
 托管模板与独立部署模板都选中它，因为这两个产品都不该在没有模型的情况下开张。开发者 profile 不选它，因为一个还没被给过密钥的安装，仍然应该能打开自己的 Models 页面去加一个。
@@ -41,7 +41,7 @@ kind: "package-reference"
 <a id="understand-the-implementation"></a>
 ## 理解实现
 
-检查在启动成功时运行，而这是它能运行的最早时点，不是出于方便。一条路由在它自己那一行应用时才注册，而 [`dsh-llm-pi-ai`](../llm-pi-ai/README.zh.md) 的路由来自用户设置文档，所以在加载时，一个空的注册表与一个「它那些行还没应用」的注册表无法区分。在加载时失败会是误报；而这里是本仓那条「配置错误要大声失败」规则所要求的最早可解析点。
+检查在启动成功时运行，而这是它能运行的最早时点，不是出于方便。一条路由在它自己那一行应用时才注册，而 [`lyn-llm-pi-ai`](../llm-pi-ai/README.zh.md) 的路由来自用户设置文档，所以在加载时，一个空的注册表与一个「它那些行还没应用」的注册表无法区分。在加载时失败会是误报；而这里是本仓那条「配置错误要大声失败」规则所要求的最早可解析点。
 
 值得知道的后果是：进程确实先启动、然后才退出。运营方看到的是一次短暂的启动，随后是一个非零退出码与一条诊断，而不是「拒绝启动」。
 
@@ -54,8 +54,8 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-llm`](../llm/README.zh.md) —— 本包查询的那个注册表。
-- [`dsh-llm-pi-ai`](../llm-pi-ai/README.zh.md) —— 路由来自 settings 的那个路由器，也是这项检查不放在加载时的原因。
+- [`lyn-llm`](../llm/README.zh.md) —— 本包查询的那个注册表。
+- [`lyn-llm-pi-ai`](../llm-pi-ai/README.zh.md) —— 路由来自 settings 的那个路由器，也是这项检查不放在加载时的原因。
 - [模型是部署方的决定](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.zh.md) —— 为什么由部署方、而不是用户来声明模型。
 
 -----
@@ -75,7 +75,7 @@ kind: "package-reference"
 
 - **进程先启动、然后才退出** —— 这项检查不能更早，否则会误报，所以运营方看到的是一次短暂启动而不是被拒绝的启动。
 - **它检查「路由是否存在」，而不是「是否有任何一条可用」** —— 适配器无论凭据能否解析都会注册它的路由，所以一个挂载了出厂 DeepSeek 适配器的部署，在完全没有密钥的情况下也能通过这项检查，并在第一次请求时失败。这是实测而非推断：一个没有凭据的 `enterprise` profile 启动了并持续服务。因此本门禁对「只经由 `llm-pi-ai` 路由」的组合才真正有意义——那种组合在 settings 点名路由之前，注册表确实是空的。
-- **更强的那条保证在别处** —— 一个必须声明自己模型的部署使用 [`dsh-model-policy`](../model-policy/README.zh.md)，它的 `allowed` 列表是必填且非空的，因此在加载时失败——既更早，也无条件。
+- **更强的那条保证在别处** —— 一个必须声明自己模型的部署使用 [`lyn-model-policy`](../model-policy/README.zh.md)，它的 `allowed` 列表是必填且非空的，因此在加载时失败——既更早，也无条件。
 - **在启动提交之后注册的路由不会被重新检查** —— 一个此后把 settings 清空的部署会继续服务到下次启动。
 
 **Runtime invariant:** 不发布任何 companion。本插件不拥有运行时状态；它那一个监听器由 effect 持有，而它读取的那个注册表发布它自己的那份。

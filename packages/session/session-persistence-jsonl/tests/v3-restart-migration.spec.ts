@@ -1,13 +1,13 @@
-import { Context } from '@deepseek-ai/cordis'
-import type { SessionId, SessionEvent } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import type { SessionId, SessionEvent } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { afterEach, describe, expect, it } from 'vitest'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { generationLogPath } from '../src/format.ts'
 import { compressZstdFrame } from '../src/zstd.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const roots: string[] = []
 const contexts: Context[] = []
@@ -23,7 +23,7 @@ async function identity(path: string) {
 
 describe.each(['none', 'zstd'] as const)('V3 interrupted-turn publication (%s)', (compression) => {
   async function fixture(openStep = false) {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-v3-restart-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-v3-restart-'))
     roots.push(root)
     const id = brandString<SessionId>('restart')
     const path = generationLogPath(root, undefined, id, 3, compression)

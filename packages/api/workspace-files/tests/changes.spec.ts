@@ -4,10 +4,10 @@ import type { Mock, MockInstance } from 'vitest'
 import { mkdir, rename, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
-import type { Context } from '@deepseek-ai/cordis'
-import type { FileSystem, FsObservation, FsTarget } from '@deepseek-ai/dsh-fs'
-import type { FsVersion } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Context } from '@lyness/cordis'
+import type { FileSystem, FsObservation, FsTarget } from '@lyness/lyn-fs'
+import type { FsVersion } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
 import { WorkspaceFiles } from '../src/index.ts'
 import { failureOf, openWorkspace, type Harness } from './harness.ts'
 
@@ -17,7 +17,7 @@ let unwatch: Mock<() => Promise<void>>
 const cleanups: Array<() => Promise<unknown>> = []
 
 beforeEach(async () => {
-  harness = await openWorkspace('dsh-workspace-files-changes-')
+  harness = await openWorkspace('lyn-workspace-files-changes-')
   unwatch = vi.fn<() => Promise<void>>().mockResolvedValue(undefined)
   watch = vi.spyOn(harness.ctx.fs, 'watch').mockResolvedValue(unwatch)
 })

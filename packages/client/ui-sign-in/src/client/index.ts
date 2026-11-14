@@ -5,15 +5,15 @@
  * the Settings navigation groups its planes by, so the read lives in the
  * `uiViewer` service and both surfaces render from its snapshot.
  *
- * @module @deepseek-ai/dsh-client-ui-sign-in/client
+ * @module @lyness/lyn-client-ui-sign-in/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-viewer/client'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-viewer/client'
 import { AccountRow } from './AccountRow.tsx'
 import type { AccountRowInjected } from './AccountRow.tsx'
 import { SignInScreen } from './SignInScreen.tsx'
@@ -27,7 +27,7 @@ export { signInHref } from './SignInScreen.tsx'
 export type { AccountRowInjected, AccountRowProps } from './AccountRow.tsx'
 export { standingLabel } from './AccountRow.tsx'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'sign-in': SignInKey }
 }
 

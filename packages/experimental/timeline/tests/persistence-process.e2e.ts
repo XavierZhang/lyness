@@ -5,12 +5,12 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import { SessionId } from '@lyness/lyn-session'
 import { Adapter, setup } from './fixture.ts'
 
 describe('Timeline persistence across built Host processes', () => {
   it('refuses a competing process and restores acknowledged saves after the writer is killed', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-timeline-process-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-timeline-process-'))
     const sessionId = SessionId('timeline-process-recovery')
     const start = (mode: string) => {
       const child = spawn(process.execPath, [fileURLToPath(new URL('./host-process.mjs', import.meta.url)), mode, root, sessionId], {

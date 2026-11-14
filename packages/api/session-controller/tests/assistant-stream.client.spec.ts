@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { type LlmAttemptId, createAssistantMessage } from '@deepseek-ai/dsh-llm'
-import { SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session'
+import { brandString } from '@lyness/lyn-brand'
+import { type LlmAttemptId, createAssistantMessage } from '@lyness/lyn-llm'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session'
 import type {
   SessionAssistantStreamBaseline,
   SessionAssistantStreamFrame,

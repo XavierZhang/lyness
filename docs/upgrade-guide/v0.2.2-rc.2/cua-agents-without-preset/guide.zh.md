@@ -15,7 +15,7 @@ description: "以 preset ID 配置的原生 CUA 提供方现在为未组合 Agen
 
 - 模型请求增加 `cua_run_code` 的 schema 和 CUA 指引。
 - 创建 Agent 时等待提供方的专用程序运行时；该运行时或 `workingDirectory` 服务不可用时创建失败，例如报告 `CUA program tool is unavailable`。
-- Host 挂载 `@deepseek-ai/dsh-tool-executor-ptc` 时，程序在 `run_code` 中看到 `tools.cua_run_code`。
+- Host 挂载 `@lyness/lyn-tool-executor-ptc` 时，程序在 `run_code` 中看到 `tools.cua_run_code`。
 
 ## 迁移
 

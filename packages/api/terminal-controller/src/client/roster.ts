@@ -1,6 +1,6 @@
 /** One reference-counted terminal roster stream per watched Session. */
-import { RemoteStreamCarrierError, type ClientRemote } from '@deepseek-ai/dsh-api-gateway/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { RemoteStreamCarrierError, type ClientRemote } from '@lyness/lyn-api-gateway/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { TerminalRemote } from './model.ts'
 import type { WebTerminalInfo } from '../types.ts'
 

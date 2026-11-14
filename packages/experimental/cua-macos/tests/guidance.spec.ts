@@ -1,7 +1,7 @@
 /** Model-facing guidance enumerates the full available object API without unavailable operations. */
 import { expect, it } from 'vitest'
-import type { CuaApi, CuaApp, CuaSurface, CuaWindow } from '@deepseek-ai/dsh-cua/api'
-import { COMMON_GUIDANCE, withSystemPointerGuidance } from '@deepseek-ai/dsh-cua/guidance'
+import type { CuaApi, CuaApp, CuaSurface, CuaWindow } from '@lyness/lyn-cua/api'
+import { COMMON_GUIDANCE, withSystemPointerGuidance } from '@lyness/lyn-cua/guidance'
 import { GUIDANCE, PLATFORM_GUIDANCE, PROGRAM_GUIDANCE } from '../src/guidance.ts'
 
 const apiNames: Array<keyof CuaApi> = ['getCapabilities', 'listApps', 'findApps', 'getState', 'getApp']

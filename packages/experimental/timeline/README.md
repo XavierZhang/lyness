@@ -76,7 +76,7 @@ Edit **Task writing guidance** for task titles and details, **Instructions for a
 <details>
 <summary>Maintainer details</summary>
 
-Timeline writes task and report changes to the Session log. The Session projection restores the plan, reports, and discussions when you reopen it. The agent that owns the plan records updates from delegated workers. The report scheduler adapts ideas from [dsh-progress-check](https://github.com/kermanx/dsh-progress-check), under the MIT license.
+Timeline writes task and report changes to the Session log. The Session projection restores the plan, reports, and discussions when you reopen it. The agent that owns the plan records updates from delegated workers. The report scheduler adapts ideas from [lyn-progress-check](https://github.com/kermanx/lyn-progress-check), under the MIT license.
 
 The [Connection service](../../client/connection/README.md#browser-authentication-and-request-trust) mounts the Timeline RPC channel when the Web server is available. Timeline accepts edits and browser language updates from an authenticated owner.
 

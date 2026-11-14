@@ -2,7 +2,7 @@
 # DeepSeek API key, with automatic Search billing. The account route stays unmounted so
 # the account token goes to the default account origin.
 - id: llm-deepseek
-  name: '@deepseek-ai/dsh-llm-deepseek-api-key'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   disabled: true
 
 - id: llm-deepseek-account
@@ -16,6 +16,6 @@
       name: './web-search-billing-fixture.mjs'
 
 - id: web-deepseek-api
-  name: '@deepseek-ai/dsh-web-deepseek-api'
+  name: '@lyness/lyn-web-deepseek-api'
   config:
     searchBilling: auto

@@ -2,7 +2,7 @@
  * Cordis-free tests for the raw local-filesystem I/O: path resolution, probe,
  * whole-file/streamed text reads, binary/UTF-8 rejection, atomic-write temp
  * safety, literal edit matching, and line-ending handling. Line WINDOWING is
- * policy and lives in `dsh-fs-observation-policy`, so it is not tested here.
+ * policy and lives in `lyn-fs-observation-policy`, so it is not tested here.
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -27,12 +27,12 @@ import {
 } from '../src/fsio.ts'
 import type { LocalTarget } from '../src/fsio.ts'
 import { copyFileDaclWin32, readFileDaclWin32 } from '../src/win32.ts'
-import { FsError, type FsTargetKey } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { FsError, type FsTargetKey } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
 
 let dir: string
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), 'dsh-fsio-'))
+  dir = await mkdtemp(join(tmpdir(), 'lyn-fsio-'))
 })
 afterEach(async () => {
   await rm(dir, { recursive: true, force: true })

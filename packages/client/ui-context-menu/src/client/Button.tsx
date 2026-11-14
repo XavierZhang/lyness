@@ -1,9 +1,9 @@
 /** Shared ellipsis control for explicit context-menu targets. */
-import { Button, IconEllipsisOutlineRegular, Tooltip } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { FactoryComponentPropsOf } from '@deepseek-ai/dsh-client-ui-slots'
+import { Button, IconEllipsisOutlineRegular, Tooltip } from '@lyness/lyn-client-ui-primitives'
+import type { FactoryComponentPropsOf } from '@lyness/lyn-client-ui-slots'
 import { useId } from 'react'
 import type { MouseEvent, PointerEvent } from 'react'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type { ContextMenus, ContextMenuTarget, MenuPoint } from './types.ts'
 
 /** Menu facts and the per-button toggle, bound by the factory registration. */

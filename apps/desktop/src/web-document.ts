@@ -7,7 +7,7 @@ const MIME: Readonly<Record<string, string>> = {
   '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json',
   '.woff2': 'font/woff2', '.png': 'image/png', '.ico': 'image/x-icon',
 }
-const BOOT = '<script>globalThis.__DSH_BOOT_READY__ = Promise.withResolvers()</script>'
+const BOOT = '<script>globalThis.__LYNESS_BOOT_READY__ = Promise.withResolvers()</script>'
 
 /**
  * Read an application-owned static asset; the index waits for asynchronous Host injections.
@@ -42,7 +42,7 @@ export interface HostCookieStore {
 }
 
 /**
- * Remove every `dsh-auth-*` cookie that earlier releases left in a cookie store for the Host's hostname.
+ * Remove every `lyn-auth-*` cookie that earlier releases left in a cookie store for the Host's hostname.
  * Cookies ignore ports, so cookies from earlier random-port Hosts would otherwise travel with every
  * request to that hostname until they expire.
  * @param cookies - Electron session cookie store.
@@ -51,7 +51,7 @@ export interface HostCookieStore {
 export async function removeLegacyHostCookies(cookies: HostCookieStore, url: string): Promise<void> {
   const origin = new URL(url).origin
   for (const { name } of await cookies.get({ url: origin })) {
-    if (name.startsWith('dsh-auth-')) await cookies.remove(origin, name)
+    if (name.startsWith('lyn-auth-')) await cookies.remove(origin, name)
   }
 }
 
@@ -83,7 +83,7 @@ const PLUGIN_BUNDLE_PATH = /^\/plugins\//u
 export async function forwardWebRequest(request: Request, host: string, cookie: string): Promise<Response> {
   const source = new URL(request.url)
   const origin = request.headers.get('origin')
-  if (origin !== null && origin !== 'dsh-app://app') return new Response(null, { status: 403 })
+  if (origin !== null && origin !== 'lyn-app://app') return new Response(null, { status: 403 })
   const target = new URL(host)
   target.pathname = source.pathname
   target.search = source.search

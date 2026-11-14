@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import AgentRegistry, { assembleContextFor } from '@deepseek-ai/dsh-agent'
+import { createScope } from '@lyness/lyn-scope'
+import AgentRegistry, { assembleContextFor } from '@lyness/lyn-agent'
 import { entryListProblem } from '../src/index.ts'
 import { currentKey, harness, declare, contribution, agentOn, liveRegistries, plugin } from './harness.ts'
 import { omitsGeneratedPage } from '../../../settings/settings/tests/live-config.ts'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import Loader from '@lyness/cordis-plugin-loader'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import AgentPresets from '../src/index.ts'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 
 const contexts: Context[] = []
 afterEach(async () => { for (const ctx of contexts.splice(0)) await ctx.fiber.dispose() })
@@ -422,7 +422,7 @@ it('refuses to inherit a revision owned by a different registry', async () => {
 
 it('validates malformed child YAML at the declaring plugin and retains diagnostics', async () => {
   const ctx = await setup()
-  const { default: Preset } = await import('@deepseek-ai/dsh-agent-preset')
+  const { default: Preset } = await import('@lyness/lyn-agent-preset')
   ctx.loader.builtins.preset = Preset
   await ctx.loader.root.update([{ id: 'invalid', name: 'cordis:preset', config: { id: 'invalid', plugins: [1] } }])
   expect((await ctx.agentPresets.resolve('invalid')).broken).toContain('not a plugin row')
@@ -507,7 +507,7 @@ describe('a preset that extends another', () => {
     })
     await ctx.agentPresets.contribute({
       id: 'module-terminal-tool',
-      module: '@deepseek-ai/dsh-module-terminal-tool',
+      module: '@lyness/lyn-module-terminal-tool',
       row: { name: plugin('contribute-second'), config: { tool: 'contributed' } },
     })
     expect(ctx.tools.schemas(await agentOn(ctx, 'agent', 'work')).map(entry => entry.name))
@@ -524,7 +524,7 @@ it('drops a contribution whose plugin the preset already carries', async () => {
   await declare(ctx, { id: 'work', extends: 'standard', acceptsContributions: true, plugins: [] })
   await ctx.agentPresets.contribute({
     id: 'module-deliverables-tool',
-    module: '@deepseek-ai/dsh-module-deliverables',
+    module: '@lyness/lyn-module-deliverables',
     row: { name: plugin('contribute'), config: { tool: 'present' } },
   })
   expect((await ctx.agentPresets.resolve('work')).broken).toBeUndefined()

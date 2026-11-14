@@ -9,7 +9,7 @@ description: "Cordis 4.0.0-rc.12 用 ctx[Context.root] 取代 ctx.root，并重�
 
 ## 变更
 
-`@deepseek-ai/cordis` 现在包含上游 Cordis 4.0.0-rc.12。针对上一版本编写的第三方插件和服务会受到以下影响：
+`@lyness/cordis` 现在包含上游 Cordis 4.0.0-rc.12。针对上一版本编写的第三方插件和服务会受到以下影响：
 
 - `ctx.root` 不再存在。根上下文改为 `ctx[Context.root]`；`Context.root` 是 `Context` 类上导出的 symbol。在插件内读取 `ctx.root` 会抛出 `cannot get property "root" without inject`。
 - `Service.config` 改为 `Service.metadata`。服务用 `declare [Service.metadata]: T` 声明其拦截类型。
@@ -22,7 +22,7 @@ description: "Cordis 4.0.0-rc.12 用 ctx[Context.root] 取代 ctx.root，并重�
 
 ## 迁移
 
-1. 将所有 `ctx.root` 替换为 `ctx[Context.root]`，并从 `@deepseek-ai/cordis` 以值的形式导入 `Context`。无法导入的纯 JavaScript 可以读取 `ctx[Symbol.for('cordis.root')]`。
+1. 将所有 `ctx.root` 替换为 `ctx[Context.root]`，并从 `@lyness/cordis` 以值的形式导入 `Context`。无法导入的纯 JavaScript 可以读取 `ctx[Symbol.for('cordis.root')]`。
 2. 在服务类中，将 `declare [Service.config]` 改为 `declare [Service.metadata]`，将对 `[Service.resolveConfig]()` 的调用改为 `[Service.resolveIntercept]()`。原来的 `base` 参数改为在 `inject` 中声明，`head` 参数改为用 `ctx.intercept()` 添加。
 3. 如果代码通过 `symbols.metadata` 或 `Symbol.for('cordis.metadata')` 读写装饰器的方法元数据，改用 `symbols.decorator`。
 4. 将 `Config.merge` 的实现移到服务类的 `[Service.mergeIntercept](...values)` 方法中。

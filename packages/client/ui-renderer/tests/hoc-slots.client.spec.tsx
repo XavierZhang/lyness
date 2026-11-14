@@ -3,17 +3,17 @@
  * Hoc slots over the real ui-slots SlotCore: nesting order, owner and
  * children delivery, remount semantics, crash containment, and every scope.
  */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
 import { Component, useEffect, useState, type ReactNode } from 'react'
 import {
   SlotCore, type PropsRenderSlots, type ScopedStandardSourceBinding, type SlotRendererHost,
   type SlotScopeAdapter, type StandardSourceBinding,
-} from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import { createSlotRenderer } from '../src/client/scoped-slots.tsx'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'spec.hoc': { kind: 'hoc'; scope: 'root'; owner: { tone: string } }
     'spec.hoc.maybe': { kind: 'hoc'; scope: 'session-maybe' }

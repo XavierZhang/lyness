@@ -2,9 +2,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-title'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -16,7 +16,7 @@ import {
   type WebScaffold,
 } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot, WEB_FIXTURE_TIME } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('./expected/markdown-cjk-strong', import.meta.url))
 const UI_EXPECTED = fileURLToPath(new URL('./expected/markdown-cjk-strong/ui.expected.md', import.meta.url))
@@ -137,12 +137,12 @@ describe('web e2e: CJK-adjacent Markdown strong emphasis', () => {
       }
       const restoreFont = await page.evaluateHandle(() => {
         const style = document.body.style
-        const before = style.getPropertyValue('--dsh-content-font-size')
-        const priority = style.getPropertyPriority('--dsh-content-font-size')
-        style.setProperty('--dsh-content-font-size', '18px')
+        const before = style.getPropertyValue('--lyn-content-font-size')
+        const priority = style.getPropertyPriority('--lyn-content-font-size')
+        style.setProperty('--lyn-content-font-size', '18px')
         return () => {
-          if (before) style.setProperty('--dsh-content-font-size', before, priority)
-          else style.removeProperty('--dsh-content-font-size')
+          if (before) style.setProperty('--lyn-content-font-size', before, priority)
+          else style.removeProperty('--lyn-content-font-size')
         }
       })
       try {

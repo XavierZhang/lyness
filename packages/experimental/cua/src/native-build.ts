@@ -1,8 +1,8 @@
 /** Managed native compilation and platform-owned executable resolution. */
 import { mkdir, readFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
-import { withFileLock } from '@deepseek-ai/dsh-atomic-write'
-import type { SubprocessOutcome, SubprocessRuntime } from '@deepseek-ai/dsh-subprocess'
+import { withFileLock } from '@lyness/lyn-atomic-write'
+import type { SubprocessOutcome, SubprocessRuntime } from '@lyness/lyn-subprocess'
 
 /** Compiler invocation and lock shared by preparations using the same scratch files. */
 interface NativeCompilerBuild {
@@ -17,7 +17,7 @@ interface NativeCompilerBuild {
 }
 
 /**
- * Recognize a declared package directory inside a DSH source checkout.
+ * Recognize a declared package directory inside a LYN source checkout.
  * @param packageRoot - Real directory containing the platform package.
  * @param directory - Repository-relative source directory owned by that provider.
  * @returns Whether source compilation is permitted at this location.
@@ -27,7 +27,7 @@ export async function sourceNativePackage(packageRoot: string, directory: string
   if (join(root, directory) !== packageRoot) return false
   try {
     const manifest: unknown = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
-    return typeof manifest === 'object' && manifest !== null && 'name' in manifest && manifest.name === '@deepseek-ai/dsh-root'
+    return typeof manifest === 'object' && manifest !== null && 'name' in manifest && manifest.name === '@lyness/lyn-root'
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false
     throw error

@@ -10,8 +10,8 @@
  * holds whatever an earlier build or the reader wrote: each entry is read
  * through {@link readSearchPreferences} rather than trusted.
  */
-import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import {
   changedSearchPreferences, defaultSearchPreferences, readSearchPreferences, type WorkspaceSearchPreferences,
 } from './search-rules.ts'
@@ -25,7 +25,7 @@ import {
  * default and reads the others as usual. A change that an earlier build would
  * misread takes a new key.
  */
-export const SEARCH_PREFERENCES_KEY = 'dsh.sidebar-files.workspace-search.v1'
+export const SEARCH_PREFERENCES_KEY = 'lyn.sidebar-files.workspace-search.v1'
 
 /**
  * The storage key of one workspace root: the root as the Host reports it, with

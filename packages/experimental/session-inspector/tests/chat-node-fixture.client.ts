@@ -1,10 +1,10 @@
 /** Real Location readers expose the store/source cycle reached by raw Node inspection. */
 
-import type { ChatConversationViewNode } from '@deepseek-ai/dsh-client-ui-chat/client'
-import { ConversationLocationIndex } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session/types'
+import type { ChatConversationViewNode } from '@lyness/lyn-client-ui-chat/client'
+import { ConversationLocationIndex } from '@lyness/lyn-client-ui-conversation/client'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session/types'
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationStepDataMap {
     'inspector-test': { readonly text: string }
   }

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { outputLanguages } from './policy.ts'
 import { CHECKPOINT_BYTES } from './checkpoint.ts'
 import {

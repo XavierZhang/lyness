@@ -4,7 +4,7 @@
   - paragraph: mirrored-package
   - paragraph: 版本 2.0.0
   - button "收起安装详情" [expanded]
-  - paragraph: 安装位置：{{cwd}}/.dsh-home/profiles/scaffold
+  - paragraph: 安装位置：{{cwd}}/.lyn-home/profiles/scaffold
   - paragraph: 第 1 次 · 中国大陆镜像源
   - text: 失败 $
   - group "命令第 1 行": pnpm add mirrored-package --registry=https://registry.npmmirror.com/
@@ -15,5 +15,5 @@
   - text: 已完成 $ pnpm add mirrored-package
   - button "复制"
   - text: Installed from the registry pnpm names
-  - paragraph: 完整日志：{{cwd}}/.dsh-home/profiles/scaffold/.plugin-manager/logs/operation-{{suffix}}/pnpm.log
+  - paragraph: 完整日志：{{cwd}}/.lyn-home/profiles/scaffold/.plugin-manager/logs/operation-{{suffix}}/pnpm.log
   - button "立即启用"

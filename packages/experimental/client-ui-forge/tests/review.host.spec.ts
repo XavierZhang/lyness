@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type {
   ChangeRequestRef, ForgeCommentId, ForgeFailure, ForgeReviewData, ForgeReviewId, ForgeReviewWrite, ForgeReviewWriteResult, ForgeThreadId,
-} from '@deepseek-ai/dsh-experimental-forge'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+} from '@lyness/lyn-experimental-forge'
+import type { SessionId } from '@lyness/lyn-session'
 import ForgePanelController from '../src/index.ts'
 import type { ForgePanelState } from '../src/index.ts'
 import { bench, follow, git, pullUrl, repository, scratch, shellTurn } from './harness.ts'
 import type { Bench, Follower } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: (() => Promise<void>)[] = []
 
@@ -19,7 +19,7 @@ const signal = new AbortController().signal
 const HEAD = 'a'.repeat(40)
 
 async function opened(config: Parameters<typeof bench>[1] = {}): Promise<{ opened: Bench; follower: Follower; repo: string }> {
-  const { path, remove } = await scratch('dsh-forge-review-')
+  const { path, remove } = await scratch('lyn-forge-review-')
   cleanups.push(remove)
   const repo = await repository(path)
   await git(repo, 'remote', 'add', 'origin', 'https://fake.test/octo/demo.git')

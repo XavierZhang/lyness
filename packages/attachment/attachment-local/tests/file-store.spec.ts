@@ -4,9 +4,9 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { FileAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { FileAttachmentRef } from '@lyness/lyn-attachment'
 import {
   fileLeafName, readFileStreamVerbatim, saveFileStreamVerbatim, saveFileVerbatim, storedFilePath,
 } from '../src/file-store.ts'
@@ -15,7 +15,7 @@ import { publishImmutableAlias } from '../src/store.ts'
 const roots: string[] = []
 
 async function makeRoot(): Promise<string> {
-  const root = join(await mkdtemp(join(tmpdir(), 'dsh-file-store-')), 'attachments', 'v1')
+  const root = join(await mkdtemp(join(tmpdir(), 'lyn-file-store-')), 'attachments', 'v1')
   roots.push(root)
   return root
 }

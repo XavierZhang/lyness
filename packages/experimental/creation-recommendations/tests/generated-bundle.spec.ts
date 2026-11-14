@@ -7,10 +7,10 @@ import { validateGeneratedBundle } from '../src/generated-bundle.ts'
 import { writeBundle } from './fixture.ts'
 
 it('admits new package rows and its exports, rejecting edits, duplicates, foreign rows and escaping files', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-created-bundle-'))
-  const outside = await mkdtemp(join(tmpdir(), 'dsh-outside-bundle-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-created-bundle-'))
+  const outside = await mkdtemp(join(tmpdir(), 'lyn-outside-bundle-'))
   onTestFinished(async () => { await rm(directory, { recursive: true, force: true }); await rm(outside, { recursive: true, force: true }) })
-  const name = '@dsh-local/view-test'
+  const name = '@lyn-local/view-test'
   await writeBundle(directory, name)
   await expect(validateGeneratedBundle(directory, name)).resolves.toBeUndefined()
   const patch = join(directory, 'cordis.patch.yml')
@@ -26,7 +26,7 @@ it('admits new package rows and its exports, rejecting edits, duplicates, foreig
     await writeFile(patch, JSON.stringify(rows))
     await expect(validateGeneratedBundle(directory, name)).rejects.toThrow()
   }
-  await writeBundle(directory, '@dsh-local/wrong-name')
+  await writeBundle(directory, '@lyn-local/wrong-name')
   await expect(validateGeneratedBundle(directory, name)).rejects.toThrow()
   await writeBundle(directory, name)
   await writeBundle(outside, name)
@@ -36,9 +36,9 @@ it('admits new package rows and its exports, rejecting edits, duplicates, foreig
 })
 
 it('accepts ordinary YAML but rejects custom tags, aliases, missing exports and unbuilt entries', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-created-yaml-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-created-yaml-'))
   onTestFinished(() => rm(directory, { recursive: true, force: true }))
-  const name = '@dsh-local/view-yaml'
+  const name = '@lyn-local/view-yaml'
   await writeBundle(directory, name)
   const path = join(directory, 'cordis.patch.yml')
   await writeFile(path, `- insert:\n    - id: '${name}:counter'\n      name: '${name}'\n`)
@@ -58,11 +58,11 @@ it('accepts ordinary YAML but rejects custom tags, aliases, missing exports and 
 })
 
 it('keeps an internal relative runtime link usable after copying and deleting the workspace source', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-created-link-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-created-link-'))
   onTestFinished(() => rm(root, { recursive: true, force: true }))
   const source = join(root, 'source'), installed = join(root, 'installed')
   await mkdir(source)
-  const name = '@dsh-local/view-links'
+  const name = '@lyn-local/view-links'
   await writeBundle(source, name)
   await mkdir(join(source, 'assets'))
   await writeFile(join(source, 'assets', 'note.txt'), 'local asset')
@@ -80,11 +80,11 @@ it('keeps an internal relative runtime link usable after copying and deleting th
 })
 
 it('checks explicit, default and legacy subpath entries and refuses source files or directories', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-created-entry-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-created-entry-'))
   onTestFinished(() => rm(directory, { recursive: true, force: true }))
-  const name = '@dsh-local/view-entries'
+  const name = '@lyn-local/view-entries'
   await writeBundle(directory, name)
-  const base = { name, version: '1.0.0', dsh: { bundle: { patch: './cordis.patch.yml' } } }
+  const base = { name, version: '1.0.0', lyn: { bundle: { patch: './cordis.patch.yml' } } }
   for (const main of ['./index.js', undefined]) {
     await writeFile(join(directory, 'package.json'), JSON.stringify({ ...base, main }))
     await expect(validateGeneratedBundle(directory, name)).resolves.toBeUndefined()
@@ -100,11 +100,11 @@ it('checks explicit, default and legacy subpath entries and refuses source files
 })
 
 it('requires a built ./client export when the package declares a client entry', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-created-client-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-created-client-'))
   onTestFinished(() => rm(directory, { recursive: true, force: true }))
-  const name = '@dsh-local/view-client'
+  const name = '@lyn-local/view-client'
   await writeBundle(directory, name)
-  const manifest = { name, version: '1.0.0', main: './index.js', dsh: { bundle: { patch: './cordis.patch.yml' }, client: { platform: 'web' } } }
+  const manifest = { name, version: '1.0.0', main: './index.js', lyn: { bundle: { patch: './cordis.patch.yml' }, client: { platform: 'web' } } }
   await mkdir(join(directory, 'folder.js'))
   for (const exports of [undefined, { '.': './index.js' }, { '.': './index.js', './client': './client.ts' },
     { '.': './index.js', './client': './lib/client.js' }, { '.': './index.js', './client': './folder.js' }]) {
@@ -115,6 +115,6 @@ it('requires a built ./client export when the package declares a client entry', 
   await writeFile(join(directory, 'lib', 'client.js'), 'export function apply() {}\n')
   await writeFile(join(directory, 'package.json'), JSON.stringify({ ...manifest, exports: { '.': './index.js', './client': './lib/client.js' } }))
   await expect(validateGeneratedBundle(directory, name)).resolves.toBeUndefined()
-  await writeFile(join(directory, 'package.json'), JSON.stringify({ ...manifest, dsh: { ...manifest.dsh, client: 'web' } }))
+  await writeFile(join(directory, 'package.json'), JSON.stringify({ ...manifest, lyn: { ...manifest.lyn, client: 'web' } }))
   await expect(validateGeneratedBundle(directory, name)).rejects.toThrow()
 })

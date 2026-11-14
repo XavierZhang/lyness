@@ -3,13 +3,13 @@ description: "Open Session directories from application submenus and open previe
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-open-in-app
+# @lyness/lyn-client-ui-open-in-app
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Open a Session’s directory through **Open in** in its Header More menu or its row/title context menu. The submenu lists installed, localized applications in Host order with icons and names, without a default marker. File-tree, document-preview, and delivery controls also open files or directories through native applications. Availability, icons, and launches come from [`dsh-host-open-in-app`](../../host/open-in-app/README.md); mount both packages together. A Session without a known directory or eligible application has no Open in item.
+Open a Session’s directory through **Open in** in its Header More menu or its row/title context menu. The submenu lists installed, localized applications in Host order with icons and names, without a default marker. File-tree, document-preview, and delivery controls also open files or directories through native applications. Availability, icons, and launches come from [`lyn-host-open-in-app`](../../host/open-in-app/README.md); mount both packages together. A Session without a known directory or eligible application has no Open in item.
 
 ## Table of Contents
 
@@ -25,13 +25,13 @@ Open a Session’s directory through **Open in** in its Header More menu or its 
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount this plugin in the Web composition beside [`dsh-host-open-in-app`](../../host/open-in-app/README.md); this row takes no config. A known Session directory and at least one installed, localized catalog application enable its Open in submenu. The document preview of [`ui-sidebar-documentpreview`](../ui-sidebar-documentpreview/README.md) shows file controls when the Host reports a desktop through `session.canOpenWorkspacePath`; removing this row removes all its controls and menu contributions.
+Mount this plugin in the Web composition beside [`lyn-host-open-in-app`](../../host/open-in-app/README.md); this row takes no config. A known Session directory and at least one installed, localized catalog application enable its Open in submenu. The document preview of [`ui-sidebar-documentpreview`](../ui-sidebar-documentpreview/README.md) shows file controls when the Host reports a desktop through `session.canOpenWorkspacePath`; removing this row removes all its controls and menu contributions.
 
 The Header entry uses the More button owned by [`ui-conversation`](../ui-conversation/README.md), with shared button behavior from [`ui-context-menu`](../ui-context-menu/README.md). Open in remains available there without the export plugin; this package supplies menu items rather than its own Header button.
 
 ### What to expect
 
-The Session Header places **Open in** in a separated group after download and before feedback. Session-row More, row right-click, and title right-click place it after Copy session ID and before Archive. Even one application stays in a submenu. The file-tree and document headers retain their 24px-high, 9px-radius icon-only split buttons. Their tooltips name the default application or reveal action, and their menus retain the default marker. All application icons fall back to a native-open glyph when loading fails. The file-tree opener targets its owner-supplied `absolutePath` and shares application choice and launch occupancy with Session menus. Directory choices persist in `dsh.open-in-app.choice` only after successful launches; unavailable choices fall back to the first eligible application. A busy directory launch disables both the submenu parent and all application rows.
+The Session Header places **Open in** in a separated group after download and before feedback. Session-row More, row right-click, and title right-click place it after Copy session ID and before Archive. Even one application stays in a submenu. The file-tree and document headers retain their 24px-high, 9px-radius icon-only split buttons. Their tooltips name the default application or reveal action, and their menus retain the default marker. All application icons fall back to a native-open glyph when loading fails. The file-tree opener targets its owner-supplied `absolutePath` and shares application choice and launch occupancy with Session menus. Directory choices persist in `lyn.open-in-app.choice` only after successful launches; unavailable choices fall back to the first eligible application. A busy directory launch disables both the submenu parent and all application rows.
 
 On iOS and Android phones and tablets, including installed PWAs, an acknowledged native open shows “Opened on another device”; reveal shows “File location shown on another device”. Desktop clients stay silent on success, including narrow browser windows and installed desktop PWAs. Every client receives a failure toast when the Host refuses or cannot be reached. Success means the Host accepted the native operation, not that the destination application finished loading the file. The feedback uses the existing mobile-device detector rather than viewport width or installation mode.
 
@@ -57,7 +57,7 @@ A file menu offers “Open in sidebar” and “Open in floating panel”, which
 <details>
 <summary>Implementation internals — click to expand</summary>
 
-[`session-open-with.ts`](src/client/session-open-with.ts) shares one resolver across the shared context-menu package’s `session` and `sessionHeader` targets; other contributions do not cross between those targets. The file-tree slot uses `OpenInAppAction` with its owner’s `absolutePath`; there is no independent Session-header opener slot. A page-lifetime [`controller`](src/client/controller.ts) owns availability, persisted choice, and launch POST state. Menu observers and injected component hooks read those same sources. Document-relative routes and payload types come from the Host’s browser-safe `@deepseek-ai/dsh-host-open-in-app/shared` subpath. Adapters resolve native and transport failures to named outcomes; skipped requests announce nothing.
+[`session-open-with.ts`](src/client/session-open-with.ts) shares one resolver across the shared context-menu package’s `session` and `sessionHeader` targets; other contributions do not cross between those targets. The file-tree slot uses `OpenInAppAction` with its owner’s `absolutePath`; there is no independent Session-header opener slot. A page-lifetime [`controller`](src/client/controller.ts) owns availability, persisted choice, and launch POST state. Menu observers and injected component hooks read those same sources. Document-relative routes and payload types come from the Host’s browser-safe `@lyness/lyn-host-open-in-app/shared` subpath. Adapters resolve native and transport failures to named outcomes; skipped requests announce nothing.
 
 The directory and file adapters supply application metadata and operations to [`OpenTargetButton`](src/client/OpenTargetButton.tsx), which owns menu ordering, default markers, icons, and sizing. Its injected reporter sends outcomes to one feature-owned `shell.overlay` toast, so switching Sessions or closing the initiating preview cannot discard the result. The file header and empty state share `FileOpenTarget`, while `OpenPathInjected.applications` queries `session.workspacePathApplications` through [`open-path.ts`](src/client/open-path.ts). The same controller keeps the page’s answers by association class, runs one background refresh at a time, which the next opening or plugin unload cancels, and publishes a new snapshot only when an answer changes. The file menu observes that snapshot; when its own file type’s answer changes, it re-resolves synchronously from the path its opening verified, so the context-menu registry keeps the other rows while the application row changes. A type without a recorded answer holds the file contribution until its refresh settles, 300 ms pass, or the menu closes; the registry opens the menu once every contribution is ready, so the whole menu waits. Opening uses `session.openWorkspacePath`; the Host revalidates an explicitly selected handler before launch. The directory adapter keeps the existing catalog routes. `FileRouteAction` supplies the same control to delivery cards and change review through `deliverables.file.actions` and `deliverables.review.file.actions`; their authenticated routes retain Session file authorization. A failed or unavailable file query therefore needs no platform-specific UI implementation.
 
@@ -68,7 +68,7 @@ The directory and file adapters supply application metadata and operations to [`
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [dsh-host-open-in-app](../../host/open-in-app/README.md) — the host routes serving availability, icons, and launches, and the catalog behind them.
+- [lyn-host-open-in-app](../../host/open-in-app/README.md) — the host routes serving availability, icons, and launches, and the catalog behind them.
 - [ui-conversation](../ui-conversation/README.md) — the Header owning the shared More button.
 - [ui-sidebar-documentpreview](../ui-sidebar-documentpreview/README.md) — the document preview declaring the header and empty-state child slots the file controls occupy.
 - [ui-deliverables](../ui-deliverables/README.md) — the delivery cards, which still open declared files through their own routes.
@@ -91,7 +91,7 @@ The Host verifies the path through the composed filesystem before opening or rev
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **The dictionaries gate the menu.** A host catalog extension without a matching `app.<id>` entry in both dictionaries stays invisible instead of showing a raw id; extending the catalog means extending [`dsh-host-open-in-app`](../../host/open-in-app/README.md) and this package's locales together.
+- **The dictionaries gate the menu.** A host catalog extension without a matching `app.<id>` entry in both dictionaries stays invisible instead of showing a raw id; extending the catalog means extending [`lyn-host-open-in-app`](../../host/open-in-app/README.md) and this package's locales together.
 - **Availability is read once per page.** An application installed while the page is open appears after a reload (and, host-side, after a host restart); the desktop answer behind the file controls is read once per page as well.
 - **File associations are cached by type for the page.** Files sharing a final name extension share one answer; extensions that differ only in case, such as `.PNG` and `.png`, are separate types. A per-document override, such as a macOS “Open with” choice for one file, can therefore show the type’s previous answer until the background query corrects the open menu. Linux content sniffing and multi-part extensions such as `.tar.gz` have the same effect, and one file’s empty answer shows the row disabled for the type’s other files the same way. Choosing the row before the correction opens the application that answer named. Names without an extension are recorded per path. Records, with one icon per application, grow with the file types seen and end with the page.
 - **A type’s first file menu can open late.** The whole menu waits up to 300 ms for that type’s first answer on the page, and a slower answer still changes the row after opening.

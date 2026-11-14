@@ -1,4 +1,4 @@
-/** Unified-diff row parsing and per-file body tokenization for markdown fences. @module dsh-client-ui-primitives/markdown/diff-fence */
+/** Unified-diff row parsing and per-file body tokenization for markdown fences. @module lyn-client-ui-primitives/markdown/diff-fence */
 
 import { languageForPath } from '../code-highlighting.ts'
 import { highlightLines } from './highlight.ts'

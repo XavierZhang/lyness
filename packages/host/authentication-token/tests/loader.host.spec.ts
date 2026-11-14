@@ -6,22 +6,22 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, isAbsolute, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import * as Connection from '@deepseek-ai/dsh-client-connection'
-import LocalCredentials from '@deepseek-ai/dsh-credentials-local'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import * as Connection from '@lyness/lyn-client-connection'
+import LocalCredentials from '@lyness/lyn-credentials-local'
+import WebServer from '@lyness/lyn-host-webserver'
 import { expect, it, onTestFinished } from 'vitest'
 import * as Token from '../src/index.ts'
 import { BrowserAuth } from '../src/browser-auth.ts'
 
 it('serves token exchanges through WebServer and keeps token-owned Peers outside Connection defaults', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-token-plugin-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-token-plugin-'))
   const ctx = new Context()
   onTestFinished(async () => {
     await ctx.fiber.dispose()
-    if (!isAbsolute(root) || dirname(root) !== resolve(tmpdir()) || !basename(root).startsWith('dsh-token-plugin-')) {
+    if (!isAbsolute(root) || dirname(root) !== resolve(tmpdir()) || !basename(root).startsWith('lyn-token-plugin-')) {
       throw new Error(`refusing unexpected fixture cleanup path: ${root}`)
     }
     await rm(root, { recursive: true, force: true })

@@ -45,9 +45,9 @@ import { BundleInputIsolation, physicalBundleInput } from '../../scripts/bundle-
  * (which requires @tsdown/css). The suffix matters: tsdown's guard matches ids
  * ending in `.css`, so the virtual id must not.
  */
-const CSS_VIRTUAL_PREFIX = '\0dsh-css:'
-const GLOBAL_CSS_VIRTUAL_PREFIX = '\0dsh-global-css:'
-const INLINE_CSS_VIRTUAL_PREFIX = '\0dsh-inline-css:'
+const CSS_VIRTUAL_PREFIX = '\0lyn-css:'
+const GLOBAL_CSS_VIRTUAL_PREFIX = '\0lyn-global-css:'
+const INLINE_CSS_VIRTUAL_PREFIX = '\0lyn-inline-css:'
 const CSS_VIRTUAL_SUFFIX = '.mjs'
 const INLINE_CSS_QUERY = '?inline'
 
@@ -94,21 +94,21 @@ function compiledClientStyle(
 /**
  * Contract layers and pure folds a client bundle may inline: browser-safe
  * values with no runtime identity to share (no Symbol/instanceof/singleton state).
- * Everything else under @deepseek-ai/* is either a module-table entry
+ * Everything else under @lyness/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@deepseek-ai\/dsh-(?:file-reference|fs-patch|session|llm|tools|brand|error|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-text-search|util-time|util-values|util-workspace-path)(?:\/|$)|@deepseek-ai\/dsh-util-file-drag$|@deepseek-ai\/dsh-token-meter\/client$|@deepseek-ai\/dsh-commands\/builtin$|@deepseek-ai\/dsh-native-command\/types$|@deepseek-ai\/dsh-host-open-in-app\/shared$|@deepseek-ai\/dsh-plugin-manager\/registry$|@deepseek-ai\/dsh-agent-preset-registry\/display$|@deepseek-ai\/dsh-api-workspace-controller\/default-workspace$|@deepseek-ai\/dsh-spill-policy\/notice$)/
+export const INLINE_SAFE = /^(?:@lyness\/lyn-(?:file-reference|fs-patch|session|llm|tools|brand|error|official-bundles|deque|output-retention|typert-protocol|util-crypto|util-text-search|util-time|util-values|util-workspace-path)(?:\/|$)|@lyness\/lyn-util-file-drag$|@lyness\/lyn-token-meter\/client$|@lyness\/lyn-commands\/builtin$|@lyness\/lyn-native-command\/types$|@lyness\/lyn-host-open-in-app\/shared$|@lyness\/lyn-plugin-manager\/registry$|@lyness\/lyn-agent-preset-registry\/display$|@lyness\/lyn-api-workspace-controller\/default-workspace$|@lyness\/lyn-spill-policy\/notice$)/
 
 /**
- * Vendored framework libraries: rescoped into @deepseek-ai, so the gate below
+ * Vendored framework libraries: rescoped into @lyness, so the gate below
  * would read them as plugin packages. They carry no cross-plugin runtime
  * identity to share — the framework itself is a requested module-table row
  * (external), while these are ordinary libraries a browser bundle inlines.
  */
-const VENDORED_LIBRARY = /^@deepseek-ai\/(?:(?:cosmokit|schemastery)(?:\/|$)|cordis-plugin-timer$)/
+const VENDORED_LIBRARY = /^@lyness\/(?:(?:cosmokit|schemastery)(?:\/|$)|cordis-plugin-timer$)/
 
 /** Generated descriptor/codec contribution with no shared runtime identity. */
-const GENERATED_REMOTE = /^@deepseek-ai\/dsh-[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
+const GENERATED_REMOTE = /^@lyness\/lyn-[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
 
 /**
  * Workspace mode replaces an empty config array with the root defaults. A
@@ -153,7 +153,7 @@ export function clientBundle(
   const manifest = readPackageManifest(packageDir)
   const lib = clientLibraryConfig(manifest, libEntry, options.lib)
   return ({ env }) => {
-    const face = buildFace(env?.DSH_BUILD_FACE)
+    const face = buildFace(env?.LYNESS_BUILD_FACE)
     const clientEntry = face === undefined ? 'src/client/index.ts' : 'lib/types/client/index.js'
     const client = clientConfig(manifest, packageDir, clientEntry, options.clientBanner, options.dualClient === true)
     const node = [lib, ...(options.companions ?? [])]
@@ -233,7 +233,7 @@ export function clientLibrary(packageDir: string, libEntry: readonly string[]): 
  * @returns ENV-selected tsdown config for the Client build face.
  */
 export function clientOnly(configs: readonly UserConfig[]): BuildFaceConfig {
-  return ({ env }) => buildFace(env?.DSH_BUILD_FACE) === 'host'
+  return ({ env }) => buildFace(env?.LYNESS_BUILD_FACE) === 'host'
     ? [SKIP_WORKSPACE_BUILD]
     : [...configs]
 }
@@ -260,7 +260,7 @@ type BuildFaceConfig = (inlineConfig: Pick<UserConfig, 'env'>) => UserConfig[]
 
 function buildFace(value: unknown): BuildFace {
   if (value === undefined || value === 'host' || value === 'client') return value
-  throw new Error(`tsdown: --env.DSH_BUILD_FACE must be host or client, received ${String(value)}`)
+  throw new Error(`tsdown: --env.LYNESS_BUILD_FACE must be host or client, received ${String(value)}`)
 }
 
 function clientLibraryConfig(
@@ -350,7 +350,7 @@ function staticLinkedConfig(
       },
     }, tscSourceMapPlugin(), isolation.plugin, {
       // Preserve stylesheet imports for the shell's final CSS build.
-      name: 'dsh-css-asset',
+      name: 'lyn-css-asset',
       async resolveId(this: AssetEmitter, source: string, importer: string | undefined) {
         if (!source.endsWith('.css') || importer === undefined) return null
         const { file, fileName } = stylesheetAsset(source, importer)
@@ -401,7 +401,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
           const specifier = `${owner.name}/${relative(directory, real).split(sep).join('/')}?url`
           let binding = imports.get(specifier)
           if (binding === undefined) {
-            binding = `__dshStaticAsset${imports.size}`
+            binding = `__lynStaticAsset${imports.size}`
             imports.set(specifier, binding)
           }
           return binding
@@ -412,7 +412,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
     throw new Error(`tsdown: ${id}: asset ${file} has no package owner`)
   }
   const css: TsdownPlugin = {
-    name: 'dsh-static-css-metadata',
+    name: 'lyn-static-css-metadata',
     buildStart() { styles.clear(); imports.clear(); emitted.clear() },
     resolveId: {
       order: 'pre',
@@ -436,7 +436,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
         if (url.url === '' || url.url.startsWith('#') || url.url.startsWith('/') || URL_SCHEME.test(url.url)) return undefined
         const parts = /^([^?#]+)(.*)$/.exec(url.url)!
         const expression = resource(this, resolvePath(dirname(file), decodeURIComponent(parts[1]!)))
-        const marker = `__dshStaticCss_${nonce}_${references.size}__`
+        const marker = `__lynStaticCss_${nonce}_${references.size}__`
         references.set(marker, parts[2] === '' ? expression : `(${expression} + ${JSON.stringify(parts[2])})`)
         return { ...url, url: marker }
       }
@@ -469,7 +469,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
     },
   }
   const envelope: TsdownPlugin = {
-    name: 'dsh-static-module-manifest',
+    name: 'lyn-static-module-manifest',
     renderChunk(code, chunk) {
       if (!chunk.isEntry) throw new Error(`tsdown: ${id}: static module unexpectedly emitted ${chunk.fileName}`)
       const output = new Rolldown.RolldownMagicString(code)
@@ -481,7 +481,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
       const table = (specifier: string): void => {
         if ((PLATFORM_MODULES as readonly string[]).includes(specifier)) required.add(specifier)
       }
-      let exportObject = '__dshModuleExports'
+      let exportObject = '__lynModuleExports'
       while (code.includes(exportObject)) exportObject += '_'
       const key = (name: { type: string; name?: string; value?: unknown }): string => name.type === 'Identifier' ? name.name! : String(name.value)
       const getter = (exported: string, value: string): void => {
@@ -497,7 +497,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
           let source: string | undefined
           if (statement.source !== null) {
             table(String(statement.source.value))
-            source = `__dshReexport${imported.length}`
+            source = `__lynReexport${imported.length}`
             imported.push(`import * as ${source} from ${JSON.stringify(String(statement.source.value))};`)
           }
           for (const specifier of statement.specifiers) {
@@ -505,7 +505,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
           }
         } else if (statement.type === 'ExportAllDeclaration') {
           table(String(statement.source.value))
-          const binding = `__dshReexport${imported.length}`
+          const binding = `__lynReexport${imported.length}`
           imported.push(`import * as ${binding} from ${JSON.stringify(String(statement.source.value))};`)
           if (statement.exported !== null) getter(key(statement.exported), binding)
           else stars.push(binding)
@@ -527,7 +527,7 @@ function staticManifestConfig(id: string, packageDir: string, entry: string): Us
       return output
     },
   }
-  config.plugins = [css, ...(config.plugins as TsdownPlugin[]).filter(plugin => plugin.name !== 'dsh-css-asset'), envelope]
+  config.plugins = [css, ...(config.plugins as TsdownPlugin[]).filter(plugin => plugin.name !== 'lyn-css-asset'), envelope]
   return config
 }
 
@@ -559,7 +559,7 @@ interface PackageManifest {
   readonly optionalDependencies?: Record<string, string>
   /** Package exports; the browser face emits assets only while `./assets/*` publishes `lib/assets`. */
   readonly exports?: Readonly<Record<string, unknown>>
-  readonly dsh?: { readonly client?: { readonly external?: unknown } }
+  readonly lyn?: { readonly client?: { readonly external?: unknown } }
 }
 
 /**
@@ -603,11 +603,11 @@ function productionExternals(manifest: PackageManifest): readonly RegExp[] {
 }
 
 /**
- * Module-table specifiers one `dsh.client` declaration requests. Matching is
+ * Module-table specifiers one `lyn.client` declaration requests. Matching is
  * exact, never normalized: a package declares the specifier its own code
  * imports, and the loader keys static entries the same way.
  * @param subject - package name, used in diagnostics.
- * @param declaration - the package's `dsh.client` object.
+ * @param declaration - the package's `lyn.client` object.
  * @returns the requested specifiers, empty when the package declares none.
  * @throws {Error} when `external` is not a string array.
  */
@@ -615,21 +615,21 @@ export function requestedExternals(
   subject: string,
   declaration: { readonly external?: unknown },
 ): ReadonlySet<string> {
-  return new Set(optionalStringArray(subject, 'dsh.client.external', declaration.external) ?? [])
+  return new Set(optionalStringArray(subject, 'lyn.client.external', declaration.external) ?? [])
 }
 
 /**
  * Module-table specifiers one package requests. The shell baseline is implicit
- * for every dynamic bundle; `dsh.client.external` only adds package-specific
+ * for every dynamic bundle; `lyn.client.external` only adds package-specific
  * dynamic rows or subpaths.
- * @param manifest - the package's own manifest, whose `dsh.client` declaration adds requests.
+ * @param manifest - the package's own manifest, whose `lyn.client` declaration adds requests.
  * @returns the baseline plus the package's explicit requests.
  */
 function clientExternals(manifest: PackageManifest): ReadonlySet<string> {
   return new Set([
     ...PLATFORM_MODULES,
     ...PRELOADED_CLIENT_EXTERNALS,
-    ...requestedExternals(manifest.name, manifest.dsh?.client ?? {}),
+    ...requestedExternals(manifest.name, manifest.lyn?.client ?? {}),
   ])
 }
 
@@ -646,7 +646,7 @@ function matchesSpecifier(patterns: readonly RegExp[], specifier: string): boole
 /** Render package-local dynamic imports through the Client module loader's asynchronous operation. */
 function asyncChunkRequirePlugin(): TsdownPlugin {
   return {
-    name: 'dsh-client-async-chunk-require',
+    name: 'lyn-client-async-chunk-require',
     renderChunk(code, chunk, outputOptions) {
       if (outputOptions.format !== 'cjs') return null
       const transformed = new Rolldown.RolldownMagicString(code)
@@ -696,7 +696,7 @@ const URL_SCHEME = /^[a-z][a-z\d+.-]*:/i
  * to contain the shorter prefix out of that rewrite, and keeps the source maps
  * that carry the loaded module text byte-stable across builds.
  */
-const PACKAGE_ASSET_CALL = '__dshPackageAsset_5f8e2c1a9b7d'
+const PACKAGE_ASSET_CALL = '__lynPackageAsset_5f8e2c1a9b7d'
 
 /** Compile one asset reference into the resolver call. */
 function packageAssetCall(reference: string): string {
@@ -738,7 +738,7 @@ interface StylesheetAssets {
 
 /** Browser-face package assets: the import plugin and the stylesheet `url()` rewrite share one per-build emission record. */
 interface PackageAssets {
-  /** `dsh-package-asset`: resolves asset imports, emits referenced files, and prunes stale `lib/assets` files after writing. */
+  /** `lyn-package-asset`: resolves asset imports, emits referenced files, and prunes stale `lib/assets` files after writing. */
   readonly plugin: TsdownPlugin
   /**
    * Select the lightningcss options that rewrite one stylesheet's relative `url()` values.
@@ -810,7 +810,7 @@ function packageAssets(manifest: PackageManifest, packageDir: string): PackageAs
 
   return {
     plugin: {
-      name: 'dsh-package-asset',
+      name: 'lyn-package-asset',
       buildStart() { references.clear() },
       resolveId(source, importer) {
         if (importer === undefined || packageAssetMediaType(source) === undefined) return null
@@ -850,7 +850,7 @@ function packageAssets(manifest: PackageManifest, packageDir: string): PackageAs
         if (/[#?]/u.test(url.url)) {
           throw new Error(`tsdown: ${name}: ${stylesheet} references ${JSON.stringify(url.url)}; a package asset url() takes no fragment or query`)
         }
-        const placeholder = `__dshPackageAsset_${nonce}_${String(inserted.size)}__`
+        const placeholder = `__lynPackageAsset_${nonce}_${String(inserted.size)}__`
         inserted.set(placeholder, reference(context, resolvePath(base, url.url)))
         return { ...url, url: placeholder }
       }
@@ -922,7 +922,7 @@ async function pruneDirectory(directory: string, keep: (file: string) => boolean
  */
 function browserOnlyAssets(id: string): TsdownPlugin {
   return {
-    name: 'dsh-package-asset-browser-only',
+    name: 'lyn-package-asset-browser-only',
     resolveId(source) {
       if (packageAssetMediaType(source) === undefined) return null
       throw new Error(`tsdown: ${id}: asset imports are browser-only (${source})`)
@@ -965,7 +965,7 @@ function clientConfig(
   const resolveStylesheet = (source: string, importer: string | undefined): string => isBareSpecifier(source)
     ? packageRequire.resolve(source)
     : importer === undefined ? source : sourceAssetPath(source, importer)
-  const styleMarker = `/*__dshChunkStyles_${randomBytes(16).toString('hex')}__*/`
+  const styleMarker = `/*__lynChunkStyles_${randomBytes(16).toString('hex')}__*/`
   return {
     name: `${id}/client`,
     entry: { client: entry },
@@ -1026,24 +1026,24 @@ function clientConfig(
     plugins: [{
       // Bundle purity gate (build-time mirror of the module-edge rules): the
       // baseline and package-specific requests stay external, inline-safe wire layers
-      // inline, and every other @deepseek-ai value import is a build error — a
+      // inline, and every other @lyness value import is a build error — a
       // cross-plugin value import either inlines a duplicate runtime instance
       // or requires a specifier the module table cannot answer for this package.
       // Cross-plugin collaboration goes through cordis services instead.
-      name: 'dsh-client-bundle-purity',
+      name: 'lyn-client-bundle-purity',
       resolveId(source: string) {
-        if (!source.startsWith('@deepseek-ai/')) return null
+        if (!source.startsWith('@lyness/')) return null
         if (isRequested(source)) return null // requested module-table row: external wins
         if (VENDORED_LIBRARY.test(source)) return null // vendored library: inline, no shared identity
         if (INLINE_SAFE.test(source) || GENERATED_REMOTE.test(source)) return null // wire contribution: inline is the point
         throw new Error(
-          `client bundle purity: "${source}" is not in the default client externals or ${id}'s dsh.client.external, an inline-safe wire layer, or a generated /remote contribution — `
+          `client bundle purity: "${source}" is not in the default client externals or ${id}'s lyn.client.external, an inline-safe wire layer, or a generated /remote contribution — `
           + 'cross-plugin value imports are forbidden; declare a non-default module request or collaborate through cordis services '
           + '(type-only imports are erased and never reach this gate)',
         )
       },
     }, tscSourceMapPlugin(), asyncChunkRequirePlugin(), isolation.plugin, {
-      name: 'dsh-client-style-factory',
+      name: 'lyn-client-style-factory',
       renderChunk(code, chunk) {
         const marker = code.indexOf(styleMarker)
         if (marker < 0 || code.indexOf(styleMarker, marker + styleMarker.length) !== -1) {
@@ -1062,7 +1062,7 @@ function clientConfig(
         return output
       },
     }, {
-      name: 'dsh-css-modules-inline',
+      name: 'lyn-css-modules-inline',
       resolveId(source: string, importer: string | undefined) {
         if (!source.endsWith('.module.css')) return null
         const abs = resolveStylesheet(source, importer)
@@ -1091,7 +1091,7 @@ function clientConfig(
         return { code: `export default ${JSON.stringify(classMap)};`, moduleSideEffects: 'no-treeshake' }
       },
     }, {
-      name: 'dsh-css-text-inline',
+      name: 'lyn-css-text-inline',
       resolveId(source: string, importer: string | undefined) {
         if (!source.endsWith(`.css${INLINE_CSS_QUERY}`)) return null
         const stylesheet = source.slice(0, -INLINE_CSS_QUERY.length)
@@ -1113,7 +1113,7 @@ function clientConfig(
         return `export default ${stylesheetSource(code.toString(), stylesheetAssets.references)};`
       },
     }, {
-      name: 'dsh-css-global-inline',
+      name: 'lyn-css-global-inline',
       resolveId(source: string, importer: string | undefined) {
         if (!source.endsWith('.css') || source.endsWith('.module.css')) return null
         const abs = resolveStylesheet(source, importer)
@@ -1165,7 +1165,7 @@ function clientInputIsolation(id: string): {
   const inputs = new BundleInputIsolation(REPOSITORY_ROOT, `client bundle isolation (${id})`)
   return {
     plugin: {
-      name: 'dsh-client-input-isolation',
+      name: 'lyn-client-input-isolation',
       buildStart() { inputs.reset() },
       generateBundle(_options, bundle) {
         if (experimental) return
@@ -1213,7 +1213,7 @@ function clientInputFile(id: string): string {
 /** Chain tsc's emitted maps into any Client bundle that consumes `lib/types`. */
 function tscSourceMapPlugin() {
   return {
-    name: 'dsh-tsc-sourcemap',
+    name: 'lyn-tsc-sourcemap',
     async load(id: string) {
       if (!id.includes(TYPES_MARKER) || !id.endsWith('.js') || !existsSync(`${id}.map`)) return null
       const code = await readFile(id, 'utf8')
@@ -1246,7 +1246,7 @@ function tscSourceMapPlugin() {
 const TYPES_MARKER = `${sep}lib${sep}types${sep}`
 
 /** Plugin name carrying contract 1, and the marker that identifies a statically linked config. */
-const STATIC_LINKED_PLUGIN = 'dsh-static-linked-external'
+const STATIC_LINKED_PLUGIN = 'lyn-static-linked-external'
 
 /** Path segment a package's sources hang under, and the root emitted assets mirror. */
 const SOURCE_MARKER = `${sep}src${sep}`

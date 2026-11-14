@@ -15,7 +15,7 @@ function assertNever(value: never): never {
 /** Module hooks and an export bridge owned by one native evaluator. */
 export class ModuleHooksImportLoader {
   private readonly identity = randomUUID()
-  private readonly bridgeName = `dsh.ptc.imports.${this.identity}`
+  private readonly bridgeName = `lyn.ptc.imports.${this.identity}`
   private readonly bridgeKey = Symbol.for(this.bridgeName)
   private readonly hooks: module.ModuleHooks
   private readonly programs = new Map<string | undefined, string>()
@@ -113,7 +113,7 @@ export class ModuleHooksImportLoader {
   private moduleUrl(exports: Record<string, unknown>): string {
     const existing = this.modules.get(exports)
     if (existing !== undefined) return existing
-    const url = `dsh-ptc-module:${this.identity}/${++this.sequence}`
+    const url = `lyn-ptc-module:${this.identity}/${++this.sequence}`
     const declarations = Object.keys(exports).map((name, index) =>
       `const value${index} = bindings[${JSON.stringify(name)}]; export { value${index} as ${JSON.stringify(name)} };`)
     const lookup = `globalThis[Symbol.for(${JSON.stringify(this.bridgeName)})].get(${JSON.stringify(url)})`

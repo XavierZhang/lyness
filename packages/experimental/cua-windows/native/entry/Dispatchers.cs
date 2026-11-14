@@ -50,7 +50,7 @@ internal sealed class MtaDispatcher : IAsyncDisposable
             }
             catch (Exception error) { ready.TrySetException(error); }
             finally { if (initialized) Win32.RoUninitialize(); stopped.TrySetResult(null); }
-        }) { IsBackground = true, Name = "dsh-cua-uia" };
+        }) { IsBackground = true, Name = "lyn-cua-uia" };
         thread.SetApartmentState(ApartmentState.MTA);
         thread.Start();
     }
@@ -112,7 +112,7 @@ internal sealed class StaDispatcher : IAsyncDisposable
             }
             catch (Exception error) { ready.TrySetException(error); }
             finally { stopped.TrySetResult(null); }
-        }) { IsBackground = true, Name = "dsh-cua-clipboard" };
+        }) { IsBackground = true, Name = "lyn-cua-clipboard" };
         thread.SetApartmentState(ApartmentState.STA);
         thread.Start();
     }

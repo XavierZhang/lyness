@@ -1,19 +1,19 @@
 /**
- * The shipped dsh-doc skill: it is the package's only skill, renders below the pruner threshold, and
+ * The shipped lyn-doc skill: it is the package's only skill, renders below the pruner threshold, and
  * names exactly the files it ships; its templates parse and show their detail documents, and it never
- * bans reading DSH sources. The Web preset e2e measures whole-reference reads.
+ * bans reading LYN sources. The Web preset e2e measures whole-reference reads.
  */
 import { execFileSync, spawnSync } from 'node:child_process'
 import { cpSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve, sep } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { fileURLToPath } from 'node:url'
-import { parseEntryYaml } from '@deepseek-ai/cordis-plugin-include'
-import { codePointLength } from '@deepseek-ai/dsh-compaction-tool-result-pruner'
-import { detailImage, languageChain, localFiles, readPackageDocument } from '@deepseek-ai/dsh-plugin-detail'
-import SkillRegistry, { renderSkillContent } from '@deepseek-ai/dsh-skill'
-import * as SkillFileSystem from '@deepseek-ai/dsh-skill-filesystem'
+import { parseEntryYaml } from '@lyness/cordis-plugin-include'
+import { codePointLength } from '@lyness/lyn-compaction-tool-result-pruner'
+import { detailImage, languageChain, localFiles, readPackageDocument } from '@lyness/lyn-plugin-detail'
+import SkillRegistry, { renderSkillContent } from '@lyness/lyn-skill'
+import * as SkillFileSystem from '@lyness/lyn-skill-filesystem'
 import { describe, expect, it, type TestContext } from 'vitest'
 import { JSDOM } from 'jsdom'
 import { packageMetaProblems } from '../../../../scripts/verify-package-meta.ts'
@@ -41,8 +41,8 @@ function markdownFiles(dir: string): string[] {
     .map(file => join(dir, file))
 }
 
-describe('the shipped dsh-doc skill', () => {
-  const skill = join(skills, 'dsh-doc')
+describe('the shipped lyn-doc skill', () => {
+  const skill = join(skills, 'lyn-doc')
   const templates = join(skill, 'templates')
   const repositorySkills = fileURLToPath(new URL('../../../../.agents/skills/', import.meta.url))
 
@@ -56,15 +56,15 @@ describe('the shipped dsh-doc skill', () => {
 
   it('is the only skill the package skill root exposes', async (test) => {
     const ctx = await loadRoot(skills, test)
-    expect((await ctx.skills.list()).map(entry => entry.name)).toEqual(['dsh-doc'])
-    expect((await ctx.skills.get('dsh-doc'))?.content).toBe(body('dsh-doc').trim())
+    expect((await ctx.skills.list()).map(entry => entry.name)).toEqual(['lyn-doc'])
+    expect((await ctx.skills.get('lyn-doc'))?.content).toBe(body('lyn-doc').trim())
   })
 
-  it('leaves repository skills without a second dsh-doc and wraps the packaged tool-design reference', async (test) => {
+  it('leaves repository skills without a second lyn-doc and wraps the packaged tool-design reference', async (test) => {
     const ctx = await loadRoot(repositorySkills, test)
     const repository = (await ctx.skills.list()).map(entry => entry.name)
-    expect(repository).not.toContain('dsh-doc')
-    expect(repository).toEqual(expect.arrayContaining(['dsh-doc-writing', 'agent-experience']))
+    expect(repository).not.toContain('lyn-doc')
+    expect(repository).toEqual(expect.arrayContaining(['lyn-doc-writing', 'agent-experience']))
     const wrapper = join(repositorySkills, 'agent-experience', 'SKILL.md')
     expect(lstatSync(wrapper).isFile()).toBe(true)
     const link = /\]\(([^)]+tool-design\.md)\)/u.exec(readFileSync(wrapper, 'utf8'))?.[1]
@@ -73,10 +73,10 @@ describe('the shipped dsh-doc skill', () => {
 
   it('renders below the pruner threshold and lists exactly the files it ships', () => {
     const rendered = renderSkillContent({
-      name: 'dsh-doc', provider: 'filesystem', resourceBase: { kind: 'directory', path: skill }, content: body('dsh-doc'),
+      name: 'lyn-doc', provider: 'filesystem', resourceBase: { kind: 'directory', path: skill }, content: body('lyn-doc'),
     })
     expect(codePointLength(rendered)).toBeLessThan(PRUNER_THRESHOLD_CHARS)
-    const referenced = new Set([...body('dsh-doc').matchAll(/`((?:references|templates)\/[^`]+)`/g)].map(match => match[1] ?? match[0]))
+    const referenced = new Set([...body('lyn-doc').matchAll(/`((?:references|templates)\/[^`]+)`/g)].map(match => match[1] ?? match[0]))
     const shipped = readdirSync(skill, { recursive: true, encoding: 'utf8' })
       .filter(file => file !== 'SKILL.md' && statSync(join(skill, file)).isFile())
       .map(file => file.split(sep).join('/'))
@@ -87,8 +87,8 @@ describe('the shipped dsh-doc skill', () => {
   it('ship templates whose manifest, patch, and JavaScript parse', () => {
     for (const name of readdirSync(templates)) {
       const dir = join(templates, name)
-      const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as { dsh: { bundle: { patch: string } } }
-      const patch = parseEntryYaml(readFileSync(join(dir, manifest.dsh.bundle.patch), 'utf8'))
+      const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as { lyn: { bundle: { patch: string } } }
+      const patch = parseEntryYaml(readFileSync(join(dir, manifest.lyn.bundle.patch), 'utf8'))
       expect(Array.isArray(patch)).toBe(true)
       for (const file of readdirSync(dir).filter(entry => entry.endsWith('.js'))) {
         execFileSync(process.execPath, ['--check', join(dir, file)])
@@ -102,11 +102,11 @@ describe('the shipped dsh-doc skill', () => {
       const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
         exports: Record<string, string> & { './icon': string }
         files: string[]
-        dsh: { bundle: { patch: string } }
+        lyn: { bundle: { patch: string } }
       }
       expect(manifest).not.toHaveProperty('icon')
       expect(manifest.files).toContain('docs')
-      const runtimeFiles = [manifest.dsh.bundle.patch, manifest.exports['.'], manifest.exports['./client']]
+      const runtimeFiles = [manifest.lyn.bundle.patch, manifest.exports['.'], manifest.exports['./client']]
         .filter((file): file is string => file !== undefined).map(file => file.replace(/^\.\//u, ''))
       for (const file of runtimeFiles) expect(manifest.files, file).toContain(file)
       expect(manifest.exports['./locale/*.json']).toBe('./locale/*.json')
@@ -127,17 +127,17 @@ describe('the shipped dsh-doc skill', () => {
         details.push(locale.meta.detail)
       }
       const resources = new Set([...Object.values(manifest.exports).filter(file => !file.includes('*')),
-        ...locales, ...details, manifest.dsh.bundle.patch])
+        ...locales, ...details, manifest.lyn.bundle.patch])
       for (const resource of resources) {
         const file = resource.replace(/^\.\//u, '')
-        expect(body('dsh-doc'), file).toContain(`\`templates/${name}/${file.startsWith('locale/') ? 'locale' : file}\``)
+        expect(body('lyn-doc'), file).toContain(`\`templates/${name}/${file.startsWith('locale/') ? 'locale' : file}\``)
         expect(statSync(join(dir, file)).isFile(), file).toBe(true)
       }
     }
   })
 
   it('publishes template metadata through the same package check as CI', (test) => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-template-meta-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-template-meta-'))
     test.onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     for (const name of readdirSync(templates)) {
       const destination = join(root, 'packages', 'templates', name)
@@ -161,7 +161,7 @@ describe('the shipped dsh-doc skill', () => {
     } finally { window.close() }
   })
 
-  it.for(readdirSync(join(skills, 'dsh-doc', 'templates')))('shows one packaged SVG in the %s template detail document', async (name, test) => {
+  it.for(readdirSync(join(skills, 'lyn-doc', 'templates')))('shows one packaged SVG in the %s template detail document', async (name, test) => {
     const dir = join(templates, name)
     const files = localFiles(dir, '1.0.0')
     const locale = JSON.parse(readFileSync(join(dir, 'locale', 'en.json'), 'utf8')) as { meta: { detail: string } }
@@ -201,8 +201,8 @@ describe('the shipped dsh-doc skill', () => {
 
   it('locates checkout documentation from the shipped skill directory', () => {
     const root = resolve(realpathSync(skill), '../../../../..')
-    expect(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))).toMatchObject({ name: '@deepseek-ai/dsh-root' })
-    expect(JSON.parse(readFileSync(join(root, 'apps/cli/package.json'), 'utf8'))).toMatchObject({ name: '@deepseek-ai/dsh' })
+    expect(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))).toMatchObject({ name: '@lyness/lyn-root' })
+    expect(JSON.parse(readFileSync(join(root, 'apps/cli/package.json'), 'utf8'))).toMatchObject({ name: '@lyness/lyn' })
     expect(statSync(join(root, 'pnpm-workspace.yaml')).isFile()).toBe(true)
     expect(statSync(join(root, 'docs/user/index.md')).isFile()).toBe(true)
     expect(statSync(join(root, 'packages/README.md')).isFile()).toBe(true)
@@ -210,17 +210,17 @@ describe('the shipped dsh-doc skill', () => {
 
   // The POSIX example runs through bash; the PowerShell form has its own test below.
   it.skipIf(process.platform === 'win32')('documents shell commands that locate a package and list upgrade index sections', (test) => {
-    const install = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-doc-commands-')))
+    const install = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-doc-commands-')))
     test.onTestFinished(() => { rmSync(install, { recursive: true, force: true }) })
-    const pkg = join(install, 'node_modules', '@deepseek-ai', 'dsh-tool-bash')
+    const pkg = join(install, 'node_modules', '@lyness', 'lyn-tool-bash')
     mkdirSync(pkg, { recursive: true })
-    writeFileSync(join(pkg, 'package.json'), '{"name":"@deepseek-ai/dsh-tool-bash"}\n')
+    writeFileSync(join(pkg, 'package.json'), '{"name":"@lyness/lyn-tool-bash"}\n')
     mkdirSync(join(install, 'docs', 'upgrade-guide'), { recursive: true })
     writeFileSync(join(install, 'docs', 'upgrade-guide', 'README.md'), '# Upgrade guides\r\n\r\n## v2.0.0\r\n\r\n| row |\n## v1.0.0\n')
     const cwd = join(install, 'unrelated-workspace')
-    const decoy = join(cwd, 'node_modules', '@deepseek-ai', 'dsh-tool-bash')
+    const decoy = join(cwd, 'node_modules', '@lyness', 'lyn-tool-bash')
     mkdirSync(decoy, { recursive: true })
-    writeFileSync(join(decoy, 'package.json'), '{"name":"@deepseek-ai/dsh-tool-bash"}\n')
+    writeFileSync(join(decoy, 'package.json'), '{"name":"@lyness/lyn-tool-bash"}\n')
     mkdirSync(join(pkg, 'src'))
     writeFileSync(join(pkg, 'README.md'), '# Installed package\n')
     writeFileSync(join(pkg, 'src', 'index.ts'), 'export const installed = true\n')
@@ -228,7 +228,7 @@ describe('the shipped dsh-doc skill', () => {
       const command = /```sh\n\s*(.+)\n\s*```/u.exec(readFileSync(join(skill, 'references', file), 'utf8'))?.[1]
       expect(command, file).toBeDefined()
       return execFileSync('bash', ['-c', command ?? ''], {
-        cwd, encoding: 'utf8', env: { ...process.env, DSH_PROFILE: 'web', DSH_INSTALL_DIR: install, DSH_NODE_EXECUTABLE: process.execPath },
+        cwd, encoding: 'utf8', env: { ...process.env, LYNESS_PROFILE: 'web', LYNESS_INSTALL_DIR: install, LYNESS_NODE_EXECUTABLE: process.execPath },
       })
     }
     const located = run('locate-docs.md').trim()
@@ -240,30 +240,30 @@ describe('the shipped dsh-doc skill', () => {
 
   // Desktop's real Electron and archive run in apps/desktop/tests/installed-docs-asar.built.e2e.ts.
   it.skipIf(spawnSync('pwsh', ['-NoProfile', '-Command', 'exit 0']).status !== 0)('documents a PowerShell process form that waits for the runtime', (test) => {
-    const install = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-doc-pwsh-')))
+    const install = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-doc-pwsh-')))
     test.onTestFinished(() => { rmSync(install, { recursive: true, force: true }) })
-    const pkg = join(install, 'node_modules', '@deepseek-ai', 'dsh-tool-bash')
+    const pkg = join(install, 'node_modules', '@lyness', 'lyn-tool-bash')
     mkdirSync(pkg, { recursive: true })
-    writeFileSync(join(pkg, 'package.json'), '{"name":"@deepseek-ai/dsh-tool-bash"}\n')
+    writeFileSync(join(pkg, 'package.json'), '{"name":"@lyness/lyn-tool-bash"}\n')
     const command = /```powershell\n([\s\S]+?)\n```/u.exec(readFileSync(join(skill, 'references', 'locate-docs.md'), 'utf8'))?.[1]
     expect(command).toBeDefined()
     const run = (script: string) => spawnSync('pwsh', ['-NoProfile', '-NonInteractive', '-Command', script], {
-      encoding: 'utf8', env: { ...process.env, DSH_INSTALL_DIR: install, DSH_NODE_EXECUTABLE: process.execPath },
+      encoding: 'utf8', env: { ...process.env, LYNESS_INSTALL_DIR: install, LYNESS_NODE_EXECUTABLE: process.execPath },
     })
     const found = run(command ?? '')
     expect(found.status, found.stderr).toBe(0)
     expect(found.stdout.trim()).toBe(pkg)
     // A failing script keeps its exit code and writes its error to stderr only.
-    const missing = run((command ?? '').replace("'@deepseek-ai/dsh-tool-bash'", "'@deepseek-ai/dsh-missing'"))
+    const missing = run((command ?? '').replace("'@lyness/lyn-tool-bash'", "'@lyness/lyn-missing'"))
     expect(missing.status).not.toBe(0)
     expect(missing.stdout).toBe('')
-    expect(missing.stderr).toContain('@deepseek-ai/dsh-missing')
+    expect(missing.stderr).toContain('@lyness/lyn-missing')
   })
 
-  it('never forbid reading DSH package sources and never route skill files through the shell', () => {
+  it('never forbid reading LYN package sources and never route skill files through the shell', () => {
     for (const file of markdownFiles(skill)) {
       const text = readFileSync(file, 'utf8')
-      expect(text, file).not.toMatch(/do not read (DSH |package |DSH package )?sources/i)
+      expect(text, file).not.toMatch(/do not read (LYN |package |LYN package )?sources/i)
       // Desktop ships the skill directory inside app.asar, which only the Host process can open.
       expect(text, file).not.toMatch(/`(cat|cp|ls) /)
     }

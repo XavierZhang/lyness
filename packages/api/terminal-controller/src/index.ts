@@ -1,13 +1,13 @@
 /** Session-owned user terminals with the execution environment's system-user permissions. */
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type {} from '@deepseek-ai/dsh-sandbox-policy'
-import type {} from '@deepseek-ai/dsh-working-directory'
-import { Remote, RemoteError, TypertRemoteService, type RemoteStream } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-sandbox-policy'
+import type {} from '@lyness/lyn-working-directory'
+import { Remote, RemoteError, TypertRemoteService, type RemoteStream } from '@lyness/lyn-typert-protocol'
 import { AgentTerminalHandle, type AgentTerminal, type AgentTerminalRequest } from './agent.ts'
 import { discoverShells, findShell, resolveShell } from './shells.ts'
 import { BrowserTerminal } from './terminal.ts'
@@ -21,7 +21,7 @@ export type * from './types.ts'
 export { AgentTerminalError } from './agent.ts'
 export type { AgentTerminal, AgentTerminalErrorCode, AgentTerminalRequest } from './agent.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Interactive user terminals, separate from the Agent terminal tool registry. */
     terminalController: TerminalController
@@ -440,7 +440,7 @@ export class TerminalController extends TypertRemoteService {
       : (await this.shells(agent, signal)).find(candidate => candidate.path === request.shellPath)
     if (shell === undefined) throw new Error('Selected shell is not available in this execution environment')
     return {
-      argv: [shell.path, ...shell.args], env: { DSH_SESSION_ID: agent.id },
+      argv: [shell.path, ...shell.args], env: { LYNESS_SESSION_ID: agent.id },
       info: { id: request.id, shell, title: shell.name, cwd, cols: request.cols, rows: request.rows, state: 'running', exitCode: null, origin: 'user', control: 'user' },
     }
   }
@@ -453,12 +453,12 @@ export class TerminalController extends TypertRemoteService {
     const { platform } = await subprocess.terminalEnvironment(signal)
     // Confined shells cannot write the person's history file and must not load it. Only workspace-write grants /tmp,
     // so a read-only shell gets an empty HISTFILE and keeps no history file.
-    const historyFile = `/tmp/dsh-agent-history-${id}`
+    const historyFile = `/tmp/lyn-agent-history-${id}`
     const keepsHistory = platform === 'posix' && request.policy.mode === 'workspace-write'
     const confined = platform === 'posix' && request.policy.mode !== 'danger-full-access'
     const history = confined ? { HISTFILE: keepsHistory ? historyFile : '' } : {}
     return {
-      argv, env: { ...request.env, DSH_SESSION_ID: agent.id, ...history },
+      argv, env: { ...request.env, LYNESS_SESSION_ID: agent.id, ...history },
       info: {
         id, shell, title: request.title, cwd, cols: request.cols, rows: request.rows, state: 'running', exitCode: null,
         origin: 'agent', control: 'agent', sandboxMode: request.policy.mode,

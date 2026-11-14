@@ -1,13 +1,13 @@
 /** Changes tab addresses, titles, the tab type definition, and the per-tab store. */
 import { describe, expect, it } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   CHANGES_ID, CHANGES_KIND, changesAddress, changesDefinition, changesTitle, parseChangesAddress,
 } from '../src/client/changes-address.ts'
 import { createChangesStore } from '../src/client/changes-store.ts'
 import { en, zh } from '../src/client/locales.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SESSION = brandString<SessionId>('s/1')
 const URL = 'https://github.com/octo/demo/pull/7'
@@ -16,22 +16,22 @@ describe('changes addresses', () => {
   it('round-trip the Session and the source with each part percent-encoded', () => {
     const local = changesAddress({ sessionId: SESSION, source: { kind: 'local' } })
     const change = changesAddress({ sessionId: SESSION, source: { kind: 'change', url: URL } })
-    expect(local).toBe('dsh-resource://forge-changes/s%2F1/local')
-    expect(change).toBe(`dsh-resource://forge-changes/s%2F1/change/${encodeURIComponent(URL)}`)
+    expect(local).toBe('lyn-resource://forge-changes/s%2F1/local')
+    expect(change).toBe(`lyn-resource://forge-changes/s%2F1/change/${encodeURIComponent(URL)}`)
     expect(parseChangesAddress(local)).toEqual({ sessionId: SESSION, source: { kind: 'local' } })
     expect(parseChangesAddress(change)).toEqual({ sessionId: SESSION, source: { kind: 'change', url: URL } })
   })
 
   it.each([
-    'dsh-resource://file/session/s/a.ts',
-    'dsh-resource://forge-changes//local',
-    'dsh-resource://forge-changes/s',
-    'dsh-resource://forge-changes/s/remote',
-    'dsh-resource://forge-changes/s/local/extra',
-    'dsh-resource://forge-changes/s/change',
-    'dsh-resource://forge-changes/s/change/',
-    'dsh-resource://forge-changes/s/change/a/b',
-    'dsh-resource://forge-changes/%E0%A4%A/local',
+    'lyn-resource://file/session/s/a.ts',
+    'lyn-resource://forge-changes//local',
+    'lyn-resource://forge-changes/s',
+    'lyn-resource://forge-changes/s/remote',
+    'lyn-resource://forge-changes/s/local/extra',
+    'lyn-resource://forge-changes/s/change',
+    'lyn-resource://forge-changes/s/change/',
+    'lyn-resource://forge-changes/s/change/a/b',
+    'lyn-resource://forge-changes/%E0%A4%A/local',
   ])('reject %s', (address) => {
     expect(parseChangesAddress(address)).toBeUndefined()
   })
@@ -47,12 +47,12 @@ describe('changes addresses', () => {
 describe('changesDefinition', () => {
   it('claims and titles the addresses this package mints and leaves others named by their address', () => {
     const definition = changesDefinition(makeTranslate(en))
-    expect(definition).toMatchObject({ id: CHANGES_ID, kind: CHANGES_KIND, keepMounted: true, patterns: ['dsh-resource://forge-changes/**'] })
+    expect(definition).toMatchObject({ id: CHANGES_ID, kind: CHANGES_KIND, keepMounted: true, patterns: ['lyn-resource://forge-changes/**'] })
     const address = changesAddress({ sessionId: SESSION, source: { kind: 'change', url: URL } })
     expect(definition.canOpen?.(address)).toBe(true)
     expect(definition.title(address)).toBe('Changes in #7')
-    expect(definition.canOpen?.('dsh-resource://forge-changes/s/remote')).toBe(false)
-    expect(definition.title('dsh-resource://forge-changes/s/remote')).toBe('dsh-resource://forge-changes/s/remote')
+    expect(definition.canOpen?.('lyn-resource://forge-changes/s/remote')).toBe(false)
+    expect(definition.title('lyn-resource://forge-changes/s/remote')).toBe('lyn-resource://forge-changes/s/remote')
   })
 })
 

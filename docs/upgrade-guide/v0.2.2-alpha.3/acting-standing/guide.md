@@ -25,9 +25,9 @@ This affects anybody who builds a `Principal` (a custom authorization rule, a te
 
 1. Add `session` wherever you build a `Principal`. It is the `AuthSessionId` the call presented, which `presentedSession(request)` returns and `requestPrincipal` already resolves:
    ```ts
-   import type { Principal } from '@deepseek-ai/dsh-request-principal'
-   import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
-   import type { PersonId } from '@deepseek-ai/dsh-people'
+   import type { Principal } from '@lyness/lyn-request-principal'
+   import type { AuthSessionId } from '@lyness/lyn-auth-session'
+   import type { PersonId } from '@lyness/lyn-people'
 
    declare const presented: AuthSessionId
    declare const person: PersonId

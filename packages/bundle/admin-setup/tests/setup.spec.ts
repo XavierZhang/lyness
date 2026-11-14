@@ -86,7 +86,7 @@ describe('writing the first administrator', () => {
     // none, so a patch would name a row that does not exist.
     expect(inserted(layer)).toEqual({
       id: 'sign-in-channel-oidc',
-      name: '@deepseek-ai/dsh-oidc',
+      name: '@lyness/lyn-oidc',
       config: { issuer: 'https://id.acme.example', clientId: 'client-1', secret: 'OIDC_CLIENT_SECRET' },
     })
     // The routes cannot infer the origin, and the cookies' Secure follows the
@@ -188,7 +188,7 @@ describe('writing the first administrator', () => {
   })
 
   it('completes a provider row that was inserted without a config', () => {
-    const existing = ['- insert:', '    - id: sign-in-channel-oidc', '      name: \'@deepseek-ai/dsh-oidc\'', ''].join('\n')
+    const existing = ['- insert:', '    - id: sign-in-channel-oidc', '      name: \'@lyness/lyn-oidc\'', ''].join('\n')
     const layer = upsertFirstAdministrator(existing, request())
     expect(inserted(layer)).toMatchObject({ config: { issuer: 'https://id.acme.example' } })
   })

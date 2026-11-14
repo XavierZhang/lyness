@@ -1,12 +1,12 @@
 /** What the credits namespace refuses, and why each refusal is its own code. */
 
 import { expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
-import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import type { Principal } from '@deepseek-ai/dsh-request-principal'
+import { Context } from '@lyness/cordis'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import type { Principal } from '@lyness/lyn-request-principal'
 import CreditsController from '../src/index.ts'
 
 /** The session every principal in this spec presents; no case addresses another. */

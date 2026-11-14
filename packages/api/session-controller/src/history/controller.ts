@@ -1,11 +1,11 @@
 /** Independent Session snapshots and passive event subscriptions. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { SessionLogOffset, SessionSeq, isAppendSurfaceEvent } from '@deepseek-ai/dsh-session'
-import type { SessionId, SessionEvent } from '@deepseek-ai/dsh-session'
-import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
-import { RemoteError, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import { SessionLogOffset, SessionSeq, isAppendSurfaceEvent } from '@lyness/lyn-session'
+import type { SessionId, SessionEvent } from '@lyness/lyn-session'
+import type { SessionObservation } from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-session-ownership/visibility'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import {
   DEFAULT_MAX_MESSAGES, paginate, pageRecords, entryFor, addressId,
   validateHistoryWindow, validateAddress, rejectNotFound,

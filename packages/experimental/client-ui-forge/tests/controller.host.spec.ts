@@ -1,11 +1,11 @@
 import { access, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { ForgeFailure, ForgeProvider, ForgeReadiness } from '@deepseek-ai/dsh-experimental-forge'
-import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
-import { appendPluginRecord, type SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import WorktreeService from '@deepseek-ai/dsh-experimental-worktree'
+import type { ForgeFailure, ForgeProvider, ForgeReadiness } from '@lyness/lyn-experimental-forge'
+import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import { appendPluginRecord, type SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import WorktreeService from '@lyness/lyn-experimental-worktree'
 import ForgePanelController from '../src/index.ts'
 import type { Config, ForgeLocalDiff, ForgePanelState, ForgeSessionWorktree, ForgeWorktreeState } from '../src/index.ts'
 import { GitOutputTooLarge } from '../src/git.ts'
@@ -16,7 +16,7 @@ import {
   rejectionOf, repository, scratch, sendPrompt, shellTurn, snapshot, startStep, startTurn,
 } from './harness.ts'
 import type { Bench, BenchOptions, Follower } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: (() => Promise<void>)[] = []
 
@@ -27,7 +27,7 @@ afterEach(async () => {
 const signal = new AbortController().signal
 
 async function project(): Promise<{ root: string; repo: string }> {
-  const { path, remove } = await scratch('dsh-forge-panel-')
+  const { path, remove } = await scratch('lyn-forge-panel-')
   cleanups.push(remove)
   const repo = await repository(path)
   await git(repo, 'remote', 'add', 'origin', 'https://fake.test/octo/demo.git')
@@ -41,7 +41,7 @@ async function withDefaultBranch(repo: string): Promise<void> {
 }
 
 async function plain(): Promise<string> {
-  const { path, remove } = await scratch('dsh-forge-plain-')
+  const { path, remove } = await scratch('lyn-forge-plain-')
   cleanups.push(remove)
   return path
 }
@@ -67,7 +67,7 @@ const UNAVAILABLE = {
 }
 
 /** Matches a generated branch name with the default prefix. */
-const GENERATED_BRANCH: unknown = expect.stringMatching(/^dsh-[0-9a-f]{8}$/)
+const GENERATED_BRANCH: unknown = expect.stringMatching(/^lyn-[0-9a-f]{8}$/)
 /** Abbreviated commit object name Git prints for HEAD. */
 const COMMIT: unknown = expect.stringMatching(/^[0-9a-f]{7,}$/)
 
@@ -1045,7 +1045,7 @@ describe('forgePanel worktree requests', () => {
     expect(opened.agent.wakes).toBe(1)
 
     const worktree: ForgeSessionWorktree = {
-      path: join(repo, '.agents', 'worktrees', 'dsh', '0a1b2c3d'), branch: 'dsh/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: repo,
+      path: join(repo, '.agents', 'worktrees', 'lyn', '0a1b2c3d'), branch: 'lyn/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: repo,
     }
     recordWorktree(opened.session, worktree)
     await expect(opened.ctx.forgePanel.restoreWorktree(opened.session, signal)).rejects.toMatchObject({ code: 'forgePanel/worktrees-unavailable' })
@@ -1103,7 +1103,7 @@ describe('forgePanel worktree requests', () => {
     await settle()
     expect(published).toBe(false)
 
-    const worktree: ForgeSessionWorktree = { path: join(repo, 'elsewhere'), branch: 'dsh/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: repo }
+    const worktree: ForgeSessionWorktree = { path: join(repo, 'elsewhere'), branch: 'lyn/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: repo }
     appendPluginRecord(opened.session, WORKTREE_RECORD, { action: 'created', worktree })
     await expect(pending).resolves.toMatchObject({ worktree: { ...UNAVAILABLE, request: { from: null }, created: worktree } })
 
@@ -1111,7 +1111,7 @@ describe('forgePanel worktree requests', () => {
     let republished = false
     void later.then(() => { republished = true }, () => undefined)
     startStep(opened.session, 1)
-    appendPluginRecord(opened.session, WORKTREE_RECORD, { action: 'created', worktree: { ...worktree, branch: 'dsh/ffffffff' } })
+    appendPluginRecord(opened.session, WORKTREE_RECORD, { action: 'created', worktree: { ...worktree, branch: 'lyn/ffffffff' } })
     await settle()
     expect(republished).toBe(false)
   })
@@ -1729,7 +1729,7 @@ describe('forgePanel worktree service changes', () => {
   })
 
   it('accepts a prefix that Git accepts', async () => {
-    const opened = await open(await plain(), { worktreePrefix: 'team/dsh-' })
+    const opened = await open(await plain(), { worktreePrefix: 'team/lyn-' })
     expect(opened.ctx.forgePanel).toBeDefined()
   })
 })
@@ -2067,14 +2067,14 @@ describe('forgePanel configuration', () => {
     [{ maxAnnotationsPerFile: 1.5 }, 'forge-panel: maxAnnotationsPerFile must be a positive integer'],
     [{ testPaths: ['**/*.spec.*', ' '] }, 'forge-panel: testPaths entries must not be empty'],
     [{ interfacePaths: [''] }, 'forge-panel: interfacePaths entries must not be empty'],
-    [{ worktreePrefix: '-dsh/' }, prefix],
-    [{ worktreePrefix: 'dsh /' }, prefix],
-    [{ worktreePrefix: 'dsh:' }, prefix],
-    [{ worktreePrefix: 'dsh\\' }, prefix],
-    [{ worktreePrefix: '/dsh/' }, prefix],
-    [{ worktreePrefix: 'dsh//' }, prefix],
+    [{ worktreePrefix: '-lyn/' }, prefix],
+    [{ worktreePrefix: 'lyn /' }, prefix],
+    [{ worktreePrefix: 'lyn:' }, prefix],
+    [{ worktreePrefix: 'lyn\\' }, prefix],
+    [{ worktreePrefix: '/lyn/' }, prefix],
+    [{ worktreePrefix: 'lyn//' }, prefix],
     [{ worktreePrefix: './' }, prefix],
-    [{ worktreePrefix: 'dsh/../' }, prefix],
+    [{ worktreePrefix: 'lyn/../' }, prefix],
     [{ worktreePrefix: '.x/' }, prefix],
     [{ worktreePrefix: 'a..b/' }, prefix],
     [{ worktreePrefix: 'x.lock/' }, prefix],

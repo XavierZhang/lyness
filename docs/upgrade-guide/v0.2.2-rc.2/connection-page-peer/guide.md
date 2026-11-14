@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-Default Token verification and HTTP login exchanges move to `@deepseek-ai/dsh-host-authentication-token`. Connection removes BrowserAuth, `authorizeIndex`, `authenticatedUrl`, `requestRejection`, `ConnectionRequestRejection`, `peer(id)`, `createPeer.socketOwned`, `ConnectionAdmission`, and `admitConnection`. Token owns `/api/remote.mux` Socket claims through the post-admission `webserver/upgrade` waterfall. Cookie formats and `/connect` remain; valid v2 Cookies now also authenticate pages, without a page/API `purpose` field.
+Default Token verification and HTTP login exchanges move to `@lyness/lyn-host-authentication-token`. Connection removes BrowserAuth, `authorizeIndex`, `authenticatedUrl`, `requestRejection`, `ConnectionRequestRejection`, `peer(id)`, `createPeer.socketOwned`, `ConnectionAdmission`, and `admitConnection`. Token owns `/api/remote.mux` Socket claims through the post-admission `webserver/upgrade` waterfall. Cookie formats and `/connect` remain; valid v2 Cookies now also authenticate pages, without a page/API `purpose` field.
 
 WebServer registrations now accept `auth: 'anonymous' | 'required' | 'deny'` or a synchronous selector, defaulting to `required`. Previously public handlers, resources, fallbacks, and upgrades need explicit anonymous declarations. HTTP and upgrade handlers receive the admitted Peer as an optional trailing argument; resources keep their Peer argument. Connection source checks also apply to anonymous routes when its listener is active.
 

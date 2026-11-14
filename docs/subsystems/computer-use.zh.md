@@ -2,7 +2,7 @@
 
 [English](computer-use.md) | 中文
 
-计算机操作让模型通过配置的提供方观察并操作本地桌面。DSH 的共享能力称为 **computer use（计算机操作）**；**Cua Driver** 是上游实现的名称。
+计算机操作让模型通过配置的提供方观察并操作本地桌面。LYN 的共享能力称为 **computer use（计算机操作）**；**Cua Driver** 是上游实现的名称。
 
 [Computer Use](../../packages/experimental/cua-bundle/README.zh.md) 是适用于 macOS 和 Windows 的可选实验性插件组合。
 
@@ -21,11 +21,11 @@ CUA provider 通过 `ctx.cuaAccess` 提供系统权限状态、用户主动申�
 
 ## 向其他 harness 提供 Computer Use
 
-[Computer Use MCP 服务器](../../packages/experimental/cua-mcp/README.zh.md)是随安装提供的可选组合包，独立组成 `cua-mcp` profile；只选它的 profile manifest 就是全部设置。`dsh --profile cua-mcp` 向一个 MCP 客户端（如 Codex 或 Claude Code）提供 `cua_get_api_reference`、`cua_run_code` 和 `cua_reset`；每个连接拥有一个 Agent，其程序保留应用与窗口对象，授权可无人值守放行或作为 elicitation 转发给客户端。该 profile 不运行模型回合，其 Session 中不记录根工具调用。
+[Computer Use MCP 服务器](../../packages/experimental/cua-mcp/README.zh.md)是随安装提供的可选组合包，独立组成 `cua-mcp` profile；只选它的 profile manifest 就是全部设置。`lyn --profile cua-mcp` 向一个 MCP 客户端（如 Codex 或 Claude Code）提供 `cua_get_api_reference`、`cua_run_code` 和 `cua_reset`；每个连接拥有一个 Agent，其程序保留应用与窗口对象，授权可无人值守放行或作为 elicitation 转发给客户端。该 profile 不运行模型回合，其 Session 中不记录根工具调用。
 
 ## 选择提供方
 
-在同一组合中挂载 [`dsh-computer-use`](../../packages/computer-use/computer-use/README.zh.md) 和一个提供方。Computer Use 组合会按宿主平台选择原生提供方。自定义组合也可以直接挂载提供方。
+在同一组合中挂载 [`lyn-computer-use`](../../packages/computer-use/computer-use/README.zh.md) 和一个提供方。Computer Use 组合会按宿主平台选择原生提供方。自定义组合也可以直接挂载提供方。
 
 | 提供方 | 运行时 |
 |---|---|
@@ -40,7 +40,7 @@ CUA provider 通过 `ctx.cuaAccess` 提供系统权限状态、用户主动申�
 
 提供方在关闭工具和自有资源期间保留注册。启动失败会释放此次尝试的注册。MCP 提供方在重连期间保留注册。
 
-一个已注册的提供方不会为某个 Session 预留桌面。调用方负责协调跨 Session 和独立 DSH 进程的完整观察、操作和验证流程。取消调用无法撤销桌面已收到的输入。
+一个已注册的提供方不会为某个 Session 预留桌面。调用方负责协调跨 Session 和独立 LYN 进程的完整观察、操作和验证流程。取消调用无法撤销桌面已收到的输入。
 
 ## 结果和平台要求
 

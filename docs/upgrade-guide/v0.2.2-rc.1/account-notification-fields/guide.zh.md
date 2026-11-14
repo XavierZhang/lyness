@@ -23,4 +23,4 @@ description: "通用账号通知 API 替换赠金专用方法，通知请求改�
 2. 移除通知方法的账号 ID 参数和批次的 accountId 字段。`getNotificationContent(id, client)` 和 `reportNotificationEvent(id, event, client)` 直接使用当前 token，不前置查询资料。凭据变化后终止旧请求、卡片与轮询，并丢弃迟到的响应。每次事件只上报一次；有效的 `acked: true` 和 `acked: false` 均结束本次尝试。上报失败保留本地卡片状态，不重试。展示后上报 `displayed`，所有非 dismiss 操作点击都上报 `cta_clicked`，不携带 action ID，主动关闭仅上报 `dismissed`。点击业务按钮保留卡片并立即执行操作，不等待上报；尚未展示就关闭时不补报展示事件；过期和账号清理不计为主动关闭。切换语言时，通过 `getNotificationContent()` 刷新当前卡片，保留位置，不重复上报展示事件。
 3. 从 `ui-settings-account` 配置中移除 `bonusAckRetryDelayMs` 和 `bonusAckRetryMaxDelayMs`；事件上报没有重试配置。上报失败不撤销当前交互，也不重试该次上报。后续列表再次返回已关闭通知时，客户端会再次展示。
 4. 保留已有的 `platformOrigin` 配置。私有部署和本机测试夹具将 `harnessOrigin` 设为各自的通知服务来源。确认仅 list、content 和 events 使用该来源；登录、资料、余额、退出登录和页面保留 `platformOrigin`。
-5. 在账号设置旁加载 `@deepseek-ai/dsh-client-ui-account-notifications`。初始十分钟间隔不适用时，设置其新增的 `notificationPollIntervalMs` 选项。将通知状态及上报使用方迁移到新插件。确认两个插件共用一条账号流，包括重载通知插件之后。
+5. 在账号设置旁加载 `@lyness/lyn-client-ui-account-notifications`。初始十分钟间隔不适用时，设置其新增的 `notificationPollIntervalMs` 选项。将通知状态及上报使用方迁移到新插件。确认两个插件共用一条账号流，包括重载通知插件之后。

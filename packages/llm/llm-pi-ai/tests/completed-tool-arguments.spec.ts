@@ -1,17 +1,17 @@
 /** Completed provider arguments fail before a malformed call can enter successful history or dispatch. */
 
 import { afterEach, describe, expect, it, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { BlockAssembler, createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import { PiAiAdapter } from '@deepseek-ai/dsh-llm-pi-ai'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { BlockAssembler, createUserMessage } from '@lyness/lyn-llm'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import { PiAiAdapter } from '@lyness/lyn-llm-pi-ai'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import type { SessionId } from '@lyness/lyn-session'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
 import { resolveProfiles } from '../src/config.ts'
 import { memoryAuth } from './auth-double.ts'
 import { anthropicFrame, anthropicMessageStart, closeMockServers, mockServer } from './mock-server.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(closeMockServers)
 

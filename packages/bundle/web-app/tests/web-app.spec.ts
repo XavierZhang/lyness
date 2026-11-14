@@ -3,9 +3,9 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { basename, dirname, isAbsolute, join, resolve } from 'node:path'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createLaunchEnvironmentSnapshot, DSH_LAUNCH_ENVIRONMENT_KEY } from '@deepseek-ai/dsh-launch-environment'
-import { bindUrlHost, type WebServer } from '@deepseek-ai/dsh-host-webserver'
+import { Context } from '@lyness/cordis'
+import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/lyn-launch-environment'
+import { bindUrlHost, type WebServer } from '@lyness/lyn-host-webserver'
 import { apply, Config, internals } from '../src/index.ts'
 
 let dist: string | undefined
@@ -15,7 +15,7 @@ afterEach(() => {
   vi.restoreAllMocks()
   internals.resolveDistIndex = originalResolve
   if (dist !== undefined) {
-    if (!isAbsolute(dist) || dirname(dist) !== resolve(tmpdir()) || !basename(dist).startsWith('dsh-web-app-')) {
+    if (!isAbsolute(dist) || dirname(dist) !== resolve(tmpdir()) || !basename(dist).startsWith('lyn-web-app-')) {
       throw new Error(`refusing unexpected fixture cleanup path: ${dist}`)
     }
     rmSync(dist, { recursive: true, force: true })
@@ -25,7 +25,7 @@ afterEach(() => {
 
 /** Supply a distribution owned by this test without invoking a frontend build. */
 function stageDist(): void {
-  dist = mkdtempSync(join(tmpdir(), 'dsh-web-app-'))
+  dist = mkdtempSync(join(tmpdir(), 'lyn-web-app-'))
   mkdirSync(join(dist, 'dist'))
   const index = join(dist, 'dist', 'index.html')
   writeFileSync(index, '<head></head><body>shell</body>')
@@ -74,11 +74,11 @@ describe('web-app runtime glue', () => {
     { mode: 'disabled', enabled: false },
   ])('publishes and opens entries with $mode startup flags', async ({ enabled }) => {
     const ctx = context()
-    ctx.provide(DSH_LAUNCH_ENVIRONMENT_KEY, createLaunchEnvironmentSnapshot([{ source: 'process', values: {} }]))
+    ctx.provide(LYNESS_LAUNCH_ENVIRONMENT_KEY, createLaunchEnvironmentSnapshot([{ source: 'process', values: {} }]))
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})
     const open = vi.spyOn(internals, 'openBrowser').mockResolvedValue(undefined)
     ctx.on('webserver/entry-url', (baseUrl, entries) => {
-      entries.push({ label: 'dsh web', url: `${baseUrl}/?token=fixture`, open: true })
+      entries.push({ label: 'lyn web', url: `${baseUrl}/?token=fixture`, open: true })
     })
     const config = enabled ? new Config() : new Config({ surfaceContext: false, printUrl: false, openBrowser: false })
     expect(config).toMatchObject({ printUrl: enabled, openBrowser: enabled })
@@ -86,7 +86,7 @@ describe('web-app runtime glue', () => {
     expect(log).toHaveBeenCalledTimes(enabled ? 2 : 0)
     expect(open).toHaveBeenCalledTimes(enabled ? 1 : 0)
     if (enabled) {
-      expect(log).toHaveBeenCalledWith('dsh web: http://127.0.0.1:4567/?token=fixture')
+      expect(log).toHaveBeenCalledWith('lyn web: http://127.0.0.1:4567/?token=fixture')
       expect(open).toHaveBeenCalledWith('http://127.0.0.1:4567/?token=fixture', expect.any(AbortSignal))
       await open.mock.results[0]!.value
     }
@@ -110,7 +110,7 @@ describe('web-app runtime glue', () => {
     const url = `http://${advertised}:4567`
     expect(ctx.webApp.getAdvertisedUrl()).toBe(url)
     await vi.waitFor(() => {
-      expect(contributions.find(item => item.name === 'web-runtime')?.resolve()).toEqual({ DSH_WEB_URL: url })
+      expect(contributions.find(item => item.name === 'web-runtime')?.resolve()).toEqual({ LYNESS_WEB_URL: url })
     })
     expect(warn).not.toHaveBeenCalled()
   })
@@ -122,7 +122,7 @@ describe('web-app runtime glue', () => {
     expect(ctx.webApp.getAdvertisedUrl()).toBe('https://proxy.example:8443/web/')
     await vi.waitFor(() => {
       expect(contributions.find(item => item.name === 'web-runtime')?.resolve()).toEqual({
-        DSH_WEB_URL: 'https://proxy.example:8443/web/',
+        LYNESS_WEB_URL: 'https://proxy.example:8443/web/',
       })
     })
   })
@@ -147,7 +147,7 @@ describe('web-app runtime glue', () => {
     apply(ctx, new Config({ printUrl: false, openBrowser: false, surfaceContext: false }))
     expect(ctx.webApp.getAdvertisedUrl()).toBe(`http://${advertised}:4567`)
     expect(warn).toHaveBeenCalledExactlyOnceWith(
-      `dsh web: listening on ${bind} over plain HTTP; restrict this port to a trusted proxy or network`,
+      `lyn web: listening on ${bind} over plain HTTP; restrict this port to a trusted proxy or network`,
     )
   })
 

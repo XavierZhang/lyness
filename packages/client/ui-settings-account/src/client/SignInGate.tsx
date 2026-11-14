@@ -11,10 +11,10 @@
  */
 
 import { useEffect, useState } from 'react'
-import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SettingsMirrorSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
-import type { SignInAttemptId } from '@deepseek-ai/dsh-deepseek-account/types'
-import type { ThemeSnapshot } from '@deepseek-ai/dsh-client-ui-theme/client'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { SettingsMirrorSnapshot } from '@lyness/lyn-client-ui-settings/client'
+import type { SignInAttemptId } from '@lyness/lyn-deepseek-account/types'
+import type { ThemeSnapshot } from '@lyness/lyn-client-ui-theme/client'
 import type { AccountSnapshot } from './AccountSection.tsx'
 import { SignInDialog } from './SignInDialog.tsx'
 import { modelProviderConfigured } from './model-readiness.ts'

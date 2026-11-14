@@ -2,8 +2,8 @@
 import { constants } from 'node:fs'
 import { access, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { buildNativeExecutable as compileExecutable, sourceNativePackage } from '@deepseek-ai/dsh-cua/native-build'
-import type { SubprocessRuntime } from '@deepseek-ai/dsh-subprocess'
+import { buildNativeExecutable as compileExecutable, sourceNativePackage } from '@lyness/lyn-cua/native-build'
+import type { SubprocessRuntime } from '@lyness/lyn-subprocess'
 import { z } from 'zod'
 
 const NativeApplication = z.object({ bundle: z.string().regex(/^[a-f0-9]{64}$/) }).strict()
@@ -52,8 +52,8 @@ export interface NativeBuildSpec {
  */
 export async function nativeExecutablePath(directory: string, variant: 'release' | 'dev'): Promise<string> {
   const receipt = NativeApplication.parse(JSON.parse(await readFile(join(directory, 'current.json'), 'utf8')))
-  const application = variant === 'dev' ? 'DSH Computer Use Dev.app' : 'DSH Computer Use.app'
-  const executable = join(directory, receipt.bundle, application, 'Contents', 'MacOS', 'dsh-cua-native')
+  const application = variant === 'dev' ? 'LYN Computer Use Dev.app' : 'LYN Computer Use.app'
+  const executable = join(directory, receipt.bundle, application, 'Contents', 'MacOS', 'lyn-cua-native')
   await access(executable, constants.X_OK)
   return executable
 }
@@ -61,7 +61,7 @@ export async function nativeExecutablePath(directory: string, variant: 'release'
 /**
  * Recognize the repository-owned package location before allowing local compilation.
  * @param packageRoot - Real directory containing the CUA package manifest.
- * @returns True only for a CUA package in a DSH source checkout.
+ * @returns True only for a CUA package in a LYN source checkout.
  */
 export async function isSourcePackage(packageRoot: string): Promise<boolean> {
   return sourceNativePackage(packageRoot, 'packages/experimental/cua-macos')

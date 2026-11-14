@@ -1,12 +1,12 @@
 /** Successful Session translations survive remounts and restarts without another provider query. */
-import { pluginRecordOf, type SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import { pluginRecordOf, type SessionId, type SessionEvent } from '@lyness/lyn-session'
 import { appendFile, readFile, writeFile } from 'node:fs/promises'
 import type { ServerResponse } from 'node:http'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { TranslationStorage } from '../src/storage.ts'
 import type { TranslationIdentity } from '../src/types.ts'
 import { storageFixture, storageReply } from './storage-fixture.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: Array<() => Promise<void>> = []
 afterEach(async () => {

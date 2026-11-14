@@ -1,22 +1,22 @@
 /** The `worktree` projection: every checkout this service recorded creating for a Session, and which of them the Session created itself. */
 
-import { pluginRecordOf } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import { pluginRecordOf } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import { z } from 'zod'
 import type { CreatedWorktree, WorktreeCreation } from './types.ts'
 
 /** Plugin record type of a checkout this service created for the Session, written after the Session entered it. */
 export const CREATED_RECORD = 'plugin:worktree/created'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface PluginRecordMap {
     /** A checkout the worktree service created for the Session, which entered it in the same operation. */
     'plugin:worktree/created': CreatedWorktree
   }
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Checkouts recorded in the Session's log, in creation order. */
     worktree: readonly WorktreeCreation[]

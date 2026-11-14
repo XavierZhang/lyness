@@ -1,15 +1,15 @@
-import { Context } from '@deepseek-ai/cordis'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import SessionStore, { SESSION_FORMAT_VERSION, type SessionId, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent, SessionHeader, SurfaceIntent } from '@deepseek-ai/dsh-session'
-import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
-import { subagentIdentityProjectionDefinition } from '@deepseek-ai/dsh-subagent/src/projection.ts'
+import { Context } from '@lyness/cordis'
+import { createScope } from '@lyness/lyn-scope'
+import SessionStore, { SESSION_FORMAT_VERSION, type SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader, SurfaceIntent } from '@lyness/lyn-session'
+import type { SessionObservation } from '@lyness/lyn-session-query'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
+import { subagentIdentityProjectionDefinition } from '@lyness/lyn-subagent/src/projection.ts'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { HistoryController } from '../src/history/controller.ts'
 import { WebController } from '../src/web/controller.ts'
 import { installSessionReadTestServices, testSessionPersistence } from './test-remote.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const signal = (): AbortSignal => new AbortController().signal
 

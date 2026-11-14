@@ -2,8 +2,8 @@ import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { expect, it } from 'vitest'
 import { z } from 'zod'
-import { DesktopCosOperationError, desktopPublicationFailure } from '@deepseek-ai/dsh-desktop-publisher/desktop-publication-failure.ts'
-import { DesktopPublishError } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish.ts'
+import { DesktopCosOperationError, desktopPublicationFailure } from '@lyness/lyn-desktop-publisher/desktop-publication-failure.ts'
+import { DesktopPublishError } from '@lyness/lyn-desktop-publisher/desktop-publish.ts'
 
 it('preserves actionable validation and filesystem diagnostics', () => {
   expect(desktopPublicationFailure(new DesktopPublishError('conflict', 'desktop publish: object differs: bin/app.exe'), 'upload'))

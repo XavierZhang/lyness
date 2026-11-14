@@ -1,12 +1,12 @@
 import { useId, useLayoutEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { PropsStore, ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
-import type { ConfigFormSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { PropsStore, ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { ConfigFormSnapshot } from '@lyness/lyn-client-ui-settings/client'
 import type { Config } from '../config.ts'
 import { defaultReportCadence } from '../policy.ts'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import type {} from '@deepseek-ai/dsh-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import type { createViewStore, ViewState } from './store.ts'
 import { emptyDraft } from './store.ts'
 import { Schedule } from './Schedule.tsx'
@@ -15,7 +15,7 @@ import { Details } from './Details.tsx'
 import type { DetailTarget } from './navigation.ts'
 import type { AnnotationRequest, PriorityRequest, TaskRequest } from './actions.ts'
 import { DiscussionHistory } from './Annotations.tsx'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { TreeTransferActions } from './TreeTransfer.tsx'
 
 export interface PanelInjected extends TreeTransferActions {
@@ -119,7 +119,7 @@ export function Panel({
   const tabIds = ['tasks', 'timeline'] as const
   return (
     <div
-      className="dsh-timeline"
+      className="lyn-timeline"
       data-detail={page?.target.kind}
       ref={container}
       data-timeline-dock-open={tabInfo.sidebar.expanded && tabInfo.tab.visible}

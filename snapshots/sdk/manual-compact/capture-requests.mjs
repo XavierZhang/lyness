@@ -3,7 +3,7 @@ import { appendFileSync } from 'node:fs'
 
 /**
  * @param ctx - Scenario context providing the LLM event stream.
- * @param config - Output path under the scenario's private DSH home.
+ * @param config - Output path under the scenario's private LYN home.
  */
 export function apply(ctx, config) {
   ctx.on('llm/stream', async function* (options, next) {

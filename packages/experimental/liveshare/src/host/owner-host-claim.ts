@@ -1,7 +1,7 @@
 /**
  * One running host's claim on a LiveShare owner state directory.
  *
- * Two hosts that start on the same DSH home restore the same persisted shares. A Relay registration
+ * Two hosts that start on the same LYN home restore the same persisted shares. A Relay registration
  * belongs to one host at a time, so the later host re-registering them makes the earlier host's
  * authority reads answer for a registration the Relay has moved: the earlier host then fences the
  * share and, with it, cancels the owner's running turn. This claim names the host that owns the
@@ -22,7 +22,7 @@
  * the next host, and so is one that names this process. The liveness check protects no share data and
  * no Session log, and pid reuse can at worst leave a live host without its shares until its next
  * start. There is deliberately no deadline that could expropriate a stalled holder.
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/owner-host-claim
+ * @module @lyness/lyn-experimental-liveshare/src/host/owner-host-claim
  */
 
 import { randomBytes } from 'node:crypto'
@@ -40,7 +40,7 @@ export class OwnerHostClaimHeldError extends Error {
    * @param holderPid - Process that holds the claim, or this process when its own claim blocks it.
    */
   constructor(readonly holderPid: number) {
-    super(`the LiveShare owner state is held by dsh pid ${String(holderPid)}`)
+    super(`the LiveShare owner state is held by lyn pid ${String(holderPid)}`)
     this.name = 'OwnerHostClaimHeldError'
   }
 }

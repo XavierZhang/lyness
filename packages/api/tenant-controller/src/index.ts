@@ -12,18 +12,18 @@
  * the wire fields, then the seam's own rules — so the caller receives every
  * problem in one answer and a form marks every field at once. The backend
  * checks the same rules again for every other caller it has.
- * @module @deepseek-ai/dsh-api-tenant-controller
+ * @module @lyness/lyn-api-tenant-controller
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { credentialRef, isCredentialRefName } from '@deepseek-ai/dsh-credentials'
-import type { TenantId } from '@deepseek-ai/dsh-tenant'
-import { MODALITIES, validateTenantConfig } from '@deepseek-ai/dsh-tenant-config'
+import { Context } from '@lyness/cordis'
+import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
+import type { TenantId } from '@lyness/lyn-tenant'
+import { MODALITIES, validateTenantConfig } from '@lyness/lyn-tenant-config'
 import type {
   Modality, ModalityModels, ModelChoice, ProviderGrant, TenantConfig,
-} from '@deepseek-ai/dsh-tenant-config'
-import type { RequestTenant } from '@deepseek-ai/dsh-tenant-request/types'
-import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/lyn-tenant-config'
+import type { RequestTenant } from '@lyness/lyn-tenant-request/types'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import type {
   TenantConfigInput, TenantConfigView, TenantIdentityView, TenantModalityView, TenantModelView, TenantProviderView,
@@ -57,7 +57,7 @@ const inputSchema = z.object({
   copy: z.record(z.string().min(1), z.string()).optional(),
 })
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host owner of the `tenant` Remote namespace. */
     tenantController: TenantController

@@ -2,7 +2,7 @@
  * Tests for the shared escalation vocabulary and choreography: the strictly-
  * wider ladder, the argument-pairing validation, the model-facing markers, and
  * {@link approveEscalation}'s ordered fail-closed sequence. Both enforcing tool
- * families (`dsh-tool-bash`, `dsh-tool-fs`) delegate here, so the ordering and
+ * families (`lyn-tool-bash`, `lyn-tool-fs`) delegate here, so the ordering and
  * verbatim texts are pinned once, next to the vocabulary that owns them.
  */
 
@@ -16,8 +16,8 @@ import {
   sandboxDenialMarker,
   sandboxPermissionsDescription,
   validateEscalationArgs,
-} from '@deepseek-ai/dsh-sandbox'
-import type { EscalationApprover, EscalationOutcome, SandboxEscalationErrorCode } from '@deepseek-ai/dsh-sandbox'
+} from '@lyness/lyn-sandbox'
+import type { EscalationApprover, EscalationOutcome, SandboxEscalationErrorCode } from '@lyness/lyn-sandbox'
 
 /** The structured identity a failed escalation records on `tool/result`. */
 const escalationError = (code: SandboxEscalationErrorCode): unknown => expect.objectContaining({ name: 'SandboxEscalationError', code })

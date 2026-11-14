@@ -9,7 +9,7 @@ description: WebServer 路由默认要求认证，默认 Token 登录迁入 Prov
 
 ## 变更
 
-默认 Token 验证与 HTTP 登录交换迁入 `@deepseek-ai/dsh-host-authentication-token`。Connection 移除 BrowserAuth、`authorizeIndex`、`authenticatedUrl`、`requestRejection`、`ConnectionRequestRejection`、`peer(id)`、`createPeer.socketOwned`、`ConnectionAdmission` 与 `admitConnection`。Token 通过准入后的 `webserver/upgrade` waterfall 拥有 `/api/remote.mux` Socket 认领。Cookie 格式与 `/connect` 保持；有效 v2 Cookie 也可认证页面，不再有页面/API `purpose` 字段。
+默认 Token 验证与 HTTP 登录交换迁入 `@lyness/lyn-host-authentication-token`。Connection 移除 BrowserAuth、`authorizeIndex`、`authenticatedUrl`、`requestRejection`、`ConnectionRequestRejection`、`peer(id)`、`createPeer.socketOwned`、`ConnectionAdmission` 与 `admitConnection`。Token 通过准入后的 `webserver/upgrade` waterfall 拥有 `/api/remote.mux` Socket 认领。Cookie 格式与 `/connect` 保持；有效 v2 Cookie 也可认证页面，不再有页面/API `purpose` 字段。
 
 WebServer 注册新增 `auth: 'anonymous' | 'required' | 'deny'` 或同步选择器，默认 `required`。此前公开的 handler、resource、回退与 upgrade 需要显式声明匿名。HTTP 与 upgrade handler 通过可选末尾参数接收准入 Peer；resource 保留已有 Peer 参数。Connection 监听器活动时，来源检查也适用于匿名路由。
 

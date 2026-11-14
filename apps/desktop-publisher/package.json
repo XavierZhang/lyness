@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-desktop-publisher",
+  "name": "@lyness/lyn-desktop-publisher",
   "version": "0.2.2-rc.3",
   "description": "Private Desktop release metadata, rollout and website publisher",
   "private": true,

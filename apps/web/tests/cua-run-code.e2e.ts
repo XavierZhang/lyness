@@ -5,9 +5,9 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished } from 'vitest'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
   launchWebScaffold, selectedSessionFixture, watchConsole, webSnapshotMode, type WebScaffold,
@@ -30,7 +30,7 @@ it.skipIf(mode === 'record')('shows standard CUA programs and their recorded sou
   await writeFile(patch, JSON.stringify([{ id: 'agent-default-model', config: {
     provider: 'deepseek-official', model: 'deepseek-v4-flash-vision-exp',
   } }, { insert: [
-    { id: 'computer-use', name: '@deepseek-ai/dsh-computer-use' },
+    { id: 'computer-use', name: '@lyness/lyn-computer-use' },
     { id: 'cua-run-code-fixture', name: fileURLToPath(new URL('../../../snapshots/session/cua-run-code/provider.mjs', import.meta.url)),
       config: { allowedApps: [{ id: 'a'.repeat(64), name: 'Fixture', executablePath: '/fixture/app' }] } },
   ] }]))

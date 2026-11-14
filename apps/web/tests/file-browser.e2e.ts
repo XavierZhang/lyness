@@ -8,7 +8,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Locator, type Page } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished } from 'vitest'
-import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import { launchWebScaffold, seedSession, watchConsole } from './scaffold.ts'
 import { connectFreshWorkspace, saveFailureShot } from './support.ts'
 
@@ -657,7 +657,7 @@ it('searches the whole workspace, respects .gitignore on request, saves exclusio
   await page.keyboard.press('Escape')
   await expect.poll(() => settings.count()).toBe(0)
   expect(await trigger.evaluate(node => node === document.activeElement)).toBe(true)
-  const stored = (): Promise<string | null> => page.evaluate(() => localStorage.getItem('dsh.sidebar-files.workspace-search.v1'))
+  const stored = (): Promise<string | null> => page.evaluate(() => localStorage.getItem('lyn.sidebar-files.workspace-search.v1'))
   expect(await stored()).toContain('"vendor"')
   // Exclusion rules narrow only the search; the tree still lists the directory.
   await field.fill('widget')

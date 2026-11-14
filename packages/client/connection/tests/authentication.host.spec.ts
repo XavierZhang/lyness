@@ -1,5 +1,5 @@
 /** Authentication providers return existing Peers through their independent service. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, expect, it, vi } from 'vitest'
 import { HostConnectionService } from '../src/rpc-host.ts'
 import { ConnectionAuthentication } from '../src/authentication.ts'

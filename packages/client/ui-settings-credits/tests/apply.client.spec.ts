@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { AllowanceView, BudgetView, CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
-import { apply, creditsCallsOf, inject, NS } from '@deepseek-ai/dsh-client-ui-settings-credits/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import { apply, creditsCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-credits/client'
 import { CreditsSection } from '../src/client/CreditsSection.tsx'
 import type { createCreditsSectionStore } from '../src/client/store.ts'
 

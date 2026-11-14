@@ -3,7 +3,7 @@ kind: package-reference
 description: "使用仅存于内存的私有凭据认证 Desktop 请求，不向 renderer 暴露凭据。"
 ---
 
-# @deepseek-ai/dsh-host-authentication-desktop
+# @lyness/lyn-host-authentication-desktop
 
 [English](README.md) | 中文
 
@@ -31,7 +31,7 @@ Desktop 启动 owner 收到父进程的私有凭据后，通过 Cordis 挂载插
 |---|---|---|
 | `readSecret` | 必填 | 返回已在父进程私有 IPC 通道上通过校验的凭据的函数 |
 
-Provider 接受单个与自身凭据匹配的 `dsh-desktop-session` Cookie 值。重复值、格式错误和不匹配凭据均拒绝。认证成功的 HTTP 和 WebSocket 准入复用已有 Peer。插件卸载移除 Provider 注册，并通过原 Connection 生命周期结束该 Peer。
+Provider 接受单个与自身凭据匹配的 `lyn-desktop-session` Cookie 值。重复值、格式错误和不匹配凭据均拒绝。认证成功的 HTTP 和 WebSocket 准入复用已有 Peer。插件卸载移除 Provider 注册，并通过原 Connection 生命周期结束该 Peer。
 
 -----
 
@@ -41,7 +41,7 @@ Provider 接受单个与自身凭据匹配的 `dsh-desktop-session` Cookie 值�
 <details>
 <summary>实现细节——点击展开</summary>
 
-Desktop 父进程生成并私下交付凭据。Host 应用的 IPC 接收器校验握手；启动入口在发布页面注入前通过 ConnectionAuthentication 完成认证。两端均使用固定 Cookie 名 `dsh-desktop-session` 和 `<name>=<secret>` 格式。Cordis 插件拥有凭据验证和 Peer 创建。Desktop 拥有 Host 地址校验和请求转发，包括来源检查与凭据附加。它提供进程通道、挂载插件并发布单条 ready 响应。ConnectionAuthentication 拥有 Provider 注册表与验证；Connection 拥有 Peer 创建与传输。
+Desktop 父进程生成并私下交付凭据。Host 应用的 IPC 接收器校验握手；启动入口在发布页面注入前通过 ConnectionAuthentication 完成认证。两端均使用固定 Cookie 名 `lyn-desktop-session` 和 `<name>=<secret>` 格式。Cordis 插件拥有凭据验证和 Peer 创建。Desktop 拥有 Host 地址校验和请求转发，包括来源检查与凭据附加。它提供进程通道、挂载插件并发布单条 ready 响应。ConnectionAuthentication 拥有 Provider 注册表与验证；Connection 拥有 Peer 创建与传输。
 
 [插件入口](src/index.ts)导出标准的 `name`、`inject`、`apply` 成员；`Config` 是 TypeScript 接口。Token 和 Desktop 通过相同的 ConnectionAuthentication 服务注册，两者互不依赖。
 

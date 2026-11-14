@@ -15,7 +15,7 @@ description: "ForgeProvider.diff 与 ctx.forge.diff 需要传入要读取的 hea
 
 `forgePanel.changeRequestDiff` Remote 以 `forgePanel/stale-head` 拒绝，不再返回在其他 head 读到的补丁。
 
-受影响的是用 `ctx.forge.register` 注册的第三方 `ForgeProvider` 实现、调用 `ctx.forge.diff` 或 `forgePanel.changeRequestDiff` 的代码、构造 `ChangeRequestSnapshot` 的代码，以及对 `ForgeFailure['code']` 做穷尽分支的代码。这些类型都来自 `@deepseek-ai/dsh-experimental-forge`。
+受影响的是用 `ctx.forge.register` 注册的第三方 `ForgeProvider` 实现、调用 `ctx.forge.diff` 或 `forgePanel.changeRequestDiff` 的代码、构造 `ChangeRequestSnapshot` 的代码，以及对 `ForgeFailure['code']` 做穷尽分支的代码。这些类型都来自 `@lyness/lyn-experimental-forge`。
 
 ## 迁移
 

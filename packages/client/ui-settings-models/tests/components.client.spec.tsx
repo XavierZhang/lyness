@@ -3,13 +3,13 @@ import { es, fr, de, ru, pt } from '../src/client/locales.ts'
 /** Section, setup-card, and hand-written editor behavior over a scripted wire face. */
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import Schema from '@deepseek-ai/schemastery'
-import { Context } from '@deepseek-ai/cordis'
-import { RemoteError, bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import Schema from '@lyness/schemastery'
+import { Context } from '@lyness/cordis'
+import { RemoteError, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type {
   CredentialInfo, RemoteResult, SettingsNamespaceView,
-} from '@deepseek-ai/dsh-api-remotes/client'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import {
   ModelsSection, needsSetup, providerCopy, providerTargetLabel, removeProviderProfile,
 } from '../src/client/ModelsSection.tsx'
@@ -21,7 +21,7 @@ import {
   DeepSeekModelsEditor, formatCapacity, modelDrafts, parseCapacity, validateDeepSeekModels,
 } from '../src/client/DeepSeekModelsEditor.tsx'
 import { apiKeyFailure } from '../src/client/apiKey.ts'
-import { SettingsDescribeMirror } from '@deepseek-ai/dsh-client-ui-settings/src/client/settings-mirror.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
 import { deriveKeyRef, ModelsSettingsStore } from '../src/client/store.ts'
 import { createModelsOperations } from '../src/client/operations.ts'
 import type { ModelsOperations } from '../src/client/operations.ts'
@@ -1627,13 +1627,13 @@ describe('ModelsSection', () => {
   it('surfaces a refused credential write on the card', async () => {
     await mountFirstRun({
       set: vi.fn(() => Promise.resolve(remoteFail(
-        'credentials-local: invalid document at /home/user/.dsh/.credentials.yaml: BAD_INDENT at line 3, column 1',
+        'credentials-local: invalid document at /home/user/.lyn/.credentials.yaml: BAD_INDENT at line 3, column 1',
       ))),
     })
     const key = screen.getByLabelText<HTMLInputElement>(en.keyInput)
     fireEvent.change(key, { target: { value: 'sk-live' } })
     fireEvent.click(screen.getByText(en.apply))
-    await screen.findByText(/invalid document at \/home\/user\/\.dsh\/\.credentials\.yaml/)
+    await screen.findByText(/invalid document at \/home\/user\/\.lyn\/\.credentials\.yaml/)
     expect(screen.queryByRole('status')).toBeNull()
   })
 

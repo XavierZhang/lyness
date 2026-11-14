@@ -130,9 +130,9 @@ try {
     return { target: prepared.authorization.executablePath }
   })
   const windows = await request('discoverWindows')
-  const selected = windows.filter(window => window.pid === initial.pid && window.title === 'DSH CUA owned test window')
+  const selected = windows.filter(window => window.pid === initial.pid && window.title === 'LYN CUA owned test window')
   assert.equal(selected.length, 1)
-  assert.equal(selected[0].appName, 'dsh-cua-desktop-fixture')
+  assert.equal(selected[0].appName, 'lyn-cua-desktop-fixture')
   const windowId = selected[0].windowId
   const [app] = await request('prepareWindows', { ids: [windowId] })
   const appHandle = app.appHandle
@@ -250,7 +250,7 @@ try {
     assert.equal(sibling.foreground, sibling.window)
     await assert.rejects(request('typeText', { appHandle, text: 'must not arrive' }), { code: 'FOREGROUND_REQUIRED' })
     const entries = await request('discoverWindows')
-    const otherWindow = entries.find(window => window.pid === initial.pid && window.title === 'DSH CUA sibling test window')
+    const otherWindow = entries.find(window => window.pid === initial.pid && window.title === 'LYN CUA sibling test window')
     assert(otherWindow)
     await assert.rejects(request('getState', { appHandle, windowId: otherWindow.windowId, maxElements: 100, maxDepth: 20 }), { code: 'WINDOW_CHANGED' })
     await inspect('focus')

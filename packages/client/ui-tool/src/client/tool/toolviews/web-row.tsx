@@ -1,6 +1,6 @@
-import type { Context } from '@deepseek-ai/cordis'
-import { IconBrowseOutlineRegular, IconGlobeOutlineRegular } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import type { Context } from '@lyness/cordis'
+import { IconBrowseOutlineRegular, IconGlobeOutlineRegular } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import { webCardModel, webFetchHref } from '../models/web-card-model.ts'
 import { toolRowModel } from '../models/tool-call-model.ts'
@@ -14,7 +14,7 @@ const WEB_TITLE_KEYS = {
   web_fetch: 'tool.title.webFetch',
 } as const
 
-/** Collapsed-row summaries for the transport failure codes of `dsh-web-fetch-http` (`src/transport-failure.ts`). */
+/** Collapsed-row summaries for the transport failure codes of `lyn-web-fetch-http` (`src/transport-failure.ts`). */
 const WEB_FETCH_FAILURE_KEYS = {
   WEB_FETCH_DNS_FAILED: 'tool.webFetch.failure.dns',
   WEB_FETCH_CONNECTION_REFUSED: 'tool.webFetch.failure.refused',

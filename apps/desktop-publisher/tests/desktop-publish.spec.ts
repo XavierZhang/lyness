@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { expect, it } from 'vitest'
-import { publishDesktopRelease, type DesktopPublishEvent, type DesktopPublishOperations, type DesktopRemoteObject } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish.ts'
+import { publishDesktopRelease, type DesktopPublishEvent, type DesktopPublishOperations, type DesktopRemoteObject } from '@lyness/lyn-desktop-publisher/desktop-publish.ts'
 import type { DesktopUploadPlan } from '../src/desktop-upload-types.ts'
 
 function observed(contents: string): DesktopRemoteObject {

@@ -1,7 +1,7 @@
 /** Stand-in model and loader services that expose DeepSeek model routes the way the provider directory does. */
-import { FiberState, type Context } from '@deepseek-ai/cordis'
-import { Config as AccountConfig } from '@deepseek-ai/dsh-llm-deepseek-account'
-import { Config as OfficialConfig } from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import { FiberState, type Context } from '@lyness/cordis'
+import { Config as AccountConfig } from '@lyness/lyn-llm-deepseek-account'
+import { Config as OfficialConfig } from '@lyness/lyn-llm-deepseek-api-key'
 
 /** One model route row. */
 export interface RouteRow {
@@ -18,8 +18,8 @@ export interface RouteRow {
 }
 
 const PACKAGES = {
-  'deepseek-official': '@deepseek-ai/dsh-llm-deepseek-api-key',
-  'deepseek-account': '@deepseek-ai/dsh-llm-deepseek-account',
+  'deepseek-official': '@lyness/lyn-llm-deepseek-api-key',
+  'deepseek-account': '@lyness/lyn-llm-deepseek-account',
 } as const
 
 /**

@@ -6,7 +6,7 @@ Status: implemented
 
 ## 问题
 
-DSH 原有两套互相看不见的终端。Agent 的[持久终端](2026-07-16-persistent-pty-sessions.zh.md)运行在私有 PTY 中，人既看不到也无法接管；[Web 侧栏终端](2026-09-09-web-sidebar-terminal.zh.md)属于人，Agent 无法访问。同类产品让 Agent 在人能看到的终端里运行命令，也能读取人看到的内容。Agent 启动的长时间进程（例如开发服务器）应当出现在人工作的地方，而且不需要新的模型工具或第二套权限模型。
+LYN 原有两套互相看不见的终端。Agent 的[持久终端](2026-07-16-persistent-pty-sessions.zh.md)运行在私有 PTY 中，人既看不到也无法接管；[Web 侧栏终端](2026-09-09-web-sidebar-terminal.zh.md)属于人，Agent 无法访问。同类产品让 Agent 在人能看到的终端里运行命令，也能读取人看到的内容。Agent 启动的长时间进程（例如开发服务器）应当出现在人工作的地方，而且不需要新的模型工具或第二套权限模型。
 
 ## 决定
 

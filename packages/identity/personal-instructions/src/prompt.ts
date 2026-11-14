@@ -5,11 +5,11 @@
  * the exact words the model reads, and the position they hold among the
  * layers above and below them.
  *
- * @module @deepseek-ai/dsh-personal-instructions/prompt
+ * @module @lyness/lyn-personal-instructions/prompt
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-system-prompt'
 import type { PersonalInstructionsRecord } from './types.ts'
 
 /** Prompt section carrying what the person in the conversation asked for. */

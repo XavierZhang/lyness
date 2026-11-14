@@ -7,7 +7,7 @@
  * the allocated id and row the registry is asked to merge.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it } from 'vitest'
 import * as PresetContribution from '../src/preset-contribution.ts'
 
@@ -40,8 +40,8 @@ it('contributes the teammate tools under the allocated row id', async () => {
 
   expect(recorded.contributions).toEqual([{
     id: 'module-accounts-bot-ask',
-    module: '@deepseek-ai/dsh-module-accounts',
-    row: { name: '@deepseek-ai/dsh-bot-ask/tool' },
+    module: '@lyness/lyn-module-accounts',
+    row: { name: '@lyness/lyn-bot-ask/tool' },
   }])
 })
 
@@ -58,7 +58,7 @@ it('withdraws the contribution when its fiber is disposed', async () => {
 it('names the module the registry reports in a collision', () => {
   // The diagnostic names the bundle a deployment would disable, not the
   // service package the row resolves through.
-  expect(PresetContribution.MODULE).toBe('@deepseek-ai/dsh-module-accounts')
+  expect(PresetContribution.MODULE).toBe('@lyness/lyn-module-accounts')
   expect(PresetContribution.ROW_ID).toBe('module-accounts-bot-ask')
   expect(PresetContribution.name).toBe('bot-ask-preset-contribution')
   expect(PresetContribution.inject).toEqual(['agentPresets'])

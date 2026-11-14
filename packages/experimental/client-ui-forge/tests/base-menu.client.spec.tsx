@@ -2,8 +2,8 @@
 /** The base branch picker: listing, searching, choosing, failures, and when its search field takes the keyboard. */
 import { act, cleanup, fireEvent, render, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { RemoteError, type RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { RemoteError, type RemoteResult } from '@lyness/lyn-typert-protocol'
 import { BaseMenu, type BaseMenuProps } from '../src/client/BaseMenu.tsx'
 import css from '../src/client/BaseMenu.module.css'
 import { en } from '../src/client/locales.ts'

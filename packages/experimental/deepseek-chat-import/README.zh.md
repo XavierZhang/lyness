@@ -3,13 +3,13 @@ description: "DeepSeek 官网会话导出导入：在浏览器中上传 deepseek
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-deepseek-chat-import
+# @lyness/lyn-deepseek-chat-import
 
 [English](README.md) | 中文
 
 ## 概述
 
-把 DeepSeek 官网（chat.deepseek.com）导出的会话带进 DSH 并继续对话。启用这个可选 bundle 后，“新建会话”右侧的按钮把 `deepseek_data-*.zip` 文件上传到 Host，Host 把最近的会话存为你所选工作区中的会话。导入的会话保留原始标题和时间，显示原有的提问及其附带文件、思考、联网搜索卡片、阅读链接和回答。设计与取舍见 [Agent Note](../../../.agents/notes/implemented/feature/2026-11-11-deepseek-chat-export-import.zh.md)。
+把 DeepSeek 官网（chat.deepseek.com）导出的会话带进 LYN 并继续对话。启用这个可选 bundle 后，“新建会话”右侧的按钮把 `deepseek_data-*.zip` 文件上传到 Host，Host 把最近的会话存为你所选工作区中的会话。导入的会话保留原始标题和时间，显示原有的提问及其附带文件、思考、联网搜索卡片、阅读链接和回答。设计与取舍见 [Agent Note](../../../.agents/notes/implemented/feature/2026-11-11-deepseek-chat-export-import.zh.md)。
 
 ## 目录
 
@@ -30,7 +30,7 @@ kind: "package-bundle"
 
 ```yaml
 - id: deepseek-chat-import
-  name: '@deepseek-ai/dsh-deepseek-chat-import'
+  name: '@lyness/lyn-deepseek-chat-import'
 ```
 
 Host 半包注入 `typert`、`connection`、`sessionPersistence` 和 `workspaceRegistry`，挂载了 `sessionProjectionCache` 与 `attachments` 时读取它们。浏览器半包注入 `remote`、`slots`、`locale` 和 `sessions`，通过 ui-sidebar 的 `sidebar.session.action` HOC 插槽包裹新建会话行：原样返回行内容并追加自己的按钮，对不能导入的 Peer 则只返回行内容。只有 owner 能导入：上传路由只接受 owner Peer，`limits()` 拒绝其他所有 principal，按钮也只对能调用 `deepseekChatImport/limits` 的 Peer 显示。
@@ -106,7 +106,7 @@ Host 半包注入 `typert`、`connection`、`sessionPersistence` 和 `workspaceR
 
 ### 上传
 
-浏览器先调用 `limits()`，大于 `maxUploadBytes` 的文件不发送。服务页面用 `XMLHttpRequest`（以获得上传进度）把文件 POST 到相对文档基址解析的 `api/deepseek-chat-import/archive?workspaceId=…`。Host 跑在页面之外执行上下文中的页面（例如静态 Cloudflare Pages 预览）改为提供 `__DSH_TRANSPORT__.fetch`：压缩包经该载体传输，不报告字节进度，因此对话框直接进入读取与导入阶段。Host 在 `ctx.connection.fetch` 上把该路径注册为精确路由，只有 owner Peer 能访问。路由要求 `application/octet-stream`，占用服务的单一导入槽位，解析工作区，把流式请求体读入一个按 `content-length` 分配的缓冲区，直到读完或超过上限。上传内容从不写入磁盘。应答为 `application/x-ndjson`：写入会话期间是 `{ type: 'progress', done, total }` 行，最后是一行 `{ type: 'outcome', outcome }`，其中 `outcome` 为 `{ ok: true, value }` 或 `{ ok: false, error: { reason, message } }`；浏览器在完整的行到达时读取；遇到第一行不是合法协议值时立即结算为无效应答，并取消余下的流，后续 outcome 无法覆盖它。关闭对话框、连接断开或卸载插件都会中止导入，卸载只有在导入停止写入后才完成。
+浏览器先调用 `limits()`，大于 `maxUploadBytes` 的文件不发送。服务页面用 `XMLHttpRequest`（以获得上传进度）把文件 POST 到相对文档基址解析的 `api/deepseek-chat-import/archive?workspaceId=…`。Host 跑在页面之外执行上下文中的页面（例如静态 Cloudflare Pages 预览）改为提供 `__LYNESS_TRANSPORT__.fetch`：压缩包经该载体传输，不报告字节进度，因此对话框直接进入读取与导入阶段。Host 在 `ctx.connection.fetch` 上把该路径注册为精确路由，只有 owner Peer 能访问。路由要求 `application/octet-stream`，占用服务的单一导入槽位，解析工作区，把流式请求体读入一个按 `content-length` 分配的缓冲区，直到读完或超过上限。上传内容从不写入磁盘。应答为 `application/x-ndjson`：写入会话期间是 `{ type: 'progress', done, total }` 行，最后是一行 `{ type: 'outcome', outcome }`，其中 `outcome` 为 `{ ok: true, value }` 或 `{ ok: false, error: { reason, message } }`；浏览器在完整的行到达时读取；遇到第一行不是合法协议值时立即结算为无效应答，并取消余下的流，后续 outcome 无法覆盖它。关闭对话框、连接断开或卸载插件都会中止导入，卸载只有在导入停止写入后才完成。
 
 ### 事件映射
 
@@ -156,7 +156,7 @@ Host 半包注入 `typert`、`connection`、`sessionPersistence` 和 `workspaceR
 - **重复的本地文件头**——重复检测只覆盖中央目录。第二个本地文件头改成已有条目名时不会被发现，因此压缩包可以交付比索引列出的更多的会话，写入数量也没有额外限制。
 - **压缩包损坏时的部分写入**——压缩包结构在部分条目交付之后损坏时，会以 `unreadable-archive` 失败，而那些会话已经写入；失败应答不会列出它们。
 - **`read()` 截断**——`ExportArchive.read` 最多返回条目声明的大小，解压结果更大时截断到该大小；`stream` 把同一情况报告为大小失败。manifest、索引与补位会话按名读取，因此其中一项可能被截断。每次按名读取还会重新解析整个中央目录：manifest 与索引各付一次，补位会话再付一次。
-- **通道形态下没有上传百分比**——页面经 `__DSH_TRANSPORT__.fetch` 携带压缩包时不报告字节进度，对话框只显示读取与导入阶段。
+- **通道形态下没有上传百分比**——页面经 `__LYNESS_TRANSPORT__.fetch` 携带压缩包时不报告字节进度，对话框只显示读取与导入阶段。
 - **只支持一种导出结构**——导入器针对 2026-11-12 结构：`current_message_id`、`stage_id`、工具状态、链接与查找字段以及新的记录类型。该结构新增的字段按可选读取，因此更旧的 v3 压缩包仍能导入，但它不是支持目标。
 - **只支持上传 ZIP**——不能导入解压后的导出目录或 Host 路径。
 - **重复导入产生重复会话**——再次导入同一导出会写入新的会话；导入不记录哪些会话已经导入过。

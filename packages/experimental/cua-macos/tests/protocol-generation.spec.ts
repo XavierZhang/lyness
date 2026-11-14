@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import { Ajv2020 } from 'ajv/dist/2020.js'
 import { describe, expect, it } from 'vitest'
 import { renderNativeProtocol } from '../native/generate-protocol.ts'
-import { Request } from '@deepseek-ai/dsh-cua/protocol'
+import { Request } from '@lyness/lyn-cua/protocol'
 
 describe('native protocol generation', () => {
   it('keeps native JSON Schema and Swift admission tables current', async () => {

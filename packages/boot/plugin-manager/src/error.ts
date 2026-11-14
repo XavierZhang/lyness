@@ -1,6 +1,6 @@
 /** Typed failures thrown by plugin management calls rather than reported in a change result. */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link PluginManagerError} code:

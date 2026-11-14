@@ -1,5 +1,5 @@
 /** Browser-safe Session reading state and Remote requests. */
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Host-confirmed reading state for one Session; turn numbers survive log-format migrations. */
 export interface SessionReadState {
@@ -22,7 +22,7 @@ export type SessionReadFrame =
   | { readonly type: 'baseline'; readonly items: readonly SessionReadState[] }
   | { readonly type: 'changed'; readonly state: SessionReadState }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The requested Session does not exist. */
     'session-status/not-found': { readonly sessionId: SessionId }

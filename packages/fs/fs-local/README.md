@@ -3,13 +3,13 @@ description: "The host-filesystem backend for ctx.fs for deployments and maintai
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-fs-local
+# @lyness/lyn-fs-local
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `dsh-fs-local` to read, list, watch, write, edit, patch, delete, and move files on the host. Relative paths use a configurable base; absolute paths and parent traversal remain unrestricted. Aliases share one identity. Optional guards reject stale versions, and text publication preserves permissions. Moves can also apply hunks and report a published destination separately from source removal. Use `fs-sandbox` when mutations need confinement.
+Use `lyn-fs-local` to read, list, watch, write, edit, patch, delete, and move files on the host. Relative paths use a configurable base; absolute paths and parent traversal remain unrestricted. Aliases share one identity. Optional guards reject stale versions, and text publication preserves permissions. Moves can also apply hunks and report a published destination separately from source removal. Use `fs-sandbox` when mutations need confinement.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Use `dsh-fs-local` to read, list, watch, write, edit, patch, delete, and move fi
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount this backend when a composition needs `ctx.fs` backed by the real host filesystem and accepts a process-local implementation. The common path is explicit: load the backend, give it a base directory, and the model-facing tools (`dsh-tool-fs`) or your own plugins can read, write, and edit files.
+Mount this backend when a composition needs `ctx.fs` backed by the real host filesystem and accepts a process-local implementation. The common path is explicit: load the backend, give it a base directory, and the model-facing tools (`lyn-tool-fs`) or your own plugins can read, write, and edit files.
 
 ### When to choose it
 
@@ -36,7 +36,7 @@ Choose `fs-local` for ordinary host-file access in a single process. Choose [`fs
 Load the backend with a base directory; relative paths resolve against it, and absolute paths ignore it. A requested path that is `~` or starts with `~/` (or `~\` on Windows) begins at the host user's home directory; `~user`, later `~` segments, and directory entry names stay literal. A relative base is anchored to the provider process working directory, and display paths remain absolute. On POSIX, resolution follows filesystem semantics before lexical normalization: `symlink/..` reaches the parent of the link target, including when the final file does not exist yet. Directory listings preserve the same physical traversal in displayed child paths. Windows retains native drive-relative normalization.
 
 ```yaml
-- name: '@deepseek-ai/dsh-fs-local'
+- name: '@lyness/lyn-fs-local'
   config:
     cwd: /absolute/path/to/workspace
 ```
@@ -46,13 +46,13 @@ Load the backend with a base directory; relative paths resolve against it, and a
 | `cwd` | `process.cwd()` | Base directory for relative paths |
 | `diffBasisMaxBytes` | `10 MiB` | UTF-8 byte limit per overwrite-diff side; larger overwrites return `before: null` |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-fs-local) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-fs-local) is the exhaustive source for every accepted field and its JSDoc.
 
 ### What you can do
 
 Read regular UTF-8 files whole or as streams, read bounded bytes, and list one directory level. Writes, literal edits, patches, and deletions serialize per target. Moves lock both targets in lexical order. `patchText` checks the version before calling `applyHunks`; `deleteFile` removes only a regular file. Missing sources use `FS_STALE_VERSION`, unmatched hunks use `FS_PATCH_MISMATCH`, and identical move targets use `FS_SAME_TARGET`.
 
-Patch and move text is LF-normalized internally and restored using the source line-ending style; outcome text uses LF. Delete bases and overwritten destination bases follow `diffBasisMaxBytes`. A move checks cancellation before staging the destination, then completes both effects; a source-removal failure returns the published destination with `sourceDeleted: false`. Atomic write failures map denied directory or staging creation to `FS_PERMISSION_DENIED` and other Node I/O errors to `FS_IO_ERROR`. Resolution, metadata, read, and listing failures pass through `fsErrorFromErrno` from `dsh-fs`, so every errno becomes an `FsError` code; a thrown value without an errno code is a defect and propagates unchanged.
+Patch and move text is LF-normalized internally and restored using the source line-ending style; outcome text uses LF. Delete bases and overwritten destination bases follow `diffBasisMaxBytes`. A move checks cancellation before staging the destination, then completes both effects; a source-removal failure returns the published destination with `sourceDeleted: false`. Atomic write failures map denied directory or staging creation to `FS_PERMISSION_DENIED` and other Node I/O errors to `FS_IO_ERROR`. Resolution, metadata, read, and listing failures pass through `fsErrorFromErrno` from `lyn-fs`, so every errno becomes an `FsError` code; a thrown value without an errno code is a defect and propagates unchanged.
 
 Read, listing, and mutation failures are typed `FsError`s with stable codes — `FS_NOT_FOUND`, `FS_NOT_TEXT` (binary content), `FS_STALE_VERSION` (changed since observation), `FS_EDIT_NOT_FOUND` or `FS_AMBIGUOUS_EDIT` (no unique literal match), and others — so callers branch on the code, never on message text. A missing target on an edit reports `FS_STALE_VERSION` whether or not the version guard is supplied.
 
@@ -106,7 +106,7 @@ Raw I/O is Cordis-free and independently unit-tested in `src/fsio.ts`; `src/inde
 Read these pages when the package-level contract is not enough. They move from the contract to the adjacent backends, tools, and policies.
 
 - [Filesystem subsystem](../../../docs/subsystems/filesystem.md) — exhaustive provider contract, policy events, and error taxonomy.
-- [dsh-fs](../fs/README.md) — the `ctx.fs` contract this backend implements.
+- [lyn-fs](../fs/README.md) — the `ctx.fs` contract this backend implements.
 - [fs-sandbox](../fs-sandbox/README.md) — the sandbox-enforcing backend that extends this one.
 - [tool-fs](../tool-fs/README.md) — the model-facing tools that consume `ctx.fs`.
 - [fs-observation-policy](../fs-observation-policy/README.md) — the policy plugin that guards mutations through the `fs/*` events.
@@ -117,7 +117,7 @@ Read these pages when the package-level contract is not enough. They move from t
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through `dsh-tool-fs`, which renders this provider's line-windowed UTF-8 content, mutation acknowledgements, and exact provider messages in capped retained results while versions, atomic-write mechanics, and directory metadata remain internal.
+Indirectly, through `lyn-tool-fs`, which renders this provider's line-windowed UTF-8 content, mutation acknowledgements, and exact provider messages in capped retained results while versions, atomic-write mechanics, and directory metadata remain internal.
 
 #### KV Cache effect
 

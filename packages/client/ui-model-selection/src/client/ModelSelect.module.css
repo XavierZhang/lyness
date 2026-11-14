@@ -7,7 +7,7 @@
    12px caption chevron; 28px chip height matches the sibling Plan /
    Read-only selects in the same tool row. */
 .trigger {
-  anchor-name: var(--dsh-model-anchor);
+  anchor-name: var(--lyn-model-anchor);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -68,7 +68,7 @@
 
 /* The Models glyph replaces the text when the composer row cannot fit it. */
 .triggerIcon {
-  display: var(--dsh-composer-model-icon-display, none);
+  display: var(--lyn-composer-model-icon-display, none);
   flex: 0 0 auto;
 }
 
@@ -76,7 +76,7 @@
    Outside a composer, the trigger retains its text. */
 .triggerLabel,
 .triggerEffort {
-  display: var(--dsh-composer-model-text-display, block);
+  display: var(--lyn-composer-model-text-display, block);
 }
 
 .chevron {
@@ -94,8 +94,8 @@
 .menu {
   box-sizing: border-box;
   position: fixed;
-  position-anchor: var(--dsh-model-anchor);
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+  position-anchor: var(--lyn-model-anchor);
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   left: 12px;
   /* Anchor insets stay linear because scroll compensation runs after layout. */
   right: anchor(right);
@@ -125,8 +125,8 @@
      elevation choice sits with the surface; the custom properties inherit
      down to whichever descendant actually scrolls (see ui-theme
      styles/scrollbar.css for the rebinding contract). */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 .settingsMenu {

@@ -1,6 +1,6 @@
 /** Machine-routable Stagehand browser failures, shared by the host and its browser Worker. @module */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link StagehandError} code:

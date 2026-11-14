@@ -3,7 +3,7 @@
  * dependencies activate and exposes the mount operation used by the web boot
  * kernel after the complete client roster settles.
  */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { createSlotRenderer } from './scoped-slots.tsx'
 import { SlotRegistry } from './registry.ts'
 import { UiRenderer } from './renderer.ts'
@@ -15,7 +15,7 @@ export type {
   ChainRenderOpts, HostObservable, RenderOpts, SnapshotSelectorHook, SlotRenderer,
   ScopedStandardSourceBinding, SlotRendererHost, SlotScopeAdapter,
   StandardSourceBinding, StoreInstanceLike,
-} from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 
 /** Mount operation exposed to the framework-free boot kernel. */
 export interface UiRendererService {
@@ -27,7 +27,7 @@ export interface UiRendererService {
   mount: (container: HTMLElement) => () => void
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * An ordinary Slot declaration or entry registration set changed. Factory

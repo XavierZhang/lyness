@@ -3,7 +3,7 @@ description: "Host Office rendering, conversion, and recalculation with the inde
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-office-kit
+# @lyness/lyn-office-kit
 
 English | [中文](README.zh.md)
 
@@ -25,9 +25,9 @@ Render Office documents as PDFs or PNG images, convert them between formats, and
 <a id="use-this-package"></a>
 ## Use this package
 
-The [Web bundle](../../bundle/web-app/README.md) and the [SDK bundle](../../bundle/sdk-app/README.md) mount this provider as `office-kit`; the [Office tools](../tool-office/README.md) are its model-facing consumers. Independent compositions mount `@deepseek-ai/dsh-office-kit` as a `cordis.yml` row.
+The [Web bundle](../../bundle/web-app/README.md) and the [SDK bundle](../../bundle/sdk-app/README.md) mount this provider as `office-kit`; the [Office tools](../tool-office/README.md) are its model-facing consumers. Independent compositions mount `@lyness/lyn-office-kit` as a `cordis.yml` row.
 
-Callers submit authorized source identity, version, optional byte size, a deferred bounded read, and input extension; PDF conversions also name a scheduling priority, and image rendering, format conversion, and recalculation run at foreground priority. A changed source version rejects the operation. Cancellation rejects with its reason; failures use `OfficeKitError`, whose lowercase `code` is also the `document-render/failed` reason; [`dsh-tool-office`](../tool-office/README.md#use-this-package) maps it to `OfficeToolError` codes for tool results. Every result carries the missing fonts; PDF results also carry the conversion generation, which changes on configuration replacement.
+Callers submit authorized source identity, version, optional byte size, a deferred bounded read, and input extension; PDF conversions also name a scheduling priority, and image rendering, format conversion, and recalculation run at foreground priority. A changed source version rejects the operation. Cancellation rejects with its reason; failures use `OfficeKitError`, whose lowercase `code` is also the `document-render/failed` reason; [`lyn-tool-office`](../tool-office/README.md#use-this-package) maps it to `OfficeToolError` codes for tool results. Every result carries the missing fonts; PDF results also carry the conversion generation, which changes on configuration replacement.
 
 | Method | Operation | Result |
 |---|---|---|
@@ -50,13 +50,13 @@ Browsers request PDFs through the `officeKit.render` Remote method with a Sessio
 | `timeoutMs` | `60000` | Conversion deadline after a converter is acquired. |
 | `maxInputBytes` | `52428800` | Maximum source bytes. |
 | `maxOutputBytes` | `104857600` | Maximum complete PDF, converted, or recalculated file bytes. |
-| `outputDirectory` | `$DSH_HOME/office-kit/outputs` | Absolute directory for converted and recalculated files. |
+| `outputDirectory` | `$LYNESS_HOME/office-kit/outputs` | Absolute directory for converted and recalculated files. |
 | `outputRetentionMs` | `86400000` | Milliseconds an output is kept. |
 | `maxOutputStoreBytes` | `536870912` | Maximum bytes across retained outputs. |
 | `maxImageResolution` | `192` | Image resolution in DPI of PDF exports; overrides the kit default of `144`. `renderImages()` uses each request's `dpi` instead. |
 | `fontFallbacks` | Kit defaults | Ordered font-family preference groups; each group requires at least two names containing non-whitespace characters. |
 
-The [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-office-kit) owns the full font, archive, and image settings. `fontDirectories` accepts absolute directories; omission uses the kit platform defaults. Explicit `fontFallbacks` replaces the kit's default groups. Installed requested fonts retain precedence, and other system fonts remain eligible for uncovered glyphs. Native engines can select installed metric-compatible fonts before these preferences.
+The [configuration catalog](../../../docs/config-catalog.md#lynesslyn-office-kit) owns the full font, archive, and image settings. `fontDirectories` accepts absolute directories; omission uses the kit platform defaults. Explicit `fontFallbacks` replaces the kit's default groups. Installed requested fonts retain precedence, and other system fonts remain eligible for uncovered glyphs. Native engines can select installed metric-compatible fonts before these preferences.
 
 The [bounded conversion decision](../../../.agents/notes/implemented/architecture/2026-09-15-bounded-office-conversion.md) explains queue admission, cache limits, and shared cancellation.
 

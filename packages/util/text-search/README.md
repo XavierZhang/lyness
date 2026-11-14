@@ -3,7 +3,7 @@ description: "Multilingual fuzzy search index for maintainers adding a search bo
 kind: "package-library"
 ---
 
-# dsh-util-text-search
+# lyn-util-text-search
 
 English | [中文](README.zh.md)
 
@@ -27,8 +27,8 @@ One search index for every in-memory search list in the Web client and for Host 
 It is a **library, not a service or plugin**: no `ctx` and registers nothing. The caller owns each index; browser bundles inline it.
 
 ```ts
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
-import { localizedValues, TextSearchIndex, type SearchKeys } from '@deepseek-ai/dsh-util-text-search'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
+import { localizedValues, TextSearchIndex, type SearchKeys } from '@lyness/lyn-util-text-search'
 
 interface Row { readonly id: string; readonly meta?: { readonly title?: LocalizedText; readonly description?: LocalizedText } }
 const keys = (row: Row): SearchKeys => ({

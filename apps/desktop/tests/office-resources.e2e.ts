@@ -18,7 +18,7 @@ function installSkillProbe(profile: string): void {
   const plugin = join(profile, 'node_modules', SKILL_PROBE)
   mkdirSync(plugin, { recursive: true })
   writeFileSync(join(plugin, 'package.json'), JSON.stringify({
-    name: SKILL_PROBE, version: '1.0.0', type: 'module', exports: './index.js', dsh: { bundle: { patch: './bundle.yml' } },
+    name: SKILL_PROBE, version: '1.0.0', type: 'module', exports: './index.js', lyn: { bundle: { patch: './bundle.yml' } },
   }))
   writeFileSync(join(plugin, 'index.js'), `
 export function apply(ctx) {
@@ -43,10 +43,10 @@ export function apply(ctx) {
   writeFileSync(join(plugin, 'bundle.yml'), `- insert:\n    - id: ${SKILL_PROBE}\n      name: ${SKILL_PROBE}\n      inject: [webServer, skills, tools]\n`)
   const manifest = JSON.parse(readFileSync(join(profile, 'package.json'), 'utf8')) as {
     dependencies?: Record<string, string>
-    dsh: { profile: { bundles: string[] } }
+    lyn: { profile: { bundles: string[] } }
   }
   manifest.dependencies = { ...manifest.dependencies, [SKILL_PROBE]: `file:${plugin}` }
-  manifest.dsh.profile.bundles.push(SKILL_PROBE)
+  manifest.lyn.profile.bundles.push(SKILL_PROBE)
   writeFileSync(join(profile, 'package.json'), JSON.stringify(manifest))
 }
 
@@ -55,7 +55,7 @@ describe.skipIf(!existsSync(builtHost))('built Desktop Host Office resources', (
     ['an empty runtime directory', 'empty-runtime'],
     ['an unusable primary runtime path', 'relative-source'],
   ] as const)('starts the Host with %s and the packaged Office skills', async (_label, mode) => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-desktop-office-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-desktop-office-'))
     let host: DesktopHostProcess | undefined
     const failures: Error[] = []
     try {

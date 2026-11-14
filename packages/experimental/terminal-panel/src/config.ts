@@ -1,6 +1,6 @@
 /** Validated configuration for sidebar-backed Agent terminals and the user-terminal tools. */
 
-import z from '@deepseek-ai/schemastery'
+import z from '@lyness/schemastery'
 
 /** Public plugin configuration. */
 export interface Config {

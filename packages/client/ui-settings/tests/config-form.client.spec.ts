@@ -1,12 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 import { describe, expect, it, vi } from 'vitest'
 import type {
   SettingsNamespaceView, SettingsPathOpView,
-} from '@deepseek-ai/dsh-api-remotes/client'
-import { RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import type { ConfigForm } from '@deepseek-ai/dsh-client-ui-settings/client'
+} from '@lyness/lyn-api-remotes/client'
+import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { ConfigForm } from '@lyness/lyn-client-ui-settings/client'
 import { SettingsSchemaService } from '../src/client/schema.ts'
 import { ConfigFormController, ConfigForms } from '../src/client/config-form.ts'
 import { SettingsDescribeMirror } from '../src/client/settings-mirror.ts'

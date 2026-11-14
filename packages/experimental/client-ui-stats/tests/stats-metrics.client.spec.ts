@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { AttachmentId, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { AttachmentId, ImageAttachmentRef } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
 import { aggregateTotals, aggregateTurn, buildTurns, turnContext } from '../src/client/stats-aggregate.ts'
 import type { StatsCall, StatsStepMetrics, StatsViewNode } from '../src/client/stats-contract.ts'
 import { CALL_LIMIT } from '../src/client/stats-fold.ts'

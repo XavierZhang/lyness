@@ -18,7 +18,7 @@ let repositoryRoot = ''
 
 // Probes belong to a private copy: repository compiler scans run in other workers and processes.
 beforeAll(async () => {
-  repositoryRoot = await mkdtemp(join(tmpdir(), 'dsh-oxlint-contract-'))
+  repositoryRoot = await mkdtemp(join(tmpdir(), 'lyn-oxlint-contract-'))
   repositoryRoot = await realpath(repositoryRoot)
   const files = [
     ...globSync('tsconfig*.json', { cwd: sourceRepositoryRoot }),
@@ -304,7 +304,7 @@ export const longProbe = 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 +
       `scripts/oxlint-contract-${suffix}.ts`,
     ]
     const paths = [...testPaths, ...productionPaths]
-    const reads = `import { Session, SessionSeq } from '@deepseek-ai/dsh-session'
+    const reads = `import { Session, SessionSeq } from '@lyness/lyn-session'
 
 export function reads(session: Session): void {
   session.snapshotEvents()
@@ -312,7 +312,7 @@ export function reads(session: Session): void {
   session.ownEvents()
 }
 `
-    const existing = `import { Session, SessionSeq } from '@deepseek-ai/dsh-session'
+    const existing = `import { Session, SessionSeq } from '@lyness/lyn-session'
 
 export function reads(session: Session): void {
   // oxlint-disable-next-line typescript/no-deprecated -- Existing Session history read; migration deferred.

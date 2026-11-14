@@ -8,15 +8,15 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import * as WorkspaceChangesPlugin from '@deepseek-ai/dsh-workspace-changes'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import * as WorkspaceChangesPlugin from '@lyness/lyn-workspace-changes'
 import { changes, endTurn, git, startTurn, toolCall } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 let root: string | undefined
 let context: Context | undefined
@@ -30,13 +30,13 @@ afterEach(async () => {
 
 describe('real Loader composition', () => {
   it('loads the shipped rows and records a turn’s changes', async () => {
-    root = await mkdtemp(join(tmpdir(), 'dsh-workspace-changes-loader-'))
+    root = await mkdtemp(join(tmpdir(), 'lyn-workspace-changes-loader-'))
     const cwd = join(root, 'ws')
     await writeFile(join(root, 'cordis.yml'), [
-      "- name: '@deepseek-ai/dsh-session'",
-      "- name: '@deepseek-ai/dsh-subprocess-local'",
-      "- name: '@deepseek-ai/dsh-fs-local'",
-      "- name: '@deepseek-ai/dsh-workspace-changes'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-subprocess-local'",
+      "- name: '@lyness/lyn-fs-local'",
+      "- name: '@lyness/lyn-workspace-changes'",
       '',
     ].join('\n'))
     context = new Context()
@@ -44,10 +44,10 @@ describe('real Loader composition', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@deepseek-ai/dsh-session', SessionStore],
-      ['@deepseek-ai/dsh-subprocess-local', LocalSubprocessRuntime],
-      ['@deepseek-ai/dsh-fs-local', LocalFileSystem],
-      ['@deepseek-ai/dsh-workspace-changes', WorkspaceChangesPlugin],
+      ['@lyness/lyn-session', SessionStore],
+      ['@lyness/lyn-subprocess-local', LocalSubprocessRuntime],
+      ['@lyness/lyn-fs-local', LocalFileSystem],
+      ['@lyness/lyn-workspace-changes', WorkspaceChangesPlugin],
     ])
     context.loader.internal = {
       version: 'v2',

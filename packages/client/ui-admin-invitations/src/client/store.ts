@@ -9,12 +9,12 @@
  * call that issued it and nowhere else, so the page keeps it until the
  * administrator leaves and never reads it back.
  *
- * @module @deepseek-ai/dsh-client-ui-admin-invitations/client/store
+ * @module @lyness/lyn-client-ui-admin-invitations/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
 
 /** Where the read stands. */
 export type InvitationsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable' | 'forbidden'

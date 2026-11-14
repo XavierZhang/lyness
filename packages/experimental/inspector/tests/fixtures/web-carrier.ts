@@ -1,8 +1,8 @@
 /** Synthetic WebServer dispatch for requests with partial Node response fixtures. */
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Duplex } from 'node:stream'
-import type { Context } from '@deepseek-ai/cordis'
-import type { WebAdmission, WebAuthenticationRule, WebAuthRequest, WebRoute, WebUpgradeRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { Context } from '@lyness/cordis'
+import type { WebAdmission, WebAuthenticationRule, WebAuthRequest, WebRoute, WebUpgradeRoute } from '@lyness/lyn-host-webserver'
 
 function authorize(ctx: Context, req: IncomingMessage, auth: WebAuthenticationRule | undefined, transport: WebAuthRequest['transport']): WebAdmission {
   const request: WebAuthRequest = {

@@ -1,5 +1,5 @@
 /** Image values carried by program bindings and explicit inspection output. */
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import type { PtcJsonValue } from './types.ts'
 
 /** A stored image readable from the program's execution environment. */

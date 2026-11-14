@@ -1,6 +1,6 @@
 /** Editor-facing ranges, reference projections, and the composer keyboard interface. */
 import type { LexicalEditor } from 'lexical'
-import type { QuoteSummary } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { QuoteSummary } from '@lyness/lyn-client-ui-primitives'
 import type { InputState } from './input.ts'
 import type { InputSubmitMode } from './composer-submission.ts'
 

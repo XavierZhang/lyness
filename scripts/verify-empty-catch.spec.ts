@@ -172,7 +172,7 @@ describe('empty catch inventory', () => {
   it('points a rejection at the repository guidance for discarding an error', () => {
     const root = fixture()
     write(root, sourcePath, broken)
-    const skillPath = '.agents/skills/dsh-error-handling/SKILL.md'
+    const skillPath = '.agents/skills/lyn-error-handling/SKILL.md'
     expect(() => verifyEmptyCatch(root)).toThrow(`(see ${skillPath}#empty-catch-clauses)`)
     expect(readFileSync(join(import.meta.dirname, '..', skillPath), 'utf8')).toMatch(/^### Empty catch clauses$/mu)
   })

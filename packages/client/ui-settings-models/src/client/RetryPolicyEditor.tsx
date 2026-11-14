@@ -10,7 +10,7 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { Checkbox } from '@deepseek-ai/dsh-client-ui-primitives'
+import { Checkbox } from '@lyness/lyn-client-ui-primitives'
 import type { SettingsSchemaOperations } from './schema-operations.ts'
 import type { ModelsKey } from './locales.ts'
 import styles from './ModelsSection.module.css'

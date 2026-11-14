@@ -17,7 +17,7 @@ afterEach(() => {
 
 /** A fixture repository holding one package's locale files. */
 function repository(locales: Readonly<Record<string, string>>, pkg = 'tool-probe', group = 'probe'): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-plugin-meta-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-plugin-meta-'))
   roots.push(root)
   const directory = join(root, 'packages', group, pkg, 'locale')
   mkdirSync(directory, { recursive: true })
@@ -27,7 +27,7 @@ function repository(locales: Readonly<Record<string, string>>, pkg = 'tool-probe
 
 describe('reading a title', () => {
   it('calls a single lowercase token a slug, dots, slashes and dashes included', () => {
-    for (const title of ['tool-fs', 'memory', 'api-gateway', 'office-to-pdf', '@deepseek-ai/dsh-tool-fs']) {
+    for (const title of ['tool-fs', 'memory', 'api-gateway', 'office-to-pdf', '@lyness/lyn-tool-fs']) {
       expect(slugTitle(title), title).toBe(true)
     }
   })
@@ -77,7 +77,7 @@ describe('what the gate reports', () => {
   })
 
   it('says so when it finds no locale file at all, rather than passing an empty scan', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-plugin-meta-empty-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-plugin-meta-empty-'))
     roots.push(root)
     expect(pluginMetaProblems(root)).toEqual([`${root}: no plugin locale files found`])
   })

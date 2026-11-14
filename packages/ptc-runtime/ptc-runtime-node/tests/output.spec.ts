@@ -1,10 +1,10 @@
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment'
+import type { AttachmentId } from '@lyness/lyn-attachment'
 import { runInNewContext } from 'node:vm'
-import { PtcImage } from '@deepseek-ai/dsh-ptc-runtime'
-import { Context } from '@deepseek-ai/cordis'
+import { PtcImage } from '@lyness/lyn-ptc-runtime'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
 import { mountRuntime } from './setup.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const modes = [
   { executionMode: 'per-call', scriptPersistence: false },

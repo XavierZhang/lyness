@@ -3,13 +3,13 @@ description: "托管部署赠送、消耗并在耗尽时拒绝的积分：账本
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-credits
+# @lyness/lyn-credits
 
 [English](README.md) | 中文
 
 ## 概述
 
-用 `dsh-credits` 为托管部署的免费额度计量。余额是一本账，而不是一个计数器：赠送与扣减都被记录，每一笔扣减都点名花掉它的那个会话和那个组织，而余额就是它们相加的结果。有两道上限可以挡住一个回合——一个人自己的余额，那是他的组织给他的；以及他所在组织的预算，那是组织买下的。两者都覆盖不了的一次消耗会被拒绝，而不是透支。这一切只存在于托管形态；独立部署安装一个都不挂载。
+用 `lyn-credits` 为托管部署的免费额度计量。余额是一本账，而不是一个计数器：赠送与扣减都被记录，每一笔扣减都点名花掉它的那个会话和那个组织，而余额就是它们相加的结果。有两道上限可以挡住一个回合——一个人自己的余额，那是他的组织给他的；以及他所在组织的预算，那是组织买下的。两者都覆盖不了的一次消耗会被拒绝，而不是透支。这一切只存在于托管形态；独立部署安装一个都不挂载。
 
 ## 目录
 
@@ -27,13 +27,13 @@ kind: "package-reference"
 
 ```yaml
 - id: credits
-  name: '@deepseek-ai/dsh-credits/store'
+  name: '@lyness/lyn-credits/store'
   config:
     periodicAmount: 500
     period: daily
     offsetHours: 8
 - id: credits-enforce
-  name: '@deepseek-ai/dsh-credits/enforce'
+  name: '@lyness/lyn-credits/enforce'
   config:
     creditsPerMillion: 1000
     minimumDebit: 1
@@ -55,14 +55,14 @@ kind: "package-reference"
 
 ```yaml
 - id: credits-administration
-  name: '@deepseek-ai/dsh-credits/administration'
+  name: '@lyness/lyn-credits/administration'
 ```
 
 它不接受任何配置，需要账本、人员目录与存储。两个操作，都把「作出它的那个身份」作为参数：
 
 ```ts
-import type { CreditAdministration } from '@deepseek-ai/dsh-credits/administration'
-import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import type { CreditAdministration } from '@lyness/lyn-credits/administration'
+import type { Membership, PersonId } from '@lyness/lyn-people'
 
 declare const administration: CreditAdministration
 declare const by: Membership
@@ -100,7 +100,7 @@ await administration.setAllowance({ person, periodicAmount: 1500, period: 'weekl
 
 **账本以可选的方式读取管理服务。** 单操作者安装一个都不挂，于是部署自己的数字就是全部答案；注入它会让账本在那里根本用不上。
 
-**覆盖记进那份记录，授予不记。** 一个覆盖是原地被替换的，所以它原来允许多少只能从 [`dsh-admin-audit`](../../identity/admin-audit/README.zh.md) 读到。一次授予本来就是一条不会被重写、并且点名了谁把多少给了谁的行，再记一次就是对一个问题给出第二个答案。一个覆盖条目归属于设下它的那个身份的组织，于是租户管理员读得回自己的那些决定。
+**覆盖记进那份记录，授予不记。** 一个覆盖是原地被替换的，所以它原来允许多少只能从 [`lyn-admin-audit`](../../identity/admin-audit/README.zh.md) 读到。一次授予本来就是一条不会被重写、并且点名了谁把多少给了谁的行，再记一次就是对一个问题给出第二个答案。一个覆盖条目归属于设下它的那个身份的组织，于是租户管理员读得回自己的那些决定。
 
 **一份余额回答两个问题，所以它两样都带着。**还能花多少是一个数；管理员决定这个人每个周期得到多少是另一个数。只有第一个的界面，会让一个人分不清「今天用得少」和「额度被调低了」，所以每一份余额都带着生效的额度、它所在的周期、这个周期什么时候开始、以及到现在花掉了多少。每个人都读得到自己的那一份，不论他持有什么身份。
 
@@ -123,7 +123,7 @@ await administration.setAllowance({ person, periodicAmount: 1500, period: 'weekl
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-people`](../../identity/people/README.zh.md) —— 这些积分属于谁。
+- [`lyn-people`](../../identity/people/README.zh.md) —— 这些积分属于谁。
 - [模型是部署方的决定](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.zh.md) —— 为什么积分只存在于托管形态，以及为什么钱与积分是两条分开的边界。
 
 -----

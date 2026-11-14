@@ -7,10 +7,10 @@ import {
   IconTrashOutlineRegular,
   Switch,
   Tooltip,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ObservableSnapshot, PropsStore } from '@deepseek-ai/dsh-client-store'
-import type { ConfigFormSnapshot } from '@deepseek-ai/dsh-client-ui-settings/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { ObservableSnapshot, PropsStore } from '@lyness/lyn-client-store'
+import type { ConfigFormSnapshot } from '@lyness/lyn-client-ui-settings/client'
 import type { Config } from '../config.ts'
 import defaults from '../defaults.ts'
 import type { createSettingsStore } from './store.ts'
@@ -137,7 +137,7 @@ export function Settings({ useSettings, useLocale, useStore, actions, save, t }:
       value.summaryPrompt.length > PROMPT_LIMIT ||
       value.levelPrompts.some(prompt => prompt.length > PROMPT_LIMIT))
   return (
-    <div className="dsh-timeline timeline-settings">
+    <div className="lyn-timeline timeline-settings">
       <header className="timeline-page-header">
         <div className="timeline-page-title">
           <h2>{t('settings')}</h2>

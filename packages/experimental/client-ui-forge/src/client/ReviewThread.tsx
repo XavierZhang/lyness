@@ -1,8 +1,8 @@
 /** Inline comment records and the editing of comment drafts kept in the browser at their captured code location. */
 
 import { useCallback, useState, useSyncExternalStore, type ReactNode } from 'react'
-import { Button, Tag } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import { Button, Tag } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ReviewActions } from './ReviewComposer.tsx'
 import { EMPTY_FILE_REVIEW, type FileReviewState, type ReviewThread as Thread } from './review-queue.ts'
 import { reviewRange } from './review.ts'

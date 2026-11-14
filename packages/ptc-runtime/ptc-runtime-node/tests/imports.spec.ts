@@ -1,4 +1,4 @@
-import type { PtcProgramFormat } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcProgramFormat } from '@lyness/lyn-ptc-runtime'
 import { mkdtemp, mkdir, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -34,7 +34,7 @@ function evaluator(format: PtcProgramFormat, handler?: ProgramImportHandler) {
 }
 
 async function temporaryDirectory() {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-ptc-imports-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-ptc-imports-'))
   onTestFinished(async () => { await rm(directory, { recursive: true, force: true }) })
   return realpath(directory)
 }

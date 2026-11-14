@@ -3,29 +3,29 @@
  * controlled Office service: model-visible content, canonical values, argument rules, output-path refusals, render
  * bounds, read authority, Office service failures, cancellation, PTC dispatch, and disposal.
  */
-import { executeModelToolFixture, executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import * as PtcToolExecutor from '@deepseek-ai/dsh-tool-executor-ptc'
-import { provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { executeModelToolFixture, executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import * as PtcToolExecutor from '@lyness/lyn-tool-executor-ptc'
+import { provideWorkingDirectoryFixture } from '@lyness/lyn-agent-loop-testkit'
 import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { access, mkdir, mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { crc32, deflateSync } from 'node:zlib'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import { PtcRuntime, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@deepseek-ai/dsh-ptc-runtime'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { LlmAdapter, LlmRuntime, type ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmModelInfo, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@deepseek-ai/dsh-tools'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import OfficeKit, { OfficeKitError, type OfficeKitErrorCode, type OfficeImagesRequest, type OfficeImagesResult, type OfficeKitSource } from '@deepseek-ai/dsh-office-kit'
-import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@deepseek-ai/dsh-session'
-import { SubagentError } from '@deepseek-ai/dsh-subagent'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import { PtcRuntime, type PtcRunRequest, type PtcRunResult, type PtcRunSpec } from '@lyness/lyn-ptc-runtime'
+import { brandString } from '@lyness/lyn-brand'
+import { LlmAdapter, LlmRuntime, type ToolCallId } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmModelInfo, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/lyn-tools'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import LocalAttachmentStore from '@lyness/lyn-attachment-local'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import OfficeKit, { OfficeKitError, type OfficeKitErrorCode, type OfficeImagesRequest, type OfficeImagesResult, type OfficeKitSource } from '@lyness/lyn-office-kit'
+import { SESSION_FORMAT_VERSION, Session, type SessionId } from '@lyness/lyn-session'
+import { SubagentError } from '@lyness/lyn-subagent'
 import * as ToolOffice from '../src/index.ts'
 import { renderImagesContent } from '../src/content.ts'
 
@@ -119,8 +119,8 @@ function fakeOfficeKit() {
 let dir: string
 let home: string
 beforeEach(async () => {
-  dir = await realpath(await mkdtemp(join(tmpdir(), 'dsh-tool-office-')))
-  home = await mkdtemp(join(tmpdir(), 'dsh-tool-office-home-'))
+  dir = await realpath(await mkdtemp(join(tmpdir(), 'lyn-tool-office-')))
+  home = await mkdtemp(join(tmpdir(), 'lyn-tool-office-home-'))
   await writeFile(join(dir, 'deck.pptx'), 'pptx bytes')
   await writeFile(join(dir, 'book.xlsx'), 'xlsx bytes')
   await writeFile(join(dir, 'report.docx'), 'docx bytes')
@@ -150,7 +150,7 @@ async function setup(options: SetupOptions = {}) {
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(LocalFileSystem, { cwd: dir })
   if (options.attachments !== false) {
-    await ctx.plugin(LocalAttachmentStore, { dshHome: home, ...typeof options.attachments === 'object' ? options.attachments : {} })
+    await ctx.plugin(LocalAttachmentStore, { lynHome: home, ...typeof options.attachments === 'object' ? options.attachments : {} })
   }
   if (options.llm !== false) {
     await ctx.plugin(LlmRuntime)
@@ -659,7 +659,7 @@ describe('arguments and paths', () => {
   })
 
   it('reads an input outside the workspace as the read tool does', async () => {
-    const outside = await realpath(await mkdtemp(join(tmpdir(), 'dsh-tool-office-outside-')))
+    const outside = await realpath(await mkdtemp(join(tmpdir(), 'lyn-tool-office-outside-')))
     onTestFinished(() => rm(outside, { recursive: true, force: true }))
     await writeFile(join(outside, 'shared.docx'), 'docx bytes')
     const { ctx, kit } = await setup()

@@ -5,10 +5,10 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import ChannelKindRegistry from '@deepseek-ai/dsh-sign-in/kinds'
-import type { ConfiguredChannel } from '@deepseek-ai/dsh-sign-in/kinds'
-import { channelId } from '@deepseek-ai/dsh-sign-in'
+import { Context } from '@lyness/cordis'
+import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
+import type { ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
+import { channelId } from '@lyness/lyn-sign-in'
 import { DISPLAY_NAME } from '../src/index.ts'
 import * as Kind from '../src/kind.ts'
 import { create, FIELDS, KIND } from '../src/kind.ts'
@@ -27,7 +27,7 @@ async function bench(): Promise<Context> {
 }
 
 /** One configured instance, with the required settings unless overridden. */
-function instance(settings: Record<string, string> = { issuer: 'https://idp.example', clientId: 'deepseek-harness-web' }): ConfiguredChannel {
+function instance(settings: Record<string, string> = { issuer: 'https://idp.example', clientId: 'lyness-web' }): ConfiguredChannel {
   return { id: channelId('one'), displayName: 'Acme SSO', settings, secret: 'client_secret' }
 }
 
@@ -55,7 +55,7 @@ describe('an OpenID Provider as a configurable kind', () => {
     expect(plain.kind).toBe('redirect')
     const configured = create(instance({
       issuer: 'https://idp.example',
-      clientId: 'deepseek-harness-web',
+      clientId: 'lyness-web',
       scope: 'openid email',
       organization: 'acme',
       organizationClaim: 'org.id',
@@ -65,7 +65,7 @@ describe('an OpenID Provider as a configurable kind', () => {
   })
 
   it.each([
-    ['issuer', { clientId: 'deepseek-harness-web' }],
+    ['issuer', { clientId: 'lyness-web' }],
     ['clientId', { issuer: 'https://idp.example' }],
   ])('refuses an instance without %s', async (_case, settings) => {
     const ctx = await bench()

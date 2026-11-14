@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import type {
   SessionListState, SessionProjectionMap, SessionSummary,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceId, WorkspaceView } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionStatus, SessionStatusSnapshot } from '@deepseek-ai/dsh-client-ui-session-status/client'
-import type { SessionPendingInteraction } from '@deepseek-ai/dsh-client-ui-session/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import type { SessionProjectionSnapshot } from '@deepseek-ai/dsh-api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionStatus, SessionStatusSnapshot } from '@lyness/lyn-client-ui-session-status/client'
+import type { SessionPendingInteraction } from '@lyness/lyn-client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { SessionProjectionSnapshot } from '@lyness/lyn-api-session-controller/client'
 import {
   type ArchivedFilter,
   deriveFlat, deriveGroups, deriveSearchResults, orderByRecency, sessionSearchIndex, owningGroupKey, owningParentFolder,

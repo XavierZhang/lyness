@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>dsh-cua-desktop-fixture</AssemblyName>
+    <AssemblyName>lyn-cua-desktop-fixture</AssemblyName>
   </PropertyGroup>
 
 </Project>

@@ -18,12 +18,12 @@
  * substring-key hit. Equal scores keep the build order, so a term that
  * prefixes every name leaves the list in product order.
  *
- * @module @deepseek-ai/dsh-util-text-search
+ * @module @lyness/lyn-util-text-search
  */
 
 import fuzzysort from 'fuzzysort'
 import type { Prepared } from 'fuzzysort'
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
 
 /** The text one item offers to a search; absent and empty values never match. */
 export interface SearchKeys {

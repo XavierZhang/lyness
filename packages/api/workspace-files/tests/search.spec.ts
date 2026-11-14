@@ -10,7 +10,7 @@ let harness: Harness
 let workspace: string
 
 beforeEach(async () => {
-  harness = await openWorkspace('dsh-workspace-files-search-')
+  harness = await openWorkspace('lyn-workspace-files-search-')
   await mountSearchSubprocess(harness)
   workspace = harness.workspace
 })

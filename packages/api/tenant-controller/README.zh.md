@@ -3,7 +3,7 @@ description: "租户配置界面的 Remote 持有方：调用方租户读取并�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-tenant-controller
+# @lyness/lyn-api-tenant-controller
 
 [English](README.md) | 中文
 
@@ -29,24 +29,24 @@ kind: "package-reference"
 
 ```yaml
 - id: tenants
-  name: '@deepseek-ai/dsh-tenant-static'
+  name: '@lyness/lyn-tenant-static'
   config:
     tenants:
       - id: acme
         slug: acme
         displayName: Acme
 - id: tenant-config
-  name: '@deepseek-ai/dsh-tenant-config-store'
+  name: '@lyness/lyn-tenant-config-store'
 - id: tenant-request
-  name: '@deepseek-ai/dsh-tenant-request'
+  name: '@lyness/lyn-tenant-request'
 - id: tenant-controller
-  name: '@deepseek-ai/dsh-api-tenant-controller'
+  name: '@lyness/lyn-api-tenant-controller'
 ```
 
 浏览器像调用任何命名空间一样调用 `ctx.remote.tenant.describe()` 与 `ctx.remote.tenant.save(input)`，并按本包声明的视图读取答复：
 
 ```ts
-import type { TenantConfigView } from '@deepseek-ai/dsh-api-tenant-controller/types'
+import type { TenantConfigView } from '@lyness/lyn-api-tenant-controller/types'
 
 /**
  * Whether a settings page may offer saving for this answer.

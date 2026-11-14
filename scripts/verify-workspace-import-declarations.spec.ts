@@ -27,7 +27,7 @@ interface Fixture {
 
 /** A fixture repository holding the given packages under `packages/group/<n>`. */
 function repository(packages: readonly Fixture[]): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-undeclared-imports-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-undeclared-imports-'))
   roots.push(root)
   for (const [index, entry] of packages.entries()) {
     const directory = join(root, 'packages', 'group', `p${String(index)}`)
@@ -43,14 +43,14 @@ function repository(packages: readonly Fixture[]): string {
 
 describe('the repository scan', () => {
   it('reads each package once, with everything its sections declare', () => {
-    const root = repository([{ name: '@deepseek-ai/dsh-a', declares: ['@deepseek-ai/dsh-b'] }, { name: '@deepseek-ai/dsh-b' }])
+    const root = repository([{ name: '@lyness/lyn-a', declares: ['@lyness/lyn-b'] }, { name: '@lyness/lyn-b' }])
     const found = workspacePackages(root)
-    expect(found.map(entry => entry.name)).toEqual(['@deepseek-ai/dsh-a', '@deepseek-ai/dsh-b'])
-    expect([...(found[0]?.declared ?? [])].sort()).toEqual(['@deepseek-ai/dsh-a', '@deepseek-ai/dsh-b'])
+    expect(found.map(entry => entry.name)).toEqual(['@lyness/lyn-a', '@lyness/lyn-b'])
+    expect([...(found[0]?.declared ?? [])].sort()).toEqual(['@lyness/lyn-a', '@lyness/lyn-b'])
   })
 
   it('reports an empty corpus rather than passing silently', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-undeclared-empty-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-undeclared-empty-'))
     roots.push(root)
     expect(undeclaredWorkspaceImports(root)).toEqual([`${root}: no workspace package manifests found`])
   })
@@ -59,34 +59,34 @@ describe('the repository scan', () => {
 describe('what counts as a runtime import', () => {
   it('counts a value import, a re-export, and a bare import; not a type-only one', () => {
     const found = runtimePackageImports('probe.ts', [
-      "import { one } from '@deepseek-ai/dsh-value'",
-      "import '@deepseek-ai/dsh-bare'",
-      "export { two } from '@deepseek-ai/dsh-reexport'",
-      "import type { Three } from '@deepseek-ai/dsh-type'",
-      "import type {} from '@deepseek-ai/dsh-merge'",
-      "export type { Four } from '@deepseek-ai/dsh-type-reexport'",
+      "import { one } from '@lyness/lyn-value'",
+      "import '@lyness/lyn-bare'",
+      "export { two } from '@lyness/lyn-reexport'",
+      "import type { Three } from '@lyness/lyn-type'",
+      "import type {} from '@lyness/lyn-merge'",
+      "export type { Four } from '@lyness/lyn-type-reexport'",
       "import { four } from './local.ts'",
-      "const five = '@deepseek-ai/dsh-in-a-string'",
+      "const five = '@lyness/lyn-in-a-string'",
     ].join('\n'))
     expect(found.map(use => use.name))
-      .toEqual(['@deepseek-ai/dsh-value', '@deepseek-ai/dsh-bare', '@deepseek-ai/dsh-reexport'])
+      .toEqual(['@lyness/lyn-value', '@lyness/lyn-bare', '@lyness/lyn-reexport'])
     expect(found.map(use => use.line)).toEqual([1, 2, 3])
   })
 
   it('names the package of a subpath import, and ignores an unscoped bare one', () => {
     const found = runtimePackageImports('probe.ts', [
-      "import { deep } from '@deepseek-ai/dsh-session/types'",
+      "import { deep } from '@lyness/lyn-session/types'",
       "import { zod } from 'zod'",
     ].join('\n'))
-    expect(found.map(use => use.name)).toEqual(['@deepseek-ai/dsh-session'])
+    expect(found.map(use => use.name)).toEqual(['@lyness/lyn-session'])
   })
 })
 
 describe('the verdict', () => {
   it('accepts a package that declares what its source imports', () => {
     const root = repository([
-      { name: '@deepseek-ai/dsh-a', declares: ['@deepseek-ai/dsh-b'], source: "import { b } from '@deepseek-ai/dsh-b'\n" },
-      { name: '@deepseek-ai/dsh-b', source: 'export const b = 1\n' },
+      { name: '@lyness/lyn-a', declares: ['@lyness/lyn-b'], source: "import { b } from '@lyness/lyn-b'\n" },
+      { name: '@lyness/lyn-b', source: 'export const b = 1\n' },
     ])
     expect(undeclaredWorkspaceImports(root)).toEqual([])
   })
@@ -95,27 +95,27 @@ describe('the verdict', () => {
     // This is the `session-controller` → `request-principal` defect: the import
     // resolves from a hoisted root install and fails from the package itself.
     const root = repository([
-      { name: '@deepseek-ai/dsh-a', source: "import { b } from '@deepseek-ai/dsh-b'\n" },
-      { name: '@deepseek-ai/dsh-b', source: 'export const b = 1\n' },
+      { name: '@lyness/lyn-a', source: "import { b } from '@lyness/lyn-b'\n" },
+      { name: '@lyness/lyn-b', source: 'export const b = 1\n' },
     ])
     expect(undeclaredWorkspaceImports(root)).toEqual([
-      'packages/group/p0/src/index.ts:1: imports @deepseek-ai/dsh-b at runtime, which @deepseek-ai/dsh-a does not declare',
+      'packages/group/p0/src/index.ts:1: imports @lyness/lyn-b at runtime, which @lyness/lyn-a does not declare',
     ])
   })
 
   it('leaves an undeclared type-only import alone, and a third-party one', () => {
     const root = repository([
       {
-        name: '@deepseek-ai/dsh-a',
-        source: "import type { B } from '@deepseek-ai/dsh-b'\nimport { z } from 'zod'\nexport type { B }\n",
+        name: '@lyness/lyn-a',
+        source: "import type { B } from '@lyness/lyn-b'\nimport { z } from 'zod'\nexport type { B }\n",
       },
-      { name: '@deepseek-ai/dsh-b', source: 'export interface B { one: string }\n' },
+      { name: '@lyness/lyn-b', source: 'export interface B { one: string }\n' },
     ])
     expect(undeclaredWorkspaceImports(root)).toEqual([])
   })
 
   it('says nothing about a package outside this workspace', () => {
-    const root = repository([{ name: '@deepseek-ai/dsh-a', source: "import { x } from '@elsewhere/thing'\n" }])
+    const root = repository([{ name: '@lyness/lyn-a', source: "import { x } from '@elsewhere/thing'\n" }])
     expect(undeclaredWorkspaceImports(root)).toEqual([])
   })
 })

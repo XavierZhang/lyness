@@ -3,9 +3,9 @@ import {
   LIVESHARE_CAPABILITIES,
   LIVESHARE_OWNER_PLATFORMS,
   LIVESHARE_PROTOCOL_VERSION,
-} from '@deepseek-ai/dsh-experimental-liveshare-protocol'
+} from '@lyness/lyn-experimental-liveshare-protocol'
 import { registrationUrl } from '../src/owner-gateway/registration-url.ts'
-import type { TunnelShareSpec } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
+import type { TunnelShareSpec } from '@lyness/lyn-experimental-liveshare-protocol'
 
 /** The share every case starts from: the required fields, and nothing optional. */
 const minimal: TunnelShareSpec = {
@@ -58,7 +58,7 @@ describe('Liveshare registration handshake', () => {
   it('leaves every optional fact absent until the share states it', () => {
     const url = registrationUrl(minimal)
 
-    for (const absent of ['sessionMode', 'allowsFork', 'dshVersion', 'platform', 'ownerInstanceId', 'expiresAt', 'ownerProviderId', 'ownerTenantId', 'allowedSubjectId']) {
+    for (const absent of ['sessionMode', 'allowsFork', 'lynVersion', 'platform', 'ownerInstanceId', 'expiresAt', 'ownerProviderId', 'ownerTenantId', 'allowedSubjectId']) {
       expect(url.searchParams.get(absent), absent).toBeNull()
     }
   })
@@ -74,7 +74,7 @@ describe('Liveshare registration handshake', () => {
       ...minimal,
       sessionMode: 'write',
       allowsFork: true,
-      dshVersion: '0.2.0-rc.2',
+      lynVersion: '0.2.0-rc.2',
       ownerInstanceId: 'instance-one',
       expiresAt: '2026-10-03T00:00:00.000Z',
       ownerProviderId: 'feishu',
@@ -84,7 +84,7 @@ describe('Liveshare registration handshake', () => {
 
     expect(url.searchParams.get('sessionMode')).toBe('write')
     expect(url.searchParams.get('allowsFork')).toBe('1')
-    expect(url.searchParams.get('dshVersion')).toBe('0.2.0-rc.2')
+    expect(url.searchParams.get('lynVersion')).toBe('0.2.0-rc.2')
     expect(url.searchParams.get('ownerInstanceId')).toBe('instance-one')
     expect(url.searchParams.get('expiresAt')).toBe('2026-10-03T00:00:00.000Z')
     expect(url.searchParams.get('ownerProviderId')).toBe('feishu')

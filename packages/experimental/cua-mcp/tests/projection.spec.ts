@@ -1,9 +1,9 @@
-/** Result projection: text passes through, screenshots become inline images, failures keep isError without DSH's error prefix. */
+/** Result projection: text passes through, screenshots become inline images, failures keep isError without LYN's error prefix. */
 import { describe, expect, it, vi } from 'vitest'
-import type { AttachmentStore, ImageAttachmentRef, ImageVariantId } from '@deepseek-ai/dsh-attachment'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
+import type { AttachmentStore, ImageAttachmentRef, ImageVariantId } from '@lyness/lyn-attachment'
+import { brandString } from '@lyness/lyn-brand'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ToolExecutionResult } from '@lyness/lyn-tools'
 import { projectToolResult } from '../src/projection.ts'
 
 const attachment: ImageAttachmentRef = {
@@ -55,7 +55,7 @@ describe('tool result projection', () => {
     expect(result).not.toHaveProperty('isError')
   })
 
-  it('keeps the flag of a failed execution and reports its message once, without the DSH error prefix', async () => {
+  it('keeps the flag of a failed execution and reports its message once, without the LYN error prefix', async () => {
     const { attachments } = store()
     const failure: ToolExecutionResult = {
       isError: true, error: { message: 'code run failed (exception): boom', info: { name: 'CodeRunFailedError', code: 'CODE_RUN_FAILED' } },

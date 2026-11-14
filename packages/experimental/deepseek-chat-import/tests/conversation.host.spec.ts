@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto'
 import { describe, expect, it } from 'vitest'
-import { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import { Session, SESSION_FORMAT_VERSION, SessionId } from '@deepseek-ai/dsh-session'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import { Session, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   convertConversation, ExportConversationError, IMPORTED_MODEL_SOURCE, messageTime, selectBranch,
 } from '../src/conversation.ts'

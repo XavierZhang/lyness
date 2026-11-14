@@ -1,9 +1,9 @@
 /** The worktree service's row page on the Plugins page: the archive cleanup switch. */
 import { useId } from 'react'
-import { SettingsForm, Switch } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { SettingsFormLabels } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
+import { SettingsForm, Switch } from '@lyness/lyn-client-ui-primitives'
+import type { SettingsFormLabels } from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-plugin-manager/client'
 import type { NS } from './locales.ts'
 import type { WorktreeSettingsInjected } from './worktree-settings-form.ts'
 import css from './WorktreeSettings.module.css'

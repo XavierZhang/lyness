@@ -30,7 +30,7 @@ afterEach(() => {
 })
 
 function fixture(): string {
-  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'dsh-browser-notices-')))
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-browser-notices-')))
   roots.push(root)
   write(root, 'package.json', '{"type":"module"}')
   write(root, 'tsconfig.base.json', JSON.stringify({
@@ -56,7 +56,7 @@ function library(root: string, name: string, source = 'export const value = 1'):
 
 function dynamicPlugin(root: string, source: string): void {
   write(root, 'packages/client/dynamic/package.json', JSON.stringify({
-    name: '@fixture/dynamic', dsh: { client: { platform: 'web' } },
+    name: '@fixture/dynamic', lyn: { client: { platform: 'web' } },
   }))
   write(root, 'packages/client/dynamic/tsdown.config.ts', [
     'export default {',
@@ -107,7 +107,7 @@ describe('browser dependency discovery', () => {
             for (const text of ['fixture-client-banner', 'window.__ModuleLoader__.load', 'return module.exports', 'var module =']) {
               if (!output.code.includes(text)) throw new Error('missing Client output hook: ' + text)
             }
-            if (output.code.includes('__dshChunkStyles_')) throw new Error('unexpanded metadata marker')
+            if (output.code.includes('__lynChunkStyles_')) throw new Error('unexpanded metadata marker')
             if (output.code.includes('stylesheets:') !== ${JSON.stringify(styles)}) throw new Error('unexpected stylesheet metadata')
             if (output.code.includes('text:') !== ${JSON.stringify(styles)}) throw new Error('unexpected stylesheet text producer')
           },

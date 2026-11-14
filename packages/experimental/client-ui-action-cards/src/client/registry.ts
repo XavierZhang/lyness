@@ -1,11 +1,11 @@
 /** Card bodies registered by action kind for the shared card frame. */
 import { createElement, type ComponentType, type ReactNode } from 'react'
-import type { Context } from '@deepseek-ai/cordis'
-import type { HostObservable, LocaleNamespaceMap, Translate, TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Context } from '@lyness/cordis'
+import type { HostObservable, LocaleNamespaceMap, Translate, TranslateNS } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   ActionCardDecision, ActionCardFields, ActionCardProposal, ActionCardResult,
-} from '@deepseek-ai/dsh-action-cards/types'
+} from '@lyness/lyn-action-cards/types'
 
 /** Props of the frame's folded text, which bodies reuse for their own long fields. */
 export interface FoldedTextProps {

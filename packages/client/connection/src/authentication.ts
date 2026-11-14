@@ -1,6 +1,6 @@
 /** Ordered credential verification, independent of Connection's transport and source policy. */
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import { Context, Service } from '@lyness/cordis'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import type { AuthenticationProvider, ConnectionTrustRequest, PeerAdmission } from './rpc.ts'
 
 /** Credential verifier registry whose registrations belong to the calling plugin. */
@@ -56,7 +56,7 @@ export class ConnectionAuthentication extends Service {
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Credential verification shared by Host transports and authentication plugins. */
     'connection.authentication': ConnectionAuthentication

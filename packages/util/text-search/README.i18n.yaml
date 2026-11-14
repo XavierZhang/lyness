@@ -5,30 +5,30 @@
 /:
   en: 007ab32164ceae3f
   zh: aba970d895f23de0
-/dsh-util-text-search:
+/lyn-util-text-search:
   en: 32ceb63844402e40
   zh: 24646e3e3d7322db
-/dsh-util-text-search/summary:
+/lyn-util-text-search/summary:
   en: ab079a968e937b49
   zh: f0e00e1e40e8c854
-/dsh-util-text-search/table-of-contents:
+/lyn-util-text-search/table-of-contents:
   en: cd2a60a905c978d6
   zh: cc71d387d0cbd442
-/dsh-util-text-search/use-this-package:
+/lyn-util-text-search/use-this-package:
   en: 08d2d2bc1c0c18e9
   zh: 3fd2dec893d3c00b
-/dsh-util-text-search/api:
+/lyn-util-text-search/api:
   en: 4fbc544f66856819
   zh: e403bb676f2097ef
-/dsh-util-text-search/model-experience:
+/lyn-util-text-search/model-experience:
   en: ce4ba96f1f25ee8e
   zh: 1425688e714bf6b6
-/dsh-util-text-search/model-experience/kv-cache-effect:
+/lyn-util-text-search/model-experience/kv-cache-effect:
   en: 3729e5630da1b5e8
   zh: c56bc426600e375a
-/dsh-util-text-search/known-limitations-and-deferred-work:
+/lyn-util-text-search/known-limitations-and-deferred-work:
   en: d196f430e3c21f1c
   zh: 775505641b5b5fb3
-/dsh-util-text-search/known-limitations-and-deferred-work/dev-note:
+/lyn-util-text-search/known-limitations-and-deferred-work/dev-note:
   en: b193fa395f503e74
   zh: b2a69b31f43b9b84

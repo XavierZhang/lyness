@@ -3,7 +3,7 @@ description: "通过默认启动 Token 登录，并使用绑定 authority 的 Co
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-authentication-token
+# @lyness/lyn-host-authentication-token
 
 [English](README.md) | 中文
 
@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用方式
 
-将此函数插件与 Connection 和 Credentials 一同挂载。它还注入由 Connection 插件提供的 `connection.authentication`。存在 WebServer 时提供 HTTP 交换路由；认证 Provider 也能用于没有 Web 监听器的组合。插件通过 `webserver/entry-url` 贡献带签名的 `dsh web` 入口；打印与浏览器打开归 WebApp。包运行入口导出 `name`、`inject`、`Config` 和 `apply`。
+将此函数插件与 Connection 和 Credentials 一同挂载。它还注入由 Connection 插件提供的 `connection.authentication`。存在 WebServer 时提供 HTTP 交换路由；认证 Provider 也能用于没有 Web 监听器的组合。插件通过 `webserver/entry-url` 贡献带签名的 `lyn web` 入口；打印与浏览器打开归 WebApp。包运行入口导出 `name`、`inject`、`Config` 和 `apply`。
 
 | 字段 | 默认值 | 含义 |
 |---|---|---|

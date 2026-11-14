@@ -15,6 +15,6 @@ Configured `maxElements` and `maxDepth` now supply defaults independently for om
 
 ## Migration
 
-1. To keep the previous budgets for ordinary reads, find the `@deepseek-ai/dsh-experimental-cua-macos` entry in your `cordis.yml` or profile patch. Set `maxElements: 2000` and `maxDepth: 25` in its existing `config`.
+1. To keep the previous budgets for ordinary reads, find the `@lyness/lyn-experimental-cua-macos` entry in your `cordis.yml` or profile patch. Set `maxElements: 2000` and `maxDepth: 25` in its existing `config`.
 2. Restart the profile and confirm both defaults in the Computer Use model instructions.
 3. If a script depends on specific traversal budgets, pass them explicitly to `getAccessibilityTree()`. An override applies only to that call.

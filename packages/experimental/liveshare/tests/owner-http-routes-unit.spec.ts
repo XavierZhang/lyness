@@ -10,7 +10,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { OwnerAuthorizations } from '../src/host/owner-authorization.ts'
 import { registerOwnerHttpRoutes } from '../src/host/owner-http-routes.ts'
 

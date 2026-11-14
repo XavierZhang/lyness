@@ -15,11 +15,11 @@ Three surfaces change with it:
 
 | Before | After |
 |---|---|
-| slot `settings.administration.section` | slot `admin.section`, declared by `dsh-client-ui-admin-console` |
-| `dsh-host-frontend-static` served the index at `/` only | `documentPaths: ['/admin']` makes it answer that path with the document too |
-| `dsh-web-app` had no page configuration | `documentPaths` passes those paths through to the dist server |
+| slot `settings.administration.section` | slot `admin.section`, declared by `lyn-client-ui-admin-console` |
+| `lyn-host-frontend-static` served the index at `/` only | `documentPaths: ['/admin']` makes it answer that path with the document too |
+| `lyn-web-app` had no page configuration | `documentPaths` passes those paths through to the dist server |
 
-`SettingsRootInjected.hooks` loses `administrationSections` and `administers`, and `dsh-client-ui-settings-general` no longer exports `administersSource`.
+`SettingsRootInjected.hooks` loses `administrationSections` and `administers`, and `lyn-client-ui-settings-general` no longer exports `administersSource`.
 
 This affects a deployment that composes its own client rows, a plugin that registers an administration page, and anything that read those hooks. A person using the product sees the same Settings minus the administration group; an administrator opens `/admin`.
 
@@ -28,12 +28,12 @@ This affects a deployment that composes its own client rows, a plugin that regis
 1. Compose the console and the page it lives on, in the same composition:
    ```yaml
    - id: web-runtime
-     name: '@deepseek-ai/dsh-web-app'
+     name: '@lyness/lyn-web-app'
      config:
        documentPaths:
          - /admin
    - id: ui-admin-console
-     name: '@deepseek-ai/dsh-client-ui-admin-console'
+     name: '@lyness/lyn-client-ui-admin-console'
      config:
        path: /admin
    ```

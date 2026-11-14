@@ -1,13 +1,13 @@
 /** Shared model configuration and context assertions for real Office workflows. */
 import { expect } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ImageBlock } from '@deepseek-ai/dsh-llm'
-import { Session, type SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { ImageBlock } from '@lyness/lyn-llm'
+import { Session, type SessionId, type SessionEvent } from '@lyness/lyn-session'
 
 /** @returns Model provider patches for the configured development or official API. */
 export function officeModelPatches() {
   const model = process.env.MODEL_NAME ?? 'deepseek-flash'
-  const completions = process.env.DSH_OFFICE_TEST_API === 'openai-completions'
+  const completions = process.env.LYNESS_OFFICE_TEST_API === 'openai-completions'
   return [
     ...completions ? [
       { id: 'llm-deepseek', disabled: true },
@@ -26,8 +26,8 @@ export function officeModelPatches() {
 /** @returns Patches mounting the Office kit and tools, which the headless profile does not compose. */
 export function officeToolPatches() {
   return [{ insert: [
-    { id: 'office-kit', name: '@deepseek-ai/dsh-office-kit' },
-    { id: 'tool-office', name: '@deepseek-ai/dsh-tool-office' },
+    { id: 'office-kit', name: '@lyness/lyn-office-kit' },
+    { id: 'tool-office', name: '@lyness/lyn-tool-office' },
   ] }]
 }
 

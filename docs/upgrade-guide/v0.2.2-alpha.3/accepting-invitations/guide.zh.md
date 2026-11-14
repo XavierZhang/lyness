@@ -15,12 +15,12 @@ description: "`invitations` 命名空间多出 `accept`，成员就能调用；�
 
 - `invitations/accept` 是这个命名空间里第一个 `member` 够得着的方法，其余每一个仍然要求 `tenant-administrator`。它只收那张码：加到哪个账户上，来自这次调用自己的会话。
 - 它的应答是 `AcceptanceView`——`accepted`，以及授出的 `role` 与 `organization`。**每一种拒绝都读作 `accepted: false`。**
-- `@deepseek-ai/dsh-client-ui-join` 现在注入 `remote` 与 `remote.invitations`，而它的 `blockedBy` 不再答 `'signedIn'`。不带 Client remote 装配就挂这一页的组合，会让它停泊。
+- `@lyness/lyn-client-ui-join` 现在注入 `remote` 与 `remote.invitations`，而它的 `blockedBy` 不再答 `'signedIn'`。不带 Client remote 装配就挂这一页的组合，会让它停泊。
 
 ## 迁移
 
-1. 经 `@deepseek-ai/dsh-web-app` 挂 `@deepseek-ai/dsh-client-ui-join` 的部署不用改：Client 装配把每个命名空间都挂上了。手工组合这一页的，图里必须有 `@deepseek-ai/dsh-api-remotes/client`，否则这一页永远不出现。
-2. 从 `@deepseek-ai/dsh-client-ui-join/client` 读 `blockedBy` 的代码去掉 `'signedIn'` 这一支；已登录的那次访问现在渲染的是接受。
+1. 经 `@lyness/lyn-web-app` 挂 `@lyness/lyn-client-ui-join` 的部署不用改：Client 装配把每个命名空间都挂上了。手工组合这一页的，图里必须有 `@lyness/lyn-api-remotes/client`，否则这一页永远不出现。
+2. 从 `@lyness/lyn-client-ui-join/client` 读 `blockedBy` 的代码去掉 `'signedIn'` 这一支；已登录的那次访问现在渲染的是接受。
 3. `join` 这个 locale 命名空间里的 `signedInTitle` 与 `signedInHint` 两个键没有了。覆盖过它们的部署删掉那两条，可改为覆盖 `acceptTitle`、`acceptHint`、`acceptSubmit`、`acceptWorking`、`acceptNote`、`acceptedTitle`、`acceptedHint`、`nothingTitle`、`nothingHint`、`failedHint` 与 `retry`。
 4. 持久化的东西一概不变：邀请记录、它的哈希与使用次数都和原来一样。
 

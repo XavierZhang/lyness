@@ -1,5 +1,5 @@
 /** Fetch optional popularity counts separately from immutable package metadata. */
-import type { MarketSortKeyDeclaration } from '@deepseek-ai/dsh-plugin-market-index'
+import type { MarketSortKeyDeclaration } from '@lyness/lyn-plugin-market-index'
 import { PUBLIC_NPM_REGISTRY, type FetchLimits } from './fetchers.ts'
 import type { GeneratedEntry } from './generate.ts'
 

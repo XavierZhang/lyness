@@ -1,6 +1,6 @@
 /**
  * Enforce the `docs/upgrade-guide/v<version>/<item>/guide.md` layout, metadata,
- * sections, and word ceiling defined by the `dsh-create-upgrade-guide` skill.
+ * sections, and word ceiling defined by the `lyn-create-upgrade-guide` skill.
  * With `--base <ref>`, it also rejects guides added since that commit outside the root version's directory.
  * `verify-translation-pairing` owns the Chinese sibling's pairing record.
  * @module scripts/verify-upgrade-guides
@@ -81,7 +81,7 @@ export function collectUpgradeGuideViolations(root: string): string[] {
  * Report tracked guides added since `base` outside `docs/upgrade-guide/v<version>/`, where `<version>` is the
  * root `package.json` version. A version directory is frozen once that version is released, so a guide that a
  * pull request wrote before a release must move to the new version's directory before it merges. A guide that
- * the tip of `origin`'s `release/dsh-<x.y.z>` branch for its version line already contains passes, because
+ * the tip of `origin`'s `release/lyn-<x.y.z>` branch for its version line already contains passes, because
  * merging a release branch forward carries guides that were current on it. The tip is fetched by commit id,
  * without updating any ref, only when such a guide exists and the commit is absent locally; a shallow
  * repository fetches only that commit.
@@ -104,7 +104,7 @@ export function collectStaleUpgradeGuideAdditions(root: string, base: string): s
   const current = `${GUIDE_ROOT}/v${version}/`
   const released = new Map<string, ReadonlySet<string>>()
   const releasedGuides = (line: string): ReadonlySet<string> => {
-    const tip = git(['ls-remote', 'origin', `refs/heads/release/dsh-${line}`]).split('\t')[0]?.trim() ?? ''
+    const tip = git(['ls-remote', 'origin', `refs/heads/release/lyn-${line}`]).split('\t')[0]?.trim() ?? ''
     if (tip === '') return new Set()
     if (spawnSync('git', ['cat-file', '-e', `${tip}^{commit}`], { cwd: root, stdio: 'ignore' }).status !== 0) {
       // Fetching a commit already in a shallow repository with `--depth` would cut the history behind it.
@@ -135,7 +135,7 @@ if (process.argv[1] && import.meta.filename === resolve(process.argv[1])) {
     violations.push(`cannot check guides added since ${values.base ?? ''}: ${error instanceof Error ? error.message : String(error)}`)
   }
   if (violations.length > 0) {
-    process.stderr.write('verify-upgrade-guides: violations found (see .agents/skills/dsh-create-upgrade-guide/SKILL.md):\n')
+    process.stderr.write('verify-upgrade-guides: violations found (see .agents/skills/lyn-create-upgrade-guide/SKILL.md):\n')
     for (const violation of violations) process.stderr.write(`  ${violation}\n`)
     process.exit(1)
   }

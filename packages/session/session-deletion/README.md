@@ -3,13 +3,13 @@ description: "Delete one conversation: its stored log, every sub-session log ben
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-session-deletion
+# @lyness/lyn-session-deletion
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-session-deletion` provides `ctx.sessionDeletion`, whose one method deletes a conversation: the named session's stored log, every subagent log beneath it, and each member's cached projections. What it removes is exactly what the ZIP export archives, so a person who exported a conversation before deleting it holds everything that was taken. Nothing is recoverable afterwards and no tombstone is kept. An open conversation is refused rather than removed underneath itself. Mount it where a person or an operator may delete their own history; leave it out and a deployment keeps every conversation it ever stored.
+`lyn-session-deletion` provides `ctx.sessionDeletion`, whose one method deletes a conversation: the named session's stored log, every subagent log beneath it, and each member's cached projections. What it removes is exactly what the ZIP export archives, so a person who exported a conversation before deleting it holds everything that was taken. Nothing is recoverable afterwards and no tombstone is kept. An open conversation is refused rather than removed underneath itself. Mount it where a person or an operator may delete their own history; leave it out and a deployment keeps every conversation it ever stored.
 
 ## Table of Contents
 
@@ -27,15 +27,15 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: session-deletion
-  name: '@deepseek-ai/dsh-session-deletion'
+  name: '@lyness/lyn-session-deletion'
 ```
 
 It takes no configuration and needs the persistence backend and the query service. Where the projection cache is also mounted, each deleted member's cached record goes with its log.
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-deletion'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-deletion'
 
 declare const ctx: Context
 declare const conversation: SessionId
@@ -80,10 +80,10 @@ Removal is not atomic across members. A failure part way through leaves every me
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-session-persistence`](../session-persistence/README.md) — the `delete` operation this service calls, and what each backend promises about it.
-- [`dsh-session-projection-cache`](../session-projection-cache/README.md) — the cached record removed with each log.
-- [`dsh-session-log-export`](../../session-query/session-log-export/README.md) — the archive whose contents this deletion matches.
-- [`dsh-api-session-data-controller`](../../api/session-data-controller/README.md) — the Remote namespace a person reaches this through.
+- [`lyn-session-persistence`](../session-persistence/README.md) — the `delete` operation this service calls, and what each backend promises about it.
+- [`lyn-session-projection-cache`](../session-projection-cache/README.md) — the cached record removed with each log.
+- [`lyn-session-log-export`](../../session-query/session-log-export/README.md) — the archive whose contents this deletion matches.
+- [`lyn-api-session-data-controller`](../../api/session-data-controller/README.md) — the Remote namespace a person reaches this through.
 
 -----
 

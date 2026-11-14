@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, expect, it, vi } from 'vitest'
-import type { ScriptRealmId } from '@deepseek-ai/dsh-client-script-realm/client'
+import type { ScriptRealmId } from '@lyness/lyn-client-script-realm/client'
 import { createIFrameScriptRealmFactory, IFrameScriptRealm } from '../src/client/iframe.ts'
 
 const owned: IFrameScriptRealm[] = []

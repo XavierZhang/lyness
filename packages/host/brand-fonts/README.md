@@ -3,7 +3,7 @@ description: "The platform's built-in wordmark fonts, Inter SemiBold and Noto Sa
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-brand-fonts
+# @lyness/lyn-host-brand-fonts
 
 English | [中文](README.zh.md)
 
@@ -28,10 +28,10 @@ The fonts the platform typesets a wordmark in when a brand supplies none of its 
 This is a library, not a plugin: it registers nothing and reads no configuration.
 
 ```ts
-import { loadBrandFonts } from '@deepseek-ai/dsh-host-brand-fonts'
-import { typesetWordmark } from '@deepseek-ai/dsh-host-brand-wordmark'
+import { loadBrandFonts } from '@lyness/lyn-host-brand-fonts'
+import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
 
-const mark = typesetWordmark('领驭 DeepSeek Harness', loadBrandFonts())
+const mark = typesetWordmark('领驭 lyness', loadBrandFonts())
 ```
 
 | Font | Scripts the platform relies on it for |
@@ -41,7 +41,7 @@ const mark = typesetWordmark('领驭 DeepSeek Harness', loadBrandFonts())
 
 Inter comes first, so Latin letters keep Inter's shapes although Noto Sans CJK also draws them. The two weights were chosen so their strokes look alike when a name mixes scripts.
 
-SaaS tenants use these fonts only. A private deployment's brand owner may supply its own font instead, through `dsh --profile brand-studio --font`.
+SaaS tenants use these fonts only. A private deployment's brand owner may supply its own font instead, through `lyn --profile brand-studio --font`.
 
 -----
 

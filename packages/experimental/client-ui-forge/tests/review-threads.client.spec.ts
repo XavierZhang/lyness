@@ -1,6 +1,6 @@
 /** Placement, filters, excerpts, and composer quotes of host review threads. */
 import { describe, expect, it } from 'vitest'
-import type { ForgeReviewThread } from '@deepseek-ai/dsh-experimental-forge/types'
+import type { ForgeReviewThread } from '@lyness/lyn-experimental-forge/types'
 import {
   anchorRange, formatThreadQuote, gapOf, inFileOrder, hunkExcerpt, passesFilter, placeThread, threadQuoteSummary, THREAD_FILTERS,
 } from '../src/client/review-threads.ts'

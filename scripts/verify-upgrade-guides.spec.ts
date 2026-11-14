@@ -49,7 +49,7 @@ function writeGuides(root: string, files: Record<string, string>): void {
 }
 
 function fixtureRoot(files: Record<string, string>): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-upgrade-guides-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-upgrade-guides-'))
   roots.push(root)
   writeGuides(root, files)
   return root
@@ -161,12 +161,12 @@ describe('upgrade guide gate', () => {
       vi.unstubAllEnvs()
     })
 
-    /** An `origin` whose master holds released guides and whose `release/dsh-0.2.1` branch adds a backported one. */
+    /** An `origin` whose master holds released guides and whose `release/lyn-0.2.1` branch adds a backported one. */
     function originRoot(): string {
       const origin = fixtureRoot({})
       git(origin, 'init', '-q')
       commit(origin, '0.2.2-alpha.3', { 'v0.2.2-alpha.3/frozen/guide.md': VALID, 'v0.2.2-alpha.3/moving/guide.md': VALID })
-      git(origin, 'checkout', '-q', '-b', 'release/dsh-0.2.1')
+      git(origin, 'checkout', '-q', '-b', 'release/lyn-0.2.1')
       commit(origin, '0.2.1-rc.4', { 'v0.2.1-rc.4/backport/guide.md': VALID })
       git(origin, 'checkout', '-q', 'master')
       return origin
@@ -206,7 +206,7 @@ describe('upgrade guide gate', () => {
 
     it('reads a release branch tip in a shallow clone, fetching it only when absent, without cutting the history it already has', () => {
       const origin = originRoot()
-      git(origin, 'merge', '-q', '--no-edit', 'release/dsh-0.2.1')
+      git(origin, 'merge', '-q', '--no-edit', 'release/lyn-0.2.1')
       commit(origin, '0.2.2-alpha.3', { 'v0.2.2-alpha.3/later/guide.md': VALID })
       const root = bumpedClone(`file://${origin}`, { 'v0.2.1-rc.4/backport-again/guide.md': VALID }, '--depth=3')
       const history = git(root, 'rev-list', 'HEAD')
@@ -214,7 +214,7 @@ describe('upgrade guide gate', () => {
       expect(collectStaleUpgradeGuideAdditions(root, 'HEAD')).toEqual([`docs/upgrade-guide/v0.2.1-rc.4/backport-again/guide.md${MESSAGE}`])
       expect(git(root, 'rev-list', 'HEAD')).toBe(history)
 
-      git(origin, 'checkout', '-q', 'release/dsh-0.2.1')
+      git(origin, 'checkout', '-q', 'release/lyn-0.2.1')
       commit(origin, '0.2.1-rc.5', { 'v0.2.1-rc.4/backport-again/guide.md': VALID })
       expect(collectStaleUpgradeGuideAdditions(root, 'HEAD')).toEqual([])
       expect(git(root, 'rev-list', 'HEAD')).toBe(history)

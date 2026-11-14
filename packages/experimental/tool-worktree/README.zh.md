@@ -3,7 +3,7 @@ description: "创建新的本地 Git 工作树并改变当前 Session 目录的�
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-experimental-tool-worktree
+# @lyness/lyn-experimental-tool-worktree
 
 [English](README.md) | 中文
 
@@ -25,16 +25,16 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
-在 GUI 中启用[变更请求与工作树](../forge-bundle/README.zh.md)。独立组合包在插件页没有卡片。未组合 Web 应用的 profile 可以在 `dsh.profile.bundles` 中选择它；它一起加载[工作树运行时](../worktree/README.zh.md)与本工具。关闭后会移除 `create_worktree`，已有检出目录与分支会保留。内置 `working_directory` 工具仍然可用。
+在 GUI 中启用[变更请求与工作树](../forge-bundle/README.zh.md)。独立组合包在插件页没有卡片。未组合 Web 应用的 profile 可以在 `lyn.profile.bundles` 中选择它；它一起加载[工作树运行时](../worktree/README.zh.md)与本工具。关闭后会移除 `create_worktree`，已有检出目录与分支会保留。内置 `working_directory` 工具仍然可用。
 
 在显式组合中，将此函数插件挂载到工作树运行时和工具注册表之后。
 
 ```yaml
-- name: '@deepseek-ai/dsh-experimental-worktree'
-- name: '@deepseek-ai/dsh-experimental-tool-worktree'
+- name: '@lyness/lyn-experimental-worktree'
+- name: '@lyness/lyn-experimental-tool-worktree'
 ```
 
-调用 `create_worktree({ name?: string, from?: string })`。成功会返回规范化检出路径 `path`、新分支 `branch`、固定提交 `baseCommit` 和源仓库根目录 `repositoryRoot`，并改变调用 Session 的当前工作目录。离开时调用 `working_directory({ cd: path })`；检出目录与分支会保留。[生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-experimental-tool-worktree)拥有准确的 schema 与面向模型的描述。
+调用 `create_worktree({ name?: string, from?: string })`。成功会返回规范化检出路径 `path`、新分支 `branch`、固定提交 `baseCommit` 和源仓库根目录 `repositoryRoot`，并改变调用 Session 的当前工作目录。离开时调用 `working_directory({ cd: path })`；检出目录与分支会保留。[生成的工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-experimental-tool-worktree)拥有准确的 schema 与面向模型的描述。
 
 -----
 
@@ -68,7 +68,7 @@ kind: "package-bundle"
 
 #### 模型看到什么
 
-[工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-experimental-tool-worktree)定义 `create_worktree`。每个成功结果包含已创建检出目录的规范路径、分支、基准提交与源检出目录的顶层目录。失败调用报告操作错误。
+[工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-experimental-tool-worktree)定义 `create_worktree`。每个成功结果包含已创建检出目录的规范路径、分支、基准提交与源检出目录的顶层目录。失败调用报告操作错误。
 
 #### Token 影响
 

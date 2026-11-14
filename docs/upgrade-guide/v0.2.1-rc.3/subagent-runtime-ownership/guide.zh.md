@@ -9,7 +9,7 @@ description: Agent 工厂归属参数和注册表树查询已删除；subagent A
 
 ## 变更
 
-`@deepseek-ai/dsh-agent` 删除 create/resume 的运行时归属参数（`parentAgent` 或 `ownerAgent`）、`AgentRegistry.isOwnedBy()`、`AgentRegistry.roots()` 以及 `enter()` 的 owner 参数。直接通过工厂创建 Agent 不再将其加入托管 subagent 树。自定义工厂不再实现运行时树归属。
+`@lyness/lyn-agent` 删除 create/resume 的运行时归属参数（`parentAgent` 或 `ownerAgent`）、`AgentRegistry.isOwnedBy()`、`AgentRegistry.roots()` 以及 `enter()` 的 owner 参数。直接通过工厂创建 Agent 不再将其加入托管 subagent 树。自定义工厂不再实现运行时树归属。
 
 subagent 服务通过 `rootOf(agent)` 从已有 Activation 解析运行时成员关系。Session 格式和 Cordis 上下文对句柄的所有权不变。
 

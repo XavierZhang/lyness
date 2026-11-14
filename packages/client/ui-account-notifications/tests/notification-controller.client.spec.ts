@@ -6,7 +6,7 @@
  * about a notice survives sign-out or unload.
  */
 import { afterEach, expect, it, vi } from 'vitest'
-import type { AccountNotificationBatch, AccountNotificationId } from '@deepseek-ai/dsh-deepseek-account/types'
+import type { AccountNotificationBatch, AccountNotificationId } from '@lyness/lyn-deepseek-account/types'
 import { createNotificationController, type AccountNotice, type NotificationController } from '../src/client/notification-controller.ts'
 import { notification } from './notification-fixture.ts'
 

@@ -12,4 +12,4 @@ The default `filesApiTimeoutMs` falls from 60,000 to 20,000 milliseconds. After 
 
 ## Migration
 
-If your gateway needs the previous deadline, set `filesApiTimeoutMs: 60000` on the DeepSeek provider in the active profile’s `cordis.patch.yml`. Existing explicit values take effect as configured. Run `dsh --profile <profile> --dump-config` and check the value on the provider entry.
+If your gateway needs the previous deadline, set `filesApiTimeoutMs: 60000` on the DeepSeek provider in the active profile’s `cordis.patch.yml`. Existing explicit values take effect as configured. Run `lyn --profile <profile> --dump-config` and check the value on the provider entry.

@@ -16,7 +16,7 @@ macOS 应用授权使用原生应用提供的、区分大小写的完整 Bundle 
 
 身份前缀将新授权与旧的路径和签名、进程实例、可执行内容摘要分开。旧授权仍可撤销，但不能授予新 Bundle ID 身份访问权限；许可覆盖其他安装副本前，需要用户重新决定。
 
-Apple 的 [PPPC 配置](https://support.apple.com/guide/deployment/privacy-preferences-policy-control-payload-dep38df53c2a/web)支持 Bundle ID 或路径选择条件，同时另行要求代码签名条件。[TN3127](https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements)说明了指定要求如何跨版本识别代码，以及未签名和临时签名代码无法提供同等稳定性。DSH 采用这两种选择条件管理应用，不要求验证发布者身份。
+Apple 的 [PPPC 配置](https://support.apple.com/guide/deployment/privacy-preferences-policy-control-payload-dep38df53c2a/web)支持 Bundle ID 或路径选择条件，同时另行要求代码签名条件。[TN3127](https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements)说明了指定要求如何跨版本识别代码，以及未签名和临时签名代码无法提供同等稳定性。LYN 采用这两种选择条件管理应用，不要求验证发布者身份。
 
 ## 考虑过的替代方案
 

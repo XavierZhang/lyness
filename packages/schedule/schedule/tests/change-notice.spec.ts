@@ -3,19 +3,19 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { createUserMessage, LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
 import ScheduleService from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** A rule whose only occurrence lies beyond every test run, so no delivery competes with the notices. */
 const distant = 'DTSTART:20990101T000000Z\nRRULE:FREQ=DAILY;COUNT=1'
@@ -45,7 +45,7 @@ class ReplyAdapter extends LlmAdapter {
 
 /** Schedule service beside a production AgentLoop with one idle Agent that answers through {@link ReplyAdapter}. */
 async function setup() {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-notice-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-notice-'))
   roots.push(root)
   const ctx = new Context()
   contexts.push(ctx)

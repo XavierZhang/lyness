@@ -1,6 +1,6 @@
 /** Generate Windows native admission from the shared CUA operation definitions. */
 import { readFile, writeFile } from 'node:fs/promises'
-import { nativeProtocol } from '@deepseek-ai/dsh-cua/native-schema'
+import { nativeProtocol } from '@lyness/lyn-cua/native-schema'
 
 const path = new URL('protocol.schema.json', import.meta.url)
 const content = nativeProtocol().json

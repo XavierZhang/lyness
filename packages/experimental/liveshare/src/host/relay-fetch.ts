@@ -6,10 +6,10 @@
  * Relay-scoped socket guard instead of reaching the process fail-loud path. A replaced
  * `globalThis.fetch` is deliberately ignored so instrumentation cannot move Relay traffic onto the
  * shared transport.
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/relay-fetch
+ * @module @lyness/lyn-experimental-liveshare/src/host/relay-fetch
  */
 
-import { createRouteDispatcher } from '@deepseek-ai/dsh-http-proxy'
+import { createRouteDispatcher } from '@lyness/lyn-http-proxy'
 import type { RequestInit, Response } from 'undici'
 import { armRelayH2Guard, runRelayH2Scoped } from './relay-h2-idle.ts'
 

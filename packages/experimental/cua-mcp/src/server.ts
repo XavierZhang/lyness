@@ -1,17 +1,17 @@
-/** One MCP connection projected onto one DSH Agent that runs Computer Use programs. @module */
+/** One MCP connection projected onto one LYN Agent that runs Computer Use programs. @module */
 import { randomUUID } from 'node:crypto'
 import { createRequire } from 'node:module'
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import type {} from '@deepseek-ai/dsh-attachment'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type {} from '@deepseek-ai/dsh-cua'
-import { CUA_PROMPT_SECTION_NAME } from '@deepseek-ai/dsh-cua/guidance'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-system-prompt'
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import type {} from '@lyness/lyn-attachment'
+import { brandString } from '@lyness/lyn-brand'
+import type {} from '@lyness/lyn-cua'
+import { CUA_PROMPT_SECTION_NAME } from '@lyness/lyn-cua/guidance'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-system-prompt'
+import type { ToolDefinition } from '@lyness/lyn-tools'
 import { Server, specTypeSchemas, type CallToolResult, type Tool } from '@modelcontextprotocol/server'
 import { createConsentAnswerer, type ConsentMode, type ElicitationClient } from './consent.ts'
 import { projectToolResult } from './projection.ts'
@@ -42,10 +42,10 @@ export interface CuaMcpServer {
   dispose(): Promise<void>
 }
 
-/** MCP server name clients address; external tool names become `mcp__dsh_cua__cua_run_code` in Claude Code. */
-const MCP_SERVER_NAME = 'dsh_cua'
+/** MCP server name clients address; external tool names become `mcp__lyn_cua__cua_run_code` in Claude Code. */
+const MCP_SERVER_NAME = 'lyn_cua'
 
-/** The DSH tool whose registration for the connection's Agent is served as the MCP tool of the same name. */
+/** The LYN tool whose registration for the connection's Agent is served as the MCP tool of the same name. */
 const PROGRAM_TOOL = 'cua_run_code'
 
 /**
@@ -65,8 +65,8 @@ const PROGRAM_TOOL_PRESENTATION = {
 } as const
 
 /**
- * The reference tool is not a DSH tool: it serves the provider's `cua` guidance registered for the connection's
- * Agent, the text a DSH model receives in its system prompt.
+ * The reference tool is not a LYN tool: it serves the provider's `cua` guidance registered for the connection's
+ * Agent, the text a LYN model receives in its system prompt.
  */
 const REFERENCE_TOOL: Tool = {
   name: 'cua_get_api_reference',
@@ -79,7 +79,7 @@ const REFERENCE_TOOL: Tool = {
   annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
 }
 
-/** The host-level reset is not a DSH tool, so its definition lives here. */
+/** The host-level reset is not a LYN tool, so its definition lives here. */
 const RESET_TOOL: Tool = {
   name: 'cua_reset',
   title: 'Reset computer use program state',
@@ -91,7 +91,7 @@ const RESET_TOOL: Tool = {
   annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
 }
 
-const INSTRUCTIONS = 'DeepSeek Harness Computer Use: observe and operate desktop applications on this machine. '
+const INSTRUCTIONS = 'lyness Computer Use: observe and operate desktop applications on this machine. '
   + 'Start every conversation by calling cua_get_api_reference: it returns the complete cua API reference, and programs '
   + 'written without it guess the API wrong. Then call cua_run_code with a TypeScript program that uses the global cua '
   + 'object; program state persists across calls on this connection. A call may ask the user for application or pointer '
@@ -138,7 +138,7 @@ function projectProgramTool(definition: ToolDefinition): Tool {
  * tool before it reaches the executor, so a tool another row registers for the Agent is never callable without
  * being listed. `cua_get_api_reference` returns the provider's `cua` guidance for the Agent and keeps no state.
  * `cua_run_code` calls pass their arguments to the ordinary tool executor unchanged, one at a time in arrival
- * order, each as the Agent's maintenance activity: argument validation is answered by DSH, and disposing the Agent
+ * order, each as the Agent's maintenance activity: argument validation is answered by LYN, and disposing the Agent
  * cancels the running call and waits for it to settle. `cua_reset` bypasses the queue: it cancels the running program,
  * releases the Agent's program environment through `ctx.cuaPrograms`, answers after the cancelled program has settled,
  * and holds back programs that arrive meanwhile; the Agent, its native connection, and its application grants stay,
@@ -198,7 +198,7 @@ export async function createCuaMcpServer(ctx: Context, options: CuaMcpServerOpti
     const escalation = ESCALATION_FIELDS.filter(field => field in args)
     if (escalation.length > 0) {
       return failure(`Program sandbox escalation is not available through cua-mcp: remove ${escalation.join(' and ')}. `
-        + 'The launch-time DSH_PERMISSION_MODE selects the file sandbox of program processes.')
+        + 'The launch-time LYNESS_PERMISSION_MODE selects the file sandbox of program processes.')
     }
     // The program runtime rejects a run while the Agent's previous process is still exiting.
     while (resetting !== undefined) await resetting

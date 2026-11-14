@@ -2,11 +2,11 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { apply, type Config } from '../src/host/share-host.ts'
 import { ownerHostClaimPath } from '../src/host/owner-host-claim.ts'
 
-/** An owner state directory outside the real DSH home, which takes a host claim when a host starts. */
+/** An owner state directory outside the real LYN home, which takes a host claim when a host starts. */
 function isolatedState(): { config: Config; dir: string } {
   const dir = mkdtempSync(join(tmpdir(), 'liveshare-host-share-'))
   onTestFinished(() => { rmSync(dir, { recursive: true, force: true }) })

@@ -1,6 +1,6 @@
 /** Host-only decoding of native window observations before tool results reach a caller. */
 import { z } from 'zod'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type { CuaCoordinates } from './coordinates.ts'
 import { NativeError } from './native-client.ts'
 import { StateResult, WindowsResult } from './protocol.ts'

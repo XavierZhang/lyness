@@ -1,6 +1,6 @@
 /** Machine-routable PTY service and backend failures. @module */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Machine-routable PTY service and backend failures. Backends use

@@ -28,6 +28,6 @@ The Host-side registry gained `ctx.tools.registered(scope?)`, which pairs each v
 
 1. Read the group, not the tool: `view.tools.flatMap(group => group.tools)` is the old list of names, and `view.tools.length` now counts plugins rather than tools.
 2. Replace a per-tool description with the plugin's own: resolve `group.meta?.title` and `group.meta?.description` in the reader's locale (a Client does this with `ctx.locale.resolveText`), and fall back to `group.plugin` when the package declares no title.
-3. Replace the type name `ToolAvailabilityView` with `ToolPluginView` in any import from `@deepseek-ai/dsh-api-agent-capabilities-controller/types`.
+3. Replace the type name `ToolAvailabilityView` with `ToolPluginView` in any import from `@lyness/lyn-api-agent-capabilities-controller/types`.
 4. A consumer that needs who registered a tool on the Host reads `ctx.tools.registered()` instead of comparing names.
 5. Confirm it: `pnpm run test -- packages/api/agent-capabilities-controller` passes, and the composition case there asserts a package's own title reaching the reply.

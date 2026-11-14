@@ -1,6 +1,6 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { PtcRunRequest } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcRunRequest } from '@lyness/lyn-ptc-runtime'
 import { fakeChild, NO_INITIAL_FRAME } from './fake-child.ts'
 import { mountRuntime } from './setup.ts'
 import type { Config } from '../src/config.ts'

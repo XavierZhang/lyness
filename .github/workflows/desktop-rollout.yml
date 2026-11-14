@@ -50,7 +50,7 @@ jobs:
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: '24'
-      - run: pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
       - name: Resolve original package and machine
         id: route
         env:
@@ -76,7 +76,7 @@ jobs:
       DESKTOP_ROLLOUT_PERCENTAGE: ${{ inputs.rollout_percentage }}
       DESKTOP_PACKAGE_SELECTION: ${{ needs.route.outputs.selection }}
       DESKTOP_UPLOAD_WEBSITE: ${{ inputs.upload_website }}
-      DSH_TELEMETRY_DISABLED: '1'
+      LYNESS_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -93,7 +93,7 @@ jobs:
       - name: Check local publication configuration before dependency installation
         working-directory: desktop-rollout
         run: node apps/desktop-publisher/src/preflight-desktop-publish-local.mjs
-      - run: pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
         working-directory: desktop-rollout
       - name: Resolve retained package and approval environment
         id: local
@@ -123,7 +123,7 @@ jobs:
       DESKTOP_ROLLOUT_APPROVAL: ${{ needs.prepare.outputs.approval }}
       DESKTOP_UPLOAD_WEBSITE: ${{ inputs.upload_website }}
       DESKTOP_PUBLISH_ROUTE: ${{ needs.prepare.outputs.route }}
-      DSH_TELEMETRY_DISABLED: '1'
+      LYNESS_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -140,7 +140,7 @@ jobs:
       - name: Check local publication configuration before dependency installation
         working-directory: desktop-rollout
         run: node apps/desktop-publisher/src/preflight-desktop-publish-local.mjs
-      - run: pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
         working-directory: desktop-rollout
       - name: Verify initial publication and metadata without upload credentials
         id: check
@@ -192,7 +192,7 @@ jobs:
       - name: Check local publication configuration
         working-directory: website-rollout
         run: node apps/desktop-publisher/src/preflight-desktop-publish-local.mjs
-      - run: pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
         working-directory: website-rollout
       - name: Upload website installer
         id: website
@@ -245,7 +245,7 @@ jobs:
       - name: Check local publication configuration
         working-directory: website-rollout
         run: node apps/desktop-publisher/src/preflight-desktop-publish-local.mjs
-      - run: pnpm --filter @deepseek-ai/dsh-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
+      - run: pnpm --filter @lyness/lyn-desktop-publisher --fail-if-no-match install --prod --frozen-lockfile --ignore-scripts
         working-directory: website-rollout
       - name: Recover and observe website cache purge
         id: website

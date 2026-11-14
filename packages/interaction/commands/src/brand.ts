@@ -1,6 +1,6 @@
 /** Standalone command identities and compatibility constructors, without Cordis registration effects. */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Stable, plugin-owned identity of a command definition, independent of its name and copy. */
 export type CommandDefinitionId = Branded<'CommandDefinitionId'>

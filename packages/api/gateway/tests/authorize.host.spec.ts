@@ -5,14 +5,14 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context, Service } from '@deepseek-ai/cordis'
-import { bindTypertRemote, Remote, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
-import type { RemoteAuthority } from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import RemoteAccessService from '@deepseek-ai/dsh-api-remote-access'
-import TypertGatewayService from '@deepseek-ai/dsh-api-gateway'
-import type { RemoteAuthorizationRequest } from '@deepseek-ai/dsh-api-gateway'
-import type { PeerId, PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import { Context, Service } from '@lyness/cordis'
+import { bindTypertRemote, Remote, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import RemoteAccessService from '@lyness/lyn-api-remote-access'
+import TypertGatewayService from '@lyness/lyn-api-gateway'
+import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
+import type { PeerId, PeerScope } from '@lyness/lyn-typert-protocol'
 
 const live: Context[] = []
 afterEach(async () => { for (const ctx of live.splice(0)) await ctx.fiber.dispose() })

@@ -3,16 +3,16 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { PassThrough } from 'node:stream'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
-import type { SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
-import { SubprocessExecutableNotFoundError, type SubprocessRuntime, type SubprocessSpawnSpec, type SubprocessTerminalEnvironment, type SubprocessTerminalHandle } from '@deepseek-ai/dsh-subprocess'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
+import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import { SubprocessExecutableNotFoundError, type SubprocessRuntime, type SubprocessSpawnSpec, type SubprocessTerminalEnvironment, type SubprocessTerminalHandle } from '@lyness/lyn-subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { TerminalController, type Config } from '../src/index.ts'
 import { inputChannel } from './input.ts'
-import type { RemoteInvocation, PeerId } from '@deepseek-ai/dsh-typert-protocol'
+import type { RemoteInvocation, PeerId } from '@lyness/lyn-typert-protocol'
 import { resolveShell } from '../src/shells.ts'
 import type { TerminalInput, WebTerminalId } from '../src/types.ts'
 
@@ -380,7 +380,7 @@ describe('TerminalController', () => {
     await controller.create(agent, request, signal())
     expect(confine).not.toHaveBeenCalled()
     expect(sandboxPolicy.resolve).not.toHaveBeenCalled()
-    expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({ argv: ['/bin/bash', '--noprofile', '--norc', '-i'], env: { DSH_SESSION_ID: agent.id }, graceMs: 100 }))
+    expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({ argv: ['/bin/bash', '--noprofile', '--norc', '-i'], env: { LYNESS_SESSION_ID: agent.id }, graceMs: 100 }))
   })
 
   it('uses the Session working directory without requiring a sandbox provider', async () => {
@@ -580,7 +580,7 @@ describe('shell resolution', () => {
 })
 
 it.skipIf(process.platform === 'win32')('runs a real interactive shell with completion, TERM and live window dimensions', async () => {
-  const cwd = await mkdtemp(join(tmpdir(), 'dsh-web-terminal-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'lyn-web-terminal-'))
   const ctx = new Context()
   const runtime = await ctx.plugin(LocalSubprocessRuntime)
   try {
@@ -772,7 +772,7 @@ describe('Agent terminals', () => {
     expect(sandbox.confine).toHaveBeenCalledWith(['/bin/bash', '--noprofile', '--norc', '-i'], confined, expect.any(AbortSignal))
     expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({
       argv: ['sandbox-run', '/bin/bash', '--noprofile', '--norc', '-i'], cwd: '/workspace',
-      env: { DSH_SESSION_ID: 'session', HISTFILE: `/tmp/dsh-agent-history-${terminal.id}` },
+      env: { LYNESS_SESSION_ID: 'session', HISTFILE: `/tmp/lyn-agent-history-${terminal.id}` },
     }))
     expect(terminal.id).toMatch(/^[\w-]{1,128}$/u)
     expect(terminal.info).toMatchObject({ title: 'dev server', origin: 'agent', control: 'agent', sandboxMode: 'workspace-write', state: 'running' })
@@ -780,7 +780,7 @@ describe('Agent terminals', () => {
     expect(subprocess.spawn).not.toHaveBeenCalled()
     await terminal.close()
     expect(subprocess.spawn).toHaveBeenCalledExactlyOnceWith(expect.objectContaining({
-      argv: ['rm', '-f', '--', `/tmp/dsh-agent-history-${terminal.id}`], cwd: '/',
+      argv: ['rm', '-f', '--', `/tmp/lyn-agent-history-${terminal.id}`], cwd: '/',
     }))
   })
 
@@ -792,7 +792,7 @@ describe('Agent terminals', () => {
     withSandbox(ctx)
     subprocess.terminalEnvironment.mockResolvedValue({ platform, defaultShell: '/bin/bash' })
     const terminal = await controller.openForAgent(agent, { ...agentRequest, policy }, signal())
-    expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({ env: { DSH_SESSION_ID: 'session', ...history } }))
+    expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({ env: { LYNESS_SESSION_ID: 'session', ...history } }))
     await terminal.close()
     expect(subprocess.spawn).not.toHaveBeenCalled()
   })
@@ -820,7 +820,7 @@ describe('Agent terminals', () => {
     expect(subprocess.spawn).toHaveBeenCalledOnce()
     const [cleanup] = subprocess.spawn.mock.calls[0]!
     expect(cleanup.argv.slice(0, 3)).toEqual(['rm', '-f', '--'])
-    expect(cleanup.argv[3]).toMatch(/^\/tmp\/dsh-agent-history-/u)
+    expect(cleanup.argv[3]).toMatch(/^\/tmp\/lyn-agent-history-/u)
     expect(controller.list(agent.id)).toEqual([])
   })
 
@@ -828,10 +828,10 @@ describe('Agent terminals', () => {
     const { controller, agent, subprocess } = fixture()
     await controller.openForAgent(agent, {
       ...agentRequest, cwd: '/elsewhere', policy: { mode: 'danger-full-access', workspaceRoot: '/workspace' },
-      env: { PAGER: 'cat', DSH_SESSION_ID: 'spoofed' },
+      env: { PAGER: 'cat', LYNESS_SESSION_ID: 'spoofed' },
     }, signal())
     expect(subprocess.spawnTerminal).toHaveBeenCalledWith(expect.objectContaining({
-      argv: ['/bin/bash', '--noprofile', '--norc', '-i'], cwd: '/elsewhere', env: { PAGER: 'cat', DSH_SESSION_ID: 'session' },
+      argv: ['/bin/bash', '--noprofile', '--norc', '-i'], cwd: '/elsewhere', env: { PAGER: 'cat', LYNESS_SESSION_ID: 'session' },
     }))
   })
 
@@ -1016,7 +1016,7 @@ it('wakes a waiting roster consumer and keeps other watchers when one stops', as
 })
 
 it.skipIf(process.platform === 'win32')('runs a command typed by the agent in a real shell and renders its output', async () => {
-  const cwd = await mkdtemp(join(tmpdir(), 'dsh-agent-terminal-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'lyn-agent-terminal-'))
   const ctx = new Context()
   await ctx.plugin(LocalSubprocessRuntime)
   ctx.provide('sandboxPolicy', { defaultMode: 'danger-full-access', workspaceRoot: cwd } as never)

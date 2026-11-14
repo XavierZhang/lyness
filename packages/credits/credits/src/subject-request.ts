@@ -11,11 +11,11 @@
  * requests, and charging them to whoever happens to be signed in would be
  * worse than not charging them at all.
  *
- * @module @deepseek-ai/dsh-credits/subject-request
+ * @module @lyness/lyn-credits/subject-request
  */
 
-import { callingStanding } from '@deepseek-ai/dsh-request-principal'
-import type {} from '@deepseek-ai/dsh-request-principal'
+import { callingStanding } from '@lyness/lyn-request-principal'
+import type {} from '@lyness/lyn-request-principal'
 import { CreditSubject } from './subject.ts'
 import type { CreditSubjectIdentity } from './subject.ts'
 

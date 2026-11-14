@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { MessageId } from '@deepseek-ai/dsh-llm/types'
-import { Session, type SessionId, SessionLogOffset, SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session'
-import { remoteMethods } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import type { MessageId } from '@lyness/lyn-llm/types'
+import { Session, type SessionId, SessionLogOffset, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
 import MessageFeedbackService from '../src/index.ts'
 import type {
   MessageFeedbackItem,
@@ -15,7 +15,7 @@ import {
   setupHarness,
   type TestHarness,
 } from './helpers.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const harnesses: TestHarness[] = []
 

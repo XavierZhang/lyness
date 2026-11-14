@@ -1,19 +1,19 @@
 /**
  * Driver-owned durable agent inbox projection and command facade.
  *
- * @module @deepseek-ai/dsh-agent-loop/inbox
+ * @module @lyness/lyn-agent-loop/inbox
  */
 
-import type { MessageId } from '@deepseek-ai/dsh-llm'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import type { Session, SessionEventMap, UserMessage } from '@deepseek-ai/dsh-session'
+import type { MessageId } from '@lyness/lyn-llm'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type { Session, SessionEventMap, UserMessage } from '@lyness/lyn-session'
 import type {
   AgentEventDispatch,
   Inbox as InboxContract,
   InboxState,
   InboxTarget,
   InboxWireState,
-} from '@deepseek-ai/dsh-agent'
+} from '@lyness/lyn-agent'
 import { z } from 'zod'
 
 /** Wire validation for pending agent input reconstructed from durable inbox splices. */

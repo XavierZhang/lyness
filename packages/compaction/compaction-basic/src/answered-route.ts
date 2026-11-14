@@ -1,11 +1,11 @@
 /**
  * Host-only Session projection of the route that produced the latest assistant message.
  *
- * @module @deepseek-ai/dsh-compaction-basic/answered-route
+ * @module @lyness/lyn-compaction-basic/answered-route
  */
 
 import { z } from 'zod'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 
 /** Provider/model pair recorded on the latest assistant message; `null` before the first one. */
 export type AnsweredRoute = { provider: string; model: string } | null

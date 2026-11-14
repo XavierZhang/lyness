@@ -9,16 +9,16 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import type { ChannelId, ExternalSubject } from '@deepseek-ai/dsh-sign-in'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
-import ManagedPeople, { standingOf } from '@deepseek-ai/dsh-managed-people'
-import ManagedPeopleDirectory from '@deepseek-ai/dsh-managed-people/directory'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import type { ChannelId, ExternalSubject } from '@lyness/lyn-sign-in'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
+import ManagedPeople, { standingOf } from '@lyness/lyn-managed-people'
+import ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
 import Invitations, {
   DEFAULT_LIFETIME_MS, DEFAULT_MAX_USES, MAX_LIFETIME_MS, MAX_USES_LIMIT, NOT_PERMITTED,
   ORGANIZATION_REQUIRED, OUT_OF_BOUNDS, UNKNOWN, codeHash, newCode, open, resolveConfig,
@@ -74,7 +74,7 @@ function subject(id: string, displayName?: string): ExternalSubject {
 
 /** A deployment that stores its roster and issues invitations. */
 async function bench(config: Record<string, number> = {}, channels?: readonly string[]): Promise<Context> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-invitations-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-invitations-'))
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)

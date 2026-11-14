@@ -5,11 +5,11 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm/types'
-import type { ReplayEntry } from '@deepseek-ai/dsh-llm-replay'
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { ToolCallId } from '@lyness/lyn-llm/types'
+import type { ReplayEntry } from '@lyness/lyn-llm-replay'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { launchWebScaffold, watchConsole, webSnapshotMode, type WebScaffold } from './scaffold.ts'
 import { connectFreshWorkspace, newEnglishPage } from './support.ts'
 
@@ -44,7 +44,7 @@ describe.skipIf(webSnapshotMode() === 'record')('web e2e: PTC answered question'
   const events: SessionEvent[] = []
 
   beforeAll(async () => {
-    directory = await mkdtemp(join(tmpdir(), 'dsh-question-ptc-'))
+    directory = await mkdtemp(join(tmpdir(), 'lyn-question-ptc-'))
     const replayOverride = join(directory, 'replay.override.json')
     await writeFile(replayOverride, JSON.stringify(script))
     scaffold = await launchWebScaffold({

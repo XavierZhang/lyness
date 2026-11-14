@@ -1,7 +1,7 @@
 /** Catalog badges reach every selector placement through the Host catalog without changing catalog identity. */
 import { fileURLToPath } from 'node:url'
-import { LlmAdapter, type LlmModelBadge, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import { parseModelListing } from '@deepseek-ai/dsh-llm-deepseek'
+import { LlmAdapter, type LlmModelBadge, type StreamChunk } from '@lyness/lyn-llm'
+import { parseModelListing } from '@lyness/lyn-llm-deepseek'
 import { chromium, type Browser, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import {
@@ -17,7 +17,7 @@ const MODE = webSnapshotMode()
 
 /** DeepSeek fixture declarations pass through the production wire decoder before replay. */
 function listedModel(id: string, name: string, badge: unknown) {
-  const entry = parseModelListing({ data: [{ id, name, client_metadata: { 'HARNESS': { badge } } }] }).entries[0]!
+  const entry = parseModelListing({ data: [{ id, name, client_metadata: { 'lyness': { badge } } }] }).entries[0]!
   return { id, name, ...(entry.badge?.kind === 'badge' ? { badge: entry.badge.badge } : {}) }
 }
 

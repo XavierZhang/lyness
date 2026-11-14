@@ -13,7 +13,7 @@
  * decision because only it runs in a plain Node context: in the jsdom lane a
  * `node:fs` probe of the build output answers false whether or not the file is
  * there, which would hand the tier a proxy that collides with the real mount.
- * @module @deepseek-ai/dsh-client-test-runtime/src/assembly/self-mounted-remotes
+ * @module @lyness/lyn-client-test-runtime/src/assembly/self-mounted-remotes
  */
 
 import { existsSync } from 'node:fs'
@@ -39,27 +39,27 @@ const GENERATED_CONTRIBUTION = 'lib/typert.remote-client.js'
 export const STAND_IN_MODULE = 'tests/generated-remote-stub.ts'
 
 /** Comma-separated namespaces the Vitest config left to the assembly tier; absent or empty means none. */
-export const STAND_IN_NAMESPACES_ENV = 'DSH_STAND_IN_REMOTE_NAMESPACES'
+export const STAND_IN_NAMESPACES_ENV = 'LYNESS_STAND_IN_REMOTE_NAMESPACES'
 
 /** Every row whose `./remote` import needs a stand-in on a clean tree. */
 export const SELF_MOUNTED_REMOTES: readonly SelfMountedRemote[] = [
   // LiveShare's client entry mounts its own share namespace; the row is optional and outside the web roster.
-  { package: '@deepseek-ai/dsh-experimental-liveshare', directory: 'packages/experimental/liveshare', namespaces: [] },
+  { package: '@lyness/lyn-experimental-liveshare', directory: 'packages/experimental/liveshare', namespaces: [] },
   // The chat importer's client entry mounts its own namespace; the row is optional and outside the web roster.
-  { package: '@deepseek-ai/dsh-deepseek-chat-import', directory: 'packages/experimental/deepseek-chat-import', namespaces: [] },
+  { package: '@lyness/lyn-deepseek-chat-import', directory: 'packages/experimental/deepseek-chat-import', namespaces: [] },
   // The four personal-plane settings pages each mount the one namespace they consume.
   {
-    package: '@deepseek-ai/dsh-api-agent-capabilities-controller',
+    package: '@lyness/lyn-api-agent-capabilities-controller',
     directory: 'packages/api/agent-capabilities-controller',
     namespaces: ['agentCapabilities'],
   },
-  { package: '@deepseek-ai/dsh-api-memory-controller', directory: 'packages/api/memory-controller', namespaces: ['memories'] },
+  { package: '@lyness/lyn-api-memory-controller', directory: 'packages/api/memory-controller', namespaces: ['memories'] },
   {
-    package: '@deepseek-ai/dsh-api-personal-instructions-controller',
+    package: '@lyness/lyn-api-personal-instructions-controller',
     directory: 'packages/api/personal-instructions-controller',
     namespaces: ['personalInstructions'],
   },
-  { package: '@deepseek-ai/dsh-api-session-data-controller', directory: 'packages/api/session-data-controller', namespaces: ['sessionData'] },
+  { package: '@lyness/lyn-api-session-data-controller', directory: 'packages/api/session-data-controller', namespaces: ['sessionData'] },
 ]
 
 /**

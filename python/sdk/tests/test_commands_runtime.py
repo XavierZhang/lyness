@@ -1,7 +1,7 @@
 """Exercise Session commands through Python and the real sdk profile with a local model.
 
-The default carrier is the repository's built dsh CLI. Set
-DSH_COMMANDS_TEST_RUNTIME=installed to run these same cases against the imported
+The default carrier is the repository's built lyn CLI. Set
+LYNESS_COMMANDS_TEST_RUNTIME=installed to run these same cases against the imported
 SDK wheel and its bundled runtime, including from outside the repository.
 """
 
@@ -23,18 +23,18 @@ from typing import Callable, Iterator, TypeVar
 import pytest
 from pydantic import BaseModel
 
-from DeepSeek Harness.models import CommandExecution
-from DeepSeek Harness import DeepSeekHarness, Notification, RunResult, Session
-from DeepSeek Harness.client import UserQuestionHandler
+from lyness.models import CommandExecution
+from lyness import Lyness, Notification, RunResult, Session
+from lyness.client import UserQuestionHandler
 
 
 _WAIT_SECONDS = 30
 _SESSION_ID = "commands-runtime"
 _MODEL = "deepseek-v4-flash"
-_HISTORY_MARKER = "DSH_COMMANDS_OLD_USER_INPUT"
+_HISTORY_MARKER = "LYNESS_COMMANDS_OLD_USER_INPUT"
 _FIRST_REPLY = "SDK_COMPACT_READY"
-_CHECKPOINT = "## Primary Request and Intent\n- DSH_COMMANDS_CHECKPOINT: retain the earlier task."
-_CONTINUE_PROMPT = "DSH_COMMANDS_CONTINUE: answer using the retained checkpoint."
+_CHECKPOINT = "## Primary Request and Intent\n- LYNESS_COMMANDS_CHECKPOINT: retain the earlier task."
+_CONTINUE_PROMPT = "LYNESS_COMMANDS_CONTINUE: answer using the retained checkpoint."
 _CONTINUE_REPLY = "SDK_COMPACT_OK"
 _T = TypeVar("_T")
 
@@ -199,23 +199,23 @@ def test_model_server_only_allows_expected_connection_aborts(
     assert not model.thread.is_alive()
 
 
-def _dsh_bin() -> str | None:
-    mode = os.environ.get("DSH_COMMANDS_TEST_RUNTIME", "built")
+def _lyn_bin() -> str | None:
+    mode = os.environ.get("LYNESS_COMMANDS_TEST_RUNTIME", "built")
     if mode == "installed":
         return None
     if mode != "built":
-        raise ValueError("DSH_COMMANDS_TEST_RUNTIME must be built or installed")
+        raise ValueError("LYNESS_COMMANDS_TEST_RUNTIME must be built or installed")
     repo = Path(__file__).resolve().parents[3]
     node = shutil.which("node")
     binary = repo / "apps/cli/lib/bin.js"
     if node is None or not binary.is_file():
-        pytest.skip("requires Node and built dsh CLI, or DSH_COMMANDS_TEST_RUNTIME=installed")
+        pytest.skip("requires Node and built lyn CLI, or LYNESS_COMMANDS_TEST_RUNTIME=installed")
     return str(binary)
 
 
 @dataclass
 class _Runtime:
-    harness: DeepSeekHarness
+    harness: Lyness
     model: _ModelServer
     workers: ThreadPoolExecutor
     logs: Path
@@ -256,16 +256,16 @@ def _runtime(
         with patch.open("a", encoding="utf-8") as extra:
             extra.write(f"- id: goal\n  config:\n    defaultMaxGoalRounds: {max_goal_rounds}\n")
     patches = (patch,) if capture_patch is None else (patch, capture_patch.resolve())
-    dsh_bin = _dsh_bin()
+    lyn_bin = _lyn_bin()
     with _ModelServer(completions) as model_server, ThreadPoolExecutor(max_workers=2) as workers:
-        harness = DeepSeekHarness(
-            cwd=str(workspace), runtime_cwd=str(workspace), dsh_home=str(home),
-            dsh_bin=dsh_bin, profile="sdk", patches=tuple(str(item) for item in patches), model=model,
+        harness = Lyness(
+            cwd=str(workspace), runtime_cwd=str(workspace), lyn_home=str(home),
+            lyn_bin=lyn_bin, profile="sdk", patches=tuple(str(item) for item in patches), model=model,
             base_url=model_server.url, api_key="keyless-commands-runtime",
             initialize_timeout_seconds=60, request_timeout_seconds=20, shutdown_timeout_seconds=20,
             on_user_question=on_user_question,
-            env={"DSH_PERMISSION_MODE": initial_permission,
-                 "DSH_TELEMETRY_DISABLED": "1", "DSH_TOOLS_MODE": "native"},
+            env={"LYNESS_PERMISSION_MODE": initial_permission,
+                 "LYNESS_TELEMETRY_DISABLED": "1", "LYNESS_TOOLS_MODE": "native"},
         )
         try:
             harness.start()
@@ -376,7 +376,7 @@ def test_compact_without_history_returns_without_a_model_turn(tmp_path: Path) ->
 
 
 def test_compact_rejects_busy_agent_before_the_model_is_released(tmp_path: Path) -> None:
-    response = _Completion("DSH_COMMANDS_BUSY_REPLY", blocked=True)
+    response = _Completion("LYNESS_COMMANDS_BUSY_REPLY", blocked=True)
     with _runtime(tmp_path, [response]) as runtime:
         session = runtime.harness.start_session(_SESSION_ID)
         running = runtime.workers.submit(
@@ -501,10 +501,10 @@ def test_unknown_slash_and_compact_arguments_follow_the_plain_prompt_path(tmp_pa
 
 
 def test_unimplemented_slash_remains_plain_text_without_recording_feedback(tmp_path: Path) -> None:
-    input_text = "/feedback DSH_FEEDBACK_TEXT_INPUT"
-    following = "DSH_AFTER_PLAN_TEXT_INPUT"
-    reply_before = "DSH_FEEDBACK_TEXT_REPLY"
-    reply = "DSH_AFTER_PLAN_TEXT_REPLY"
+    input_text = "/feedback LYNESS_FEEDBACK_TEXT_INPUT"
+    following = "LYNESS_AFTER_PLAN_TEXT_INPUT"
+    reply_before = "LYNESS_FEEDBACK_TEXT_REPLY"
+    reply = "LYNESS_AFTER_PLAN_TEXT_REPLY"
     with _runtime(tmp_path, [_Completion(reply_before), _Completion(reply)]) as runtime:
         session = runtime.harness.start_session(_SESSION_ID)
         first = runtime.call(session.run, input_text)
@@ -535,7 +535,7 @@ def _assert_request_permission(request: dict, sandbox: str, approval: str) -> No
         if text.startswith("<system-reminder>\nThe following information describes your current session")
     ]
     assert contexts, "model request has no runtime-context snapshot"
-    assert f"Current DSH file policy: {sandbox}." in contexts[-1]
+    assert f"Current LYN file policy: {sandbox}." in contexts[-1]
     assert (_ASK_POLICY if approval == "ask" else _NEVER_POLICY) in contexts[-1]
 
 
@@ -641,7 +641,7 @@ def test_running_permission_change_keeps_the_native_extra_step_and_notifications
         _assert_request_permission(requests[1], "danger-full-access", "never")
         assert requests[0]["system"] == requests[1]["system"]
         assert requests[0]["tools"] == requests[1]["tools"]
-        assert runtime.harness.config.env["DSH_PERMISSION_MODE"] == "workspace-write"
+        assert runtime.harness.config.env["LYNESS_PERMISSION_MODE"] == "workspace-write"
     events = _read_events(runtime.logs)
     _command_pair(events, execution, "permission")
     [notice] = [event["data"]["content"] for event in _of_type(events, "user/message")
@@ -667,5 +667,5 @@ def test_resumed_permission_survives_different_launch_defaults(tmp_path: Path) -
         assert isinstance(resumed.call(session.run, "Report the restored policy without using tools."), RunResult)
         [request] = resumed.model.captured()
         _assert_request_permission(request, "read-only", "ask")
-        assert resumed.harness.config.env["DSH_PERMISSION_MODE"] == "danger-full-access"
+        assert resumed.harness.config.env["LYNESS_PERMISSION_MODE"] == "danger-full-access"
     assert _permission_facts(_read_events(resumed.logs)) == saved

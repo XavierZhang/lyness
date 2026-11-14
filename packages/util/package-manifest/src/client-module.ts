@@ -34,7 +34,7 @@ export interface ClientBundleRequire {
 export type ClientModuleFactory = (require: ClientBundleRequire) => Record<string, unknown>
 
 /** One executable browser entry or package-local chunk with optional deferred metadata. */
-export interface DshClientModuleManifest {
+export interface LynClientModuleManifest {
   readonly id: string
   readonly chunk?: string
   readonly factory: ClientModuleFactory

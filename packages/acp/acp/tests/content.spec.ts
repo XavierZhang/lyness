@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
-import { AttachmentError } from '@deepseek-ai/dsh-attachment'
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ImageAttachmentRef, SaveImageAttachment } from '@deepseek-ai/dsh-attachment'
-import type { ModelSelection } from '@deepseek-ai/dsh-agent'
+import type { Context } from '@lyness/cordis'
+import { AttachmentError } from '@lyness/lyn-attachment'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { ImageAttachmentRef, SaveImageAttachment } from '@lyness/lyn-attachment'
+import type { ModelSelection } from '@lyness/lyn-agent'
 import {
   AcpContentError,
   admitAcpPrompt,

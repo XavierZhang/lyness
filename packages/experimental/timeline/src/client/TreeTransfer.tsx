@@ -1,8 +1,8 @@
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Button, Modal } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+import { Button, Modal } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import { Checkpoint, CHECKPOINT_BYTES } from '../checkpoint.ts'
 import type { Tree, TimelineView } from '../records.ts'
 import type { ImportRequest } from './actions.ts'
@@ -18,7 +18,7 @@ export interface TreeTransferActions {
 
 /** Download the acknowledged plan; no model request or host filesystem write is needed. */
 export function exportTree(tree: Tree, annotations: TimelineView['annotations'], sessionId: string): void {
-  const text = Checkpoint.fromTree(tree, annotations, Date.now(), sessionId, process.env.DSH_CLIENT_VERSION).toString()
+  const text = Checkpoint.fromTree(tree, annotations, Date.now(), sessionId, process.env.LYNESS_CLIENT_VERSION).toString()
   const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }))
   try {
     const anchor = document.createElement('a')

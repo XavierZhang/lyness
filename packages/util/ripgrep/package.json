@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-util-ripgrep",
+  "name": "@lyness/lyn-util-ripgrep",
   "description": "Packaged ripgrep resolution and subprocess streaming helpers",
   "version": "0.2.2-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/util/ripgrep"
   },
   "type": "module",
@@ -33,11 +33,11 @@
     "@vscode/ripgrep": "^1.18.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-subprocess": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-subprocess": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-subprocess": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-subprocess": "workspace:*"
   }
 }

@@ -1,8 +1,8 @@
 /** A hand-declared route can speak the Gemini API protocol. */
 
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { createMessage } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { createMessage } from '@lyness/lyn-llm'
 import * as PiAi from '../src/index.ts'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer } from './mock-server.ts'

@@ -40,12 +40,12 @@ internal static class CaptureProbe
             using (var target = new Form())
             using (var cover = new Form())
             {
-                target.Text = "DSH capture probe: owned target";
+                target.Text = "LYN capture probe: owned target";
                 target.StartPosition = cover.StartPosition = FormStartPosition.Manual;
                 target.Bounds = new Rectangle(100, 100, 520, 400);
                 target.BackColor = Color.FromArgb(20, 180, 60);
                 target.TopMost = true;
-                cover.Text = "DSH capture probe: owned cover";
+                cover.Text = "LYN capture probe: owned cover";
                 cover.Bounds = target.Bounds;
                 cover.BackColor = Color.Magenta;
                 cover.TopMost = true;

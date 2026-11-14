@@ -2,13 +2,13 @@
  * Vocabulary-contract tests for the sandbox seam: the fail-closed error's
  * structured identity is what tool results and consumers key on, so its
  * shape is pinned here, next to the vocabulary that owns it. Provider
- * behavior is each implementation's suite (`dsh-sandbox-local`); consumer
- * behavior is each consumer's (`dsh-bash-sandbox`).
+ * behavior is each implementation's suite (`lyn-sandbox-local`); consumer
+ * behavior is each consumer's (`lyn-bash-sandbox`).
  */
 
 import { describe, expect, it } from 'vitest'
-import { HarnessError } from '@deepseek-ai/dsh-error'
-import { SANDBOX_PREPARATION_ERROR_CODES, SANDBOX_UNAVAILABLE, SandboxPreparationError, SandboxUnavailableError } from '@deepseek-ai/dsh-sandbox'
+import { HarnessError } from '@lyness/lyn-error'
+import { SANDBOX_PREPARATION_ERROR_CODES, SANDBOX_UNAVAILABLE, SandboxPreparationError, SandboxUnavailableError } from '@lyness/lyn-sandbox'
 
 describe('SandboxUnavailableError', () => {
   it('carries the structured { name, code } identity consumers key on', () => {

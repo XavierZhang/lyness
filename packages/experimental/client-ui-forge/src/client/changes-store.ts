@@ -6,7 +6,7 @@
  * choices; the bucket ends with the tab record's signal.
  */
 
-import { defineStore, type EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
 import type { ForgeBaseBranch, ForgeCommitRange, ForgeFileLayer, ForgeLocalScope } from '../types.ts'
 
 /** Files a changes tab shows: every file, or the files of one review layer. */

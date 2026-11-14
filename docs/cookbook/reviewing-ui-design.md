@@ -1,5 +1,5 @@
 ---
-description: "Review a DSH page or modal as a whole, explain findings through design principles, and verify supported changes."
+description: "Review a LYN page or modal as a whole, explain findings through design principles, and verify supported changes."
 ---
 
 # Cookbook: review a UI design
@@ -8,11 +8,11 @@ English | [中文](reviewing-ui-design.zh.md)
 
 ## Summary
 
-Use this cookbook for explicitly requested comprehensive reviews and for evidence steps justified by a change's impact or regression risk. Ordinary development follows the lightweight path in the [UI change workflow](../../.agents/skills/dsh-client-ui-ux/SKILL.md#required-review-loop); it does not execute every section below. The [principles and case reference](../ui-design-review-cases.md) supplies judgment criteria, not a mandatory checklist. Existing tests, GUI PR GIFs and designer/product approval remain governed by their original owners.
+Use this cookbook for explicitly requested comprehensive reviews and for evidence steps justified by a change's impact or regression risk. Ordinary development follows the lightweight path in the [UI change workflow](../../.agents/skills/lyn-client-ui-ux/SKILL.md#required-review-loop); it does not execute every section below. The [principles and case reference](../ui-design-review-cases.md) supplies judgment criteria, not a mandatory checklist. Existing tests, GUI PR GIFs and designer/product approval remain governed by their original owners.
 
 Check the complete icon box, including intentional internal whitespace, text columns and gaps before judging the drawn contour. Hit targets are not icon boxes; do not align each glyph’s painted pixels independently. See the [alignment principle](../ui-design-review-cases.md#alignment).
 
-Check associated icons and text against the [same-foreground rule](../../.agents/skills/dsh-client-ui-ux/references/icons.md#placement-and-use), including submenu values with chevrons and search placeholders with magnifiers. Compare rendered color and opacity in both themes; preserve semantic exceptions.
+Check associated icons and text against the [same-foreground rule](../../.agents/skills/lyn-client-ui-ux/references/icons.md#placement-and-use), including submenu values with chevrons and search placeholders with magnifiers. Compare rendered color and opacity in both themes; preserve semantic exceptions.
 
 ## Table of Contents
 
@@ -30,9 +30,9 @@ Check associated icons and text against the [same-foreground rule](../../.agents
 
 Identify the user task and affected page or modal. Record scope when several regions, consumers or design choices need coordination; a straightforward local change needs no separate plan. For an explicitly requested comprehensive review, enumerate the requested pages/modals and relevant states. Do not present local inspection as a whole-page result.
 
-Use the [judgment priorities](../ui-design-review-cases.md#judgment) across that scope: alignment and spatial grouping first, then density, hierarchy, states, component choice, icon optics and geometry. Express each finding as an observable relationship, such as content appearing closer to the next group than to its own label. Follow the user’s requested order and authorization; a full review can identify multiple related defects, and permission to implement routine adjustments does not replace the [required designer/product review](../../.agents/skills/dsh-client-ui-ux/SKILL.md#design-review-escalation).
+Use the [judgment priorities](../ui-design-review-cases.md#judgment) across that scope: alignment and spatial grouping first, then density, hierarchy, states, component choice, icon optics and geometry. Express each finding as an observable relationship, such as content appearing closer to the next group than to its own label. Follow the user’s requested order and authorization; a full review can identify multiple related defects, and permission to implement routine adjustments does not replace the [required designer/product review](../../.agents/skills/lyn-client-ui-ux/SKILL.md#design-review-escalation).
 
-Read the [client UI skill](../../.agents/skills/dsh-client-ui-ux/SKILL.md) and the applicable architecture before editing. Use the [responsive skill](../../.agents/skills/dsh-responsive-ui/SKILL.md) for width and input changes, the [style reference](../web-styling.md) for tokens, and the [radius standard](../ui-radius.md) for corner geometry. This workflow adds review and evidence steps, not another set of visual tokens.
+Read the [client UI skill](../../.agents/skills/lyn-client-ui-ux/SKILL.md) and the applicable architecture before editing. Use the [responsive skill](../../.agents/skills/lyn-responsive-ui/SKILL.md) for width and input changes, the [style reference](../web-styling.md) for tokens, and the [radius standard](../ui-radius.md) for corner geometry. This workflow adds review and evidence steps, not another set of visual tokens.
 
 <a id="review-scope"></a>
 ### Select scope by visual impact
@@ -49,7 +49,7 @@ Choose inspection scope from the table below. For broader changes, a few task-no
 
 A shared consumer can reuse evidence only when the relevant implementation, size, container constraints, content behavior and states are equivalent; record the grouping and its basis. Inspect uncertain cases directly. Source inspection of all consumers is not a claim to have opened every page. Expand scope when a defect recurs beyond the initial region or a fix changes adjacent relationships. Record unrelated discoveries separately instead of silently starting a product-wide redesign.
 
-Apply the [minimum checks](../../.agents/skills/dsh-client-ui-ux/SKILL.md#minimum-checks-for-affected-ui) to each changed property: color requires both themes; layout, spacing, typography and sizing require constrained and long-content checks; interaction requires the affected path and states. These are inspection requirements, including for local edits, not a demand for a screenshot of every condition. Apply the owning responsive and behavior requirements; do not exhaust unrelated combinations or replace coverage reasoning with a fixed screenshot count. Reuse unchanged rules and valid evidence within the task, and recapture after a coherent batch of edits rather than every CSS adjustment. Read only the relevant principle sections and examples; an uncertain design decision is a reason to retrieve more detail.
+Apply the [minimum checks](../../.agents/skills/lyn-client-ui-ux/SKILL.md#minimum-checks-for-affected-ui) to each changed property: color requires both themes; layout, spacing, typography and sizing require constrained and long-content checks; interaction requires the affected path and states. These are inspection requirements, including for local edits, not a demand for a screenshot of every condition. Apply the owning responsive and behavior requirements; do not exhaust unrelated combinations or replace coverage reasoning with a fixed screenshot count. Reuse unchanged rules and valid evidence within the task, and recapture after a coherent batch of edits rather than every CSS adjustment. Read only the relevant principle sections and examples; an uncertain design decision is a reason to retrieve more detail.
 
 <a id="inspect"></a>
 ## 2. Inspect the task and its implementation
@@ -141,7 +141,7 @@ For comprehensive reviews, distinguish inspected-without-findings, defects and u
 
 Report the checks actually run and their outcome, and distinguish automated metadata checks, behavior tests, and human visual inspection. Include material limitations such as an unavailable application state or an untested platform. Do not describe the work as fully verified while required scenes or checks remain outstanding.
 
-Use the [UI change workflow](../../.agents/skills/dsh-client-ui-ux/SKILL.md#required-review-loop) at handoff, review and push to check new cumulative effects or invalidated evidence, not to repeat completed inspection. No extra report is required for an unchanged result. Tests and agent inspection do not replace the existing [designer/product approval requirement](../../.agents/skills/dsh-client-ui-ux/SKILL.md#design-review-escalation).
+Use the [UI change workflow](../../.agents/skills/lyn-client-ui-ux/SKILL.md#required-review-loop) at handoff, review and push to check new cumulative effects or invalidated evidence, not to repeat completed inspection. No extra report is required for an unchanged result. Tests and agent inspection do not replace the existing [designer/product approval requirement](../../.agents/skills/lyn-client-ui-ux/SKILL.md#design-review-escalation).
 
 ### Comparison delivery and cumulative changes
 
@@ -157,7 +157,7 @@ For an all-changes summary, trace each claim to the cumulative diff, current own
 Use these owners for the details needed by a particular review.
 
 - [UI design principles and review cases](../ui-design-review-cases.md) — whole-page and modal judgment, applicable rules, and explanatory examples.
-- [Rule ownership and maintenance](../../.agents/skills/dsh-client-ui-ux/SKILL.md#maintain-one-owner-per-rule) — where to change a principle and how local tools consume it.
+- [Rule ownership and maintenance](../../.agents/skills/lyn-client-ui-ux/SKILL.md#maintain-one-owner-per-rule) — where to change a principle and how local tools consume it.
 - [Web UI style reference](../web-styling.md) — component reuse and styling ownership.
 
 <a id="dev-note"></a>

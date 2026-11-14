@@ -1,10 +1,10 @@
 /**
  * Vocabulary of one OpenID Provider, kept apart from the request shapes.
  *
- * @module @deepseek-ai/dsh-oidc/types
+ * @module @lyness/lyn-oidc/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** The issuer identifier an OpenID Provider publishes for itself. */
 export type OidcIssuer = Branded<'OidcIssuer'>

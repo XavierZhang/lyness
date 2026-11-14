@@ -30,8 +30,8 @@
   scrollbar-gutter: stable;
   /* A 9px rail carries the 5px thumb inset 2px from the pane edge (rendered by
      ui-theme styles/scrollbar.css). */
-  --dsh-scrollbar-width: 9px;
-  --dsh-scrollbar-thumb-border: 2px;
+  --lyn-scrollbar-width: 9px;
+  --lyn-scrollbar-thumb-border: 2px;
 }
 
 /* Matches the Plugins page's 960px column and responsive inline insets. */
@@ -65,7 +65,7 @@
 /* macOS hiddenInset titlebar: the Plugins page's head carries the frame's top
    clearance above its own 28px inset, so both pages keep the same 76px total. */
 :global([data-platform='darwin']) .pageHeading {
-  padding-top: calc(28px + var(--dsh-frame-top-clearance, 0px));
+  padding-top: calc(28px + var(--lyn-frame-top-clearance, 0px));
 }
 
 /* The first-level page title, on the Plugins page's own `pageTitle` step
@@ -719,8 +719,8 @@
   padding: 24px var(--detail-gutter) 28px;
   padding-right: max(0px, calc(var(--detail-gutter) - var(--detail-scrollbar-space, 0px)));
   scrollbar-gutter: stable;
-  --dsh-scrollbar-width: 9px;
-  --dsh-scrollbar-thumb-border: 2px;
+  --lyn-scrollbar-width: 9px;
+  --lyn-scrollbar-thumb-border: 2px;
 }
 
 .detailRecords {
@@ -1129,9 +1129,9 @@
   transition: border-color 0.15s;
   /* The inset thumb and the vertical track margin keep the bar inside the
      box's rounded corners (rendered by ui-theme styles/scrollbar.css). */
-  --dsh-scrollbar-width: 9px;
-  --dsh-scrollbar-thumb-border: 2px;
-  --dsh-scrollbar-track-margin: 12px;
+  --lyn-scrollbar-width: 9px;
+  --lyn-scrollbar-thumb-border: 2px;
+  --lyn-scrollbar-track-margin: 12px;
 }
 
 @media (hover: hover) {
@@ -1350,8 +1350,8 @@
   /* The confirmation dialog's own surface is elevated, so the bar drawn against
      it takes that rung's colours; the sheet's base-surface scrollers keep the
      shell's pair. */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 .confirmDialog > :last-child {
@@ -1362,7 +1362,7 @@
   color: var(--dsw-alias-state-error-primary);
   /* The outlined confirmation button keeps its border in the danger colour so
      the destructive action reads as a bordered control, not bare text. */
-  --dsh-button-outline-color: var(--dsw-alias-state-error-primary);
+  --lyn-button-outline-color: var(--dsw-alias-state-error-primary);
 }
 
 .confirmPrompt {

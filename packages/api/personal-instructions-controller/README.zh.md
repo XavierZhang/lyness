@@ -3,13 +3,13 @@ description: "一个人告诉自己 agent 的话，只由本人读写。"
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-personal-instructions-controller
+# @lyness/lyn-api-personal-instructions-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-api-personal-instructions-controller` 持有 `personalInstructions` 这个 Remote 命名空间：两个方法读取与替换调用方自己的指令，并给出这个部署接受的上限。一次调用作用在谁身上，从来不是一个参数——由存储从调用方发布的身份推出——于是调用方无法通过「问」来碰到别人的记录。
+`lyn-api-personal-instructions-controller` 持有 `personalInstructions` 这个 Remote 命名空间：两个方法读取与替换调用方自己的指令，并给出这个部署接受的上限。一次调用作用在谁身上，从来不是一个参数——由存储从调用方发布的身份推出——于是调用方无法通过「问」来碰到别人的记录。
 
 ## 目录
 
@@ -29,9 +29,9 @@ kind: "package-reference"
 
 ```yaml
 - id: personal-instructions
-  name: '@deepseek-ai/dsh-personal-instructions'
+  name: '@lyness/lyn-personal-instructions'
 - id: personal-instructions-controller
-  name: '@deepseek-ai/dsh-api-personal-instructions-controller'
+  name: '@lyness/lyn-api-personal-instructions-controller'
 ```
 
 `describe()` 回答调用方已保存的文本、保存时间与 `maxChars`；`save(text)` 替换它，并回答从存储读回的状态。空白文本清空记录。
@@ -54,16 +54,16 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-personal-instructions`](../../identity/personal-instructions/README.zh.md)：这两个方法背后的存储与会话记录。
-- [`dsh-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.zh.md)：调用它们的那张页面。
-- [`dsh-api-remote-authority`](../remote-authority/README.zh.md)：执行本命名空间所声明身份的地方。
+- [`lyn-personal-instructions`](../../identity/personal-instructions/README.zh.md)：这两个方法背后的存储与会话记录。
+- [`lyn-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.zh.md)：调用它们的那张页面。
+- [`lyn-api-remote-authority`](../remote-authority/README.zh.md)：执行本命名空间所声明身份的地方。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-无。本包不注册任何工具或提示词：它只传输一个人写的东西，而那段文本如何进入模型请求由 `dsh-personal-instructions` 负责。
+无。本包不注册任何工具或提示词：它只传输一个人写的东西，而那段文本如何进入模型请求由 `lyn-personal-instructions` 负责。
 
 #### KV 缓存影响
 

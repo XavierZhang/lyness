@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createClientModuleSystem, type ClientModuleLoaderTarget, type ClientModuleRecord } from '@deepseek-ai/dsh-client-modules/client'
-import type { DshClientModuleManifest } from '@deepseek-ai/dsh-package-manifest'
+import { createClientModuleSystem, type ClientModuleLoaderTarget, type ClientModuleRecord } from '@lyness/lyn-client-modules/client'
+import type { LynClientModuleManifest } from '@lyness/lyn-package-manifest'
 import { DocumentStyles } from '../src/client/styles/document-styles.ts'
 
 const disposers: (() => void)[] = []
@@ -11,7 +11,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-function fixture(staticModules: readonly DshClientModuleManifest[] = [], resolveAsset?: (reference: string) => string) {
+function fixture(staticModules: readonly LynClientModuleManifest[] = [], resolveAsset?: (reference: string) => string) {
   const target: ClientModuleLoaderTarget = {
     mode: 'queue', pendingQueue: [], load: () => {},
     create: options => createClientModuleSystem(target, { id: 'bootstrap', exports: {} }, options),
@@ -19,7 +19,7 @@ function fixture(staticModules: readonly DshClientModuleManifest[] = [], resolve
   const modules = target.create({ boot: { rev: '0', entries: [], batches: [] }, staticModules,
     ...(resolveAsset === undefined ? {} : { resolveAsset }) })
   const register = (id: string, css: string, dependency?: string) => {
-    const manifest: DshClientModuleManifest = {
+    const manifest: LynClientModuleManifest = {
       id,
       factory: (require) => { if (dependency !== undefined) require(dependency); return {} },
       meta: () => ({ stylesheets: { [id]: { text: () => css } } }),

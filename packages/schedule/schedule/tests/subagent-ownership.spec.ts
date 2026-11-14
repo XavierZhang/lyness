@@ -1,12 +1,12 @@
 /** Host Schedule refuses to arm delivery for a Session a delegated child owns. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { createAfterScheduleRecord } from '../src/domain.ts'
 import type { ScheduleTask } from '../src/storage.ts'
 import type { ScheduleRecord, ScheduleId } from '../src/types.ts'
 import { agentFor, boundTask, harness, storedSession, seedTasks, taskTable } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const contexts: Context[] = []
 const childId = brandString<SessionId>('subagent-child')

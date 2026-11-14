@@ -9,15 +9,15 @@
  * The call lives here rather than in the component so one in-flight read is
  * shared: opening the section twice does not ask the deployment twice.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-history/client
+ * @module @lyness/lyn-client-ui-settings-history/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-admin-audit-controller/remote'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-admin-audit-controller/remote'
 import { HistorySection } from './HistorySection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createHistoryOperations, historyCallsOf } from './operations.ts'
@@ -39,7 +39,7 @@ export type {
 export { SectionBinding, sectionFace } from './binding.ts'
 export type { HistoryActions } from './binding.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.history': HistoryKey }
 }
 

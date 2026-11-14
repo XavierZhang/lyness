@@ -3,13 +3,13 @@ description: "通过应用子菜单打开会话目录，并通过原生应用打
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-open-in-app
+# @lyness/lyn-client-ui-open-in-app
 
 [English](README.md) | 中文
 
 ## 概述
 
-通过会话头部更多菜单或会话行、标题右键菜单中的**在应用中打开**打开会话目录。子菜单按 Host 顺序列出已安装且已本地化的应用，仅显示图标和名称，不标注默认应用。文件树、文档预览和交付控件也可通过原生应用打开文件或目录。可用性、图标和启动由 [`dsh-host-open-in-app`](../../host/open-in-app/README.zh.md) 提供；两个包应一起挂载。会话目录未知或没有符合条件的应用时，不显示在应用中打开。
+通过会话头部更多菜单或会话行、标题右键菜单中的**在应用中打开**打开会话目录。子菜单按 Host 顺序列出已安装且已本地化的应用，仅显示图标和名称，不标注默认应用。文件树、文档预览和交付控件也可通过原生应用打开文件或目录。可用性、图标和启动由 [`lyn-host-open-in-app`](../../host/open-in-app/README.zh.md) 提供；两个包应一起挂载。会话目录未知或没有符合条件的应用时，不显示在应用中打开。
 
 ## 目录
 
@@ -25,13 +25,13 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-把本插件与 [`dsh-host-open-in-app`](../../host/open-in-app/README.zh.md) 并排挂载到 Web 组合；本行不接受配置。会话目录已知且至少有一个已安装、已本地化的目录应用时，显示在应用中打开子菜单。Host 通过 `session.canOpenWorkspacePath` 报告桌面可用时，[`ui-sidebar-documentpreview`](../ui-sidebar-documentpreview/README.zh.md) 的文档预览显示文件控件；删除本行会移除其全部控件与菜单贡献。
+把本插件与 [`lyn-host-open-in-app`](../../host/open-in-app/README.zh.md) 并排挂载到 Web 组合；本行不接受配置。会话目录已知且至少有一个已安装、已本地化的目录应用时，显示在应用中打开子菜单。Host 通过 `session.canOpenWorkspacePath` 报告桌面可用时，[`ui-sidebar-documentpreview`](../ui-sidebar-documentpreview/README.zh.md) 的文档预览显示文件控件；删除本行会移除其全部控件与菜单贡献。
 
 头部入口使用 [`ui-conversation`](../ui-conversation/README.zh.md) 持有的更多按钮，由 [`ui-context-menu`](../ui-context-menu/README.zh.md) 提供共享按钮行为。未挂载导出插件时，在应用中打开仍可通过该入口使用；本包提供菜单项，而不创建自己的头部按钮。
 
 ### 预期行为
 
-会话头部把**在应用中打开**放在下载之后、反馈之前的独立分隔组。会话行更多、行右键及标题右键菜单把它放在复制 Session ID 之后、归档之前。只有一个应用时仍保留子菜单。文件树与文档标题栏保留高 24px、圆角 9px 的纯图标分体按钮。这些按钮的悬停提示显示默认应用或定位动作，其菜单保留默认标记。所有应用图标加载失败时均使用原生打开图标。文件树按钮以所属组件传入的 `absolutePath` 为目标，并与会话菜单共享应用选择及启动占用状态。目录选择仅在启动成功后持久化到 `dsh.open-in-app.choice`；原选择不可用时回退到首个符合条件的应用。目录启动忙碌时，禁用子菜单父项和全部应用行。
+会话头部把**在应用中打开**放在下载之后、反馈之前的独立分隔组。会话行更多、行右键及标题右键菜单把它放在复制 Session ID 之后、归档之前。只有一个应用时仍保留子菜单。文件树与文档标题栏保留高 24px、圆角 9px 的纯图标分体按钮。这些按钮的悬停提示显示默认应用或定位动作，其菜单保留默认标记。所有应用图标加载失败时均使用原生打开图标。文件树按钮以所属组件传入的 `absolutePath` 为目标，并与会话菜单共享应用选择及启动占用状态。目录选择仅在启动成功后持久化到 `lyn.open-in-app.choice`；原选择不可用时回退到首个符合条件的应用。目录启动忙碌时，禁用子菜单父项和全部应用行。
 
 在 iOS、Android 手机和平板上（包括已安装的 PWA），原生打开获得确认后显示「已在其它设备打开」，文件定位则显示「已在其它设备显示文件位置」。电脑端成功时不提示，包括窄窗口浏览器与已安装的桌面 PWA。Host 拒绝请求或无法连通时，所有客户端都会收到失败 toast。成功表示 Host 已接受原生操作，不代表目标应用已完成文件加载。反馈复用现有移动设备判定，不依据窗口宽度或安装模式。
 
@@ -57,7 +57,7 @@ kind: "package-reference"
 <details>
 <summary>实现内幕——点击展开</summary>
 
-[`session-open-with.ts`](src/client/session-open-with.ts) 为共享右键菜单包声明的 `session` 和 `sessionHeader` 目标共用一个解析器；其他贡献不会在这两种目标间扩散。文件树插槽通过所属组件的 `absolutePath` 使用 `OpenInAppAction`；会话头部没有独立打开按钮插槽。页面生命周期的 [`controller`](src/client/controller.ts) 持有可用性、持久化偏好与启动 POST 状态。菜单观察器和组件注入 hooks 读取同一组源。文档相对路由与载荷类型来自 Host 的浏览器安全子路径 `@deepseek-ai/dsh-host-open-in-app/shared`。适配器将原生操作及传输失败解析为具名结果；跳过的请求不播报。
+[`session-open-with.ts`](src/client/session-open-with.ts) 为共享右键菜单包声明的 `session` 和 `sessionHeader` 目标共用一个解析器；其他贡献不会在这两种目标间扩散。文件树插槽通过所属组件的 `absolutePath` 使用 `OpenInAppAction`；会话头部没有独立打开按钮插槽。页面生命周期的 [`controller`](src/client/controller.ts) 持有可用性、持久化偏好与启动 POST 状态。菜单观察器和组件注入 hooks 读取同一组源。文档相对路由与载荷类型来自 Host 的浏览器安全子路径 `@lyness/lyn-host-open-in-app/shared`。适配器将原生操作及传输失败解析为具名结果；跳过的请求不播报。
 
 目录和文件适配器把应用信息与操作交给 [`OpenTargetButton`](src/client/OpenTargetButton.tsx)，由它统一管理菜单顺序、默认标记、图标和尺寸。注入的回调将结果交给本功能在 `shell.overlay` 中持有的唯一 toast，因此切换会话或关闭发起操作的预览不会丢失结果。文件标题栏和空态共用 `FileOpenTarget`，`OpenPathInjected.applications` 通过 [`open-path.ts`](src/client/open-path.ts) 查询 `session.workspacePathApplications`。同一控制器按关联类别保存本页面的回答，同一时间只运行一次后台刷新（下一次打开菜单或插件卸载会取消尚未完成的刷新），只在回答变化时发布新快照。文件菜单观察该快照；只有本文件类型的回答变化时，才基于本次打开时验证的路径同步重新解析，因此右键菜单注册表保留其他各项，只有应用这一项原地变化。尚无记录的类型会让文件菜单项等到这次刷新结束、满 300 毫秒或菜单关闭；注册表在所有菜单项都就绪后才打开菜单，所以整个菜单都会等待。打开操作使用 `session.openWorkspacePath`，Host 在启动前重新验证指定的关联应用。`FileRouteAction` 通过 `deliverables.file.actions` 和 `deliverables.review.file.actions` 为交付卡片和变更对比页提供同一控件，其认证路由保留会话文件校验。目录适配器继续使用已有的应用列表路由，文件查询失败或不可用时无需增加平台专用的界面实现。
 
@@ -68,7 +68,7 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [dsh-host-open-in-app](../../host/open-in-app/README.zh.md)——提供可用性、图标与启动的主机路由，及其背后的目录。
+- [lyn-host-open-in-app](../../host/open-in-app/README.zh.md)——提供可用性、图标与启动的主机路由，及其背后的目录。
 - [ui-conversation](../ui-conversation/README.zh.md)——持有共享更多按钮的会话头部。
 - [ui-sidebar-documentpreview](../ui-sidebar-documentpreview/README.zh.md)——声明文件控件所占头部与空态子 slot 的文档预览。
 - [ui-deliverables](../ui-deliverables/README.zh.md)——交付卡片，仍通过自己的路由打开声明过的文件。
@@ -91,7 +91,7 @@ Host 在打开或定位前通过当前文件系统验证路径。没有对应 Ho
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **词典把守菜单。** 主机目录的新条目若在两份词典中没有对应的 `app.<id>` 条目，将保持不可见而不是显示裸 id；扩展目录意味着同时扩展 [`dsh-host-open-in-app`](../../host/open-in-app/README.zh.md) 与本包的 locale。
+- **词典把守菜单。** 主机目录的新条目若在两份词典中没有对应的 `app.<id>` 条目，将保持不可见而不是显示裸 id；扩展目录意味着同时扩展 [`lyn-host-open-in-app`](../../host/open-in-app/README.zh.md) 与本包的 locale。
 - **可用性每页只读一次。** 页面打开期间安装的应用要重新加载页面后才出现（主机侧还需主机重启）；文件控件背后的桌面回答同样每页只读一次。
 - **文件关联按类型在页面内缓存。** 最后一个扩展名相同的文件共用一个回答；只有大小写不同的扩展名（如 `.PNG` 和 `.png`）算作不同类型。因此单个文件的单独设置（例如 macOS 中只针对某个文件的“打开方式”）可能先显示该类型之前的回答，再由后台查询更正已打开的菜单。Linux 的内容嗅探和 `.tar.gz` 这类多段扩展名也有同样的效果；某个文件的空回答也会以同样的方式，让同类型其他文件的这一项先显示为禁用。在更正之前选择这一项，会用该回答中的应用打开。没有扩展名的文件按路径记录。记录以及每个应用的一份图标随出现过的文件类型增长，并在页面关闭时释放。
 - **某个类型的第一次文件菜单可能打开得较慢。** 整个菜单最多等待该类型在本页面的第一个回答 300 毫秒；回答更慢时，菜单打开后这一项仍会原地变化。

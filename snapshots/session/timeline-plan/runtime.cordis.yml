@@ -1,6 +1,6 @@
 - insert:
     - id: timeline-experimental
-      name: '@deepseek-ai/dsh-timeline'
+      name: '@lyness/lyn-timeline'
       config:
         reportsEnabled: false
         reminderIterations: 2

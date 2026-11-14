@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it, vi } from 'vitest'
 import ScriptRealmRegistry, { ScriptRealmError, type ScriptRealm, type ScriptRealmId } from '../src/client/index.ts'
 import { apply as hostApply } from '../src/index.ts'

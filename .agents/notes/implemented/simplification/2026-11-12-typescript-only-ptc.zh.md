@@ -10,7 +10,7 @@ Python 工具 SDK 最初让提供方能在保留类型化工具调用的同时�
 
 ## Decision
 
-`dsh-tool-executor-ptc` 仅支持 TypeScript。它移除 Python schema 渲染及导出、语言分发、完成值呈现与 Python 专属绑定排除规则。不支持的提供方在通过已选中的执行器组装提示词或执行程序时失败，也会在私有程序工具创建时失败。PTC 选择保持生效，避免无效提供方暴露继承的 native 工具。TypeScript 程序保留其 SDK、参数、显式输出选择、规范嵌套结果及取消行为。
+`lyn-tool-executor-ptc` 仅支持 TypeScript。它移除 Python schema 渲染及导出、语言分发、完成值呈现与 Python 专属绑定排除规则。不支持的提供方在通过已选中的执行器组装提示词或执行程序时失败，也会在私有程序工具创建时失败。PTC 选择保持生效，避免无效提供方暴露继承的 native 工具。TypeScript 程序保留其 SDK、参数、显式输出选择、规范嵌套结果及取消行为。
 
 运行时服务仍独立于工具。其源码语言描述符让每个消费方检查自身要求；直接运行时消费方与工作流消费方保留完成值。Harness Python SDK、运行时 wheel 与其他工具的 Python 环境有各自的消费方，继续受到支持。
 

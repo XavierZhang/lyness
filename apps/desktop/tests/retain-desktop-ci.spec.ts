@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { unzipSync } from 'fflate'
 import { afterEach, expect, it } from 'vitest'
 import { desktopReleasesRoot, retainDesktopCi, resolveDesktopRetentionRunner } from '../scripts/retain-desktop-ci.ts'
-import { verifyRetainedDesktopRelease } from '@deepseek-ai/dsh-desktop-publisher/desktop-release-store.ts'
+import { verifyRetainedDesktopRelease } from '@lyness/lyn-desktop-publisher/desktop-release-store.ts'
 import { verifyDesktopArchive } from '../scripts/archive-desktop-ci.ts'
 import { prepareDesktopPublication } from '../scripts/publish-desktop-ci.ts'
 
@@ -22,18 +22,18 @@ async function retainedFixture(target: 'win-x64' | 'mac-x64' | 'mac-arm64', qual
   await mkdir(artifacts, { recursive: true })
   await mkdir(join(config, 'presets'), { recursive: true })
   await writeFile(join(appRoot, 'package.json'), '{"version":"1.0.0"}')
-  await writeFile(join(config, 'presets/test.env'), `DSH_DESKTOP_AUTO_UPDATE_ENV=test\nDOWNLOAD_TEST_RELEASE_ID=${'a'.repeat(32)}\n`)
-  const names = debug ? (target === 'win-x64' ? [`deepseek-harness-1.0.0-win-x64-${qualification}.exe`]
-    : [`deepseek-harness-1.0.0-${target}-${qualification}.dmg`, `deepseek-harness-1.0.0-${target}-${qualification}.zip`]) : target === 'win-x64'
-    ? ['deepseek-harness-1.0.0-win-x64.exe', 'deepseek-harness-1.0.0-win-x64.exe.blockmap', 'win-x64-release.json', 'nightly.yml']
-    : [`deepseek-harness-1.0.0-${target}.dmg`, `deepseek-harness-1.0.0-${target}.zip`, `deepseek-harness-1.0.0-${target}.zip.blockmap`, `${target}-release.json`, 'nightly-mac.yml']
+  await writeFile(join(config, 'presets/test.env'), `LYNESS_DESKTOP_AUTO_UPDATE_ENV=test\nDOWNLOAD_TEST_RELEASE_ID=${'a'.repeat(32)}\n`)
+  const names = debug ? (target === 'win-x64' ? [`lyness-1.0.0-win-x64-${qualification}.exe`]
+    : [`lyness-1.0.0-${target}-${qualification}.dmg`, `lyness-1.0.0-${target}-${qualification}.zip`]) : target === 'win-x64'
+    ? ['lyness-1.0.0-win-x64.exe', 'lyness-1.0.0-win-x64.exe.blockmap', 'win-x64-release.json', 'nightly.yml']
+    : [`lyness-1.0.0-${target}.dmg`, `lyness-1.0.0-${target}.zip`, `lyness-1.0.0-${target}.zip.blockmap`, `${target}-release.json`, 'nightly-mac.yml']
   await Promise.all(names.map(name => writeFile(join(artifacts, name), `fixture ${name}`)))
   const env = {
-    DSH_DESKTOP_RELEASES_DIR: '', DSH_PACKAGING_CONFIG_DIR: config, DSH_PACKAGING_PRESET: 'test', DSH_DESKTOP_TARGET_PLATFORM: target === 'win-x64' ? 'win32' : 'darwin',
-    DSH_DESKTOP_TARGET_ARCH: target === 'mac-arm64' ? 'arm64' : 'x64', PACKAGE_SOURCE_REF: 'master', PACKAGE_SOURCE_SHA: 'b'.repeat(40), PACKAGE_VERSION: '1.0.0',
+    LYNESS_DESKTOP_RELEASES_DIR: '', LYNESS_PACKAGING_CONFIG_DIR: config, LYNESS_PACKAGING_PRESET: 'test', LYNESS_DESKTOP_TARGET_PLATFORM: target === 'win-x64' ? 'win32' : 'darwin',
+    LYNESS_DESKTOP_TARGET_ARCH: target === 'mac-arm64' ? 'arm64' : 'x64', PACKAGE_SOURCE_REF: 'master', PACKAGE_SOURCE_SHA: 'b'.repeat(40), PACKAGE_VERSION: '1.0.0',
     PACKAGE_SIGNING: qualification === 'unsigned' ? 'unsigned' : 'signed', PACKAGE_SKIP_NOTARIZATION: qualification === 'unnotarized' ? 'true' : 'false', GITHUB_RUN_ID: '123', GITHUB_RUN_ATTEMPT: '2',
     GITHUB_STEP_SUMMARY: join(root, 'summary.md'),
-    DESKTOP_PUBLISH_RUNNERS: JSON.stringify({ dedicated: { label: 'dsh-dedicated', target: [target] } }),
+    DESKTOP_PUBLISH_RUNNERS: JSON.stringify({ dedicated: { label: 'lyn-dedicated', target: [target] } }),
     GITHUB_REPOSITORY: 'owner/repository', GITHUB_SHA: 'b'.repeat(40), RUNNER_NAME: 'dedicated',
   }
   const directory = await retainDesktopCi(env, appRoot)
@@ -118,10 +118,10 @@ it.each([
 })
 
 it('rejects missing or ambiguous archival routing before packaging starts', () => {
-  const env = { RUNNER_NAME: 'dedicated', DSH_DESKTOP_TARGET_PLATFORM: 'darwin', DSH_DESKTOP_TARGET_ARCH: 'arm64' }
+  const env = { RUNNER_NAME: 'dedicated', LYNESS_DESKTOP_TARGET_PLATFORM: 'darwin', LYNESS_DESKTOP_TARGET_ARCH: 'arm64' }
   expect(() => resolveDesktopRetentionRunner(env)).toThrow('DESKTOP_PUBLISH_RUNNERS is required')
   expect(() => resolveDesktopRetentionRunner({ ...env, DESKTOP_PUBLISH_RUNNERS: JSON.stringify({
-    dedicated: { label: 'dsh-shared', target: 'mac-arm64' }, other: { label: 'dsh-shared', target: 'mac-arm64' },
+    dedicated: { label: 'lyn-shared', target: 'mac-arm64' }, other: { label: 'lyn-shared', target: 'mac-arm64' },
   }) })).toThrow('unique artifact routing label')
 })
 

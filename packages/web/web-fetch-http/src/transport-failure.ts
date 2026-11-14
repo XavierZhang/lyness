@@ -2,7 +2,7 @@
  * Classification of fetch transport failures: maps the system or undici error code found in a
  * rejection's cause chain to a stable `WebError` code and a short model-visible summary, and keeps
  * a bounded technical detail.
- * @module @deepseek-ai/dsh-web-fetch-http/transport-failure
+ * @module @lyness/lyn-web-fetch-http/transport-failure
  */
 
 /** A classified transport failure. */

@@ -1,13 +1,13 @@
 - insert:
     - id: worktree
-      name: '@deepseek-ai/dsh-experimental-worktree'
+      name: '@lyness/lyn-experimental-worktree'
     - id: tool-worktree
-      name: '@deepseek-ai/dsh-experimental-tool-worktree'
+      name: '@lyness/lyn-experimental-tool-worktree'
     - id: forge
-      name: '@deepseek-ai/dsh-experimental-forge'
+      name: '@lyness/lyn-experimental-forge'
     - id: forge-github
-      name: '@deepseek-ai/dsh-experimental-forge-github'
+      name: '@lyness/lyn-experimental-forge-github'
     - id: forge-session
-      name: '@deepseek-ai/dsh-experimental-forge-session'
+      name: '@lyness/lyn-experimental-forge-session'
     - id: forge-panel
-      name: '@deepseek-ai/dsh-experimental-client-ui-forge'
+      name: '@lyness/lyn-experimental-client-ui-forge'

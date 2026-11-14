@@ -3,7 +3,7 @@ description: "渐进加载的 Office 路由与创作技能，将渲染、转换�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-skill-office
+# @lyness/lyn-skill-office
 
 [English](README.md) | 中文
 
@@ -26,10 +26,10 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-在技能注册表和 `dsh-tool-skill` 旁挂载技能提供者。提供者负责技能说明；加载时，Python 技能追加 Python 环境说明。技能把操作交给 `office_render`、`office_convert` 和 `office_recalculate`，因此需在本提供者旁组合 [`tool-office`](../../document/tool-office/README.zh.md)。
+在技能注册表和 `lyn-tool-skill` 旁挂载技能提供者。提供者负责技能说明；加载时，Python 技能追加 Python 环境说明。技能把操作交给 `office_render`、`office_convert` 和 `office_recalculate`，因此需在本提供者旁组合 [`tool-office`](../../document/tool-office/README.zh.md)。
 
 ```yaml
-- name: '@deepseek-ai/dsh-skill-office'
+- name: '@lyness/lyn-skill-office'
 
 ```
 
@@ -38,7 +38,7 @@ kind: "package-reference"
 | `assetRoot` | 包内 `assets/` | 包含四个技能目录的绝对路径。 |
 | `pythonEnvironment` | `'workspace-dependencies'` | `office-docx`、`office-pptx` 和 `office-xlsx` 指引模型使用的 Python；见下文。 |
 
-`pythonEnvironment` 选择追加到这三个技能末尾的一段固定说明。两个取值都先遵守用户或适用 AGENTS.md 明确要求的环境。`'workspace-dependencies'` 指引模型调用 `load_workspace_dependencies`，使用其返回的内置 Python 与库；仅在同时挂载 `dsh-tool-workspace-dependencies` 时使用。只挂载本包而不挂载 `dsh-tool-workspace-dependencies` 的自定义组合必须配置 `pythonEnvironment: user`。`'user'` 指引模型使用项目或用户已有的 PATH 上的 Python，先检查所需库能否 import，缺少时说明需要安装的包，未经用户同意不向全局环境安装。
+`pythonEnvironment` 选择追加到这三个技能末尾的一段固定说明。两个取值都先遵守用户或适用 AGENTS.md 明确要求的环境。`'workspace-dependencies'` 指引模型调用 `load_workspace_dependencies`，使用其返回的内置 Python 与库；仅在同时挂载 `lyn-tool-workspace-dependencies` 时使用。只挂载本包而不挂载 `lyn-tool-workspace-dependencies` 的自定义组合必须配置 `pythonEnvironment: user`。`'user'` 指引模型使用项目或用户已有的 PATH 上的 Python，先检查所需库能否 import，缺少时说明需要安装的包，未经用户同意不向全局环境安装。
 
 相对路径的 `assetRoot` 会阻止注册。目录发现时读取每个 `SKILL.md`。缺失或无效的技能会从目录中省略并记录警告；发现之后文件消失的技能加载失败，并从目录中移除。其他读取错误（例如文件被锁）会使本次发现不完整，由注册表重试。加载说明时不解析任何可执行文件，也不准备引擎；调用 Office 工具时才会报告 LibreOffice Kit 不可用。把转换后的文件复制进工作区时，由 Bash 或 PowerShell 负责审批、沙箱和取消。
 
@@ -110,7 +110,7 @@ flowchart TD
 <a id="model-experience"></a>
 ## 模型体验
 
-间接影响：`dsh-tool-skill` 渲染初始 Office 摘要，并返回 `skill(name)` 选择的路由或子技能说明。Python 技能末尾的 Python 环境说明按 `pythonEnvironment` 指向 `load_workspace_dependencies` 或用户已有的 Python。
+间接影响：`lyn-tool-skill` 渲染初始 Office 摘要，并返回 `skill(name)` 选择的路由或子技能说明。Python 技能末尾的 Python 环境说明按 `pythonEnvironment` 指向 `load_workspace_dependencies` 或用户已有的 Python。
 
 #### KV Cache 影响
 

@@ -4,13 +4,13 @@ import { chmod, mkdir, realpath, symlink, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { PassThrough } from 'node:stream'
 import { mountSearchSubprocess } from './search-harness.ts'
-import type { SubprocessHandle, SubprocessOutcome } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle, SubprocessOutcome } from '@lyness/lyn-subprocess'
 import { WorkspaceFiles, type Config, type WorkspaceFileSearchRequest } from '../src/index.ts'
 import { failureOf, openWorkspace, signal, type Caps, type Harness } from './harness.ts'
 
 let harness: Harness
 beforeEach(async () => {
-  harness = await openWorkspace('dsh-workspace-search-rg-')
+  harness = await openWorkspace('lyn-workspace-search-rg-')
 })
 afterEach(async () => {
   vi.restoreAllMocks()

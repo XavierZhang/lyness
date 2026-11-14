@@ -5,12 +5,12 @@
  */
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { BindingState } from '@deepseek-ai/dsh-experimental-forge-session/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SessionProjectionSummaryValues } from '@deepseek-ai/dsh-session-projection/types'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { BindingState } from '@lyness/lyn-experimental-forge-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SessionProjectionSummaryValues } from '@lyness/lyn-session-projection/types'
 import { en } from '../src/client/locales.ts'
 import { sessionForgeFacts, type ChangeRequestStates } from '../src/client/session-list.ts'
 import { HOVER_CHANGE_REQUEST_LIMIT, SessionHoverForge, type SessionHoverForgeProps } from '../src/client/SessionHoverForge.tsx'
@@ -18,7 +18,7 @@ import { SessionRowForge, stateLine, type SessionRowForgeProps } from '../src/cl
 import css from '../src/client/SessionList.module.css'
 import type { ForgeChangeRequestListState } from '../src/types.ts'
 import { created, listState as state } from './client-fixtures.client.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(cleanup)
 
@@ -149,7 +149,7 @@ describe('SessionHoverForge', () => {
 
   it('names the worktree branch and what it started from, the requested base or else the short base commit', () => {
     const from = renderHover({ forgeWorktree: created() })
-    screen.getByText('dsh/0a1b2c3d')
+    screen.getByText('lyn/0a1b2c3d')
     screen.getByText('Worktree · from main')
     from.unmount()
 

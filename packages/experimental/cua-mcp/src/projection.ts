@@ -1,7 +1,7 @@
-/** MCP projection of one DSH tool execution: text passes through, screenshots become inline images. @module */
-import type { AttachmentStore, ImageAttachmentRef, ImageRequestTarget } from '@deepseek-ai/dsh-attachment'
-import type { ContentBlock, UserMessage } from '@deepseek-ai/dsh-llm'
-import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
+/** MCP projection of one LYN tool execution: text passes through, screenshots become inline images. @module */
+import type { AttachmentStore, ImageAttachmentRef, ImageRequestTarget } from '@lyness/lyn-attachment'
+import type { ContentBlock, UserMessage } from '@lyness/lyn-llm'
+import type { ToolExecutionResult } from '@lyness/lyn-tools'
 import type { CallToolResult } from '@modelcontextprotocol/server'
 
 /** Image delivery for one projection: the request version the program observed, or the stored image. */
@@ -19,15 +19,15 @@ function text(value: string): CallToolResult['content'][number] {
 
 /**
  * Project a settled `cua_run_code` outcome onto an MCP call result.
- * Result text keeps the model-facing rendering, except that a failure's message drops DSH's `Error: ` prefix because
+ * Result text keeps the model-facing rendering, except that a failure's message drops LYN's `Error: ` prefix because
  * `isError` already marks it. Images the program inspected, and any image a nested call deferred, follow in
  * emission order as inline Base64 blocks of the version the program observed, so pixel coordinates in the
  * program's text match the delivered image. Other block kinds are named, not rendered.
- * @param result - Settled DSH execution outcome.
+ * @param result - Settled LYN execution outcome.
  * @param deferred - Deferred context messages the execution produced, in order.
  * @param delivery - Attachment store and the provider's request target.
  * @param signal - Cancels pending image reads.
- * @returns The MCP result; `isError` mirrors the DSH outcome.
+ * @returns The MCP result; `isError` mirrors the LYN outcome.
  */
 export async function projectToolResult(
   result: ToolExecutionResult, deferred: readonly UserMessage[], delivery: ScreenshotDelivery, signal: AbortSignal,
@@ -38,7 +38,7 @@ export async function projectToolResult(
   for (const block of blocks) {
     switch (block.type) {
       case 'text':
-        // A client that renders isError results adds its own error marker, which DSH's rendering of the message would repeat.
+        // A client that renders isError results adds its own error marker, which LYN's rendering of the message would repeat.
         content.push(text(failure !== undefined && block.text === `Error: ${failure}` ? failure : block.text))
         break
       case 'image': {

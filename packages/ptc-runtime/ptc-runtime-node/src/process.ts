@@ -2,7 +2,7 @@
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { inspect } from 'node:util'
 import type { Duplex } from 'node:stream'
-import type { PtcProgramFormat, PtcJsonValue } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcProgramFormat, PtcJsonValue } from '@lyness/lyn-ptc-runtime'
 import { createProcessRpc } from './rpc.ts'
 import { captureStreamWrites, LogBuffer, makeInspect, makeBindingErrorClass, makeNamespaces, outputLimit, prepareCompletion, prepareException } from './bootstrap.ts'
 import type { BindingErrorConstructor, ImageInspectOptions, PatchableStream } from './bootstrap.ts'

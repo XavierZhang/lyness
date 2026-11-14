@@ -18,7 +18,7 @@ import {
 import { updateResult } from './rule-edits.ts'
 import type { CronInput, CronScheduleRecord, ScheduleId } from '../src/types.ts'
 import type { ScheduleRecord, ScheduleTiming } from '../src/types.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 function cron(now: string, expression: string, timeZone = 'UTC'): CronScheduleRecord {
   return createCronScheduleRecord(

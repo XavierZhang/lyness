@@ -1,13 +1,13 @@
 /** A failed creation of a reserved Session keeps its task due, and the next drive request creates that same Session. */
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import type { ScheduleId } from '../src/types.ts'
 import { createRRuleScheduleRecord } from '../src/domain.ts'
 import { ScheduleRuntime } from '../src/runtime.ts'
 import { agentFor, harness, seededTask } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const active: Awaited<ReturnType<typeof harness>>[] = []
 beforeEach(() => { vi.useFakeTimers(); vi.setSystemTime('2026-09-16T00:00:00Z') })

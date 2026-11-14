@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 /** The comparison store: served and missing comparisons stay, failures retry, resets and disposal forget. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { changesDiffUrl, type ChangesDiff } from '../src/changes.ts'
 import { ChangesDiffStore } from '../src/client/changes-diff.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(() => { vi.unstubAllGlobals() })
 

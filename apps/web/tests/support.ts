@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Browser, Locator, Page } from 'playwright'
 import { expect, vi, type MockInstance } from 'vitest'
-import type { RegionRect } from '@deepseek-ai/dsh-client-web/src/window-drag/regions.ts'
+import type { RegionRect } from '@lyness/lyn-client-web/src/window-drag/regions.ts'
 
 /** The built page under test; `pnpm run test:web` rebuilds it before running. */
 export const DIST_INDEX = fileURLToPath(new URL('../dist/index.html', import.meta.url))
@@ -118,7 +118,7 @@ export async function assertWarningDialogLayout(dialog: Locator): Promise<void> 
 }
 
 /**
- * The built copy of a workspace package, as the dsh installation resolves it.
+ * The built copy of a workspace package, as the lyn installation resolves it.
  * The Host plugins a scaffold profile loads run from built packages through
  * Node's own loader; a scaffold call that must share their module state
  * (app-boot keeps the root Include it mounted per context) has to run that
@@ -287,7 +287,7 @@ export function requireDist(): void {
   }
 }
 
-/** OS-assigned free port, released before use (the spawned `dsh web` needs a concrete --port). */
+/** OS-assigned free port, released before use (the spawned `lyn web` needs a concrete --port). */
 export function probeFreePort(): Promise<number> {
   return new Promise((resolvePort, reject) => {
     const probe = createServer()

@@ -1,20 +1,20 @@
-// Real AgentLoop fixture adapted from kermanx/dsh-progress-check (MIT).
+// Real AgentLoop fixture adapted from kermanx/lyn-progress-check (MIT).
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage, isAgentLoopRequest, LlmAdapter, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { LlmModelReasoningInfo } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { pluginRecordOf, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import { createUserMessage, isAgentLoopRequest, LlmAdapter, ToolCallId } from '@lyness/lyn-llm'
+import type { LlmModelReasoningInfo } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { pluginRecordOf, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { defineTool } from '@lyness/lyn-tools'
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@deepseek-ai/dsh-agent-loop-testkit'
-import * as Jsonl from '@deepseek-ai/dsh-session-persistence-jsonl'
-import type {} from '@deepseek-ai/dsh-session-persistence'
+} from '@lyness/lyn-agent-loop-testkit'
+import * as Jsonl from '@lyness/lyn-session-persistence-jsonl'
+import type {} from '@lyness/lyn-session-persistence'
 import * as Timeline from '../src/index.ts'
 
 export const textOutput = {
@@ -126,7 +126,7 @@ export async function setup(
   adapter = new Adapter(),
   restore?: { root: string; sessionId: SessionId },
 ) {
-  const root = restore?.root ?? (await mkdtemp(join(tmpdir(), 'dsh-timeline-test-')))
+  const root = restore?.root ?? (await mkdtemp(join(tmpdir(), 'lyn-timeline-test-')))
   const ctx = new Context()
   await mountAgentLoopTestDependencies(ctx)
   await ctx.plugin(Jsonl, { root, compression: 'none' })

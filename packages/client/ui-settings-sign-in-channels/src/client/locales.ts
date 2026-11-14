@@ -2,7 +2,7 @@
  * Copy for the sign-in channels section: what a deployment signs its people
  * in with, and the form an administrator adds one through.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-sign-in-channels/client/locales
+ * @module @lyness/lyn-client-ui-settings-sign-in-channels/client/locales
  */
 
 /** English copy; the key set every locale answers. */

@@ -1,5 +1,5 @@
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
 import {
   type ToolCallId,
   LlmAdapter,
@@ -7,8 +7,8 @@ import {
   type GenerateOptions,
   type LlmResolvedModelInfo,
   type StreamChunk,
-} from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-tools'
+} from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-tools'
 
 const HIGH = brandString<ReasoningEffortId>('high')
 const OFF = brandString<ReasoningEffortId>('off')
@@ -35,7 +35,7 @@ class CliMockAdapter extends LlmAdapter {
   }
 
   async * stream(options: GenerateOptions): AsyncIterable<StreamChunk> {
-    if (process.env.DSH_CLI_MOCK_FAILURE === '1') {
+    if (process.env.LYNESS_CLI_MOCK_FAILURE === '1') {
       yield { type: 'finish', reason: { kind: 'error', failure: { code: 'SERVER', message: 'CLI mock provider failed' } } }
       return
     }

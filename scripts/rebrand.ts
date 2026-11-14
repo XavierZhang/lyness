@@ -580,9 +580,12 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   // package by name prefix reads that difference.
   { file: 'packages/llm/llm-deepseek/package.json', text: '"name": "@lyness/lyn-llm-deepseek"', count: 1 },
   { file: 'vendor/cordis/package.json', text: '"name": "@lyness/cordis"', count: 1 },
-  // The upstream repositories each pinned copy was taken from.
-  { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cosmokit', count: 1 },
-  { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cordis', count: 3 },
+  // The upstream repositories each pinned copy was taken from. They are the
+  // projects' own, so no rule may reach them; the product slug no longer
+  // appears in any of them, which is why the assertion is their absence.
+  { file: 'vendor/README.md', text: 'github.com/shigma/cosmokit', count: 1 },
+  { file: 'vendor/README.md', text: 'github.com/cordiverse/cordis', count: 8 },
+  { file: 'vendor/README.md', text: 'github.com/lyness/cordis', count: 0 },
   // The model vendor must be untouched wherever the product reaches it.
   { file: 'packages/bundle/base/cordis.patch.yml', text: 'api.deepseek.com', count: 0 },
   // The vendor's own repository, which the MPL-2.0 notice must keep reachable.
@@ -591,8 +594,8 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   // scope; exempting the whole file from the scope rules once left it spelled
   // half-renamed, and the notices gate then disclosed nothing for OAR.
   { file: 'scripts/gen-third-party-notices.ts', text: "'@lyness/lyn-experimental-subagent-oar'", count: 1 },
-  { file: 'docs/subsystems/office-to-pdf.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
-  { file: 'docs/subsystems/office-to-pdf.zh.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
+  { file: 'docs/subsystems/office-kit.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
+  { file: 'docs/subsystems/office-kit.zh.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
   { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 13 },
 ]
 

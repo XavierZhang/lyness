@@ -3,7 +3,7 @@ description: "Create and manage scheduled instructions, with delivery to existin
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-schedule
+# @lyness/lyn-schedule
 
 English | [中文](README.zh.md)
 
@@ -58,7 +58,7 @@ The service requires `agents`, `sessions`, `storageDomain`, and `sessionPersiste
 | `deliveryHistoryRecords` | `200` | Retain the newest 1–10,000 receipts per task. |
 | `newSessionIntervalSeconds` | `60` | Delivery floor for `new` targets, from 60 through 604,800 seconds. |
 
-The [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-schedule) defines all fields. Remote `deliveryLimits()` exposes the effective new-Session interval for UI hints.
+The [configuration catalog](../../../docs/config-catalog.md#lynesslyn-schedule) defines all fields. Remote `deliveryLimits()` exposes the effective new-Session interval for UI hints.
 
 Create with `create({ title, prompt, timing, target? }, actorSessionId?, signal?)`. `timing.kind` selects `after`, `at`, `every`, `daily`, `weekly`, `cron`, or `rrule`; only its corresponding selector is accepted. The [Schedule reference](../../../docs/subsystems/schedule.md#recurrence-rules) defines each selector and its bounds. For example:
 
@@ -72,14 +72,14 @@ The `session` target reuses an existing, unarchived, non-delegated Session; unlo
 
 `edit({ id, action: "update", patch, expectedUpdatedAt? }, actorSessionId?, signal?)` changes `title`, `prompt`, `timing`, `target`, or `active`; `action: "delete"` removes the task. Revision mismatch returns `schedule_conflict`; `null` compares an absent stored revision. An equivalent edit preserves the committed occurrence and writes the current format. Pause keeps the task; resume computes its next future occurrence.
 
-`list({ active?, limit?, offset? })`, `catalog()`, `view({ id })`, `history({ id, limit, before? })`, and `run({ id })` serve every Host task. Remote `create` and `edit` delegate to the same native methods. The package root and `/client` expose the same unprefixed types. `ScheduleId` is type-only; `brandString<ScheduleId>(value)` from `dsh-brand` brands an admitted string without validating or generating an id. Remote input failures use `schedule/input-invalid` with `details.code`.
+`list({ active?, limit?, offset? })`, `catalog()`, `view({ id })`, `history({ id, limit, before? })`, and `run({ id })` serve every Host task. Remote `create` and `edit` delegate to the same native methods. The package root and `/client` expose the same unprefixed types. `ScheduleId` is type-only; `brandString<ScheduleId>(value)` from `lyn-brand` brands an admitted string without validating or generating an id. Remote input failures use `schedule/input-invalid` with `details.code`.
 
 `deleteInactive()` removes all ended tasks in one domain batch and preserves active and paused tasks. It returns the removed count; an empty ended set performs no write. A successful nonempty batch emits `schedule/changed` without Agent notices. A rejected batch also emits the event and rejects without a count; normal failure preserves all rows, while an `unknown-state` failure may have removed rows and quarantines the domain until reopening.
 
 <a id="storage-format"></a>
 ### Storage format and upgrades
 
-The `schedule` domain declares `version: 2, compatibleVersions: [1]` and uses the configured backend with a whole-unit layout. JSON uses `<DSH_HOME>/storages/schedule.json`. SQLite stores the complete task below as JSON text in `u_schedule_tasks.value`, with its id in the primary-key column `key`. It keeps physical schema version **1** (`PRAGMA user_version`) and the same tables; only the `schedule` row in `units.version` changes to **2** on the first successful write. No SQL DDL migration is needed.
+The `schedule` domain declares `version: 2, compatibleVersions: [1]` and uses the configured backend with a whole-unit layout. JSON uses `<LYNESS_HOME>/storages/schedule.json`. SQLite stores the complete task below as JSON text in `u_schedule_tasks.value`, with its id in the primary-key column `key`. It keeps physical schema version **1** (`PRAGMA user_version`) and the same tables; only the `schedule` row in `units.version` changes to **2** on the first successful write. No SQL DDL migration is needed.
 
 Schedule loads and validates all tasks into memory at Host open. Task lookup, filtering by activity, due time, or target, sorting, pagination, and history queries use that memory. SQLite does not query inside the JSON or maintain separate timing, status, or target columns; its task operations are an initial full-table read and key-based writes/deletes. Pagination limits the response, not the stored rows loaded. The task decoder enforces the JSON fields below; SQLite treats `value` as opaque text.
 
@@ -198,7 +198,7 @@ History stays with the task and is pruned only on append. Missing old history ke
 
 #### What the model sees
 
-The [generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-tool-schedule) contains the descriptions and schemas for `schedule_create`, `schedule_list`, `schedule_view`, and `schedule_edit`, which [`@deepseek-ai/dsh-tool-schedule`](../tool-schedule/README.md) contributes to the presets that mount it.
+The [generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-tool-schedule) contains the descriptions and schemas for `schedule_create`, `schedule_list`, `schedule_view`, and `schedule_edit`, which [`@lyness/lyn-tool-schedule`](../tool-schedule/README.md) contributes to the presets that mount it.
 
 #### Token effect
 

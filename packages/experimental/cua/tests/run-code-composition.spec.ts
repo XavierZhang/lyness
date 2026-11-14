@@ -3,34 +3,34 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
-import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
-import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
-import FileSystem from '@deepseek-ai/dsh-fs-local'
-import LlmRuntime, { createUserMessage, LlmAdapter, type ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import NodeRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
-import Sandbox from '@deepseek-ai/dsh-sandbox-local'
-import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import Subprocess from '@deepseek-ai/dsh-subprocess-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
-import ToolRuntime, { defineTool } from '@deepseek-ai/dsh-tools'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
+import { Context } from '@lyness/cordis'
+import Include from '@lyness/cordis-plugin-include'
+import Loader from '@lyness/cordis-plugin-loader'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import AgentPresets from '@lyness/lyn-agent-preset-registry'
+import LocalAttachmentStore from '@lyness/lyn-attachment-local'
+import ComputerUseRegistry from '@lyness/lyn-computer-use'
+import FileSystem from '@lyness/lyn-fs-local'
+import LlmRuntime, { createUserMessage, LlmAdapter, type ToolCallId } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import NodeRuntime from '@lyness/lyn-ptc-runtime-node'
+import Sandbox from '@lyness/lyn-sandbox-local'
+import SandboxPolicy from '@lyness/lyn-sandbox-policy'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import Subprocess from '@lyness/lyn-subprocess-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
+import ToolRuntime, { defineTool } from '@lyness/lyn-tools'
+import WorkingDirectory from '@lyness/lyn-working-directory'
 import { expect, it, onTestFinished } from 'vitest'
 import { z } from 'zod'
 import { createNativeFixture, png } from '../../../../snapshots/session/cua-run-code/native-channel.mjs'
 import { CuaConfig, installCua } from '../src/index.ts'
 import { Request } from '../src/protocol.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const programs = [
   'globalThis.visits = 1; var initialCua = cua; var app = await cua.getApp("test.fixture"); var win = await app.getWindow("7"); await win.getAccessibilityTree(); await win.click("0"); var screenshot = await win.getScreenshot(); inspect(JSON.stringify({ visits, bindings: Object.keys(tools), app: app.appHandle, window: win.windowId, pid: process.pid })); inspect(screenshot)',
@@ -64,7 +64,7 @@ class ProgramModel extends LlmAdapter {
 }
 
 async function setup(programs: readonly string[], platform = 'macos', selectorPid?: number, presetFree = false) {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-cua-run-code-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-cua-run-code-'))
   const ctx = new Context()
   onTestFinished(async () => {
     try { await ctx.fiber.dispose() } finally { await rm(directory, { recursive: true, force: true }) }
@@ -118,7 +118,7 @@ async function setup(programs: readonly string[], platform = 'macos', selectorPi
     ...name === 'agentPresets' ? { config: { default: 'standard' } } : {},
     ...name === 'sandboxPolicy' ? { config: { mode: 'danger-full-access', workspaceRoot: directory } } : {},
     ...name === 'sharedRuntime' ? { config: { executionMode: 'per-call' } } : {},
-    ...name === 'attachments' ? { config: { dshHome: directory } } : {},
+    ...name === 'attachments' ? { config: { lynHome: directory } } : {},
     ...name === 'cua' ? { config: { allowedApps: [{ id: 'a'.repeat(64), name: 'Fixture', executablePath: '/fixture/app' }] } } : {},
   }))
   const configPath = join(directory, 'cordis.yml')
@@ -185,7 +185,7 @@ it('retains CUA objects, guards and logs hidden subcalls, forwards screenshots, 
 
   await provider.dispose()
   expect(ctx.tools.schemas(agent).map(tool => tool.name)).toEqual(['outside_cua'])
-  expect((await ctx.systemPrompt.assemble({ scope: agent })).sections.some(section => section.name === 'computer-use:dsh-cua')).toBe(false)
+  expect((await ctx.systemPrompt.assemble({ scope: agent })).sections.some(section => section.name === 'computer-use:lyn-cua')).toBe(false)
   expect(native.state).toEqual({ count: 2, openedChannels: 1, closedChannels: 1 })
   expect(() => process.kill(first.pid, 0)).toThrow()
   expect(ctx.ptcRuntime.retainsState).toBe(false)

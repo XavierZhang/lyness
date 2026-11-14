@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import type { ConnectionHandle } from '@deepseek-ai/dsh-api-remotes/client'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { ConnectionHandle } from '@lyness/lyn-api-remotes/client'
 import {
   RemoteStreamCarrierError,
   RemoteStream,
@@ -109,7 +109,7 @@ describe('RemoteStream', () => {
     ], carrierFailed)
 
     await expect(stream[Symbol.asyncIterator]().next()).rejects.toMatchObject({
-      isDSHRemoteError: true,
+      isLYNRemoteError: true,
       code: 'gateway/internal',
       message: 'isolated retry failed',
       details: {},
@@ -147,7 +147,7 @@ describe('RemoteStream', () => {
     if (opened.done) throw new Error('fixture generation ended early')
     opened.value.accept()
     await expect(stopping.next()).rejects.toMatchObject({
-      isDSHRemoteError: true, code: 'gateway/internal', message: 'domain stream ended', cause: plain,
+      isLYNRemoteError: true, code: 'gateway/internal', message: 'domain stream ended', cause: plain,
     })
     expect(new RemoteStreamCarrierError('socket lost').code).toBe('gateway/carrier-lost')
   })
@@ -173,7 +173,7 @@ describe('RemoteStream', () => {
     })
 
     await expect(stream[Symbol.asyncIterator]().next()).rejects.toMatchObject({
-      isDSHRemoteError: true,
+      isLYNRemoteError: true,
       code: 'gateway/internal',
       message: 'generation exploded',
     })

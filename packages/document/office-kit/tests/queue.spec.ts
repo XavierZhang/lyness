@@ -1,7 +1,7 @@
 /** Controlled source and engine completions exercise admission and shared content ownership. */
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { ConversionQueue, type QueueRequest } from '../src/queue.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import { Config, type OfficeSourceKey, type OfficeKitGeneration, type OfficeKitRequest } from '../src/index.ts'
 
 const output = { kind: 'pdf' as const, pdf: new Uint8Array([37, 80, 68, 70]), missingFonts: ['Font'] }

@@ -1,15 +1,15 @@
 /** Provider configuration reaches the native transport without opening a macOS connection. */
 import { resolve } from 'node:path'
 import { PassThrough } from 'node:stream'
-import { Context } from '@deepseek-ai/cordis'
-import { installCua } from '@deepseek-ai/dsh-cua'
-import type { NativeChannel } from '@deepseek-ai/dsh-cua/native-client'
+import { Context } from '@lyness/cordis'
+import { installCua } from '@lyness/lyn-cua'
+import type { NativeChannel } from '@lyness/lyn-cua/native-client'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { apply, Config } from '../src/index.ts'
 import { createSharedNativeChannel } from '../src/shared-native.ts'
 
-vi.mock('@deepseek-ai/dsh-cua', async importOriginal => ({
-  ...await importOriginal<typeof import('@deepseek-ai/dsh-cua')>(),
+vi.mock('@lyness/lyn-cua', async importOriginal => ({
+  ...await importOriginal<typeof import('@lyness/lyn-cua')>(),
   installCua: vi.fn(),
 }))
 vi.mock('../src/shared-native.ts', () => ({ createSharedNativeChannel: vi.fn() }))

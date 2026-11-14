@@ -1,14 +1,14 @@
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { unsupportedModel, unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-workspace'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { unsupportedModel, unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-workspace'
 import { describe, expect, it } from 'vitest'
 import { ArchivedSessionGate } from '../src/archived-session-gate.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 interface Harness {
   ctx: Context

@@ -1,10 +1,10 @@
 /**
  * Output capture, result encoding, and host binding proxies over the process channel.
- * @module @deepseek-ai/dsh-ptc-runtime-node/src/bootstrap
+ * @module @lyness/lyn-ptc-runtime-node/src/bootstrap
  */
 
 import { inspect, types, type InspectOptions } from 'node:util'
-import type { PtcJsonValue } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcJsonValue } from '@lyness/lyn-ptc-runtime'
 import type { HostMethods, ProgramResult, ProgramBootData } from './protocol.ts'
 import { jsonStringBytesUpTo, jsonValueBytesUpTo, truncateJsonStringBytes } from './output-json.ts'
 import { decodePtcJsonWire, encodePtcJsonWire, snapshotPtcJsonValue, type PtcImageWire } from './json-wire.ts'

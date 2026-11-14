@@ -2,7 +2,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { resolvePersistentExecution } from '../src/configuration.ts'
 import { mountRuntime } from './setup.ts'
@@ -173,7 +173,7 @@ it('runs environment initialization once and carries its top-level bindings into
 })
 
 it('keeps Node experimental warnings from an initializer import out of program output while program warnings still print', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-scoped-repl-warning-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-scoped-repl-warning-'))
   onTestFinished(async () => { await rm(directory, { recursive: true, force: true }) })
   await writeFile(join(directory, 'dependency.mjs'), 'export const value = 1')
   const { runtime, stateOwner, run } = await scopedReplRuntime()

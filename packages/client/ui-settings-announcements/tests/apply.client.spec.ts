@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import { announcementsReadOf, apply, inject, NS } from '@deepseek-ai/dsh-client-ui-settings-announcements/client'
+import type { Announcement } from '@lyness/lyn-announcements/types'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import { announcementsReadOf, apply, inject, NS } from '@lyness/lyn-client-ui-settings-announcements/client'
 import { AnnouncementsRow } from '../src/client/AnnouncementsRow.tsx'
 import type { createAnnouncementsRowStore } from '../src/client/settings-store.ts'
 

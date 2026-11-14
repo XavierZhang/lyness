@@ -5,15 +5,15 @@
  */
 import {
   type SessionListState, type SessionSearchResultItem, type SessionSummary,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceId, WorkspaceView } from '@deepseek-ai/dsh-api-workspace-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
 import type {
   SessionStatusSnapshot,
-} from '@deepseek-ai/dsh-client-ui-session-status/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { TextSearchIndex, type SearchKeys } from '@deepseek-ai/dsh-util-text-search'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import { workspaceTitleOf } from '@deepseek-ai/dsh-util-workspace-path'
+} from '@lyness/lyn-client-ui-session-status/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { TextSearchIndex, type SearchKeys } from '@lyness/lyn-util-text-search'
+import { assertNever } from '@lyness/lyn-util-values'
+import { workspaceTitleOf } from '@lyness/lyn-util-workspace-path'
 
 /** Group key for Sessions outside every Workspace. */
 export const UNGROUPED_KEY = ''

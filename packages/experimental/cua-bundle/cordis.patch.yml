@@ -1,15 +1,15 @@
 - insert:
     - id: cua-provider-registry
-      name: '@deepseek-ai/dsh-computer-use'
+      name: '@lyness/lyn-computer-use'
     - id: cua-macos
-      name: '@deepseek-ai/dsh-cua-macos'
+      name: '@lyness/lyn-cua-macos'
       disabled: !!js process.platform !== 'darwin'
       config:
         agentPreset: ptc
     - id: cua-windows
-      name: '@deepseek-ai/dsh-cua-windows'
+      name: '@lyness/lyn-cua-windows'
       disabled: !!js process.platform !== 'win32'
       config:
         agentPreset: ptc
     - id: ui-cua
-      name: '@deepseek-ai/dsh-cua'
+      name: '@lyness/lyn-cua'

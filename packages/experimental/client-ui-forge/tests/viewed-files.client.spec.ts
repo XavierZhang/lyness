@@ -50,12 +50,12 @@ describe('ViewedFiles', () => {
     expect([...first.marksOf('pr').keys()].sort()).toEqual(['a.ts', 'b.ts'])
     const stored = (key: string | null): void => { window.dispatchEvent(new StorageEvent('storage', { key })) }
     second.mark('pr', FILES, 'a.ts', false)
-    stored('dsh.forge-viewed.v1."s2"')
+    stored('lyn.forge-viewed.v1."s2"')
     expect(listener).not.toHaveBeenCalled()
-    stored('dsh.forge-viewed.v1."s1"')
+    stored('lyn.forge-viewed.v1."s1"')
     expect(listener).toHaveBeenCalledTimes(1)
     expect([...first.marksOf('pr').keys()]).toEqual(['b.ts'])
-    stored('dsh.forge-viewed.v1."s1"')
+    stored('lyn.forge-viewed.v1."s1"')
     expect(listener).toHaveBeenCalledTimes(1)
     localStorage.clear()
     stored(null)
@@ -67,14 +67,14 @@ describe('ViewedFiles', () => {
     const unsubscribeOther = first.subscribe(other)
     unsubscribe()
     second.mark('pr', FILES, 'a.ts', true)
-    stored('dsh.forge-viewed.v1."s1"')
+    stored('lyn.forge-viewed.v1."s1"')
     expect(other).toHaveBeenCalledTimes(1)
-    localStorage.setItem('dsh.forge-viewed.v1."s1"', '{')
-    stored('dsh.forge-viewed.v1."s1"')
+    localStorage.setItem('lyn.forge-viewed.v1."s1"', '{')
+    stored('lyn.forge-viewed.v1."s1"')
     expect(first.marksOf('pr').size).toBe(0)
     unsubscribeOther()
     second.mark('pr', FILES, 'b.ts', true)
-    stored('dsh.forge-viewed.v1."s1"')
+    stored('lyn.forge-viewed.v1."s1"')
     expect(other).toHaveBeenCalledTimes(2)
     expect(listener).toHaveBeenCalledTimes(2)
   })
@@ -97,9 +97,9 @@ describe('ViewedFiles', () => {
   })
 
   it('keeps the marks of the most recently marked Sessions and replaces an unreadable index', () => {
-    localStorage.setItem('dsh.forge-viewed.v1.sessions', 'not json')
+    localStorage.setItem('lyn.forge-viewed.v1.sessions', 'not json')
     for (let index = 0; index < 51; index += 1) new ViewedFiles(`s${index}`).mark('pr', FILES, 'a.ts', true)
-    const listed = (): string[] => JSON.parse(localStorage.getItem('dsh.forge-viewed.v1.sessions') ?? '[]') as string[]
+    const listed = (): string[] => JSON.parse(localStorage.getItem('lyn.forge-viewed.v1.sessions') ?? '[]') as string[]
     expect(listed()).toHaveLength(50)
     expect(new ViewedFiles('s0').marksOf('pr').size).toBe(0)
     expect(new ViewedFiles('s1').marksOf('pr').size).toBe(1)
@@ -108,11 +108,11 @@ describe('ViewedFiles', () => {
   })
 
   it('refuses marks when storage is unreadable or refuses the write, keeping the marks it had', () => {
-    localStorage.setItem('dsh.forge-viewed.v1."broken"', '{')
+    localStorage.setItem('lyn.forge-viewed.v1."broken"', '{')
     const broken = new ViewedFiles('broken')
     expect(broken.marksOf('pr').size).toBe(0)
     expect(broken.mark('pr', FILES, 'a.ts', true)).toBe(false)
-    expect(localStorage.getItem('dsh.forge-viewed.v1."broken"')).toBe('{')
+    expect(localStorage.getItem('lyn.forge-viewed.v1."broken"')).toBe('{')
 
     const viewed = new ViewedFiles('s1')
     viewed.mark('pr', FILES, 'a.ts', true)

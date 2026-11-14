@@ -25,12 +25,12 @@ def main():
         capabilities = helper.call('getCapabilities', {})
         if capabilities['sessionLocked'] is not False or capabilities['permissions'] != {'accessibility': True, 'screenRecording': True}:
             raise RuntimeError('An unlocked Mac with Accessibility and Screen Recording grants is required')
-        with tempfile.TemporaryDirectory(prefix='dsh-floating-window-') as directory:
+        with tempfile.TemporaryDirectory(prefix='lyn-floating-window-') as directory:
             root = Path(directory)
             contents = root / 'FloatingFixture.app/Contents'
             (contents / 'MacOS').mkdir(parents=True)
             (contents / 'Info.plist').write_bytes(plistlib.dumps({
-                'CFBundleIdentifier': 'org.deepseek-harness.' + root.name,
+                'CFBundleIdentifier': 'org.lyness.' + root.name,
                 'CFBundleExecutable': 'fixture', 'CFBundleName': 'Floating fixture', 'CFBundlePackageType': 'APPL',
             }))
             binary = contents / 'MacOS/fixture'

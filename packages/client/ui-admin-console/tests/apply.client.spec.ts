@@ -6,13 +6,13 @@
  * and the viewer.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { apply, Config, consolePage, createAdminConsoleStore, DEFAULT_PATH, inject, NS } from '@deepseek-ai/dsh-client-ui-admin-console/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { apply, Config, consolePage, createAdminConsoleStore, DEFAULT_PATH, inject, NS } from '@lyness/lyn-client-ui-admin-console/client'
 import { AdminFrame } from '../src/client/AdminFrame.tsx'
-import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 import type { AdminFrameInjected } from '../src/client/AdminFrame.tsx'
 
 const live: Context[] = []

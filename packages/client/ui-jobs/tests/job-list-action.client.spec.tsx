@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { JobsSnapshot, JobView, ObservedJob } from '@deepseek-ai/dsh-api-job-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { JobsSnapshot, JobView, ObservedJob } from '@lyness/lyn-api-job-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { JobListAction, type JobListActionProps } from '../src/client/JobListAction.tsx'
 import { zh, en, ja, es, fr, de, ru, pt } from '../src/client/locales.ts'
 
@@ -666,8 +666,8 @@ describe('JobListAction observation', () => {
     expect(menu.style.positionAnchor).toBe(placement)
     expect(menu.style.left).toBe('')
     expect(menu.style.top).toBe('')
-    expect(menu.style.getPropertyValue('--dsh-anchored-max-width')).toBe('')
-    expect(menu.style.getPropertyValue('--dsh-anchored-max-height')).toBe('')
+    expect(menu.style.getPropertyValue('--lyn-anchored-max-width')).toBe('')
+    expect(menu.style.getPropertyValue('--lyn-anchored-max-height')).toBe('')
     expect(listen).not.toHaveBeenCalled()
     fireEvent.click(trigger)
     expect(screen.queryByRole('list', { name: zh['list.aria'] })).toBeNull()

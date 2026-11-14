@@ -2,18 +2,18 @@
 import { mkdtemp, rm, readFile, writeFile, mkdir, realpath, symlink, unlink } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
-import { WorkspaceFiles } from '@deepseek-ai/dsh-api-workspace-files'
-import { Context } from '@deepseek-ai/cordis'
-import { ConnectionAuthentication, HostConnectionService } from '@deepseek-ai/dsh-client-connection'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import { SessionQueryError } from '@deepseek-ai/dsh-session-query'
-import type { SessionEventReadRequest } from '@deepseek-ai/dsh-session-query'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import { WorkspaceFiles } from '@lyness/lyn-api-workspace-files'
+import { Context } from '@lyness/cordis'
+import { ConnectionAuthentication, HostConnectionService } from '@lyness/lyn-client-connection'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { SessionQueryError } from '@lyness/lyn-session-query'
+import type { SessionEventReadRequest } from '@lyness/lyn-session-query'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { registerPresentOpen } from '../src/present-open.ts'
 import { presentedFileUrl, PRESENT_OPEN_PATH } from '../src/presented.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: Array<() => Promise<unknown>> = []
 afterEach(async () => {
@@ -23,7 +23,7 @@ afterEach(async () => {
 })
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-present-open-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-present-open-'))
   cleanups.push(() => rm(root, { recursive: true, force: true }))
   const cwd = join(root, 'workspace')
   await mkdir(cwd)

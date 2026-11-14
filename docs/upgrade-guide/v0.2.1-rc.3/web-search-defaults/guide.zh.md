@@ -9,7 +9,7 @@ description: "一次 web_search 调用默认接受 10 个查询并返回 10 个�
 
 ## 变更
 
-在 `dsh-tool-web` 中，`searchMaxQueries` 默认值从 4 提高到 10，`searchMaxResults` 默认值从 8 提高到 10。`web_search` 的 schema 现在公布 `1–10 search queries`，因此含 5–10 个查询的调用会执行，而不是校验失败；每次调用最多返回 10 个来源。因此一次调用可能发起更多提供方搜索，并向上下文加入更多来源文本。使用内置的 Messages 搜索提供方时，每个查询都是一次辅助模型请求。`dsh-web-deepseek-api` 新增 `searchRequestsPerSecond`，默认 5：其 Search 提供方在任意一秒窗口内最多发送这么多请求，因此 10 个查询的调用中后五个查询比前五个晚一秒开始，而不会超过账号的 5 QPS 限制。部署已设置的值保持不变。
+在 `lyn-tool-web` 中，`searchMaxQueries` 默认值从 4 提高到 10，`searchMaxResults` 默认值从 8 提高到 10。`web_search` 的 schema 现在公布 `1–10 search queries`，因此含 5–10 个查询的调用会执行，而不是校验失败；每次调用最多返回 10 个来源。因此一次调用可能发起更多提供方搜索，并向上下文加入更多来源文本。使用内置的 Messages 搜索提供方时，每个查询都是一次辅助模型请求。`lyn-web-deepseek-api` 新增 `searchRequestsPerSecond`，默认 5：其 Search 提供方在任意一秒窗口内最多发送这么多请求，因此 10 个查询的调用中后五个查询比前五个晚一秒开始，而不会超过账号的 5 QPS 限制。部署已设置的值保持不变。
 
 ## 迁移
 

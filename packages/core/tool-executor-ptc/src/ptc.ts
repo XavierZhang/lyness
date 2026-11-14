@@ -8,32 +8,32 @@
 
 import { isDeepStrictEqual } from 'node:util'
 import type { PtcDispatchLog } from './runtime-types.ts'
-import { symbols, type Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createUserMessage, HarnessError, resolveImageAttachmentAccess } from '@deepseek-ai/dsh-llm'
+import { symbols, type Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { createUserMessage, HarnessError, resolveImageAttachmentAccess } from '@lyness/lyn-llm'
 
-import type { ContentBlock, ToolCallId, ToolSchema } from '@deepseek-ai/dsh-llm'
-import { PtcImage } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcOutput } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcBindingFunction, PtcRunResult, PtcRunSandbox, PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
-import { approveEscalation, ESCALATION_TARGETS, validateEscalationArgs } from '@deepseek-ai/dsh-sandbox'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type {} from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-working-directory'
-import type {} from '@deepseek-ai/dsh-sandbox-policy'
-import { deepFreeze, snapshotJsonValue, type JsonValue } from '@deepseek-ai/dsh-util-values'
+import type { ContentBlock, ToolCallId, ToolSchema } from '@lyness/lyn-llm'
+import { PtcImage } from '@lyness/lyn-ptc-runtime'
+import type { PtcOutput } from '@lyness/lyn-ptc-runtime'
+import type { PtcBindingFunction, PtcRunResult, PtcRunSandbox, PtcRuntime } from '@lyness/lyn-ptc-runtime'
+import { approveEscalation, ESCALATION_TARGETS, validateEscalationArgs } from '@lyness/lyn-sandbox'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-working-directory'
+import type {} from '@lyness/lyn-sandbox-policy'
+import { deepFreeze, snapshotJsonValue, type JsonValue } from '@lyness/lyn-util-values'
 import {
   defineTool, parameterSchemaSpecToJsonSchema, projectToolSchema, RUN_CODE_NAME, TOOL_ABORTED, ToolArgsError,
   ToolContextUnavailableError,
-} from '@deepseek-ai/dsh-tools'
-import type { ToolExecutionPipeline } from '@deepseek-ai/dsh-tools/pipeline'
-import { toolErrorMessage } from '@deepseek-ai/dsh-tools/pipeline'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
+} from '@lyness/lyn-tools'
+import type { ToolExecutionPipeline } from '@lyness/lyn-tools/pipeline'
+import { toolErrorMessage } from '@lyness/lyn-tools/pipeline'
+import { scopeTarget } from '@lyness/lyn-scope'
 import type { PtcCalls } from './ptc-calls.ts'
 import { CodeRunFailedError, ToolCallLimitExceededError } from './errors.ts'
 import type { Config } from './config.ts'
 import type { RunCodeToolOptions } from './run-code.ts'
-import type { ToolDefinition, ToolExecution, ToolExecutionFailure, ToolExecutionResult, ToolRunContext } from '@deepseek-ai/dsh-tools'
+import type { ToolDefinition, ToolExecution, ToolExecutionFailure, ToolExecutionResult, ToolRunContext } from '@lyness/lyn-tools'
 import type {} from './types.ts'
 
 /** The model-facing name of the PTC mode tool. */
@@ -75,7 +75,7 @@ const TYPESCRIPT_FUNCTION_FLAVOR = runCodeFlavor('TypeScript', TYPESCRIPT_OUTPUT
 export function requirePtcRuntime(ctx: Context): PtcRuntime {
   const runtime = ctx.get('ptcRuntime')
   if (runtime === undefined) {
-    throw new ToolContextUnavailableError('dsh-tools: mode "ptc" requires a PTC runtime — load a ctx.ptcRuntime implementation (e.g. @deepseek-ai/dsh-ptc-runtime-node) or load @deepseek-ai/dsh-tool-executor-native')
+    throw new ToolContextUnavailableError('lyn-tools: mode "ptc" requires a PTC runtime — load a ctx.ptcRuntime implementation (e.g. @lyness/lyn-ptc-runtime-node) or load @lyness/lyn-tool-executor-native')
   }
   return requireRuntimeLanguage(runtime)
 }
@@ -88,7 +88,7 @@ export function requirePtcRuntime(ctx: Context): PtcRuntime {
  */
 export function requireRuntimeLanguage(runtime: PtcRuntime): PtcRuntime {
   if (runtime.language !== 'typescript') {
-    throw new ToolContextUnavailableError(`dsh-tools: unsupported PTC runtime language ${JSON.stringify(runtime.language)}; use a TypeScript provider (language: "typescript")`)
+    throw new ToolContextUnavailableError(`lyn-tools: unsupported PTC runtime language ${JSON.stringify(runtime.language)}; use a TypeScript provider (language: "typescript")`)
   }
   return runtime
 }
@@ -191,14 +191,14 @@ function renderRunOutput(
 async function resolveWorkingDirectory(ctx: Context, exec: ToolRunContext): Promise<string | undefined> {
   if (exec.agent === undefined) return undefined
   const directories = ctx.get('workingDirectory')
-  if (directories === undefined) throw new ToolContextUnavailableError('dsh-tools: run_code with an Agent requires workingDirectory')
+  if (directories === undefined) throw new ToolContextUnavailableError('lyn-tools: run_code with an Agent requires workingDirectory')
   return directories.ensure(exec.agent, exec.signal)
 }
 
 /** Resolve standing authority for a runtime that enforces file policy. */
 function resolveSandboxPolicy(ctx: Context, exec: ToolRunContext): SandboxExecutionPolicy {
   const policy = ctx.get('sandboxPolicy')
-  if (policy === undefined) throw new ToolContextUnavailableError('dsh-tools: confined PTC runtime requires sandboxPolicy')
+  if (policy === undefined) throw new ToolContextUnavailableError('lyn-tools: confined PTC runtime requires sandboxPolicy')
   return policy.resolve(exec.agent === undefined ? {} : { session: exec.agent.session })
 }
 

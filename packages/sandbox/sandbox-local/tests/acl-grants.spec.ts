@@ -9,11 +9,11 @@ import { chmodSync, existsSync, mkdtempSync, realpathSync, rmSync } from 'node:f
 import { tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { SandboxPolicy } from '@deepseek-ai/dsh-sandbox'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { LocalSandboxProvider } from '@deepseek-ai/dsh-sandbox-local'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import type { SandboxPolicy } from '@lyness/lyn-sandbox'
+import type { SessionId } from '@lyness/lyn-session'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Cross-file state shared with the vi.mock factory (hoisting contract). */
 const mockState = vi.hoisted(() => ({
@@ -26,7 +26,7 @@ const mockState = vi.hoisted(() => ({
   disposeFailure: undefined as Error | undefined,
 }))
 
-vi.mock('@deepseek-ai/dsh-sandbox-windows-acl', () => {
+vi.mock('@lyness/lyn-sandbox-windows-acl', () => {
   class MockAclWriteGrant {
     readonly writeSid: string
     readonly added: Array<{ path: string; standing: boolean }> = []
@@ -76,7 +76,7 @@ async function setup() {
 }
 
 function workspaceRoot(): string {
-  return realpathSync(mkdtempSync(join(tmpdir(), 'dsh-acl-grants-ws-')))
+  return realpathSync(mkdtempSync(join(tmpdir(), 'lyn-acl-grants-ws-')))
 }
 
 function flag(argv: readonly string[], name: string): string | undefined {
@@ -129,7 +129,7 @@ describe('windows-acl write grants (LocalSandboxProvider)', () => {
       const tempDir = flag(confined.argv, '--temp')
       const tempSid = flag(confined.argv, '--temp-write-sid')
       expect(tempDir).toBeDefined()
-      expect(basename(tempDir ?? '')).toMatch(/^dsh-[A-Za-z0-9_-]{6}$/u)
+      expect(basename(tempDir ?? '')).toMatch(/^lyn-[A-Za-z0-9_-]{6}$/u)
       expect(tempSid).toBe(`TEMP:${tempDir}`)
       expect(tempSid).not.toBe(WORKSPACE_SID)
       expect(confined.argv).toEqual([
@@ -302,7 +302,7 @@ describe('windows-acl write grants (LocalSandboxProvider)', () => {
   it.skipIf(process.platform === 'win32' || process.getuid?.() === 0)('codes a private temp directory that cannot be created', async () => {
     const { sandbox } = await setup()
     const ws = workspaceRoot()
-    const lockedTemp = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-acl-locked-temp-')))
+    const lockedTemp = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-acl-locked-temp-')))
     scratch.push(ws, lockedTemp)
     const previous = process.env.TMPDIR
     chmodSync(lockedTemp, 0o500)

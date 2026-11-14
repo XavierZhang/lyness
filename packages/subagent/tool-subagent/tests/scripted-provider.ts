@@ -1,8 +1,8 @@
 /** Package-local scripted child boundary for deterministic tool-subagent tests. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 import type {
   SubagentCapabilities,
   SubagentProvider,
@@ -10,8 +10,8 @@ import type {
   SubagentRun,
   SubagentStartRequest,
   SubagentStopReason,
-} from '@deepseek-ai/dsh-subagent'
-import { brandString } from '@deepseek-ai/dsh-brand'
+} from '@lyness/lyn-subagent'
+import { brandString } from '@lyness/lyn-brand'
 
 const DEFAULT_CAPABILITIES: SubagentCapabilities = {
   agentOptions: true,

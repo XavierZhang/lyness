@@ -10,7 +10,7 @@
  * that have one, so each reply is validated against the shape that endpoint
  * actually sends rather than against one envelope for all three.
  *
- * @module @deepseek-ai/dsh-feishu/protocol
+ * @module @lyness/lyn-feishu/protocol
  */
 
 import { z } from 'zod'

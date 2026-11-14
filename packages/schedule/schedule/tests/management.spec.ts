@@ -1,6 +1,6 @@
 /** Host-wide management of Host tasks: identities, listing, atomic edits, revision checks, notices, and manual runs. */
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@lyness/lyn-session'
 import {
   createAfterScheduleRecord,
   createAtScheduleRecord,
@@ -14,7 +14,7 @@ import { createRRuleScheduleRecord } from '../src/domain.ts'
 import { scheduleDomain, scheduleTaskSchema } from '../src/storage.ts'
 import { agentFor, boundTask, gatedScheduleBackend, harness, seededTask, seedTasks, storedSession, type HarnessAgent } from './harness.ts'
 import { MemoryMediaPool } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const active: Awaited<ReturnType<typeof harness>>[] = []
 const once = 'DTSTART:20260916T010000Z\nRRULE:FREQ=DAILY;COUNT=1'

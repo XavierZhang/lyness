@@ -1,7 +1,7 @@
 /** Notification configuration reaches the client without account secrets. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it, onTestFinished } from 'vitest'
-import type { IndexInjection, WebServer } from '@deepseek-ai/dsh-host-webserver'
+import type { IndexInjection, WebServer } from '@lyness/lyn-host-webserver'
 import { apply, Config } from '../src/index.ts'
 import { NOTIFICATIONS_CONFIG_GLOBAL } from '../src/config.ts'
 

@@ -8,7 +8,7 @@
     ".": "./index.js",
     "./client": "./client.js"
   },
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     },

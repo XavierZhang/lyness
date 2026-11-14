@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import CommandRuntime, { type CommandResult } from '@deepseek-ai/dsh-commands'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CompactionId } from '@deepseek-ai/dsh-compaction/types'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import type { Agent } from '@lyness/lyn-agent'
+import CommandRuntime, { type CommandResult } from '@lyness/lyn-commands'
+import { brandString } from '@lyness/lyn-brand'
+import type { CompactionId } from '@lyness/lyn-compaction/types'
 import {
   CompactionEngine,
   ManualCompactionError,
@@ -12,9 +12,9 @@ import {
   type CompactionResult,
   type CompactionTrigger,
   type ManualCompactAgentContext,
-} from '@deepseek-ai/dsh-compaction'
-import { Session, type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import * as commandCompact from '@deepseek-ai/dsh-command-compact'
+} from '@lyness/lyn-compaction'
+import { Session, type SessionId, SessionSeq } from '@lyness/lyn-session'
+import * as commandCompact from '@lyness/lyn-command-compact'
 
 const COMPACTION_ID = brandString<CompactionId>('command-compact-test')
 
@@ -154,7 +154,7 @@ function expectLastLifecycle(
   return runEvent.data.commandId
 }
 
-describe('@deepseek-ai/dsh-command-compact registration', () => {
+describe('@lyness/lyn-command-compact registration', () => {
   it('registers one argument-free command with Loader-safe exports and disposes it', async () => {
     const test = await harness()
     expect(commandCompact.name).toBe('command-compact')
@@ -163,7 +163,7 @@ describe('@deepseek-ai/dsh-command-compact registration', () => {
     const loader = Object.create(Loader.prototype) as Loader
     expect(loader.unwrapExports(commandCompact)).toBe(commandCompact)
     expect(test.ctx.commands.list(test.agent)).toContainEqual({
-      definitionId: '@deepseek-ai/dsh-command-compact',
+      definitionId: '@lyness/lyn-command-compact',
       name: 'compact',
       description: 'Compact older conversation history',
     })

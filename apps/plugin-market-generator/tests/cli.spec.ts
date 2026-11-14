@@ -33,7 +33,7 @@ it.each([
   const dir = scratch()
   const input = join(dir, 'plugins.txt')
   const output = join(dir, 'index.json')
-  writeFileSync(input, 'dsh-example\n')
+  writeFileSync(input, 'lyn-example\n')
   expect((await cli('--input', input, '--output', output, '--title', 'T')).status).toBe(0)
   expect(generate).toHaveBeenCalledOnce()
   const options = vi.mocked(generate).mock.calls[0]?.[0]

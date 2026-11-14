@@ -4,13 +4,13 @@
  * download control follows the plugin that owns the download.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import { apply, dataCallsOf, inject, NS } from '@deepseek-ai/dsh-client-ui-settings-data/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import { SessionId } from '@lyness/lyn-session/types'
+import { apply, dataCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-data/client'
 import { DataSection } from '../src/client/DataSection.tsx'
 import type { DataSectionInjected } from '../src/client/DataSection.tsx'
 import type { DataActions } from '../src/client/binding.ts'

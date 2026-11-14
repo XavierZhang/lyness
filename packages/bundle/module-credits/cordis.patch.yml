@@ -13,29 +13,29 @@
     # The ledger. Its recurring allowance is a deployment decision, so the
     # numbers here are the ones an installation changes first.
     - id: credits
-      name: '@deepseek-ai/dsh-credits/store'
+      name: '@lyness/lyn-credits/store'
       config:
         periodicAmount: 1000
         period: daily
 
     # Who a request charges, resolved from its principal.
     - id: credit-subject
-      name: '@deepseek-ai/dsh-credits/subject-request'
+      name: '@lyness/lyn-credits/subject-request'
 
     # Grants and recurring-allowance overrides, authorized against the
     # standing making them.
     - id: credit-administration
-      name: '@deepseek-ai/dsh-credits/administration'
+      name: '@lyness/lyn-credits/administration'
 
     # Metering rides the llm/stream waterfall, so a preset row, a profile
     # patch, or a direct RPC cannot reach a model without being charged.
     - id: credits-enforce
-      name: '@deepseek-ai/dsh-credits/enforce'
+      name: '@lyness/lyn-credits/enforce'
 
     # The browser half of this module's own Settings section. It was inserted
-    # by `dsh-web-app`, which cannot satisfy it: without a ledger the
+    # by `lyn-web-app`, which cannot satisfy it: without a ledger the
     # namespace answers that no identity is presented, so a deployment that
     # does not meter showed a section whose only content was that refusal. A
     # row belongs to the bundle that can answer it.
     - id: ui-settings-credits
-      name: '@deepseek-ai/dsh-client-ui-settings-credits'
+      name: '@lyness/lyn-client-ui-settings-credits'

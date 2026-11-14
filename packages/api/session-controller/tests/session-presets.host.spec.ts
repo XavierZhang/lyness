@@ -3,18 +3,18 @@
 import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { Agent, AgentFactory } from '@deepseek-ai/dsh-agent'
-import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
-import SessionStore, { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Agent, AgentFactory } from '@lyness/lyn-agent'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
+import SessionStore, { SESSION_FORMAT_VERSION, type SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { WorkspaceId } from '@lyness/lyn-workspace'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createSessionTestRemote, testSessionPersistence } from './test-remote.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Booted contexts and their temp roots, torn down after each test. */
 const contexts: Context[] = []
@@ -60,7 +60,7 @@ interface HarnessOptions {
 const WORKSPACE = 'workspace-1' as WorkspaceId
 
 async function harness(options: HarnessOptions = {}) {
-  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-')))
+  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-')))
   tempDirs.push(cwd)
   const ctx = new Context()
   contexts.push(ctx)
@@ -383,7 +383,7 @@ describe('session.create reuse of a live blank Session', () => {
 
   it('refuses a Session in another directory', async () => {
     const { ctx, remote } = await harness({ presets: ['standard'] })
-    const elsewhere = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-elsewhere-')))
+    const elsewhere = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-elsewhere-')))
     tempDirs.push(elsewhere)
     await remote.create({ sessionId: brandString<SessionId>('other'), cwd: elsewhere })
 
@@ -398,7 +398,7 @@ describe('session.create reuse of a live blank Session', () => {
 
   it('refuses a Session in another directory before resolving the requested preset', async () => {
     const { remote } = await harness({ presets: ['standard'] })
-    const elsewhere = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-elsewhere-')))
+    const elsewhere = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-elsewhere-')))
     tempDirs.push(elsewhere)
     await remote.create({ sessionId: brandString<SessionId>('other'), cwd: elsewhere })
 
@@ -453,7 +453,7 @@ describe('session.create reuse of a live blank Session', () => {
 describe('session.create reuse of a stored blank Session', () => {
   it('resumes a blank Session whose recorded preset is no longer declared under the default', async () => {
     const draft = brandString<SessionId>('stale-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, resumed, presetOf, selectedEvents } = await harness({
       presets: ['standard', 'minimal'],
@@ -470,7 +470,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('resumes a blank Session under the default even when its previous choice is still declared', async () => {
     const draft = brandString<SessionId>('picked-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, presetOf, selectedEvents } = await harness({
       presets: ['standard', 'minimal'],
@@ -486,7 +486,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('resumes a blank Session under its recorded preset when the caller names it', async () => {
     const draft = brandString<SessionId>('restored-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, presetOf, selectedEvents } = await harness({
       presets: ['standard', 'minimal'],
@@ -502,7 +502,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('rejects a named preset that is no longer declared without resuming the Session', async () => {
     const draft = brandString<SessionId>('stale-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { ctx, remote, resumed } = await harness({
       presets: ['standard'],
@@ -521,7 +521,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('creates a new Session instead of resuming one that has started', async () => {
     const talk = brandString<SessionId>('stored-talk')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, resumed } = await harness({
       presets: ['standard'],
@@ -538,7 +538,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('creates a new Session when another owner holds the blank Session', async () => {
     const draft = brandString<SessionId>('held-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { ctx, remote } = await harness({
       presets: ['standard'],
@@ -555,7 +555,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('reuses the Agent another resume published while holding the writer', async () => {
     const draft = brandString<SessionId>('contended-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, selections, presetOf } = await harness({
       presets: ['standard', 'minimal'],
@@ -582,7 +582,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('reports a storage failure instead of creating another Session', async () => {
     const draft = brandString<SessionId>('unreadable-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { ctx, remote } = await harness({
       presets: ['standard'],
@@ -598,7 +598,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('creates a new Session when the blank Session started after it was observed', async () => {
     const draft = brandString<SessionId>('overtaken-draft')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { ctx, remote, resumed } = await harness({
       presets: ['standard', 'minimal'],
@@ -616,7 +616,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('refuses a stored Session in another directory', async () => {
     const other = brandString<SessionId>('stored-other')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, resumed } = await harness({
       presets: ['standard'],
@@ -634,7 +634,7 @@ describe('session.create reuse of a stored blank Session', () => {
 
   it('leaves a stored subagent identity to subagent routing', async () => {
     const child = brandString<SessionId>('stored-child')
-    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-stored-')))
+    const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-stored-')))
     tempDirs.push(cwd)
     const { remote, resumed } = await harness({
       presets: ['standard'],

@@ -1,10 +1,10 @@
 /** Selected-result transport releases values on carrier loss and closes on inspector disposal. */
 import { expect, it, onTestFinished, vi } from 'vitest'
-import { RemoteStream, RemoteStreamCarrierError } from '@deepseek-ai/dsh-api-gateway/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { RemoteStream, RemoteStreamCarrierError } from '@lyness/lyn-api-gateway/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SessionToolResultValue } from '../src/types.ts'
 import { createToolResultWatcher } from '../src/client/watch-tool-result.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 function deferred() {
   let resolve!: () => void

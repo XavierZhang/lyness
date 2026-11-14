@@ -9,7 +9,7 @@ English | [中文](2026-10-19-session-visibility.zh.md)
 
 ## Decision
 
-`ctx.sessionVisibility`, the `./visibility` half of `dsh-session-ownership`, answers whether the call in progress may see one conversation, and the Remote session surface asks it at four places: the corpus read behind `session/list` and `session/search`, the resolution every Agent-backed endpoint goes through, the history's observation, and the projection read.
+`ctx.sessionVisibility`, the `./visibility` half of `lyn-session-ownership`, answers whether the call in progress may see one conversation, and the Remote session surface asks it at four places: the corpus read behind `session/list` and `session/search`, the resolution every Agent-backed endpoint goes through, the history's observation, and the projection read.
 
 The rule is one function over whatever attribution was read:
 

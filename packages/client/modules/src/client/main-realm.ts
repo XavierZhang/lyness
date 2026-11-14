@@ -1,5 +1,5 @@
 /** Initial execution environment supplied by the module system's startup carrier. */
-import type { ScriptRealm } from '@deepseek-ai/dsh-client-script-realm/client'
+import type { ScriptRealm } from '@lyness/lyn-client-script-realm/client'
 
 /** Existing browser transport used when the carrier supplies no load hook. */
 const loadPageBundle = (url: string): Promise<void> => new Promise((resolve, reject) => {

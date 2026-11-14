@@ -54,7 +54,7 @@ export function nativeProtocol(
     schema.properties = { id: { type: 'string' }, ...schema.properties }
     schema.required = ['id', 'method', 'params']
     // Each embedded resource resolves its recursive JSON value references against its own definitions.
-    if (schema.$defs) schema.$id = `urn:deepseek-harness:cua:request:${method}`
+    if (schema.$defs) schema.$id = `urn:lyness:cua:request:${method}`
     delete schema.$schema
     const names = new Set<string>()
     const values = new Map<string, Set<string>>()
@@ -77,7 +77,7 @@ export function nativeProtocol(
   return { fields, enums, json: JSON.stringify({
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     $comment: 'Generated from the shared CUA operation schema. Do not edit.',
-    title: 'dsh-cua native request',
+    title: 'lyn-cua native request',
     description: 'The Host resolves resource limits before dispatch. Private continuations are available only to the Host. App handles and snapshots belong to one helper; coordinates use window-local native units.',
     oneOf: schemas,
   }, null, 2) + '\n' }

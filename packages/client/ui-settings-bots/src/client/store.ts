@@ -6,12 +6,12 @@
  * in the plugin rather than in the component is what lets one in-flight read
  * be shared by every open surface.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-bots/client/store
+ * @module @lyness/lyn-client-ui-settings-bots/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { BotRowView, PresetOptionView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 
 /** Where the read stands. */
 export type BotsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable' | 'forbidden'

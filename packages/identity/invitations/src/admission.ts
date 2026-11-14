@@ -7,25 +7,25 @@
  * the invitation. That order is what keeps a forwarded link from adding a
  * second entry for somebody who is already here.
  *
- * It replaces `dsh-managed-people/admission` rather than sitting beside it: a
+ * It replaces `lyn-managed-people/admission` rather than sitting beside it: a
  * deployment mounts exactly one admission rule, and which doors exist is the
  * composition's statement. A deployment that mounts the managed rule admits
  * nobody new; this one admits whoever an administrator invited.
  *
- * @module @deepseek-ai/dsh-invitations/admission
+ * @module @lyness/lyn-invitations/admission
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import { SignInAdmission } from '@deepseek-ai/dsh-sign-in/admission'
-import { Config as rosterConfig } from '@deepseek-ai/dsh-sign-in/admission-roster'
-import type { Config } from '@deepseek-ai/dsh-sign-in/admission-roster'
-import type { AdmissionOffer, ExternalSubject } from '@deepseek-ai/dsh-sign-in'
-import { bindingKey } from '@deepseek-ai/dsh-managed-people'
-import { declaredBindings } from '@deepseek-ai/dsh-managed-people/admission'
-import type {} from '@deepseek-ai/dsh-invitations'
+import type { Context } from '@lyness/cordis'
+import type { PersonId } from '@lyness/lyn-people'
+import { SignInAdmission } from '@lyness/lyn-sign-in/admission'
+import { Config as rosterConfig } from '@lyness/lyn-sign-in/admission-roster'
+import type { Config } from '@lyness/lyn-sign-in/admission-roster'
+import type { AdmissionOffer, ExternalSubject } from '@lyness/lyn-sign-in'
+import { bindingKey } from '@lyness/lyn-managed-people'
+import { declaredBindings } from '@lyness/lyn-managed-people/admission'
+import type {} from '@lyness/lyn-invitations'
 
-export type { Config } from '@deepseek-ai/dsh-sign-in/admission-roster'
+export type { Config } from '@lyness/lyn-sign-in/admission-roster'
 
 /** Admits the written bindings, the stored ones, and a valid invitation. */
 export class InvitingAdmission extends SignInAdmission {

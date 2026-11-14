@@ -20,7 +20,7 @@ With an `AbortSignal`, credential-read errors now retain the original `Error` as
 1. To disable the new account fallback, set both capabilities to `api-key` on the `web-deepseek-api` row, or choose **DeepSeek API key** under **Plugins > Built-in plugin settings > Web search and fetch** when each DeepSeek API is selected:
 
    ```yaml
-   - name: '@deepseek-ai/dsh-web-deepseek-api'
+   - name: '@lyness/lyn-web-deepseek-api'
      config:
        searchBilling: api-key
        fetchBilling: api-key

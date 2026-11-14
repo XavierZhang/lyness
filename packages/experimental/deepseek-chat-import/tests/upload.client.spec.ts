@@ -35,10 +35,10 @@ function current(): FakeXhr {
 }
 
 /** Page global carrying the shell transport the carrier path reads. */
-type TransportGlobal = { __DSH_TRANSPORT__?: { fetch?: (input: string | URL, init: RequestInit) => Promise<Response> } }
+type TransportGlobal = { __LYNESS_TRANSPORT__?: { fetch?: (input: string | URL, init: RequestInit) => Promise<Response> } }
 
 function installCarrier(fetch: (input: string | URL, init: RequestInit) => Promise<Response>): void {
-  (globalThis as TransportGlobal).__DSH_TRANSPORT__ = { fetch }
+  (globalThis as TransportGlobal).__LYNESS_TRANSPORT__ = { fetch }
 }
 
 const RESULT: DeepseekChatImportResult = {
@@ -112,7 +112,7 @@ function streamed(pieces: readonly string[]): Response {
 
 afterEach(() => {
   vi.unstubAllGlobals()
-  delete (globalThis as TransportGlobal).__DSH_TRANSPORT__
+  delete (globalThis as TransportGlobal).__LYNESS_TRANSPORT__
   FakeXhr.last = undefined
 })
 

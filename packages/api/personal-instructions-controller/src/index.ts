@@ -7,17 +7,17 @@
  * else's record by asking for it; the namespace additionally requires a
  * caller the deployment knows, which is what makes that principal present.
  *
- * @module @deepseek-ai/dsh-api-personal-instructions-controller
+ * @module @lyness/lyn-api-personal-instructions-controller
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-personal-instructions'
+import { Context } from '@lyness/cordis'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-personal-instructions'
 import type { InstructionsView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host owner of the `personalInstructions` Remote namespace. */
     personalInstructionsController: PersonalInstructionsController

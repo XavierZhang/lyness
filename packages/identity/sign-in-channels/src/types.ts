@@ -2,10 +2,10 @@
  * Vocabulary of a configured sign-in channel: the record a deployment stores,
  * and what an administrator submits to create or replace one.
  *
- * @module @deepseek-ai/dsh-sign-in-channels/types
+ * @module @lyness/lyn-sign-in-channels/types
  */
 
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { PersonId } from '@lyness/lyn-people'
 
 /** One configured channel, as the deployment stores it. */
 export interface ChannelRecord {

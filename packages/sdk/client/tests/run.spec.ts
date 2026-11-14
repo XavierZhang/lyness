@@ -1,14 +1,14 @@
 /** Unified input receipt and observation over an independently running protocol peer. */
 import { fileURLToPath } from 'node:url'
 import { expect, expectTypeOf, it, onTestFinished, vi } from 'vitest'
-import { createProcessDeepSeekHarness } from '../src/api.ts'
+import { createProcessLyness } from '../src/api.ts'
 import * as sdk from '../src/index.ts'
 import { JsonRpcResponseError, RequestTimeoutError, SdkProtocolError, TransportClosedError } from '../src/index.ts'
 import type { SdkEncodedImageBlock, SdkPromptContentBlock } from '../src/index.ts'
 import type { HarnessNotification, RunResult } from '../src/types.ts'
 
 function harnessWith(environment: Record<string, string> = {}, requestTimeoutMs?: number) {
-  const harness = createProcessDeepSeekHarness({
+  const harness = createProcessLyness({
     command: process.execPath,
     args: [fileURLToPath(new URL('./fixtures/query.ts', import.meta.url))],
     environment: () => ({ ...process.env, ...environment }),

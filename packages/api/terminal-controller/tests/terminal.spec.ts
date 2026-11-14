@@ -1,7 +1,7 @@
 /** Terminal screen continuity and process ownership under real output scheduling. */
 import { PassThrough } from 'node:stream'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { SubprocessOutcome, SubprocessTerminalHandle } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessOutcome, SubprocessTerminalHandle } from '@lyness/lyn-subprocess'
 import { AgentTerminalError } from '../src/agent.ts'
 import { BrowserTerminal } from '../src/terminal.ts'
 import { inputChannel } from './input.ts'

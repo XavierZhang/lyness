@@ -1,7 +1,7 @@
 /** Packaged ripgrep resolution and subprocess execution, independent of tool or Remote consumers. */
 import { existsSync } from 'node:fs'
 import { join, parse } from 'node:path'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessRuntime, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessRuntime, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 
 let rgPathPromise: Promise<string> | undefined
 

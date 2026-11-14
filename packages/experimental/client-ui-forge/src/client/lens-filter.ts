@@ -1,7 +1,7 @@
 /** A changes view's filter lens: the request to the Host, its progress and result, and which hunks it folds. */
 
 import { useEffect, useState } from 'react'
-import { remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import type { ForgeDiffHunk, ForgeLensFrame, ForgeLensKeep, ForgeLensRequest, ForgeLineRange, ForgeRegisteredLens } from '../types.ts'
 import type { HostStream } from './source.ts'
 

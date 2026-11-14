@@ -6,13 +6,13 @@ English | [中文](2026-10-23-session-reading-memory.zh.md)
 
 ## Problem
 
-Clients connected to the same Host need consistent reading reminders, including completions that end while every Client is offline. Automatic acknowledgements must not clear unseen completions or manual unread marks. Reading activity must not change model history. The reminders appear in the Client Session status table that [`@deepseek-ai/dsh-client-ui-session-status`](../../../../packages/client/ui-session-status/README.md) owns, so the reading records, their Client follower, and the table that consumes them need one owner whose Client face may follow a Host Remote stream.
+Clients connected to the same Host need consistent reading reminders, including completions that end while every Client is offline. Automatic acknowledgements must not clear unseen completions or manual unread marks. Reading activity must not change model history. The reminders appear in the Client Session status table that [`@lyness/lyn-client-ui-session-status`](../../../../packages/client/ui-session-status/README.md) owns, so the reading records, their Client follower, and the table that consumes them need one owner whose Client face may follow a Host Remote stream.
 
 ## Decision
 
 ### Package structure
 
-`@deepseek-ai/dsh-client-ui-session-status` owns the feature on both faces, following the Host-and-Client package precedent of ui-trajectory:
+`@lyness/lyn-client-ui-session-status` owns the feature on both faces, following the Host-and-Client package precedent of ui-trajectory:
 
 | Face | Service | Responsibility |
 |---|---|---|
@@ -23,7 +23,7 @@ The Client copy of the reading records is a package-internal module: it exports 
 
 ### Client dependency rules
 
-Following the Host stream needs the Gateway's `RemoteSnapshotStream` at runtime. `verify-client-packages` lets a `packages/client` feature package request rows under `packages/api/` through `dsh.client.external`, while still rejecting requests for another feature plugin's row; the Remote API group is infrastructure, not a feature plugin. The package requests only `@deepseek-ai/dsh-api-gateway/client`. The stream runs only while `ctx.remoteAccess` allows `sessionStatus/follow`; that endpoint is owner-only for LiveShare, so a viewer page opens no stream, keeps `readingReady` false, and reports no synchronization failure.
+Following the Host stream needs the Gateway's `RemoteSnapshotStream` at runtime. `verify-client-packages` lets a `packages/client` feature package request rows under `packages/api/` through `lyn.client.external`, while still rejecting requests for another feature plugin's row; the Remote API group is infrastructure, not a feature plugin. The package requests only `@lyness/lyn-api-gateway/client`. The stream runs only while `ctx.remoteAccess` allows `sessionStatus/follow`; that endpoint is owner-only for LiveShare, so a viewer page opens no stream, keeps `readingReady` false, and reports no synchronization failure.
 
 `RemoteStream` decides reconnection by the stable error code `gateway/carrier-lost` rather than by `instanceof RemoteStreamCarrierError`. The class carries that code, so existing callers keep their behavior, and the package's `ended` callback returns a plain `Error` with the code, typed by the exported `RemoteStreamCarrierFailure` type, without importing the class. The code is produced only inside the Client process: a `RemoteError` returned by the Host terminates the stream even when it carries the same code.
 

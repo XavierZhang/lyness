@@ -5,11 +5,11 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
-import type { Membership, MembershipId, Person, PersonId, Role } from '@deepseek-ai/dsh-people'
-import type { Principal } from '@deepseek-ai/dsh-request-principal'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
+import type { Principal } from '@lyness/lyn-request-principal'
 import IdentityController from '../src/index.ts'
 
 /** The session every principal in this spec presents; no case addresses another. */

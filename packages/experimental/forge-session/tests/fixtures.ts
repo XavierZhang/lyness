@@ -1,17 +1,17 @@
-import { Context } from '@deepseek-ai/cordis'
-import ForgeService, { changeRequestKey } from '@deepseek-ai/dsh-experimental-forge'
+import { Context } from '@lyness/cordis'
+import ForgeService, { changeRequestKey } from '@lyness/lyn-experimental-forge'
 import type {
   ChangeRequestKey, ChangeRequestRef, ChangeRequestSnapshot, ForgeActionFailure, ForgeFailure, ForgeProvider, ForgeReadiness,
   ForgeRepository,
-} from '@deepseek-ai/dsh-experimental-forge'
-import { createAssistantMessage, createToolResultMessage, type ToolCallId } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
+} from '@lyness/lyn-experimental-forge'
+import { createAssistantMessage, createToolResultMessage, type ToolCallId } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
 import ForgeSessionService from '../src/index.ts'
 import type { Config } from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Repository served by {@link FakeProvider}. */
 export const demo: ForgeRepository = { forge: 'fake', host: 'fake.test', owner: 'octo', name: 'demo' }

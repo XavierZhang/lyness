@@ -1,14 +1,14 @@
 - insert:
     - id: office-kit
-      name: '@deepseek-ai/dsh-office-kit'
+      name: '@lyness/lyn-office-kit'
       config:
-        outputDirectory: !!js dshHomePath('office-kit', 'outputs')
+        outputDirectory: !!js lynHomePath('office-kit', 'outputs')
 
     - id: tool-office
-      name: '@deepseek-ai/dsh-tool-office'
+      name: '@lyness/lyn-tool-office'
 
     - id: skill-office
-      name: '@deepseek-ai/dsh-skill-office'
+      name: '@lyness/lyn-skill-office'
       disabled: false
       config:
         assetRoot: !!js process.cwd() + '/office-skills'

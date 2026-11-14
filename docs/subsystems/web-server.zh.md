@@ -2,7 +2,7 @@
 
 [English](web-server.md) | 中文
 
-[dsh-host-webserver](../../packages/host/webserver) 提供 GUI Host 的 HTTP 或 TLS 监听、路由匹配与准入、可选 gzip、index 渲染及唯一回退。功能插件注册各自路由；Connection 通过 `webserver/authorize` 提供来源与凭据决策。载体直接向 handler 或 resource 传递准入 Peer，不构造请求上下文容器（[分层说明](../../packages/boot/app-boot/README.zh.md)）。
+[lyn-host-webserver](../../packages/host/webserver) 提供 GUI Host 的 HTTP 或 TLS 监听、路由匹配与准入、可选 gzip、index 渲染及唯一回退。功能插件注册各自路由；Connection 通过 `webserver/authorize` 提供来源与凭据决策。载体直接向 handler 或 resource 传递准入 Peer，不构造请求上下文容器（[分层说明](../../packages/boot/app-boot/README.zh.md)）。
 
 源码：[`packages/host/webserver/src/index.ts`](../../packages/host/webserver/src/index.ts)
 
@@ -111,13 +111,13 @@ interface TlsConfig {
 }
 ```
 
-没有组合能一次性绑定所有网络接口：未指定地址在加载时即被拒绝。导出的 `isWildcardHost` 与 `isLoopbackHost` 按解析后的地址值分类，IPv6 的 `%zone` 会保留给 `listen`，而分类只读取地址本身。载体执行路由 auth 声明；Connection 拥有来源检查，ConnectionAuthentication 拥有凭据验证；除非 `tls` 提供证书与密钥，否则以明文 HTTP 提供服务。`compression` 默认为 `none`；随附的 Web 组合选择 gzip level 1 和 1024 字节阈值。随附的 `dsh web` 命令默认选择 loopback 并接受一个具体的 `--host` 地址，非 loopback 绑定以明文 HTTP 提供服务时会在启动时警告；其 Connection 插件对匹配的匿名与认证路由检查 Host/Origin，并在要求认证时验证凭据，绑定地址加 `--trusted-host` 决定接受哪个浏览器 Host；`--public-url` 只改变公告的 URL。其他组合自行拥有绑定与路由认证策略。dist 位置是认领席位的前端插件的组装事实。
+没有组合能一次性绑定所有网络接口：未指定地址在加载时即被拒绝。导出的 `isWildcardHost` 与 `isLoopbackHost` 按解析后的地址值分类，IPv6 的 `%zone` 会保留给 `listen`，而分类只读取地址本身。载体执行路由 auth 声明；Connection 拥有来源检查，ConnectionAuthentication 拥有凭据验证；除非 `tls` 提供证书与密钥，否则以明文 HTTP 提供服务。`compression` 默认为 `none`；随附的 Web 组合选择 gzip level 1 和 1024 字节阈值。随附的 `lyn web` 命令默认选择 loopback 并接受一个具体的 `--host` 地址，非 loopback 绑定以明文 HTTP 提供服务时会在启动时警告；其 Connection 插件对匹配的匿名与认证路由检查 Host/Origin，并在要求认证时验证凭据，绑定地址加 `--trusted-host` 决定接受哪个浏览器 Host；`--public-url` 只改变公告的 URL。其他组合自行拥有绑定与路由认证策略。dist 位置是认领席位的前端插件的组装事实。
 
 ## 服务
 
 嵌套服务 `connection.authentication` 通过注册的 Provider 选择 Peer；Connection 执行来源策略，WebServer 将选定 Peer 传给各次调用。[Token 插件](../../packages/host/authentication-token/README.zh.md)贡献签名登录 URL；WebApp 拥有启动打印和浏览器打开行为。[Desktop](../../apps/desktop/README.zh.md#application-overview)使用父进程与 Host 之间私有 IPC 通道交付的凭据，注册独立 Provider；其 ready 消息携带普通 Host 地址和启动注入。
 
-`WebServer`（`ctx.webServer`）在激活时立即监听；监听失败（EADDRINUSE 等）会使初始化被拒绝，启动进程会报告失败的 fiber。`tls` 证书对在监听器绑定前读取一次；文件不可读、为空或二者不匹配时同样会使初始化被拒绝，而不是回退到 HTTP。`register(route)` 添加一条具名路由并返回其 disposer；重复的 `(kind, path)` 抛出异常，因为路由模式是组合层约定，冲突即配置错误。Gzip 在服务器内部包装符合条件且基于 socket 的响应，因此 handler 继续直接持有 `ServerResponse`，resource 则把 `Response` 交给服务写回。已有内容编码、`Cache-Control: no-transform`、范围响应、SSE、ZIP 与打包后的 `.gz` Worker 镜像均保持 identity 响应。`collectIndexInjections(peer)` 经一次传入页面所代表 Peer 的 `webserver/index-inject` emit 收集结构化 `IndexInjection` 行，`renderIndex(html, peer)` 把它们渲染进成功的根路径和配置 index 响应，随后再按注册顺序应用原始的 `tapIndex(transform)` 逃生口转换；[dsh-client-modules](../../packages/client/modules) 以启动 manifest（元数据清单）行回应该事件。`port` 读取监听端口，包括 `config.port` 为 0 时操作系统分配的端口，`protocol` 则报告监听器提供的协议（`http:` 或 `https:`）。
+`WebServer`（`ctx.webServer`）在激活时立即监听；监听失败（EADDRINUSE 等）会使初始化被拒绝，启动进程会报告失败的 fiber。`tls` 证书对在监听器绑定前读取一次；文件不可读、为空或二者不匹配时同样会使初始化被拒绝，而不是回退到 HTTP。`register(route)` 添加一条具名路由并返回其 disposer；重复的 `(kind, path)` 抛出异常，因为路由模式是组合层约定，冲突即配置错误。Gzip 在服务器内部包装符合条件且基于 socket 的响应，因此 handler 继续直接持有 `ServerResponse`，resource 则把 `Response` 交给服务写回。已有内容编码、`Cache-Control: no-transform`、范围响应、SSE、ZIP 与打包后的 `.gz` Worker 镜像均保持 identity 响应。`collectIndexInjections(peer)` 经一次传入页面所代表 Peer 的 `webserver/index-inject` emit 收集结构化 `IndexInjection` 行，`renderIndex(html, peer)` 把它们渲染进成功的根路径和配置 index 响应，随后再按注册顺序应用原始的 `tapIndex(transform)` 逃生口转换；[lyn-client-modules](../../packages/client/modules) 以启动 manifest（元数据清单）行回应该事件。`port` 读取监听端口，包括 `config.port` 为 0 时操作系统分配的端口，`protocol` 则报告监听器提供的协议（`http:` 或 `https:`）。
 
 处理过程中抛出异常的请求（畸形的 % 转义撞上 `decodeURIComponent`、客户端在请求体中途断开）会记录为警告并应答 400（响应头已发出时则销毁 socket），绝不导致进程退出。dispose（资源释放）把 `close()` 与 `closeAllConnections()` 配对使用，因为处理器可能像 SSE（Server-Sent Events）那样保持响应打开，而这类连接永远不会自行结束；没有强制关闭，拆卸就会挂起。TLS socket 只有完成握手后才计入连接，因此服务器会把原始 TLS socket 与升级后的 socket 一并跟踪，并在 dispose 时销毁两者。WebApp 拥有入口 URL 的打印和浏览器打开行为，本服务器负责 HTTP 交付。逐包运维细节（含开发模式的 bundle 监视流水线）留在 [README](../../packages/host/webserver/README.zh.md) 中。
 
@@ -204,7 +204,7 @@ The Web GUI this process serves, provided by the `web-runtime` row.
 
 ```ts cordis-catalog
 /**
- * The URL this GUI advertises, also used for `DSH_WEB_URL` and the startup URL line.
+ * The URL this GUI advertises, also used for `LYNESS_WEB_URL` and the startup URL line.
  * @returns the configured `publicUrl`, otherwise the listener origin.
  */
 getAdvertisedUrl(): string

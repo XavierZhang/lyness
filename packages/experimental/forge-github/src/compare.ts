@@ -1,6 +1,6 @@
 /** Reads GitHub's patch between two commits through the REST compare endpoint. */
 
-import type { ForgeFailure, ForgeRepository } from '@deepseek-ai/dsh-experimental-forge'
+import type { ForgeFailure, ForgeRepository } from '@lyness/lyn-experimental-forge'
 import { isCommit } from './urls.ts'
 
 /** Runs one reading `gh` command and maps a refusal to a failure, as the provider's reads do. */

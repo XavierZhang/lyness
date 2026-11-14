@@ -1,14 +1,14 @@
 /** Current installed Session validation used after vocabulary-aware format restoration. */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   type SessionId,
   SessionLogOffset,
-} from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
-import type { SessionFormatArtifact, SessionFormatHeader } from '@deepseek-ai/dsh-session-format'
+} from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import type { SessionFormatArtifact, SessionFormatHeader } from '@lyness/lyn-session-format'
 import { currentSessionMessageProjections } from './message-projections.ts'
 
 /**

@@ -54,10 +54,10 @@ const scanned = packageFiles(name => name === 'package.json' || name.endsWith('.
 const stylesheets = scanned.filter(file => file.endsWith('.css'))
 const scripts = scanned.filter(file => /\.tsx?$/.test(file))
 
-/** Package roots outside packages/client whose manifest declares `dsh.client`. */
+/** Package roots outside packages/client whose manifest declares `lyn.client`. */
 const roots = scanned.filter(file => file.endsWith('/package.json')).flatMap((file) => {
-  const manifest = JSON.parse(readFileSync(file, 'utf8')) as { dsh?: { client?: object } }
-  return manifest.dsh?.client === undefined ? [] : [file.slice(0, -'package.json'.length)]
+  const manifest = JSON.parse(readFileSync(file, 'utf8')) as { lyn?: { client?: object } }
+  return manifest.lyn?.client === undefined ? [] : [file.slice(0, -'package.json'.length)]
 })
 
 /** Whether a file is feature source covered by the checks: Client package `src/`, not ui-theme sheets or exemptions. */

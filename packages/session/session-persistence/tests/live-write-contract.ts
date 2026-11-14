@@ -7,17 +7,17 @@
  * ordering. Each provider owns its storage runtime; this suite pins the
  * equivalent observable behavior the seam requires.
  *
- * @module @deepseek-ai/dsh-session-persistence/tests/live-write-contract
+ * @module @lyness/lyn-session-persistence/tests/live-write-contract
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
-import { appendPluginRecord, pluginRecordOf, type SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import { appendPluginRecord, pluginRecordOf, type SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import type { SessionPersistence } from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface PluginRecordMap {
     'plugin:persistence-test/state': { count: number }
   }

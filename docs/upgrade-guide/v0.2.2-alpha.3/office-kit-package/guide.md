@@ -1,19 +1,19 @@
 ---
 kind: upgrade-guide
-description: "`@deepseek-ai/dsh-office-kit` replaces `@deepseek-ai/dsh-office-to-pdf`, renaming its service, Remote methods, exported types, and configuration row."
+description: "`@lyness/lyn-office-kit` replaces `@lyness/lyn-office-to-pdf`, renaming its service, Remote methods, exported types, and configuration row."
 ---
 
-# `@deepseek-ai/dsh-office-kit` replaces `@deepseek-ai/dsh-office-to-pdf`
+# `@lyness/lyn-office-kit` replaces `@lyness/lyn-office-to-pdf`
 
 English | [中文](guide.zh.md)
 
 ## Change
 
-The Office conversion provider moved from `@deepseek-ai/dsh-office-to-pdf` to `@deepseek-ai/dsh-office-kit`. Compositions, plugins, and Clients that name the old package, service, Remote methods, or exported symbols are affected:
+The Office conversion provider moved from `@lyness/lyn-office-to-pdf` to `@lyness/lyn-office-kit`. Compositions, plugins, and Clients that name the old package, service, Remote methods, or exported symbols are affected:
 
 | Old | New |
 |---|---|
-| `cordis.yml` row `id: office-to-pdf`, `name: '@deepseek-ai/dsh-office-to-pdf'` | `id: office-kit`, `name: '@deepseek-ai/dsh-office-kit'`; configuration keys are unchanged |
+| `cordis.yml` row `id: office-to-pdf`, `name: '@lyness/lyn-office-to-pdf'` | `id: office-kit`, `name: '@lyness/lyn-office-kit'`; configuration keys are unchanged |
 | `ctx.officeToPdf` | `ctx.officeKit` |
 | Remote `officeToPdf/render`, `officeToPdf/generation` | `officeKit/render`, `officeKit/generation` |
 | `OfficeToPdf` | `OfficeKit` |
@@ -27,8 +27,8 @@ The provider previously failed to load when LibreOffice Kit was absent. It now r
 
 ## Migration
 
-1. In `cordis.yml`, patches, and overlays, change the row `id: office-to-pdf` to `id: office-kit` and its `name` to `'@deepseek-ai/dsh-office-kit'`. Keep its `config` block unchanged.
-2. Replace the dependency `@deepseek-ai/dsh-office-to-pdf` with `@deepseek-ai/dsh-office-kit` in `package.json`, and update import specifiers, including `/types` and `/remote`.
+1. In `cordis.yml`, patches, and overlays, change the row `id: office-to-pdf` to `id: office-kit` and its `name` to `'@lyness/lyn-office-kit'`. Keep its `config` block unchanged.
+2. Replace the dependency `@lyness/lyn-office-to-pdf` with `@lyness/lyn-office-kit` in `package.json`, and update import specifiers, including `/types` and `/remote`.
 3. Rename `ctx.officeToPdf`, Remote method names, and the exported symbols listed above.
 4. Code that treated a load failure of the conversion row as "Kit absent" now checks for `OfficeKitError` with code `unavailable` from conversion instead.
 5. Confirm the migration by searching the project for `office-to-pdf`, `officeToPdf`, and `OfficeToPdf`, then opening a DOCX file in the Web document preview.

@@ -48,7 +48,7 @@ function pathData(svg: string): string {
 
 describe('typesetWordmark', () => {
   it('sets a name as one currentColor path in a box as high as the brand row', () => {
-    const mark = typesetWordmark('HARNESS', [inter])
+    const mark = typesetWordmark('lyness', [inter])
 
     expect(mark.svg.startsWith('<svg xmlns="http://www.w3.org/2000/svg" ')).toBe(true)
     expect(mark.svg.match(/<[a-z]+/gu)).toEqual(['<svg', '<path'])
@@ -63,7 +63,7 @@ describe('typesetWordmark', () => {
   })
 
   it('writes coordinates with at most two decimals and no negative zero', () => {
-    const data = pathData(typesetWordmark('HARNESS', [inter]).svg)
+    const data = pathData(typesetWordmark('lyness', [inter]).svg)
     expect(data).not.toBe('')
     expect(data).not.toMatch(/\d\.\d{3}/u)
     expect(data).not.toMatch(/-0(?![.\d])/u)
@@ -77,8 +77,8 @@ describe('typesetWordmark', () => {
   it('produces the same document for the same name and font, however the bytes are held', () => {
     const padded = new Uint8Array(inter.length + 16)
     padded.set(inter, 8)
-    expect(typesetWordmark('HARNESS', [padded.subarray(8, 8 + inter.length)]).svg)
-      .toBe(typesetWordmark('HARNESS', [inter]).svg)
+    expect(typesetWordmark('lyness', [padded.subarray(8, 8 + inter.length)]).svg)
+      .toBe(typesetWordmark('lyness', [inter]).svg)
   })
 
   it('refuses a name with a line break or control character', () => {
@@ -88,19 +88,19 @@ describe('typesetWordmark', () => {
 
   it('refuses bytes that are not a font, and a font collection, naming which font', () => {
     const notFont = new TextEncoder().encode('not a font')
-    expect(refusal(() => typesetWordmark('HARNESS', [notFont]))).toBe('UNREADABLE_FONT')
-    expect(() => typesetWordmark('HARNESS', [notFont])).toThrow(/the font file could not be read/u)
-    expect(() => typesetWordmark('HARNESS', [inter, notFont])).toThrow(/font 2 could not be read/u)
+    expect(refusal(() => typesetWordmark('lyness', [notFont]))).toBe('UNREADABLE_FONT')
+    expect(() => typesetWordmark('lyness', [notFont])).toThrow(/the font file could not be read/u)
+    expect(() => typesetWordmark('lyness', [inter, notFont])).toThrow(/font 2 could not be read/u)
 
     const collection = new Uint8Array(12)
     collection.set(new TextEncoder().encode('ttcf'))
     new DataView(collection.buffer).setUint32(4, 0x00010000)
-    expect(refusal(() => typesetWordmark('HARNESS', [collection]))).toBe('FONT_COLLECTION')
+    expect(refusal(() => typesetWordmark('lyness', [collection]))).toBe('FONT_COLLECTION')
   })
 
   it('refuses a name no font has a glyph for, naming the characters', () => {
     expect(refusal(() => typesetWordmark('领驭', [inter, cyrillic]))).toBe('MISSING_GLYPH')
-    expect(() => typesetWordmark('DeepSeek Harness 领驭', [inter])).toThrow(/no font has a glyph for "领", "驭"/u)
+    expect(() => typesetWordmark('lyness 领驭', [inter])).toThrow(/no font has a glyph for "领", "驭"/u)
   })
 
   it('refuses a name with nothing visible in it', () => {
@@ -110,7 +110,7 @@ describe('typesetWordmark', () => {
   })
 
   it('refuses a wordmark wider than the sidebar shows whole', () => {
-    const name = 'DeepSeek Harness '.repeat(4).trim()
+    const name = 'lyness '.repeat(4).trim()
     expect(refusal(() => typesetWordmark(name, [inter]))).toBe('TOO_WIDE')
     expect(() => typesetWordmark(name, [inter])).toThrow(/wider than 7:1/u)
   })
@@ -121,7 +121,7 @@ describe('font fallback', () => {
     expect(refusal(() => typesetWordmark('Лyness', [inter]))).toBe('MISSING_GLYPH')
     const mixed = typesetWordmark('Лyness', [inter, cyrillic])
     expect(mixed.width).toBeGreaterThan(typesetWordmark('yness', [inter]).width)
-    expect(typesetWordmark('HARNESS', [inter, cyrillic]).svg).toBe(typesetWordmark('HARNESS', [inter]).svg)
+    expect(typesetWordmark('lyness', [inter, cyrillic]).svg).toBe(typesetWordmark('lyness', [inter]).svg)
   })
 
   it('keeps a space in the run before it when that font draws it', () => {

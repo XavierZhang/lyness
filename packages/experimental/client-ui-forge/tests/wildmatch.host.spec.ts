@@ -30,7 +30,7 @@ describe('attributesOf patterns', () => {
   let remove = async (): Promise<void> => {}
 
   beforeAll(async () => {
-    ({ path: repo, remove } = await scratch('dsh-forge-wildmatch-'))
+    ({ path: repo, remove } = await scratch('lyn-forge-wildmatch-'))
     await git(repo, 'init', '--quiet')
   })
 
@@ -38,9 +38,9 @@ describe('attributesOf patterns', () => {
 
   /** The paths `git check-attr` reports in the layer a one-line `.gitattributes` names. */
   async function gitMatches(pattern: string): Promise<string[]> {
-    await writeFile(join(repo, '.gitattributes'), `${pattern} dsh-review-layer=test\n`)
+    await writeFile(join(repo, '.gitattributes'), `${pattern} lyn-review-layer=test\n`)
     const output = await git(repo, '-c', `core.attributesFile=${join(repo, 'none')}`, '-c', 'core.ignoreCase=false',
-      'check-attr', '-z', 'dsh-review-layer', '--', ...PATHS)
+      'check-attr', '-z', 'lyn-review-layer', '--', ...PATHS)
     const fields = output.split('\0')
     const matched: string[] = []
     for (let index = 0; index + 2 < fields.length; index += 3) {
@@ -51,7 +51,7 @@ describe('attributesOf patterns', () => {
 
   it('applies each pattern to the paths git check-attr applies it to', async () => {
     for (const pattern of PATTERNS) {
-      const read = attributesOf(`${pattern} dsh-review-layer=test\n`)
+      const read = attributesOf(`${pattern} lyn-review-layer=test\n`)
       const ours = PATHS.filter(path => read(path).layer === 'test')
       expect({ pattern, matched: ours }).toEqual({ pattern, matched: await gitMatches(pattern) })
     }

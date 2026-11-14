@@ -31,7 +31,7 @@ const DISCOVERY: Discovery = {
 function config(over: { organization?: string; organizationParameter?: string } = {}) {
   return resolveConfig({
     issuer: ISSUER,
-    clientId: 'deepseek-harness-web',
+    clientId: 'lyness-web',
     secret: 'OIDC_CLIENT_SECRET',
     ...over,
   })
@@ -65,11 +65,11 @@ describe('the PKCE pair', () => {
 
 describe('the authorization request', () => {
   it('carries the code flow, the client, the callback, the state and the challenge', () => {
-    const url = authorizeUrl(DISCOVERY, config(), 'the-state', 'the-challenge', 'https://dsh.example/cb')
+    const url = authorizeUrl(DISCOVERY, config(), 'the-state', 'the-challenge', 'https://lyn.example/cb')
     expect(Object.fromEntries(url.searchParams)).toEqual({
       response_type: 'code',
-      client_id: 'deepseek-harness-web',
-      redirect_uri: 'https://dsh.example/cb',
+      client_id: 'lyness-web',
+      redirect_uri: 'https://lyn.example/cb',
       scope: 'openid profile email',
       state: 'the-state',
       code_challenge: 'the-challenge',
@@ -83,20 +83,20 @@ describe('the authorization request', () => {
     ['only the organization', { organization: 'acme' }, false],
     ['both', { organization: 'acme', organizationParameter: 'organization_id' }, true],
   ])('asks for an organization page with %s', (_case, over, asked) => {
-    const url = authorizeUrl(DISCOVERY, config(over), 's', 'c', 'https://dsh.example/cb')
+    const url = authorizeUrl(DISCOVERY, config(over), 's', 'c', 'https://lyn.example/cb')
     expect(url.searchParams.has('organization_id')).toBe(asked)
   })
 })
 
 describe('the token exchange and the person read', () => {
   it('authenticates the client in the body and repeats the callback and verifier', () => {
-    const request = tokenRequest(DISCOVERY, config(), 'the-secret', 'the-code', 'the-verifier', 'https://dsh.example/cb')
+    const request = tokenRequest(DISCOVERY, config(), 'the-secret', 'the-code', 'the-verifier', 'https://lyn.example/cb')
     expect(request.url.toString()).toBe(`${ISSUER}/token`)
     expect(Object.fromEntries(request.body)).toEqual({
       grant_type: 'authorization_code',
       code: 'the-code',
-      redirect_uri: 'https://dsh.example/cb',
-      client_id: 'deepseek-harness-web',
+      redirect_uri: 'https://lyn.example/cb',
+      client_id: 'lyness-web',
       client_secret: 'the-secret',
       code_verifier: 'the-verifier',
     })

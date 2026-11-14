@@ -1,7 +1,7 @@
 /** Staged worktree row settings using the shared Plugins form model. */
 import { SettingsFormModel, type SettingsFieldState, type SettingsFormActions, type SettingsFormScope,
-  type SettingsFormShell } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
+  type SettingsFormShell } from '@lyness/lyn-client-ui-primitives'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
 
 /** The volatile fields of the worktree service's Config. */
 export interface WorktreeSettings {

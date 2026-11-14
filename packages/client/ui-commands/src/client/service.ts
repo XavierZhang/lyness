@@ -5,7 +5,7 @@
  * catalog with contributions by availability, gives built-in Host rows their
  * localized face (presentation.ts), then position-filters; an empty query
  * lists the Add and Commands sections in usage order, a typed query ranks
- * every row through the shared search filter (`dsh-util-text-search`) over
+ * every row through the shared search filter (`lyn-util-text-search`) over
  * name and label. Descriptions stay unmatched: this source shares one menu and
  * its default highlight with other sources, so a description-only hit would
  * take Enter from a name another group matched. A host/contribution name collision fails loud. Every
@@ -14,23 +14,23 @@
  * Catalog RPCs retain an existing Client Session through completion and
  * wait for its initial history open to succeed before contacting the Host.
  */
-import { Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Context } from '@deepseek-ai/cordis'
+import { Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Context } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (`commands/change` rides the allowlist) into this program.
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type { CommandResult } from '@deepseek-ai/dsh-commands/types'
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type { ISessions, SessionBinding } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { WeakMapWithValues } from '@deepseek-ai/dsh-util-values'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-locale/client'
-import { TextSearchIndex } from '@deepseek-ai/dsh-util-text-search'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { CommandResult } from '@lyness/lyn-commands/types'
+import type { Context as ClientContext } from '@lyness/cordis'
+import type { ISessions, SessionBinding } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { WeakMapWithValues } from '@lyness/lyn-util-values'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
+import { TextSearchIndex } from '@lyness/lyn-util-text-search'
 import type {
   CandidateRequest, ClientSessionContext, CommandClaim, PickOutcome, InputTriggerCandidate, InputTriggerPick,
   SubmitAttachment, SubmitEnvelope, SubmitOutcome,
-} from '@deepseek-ai/dsh-client-ui-input-trigger/client'
+} from '@lyness/lyn-client-ui-input-trigger/client'
 import type { CommandContribution, CommandDecoration, CommandUiContract } from './contract.ts'
 import type { CommandDescriptor } from './directory.ts'
 import { CommandDirectory } from './directory.ts'
@@ -39,14 +39,14 @@ import { builtinRowFace, sectionRows } from './presentation.ts'
 import { claimToken } from './resolution.ts'
 import type { TokenSegment } from './popup.ts'
 
-declare module '@deepseek-ai/dsh-api-session-controller/client' {
+declare module '@lyness/lyn-api-session-controller/client' {
   interface SessionReferenceSourceMap {
     /** A command-catalog fetch waiting for initial history and its RPC result. */
     commandCatalog: unknown
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * This browser client completed one admitted Host command execution.

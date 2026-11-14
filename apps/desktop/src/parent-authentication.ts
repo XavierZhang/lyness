@@ -14,7 +14,7 @@ export class DesktopParentAuthentication {
    */
   deliver(channel: Pick<ChildProcess, 'send'>): Promise<void> {
     return this.#delivery ??= new Promise<void>((resolve, reject) => {
-      const failed = (): void => { reject(new Error('dsh desktop host authentication handoff failed')) }
+      const failed = (): void => { reject(new Error('lyn desktop host authentication handoff failed')) }
       try {
         channel.send({ type: 'desktop-auth', secret: this.#secret }, (error) => {
           if (error !== null) failed()
@@ -32,8 +32,8 @@ export class DesktopParentAuthentication {
    * @returns Cookie header for this owned Host; rejects readiness before a handoff.
    */
   async readyCookie(): Promise<string> {
-    if (this.#delivery === undefined) throw new Error('dsh desktop host became ready before the authentication handoff')
+    if (this.#delivery === undefined) throw new Error('lyn desktop host became ready before the authentication handoff')
     await this.#delivery
-    return `dsh-desktop-session=${this.#secret}`
+    return `lyn-desktop-session=${this.#secret}`
   }
 }

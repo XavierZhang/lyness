@@ -1,17 +1,17 @@
 /** Desktop credential delivery and provider lifetime through the private IPC channel. */
 import { EventEmitter, once } from 'node:events'
 import { randomBytes } from 'node:crypto'
-import { Context } from '@deepseek-ai/cordis'
-import * as Connection from '@deepseek-ai/dsh-client-connection'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import TypertGateway from '@deepseek-ai/dsh-api-gateway'
-import RemoteAccess from '@deepseek-ai/dsh-api-remote-access'
+import { Context } from '@lyness/cordis'
+import * as Connection from '@lyness/lyn-client-connection'
+import WebServer from '@lyness/lyn-host-webserver'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import TypertGateway from '@lyness/lyn-api-gateway'
+import RemoteAccess from '@lyness/lyn-api-remote-access'
 import WebSocket from 'ws'
 import OperatorFixture from '../../../packages/api/gateway/tests/operator-connect-fixture.ts'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { DesktopAuthenticationEnd, receiveDesktopSecret } from '../src/authentication.ts'
-import * as DesktopAuthentication from '@deepseek-ai/dsh-host-authentication-desktop'
+import * as DesktopAuthentication from '@lyness/lyn-host-authentication-desktop'
 
 class Channel extends EventEmitter {
   connected = true
@@ -135,7 +135,7 @@ it('authenticates real HTTP requests using its own Peer and withdraws with its o
   const value = secret()
   const desktop = ctx.plugin(DesktopAuthentication, { readSecret: () => value })
   await desktop.await()
-  const admitted = ctx.connection.authentication.authenticate({ headers: { cookie: `dsh-desktop-session=${value}` } })
+  const admitted = ctx.connection.authentication.authenticate({ headers: { cookie: `lyn-desktop-session=${value}` } })
   if ('rejection' in admitted) throw new Error('Desktop fixture did not register its provider')
   const desktopPeer = admitted.peer
   expect(desktopPeer).not.toBe(ctx.connection.browserPeer)
@@ -150,12 +150,12 @@ it('authenticates real HTTP requests using its own Peer and withdraws with its o
     return { status: response.status, body: await response.text() }
   }
   expect((await request()).status).toBe(401)
-  expect((await request(`dsh-desktop-session=${secret()}`)).status).toBe(401)
-  expect((await request(`dsh-desktop-session=${value}; dsh-desktop-session=${value}`)).status).toBe(401)
-  expect(await request(`other=1; dsh-desktop-session=${value}`)).toEqual({ status: 200, body: desktopPeer.id })
-  expect(await request(`dsh-desktop-session=${value}`)).toEqual({ status: 200, body: desktopPeer.id })
+  expect((await request(`lyn-desktop-session=${secret()}`)).status).toBe(401)
+  expect((await request(`lyn-desktop-session=${value}; lyn-desktop-session=${value}`)).status).toBe(401)
+  expect(await request(`other=1; lyn-desktop-session=${value}`)).toEqual({ status: 200, body: desktopPeer.id })
+  expect(await request(`lyn-desktop-session=${value}`)).toEqual({ status: 200, body: desktopPeer.id })
   const socket = new WebSocket(`${origin.replace('http:', 'ws:')}/api/remote.mux`, {
-    headers: { cookie: `dsh-desktop-session=${value}` },
+    headers: { cookie: `lyn-desktop-session=${value}` },
   })
   const closed = once(socket, 'close')
   onTestFinished(async () => {
@@ -171,5 +171,5 @@ it('authenticates real HTTP requests using its own Peer and withdraws with its o
   await closed
   await vi.waitFor(() => { expect(ctx.operatorConnectFixture.calls.get('desktop')?.finished).toBe(true) })
   expect(desktopPeer.signal.aborted).toBe(true)
-  expect((await request(`dsh-desktop-session=${value}`)).status).toBe(401)
+  expect((await request(`lyn-desktop-session=${value}`)).status).toBe(401)
 })

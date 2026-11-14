@@ -1,4 +1,4 @@
-import { defineProperty, type Awaitable, type Promisify } from '@deepseek-ai/cosmokit'
+import { defineProperty, type Awaitable, type Promisify } from '@lyness/cosmokit'
 import { Context } from './context.ts'
 import { Fiber, FiberState, resolveConfig } from './fiber.ts'
 import { DisposableList, symbols } from './utils.ts'
@@ -177,7 +177,7 @@ export class EventsService {
    * @param type Dispatch mode reported to observers.
    * @param args Dispatch arguments, consumed through the event name.
    * @returns Matching callbacks bound to the dispatch receiver.
-   * DSH retains callback enumeration for per-listener error containment.
+   * LYN retains callback enumeration for per-listener error containment.
    */
   dispatch(type: string, args: any[]) {
     const [thisArg, callbacks] = this._resolve(type, args)

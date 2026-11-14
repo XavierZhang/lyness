@@ -1,9 +1,9 @@
 /** Filesystem-seam source access for the generic stdio LSP provider. */
 
 import { Buffer } from 'node:buffer'
-import { FsError } from '@deepseek-ai/dsh-fs'
-import type { FileSystem, FsTarget } from '@deepseek-ai/dsh-fs'
-import { LspError } from '@deepseek-ai/dsh-lsp'
+import { FsError } from '@lyness/lyn-fs'
+import type { FileSystem, FsTarget } from '@lyness/lyn-fs'
+import { LspError } from '@lyness/lyn-lsp'
 import { throwIfAborted } from './abort.ts'
 
 /** A canonical workspace in the filesystem/subprocess execution world. */

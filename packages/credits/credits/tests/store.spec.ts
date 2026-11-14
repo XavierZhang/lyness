@@ -6,12 +6,12 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import { afterEach, expect, it } from 'vitest'
 import { CreditsExhausted } from '../src/index.ts'
 import StoredCreditLedger, { resolveConfig } from '../src/store.ts'
@@ -23,7 +23,7 @@ afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: 
 
 /** A ledger over durable JSON storage. */
 async function harness(config: Parameters<typeof resolveConfig>[0] = {},
-  root = mkdtempSync(join(tmpdir(), 'dsh-credits-'))): Promise<{ ctx: Context; root: string }> {
+  root = mkdtempSync(join(tmpdir(), 'lyn-credits-'))): Promise<{ ctx: Context; root: string }> {
   roots.push(root)
   const ctx = new Context()
   await ctx.plugin(Storage)

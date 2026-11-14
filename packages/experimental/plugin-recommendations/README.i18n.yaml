@@ -5,45 +5,45 @@
 /:
   en: c34591bc4458dc55
   zh: 7672f17a222f287e
-/deepseek-harness-dsh-plugin-recommendations:
+/lyness-lyn-plugin-recommendations:
   en: 7996c2fcdd87dc50
   zh: aa31c5ee7f368c0c
-/deepseek-harness-dsh-plugin-recommendations/summary:
+/lyness-lyn-plugin-recommendations/summary:
   en: 812ed9efa6ea66be
   zh: 65938c0622819955
-/deepseek-harness-dsh-plugin-recommendations/table-of-contents:
+/lyness-lyn-plugin-recommendations/table-of-contents:
   en: d152484eb41ac6b4
   zh: 59094206ec49ad20
-/deepseek-harness-dsh-plugin-recommendations/use-this-package:
+/lyness-lyn-plugin-recommendations/use-this-package:
   en: ddb55c0174390de1
   zh: 17e7334eead4ab70
-/deepseek-harness-dsh-plugin-recommendations/use-this-package/outcomes-and-recovery:
+/lyness-lyn-plugin-recommendations/use-this-package/outcomes-and-recovery:
   en: 3b07d58a6bc4394a
   zh: 5d64630582c8da80
-/deepseek-harness-dsh-plugin-recommendations/understand-the-implementation:
+/lyness-lyn-plugin-recommendations/understand-the-implementation:
   en: 88ae8a53efb7faad
   zh: 43fa6e9a181b24cc
-/deepseek-harness-dsh-plugin-recommendations/further-exploration:
+/lyness-lyn-plugin-recommendations/further-exploration:
   en: 7d33dc1b189700d7
   zh: ef6c0f5d75ff45ab
-/deepseek-harness-dsh-plugin-recommendations/model-experience:
+/lyness-lyn-plugin-recommendations/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-plugin-recommendations/model-experience/official-plugin-recommendations:
+/lyness-lyn-plugin-recommendations/model-experience/official-plugin-recommendations:
   en: 79e932b35e50619a
   zh: 821b4d95d6ce1d22
-/deepseek-harness-dsh-plugin-recommendations/model-experience/official-plugin-recommendations/what-the-model-sees:
+/lyness-lyn-plugin-recommendations/model-experience/official-plugin-recommendations/what-the-model-sees:
   en: 49e2b81083fedc90
   zh: e1bc660c82b99abf
-/deepseek-harness-dsh-plugin-recommendations/model-experience/official-plugin-recommendations/token-effect:
+/lyness-lyn-plugin-recommendations/model-experience/official-plugin-recommendations/token-effect:
   en: b70f0604f4a70ef9
   zh: e369c6a42092f9c4
-/deepseek-harness-dsh-plugin-recommendations/model-experience/official-plugin-recommendations/kv-cache-effect:
+/lyness-lyn-plugin-recommendations/model-experience/official-plugin-recommendations/kv-cache-effect:
   en: ca095899c94f1cda
   zh: a6f471e8bf78efee
-/deepseek-harness-dsh-plugin-recommendations/known-limitations-and-deferred-work:
+/lyness-lyn-plugin-recommendations/known-limitations-and-deferred-work:
   en: fc3171d0573a897f
   zh: 7acf5dc1c3ecbe41
-/deepseek-harness-dsh-plugin-recommendations/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-plugin-recommendations/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

@@ -1,10 +1,10 @@
 /** WebApp collects provider entry URLs and owns browser handoff. */
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import * as AppBoot from '@deepseek-ai/dsh-app-boot'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import * as AppBoot from '@lyness/lyn-app-boot'
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
-import { createLaunchEnvironmentSnapshot, DSH_LAUNCH_ENVIRONMENT_KEY } from '@deepseek-ai/dsh-launch-environment'
-import type { WebServer } from '@deepseek-ai/dsh-host-webserver'
+import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/lyn-launch-environment'
+import type { WebServer } from '@lyness/lyn-host-webserver'
 import { apply, type Config, internals } from '../src/index.ts'
 
 const originalOpen = internals.openBrowser
@@ -13,7 +13,7 @@ afterEach(() => { internals.openBrowser = originalOpen; vi.restoreAllMocks() })
 async function setup(options: { origin?: string; ssh?: 'SSH_CONNECTION' | 'SSH_TTY'; settle?: () => Promise<void> } = {}) {
   const ctx = new Context()
   onTestFinished(() => ctx.fiber.dispose())
-  ctx.provide(DSH_LAUNCH_ENVIRONMENT_KEY, createLaunchEnvironmentSnapshot([
+  ctx.provide(LYNESS_LAUNCH_ENVIRONMENT_KEY, createLaunchEnvironmentSnapshot([
     { source: 'process', values: options.ssh === undefined ? {} : { [options.ssh]: 'remote-launch' } },
     { source: 'project-env', path: '/project/.env', values: { SSH_TTY: 'project-setting' } },
   ]))
@@ -24,7 +24,7 @@ async function setup(options: { origin?: string; ssh?: 'SSH_CONNECTION' | 'SSH_T
   ctx.provide('webServer', server as WebServer)
   const baseUrl = () => options.origin ?? 'http://127.0.0.1:3080/'
   const auth = { authenticatedUrl: (url: string) => `${url}?token=fixture-token` }
-  const removeEntry = ctx.on('webserver/entry-url', (url, entries) => { entries.push({ label: 'dsh web', url: auth.authenticatedUrl(url), open: true }) })
+  const removeEntry = ctx.on('webserver/entry-url', (url, entries) => { entries.push({ label: 'lyn web', url: auth.authenticatedUrl(url), open: true }) })
   const log = vi.spyOn(console, 'log').mockImplementation(() => {})
   const error = vi.spyOn(console, 'error').mockImplementation(() => {})
   const open = vi.fn<(url: string) => Promise<void>>().mockResolvedValue(undefined)
@@ -45,8 +45,8 @@ it('prints and opens its authenticated advertised URL in order', async () => {
   publishStartup(ctx, { printUrl: true, openBrowser: true }, baseUrl)
   const expected = auth.authenticatedUrl('https://public.test/ui/')
   await vi.waitFor(() => { expect(events).toEqual([
-    `dsh web: ${expected}`,
-    'dsh web: opening the default browser; pass --no-open to disable',
+    `lyn web: ${expected}`,
+    'lyn web: opening the default browser; pass --no-open to disable',
     `open:${expected}`,
   ]) })
 })
@@ -61,7 +61,7 @@ it('keeps startup dormant when both flags are disabled', async () => {
 it.each(['SSH_CONNECTION', 'SSH_TTY'] as const)('prints without opening when %s marks SSH', async (ssh) => {
   const remote = await setup({ ssh })
   publishStartup(remote.ctx, { printUrl: true, openBrowser: true }, remote.baseUrl)
-  await vi.waitFor(() => { expect(remote.log).toHaveBeenCalledWith(`dsh web: ${remote.auth.authenticatedUrl('http://127.0.0.1:3080/')}`) })
+  await vi.waitFor(() => { expect(remote.log).toHaveBeenCalledWith(`lyn web: ${remote.auth.authenticatedUrl('http://127.0.0.1:3080/')}`) })
   expect(remote.open).not.toHaveBeenCalled()
 })
 
@@ -139,7 +139,7 @@ it('publishes after successful Loader settlement', async () => {
   expect(log).not.toHaveBeenCalled()
   gate.resolve(undefined)
   await vi.waitFor(() => { expect(open).toHaveBeenCalledOnce() })
-  expect(log).toHaveBeenCalledWith(`dsh web: ${auth.authenticatedUrl('http://127.0.0.1:3080/')}`)
+  expect(log).toHaveBeenCalledWith(`lyn web: ${auth.authenticatedUrl('http://127.0.0.1:3080/')}`)
 })
 
 it('collects an entry registered while application readiness is pending', async () => {
@@ -151,12 +151,12 @@ it('collects an entry registered while application readiness is pending', async 
   publishStartup(ctx, { printUrl: true, openBrowser: true }, baseUrl)
   expect(collect).not.toHaveBeenCalled()
   ctx.on('webserver/entry-url', (_base, entries) => {
-    entries.push({ label: 'dsh late', url: 'https://late.test/', open: true })
+    entries.push({ label: 'lyn late', url: 'https://late.test/', open: true })
   })
   gate.resolve(undefined)
   await vi.waitFor(() => { expect(open).toHaveBeenCalledOnce() })
   expect(collect).toHaveBeenCalledOnce()
-  expect(log).toHaveBeenCalledWith('dsh late: https://late.test/')
+  expect(log).toHaveBeenCalledWith('lyn late: https://late.test/')
 })
 
 it('does not announce failed Loader startup', async () => {
@@ -205,7 +205,7 @@ it.each([new Error('launcher unavailable'), 'launcher unavailable'])('reports op
   open.mockRejectedValue(failure)
   publishStartup(ctx, { printUrl: true, openBrowser: true }, baseUrl)
   await vi.waitFor(() => { expect(error).toHaveBeenCalledOnce() })
-  expect(error).toHaveBeenCalledWith('web-app: could not open the default browser because launcher unavailable; use the dsh web URL printed at startup')
+  expect(error).toHaveBeenCalledWith('web-app: could not open the default browser because launcher unavailable; use the lyn web URL printed at startup')
   expect(error.mock.calls.flat().join(' ')).not.toContain(new URL(auth.authenticatedUrl('http://localhost')).searchParams.get('token'))
 })
 
@@ -215,18 +215,18 @@ it('prints all contributed entries and opens only the first eligible entry', asy
   removeEntry()
   ctx.on('webserver/entry-url', (base, entries) => {
     expect(base).toBe(baseUrl())
-    entries.push({ label: 'dsh remote', url: 'https://remote.test/invite', open: false })
+    entries.push({ label: 'lyn remote', url: 'https://remote.test/invite', open: false })
   })
   ctx.on('webserver/entry-url', (_base, entries) => {
-    entries.push({ label: 'dsh web', url: 'https://web.test/?token=first', open: true })
-    entries.push({ label: 'dsh other', url: 'https://other.test/', open: true })
+    entries.push({ label: 'lyn web', url: 'https://web.test/?token=first', open: true })
+    entries.push({ label: 'lyn other', url: 'https://other.test/', open: true })
   })
   publishStartup(ctx, { printUrl: true, openBrowser: true }, baseUrl)
   expect(log.mock.calls.map(call => String(call[0]))).toEqual([
-    'dsh remote: https://remote.test/invite',
-    'dsh web: https://web.test/?token=first',
-    'dsh other: https://other.test/',
-    'dsh web: opening the default browser; pass --no-open to disable',
+    'lyn remote: https://remote.test/invite',
+    'lyn web: https://web.test/?token=first',
+    'lyn other: https://other.test/',
+    'lyn web: opening the default browser; pass --no-open to disable',
   ])
   expect(open).toHaveBeenCalledOnce()
   expect(open).toHaveBeenCalledWith('https://web.test/?token=first', expect.any(AbortSignal))
@@ -237,7 +237,7 @@ it.each(['absent', 'not-openable'] as const)('does not invent a browser URL when
   removeEntry()
   if (mode === 'not-openable') {
     ctx.on('webserver/entry-url', (_base, entries) => {
-      entries.push({ label: 'dsh remote', url: 'https://remote.test/invite', open: false })
+      entries.push({ label: 'lyn remote', url: 'https://remote.test/invite', open: false })
     })
   }
   publishStartup(ctx, { printUrl: true, openBrowser: true }, baseUrl)

@@ -8,24 +8,24 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import LlmRuntime, { LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt, { renderContextSnapshot } from '@deepseek-ai/dsh-system-prompt'
-import Tools from '@deepseek-ai/dsh-tools'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import { assembleContextFor } from '@deepseek-ai/dsh-agent'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import { SESSION_OWNER_RECORD_VERSION } from '@deepseek-ai/dsh-session-ownership/types'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime, { LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt, { renderContextSnapshot } from '@lyness/lyn-system-prompt'
+import Tools from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import { assembleContextFor } from '@lyness/lyn-agent'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import { SESSION_OWNER_RECORD_VERSION } from '@lyness/lyn-session-ownership/types'
 import MemoryService, { memoryOwnerOfPerson, personalKey, readPersonalKey } from '../src/index.ts'
 import type { MemoryPartitionKey } from '../src/types.ts'
 import type { MemoryId } from '../src/types.ts'
@@ -54,7 +54,7 @@ afterEach(async () => {
 })
 
 /** A deployment with sessions, agents, the prompt, and memory. */
-async function bench(root = mkdtempSync(join(tmpdir(), 'dsh-memory-partition-'))): Promise<Context> {
+async function bench(root = mkdtempSync(join(tmpdir(), 'lyn-memory-partition-'))): Promise<Context> {
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)
@@ -245,7 +245,7 @@ describe('a durable write that fails', () => {
 
 describe('what was stored before owners were recorded', () => {
   it('stays visible to everybody, which is what it has always been', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-memory-legacy-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-memory-legacy-'))
     writeFileSync(join(root, 'memory.json'), `${JSON.stringify({
       unit: { name: 'memory', version: 1 },
       global: null,

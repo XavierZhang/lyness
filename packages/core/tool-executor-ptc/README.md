@@ -3,7 +3,7 @@ description: "Program-based tool execution, generated SDKs, and nested-call limi
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-executor-ptc
+# @lyness/lyn-tool-executor-ptc
 
 English | [中文](README.zh.md)
 
@@ -25,10 +25,10 @@ Use this executor when models should call tools through `run_code` programs. Mou
 <a id="use-this-package"></a>
 ## Use this package
 
-Add this row to a composition with `dsh-tools` mounted. The nearest scoped executor selects tool behavior; one scope permits only one executor.
+Add this row to a composition with `lyn-tools` mounted. The nearest scoped executor selects tool behavior; one scope permits only one executor.
 
 ```yaml
-- name: '@deepseek-ai/dsh-tool-executor-ptc'
+- name: '@lyness/lyn-tool-executor-ptc'
   config:
     maxSubCallsPerMinute: 1024
     maxParallelSubCalls: 10
@@ -42,13 +42,13 @@ Root `run_code` calls are exclusive and execute serially. `maxParallelSubCalls` 
 
 This package declares `ctx.ptcRuntime` and `ctx.systemPrompt` as required injections; Agent-owned programs need `ctx.workingDirectory`. The executor activates only after its runtime is available and withdraws when that runtime unloads. An enabled PTC executor without a runtime stops application startup. A withdrawn PTC selection never falls back to native execution.
 
-Shared dispatch events and the `ptc-mode` message-source declaration live in `@deepseek-ai/dsh-tool-executor-ptc/types`; Client code imports the same declarations through `@deepseek-ai/dsh-tool-executor-ptc/client`. Both entries exclude Host service declarations. Host policy extensions use `import type` from the package entry for `PtcDispatchLog` and `tools/ptc-dispatch-log` without mounting the executor.
+Shared dispatch events and the `ptc-mode` message-source declaration live in `@lyness/lyn-tool-executor-ptc/types`; Client code imports the same declarations through `@lyness/lyn-tool-executor-ptc/client`. Both entries exclude Host service declarations. Host policy extensions use `import type` from the package entry for `PtcDispatchLog` and `tools/ptc-dispatch-log` without mounting the executor.
 
 The `/run-code` entry exports `createRunCodeTool` for plugins that register a named program tool alongside native tools. Supply an explicit runtime and the complete private `ToolDefinition` list, then register the returned definition in the owning scope. Programs can call only that list, even when the Agent can call other native tools; the private definitions do not enter the tool registry. Nested calls retain normal approvals, guards, dispatch logs, screenshots, deferred context, and turn completion. `RunCodeConfig` exposes the same validated call-allowance and concurrency settings as this executor.
 
 The caller owns the supplied runtime and must keep it available until the factory's context finishes disposal. For runtimes that retain state or enforce a sandbox, disposal cancels active Agent programs and waits for nested calls; Agent disposal releases its retained environment. Environment initialization belongs to the supplied [runtime's registration API](../../ptc-runtime/ptc-runtime/README.md#choose-a-backend); register it before exposing the program tool. The factory appends runtime syntax and execution guidance to the caller's description; the caller supplies instructions for the private bindings.
 
-[Configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-tool-executor-ptc)
+[Configuration catalog](../../../docs/config-catalog.md#lynesslyn-tool-executor-ptc)
 
 -----
 
@@ -97,7 +97,7 @@ Custom host integrations retain their `PtcExecutor` instance and call `reset(age
 
 #### What the model sees
 
-PTC mode exposes the generated [`run_code` schema](../../../docs/tool-catalog.md#deepseek-aidsh-tool-executor-ptc), the SDK instructions below, and the generated exact TypeScript SDK block. The schema lists `code` before `description`; this is presentation order, not an enforced JSON member order. REPL and Script runtimes share the generic tool description and SDK instructions; their `executionInstructions` supply syntax and state rules. The TypeScript SDK declares `inspect(...values)` and uses it in the bash example for every execution mode. The instructions identify generated declarations as program-only bindings. When the current `bash` parameter schema accepts the example arguments, they also show a complete `run_code` call around `tools.bash(...)`. The `tools:sdk` section uses first-party order 5000 and disables prompt-variable interpolation, preserving literal `{{…}}` text in tool descriptions and schemas in TypeScript programs. Under `ptc`, the prompt also carries the `tools:ptc-only` rule earlier in the first-party order, so the model reads which tools it may call before it reads what each one is for. Exhausting the tool-call allowance returns a failed `run_code` result with the limit, rejected call number, termination notice, and possible infinite-loop warning. Runtime cleanup diagnostics and captured output remain visible. TypeScript programs show selected values with `inspect(...values)`. Each argument is rendered independently. The executor omits function returns and final expression values. The Node provider retains the complete native console and captures its stdout and stderr writes; model instructions direct programs to use `inspect`.
+PTC mode exposes the generated [`run_code` schema](../../../docs/tool-catalog.md#lynesslyn-tool-executor-ptc), the SDK instructions below, and the generated exact TypeScript SDK block. The schema lists `code` before `description`; this is presentation order, not an enforced JSON member order. REPL and Script runtimes share the generic tool description and SDK instructions; their `executionInstructions` supply syntax and state rules. The TypeScript SDK declares `inspect(...values)` and uses it in the bash example for every execution mode. The instructions identify generated declarations as program-only bindings. When the current `bash` parameter schema accepts the example arguments, they also show a complete `run_code` call around `tools.bash(...)`. The `tools:sdk` section uses first-party order 5000 and disables prompt-variable interpolation, preserving literal `{{…}}` text in tool descriptions and schemas in TypeScript programs. Under `ptc`, the prompt also carries the `tools:ptc-only` rule earlier in the first-party order, so the model reads which tools it may call before it reads what each one is for. Exhausting the tool-call allowance returns a failed `run_code` result with the limit, rejected call number, termination notice, and possible infinite-loop warning. Runtime cleanup diagnostics and captured output remain visible. TypeScript programs show selected values with `inspect(...values)`. Each argument is rendered independently. The executor omits function returns and final expression values. The Node provider retains the complete native console and captures its stdout and stderr writes; model instructions direct programs to use `inspect`.
 
 ##### TypeScript PTC mode SDK instructions with bash
 

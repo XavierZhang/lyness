@@ -1,5 +1,5 @@
 /** One shell-owned channel subscription shared by Settings views and their toast. */
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type { DesktopChannelBridge, DesktopChannelState, DesktopUpdateChannel, DesktopChannelChangeResult } from '../types.ts'
 
 type Notice = { sequence: number; outcome: 'configuration' | 'applied' | Extract<DesktopChannelChangeResult, { kind: 'failed' }>['reason'] }

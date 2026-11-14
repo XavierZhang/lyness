@@ -3,13 +3,13 @@ description: "The ctx.fs filesystem service contract for deployments choosing or
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-fs
+# @lyness/lyn-fs
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `dsh-fs` for consistent file access across local, confined, and SSH execution environments. Consumers can resolve stable identities, read text or bounded bytes, list directories, watch targets, write files, apply literal edits or patch hunks, delete files, and move text files with optional patching. Optional version guards reject stale mutations. Moves report destination publication separately from source removal. Mount a provider for the chosen environment; `dsh-tool-fs` supplies model-facing tools separately.
+Use `lyn-fs` for consistent file access across local, confined, and SSH execution environments. Consumers can resolve stable identities, read text or bounded bytes, list directories, watch targets, write files, apply literal edits or patch hunks, delete files, and move text files with optional patching. Optional version guards reject stale mutations. Moves report destination publication separately from source removal. Mount a provider for the chosen environment; `lyn-tool-fs` supplies model-facing tools separately.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Use `dsh-fs` for consistent file access across local, confined, and SSH executio
 <a id="use-this-package"></a>
 ## Use this package
 
-You rarely load `dsh-fs` directly: you mount a backend that registers as `ctx.fs`, then either call the service from your own plugin or let the `dsh-tool-fs` tools call it for you. This page serves the two audiences that do touch it — deployments choosing a backend, and developers implementing or consuming the contract.
+You rarely load `lyn-fs` directly: you mount a backend that registers as `ctx.fs`, then either call the service from your own plugin or let the `lyn-tool-fs` tools call it for you. This page serves the two audiences that do touch it — deployments choosing a backend, and developers implementing or consuming the contract.
 
 ### Choosing and mounting a backend
 
@@ -33,7 +33,7 @@ Pick [`fs-local`](../fs-local/README.md) for ordinary host files or [`fs-sandbox
 
 ### What the service lets you do
 
-Through `ctx.fs`, resolve paths, read text or bounded bytes, list direct children, and perform guarded mutations. `patchText` applies parsed hunks under the same lock as its version check. `deleteFile` removes a regular file. `moveFile` locks both targets, optionally patches the source text, publishes the destination, then removes the source. Guards are optional: omission mutates the current state unconditionally. Failures carry stable `FsError` codes from the runtime `FS_ERROR_CODES` list, which transport validators reuse. Host-backed providers, currently `dsh-fs-local` and the `dsh-fs-sandbox` containment check, classify errno failures with `fsErrorFromErrno`: `ENOENT` and `ENOTDIR` become `FS_NOT_FOUND`, `EACCES` and `EPERM` become `FS_PERMISSION_DENIED`, `EISDIR` where a file is required becomes `FS_NOT_REGULAR_FILE`, and other errno values become `FS_IO_ERROR`, with the original error as `cause`.
+Through `ctx.fs`, resolve paths, read text or bounded bytes, list direct children, and perform guarded mutations. `patchText` applies parsed hunks under the same lock as its version check. `deleteFile` removes a regular file. `moveFile` locks both targets, optionally patches the source text, publishes the destination, then removes the source. Guards are optional: omission mutates the current state unconditionally. Failures carry stable `FsError` codes from the runtime `FS_ERROR_CODES` list, which transport validators reuse. Host-backed providers, currently `lyn-fs-local` and the `lyn-fs-sandbox` containment check, classify errno failures with `fsErrorFromErrno`: `ENOENT` and `ENOTDIR` become `FS_NOT_FOUND`, `EACCES` and `EPERM` become `FS_PERMISSION_DENIED`, `EISDIR` where a file is required becomes `FS_NOT_REGULAR_FILE`, and other errno values become `FS_IO_ERROR`, with the original error as `cause`.
 
 `watch(target, changed, signal)` reports invalidations for one file or a directory's direct entries. It resolves once observation is ready with an asynchronous close function that the caller must await. The signal cancels initialization; unsupported providers reject without polling.
 
@@ -52,7 +52,7 @@ This section explains the design decisions behind the contract and points at the
 The contract is built on one separation and three commitments:
 
 - **Contract over mechanism.** The service names what a storage layer can do — resolve, stat, read, list, watch, write, edit, patch, delete, move — and never how it stores bytes. Backends own target identity, execution-world coordinates, decoding, binary rejection, and atomicity.
-- **Policy stays off the base class.** Observed-state, read-before-edit, and version-guarded mutations are a plugin's job (`dsh-fs-observation-policy`), added by supplying the optional guard — so a sandboxed or remote backend inherits no model-facing observation policy.
+- **Policy stays off the base class.** Observed-state, read-before-edit, and version-guarded mutations are a plugin's job (`lyn-fs-observation-policy`), added by supplying the optional guard — so a sandboxed or remote backend inherits no model-facing observation policy.
 - **`editText` stays on the seam.** Version check, literal match, and atomic rewrite share one critical section, so error attribution and one-wins/one-stale concurrency stay correct; a remote backend may implement it as a native compare-and-edit.
 - **Bounds live at this seam.** `readBytes` requires `maxBytes` and fails with `FS_TOO_LARGE` rather than truncating, so no backend ever buffers an unbounded file. `readByteRange` is bounded by its window instead: a backend transfers at most the requested `length` beyond the prefix it skips, so the caller's cap on `length` is the guard.
 
@@ -106,7 +106,7 @@ Read these pages when the package-level contract is not enough. They move from t
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through `dsh-tool-fs`, which renders provider text and errors as bounded, retained filesystem tool results.
+Indirectly, through `lyn-tool-fs`, which renders provider text and errors as bounded, retained filesystem tool results.
 
 #### KV Cache effect
 

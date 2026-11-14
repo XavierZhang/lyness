@@ -1,5 +1,5 @@
 /** Cordis rc.12 root access, intercept metadata, isolation, disposal and event errors. */
-import { Context, FiberState, Service, ValidationError } from '@deepseek-ai/cordis'
+import { Context, FiberState, Service, ValidationError } from '@lyness/cordis'
 import { describe, expect, it, onTestFinished } from 'vitest'
 
 interface Metadata {
@@ -9,7 +9,7 @@ interface Metadata {
   tags?: string[]
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     rc12Meta: MetadataService
     rc12View: string

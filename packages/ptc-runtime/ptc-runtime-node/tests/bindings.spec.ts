@@ -7,7 +7,7 @@ describe('program binding validation', () => {
   it.each(['a-b', '', 'while', 'eval', 'console'])('rejects unusable global %s', (global) => {
     expect(() => validateBindings({ program: '', bindings: [{ global, functions: {} }] }, 'function-body')).toThrow(expect.objectContaining(INVALID_ARGUMENT))
   })
-  it.each(['$name', 'lambda', 'nonlocal', '__dsh_main__', '__builtins__', '__name__', '__debug__'])('accepts TypeScript global and error class %s', (name) => {
+  it.each(['$name', 'lambda', 'nonlocal', '__lyn_main__', '__builtins__', '__name__', '__debug__'])('accepts TypeScript global and error class %s', (name) => {
     expect(validateBindings({ program: '', bindings: [{ global: name, functions: {} }] }, 'function-body').has(name)).toBe(true)
     expect(validateBindings({ program: '', bindings: [{ global: 'tools', functions: {}, errorClass: { name, memberNameProperty: 'member' } }] }, 'function-body').has('tools')).toBe(true)
   })

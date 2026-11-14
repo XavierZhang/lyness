@@ -4,7 +4,7 @@
  * HTTP transport. Replay therefore reaches the model-visible failure text without external network
  * while retaining the recorded request URL.
  */
-import { HttpFetchProvider } from '@deepseek-ai/dsh-web-fetch-http'
+import { HttpFetchProvider } from '@lyness/lyn-web-fetch-http'
 import { applyLoopbackServerEffect } from '../loopback-fixture-server.mjs'
 
 /** Model-visible URL retained by the recorded session. */
@@ -21,7 +21,7 @@ const LIMITS = {
   maxBodyChars: 100_000,
   timeoutMs: 30_000,
   maxRedirects: 5,
-  userAgent: 'deepseek-harness-snapshot/1.0',
+  userAgent: 'lyness-snapshot/1.0',
 }
 
 /**

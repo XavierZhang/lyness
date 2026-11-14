@@ -3,7 +3,7 @@ description: "面向为内存列表添加搜索框或过滤器的维护者，说
 kind: "package-library"
 ---
 
-# dsh-util-text-search
+# lyn-util-text-search
 
 [English](README.md) | 中文
 
@@ -27,8 +27,8 @@ Web 客户端中的所有内存搜索列表，以及为其提供数据的 Host �
 它是**库，不是服务也不是插件**：无 `ctx`，也不注册任何东西。每个索引由调用方持有；浏览器打包产物会内联本包。
 
 ```ts
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
-import { localizedValues, TextSearchIndex, type SearchKeys } from '@deepseek-ai/dsh-util-text-search'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
+import { localizedValues, TextSearchIndex, type SearchKeys } from '@lyness/lyn-util-text-search'
 
 interface Row { readonly id: string; readonly meta?: { readonly title?: LocalizedText; readonly description?: LocalizedText } }
 const keys = (row: Row): SearchKeys => ({

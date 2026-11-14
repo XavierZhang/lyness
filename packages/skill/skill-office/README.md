@@ -3,7 +3,7 @@ description: "Progressive Office routing and authoring skills that direct render
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-skill-office
+# @lyness/lyn-skill-office
 
 English | [中文](README.zh.md)
 
@@ -26,10 +26,10 @@ The catalog lists the Office router and three authoring skills. Full instruction
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount the skill provider beside the skill registry and `dsh-tool-skill`. The provider supplies skill instructions; Python skills append a Python environment section. The skills direct operations to `office_render`, `office_convert`, and `office_recalculate`, so compose [`tool-office`](../../document/tool-office/README.md) beside this provider.
+Mount the skill provider beside the skill registry and `lyn-tool-skill`. The provider supplies skill instructions; Python skills append a Python environment section. The skills direct operations to `office_render`, `office_convert`, and `office_recalculate`, so compose [`tool-office`](../../document/tool-office/README.md) beside this provider.
 
 ```yaml
-- name: '@deepseek-ai/dsh-skill-office'
+- name: '@lyness/lyn-skill-office'
 
 ```
 
@@ -38,7 +38,7 @@ Mount the skill provider beside the skill registry and `dsh-tool-skill`. The pro
 | `assetRoot` | Packaged `assets/` | Absolute directory containing the four skill folders. |
 | `pythonEnvironment` | `'workspace-dependencies'` | Python that `office-docx`, `office-pptx`, and `office-xlsx` direct the model to; see below. |
 
-`pythonEnvironment` selects one fixed section appended to those three skills. Both values first defer to an explicit user or applicable AGENTS.md environment requirement. `'workspace-dependencies'` directs the model to call `load_workspace_dependencies` and use the bundled Python and libraries it returns; mount it only with `dsh-tool-workspace-dependencies`. A custom composition that mounts this package without `dsh-tool-workspace-dependencies` must configure `pythonEnvironment: user`. `'user'` directs the model to the project's or user's existing Python on PATH, to check that the required libraries import, and to name missing packages instead of installing them globally without the user's agreement.
+`pythonEnvironment` selects one fixed section appended to those three skills. Both values first defer to an explicit user or applicable AGENTS.md environment requirement. `'workspace-dependencies'` directs the model to call `load_workspace_dependencies` and use the bundled Python and libraries it returns; mount it only with `lyn-tool-workspace-dependencies`. A custom composition that mounts this package without `lyn-tool-workspace-dependencies` must configure `pythonEnvironment: user`. `'user'` directs the model to the project's or user's existing Python on PATH, to check that the required libraries import, and to name missing packages instead of installing them globally without the user's agreement.
 
 A relative `assetRoot` rejects registration. Catalog discovery reads each `SKILL.md`. A missing or invalid skill is omitted from the catalog with a warning, and a skill whose file disappears after discovery fails to load and leaves the catalog. Other read errors, such as a locked file, leave discovery incomplete so the registry retries it. Loading instructions resolves no executable and prepares no engine; the Office tools report an unavailable LibreOffice Kit when called. Bash or PowerShell owns the approvals, sandboxing, and cancellation of copying converted files into the workspace.
 
@@ -110,7 +110,7 @@ The provider registers no tools or activation projection. Loaded skill results r
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through `dsh-tool-skill`, which renders the initial Office summary and returns routing or selected subskill instructions from `skill(name)`. The Python skills end with a Python environment section that names either `load_workspace_dependencies` or the user's existing Python, according to `pythonEnvironment`.
+Indirectly, through `lyn-tool-skill`, which renders the initial Office summary and returns routing or selected subskill instructions from `skill(name)`. The Python skills end with a Python environment section that names either `load_workspace_dependencies` or the user's existing Python, according to `pythonEnvironment`.
 
 #### KV Cache effect
 

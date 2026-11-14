@@ -21,7 +21,7 @@ In both shell cases the schema does not advertise the rejected argument, so the 
 
 The shell messages now start with `invalid arguments: `, and the escalation message names both fields: `invalid arguments: sandbox_permissions and justification are not available in this composition (no sandboxing executor to escalate)`. `SANDBOX_ESCALATION_UNAVAILABLE` keeps its meaning for compositions that have a sandboxing executor but no approval service, calling Agent, or approval channel.
 
-`JOB_BACKGROUND_DISABLED` is removed from `JOB_ERROR_CODES` and the `JobErrorCode` type in `@deepseek-ai/dsh-jobs`. `ImageInputErrorCode` in `@deepseek-ai/dsh-tool-fs` replaces `IMAGE_UNSUPPORTED_MODEL` with `MODEL_DOES_NOT_SUPPORT_IMAGES`, the value subagent attachments and Session attachment rejections already use.
+`JOB_BACKGROUND_DISABLED` is removed from `JOB_ERROR_CODES` and the `JobErrorCode` type in `@lyness/lyn-jobs`. `ImageInputErrorCode` in `@lyness/lyn-tool-fs` replaces `IMAGE_UNSUPPORTED_MODEL` with `MODEL_DOES_NOT_SUPPORT_IMAGES`, the value subagent attachments and Session attachment rejections already use.
 
 ## Migration
 

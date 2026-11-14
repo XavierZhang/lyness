@@ -15,7 +15,7 @@ English | [中文](guide.zh.md)
 
 The `forgePanel.changeRequestDiff` Remote rejects with `forgePanel/stale-head` instead of returning a patch read at another head.
 
-This affects third-party `ForgeProvider` implementations registered with `ctx.forge.register`, code that calls `ctx.forge.diff` or `forgePanel.changeRequestDiff`, code that builds `ChangeRequestSnapshot` values, and code that switches exhaustively over `ForgeFailure['code']`. All types come from `@deepseek-ai/dsh-experimental-forge`.
+This affects third-party `ForgeProvider` implementations registered with `ctx.forge.register`, code that calls `ctx.forge.diff` or `forgePanel.changeRequestDiff`, code that builds `ChangeRequestSnapshot` values, and code that switches exhaustively over `ForgeFailure['code']`. All types come from `@lyness/lyn-experimental-forge`.
 
 ## Migration
 

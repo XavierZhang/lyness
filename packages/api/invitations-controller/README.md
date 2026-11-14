@@ -3,13 +3,13 @@ description: "The surface administrators issue, read and withdraw invitation cod
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-invitations-controller
+# @lyness/lyn-api-invitations-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-invitations-controller` owns the `invitations` Remote namespace: the invitations a standing administers, the call that issues one, the call that withdraws one, and the call anybody signed in accepts one with. It decides nothing about who may issue what — `dsh-invitations` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. The code crosses the wire once, in the answer to `issue`, because the deployment keeps only its hash. Every other answer carries what an invitation grants, when it lapses, and how much of it is left.
+`lyn-api-invitations-controller` owns the `invitations` Remote namespace: the invitations a standing administers, the call that issues one, the call that withdraws one, and the call anybody signed in accepts one with. It decides nothing about who may issue what — `lyn-invitations` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. The code crosses the wire once, in the answer to `issue`, because the deployment keeps only its hash. Every other answer carries what an invitation grants, when it lapses, and how much of it is left.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ The accounts module mounts it beside the invitations it speaks for:
 
 ```yaml
 - id: invitations-controller
-  name: '@deepseek-ai/dsh-api-invitations-controller'
+  name: '@lyness/lyn-api-invitations-controller'
 ```
 
 An administration page issues one, shows the code once, and builds the link that carries it:
 
 ```ts
-import type { InvitationInput, InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
+import type { InvitationInput, InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
 
 /** The one call an invitation form makes. */
 interface InvitationsRemote {
@@ -89,10 +89,10 @@ The channel the link names is one of the configured channels the `signInChannels
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-invitations`](../../identity/invitations/README.md) — the seam this speaks for, and every bound it applies.
-- [`dsh-api-people-controller`](../people-controller/README.md) — the roster a redemption writes into.
-- [`dsh-api-sign-in-channel-controller`](../sign-in-channel-controller/README.md) — the channels an invitation link names.
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
+- [`lyn-invitations`](../../identity/invitations/README.md) — the seam this speaks for, and every bound it applies.
+- [`lyn-api-people-controller`](../people-controller/README.md) — the roster a redemption writes into.
+- [`lyn-api-sign-in-channel-controller`](../sign-in-channel-controller/README.md) — the channels an invitation link names.
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
 
 -----
 

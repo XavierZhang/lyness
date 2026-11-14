@@ -1,18 +1,18 @@
 /**
  * Computer use through the in-process Cua Driver native SDK and its own tools.
- * @module @deepseek-ai/dsh-experimental-computer-use-cua-driver-native
+ * @module @lyness/lyn-experimental-computer-use-cua-driver-native
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import Schema from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ComputerUseProviderName } from '@deepseek-ai/dsh-computer-use/types'
-import { createMcpToolDefinition } from '@deepseek-ai/dsh-mcp-client'
+import type { Context } from '@lyness/cordis'
+import Schema from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import type { ComputerUseProviderName } from '@lyness/lyn-computer-use/types'
+import { createMcpToolDefinition } from '@lyness/lyn-mcp-client'
 import { z } from 'zod'
 import type { CuaDriver as NativeDriver } from '@trycua/cua-driver'
-import type {} from '@deepseek-ai/dsh-computer-use'
-import type {} from '@deepseek-ai/dsh-system-prompt'
-import type {} from '@deepseek-ai/dsh-tools'
+import type {} from '@lyness/lyn-computer-use'
+import type {} from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-tools'
 import { CuaDriverError } from './error.ts'
 
 export { CuaDriverError, type CuaDriverErrorCode } from './error.ts'

@@ -76,7 +76,7 @@ kind: "package-bundle"
 <details>
 <summary>维护者说明</summary>
 
-时间线将任务和报告的变更写入会话日志。重新打开会话时，会话投影恢复计划、报告和讨论。拥有计划的智能体负责记录子智能体汇报的进展。报告调度参考了采用 MIT 许可证的 [dsh-progress-check](https://github.com/kermanx/dsh-progress-check)。
+时间线将任务和报告的变更写入会话日志。重新打开会话时，会话投影恢复计划、报告和讨论。拥有计划的智能体负责记录子智能体汇报的进展。报告调度参考了采用 MIT 许可证的 [lyn-progress-check](https://github.com/kermanx/lyn-progress-check)。
 
 Web 服务器可用时，[连接服务](../../client/connection/README.zh.md#browser-authentication-and-request-trust)会挂载时间线的 RPC 通道。时间线只接受已通过认证的所有者提交的编辑和浏览器语言更新。
 

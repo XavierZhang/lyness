@@ -3,13 +3,13 @@ description: "把 OpenID 提供方作为登录渠道：说的是标准协议，�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-oidc
+# @lyness/lyn-oidc
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-oidc` 把任何 OpenID 提供方作为重定向登录渠道提供出来。它是服务于企业通讯软件之外的人的那个渠道：三个厂商渠道各说一种目录的协议，这一个说标准协议，所以部署把它指向自己运行的提供方，就得到邮箱自助注册、邮箱验证、密码重置与多因素——这些本来就是那类软件的职责。这里一个流程都不实现：渠道的全部职责是把一个已验证主体交给部署的放行规则。它什么都不持有：不存令牌、不复制目录、不建自己的会话。
+`lyn-oidc` 把任何 OpenID 提供方作为重定向登录渠道提供出来。它是服务于企业通讯软件之外的人的那个渠道：三个厂商渠道各说一种目录的协议，这一个说标准协议，所以部署把它指向自己运行的提供方，就得到邮箱自助注册、邮箱验证、密码重置与多因素——这些本来就是那类软件的职责。这里一个流程都不实现：渠道的全部职责是把一个已验证主体交给部署的放行规则。它什么都不持有：不存令牌、不复制目录、不建自己的会话。
 
 ## 目录
 
@@ -28,13 +28,13 @@ kind: "package-reference"
 与登录注册表、凭据存储并列，并为每个可以登录的人写一条绑定：
 
 ```yaml
-- name: '@deepseek-ai/dsh-sign-in'
-- name: '@deepseek-ai/dsh-oidc'
+- name: '@lyness/lyn-sign-in'
+- name: '@lyness/lyn-oidc'
   config:
     issuer: https://idp.example
-    clientId: deepseek-harness-web
+    clientId: lyness-web
     secret: OIDC_CLIENT_SECRET
-- name: '@deepseek-ai/dsh-sign-in/admission-roster'
+- name: '@lyness/lyn-sign-in/admission-roster'
   config:
     bindings:
       - channel: oidc
@@ -48,10 +48,10 @@ kind: "package-reference"
 服务多个组织的部署点名自己提供方承载组织的那个 claim，渠道实例也可以限定到其中一个：
 
 ```yaml
-- name: '@deepseek-ai/dsh-oidc'
+- name: '@lyness/lyn-oidc'
   config:
     issuer: https://idp.example
-    clientId: deepseek-harness-web
+    clientId: lyness-web
     secret: OIDC_CLIENT_SECRET
     organizationClaim: organization.id
     organization: acme
@@ -60,7 +60,7 @@ kind: "package-reference"
 
 `organizationClaim` 是一次登录的组织从哪里读出来，用 `.` 分隔一层。`organization` 把这个实例限定到其中一个组织，于是服务别的租户的登录页不会提供它。`organizationParameter` 是向提供方索要某一个组织自己的登录页的那个授权参数（在它提供这种页面时）。
 
-`@deepseek-ai/dsh-oidc/kind` 把同一个渠道作为可配置 kind 提供，于是管理员在运行时通过登录渠道设置页添加一个提供方。只挂载 kind 本身不配置任何东西。
+`@lyness/lyn-oidc/kind` 把同一个渠道作为可配置 kind 提供，于是管理员在运行时通过登录渠道设置页添加一个提供方。只挂载 kind 本身不配置任何东西。
 
 -----
 
@@ -84,10 +84,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-sign-in`](../sign-in/README.zh.md) —— 渠道接缝与放行规则。
-- [`dsh-sign-in-http`](../sign-in-http/README.zh.md) —— 把浏览器送出去、接住回调的那些路由。
-- [`dsh-dingtalk`](../../vendor/dingtalk/README.md) 与 [`dsh-wecom`](../../vendor/wecom/README.md) —— 厂商渠道，与本渠道共用同一套 attempt book（这两份文档只有英文）。
-- [`dsh-credentials`](../../credentials/credentials/README.zh.md) —— client secret 存放的地方。
+- [`lyn-sign-in`](../sign-in/README.zh.md) —— 渠道接缝与放行规则。
+- [`lyn-sign-in-http`](../sign-in-http/README.zh.md) —— 把浏览器送出去、接住回调的那些路由。
+- [`lyn-dingtalk`](../../vendor/dingtalk/README.md) 与 [`lyn-wecom`](../../vendor/wecom/README.md) —— 厂商渠道，与本渠道共用同一套 attempt book（这两份文档只有英文）。
+- [`lyn-credentials`](../../credentials/credentials/README.zh.md) —— client secret 存放的地方。
 
 -----
 

@@ -103,7 +103,7 @@ import runpy
 import subprocess
 import sys
 import threading
-from DeepSeek Harness import DeepSeekHarness
+from lyness import Lyness
 
 if sys.platform != "win32":
     import resource
@@ -132,13 +132,13 @@ def configured_harness(**options):
         with (root / "callbacks.jsonl").open("a") as output:
             output.write(json.dumps(result) + "\\n")
         return result
-    return DeepSeekHarness(
+    return Lyness(
         **options, on_user_question=record_answer, _launch_args=(sys.executable, peer, str(root)),
         initialize_timeout_seconds=5, shutdown_timeout_seconds=1,
     )
 
-example["main"].__globals__["DeepSeekHarness"] = configured_harness
-sys.argv = [example_path, "--dsh-home", str(root / "home"), "--workspace", str(root), "Plan a change."]
+example["main"].__globals__["Lyness"] = configured_harness
+sys.argv = [example_path, "--lyn-home", str(root / "home"), "--workspace", str(root), "Plan a change."]
 try:
     example["main"]()
 except KeyboardInterrupt:
@@ -146,7 +146,7 @@ except KeyboardInterrupt:
 finally:
     (root / "cleanup.json").write_text(json.dumps({
         "readers": [{"pid": reader.pid, "returncode": reader.poll()} for reader in readers],
-        "callbacks": [thread.name for thread in threading.enumerate() if thread.name == "dsh-user-question"],
+        "callbacks": [thread.name for thread in threading.enumerate() if thread.name == "lyn-user-question"],
     }))
 '''
 

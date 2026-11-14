@@ -1,5 +1,5 @@
 /**
- * Review layers of changed files. A repository's root `.gitattributes` decides first: its `dsh-review-layer`
+ * Review layers of changed files. A repository's root `.gitattributes` decides first: its `lyn-review-layer`
  * attribute names a layer, and `linguist-generated` places a file in the `test` layer. The panel's `testPaths` and
  * `interfacePaths` configuration comes next, then the built-in rules, which follow the default file and directory
  * conventions of common languages and tools; every other file is in the `implementation` layer.
@@ -14,7 +14,7 @@ import { wildmatch } from './wildmatch.ts'
 export const ATTRIBUTES_PATH = '.gitattributes'
 
 /** The attribute a repository sets to a layer name to place files in that layer. */
-export const LAYER_ATTRIBUTE = 'dsh-review-layer'
+export const LAYER_ATTRIBUTE = 'lyn-review-layer'
 
 /** The attribute GitHub Linguist reads to treat a file as generated. */
 const GENERATED = 'linguist-generated'
@@ -62,7 +62,7 @@ type Matcher = (path: string) => boolean
 
 /** What a repository's attributes say about one path. */
 interface PathAttributes {
-  /** The layer `dsh-review-layer` names, or undefined while it is unspecified. */
+  /** The layer `lyn-review-layer` names, or undefined while it is unspecified. */
   readonly layer: ForgeFileLayer | undefined
   /** Whether `linguist-generated` is set. */
   readonly generated: boolean
@@ -79,8 +79,8 @@ function matcherOf(globs: readonly string[]): Matcher {
 
 /**
  * Read the review attributes a `.gitattributes` text gives each path. Lines apply in order, so a later line overrides
- * an earlier one. `dsh-review-layer=<layer>` names `test`, `interface`, or `implementation`; another value,
- * `-dsh-review-layer`, and `!dsh-review-layer` leave the layer unspecified. `linguist-generated` and `=true` set
+ * an earlier one. `lyn-review-layer=<layer>` names `test`, `interface`, or `implementation`; another value,
+ * `-lyn-review-layer`, and `!lyn-review-layer` leave the layer unspecified. `linguist-generated` and `=true` set
  * the generated attribute, `-linguist-generated` and `=false` unset it, and `!linguist-generated` returns it to
  * unspecified. Patterns follow Git's wildmatch rules, as {@link wildmatch} describes: a pattern without `/` matches a
  * file name at any depth, and one with `/` matches the path from the repository root. Macro definitions, quoted

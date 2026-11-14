@@ -12,7 +12,7 @@ afterEach(() => {
 })
 
 it('skips dot directories holding transient roots', () => {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-stylesheet-scan-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-stylesheet-scan-'))
   roots.push(root)
   mkdirSync(join(root, 'pkg', 'nested'), { recursive: true })
   writeFileSync(join(root, 'pkg', 'package.json'), '{}')

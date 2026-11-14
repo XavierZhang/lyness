@@ -3,7 +3,7 @@
  * existing-export list is validated, and how it fails when an entry goes unchecked.
  *
  * The fixture compiles its own `tsconfig.host.json` and `tsconfig.client.json`, with a stand-in Cordis `Service` at
- * the path the repository maps `@deepseek-ai/cordis` to.
+ * the path the repository maps `@lyness/cordis` to.
  */
 
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
@@ -25,13 +25,13 @@ const compilerOptions = {
   noEmit: true,
   skipLibCheck: true,
   types: [],
-  paths: { '@deepseek-ai/cordis': ['./vendor/cordis/src/index.ts'] },
+  paths: { '@lyness/cordis': ['./vendor/cordis/src/index.ts'] },
 }
 
 const manifest = (name: string): string => JSON.stringify({ name, version: '0.0.1' })
 
 const PLUGIN_ENTRY = [
-  "import { Service } from '@deepseek-ai/cordis'",
+  "import { Service } from '@lyness/cordis'",
   '',
   // The Loader fields, with Config as both an interface and a value.
   "export const name = 'plugin'",
@@ -108,7 +108,7 @@ const FIXTURE: Record<string, string> = {
   // A Service class as the default export beside apply: the Loader loads it instead of the namespace.
   'packages/f/default-service/package.json': manifest('@f/default-service'),
   'packages/f/default-service/src/index.ts': [
-    "import { Service } from '@deepseek-ai/cordis'",
+    "import { Service } from '@lyness/cordis'",
     'export function apply(): void {}',
     'export default class Mixed extends Service {}',
     '',
@@ -148,7 +148,7 @@ const FIXTURE: Record<string, string> = {
   // types, and Service or Error classes; `Config` and other values are reported, because the Loader reads the class.
   'packages/f/service/package.json': manifest('@f/service'),
   'packages/f/service/src/index.ts': [
-    "import { Service } from '@deepseek-ai/cordis'",
+    "import { Service } from '@lyness/cordis'",
     'export default class Store extends Service {}',
     'export { Store as NamedStore }',
     'export class StoreError extends Error {}',
@@ -171,7 +171,7 @@ const FIXTURE: Record<string, string> = {
   'packages/f/library/src/index.ts': 'export const util = 1\n',
   'packages/f/seam/package.json': manifest('@f/seam'),
   'packages/f/seam/src/index.ts': [
-    "import { Service } from '@deepseek-ai/cordis'",
+    "import { Service } from '@lyness/cordis'",
     'export default abstract class Definition extends Service {}',
     'export const seamHelper = 1',
     '',

@@ -10,7 +10,7 @@ import { en, zh } from '../src/client/locales.ts'
 import { reportSchema } from '../src/records.ts'
 import type { IntervalReport, TimelineView } from '../src/records.ts'
 
-vi.mock('@deepseek-ai/dsh-client-ui-primitives', () => ({
+vi.mock('@lyness/lyn-client-ui-primitives', () => ({
   Button: (props: ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props} />,
   IconChevronLeftOutlineRegular: () => <span />,
   IconListPenOutlineRegular: () => <span />,

@@ -4,10 +4,10 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { strToU8, zipSync } from 'fflate'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { FileAttachmentRef, ImageAttachmentRef, SaveImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { FileAttachmentRef, ImageAttachmentRef, SaveImageAttachment } from '@lyness/lyn-attachment'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
 import { importDeepseekChatExport } from '../src/importer.ts'
 import type { DeepseekChatImportDependencies, DeepseekChatImportLimits, DeepseekChatImportWorkspace } from '../src/importer.ts'
 import type { ExportSessionFile } from '../src/format.ts'
@@ -44,7 +44,7 @@ const LIMITS: DeepseekChatImportLimits = { maxSessions: 1000, maxEntryBytes: 64 
 let root = ''
 let WORKSPACE_PATH = ''
 beforeAll(async () => {
-  root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-deepseek-importer-')))
+  root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-deepseek-importer-')))
   WORKSPACE_PATH = root
 })
 afterAll(async () => { await rm(root, { recursive: true, force: true }) })

@@ -24,32 +24,32 @@
  *   Userinfo is read over TLS with the access token the exchange returned, so
  *   the answer is the provider's own with no signature to check.
  *
- * @module @deepseek-ai/dsh-oidc
+ * @module @lyness/lyn-oidc
  */
 
 /* jscpd:ignore-start */
 // Every redirect channel reaches the same four seams — a context, a schema, a
 // credential store and the sign-in registry — so their import lists are
 // identical by construction rather than by copying.
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { credentialRef, isCredentialRefName } from '@deepseek-ai/dsh-credentials'
-import type {} from '@deepseek-ai/dsh-credentials'
-import { channelId } from '@deepseek-ai/dsh-sign-in'
-import type { ExternalSubject } from '@deepseek-ai/dsh-sign-in'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
+import type {} from '@lyness/lyn-credentials'
+import { channelId } from '@lyness/lyn-sign-in'
+import type { ExternalSubject } from '@lyness/lyn-sign-in'
 import {
   DEFAULT_ATTEMPT_TTL_MS,
   DEFAULT_REQUEST_TIMEOUT_MS,
   REDIRECT_CHANNEL_CONFIG,
   REDIRECT_PATH_PATTERN,
-} from '@deepseek-ai/dsh-sign-in/redirect'
-import type { ChannelIdentity } from '@deepseek-ai/dsh-sign-in/redirect'
-import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@deepseek-ai/dsh-sign-in/redirect'
-import { AttemptBook } from '@deepseek-ai/dsh-sign-in/attempts'
-import type { RedirectChannel } from '@deepseek-ai/dsh-sign-in'
-import type { ChannelId, RedirectStart } from '@deepseek-ai/dsh-sign-in/types'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+} from '@lyness/lyn-sign-in/redirect'
+import type { ChannelIdentity } from '@lyness/lyn-sign-in/redirect'
+import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@lyness/lyn-sign-in/redirect'
+import { AttemptBook } from '@lyness/lyn-sign-in/attempts'
+import type { RedirectChannel } from '@lyness/lyn-sign-in'
+import type { ChannelId, RedirectStart } from '@lyness/lyn-sign-in/types'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import {
   authorizeUrl,
   challengeOf,

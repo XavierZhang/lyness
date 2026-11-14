@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-util-text-search",
+  "name": "@lyness/lyn-util-text-search",
   "description": "Multilingual fuzzy filtering for in-memory search lists",
   "version": "0.2.2-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/util/text-search"
   },
   "type": "module",
@@ -30,13 +30,13 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-package-manifest": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
     "fuzzysort": "4.0.2"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

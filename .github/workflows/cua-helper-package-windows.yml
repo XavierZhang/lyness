@@ -49,7 +49,7 @@ jobs:
           --no-restore
           --output dist/cua-helper-win-x64
       # Standalone helper zip contract: flat root with cua-helper.json,
-      # dsh-cua-windows.exe, and its runtime files. Installed providers place
+      # lyn-cua-windows.exe, and its runtime files. Installed providers place
       # the same payload under native/bin/win-x64.
       - name: Add helper metadata
         id: metadata
@@ -58,7 +58,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $directory = 'dist/cua-helper-win-x64'
-          $exe = Join-Path $directory 'dsh-cua-windows.exe'
+          $exe = Join-Path $directory 'lyn-cua-windows.exe'
           if (-not (Test-Path $exe -PathType Leaf)) { throw "helper executable is missing: $exe" }
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
           $commit = $env:GITHUB_SHA
@@ -70,7 +70,7 @@ jobs:
             $relative = [IO.Path]::GetRelativePath($directory, $_.FullName) -replace '\\', '/'
             $files[$relative] = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
           }
-          # sha256 is the executable alias of files[dsh-cua-windows.exe].
+          # sha256 is the executable alias of files[lyn-cua-windows.exe].
           # signing is an enum: unsigned or authenticode.
           $metadata = [ordered]@{
             schemaVersion = 1
@@ -79,8 +79,8 @@ jobs:
             version = $version
             commit = $commit
             architecture = 'x64'
-            executable = 'dsh-cua-windows.exe'
-            sha256 = $files['dsh-cua-windows.exe']
+            executable = 'lyn-cua-windows.exe'
+            sha256 = $files['lyn-cua-windows.exe']
             signing = 'unsigned'
             files = $files
           }
@@ -93,7 +93,7 @@ jobs:
           Compress-Archive -Path dist/cua-helper-win-x64/* -DestinationPath $zipPath
           $zip = [IO.Compression.ZipFile]::OpenRead((Resolve-Path $zipPath).Path)
           try {
-            foreach ($name in 'dsh-cua-windows.exe', 'cua-helper.json') {
+            foreach ($name in 'lyn-cua-windows.exe', 'cua-helper.json') {
               if (-not $zip.GetEntry($name)) { throw "Missing root entry in helper ZIP: $name" }
             }
           } finally { $zip.Dispose() }

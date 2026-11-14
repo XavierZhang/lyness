@@ -1,13 +1,13 @@
 /** Common paid requests and results survive Host restart without altering main conversation input. */
-import { createAssistantMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
-import { pluginRecordOf, type SessionId, SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session'
-import type { SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
+import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
+import { pluginRecordOf, type SessionId, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
 import type { JsonlHandleStorage } from '../../../session/session-persistence-jsonl/src/storage.ts'
 import { readFile } from 'node:fs/promises'
 import { setImmediate } from 'node:timers/promises'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { paidFixture } from './paid-fixture.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: Array<() => Promise<void>> = []
 afterEach(async () => {

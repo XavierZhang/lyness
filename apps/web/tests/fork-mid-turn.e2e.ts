@@ -7,16 +7,16 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { ReplayEntry } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionId, SessionEvent } from '@deepseek-ai/dsh-session'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry } from '@lyness/lyn-llm-replay'
+import type { SessionId, SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, parseSeedFixture, seedSession,
   watchConsole, webSnapshotMode, selectedSessionFixture, type WebScaffold,
 } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot, writeComposerDraft } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('./expected/fork-mid-turn', import.meta.url))
 // Borrowed read-only from its recorded-session owner.
@@ -66,7 +66,7 @@ describe('web e2e: exact-boundary fork seeds branch closers and continues', () =
   let forkAt: number
 
   beforeAll(async () => {
-    replayDir = await mkdtemp(join(tmpdir(), 'dsh-fork-mid-turn-replay-'))
+    replayDir = await mkdtemp(join(tmpdir(), 'lyn-fork-mid-turn-replay-'))
     const replayOverride = join(replayDir, 'replay.override.json')
     await writeFile(replayOverride, JSON.stringify(continuationScript()))
     scaffold = await launchWebScaffold({

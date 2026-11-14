@@ -1,15 +1,15 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, onTestFinished } from 'vitest'
 import { mountRuntime } from './setup.ts'
 
-const runtimePath = process.env.DSH_PACKAGED_RUNTIME ?? ''
+const runtimePath = process.env.LYNESS_PACKAGED_RUNTIME ?? ''
 
 describe.skipIf(runtimePath === '')('packaged embedded carrier', () => {
   it('retains state across evaluations through the packaged runtime', async () => {
-    const cwd = await mkdtemp(join(tmpdir(), 'dsh-packaged-ptc-'))
+    const cwd = await mkdtemp(join(tmpdir(), 'lyn-packaged-ptc-'))
     const ctx = new Context()
     onTestFinished(async () => { await ctx.fiber.dispose(); await rm(cwd, { recursive: true, force: true }) })
     const { runtime } = await mountRuntime(ctx, {
@@ -28,7 +28,7 @@ describe.skipIf(runtimePath === '')('packaged embedded carrier', () => {
   }, 120_000)
 
   it('does not retain state without an owner', async () => {
-    const cwd = await mkdtemp(join(tmpdir(), 'dsh-packaged-ptc-'))
+    const cwd = await mkdtemp(join(tmpdir(), 'lyn-packaged-ptc-'))
     const ctx = new Context()
     onTestFinished(async () => { await ctx.fiber.dispose(); await rm(cwd, { recursive: true, force: true }) })
     const { runtime } = await mountRuntime(ctx, {

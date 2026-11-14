@@ -7,7 +7,7 @@ window.__ModuleLoader__.load({
   id: '@fixture/forge-extension',
   factory(require) {
     const React = require('react')
-    const { Button, MenuItemButton, Tooltip } = require('@deepseek-ai/dsh-client-ui-primitives')
+    const { Button, MenuItemButton, Tooltip } = require('@lyness/lyn-client-ui-primitives')
     const h = React.createElement
     const NS = 'fixtureForge'
     return {

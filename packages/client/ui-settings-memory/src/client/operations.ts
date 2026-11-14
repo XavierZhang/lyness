@@ -6,15 +6,15 @@
  * for nobody told apart from a read that broke, and a removal whose remaining
  * list is read back from the answer rather than spliced locally.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-memory/client/operations
+ * @module @lyness/lyn-client-ui-settings-memory/client/operations
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { createOutcomeRead, messageOf } from '@deepseek-ai/dsh-client-store'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-memory-controller/remote'
-import type { MemoriesView } from '@deepseek-ai/dsh-api-memory-controller/types'
+import type { Context } from '@lyness/cordis'
+import { createOutcomeRead, messageOf } from '@lyness/lyn-client-store'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-memory-controller/remote'
+import type { MemoriesView } from '@lyness/lyn-api-memory-controller/types'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
 export type CallOutcome<T> =

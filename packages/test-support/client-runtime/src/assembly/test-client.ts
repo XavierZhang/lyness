@@ -2,18 +2,18 @@
  * Whole-client test carrier: boots an {@link AssemblyPlan} through the
  * production `bootClient` over an in-process module table, with a
  * `RemoteMock` bound to that client's Connection plugin instance.
- * @module @deepseek-ai/dsh-client-test-runtime/src/assembly/test-client
+ * @module @lyness/lyn-client-test-runtime/src/assembly/test-client
  */
-import { Context, type Plugin } from '@deepseek-ai/cordis'
-import type { Entry } from '@deepseek-ai/cordis-plugin-loader'
-import { tearDownEntryFiber } from '@deepseek-ai/dsh-client-modules/client'
+import { Context, type Plugin } from '@lyness/cordis'
+import type { Entry } from '@lyness/cordis-plugin-loader'
+import { tearDownEntryFiber } from '@lyness/lyn-client-modules/client'
 import {
   installConnection,
   type ConnectionHandle,
-} from '@deepseek-ai/dsh-client-connection/client'
-import { assertEntriesActive, bootClient } from '@deepseek-ai/dsh-client-web/src/boot-client.ts'
-import { mountClient } from '@deepseek-ai/dsh-client-web/src/mount.ts'
-import type { RemoteMock } from '@deepseek-ai/dsh-remote-mock'
+} from '@lyness/lyn-client-connection/client'
+import { assertEntriesActive, bootClient } from '@lyness/lyn-client-web/src/boot-client.ts'
+import { mountClient } from '@lyness/lyn-client-web/src/mount.ts'
+import type { RemoteMock } from '@lyness/lyn-remote-mock'
 import { act } from '@testing-library/react'
 import { createInProcessModules, loadPluginModules } from './modules.ts'
 import { assertPlan, graphFromRoster, type AssemblyPlan } from './roster.ts'
@@ -22,7 +22,7 @@ import { allowAllAccessPlugin, staticAccessPlugin } from '../access.ts'
 import { standInNamespaces } from './self-mounted-remotes.ts'
 
 /** The remote-access row: it mounts its own generated Remote contribution and publishes the access Hooks. */
-const REMOTE_ACCESS_PACKAGE = '@deepseek-ai/dsh-api-remote-access'
+const REMOTE_ACCESS_PACKAGE = '@lyness/lyn-api-remote-access'
 
 /**
  * Rows whose generated Remote contributions exist only in built `lib/`. The
@@ -81,7 +81,7 @@ class SharedJsdomShims {
 
 const sharedJsdomShims = new SharedJsdomShims()
 
-const CONNECTION_PACKAGE = '@deepseek-ai/dsh-client-connection'
+const CONNECTION_PACKAGE = '@lyness/lyn-client-connection'
 
 /** Default readiness budget; the mock answers `$events` immediately, so a miss means a boot-time fixture is absent. */
 const DEFAULT_CONNECT_TIMEOUT_MS = 5_000
@@ -203,12 +203,12 @@ export class TestClient {
    * `installConnection`, while this path supplies the mock carrier, uses
    * default recovery timings, and captures the current page hostname once for
    * later reloads. A caller-provided Connection row remains unchanged and owns
-   * its readiness behavior. The `@deepseek-ai/dsh-api-remotes` row is
+   * its readiness behavior. The `@lyness/lyn-api-remotes` row is
    * dropped from the roster: its generated Remote clients exist only in built
    * `lib/`, and the `remote.<ns>` services the roster injects (plus the
    * namespaces the mock has rules for at this point) are provided as
    * contract-free proxies over the same Connection instead. The
-   * `@deepseek-ai/dsh-api-remote-access` row, which mounts its own generated
+   * `@lyness/lyn-api-remote-access` row, which mounts its own generated
    * contribution, is dropped too, and allow-all access Hooks replace it. A
    * `provide` entry for either row is refused. Unless `allowInactiveEntries` is set, every roster entry must
    * activate, stricter than the product boot, which only warns about entries outside its required list. On any

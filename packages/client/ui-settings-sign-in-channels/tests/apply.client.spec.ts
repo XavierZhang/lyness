@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { ChannelKindView, ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
-import { apply, channelsCallsOf, inject, NS } from '@deepseek-ai/dsh-client-ui-settings-sign-in-channels/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { ChannelKindView, ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import { apply, channelsCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-sign-in-channels/client'
 import { ChannelsSection } from '../src/client/ChannelsSection.tsx'
 import type { createChannelsSectionStore } from '../src/client/store.ts'
 

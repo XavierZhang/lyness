@@ -3,7 +3,7 @@ description: "通过 Realm 注册表提供可选的同源 iframe 脚本环境。
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-script-realm-iframe
+# @lyness/lyn-client-script-realm-iframe
 
 [English](README.md) | 中文
 

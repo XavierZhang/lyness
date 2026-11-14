@@ -1,11 +1,11 @@
-import { Context } from '@deepseek-ai/cordis'
-import { AgentModel, modelSelectionProjectionDefinition } from '@deepseek-ai/dsh-agent'
-import AgentRegistry, { type ModelSelection } from '@deepseek-ai/dsh-agent'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { Context } from '@lyness/cordis'
+import { AgentModel, modelSelectionProjectionDefinition } from '@lyness/lyn-agent'
+import AgentRegistry, { type ModelSelection } from '@lyness/lyn-agent'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ReasoningEffortId, LlmRuntime } from '@deepseek-ai/dsh-llm'
+import { brandString } from '@lyness/lyn-brand'
+import type { ReasoningEffortId, LlmRuntime } from '@lyness/lyn-llm'
 import { AcpModelControl } from '../src/model-control.ts'
 
 /** Minimal LLM catalog/runtime double for pure standard-option tests. */

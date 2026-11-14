@@ -1,6 +1,6 @@
 /** Typed `load_workspace_dependencies` payload preparation failures. */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 
 /**
  * Every {@link WorkspaceDependencyError} code:

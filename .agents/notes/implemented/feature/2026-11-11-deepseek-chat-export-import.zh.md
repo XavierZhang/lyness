@@ -6,33 +6,33 @@ Status: implemented
 
 ## Problem
 
-DeepSeek 官网（chat.deepseek.com）的“导出全部会话”产物是一个 `deepseek_data-*.zip`。用户希望把这些历史会话带进 DSH 继续使用：在 Web GUI 里浏览原有的提问、思考与回答，并在任意一条会话上接着对话，模型能看到原有的上下文。没有导入功能时，DSH 只能从空白会话开始。
+DeepSeek 官网（chat.deepseek.com）的“导出全部会话”产物是一个 `deepseek_data-*.zip`。用户希望把这些历史会话带进 LYN 继续使用：在 Web GUI 里浏览原有的提问、思考与回答，并在任意一条会话上接着对话，模型能看到原有的上下文。没有导入功能时，LYN 只能从空白会话开始。
 
-导出格式（`export_format_version: 3`）与 DSH Session 有四点结构差异，导入必须逐一处理：
+导出格式（`export_format_version: 3`）与 LYN Session 有四点结构差异，导入必须逐一处理：
 
-- 每个官网会话的 `messages` 是一棵靠 `parent_id` 连接的消息树（重新生成、编辑提问都会产生分叉）；DSH Session 是线性的追加日志。
+- 每个官网会话的 `messages` 是一棵靠 `parent_id` 连接的消息树（重新生成、编辑提问都会产生分叉）；LYN Session 是线性的追加日志。
 - 消息 `id` 只在会话内自增，跨会话不可比较；`inserted_at` 在同一会话内也不单调（assistant 常比配对的 user 早几毫秒）。
-- 一条 assistant 消息的 `fragments` 交错记录思考、联网搜索、打开网页、正文等块；DSH 用 step 内的 `assistant/message` 加 `tool/call` / `tool/result` 表达同样的过程。
+- 一条 assistant 消息的 `fragments` 交错记录思考、联网搜索、打开网页、正文等块；LYN 用 step 内的 `assistant/message` 加 `tool/call` / `tool/result` 表达同样的过程。
 - 产物还包含模板回答、失败状态、加密的链接正文、提示条等**不能**进入模型上下文的内容。
 
 一个导出可能包含上千个会话和数百兆字节的图片；用户只需要最近的会话，并放进自己选择的工作区，而且 Host 在导入期间必须保持响应。
 
 ## Decision
 
-实验性包 [`@deepseek-ai/dsh-deepseek-chat-import`](../../../../packages/experimental/deepseek-chat-import/README.zh.md) 同时提供 Host 与 Client 两个编译面：
+实验性包 [`@lyness/lyn-deepseek-chat-import`](../../../../packages/experimental/deepseek-chat-import/README.zh.md) 同时提供 Host 与 Client 两个编译面：
 
-- Host 面：一个 `TypertRemoteService`，在 `ctx.connection.fetch` 上注册精确上传路由 `POST /api/deepseek-chat-import/archive?workspaceId=…`，并提供 `@Remote limits()` 方法。路由把上传的 ZIP 缓存在内存中，把最近的会话逐个写成所选工作区中的持久化 DSH Session，并以流式方式报告进度。
+- Host 面：一个 `TypertRemoteService`，在 `ctx.connection.fetch` 上注册精确上传路由 `POST /api/deepseek-chat-import/archive?workspaceId=…`，并提供 `@Remote limits()` 方法。路由把上传的 ZIP 缓存在内存中，把最近的会话逐个写成所选工作区中的持久化 LYN Session，并以流式方式报告进度。
 - Client 面：在侧栏“新建会话”右侧放一个导入按钮。点击后弹出对话框，包含导出文件字段（浏览器原生文件输入，`accept=.zip`）和工作区字段（渲染 ui-workspace 的 `workspace.picker` Factory）；浏览器上传文件，显示上传与导入进度以及结果。
 
 按钮位置通过 ui-sidebar 的 HOC slot `sidebar.session.action` 提供：插件在那里包裹新建会话行的内容，原样返回后追加自己的按钮，因此装饰该行不新增包裹元素。不在 ui-sidebar 里写死按钮，因为那样侧栏外壳要直接调用导入插件的 Remote 命名空间，把业务逻辑放进了外壳。工作区字段复用新建会话的工作区菜单，即 `workspace.picker` Factory：列出已有工作区，并提供“添加工作区…”，通过 `workspace.picker.directoryFlow` 洞运行已组合的目录选择器。
 
-该能力作为 Official 实验性可选 bundle 发布：包本身声明 `dsh.bundle.patch` 并插入自己的 `deepseek-chat-import` 行，列入 `OPTIONAL_BUNDLES`，在用户于插件页启用之前保持关闭。默认 Web 组合不挂载它。
+该能力作为 Official 实验性可选 bundle 发布：包本身声明 `lyn.bundle.patch` 并插入自己的 `deepseek-chat-import` 行，列入 `OPTIONAL_BUNDLES`，在用户于插件页启用之前保持关闭。默认 Web 组合不挂载它。
 
 ### 用户流程
 
 1. 用户在插件页启用“DeepSeek 会话导入”，然后点击“新建会话”右侧的导入按钮（窄栏模式下是一个图标按钮，位于“新建会话”图标下方）。只有 owner 看得到这个按钮。
 2. 对话框需要 DeepSeek 官网导出的 ZIP 文件（`deepseek_data-*.zip`）以及接收会话的工作区。工作区字段预选当前会话所在的工作区；“添加工作区…”通过目录选择器添加新目录。
-3. 导入时，浏览器先调用 `limits()`；大于 `maxUploadBytes` 的文件在上传前就被拒绝。服务页面随后显示上传百分比、Host 读取压缩包时的不确定进度，以及写入会话时的“正在导入 n/K”。Host 跑在页面之外执行上下文中的页面经 `__DSH_TRANSPORT__.fetch` 携带压缩包，该载体不报告字节进度，因此对话框从读取阶段开始。关闭对话框会中止请求。
+3. 导入时，浏览器先调用 `limits()`；大于 `maxUploadBytes` 的文件在上传前就被拒绝。服务页面随后显示上传百分比、Host 读取压缩包时的不确定进度，以及写入会话时的“正在导入 n/K”。Host 跑在页面之外执行上下文中的页面经 `__LYNESS_TRANSPORT__.fetch` 携带压缩包，该载体不报告字节进度，因此对话框从读取阶段开始。关闭对话框会中止请求。
 4. 成功后对话框以单数或复数形式显示导入了多少个会话、导入到哪个工作区、多少个会话超出上限、多少个会话无法导入。
 5. 失败时对话框显示该失败原因的本地化说明，或意外错误的信息。
 6. 无论导入以何种方式结束，浏览器都会刷新会话列表，使失败或取消之前已写入的会话出现在列表中。
@@ -104,7 +104,7 @@ interface Config {
 
 ### 消息链到 Session 事件（`convertConversation`）
 
-链上的消息按“每个 USER 消息开一个 turn”分组：USER 消息与紧随其后的 ASSISTANT 消息组成一个 turn。没有前置 USER 的 ASSISTANT 消息（只可能来自异常数据）被丢弃。回答状态为 `CONTENT_FILTER` 的 USER 消息与该回答一起丢弃：两个节点都不产生事件，界面上什么都不显示，后续 turn 的编号不留空缺。链以 USER 结尾时最后一个 turn 只有提问。不要求 user / assistant 严格交替：被排除的回答不会产生 `assistant/message`，下一个提问直接跟在上一个提问之后，这与 DSH 中一个 turn 收到多条 steer 消息的历史形态一致。没有剩余 turn 的会话转换失败并记入 `skipped`。
+链上的消息按“每个 USER 消息开一个 turn”分组：USER 消息与紧随其后的 ASSISTANT 消息组成一个 turn。没有前置 USER 的 ASSISTANT 消息（只可能来自异常数据）被丢弃。回答状态为 `CONTENT_FILTER` 的 USER 消息与该回答一起丢弃：两个节点都不产生事件，界面上什么都不显示，后续 turn 的编号不留空缺。链以 USER 结尾时最后一个 turn 只有提问。不要求 user / assistant 严格交替：被排除的回答不会产生 `assistant/message`，下一个提问直接跟在上一个提问之后，这与 LYN 中一个 turn 收到多条 steer 消息的历史形态一致。没有剩余 turn 的会话转换失败并记入 `skipped`。
 
 一个 turn 的事件序列：
 
@@ -138,7 +138,7 @@ Assistant 消息的 `source` 为 `{ kind: 'model', provider: 'deepseek-chat-expo
 | `FILE`（非图片） | USER | 伪造的文件卡片：`{ type: 'file', attachment }`，引用为 `attachmentId = sha256('deepseek-chat-export:' + file.id)`、`name = file_name`、`bytes = file_size`（缺失时 0）；本体不在导出里，因此不存在对应对象，句柄里的路径读不到内容 | 是，为文件句柄文本 |
 | `THINK` | ASSISTANT | 当前 step 的 `{ type: 'reasoning', text }`；空文本忽略 | 是（按 adapter 规则） |
 | `RESPONSE` | ASSISTANT | 当前 step 的 `{ type: 'text', text }`；空文本忽略 | 是 |
-| `TOOL_SEARCH` | ASSISTANT | `web_search` 调用：参数 `{"queries": [...]}`；结果正文由 `dsh-tool-web` 的 `formatSearchOutput` 生成；`meta` 为 `{ sources: [{ url, title, snippet, publishedAt }], truncated: false }`，渲染为标准搜索卡片。`WIP` 视为未完成并略去；`FAILED` 生成 `isError: true` 的结果，文本固定为 `Error: the export records this search as failed.`；缺少 `status` 时按 `FINISHED` 处理。查询全为空或空白时忽略 | 是 |
+| `TOOL_SEARCH` | ASSISTANT | `web_search` 调用：参数 `{"queries": [...]}`；结果正文由 `lyn-tool-web` 的 `formatSearchOutput` 生成；`meta` 为 `{ sources: [{ url, title, snippet, publishedAt }], truncated: false }`，渲染为标准搜索卡片。`WIP` 视为未完成并略去；`FAILED` 生成 `isError: true` 的结果，文本固定为 `Error: the export records this search as failed.`；缺少 `status` 时按 `FINISHED` 处理。查询全为空或空白时忽略 | 是 |
 | `TOOL_OPEN`（有 url） | ASSISTANT | `web_fetch` 调用：参数 `{"url": ...}`；结果正文为标题、URL 与“页面正文未包含在导出中”的说明；`status: FINISHED` 时 `meta` 为 `{ url, statusCode: 200, truncated: false }`，渲染为标准抓取卡片；`FAILED` 时结果为 `isError: true`；`WIP` 忽略 | 是 |
 | `TOOL_OPEN`（url 为 null 或空串） | ASSISTANT | 不生成任何内容：导出端会在一个 stage 的真实打开记录旁写一条全 null、只带 `stage_id` 和 `group_id` 的记录，它不指向任何页面 | 否 |
 | `TOOL_FIND` | ASSISTANT | 不生成任何内容：官网把它显示成单独一行，消息里没有对应的块 | 否 |
@@ -188,9 +188,9 @@ Assistant 消息的 `source` 为 `{ kind: 'model', provider: 'deepseek-chat-expo
 ### Client
 
 - ui-sidebar 声明 HOC slot `sidebar.session.action`（`scope: 'root'`，owner `{ wide: boolean }`），包裹新建会话行的内容，占用方以 `children` 收到该内容，返回它（可再包裹）并附上自己的控件。导入按钮在“新建会话”按钮右侧渲染（宽栏同一行，“新建会话”按钮占剩余宽度；窄栏纵向排列在“新建会话”图标下方）。
-- 插件的 client 面 `$mount` 自己的 `/remote` 贡献（与 `dsh-api-remote-access` 相同的自挂载方式，不进入 `dsh-api-remotes` 聚合），作为 `sidebar.session.action` 层注册 `ImportSessionsAction`。它先渲染行内容，再渲染触发按钮，最后渲染对话框；不能导入的 Peer 会原样得到行内容，因此新建会话按钮继续渲染。按钮仅在 `useRemoteAccess('deepseekChatImport/limits')` 为真时显示；对话框是该层的本地状态，通过 `Modal` portal 渲染。
-- 服务页面上的上传使用 `XMLHttpRequest`，因为 Fetch 不提供上传进度。Host 跑在页面之外执行上下文中的页面（静态 Cloudflare Pages 预览）提供 `__DSH_TRANSPORT__.fetch`：压缩包经该载体传输，没有字节进度，直接进入读取与导入阶段。URL 是相对 `document.baseURI` 解析的 `UPLOAD_ROUTE`，因此加路径前缀的代理仍然可用。非 200 应答、没有 outcome 行的应答、不是合法协议值的行或连接失败归为 `upload-failed` 结果；抛出的错误以未知失败文案显示。
-- 载体选择没有复用 `@deepseek-ai/dsh-client-file-upload`。该包的服务会缓冲整个应答，流式 NDJSON 进度会丢失，而且它的 `post` 方法不在公开接口上；把选择留在本包内同时保住了进度行与包依赖边界。
+- 插件的 client 面 `$mount` 自己的 `/remote` 贡献（与 `lyn-api-remote-access` 相同的自挂载方式，不进入 `lyn-api-remotes` 聚合），作为 `sidebar.session.action` 层注册 `ImportSessionsAction`。它先渲染行内容，再渲染触发按钮，最后渲染对话框；不能导入的 Peer 会原样得到行内容，因此新建会话按钮继续渲染。按钮仅在 `useRemoteAccess('deepseekChatImport/limits')` 为真时显示；对话框是该层的本地状态，通过 `Modal` portal 渲染。
+- 服务页面上的上传使用 `XMLHttpRequest`，因为 Fetch 不提供上传进度。Host 跑在页面之外执行上下文中的页面（静态 Cloudflare Pages 预览）提供 `__LYNESS_TRANSPORT__.fetch`：压缩包经该载体传输，没有字节进度，直接进入读取与导入阶段。URL 是相对 `document.baseURI` 解析的 `UPLOAD_ROUTE`，因此加路径前缀的代理仍然可用。非 200 应答、没有 outcome 行的应答、不是合法协议值的行或连接失败归为 `upload-failed` 结果；抛出的错误以未知失败文案显示。
+- 载体选择没有复用 `@lyness/lyn-client-file-upload`。该包的服务会缓冲整个应答，流式 NDJSON 进度会丢失，而且它的 `post` 方法不在公开接口上；把选择留在本包内同时保住了进度行与包依赖边界。
 - 文案走 8 种语言的 locale 字典，英文用 sentence case；摘要行有 `.one` / `.other` 两种形式，按 `count === 1` 选择。
 
 ### Realization
@@ -238,7 +238,7 @@ Assistant 消息的 `source` 为 `{ kind: 'model', provider: 'deepseek-chat-expo
 
 **通过 `ctx.agents.create({ seed })` 创建 live Agent。** 它是现有的受支持入口，但 `createdAt` 只能是当前时间，导入的会话会全部挤在侧栏顶部；导入上千个会话还会同时创建上千个 live Agent。直接写持久化层保留原始时间，也不占用运行时资源。
 
-**每个分支一个 Session，或在 DSH 中表达分叉。** DSH Session 是线性日志；为分支各建 Session 会让一个官网会话变成多个难以区分的会话。需求明确只导入最新链。
+**每个分支一个 Session，或在 LYN 中表达分叉。** LYN Session 是线性日志；为分支各建 Session 会让一个官网会话变成多个难以区分的会话。需求明确只导入最新链。
 
 **保留被内容过滤回答的提问并写错误行。** 官网把这类轮次显示为已撤回，用户决定两个节点都不导入；剩下的轮次与用户在官网看到的一致。
 
@@ -252,7 +252,7 @@ Assistant 消息的 `source` 为 `{ kind: 'model', provider: 'deepseek-chat-expo
 
 ## Consequences
 
-导入把官网历史带进 DSH，保留原始标题、时间、思考与搜索卡片，导入的会话通过普通恢复路径继续对话。Host 内存受压缩包（`maxUploadBytes`）加一个条目（`maxEntryBytes`）、一个转换后的会话以及已保存图片的引用约束，事件循环在会话之间保持响应。代价是取消或导入中途失败时只有已写入的会话保留，而且补位的会话要按名读取，并再跑一次图片扫描。
+导入把官网历史带进 LYN，保留原始标题、时间、思考与搜索卡片，导入的会话通过普通恢复路径继续对话。Host 内存受压缩包（`maxUploadBytes`）加一个条目（`maxEntryBytes`）、一个转换后的会话以及已保存图片的引用约束，事件循环在会话之间保持响应。代价是取消或导入中途失败时只有已写入的会话保留，而且补位的会话要按名读取，并再跑一次图片扫描。
 
 - **冷写入是 agent loop 之外的生产写入方。** 导入使用全新的 Session id 且写完即关闭句柄，不与 live Session 竞争所有权；如果持久化层以后假设所有写入都经过 agent loop（例如在创建时注册额外的派生状态），导入路径需要同步更新。
 - **已存储但未附加的会话会留在存储中。** `SessionPersistence` 不提供删除；导入在 `skipped` 中报告这样的会话及其 id。

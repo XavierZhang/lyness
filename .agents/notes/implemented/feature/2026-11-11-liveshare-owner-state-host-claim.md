@@ -6,7 +6,7 @@ English | [中文](2026-11-11-liveshare-owner-state-host-claim.zh.md)
 
 ## Problem
 
-The LiveShare owner state — the persisted shares, the Relay registrations they hold, and the forks recorded beside them — is addressed by the Host's DSH home, not by the process serving it. A second Host that starts on that home restores the same shares and re-registers them with the Liveshare server, which moves each registration onto the new connection. The earlier Host's authority reads then answer for a registration the server has moved, fence the share, and, with it, stop the owner's own turn. The state needed one named owner per directory that does not depend on every Host agreeing to ignore the others.
+The LiveShare owner state — the persisted shares, the Relay registrations they hold, and the forks recorded beside them — is addressed by the Host's LYN home, not by the process serving it. A second Host that starts on that home restores the same shares and re-registers them with the Liveshare server, which moves each registration onto the new connection. The earlier Host's authority reads then answer for a registration the server has moved, fence the share, and, with it, stop the owner's own turn. The state needed one named owner per directory that does not depend on every Host agreeing to ignore the others.
 
 ## Decision
 
@@ -28,8 +28,8 @@ The record is published as one whole file: it is written under a temporary name 
 
 **A kernel lock held for the life of the process** — the Session write lease's own mechanism, which recovers on crash with no record at all. It cannot express "this Host lost the state to a successor" to a Host that must keep running and serving reads, and it would report contention by failing acquisition rather than by naming a pid the owner can act on. The record is also what a later Host reads to say which process to stop.
 
-**Refusing to start beside a live holder** — a second Host is a legitimate way to look at what this machine shares, and failing its mount would take the rest of that DSH home's startup down with the claim.
+**Refusing to start beside a live holder** — a second Host is a legitimate way to look at what this machine shares, and failing its mount would take the rest of that LYN home's startup down with the claim.
 
 ## Consequences
 
-Two Hosts on one DSH home now have one authoritative server registration each share, and the non-holding Host answers a modifying operation with a refusal that names the holder rather than silently diverging. The holder's death frees the state at the next Host start; until then the state is unreachable, which is the deliberate cost of not expropriating a stalled holder. Pid reuse can name the claim's holder wrongly: the next Host then runs without the shares until that unrelated process exits or the record is removed, and nothing is lost when it recovers. The claim compares nothing outside this DSH home, so it remains an advisory guard for one user's state directory, not a multi-host authorization service — nothing stops a Host pointed at another home from registering the same shares with the server.
+Two Hosts on one LYN home now have one authoritative server registration each share, and the non-holding Host answers a modifying operation with a refusal that names the holder rather than silently diverging. The holder's death frees the state at the next Host start; until then the state is unreachable, which is the deliberate cost of not expropriating a stalled holder. Pid reuse can name the claim's holder wrongly: the next Host then runs without the shares until that unrelated process exits or the record is removed, and nothing is lost when it recovers. The claim compares nothing outside this LYN home, so it remains an advisory guard for one user's state directory, not a multi-host authorization service — nothing stops a Host pointed at another home from registering the same shares with the server.

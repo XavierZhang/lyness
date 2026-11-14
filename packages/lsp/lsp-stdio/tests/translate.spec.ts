@@ -7,7 +7,7 @@ import {
   supportsOperation,
   supportsTransientOpen,
 } from '../src/translate.ts'
-import type { WireServerCapabilities } from '@deepseek-ai/dsh-lsp-stdio/src/protocol.ts'
+import type { WireServerCapabilities } from '@lyness/lyn-lsp-stdio/src/protocol.ts'
 
 const RANGE = { start: { line: 1, character: 2 }, end: { line: 1, character: 5 } }
 

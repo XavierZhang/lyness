@@ -3,13 +3,13 @@ description: "The invitations page of the administration console: issue a code, 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-admin-invitations
+# @lyness/lyn-client-ui-admin-invitations
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-admin-invitations` is the page an administrator issues invitations on. It registers into `admin.section`, reads `remote.invitations`, and offers one form: what to call the invitation, the standing it grants, the organization that standing is in, how many redemptions to allow, and how long it lasts. A new code is shown once, with the redemption link built from this deployment's own origin, because the answer that issued it is the only place it exists. Withdrawing one is a confirmed step, and the row stays, closed.
+`lyn-client-ui-admin-invitations` is the page an administrator issues invitations on. It registers into `admin.section`, reads `remote.invitations`, and offers one form: what to call the invitation, the standing it grants, the organization that standing is in, how many redemptions to allow, and how long it lasts. A new code is shown once, with the redemption link built from this deployment's own origin, because the answer that issued it is the only place it exists. Withdrawing one is a confirmed step, and the row stays, closed.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ The accounts module mounts it beside the namespace it reads:
 
 ```yaml
 - id: invitations-controller
-  name: '@deepseek-ai/dsh-api-invitations-controller'
+  name: '@lyness/lyn-api-invitations-controller'
 - id: ui-admin-invitations
-  name: '@deepseek-ai/dsh-client-ui-admin-invitations'
+  name: '@lyness/lyn-client-ui-admin-invitations'
   config:
     joinPath: /join
 ```
@@ -58,10 +58,10 @@ The accounts module mounts it beside the namespace it reads:
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-invitations-controller`](../../api/invitations-controller/README.md) — the namespace this page reads, and every refusal it can report.
-- [`dsh-invitations`](../../identity/invitations/README.md) — the bounds a submission is checked against.
-- [`dsh-client-ui-admin-console`](../ui-admin-console/README.md) — the page this one renders inside.
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
+- [`lyn-api-invitations-controller`](../../api/invitations-controller/README.md) — the namespace this page reads, and every refusal it can report.
+- [`lyn-invitations`](../../identity/invitations/README.md) — the bounds a submission is checked against.
+- [`lyn-client-ui-admin-console`](../ui-admin-console/README.md) — the page this one renders inside.
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
 
 -----
 

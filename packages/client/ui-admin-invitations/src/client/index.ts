@@ -9,16 +9,16 @@
  * The calls live here rather than in the component so one in-flight read is
  * shared: opening the page twice does not ask the deployment twice.
  *
- * @module @deepseek-ai/dsh-client-ui-admin-invitations/client
+ * @module @lyness/lyn-client-ui-admin-invitations/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-invitations-controller/remote'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-invitations-controller/remote'
 import { InvitationsPage } from './InvitationsPage.tsx'
 import { PageBinding, pageFace } from './binding.ts'
 import { createInvitationsOperations, invitationCallsOf } from './operations.ts'
@@ -39,7 +39,7 @@ export type {
 export { PageBinding, pageFace } from './binding.ts'
 export type { InvitationsActions } from './binding.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'admin.invitations': InvitationsKey }
 }
 

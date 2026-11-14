@@ -1,5 +1,5 @@
 ---
-description: "Design judgment for DSH: alignment, spatial grouping, hierarchy, states, geometry, and worked review cases."
+description: "Design judgment for LYN: alignment, spatial grouping, hierarchy, states, geometry, and worked review cases."
 ---
 
 # UI design principles and review cases
@@ -26,7 +26,7 @@ Consult the relevant cases when a design relationship is unclear. Ordinary chang
 - [7. Icon optics](#icon-optics)
 - [8. Control geometry and corner relationships](#geometry)
 - [Reproduce and compare](#reproduce)
-- [External references and what DSH adopts](#references)
+- [External references and what LYN adopts](#references)
 - [Dev Note](#dev-note)
 
 <a id="judgment"></a>
@@ -34,7 +34,7 @@ Consult the relevant cases when a design relationship is unclear. Ordinary chang
 
 A well-composed interface makes relationships visible before the reader studies individual labels. Alignment lets people compare parallel items without repeatedly searching for their starting points. Spacing tells them which icon, label, description, control, and action belong together. These are primary design requirements, including for a fully functional screen; they are not optional polishing after token checks pass.
 
-DSH prioritizes alignment and spatial grouping in visual review. First identify the task and semantic groups, then inspect shared axes across the whole region, then check each group's internal relationships. Follow with hierarchy, state, geometry, color, density, and optical detail. A blocked action or misleading state still takes priority over cosmetic work. Do not make every element equally large, equally spaced, or equally prominent in pursuit of consistency.
+LYN prioritizes alignment and spatial grouping in visual review. First identify the task and semantic groups, then inspect shared axes across the whole region, then check each group's internal relationships. Follow with hierarchy, state, geometry, color, density, and optical detail. A blocked action or misleading state still takes priority over cosmetic work. Do not make every element equally large, equally spaced, or equally prominent in pursuit of consistency.
 
 The page or modal provides the reference for composition; the [impact scope](cookbook/reviewing-ui-design.md#review-scope) determines which relationships require inspection for a change. Navigation, content, forms and actions may come from different components while sharing text axes and spacing rules. Explain exceptions through role, hierarchy or state; component ownership alone is not a design reason.
 
@@ -80,18 +80,18 @@ Record inspected without additional findings, fixed and rechecked, found but unr
 <a id="review-baseline"></a>
 ## Combine the applicable standards first
 
-Use the [rule-owner map](../.agents/skills/dsh-client-ui-ux/SKILL.md#select-the-rule-owners) to select current implementation guidance, including alignment, spacing and icons.
+Use the [rule-owner map](../.agents/skills/lyn-client-ui-ux/SKILL.md#select-the-rule-owners) to select current implementation guidance, including alignment, spacing and icons.
 
-A review has two independent obligations: honor the applicable DSH rules and explain whether the assembled result communicates the intended relationships. A convincing silhouette does not excuse the wrong control semantics; legal tokens do not excuse bad alignment. For a scoped review, mark unrelated areas as out of scope. For a whole-interface review, apply the relevant rows below across all regions of the page or modal under review.
+A review has two independent obligations: honor the applicable LYN rules and explain whether the assembled result communicates the intended relationships. A convincing silhouette does not excuse the wrong control semantics; legal tokens do not excuse bad alignment. For a scoped review, mark unrelated areas as out of scope. For a whole-interface review, apply the relevant rows below across all regions of the page or modal under review.
 
 | Owner | What it contributes to the review | What to compare across the page or modal |
 |---|---|---|
 | [Radius standard](ui-radius.md#radius-scale), [nested geometry](ui-radius.md#nested-hover) | Role before size; inset, flush-fill, and independent-child arrangements; curve and documented exceptions | Outer surface, field, hover fill, indicator and clipped edges together |
 | [Web styling](web-styling.md#component-rules) | Semantic colors, typography pairs, hairlines, elevation, menu material and motion | Same-role surfaces across features, both themes, native Desktop backdrop |
-| [Client UI/UX skill](../.agents/skills/dsh-client-ui-ux/SKILL.md) | Component reuse, hierarchy, loading, feedback ownership and window clearance | Loaded/empty/error scenes and the actual surrounding page |
-| [Responsive skill](../.agents/skills/dsh-responsive-ui/SKILL.md) | Space allocation before truncation, input capabilities, focus and primary-action access | Wide, constrained, keyboard and touch use of the same task |
-| [Official artwork skill](../.agents/skills/dsh-official-plugin-artwork/SKILL.md) | Package artwork semantics, optical balance, transparent regions and neighboring references | Plugin artwork in list and detail contexts; action icons remain a separate family |
-| [Error-handling skill](../.agents/skills/dsh-error-handling/SKILL.md#localized-actionable-visible-reports) | Visible failure, retained valid state and a safe next action | Field correction, failed operation and failed query as distinct situations |
+| [Client UI/UX skill](../.agents/skills/lyn-client-ui-ux/SKILL.md) | Component reuse, hierarchy, loading, feedback ownership and window clearance | Loaded/empty/error scenes and the actual surrounding page |
+| [Responsive skill](../.agents/skills/lyn-responsive-ui/SKILL.md) | Space allocation before truncation, input capabilities, focus and primary-action access | Wide, constrained, keyboard and touch use of the same task |
+| [Official artwork skill](../.agents/skills/lyn-official-plugin-artwork/SKILL.md) | Package artwork semantics, optical balance, transparent regions and neighboring references | Plugin artwork in list and detail contexts; action icons remain a separate family |
+| [Error-handling skill](../.agents/skills/lyn-error-handling/SKILL.md#localized-actionable-visible-reports) | Visible failure, retained valid state and a safe next action | Field correction, failed operation and failed query as distinct situations |
 | [Primitives catalog](../packages/client/ui-primitives/README.md#component-catalog) and the relevant package README | Existing variants, focus/interaction behavior and feature-specific requirements | Intended component role versus a visually similar substitute |
 
 The current repository owner and its explicitly recorded exceptions take precedence over an older personal skill or external example. A user choice applies to its named family; it does not silently replace the global system. If implementation disagrees with its stated owner, report that discrepancy instead of treating the existing code as a new rule. Re-read the owner when selecting a radius or material rather than copying a scale into the review.
@@ -101,7 +101,7 @@ The current repository owner and its explicitly recorded exceptions take precede
 
 An example makes a principle observable through a task, related elements, surrounding context and a condition that can challenge the correction. Extract the relationship and apply it throughout the page or modal being reviewed. A sidebar or model-editor example does not restrict that principle to those components. Examples are explanatory evidence, not a review menu or coverage list.
 
-Distinguish three kinds of evidence. An actual DSH scene establishes a defect in the displayed conditions. An official design-system example teaches a particular relationship; its dimensions and interaction policy remain that system's. An original diagram explains a proposed relation and must not be labeled an implemented improvement. A fixture only covers its rendered conditions. Keep source, compared objects, applied DSH rule and retest conditions adjacent to the case.
+Distinguish three kinds of evidence. An actual LYN scene establishes a defect in the displayed conditions. An official design-system example teaches a particular relationship; its dimensions and interaction policy remain that system's. An original diagram explains a proposed relation and must not be labeled an implemented improvement. A fixture only covers its rendered conditions. Keep source, compared objects, applied LYN rule and retest conditions adjacent to the case.
 
 Present each case as scene and problem, design judgment, then its screenshot or paired comparison immediately below. Add a caption naming what to inspect, what each side means, and the source. Do not collect unrelated cases into a detached screenshot wall. If the difference is only faintly visible or the image omits the relationship, choose stronger evidence instead of presenting it as a design exemplar.
 
@@ -134,7 +134,7 @@ Use these examples to understand a relationship that is unclear. Apply the same 
 <a id="alignment"></a>
 ## 1. Alignment
 
-The [alignment reference](../.agents/skills/dsh-client-ui-ux/references/alignment.md) owns shared axes, complete layout boxes, indentation and text metrics. Use the examples below to apply those decisions.
+The [alignment reference](../.agents/skills/lyn-client-ui-ux/references/alignment.md) owns shared axes, complete layout boxes, indentation and text metrics. Use the examples below to apply those decisions.
 
 ![Alignment diagram: peer rows share axes while account and header controls retain their own geometry](assets/ui-design-review/principles-alignment.svg)
 
@@ -193,11 +193,11 @@ The comparison below shows actual preset cards with unequal descriptions. On the
 <a id="case-composer-controls"></a>
 ### Example A5: Visible size and center of peer controls
 
-**Scene and relationship.** Attachment and send actions anchor the same bottom toolbar. DSH's intended treatment uses equal circular bases and a shared vertical center; their different importance is expressed through fill and state.
+**Scene and relationship.** Attachment and send actions anchor the same bottom toolbar. LYN's intended treatment uses equal circular bases and a shared vertical center; their different importance is expressed through fill and state.
 
 **Failure and correction.** Different base diameters plus an extra vertical translation create two unrelated anchors. Normalize the peer controls' outer geometry and remove layout compensation, then balance the plus and arrow within their slots. A thin plus and a solid arrow need not have equal painted area.
 
-**Acceptance.** Compare both bases and centers in empty, enabled, busy/stop, and narrow layouts. Review the toolbar alongside the composer outline, not as two isolated button screenshots. A reference product's unequal controls do not override an explicit DSH requirement for equal bases.
+**Acceptance.** Compare both bases and centers in empty, enabled, busy/stop, and narrow layouts. Review the toolbar alongside the composer outline, not as two isolated button screenshots. A reference product's unequal controls do not override an explicit LYN requirement for equal bases.
 
 <a id="case-trigger-menu-text"></a>
 ### Example A6: Text starts across triggers and menus
@@ -216,7 +216,7 @@ The comparison below shows actual preset cards with unequal descriptions. On the
 <a id="grouping"></a>
 ## 2. Spatial grouping
 
-The [spacing reference](../.agents/skills/dsh-client-ui-ux/references/spacing.md) owns semantic groups, internal/external gap relationships and visible whitespace. The cases below explain how to apply it.
+The [spacing reference](../.agents/skills/lyn-client-ui-ux/references/spacing.md) owns semantic groups, internal/external gap relationships and visible whitespace. The cases below explain how to apply it.
 
 ![Grouping diagram: equally spaced blocks versus a nested section with smaller inner gaps and larger section separation](assets/ui-design-review/principles-grouping.svg)
 
@@ -251,17 +251,17 @@ The [Forms structure comparison](https://primer.style/product/ui-patterns/forms/
 |---|---|
 | [![Sequential form controls in one reading column](https://user-images.githubusercontent.com/2313998/170069921-98bb9035-2125-4807-b790-1da90e6bde3b.png)](https://primer.style/product/ui-patterns/forms/#structure) | [![The same form split across columns to save vertical space](https://user-images.githubusercontent.com/2313998/170069922-ed8a0ef7-0573-4f02-bd15-da6a5acbc527.png)](https://primer.style/product/ui-patterns/forms/#structure) |
 
-Images: GitHub Primer, linked from their original sources. Compare the two reading paths and the wrapping option-group label. Apply that grouping judgment to forms throughout the page or modal, including long labels and errors. Related values can share a row when the relation is clear and the pair can stack. These are external examples, not DSH implementation results.
+Images: GitHub Primer, linked from their original sources. Compare the two reading paths and the wrapping option-group label. Apply that grouping judgment to forms throughout the page or modal, including long labels and errors. Related values can share a row when the relation is clear and the pair can stack. These are external examples, not LYN implementation results.
 
 #### Carbon: different distances carry different meanings
 
 The [Form specifications](https://www.carbondesignsystem.com/building-blocks/core/components/form/specifications) include an [annotated complete form](https://s3.us-south.cloud-object-storage.appdomain.cloud/cxp-prod-payload-cms/form-style-1.png). Read its title/description, field rows, option group and submit area in order. The example separates the introductory area, repeated fields and final action with different spacing levels while maintaining a common content edge; the annotations make the hierarchy inspectable.
 
-Use that comparison to review DSH's plugin introduction, search, section description and cards, or a model editor's final action. Compare which elements belong together after adding a line of text. Carbon's numerical scale is evidence for its own example, not a new DSH spacing catalog. A DSH result must also satisfy its existing density, font and responsive rules.
+Use that comparison to review LYN's plugin introduction, search, section description and cards, or a model editor's final action. Compare which elements belong together after adding a line of text. Carbon's numerical scale is evidence for its own example, not a new LYN spacing catalog. A LYN result must also satisfy its existing density, font and responsive rules.
 
 [![Carbon form anatomy: a shared content edge with distinct title, field and submit spacing](https://s3.us-south.cloud-object-storage.appdomain.cloud/cxp-prod-payload-cms/form-style-1.png)](https://www.carbondesignsystem.com/building-blocks/core/components/form/specifications)
 
-Image: IBM Carbon Design System. Follow the annotations between the introduction, repeated fields and final action. The image demonstrates its own spacing system; it does not prescribe DSH pixel values.
+Image: IBM Carbon Design System. Follow the annotations between the introduction, repeated fields and final action. The image demonstrates its own spacing system; it does not prescribe LYN pixel values.
 
 <a id="case-sidebar-groups"></a>
 ### Example G4: Separating groups with different purposes
@@ -298,9 +298,9 @@ Make the next reading or decision step visible without turning every text elemen
 
 Use emphasis to express a task-relevant difference. A current selection, an actionable error, and the data needed for a decision deserve stable recognition. Labels and supporting metadata can be quieter, but making useful text difficult to read is not hierarchy. Inspect size, weight, color, position, and surrounding whitespace together; piling all five onto every heading removes meaningful contrast.
 
-Use the [icon owner](../.agents/skills/dsh-client-ui-ux/references/icons.md) for icon/label foreground roles and their semantic exceptions; example C1 applies that rule to search fields.
+Use the [icon owner](../.agents/skills/lyn-client-ui-ux/references/icons.md) for icon/label foreground roles and their semantic exceptions; example C1 applies that rule to search fields.
 
-Typography participates in geometry: compare text starts, baselines and line boxes with the intended font, long translations and relevant font preferences. Pair size with line height and use the weight limits from [visual foundation](../.agents/skills/dsh-client-ui-ux/SKILL.md#visual-foundation). Content, code, terminal and fixed interface roles need not scale identically; check the [font-setting owner](../packages/client/ui-theme/README.md) before treating a deliberate difference as a defect. Correct the container allocation before shrinking useful text to force alignment.
+Typography participates in geometry: compare text starts, baselines and line boxes with the intended font, long translations and relevant font preferences. Pair size with line height and use the weight limits from [visual foundation](../.agents/skills/lyn-client-ui-ux/SKILL.md#visual-foundation). Content, code, terminal and fixed interface roles need not scale identically; check the [font-setting owner](../packages/client/ui-theme/README.md) before treating a deliberate difference as a defect. Correct the container allocation before shrinking useful text to force alignment.
 
 <a id="case-search-color"></a>
 ### Example C1: Color emphasis within one information unit
@@ -343,7 +343,7 @@ Keep the control's label, visible bounds, focus behavior, and click target consi
 <a id="icon-optics"></a>
 ## 7. Icon optics
 
-The [icon reference](../.agents/skills/dsh-client-ui-ux/references/icons.md) owns interface icon roles, slots, color and optical balance. [Official artwork](../.agents/skills/dsh-official-plugin-artwork/SKILL.md) retains its separate role.
+The [icon reference](../.agents/skills/lyn-client-ui-ux/references/icons.md) owns interface icon roles, slots, color and optical balance. [Official artwork](../.agents/skills/lyn-official-plugin-artwork/SKILL.md) retains its separate role.
 
 <a id="case-file-optics"></a>
 ### Example O1: Optical alignment of different icon types
@@ -386,7 +386,7 @@ The [Shapes example](https://fluent2.microsoft.design/shapes/#when-to-avoid-roun
 
 [![Fluent's negative example: two rounded halves create an unwanted internal notch](https://fluent2.microsoft.design/_image?f=png&h=440&href=https%3A%2F%2Ffluent2websitecdn.azureedge.net%2Fcdn%2Fdesignlanguage-shapes-cornerradius-03.D70MlS4K.webp&w=728)](https://fluent2.microsoft.design/shapes/)
 
-Image: Microsoft Fluent 2, linked from its original source. In DSH, apply the flush-fill arrangement from the radius standard, then check independent hover regions, focus and the fully visible popup together. Fluent's radius and stroke scale are not DSH defaults. Look at the notch at the internal seam; this source image is a negative example, not a DSH before/after comparison.
+Image: Microsoft Fluent 2, linked from its original source. In LYN, apply the flush-fill arrangement from the radius standard, then check independent hover regions, focus and the fully visible popup together. Fluent's radius and stroke scale are not LYN defaults. Look at the notch at the internal seam; this source image is a negative example, not a LYN before/after comparison.
 
 <a id="case-model-radius"></a>
 ### Example R1: Radii across container and control roles
@@ -417,20 +417,20 @@ Locally maintained production-component fixtures can supply isolated examples fo
 The dimensions found in these components are evidence about those examples, not universal design constants. The [style reference](web-styling.md), [radius standard](ui-radius.md), and component owners retain authority over shared values. Extend the evidence for new consumers or a different task rather than copying an example's number without its conditions.
 
 <a id="references"></a>
-## External references and what DSH adopts
+## External references and what LYN adopts
 
-These are research inputs, not automatically invoked skills or replacements for DSH rules. The selection below was read on 2026-10-26. Public guidance supplies comparison methods; the worked DSH cases and explanatory diagrams are local synthesis. Links point to the original authors. No external skill installation or execution is required to use this reference.
+These are research inputs, not automatically invoked skills or replacements for LYN rules. The selection below was read on 2026-10-26. Public guidance supplies comparison methods; the worked LYN cases and explanatory diagrams are local synthesis. Links point to the original authors. No external skill installation or execution is required to use this reference.
 
 | Reference | Useful contribution | Scope and deliberate limit |
 |---|---|---|
-| [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | Explicit composition, content-specific choices, and rendered self-critique | Its expressive visual direction is not a mandate to restyle a workbench or change DSH typography |
-| [Vercel web-design-guidelines skill](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md) and [rules](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md) | Locate findings in code and cover focus, labels, long content, and interaction | Code compliance alone does not establish alignment or grouping; its title-case advice does not override DSH sentence case |
+| [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | Explicit composition, content-specific choices, and rendered self-critique | Its expressive visual direction is not a mandate to restyle a workbench or change LYN typography |
+| [Vercel web-design-guidelines skill](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md) and [rules](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md) | Locate findings in code and cover focus, labels, long content, and interaction | Code compliance alone does not establish alignment or grouping; its title-case advice does not override LYN sentence case |
 | [Impeccable](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/SKILL.md), [critique](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/critique.md), [polish](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/polish.md), [operate](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/operate.md) | Separate a task-oriented interface from promotional design; distinguish visual judgment from detector output | Adopt the complete-path inspection and existing-system comparison, not its execution, delegation, or scoring machinery |
-| [Interface Design](https://github.com/Dammyjay93/interface-design/blob/main/.claude/skills/interface-design/SKILL.md) | Explicit product intent, repeated patterns, and comparison with established neighboring interfaces | Preserve DSH's existing system; do not import its example font weights, create another token catalog, or chase novelty for its own sake |
+| [Interface Design](https://github.com/Dammyjay93/interface-design/blob/main/.claude/skills/interface-design/SKILL.md) | Explicit product intent, repeated patterns, and comparison with established neighboring interfaces | Preserve LYN's existing system; do not import its example font weights, create another token catalog, or chase novelty for its own sake |
 | [OpenAI figma-implement-design](https://github.com/openai/skills/blob/main/skills/.curated/figma-implement-design/SKILL.md) | Compare rendered output against an actual visual reference and integrate existing components | A screenshot is evidence with a defined scope, not permission to infer unseen states or adopt every number |
 | [Fluent Shapes](https://fluent2.microsoft.design/shapes/) and [Primer Forms](https://primer.style/product/ui-patterns/forms/) | Explicit component counterexamples with inspectable relationships | The case analyses above transfer a decision method, not their token or interaction system |
 | [Atlassian spacing](https://atlassian.design/foundations/spacing/) | Positive/negative examples of proximity, repeated rhythm, hierarchy, and optical adjustment | Borrow the relationship tests, not Atlassian's token names or an automatic pixel formula |
-| [Carbon spacing](https://www.carbondesignsystem.com/building-blocks/foundations/spacing/overview) | Spacing patterns express equal weight and section boundaries; fluid centering differs from fixed spacing | Use DSH's spacing ownership; a scale alone cannot select the right group relationship |
+| [Carbon spacing](https://www.carbondesignsystem.com/building-blocks/foundations/spacing/overview) | Spacing patterns express equal weight and section boundaries; fluid centering differs from fixed spacing | Use LYN's spacing ownership; a scale alone cannot select the right group relationship |
 | [Codex official product introduction](https://openai.com/index/introducing-the-codex-app/) and [desktop documentation](https://learn.chatgpt.com/docs/app) | Task-oriented composition and real public examples to compare | Public examples are versioned observations, not the current local app or an unpublished Codex design specification |
 
 ### Codex: a limited reference for composition

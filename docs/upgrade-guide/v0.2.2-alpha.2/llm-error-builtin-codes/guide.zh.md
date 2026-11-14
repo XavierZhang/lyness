@@ -9,7 +9,7 @@ description: "`new LlmError` 只接受内置失败 code；其他 code 改用 `Ll
 
 ## 变更
 
-在 `@deepseek-ai/dsh-llm` 中，`LlmError` 构造函数的 `code` 参数原为 `string`，现为 `BuiltinLlmFailureCode`：`LLM_FAILURE_CODES` 的键或 `HTTP_<status>`。运行时行为和 `LlmFailure.code` 不变。用其他 code 构造 `LlmError` 的 TypeScript 代码（例如仓库外的提供方适配器或测试替身）将无法通过编译。
+在 `@lyness/lyn-llm` 中，`LlmError` 构造函数的 `code` 参数原为 `string`，现为 `BuiltinLlmFailureCode`：`LLM_FAILURE_CODES` 的键或 `HTTP_<status>`。运行时行为和 `LlmFailure.code` 不变。用其他 code 构造 `LlmError` 的 TypeScript 代码（例如仓库外的提供方适配器或测试替身）将无法通过编译。
 
 ## 迁移
 

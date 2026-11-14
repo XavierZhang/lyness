@@ -1,14 +1,14 @@
 /** Session status across the real Controller catalog, ui-session pending interactions, and the status service. */
 import { expect, onTestFinished, vi } from 'vitest'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import { ok } from '@deepseek-ai/dsh-remote-mock'
-import { createClientTest, webApp } from '@deepseek-ai/dsh-client-test-runtime/src/assembly/index.ts'
-import { SESSION_FORMAT_VERSION, type SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SessionFollowFrame } from '@deepseek-ai/dsh-api-session-controller/types'
-import type { SessionPendingInteractionBase } from '@deepseek-ai/dsh-client-ui-session/client'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { ok } from '@lyness/lyn-remote-mock'
+import { createClientTest, webApp } from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
+import { SESSION_FORMAT_VERSION, type SessionId } from '@lyness/lyn-session/types'
+import type { SessionFollowFrame } from '@lyness/lyn-api-session-controller/types'
+import type { SessionPendingInteractionBase } from '@lyness/lyn-client-ui-session/client'
 import type {} from '../src/client/index.ts'
 
-const it = createClientTest({ roster: webApp.closure(['@deepseek-ai/dsh-client-ui-session-status']) })
+const it = createClientTest({ roster: webApp.closure(['@lyness/lyn-client-ui-session-status']) })
 const parentId = 'status-parent' as SessionId
 const childId = 'status-child' as SessionId
 

@@ -5,10 +5,10 @@
  * packages. The experimental-plugin page names the bundle; a Remote method names its component
  * package. Preferring the containing bundle's localized title keeps the share dialog and the plugin
  * page in agreement. A component no bundle mounts falls back to its own package title.
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/bundle-titles
+ * @module @lyness/lyn-experimental-liveshare/src/host/bundle-titles
  */
 
-import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
 
 /** Localized titles keyed by lowercase language id. */
 export type BundleTitles = Readonly<Record<string, string>>

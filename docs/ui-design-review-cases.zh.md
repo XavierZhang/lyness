@@ -1,5 +1,5 @@
 ---
-description: "DSH 设计判断参考：对齐、空间分组、信息层级、状态与几何，以及完整的审查案例。"
+description: "LYN 设计判断参考：对齐、空间分组、信息层级、状态与几何，以及完整的审查案例。"
 ---
 
 # UI 设计原则与审查案例
@@ -26,7 +26,7 @@ description: "DSH 设计判断参考：对齐、空间分组、信息层级、�
 - [7. 图标光学](#icon-optics)
 - [8. 控件几何与圆角关系](#geometry)
 - [复现与比较](#reproduce)
-- [外部参考与 DSH 的取舍](#references)
+- [外部参考与 LYN 的取舍](#references)
 - [开发备注](#dev-note)
 
 <a id="judgment"></a>
@@ -34,7 +34,7 @@ description: "DSH 设计判断参考：对齐、空间分组、信息层级、�
 
 好的界面会在读者逐字阅读前先表达元素之间的关系。对齐让人比较并列内容时不用反复寻找起点；间距告诉人哪些图标、标签、说明、控件和操作属于同一组。这些是基础设计要求，即使功能完全可用也要满足，不能等 token 检查通过后才当作可选打磨。
 
-DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义组，再检查整个区域的跨组对齐轴，然后检查每组内部关系；随后检查信息层级、状态、几何、颜色、密度和光学细节。操作阻塞或误导性状态仍先于纯外观问题。不能为了统一而让所有元素一样大、一样疏密、一样突出。
+LYN 的视觉审查优先关注对齐与空间分组。先识别任务和语义组，再检查整个区域的跨组对齐轴，然后检查每组内部关系；随后检查信息层级、状态、几何、颜色、密度和光学细节。操作阻塞或误导性状态仍先于纯外观问题。不能为了统一而让所有元素一样大、一样疏密、一样突出。
 
 页面或弹窗提供构图参照；一次改动需要检查哪些关系，由[影响范围](cookbook/reviewing-ui-design.zh.md#review-scope)决定。导航、内容、表单和操作即使由不同组件实现，也可能共用文字轴和间距规则。例外应由角色、层级或状态解释，组件归属本身不是设计理由。
 
@@ -80,18 +80,18 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 <a id="review-baseline"></a>
 ## 先综合适用规范
 
-用[规则归属表](../.agents/skills/dsh-client-ui-ux/SKILL.md#select-the-rule-owners)选择当前实现要求，包括对齐、间距和图标专项。
+用[规则归属表](../.agents/skills/lyn-client-ui-ux/SKILL.md#select-the-rule-owners)选择当前实现要求，包括对齐、间距和图标专项。
 
-审查有两个独立要求：符合适用的 DSH 规则，同时解释组装后的界面是否清楚表达预期关系。轮廓好看不能抵消交互语义错误，token 合法也不能抵消对齐错误。局部审查应明确不涉及哪些方面；整体审查则在受审整页或整个弹窗的所有区域中检查下表相关项。
+审查有两个独立要求：符合适用的 LYN 规则，同时解释组装后的界面是否清楚表达预期关系。轮廓好看不能抵消交互语义错误，token 合法也不能抵消对齐错误。局部审查应明确不涉及哪些方面；整体审查则在受审整页或整个弹窗的所有区域中检查下表相关项。
 
 | 规则所有方 | 对审查的贡献 | 在整页或整个弹窗中比较什么 |
 |---|---|---|
 | [圆角规范](ui-radius.zh.md#radius-scale)、[嵌套几何](ui-radius.zh.md#nested-hover) | 先角色后尺寸；内缩、贴边填色、独立子容器三种关系；曲线与明确例外 | 外层容器、字段、hover 填色、指示块及裁切边缘一起比较 |
 | [Web 样式](web-styling.zh.md#component-rules) | 语义色、字号与行高配对、发丝线、层级阴影、菜单材质、动效 | 跨功能的同角色表面、明暗主题与 Desktop 原生背景 |
-| [客户端 UI/UX skill](../.agents/skills/dsh-client-ui-ux/SKILL.md) | 组件复用、层级、加载、反馈归属、窗口避让 | 加载后／空／错误状态及实际周边页面 |
-| [响应式 skill](../.agents/skills/dsh-responsive-ui/SKILL.md) | 先分配空间再截断、输入能力、焦点、主操作可达性 | 同一任务的宽屏、受限宽度、键盘及触屏使用 |
-| [官方图案 skill](../.agents/skills/dsh-official-plugin-artwork/SKILL.md) | 插件图案语义、光学平衡、透明区域及邻近参照 | 插件图案在列表与详情中的呈现；操作图标属于另一类 |
-| [错误处理 skill](../.agents/skills/dsh-error-handling/SKILL.md#localized-actionable-visible-reports) | 失败可见、保留有效状态、提供安全下一步 | 区分字段纠错、操作失败与查询失败 |
+| [客户端 UI/UX skill](../.agents/skills/lyn-client-ui-ux/SKILL.md) | 组件复用、层级、加载、反馈归属、窗口避让 | 加载后／空／错误状态及实际周边页面 |
+| [响应式 skill](../.agents/skills/lyn-responsive-ui/SKILL.md) | 先分配空间再截断、输入能力、焦点、主操作可达性 | 同一任务的宽屏、受限宽度、键盘及触屏使用 |
+| [官方图案 skill](../.agents/skills/lyn-official-plugin-artwork/SKILL.md) | 插件图案语义、光学平衡、透明区域及邻近参照 | 插件图案在列表与详情中的呈现；操作图标属于另一类 |
+| [错误处理 skill](../.agents/skills/lyn-error-handling/SKILL.md#localized-actionable-visible-reports) | 失败可见、保留有效状态、提供安全下一步 | 区分字段纠错、操作失败与查询失败 |
 | [基础组件目录](../packages/client/ui-primitives/README.zh.md#component-catalog)与相关包 README | 已有变体、焦点与交互行为、功能特有要求 | 实际组件角色与外观相似的替代品是否相符 |
 
 当前仓库所有方及其明确记录的例外，优先于旧版个人 skill 或外部案例。用户的具体选择适用于指定组件族，不会默默替换全局体系。实现与所属规范不一致时，报告差异，不能把既有代码自动当成新规则。选圆角和材质时重新核对所有方，不在 review 文档里复制另一套尺度。
@@ -101,7 +101,7 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 
 例子通过具体任务、相关元素、周边上下文，以及可能推翻改法的变化条件，让原则变得可观察。应提炼其中的关系，并用于当前整页或整个弹窗的判断。侧栏或模型编辑器的例子，不会把原则限定在这些组件上。例子是帮助理解的证据，不是审查菜单或覆盖清单。
 
-区分三种证据：DSH 实际场景可以确认所展示条件下的缺陷；官方设计系统案例解释特定关系，其尺寸与交互策略仍属于原系统；原创示意图解释拟采用的关系，不能标成已实现的改善。fixture 仅覆盖它渲染的条件。来源、比较对象、适用的 DSH 规则和复查条件应当紧邻案例。
+区分三种证据：LYN 实际场景可以确认所展示条件下的缺陷；官方设计系统案例解释特定关系，其尺寸与交互策略仍属于原系统；原创示意图解释拟采用的关系，不能标成已实现的改善。fixture 仅覆盖它渲染的条件。来源、比较对象、适用的 LYN 规则和复查条件应当紧邻案例。
 
 每个案例按“场景与问题 → 设计判断 → 紧接下方的截图或成对对照”呈现。图注说明看哪里、两侧分别表示什么及来源。不要把无关案例集中成脱离正文的截图墙。差异只有勉强可辨、或图片没有包含所讨论关系时，应选择更有解释力的证据，不能将其当作设计范例。
 
@@ -134,7 +134,7 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 <a id="alignment"></a>
 ## 1. 对齐
 
-[对齐参考](../.agents/skills/dsh-client-ui-ux/references/alignment.md)负责共享轴线、完整布局框、层级缩进和文字度量；以下案例用于说明这些判断。
+[对齐参考](../.agents/skills/lyn-client-ui-ux/references/alignment.md)负责共享轴线、完整布局框、层级缩进和文字度量；以下案例用于说明这些判断。
 
 ![对齐示意：同类行共享轴线，账号和标题操作保留各自几何关系](assets/ui-design-review/principles-alignment.svg)
 
@@ -193,11 +193,11 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 <a id="case-composer-controls"></a>
 ### 示例 A5：并列控件的可见尺寸与中心
 
-**场景与关系。**附件和发送操作分别位于底栏两端。DSH 的预期处理是圆形底板等大、垂直中心一致，主次通过填色与状态表达。
+**场景与关系。**附件和发送操作分别位于底栏两端。LYN 的预期处理是圆形底板等大、垂直中心一致，主次通过填色与状态表达。
 
 **错误与修正。**底板直径不同，再加额外的垂直平移，会形成两个不一致的端点。先统一并列控件外部几何并去掉布局补偿，再平衡槽内的加号和箭头。细线加号与实心箭头不需要具有相同的墨迹面积。
 
-**验收。**检查空输入、可发送、忙碌／停止和窄布局中的底板与中心。保留输入框外轮廓一起观察，不能只看两张独立按钮截图。参考产品里不同大小的操作控件，不能覆盖 DSH 已明确的等大底板要求。
+**验收。**检查空输入、可发送、忙碌／停止和窄布局中的底板与中心。保留输入框外轮廓一起观察，不能只看两张独立按钮截图。参考产品里不同大小的操作控件，不能覆盖 LYN 已明确的等大底板要求。
 
 <a id="case-trigger-menu-text"></a>
 ### 示例 A6：入口与菜单之间的文本起点
@@ -216,7 +216,7 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 <a id="grouping"></a>
 ## 2. 空间分组
 
-[间距分组参考](../.agents/skills/dsh-client-ui-ux/references/spacing.md)负责语义组、组内外间距关系和可见留白；以下案例说明如何应用。
+[间距分组参考](../.agents/skills/lyn-client-ui-ux/references/spacing.md)负责语义组、组内外间距关系和可见留白；以下案例说明如何应用。
 
 ![分组示意：等间距堆叠与分层分组的区别，组内较近，分区之间更远](assets/ui-design-review/principles-grouping.svg)
 
@@ -251,17 +251,17 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 |---|---|
 | [![沿单一阅读列连续排列的表单控件](https://user-images.githubusercontent.com/2313998/170069921-98bb9035-2125-4807-b790-1da90e6bde3b.png)](https://primer.style/product/ui-patterns/forms/#structure) | [![为节省纵向空间而拆成两列的同一表单](https://user-images.githubusercontent.com/2313998/170069922-ed8a0ef7-0573-4f02-bd15-da6a5acbc527.png)](https://primer.style/product/ui-patterns/forms/#structure) |
 
-图片来自 GitHub Primer，链接到原始来源。比较两条阅读路径和换行的选项组标签，将这种分组判断用于整页或整个弹窗中的表单，包括长标签和错误。相关字段在归属清楚、整组能换行时可以同行。这些是外部参照，不是 DSH 实施结果。
+图片来自 GitHub Primer，链接到原始来源。比较两条阅读路径和换行的选项组标签，将这种分组判断用于整页或整个弹窗中的表单，包括长标签和错误。相关字段在归属清楚、整组能换行时可以同行。这些是外部参照，不是 LYN 实施结果。
 
 #### Carbon：不同距离表达不同关系
 
 [Form 规范](https://www.carbondesignsystem.com/building-blocks/core/components/form/specifications)提供[完整表单的标注图](https://s3.us-south.cloud-object-storage.appdomain.cloud/cxp-prod-payload-cms/form-style-1.png)。依次读标题／说明、字段行、选项组与提交区。示例为介绍区、重复字段、末尾操作使用不同层级的距离，同时保留共同内容边缘；标注使层级可以直接比较。
 
-用这个关系审查 DSH 插件页的介绍、搜索、分区说明、卡片，或模型编辑器的末尾操作。增加一行文字后，再比较哪些元素仍然属于同一组。Carbon 数值属于它自己的示例，不是新的 DSH 间距目录；DSH 的结果还要满足既有密度、字号和响应式规则。
+用这个关系审查 LYN 插件页的介绍、搜索、分区说明、卡片，或模型编辑器的末尾操作。增加一行文字后，再比较哪些元素仍然属于同一组。Carbon 数值属于它自己的示例，不是新的 LYN 间距目录；LYN 的结果还要满足既有密度、字号和响应式规则。
 
 [![Carbon 表单解剖：共同内容边缘，以及标题、字段、提交区的不同间距](https://s3.us-south.cloud-object-storage.appdomain.cloud/cxp-prod-payload-cms/form-style-1.png)](https://www.carbondesignsystem.com/building-blocks/core/components/form/specifications)
 
-图片来自 IBM Carbon Design System。沿标注比较介绍区、重复字段和末尾操作之间的间距；图中展示其自身的间距体系，不规定 DSH 的像素数值。
+图片来自 IBM Carbon Design System。沿标注比较介绍区、重复字段和末尾操作之间的间距；图中展示其自身的间距体系，不规定 LYN 的像素数值。
 
 <a id="case-sidebar-groups"></a>
 ### 示例 G4：不同用途的组之间的分隔
@@ -298,9 +298,9 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 
 强调必须表达与任务有关的差异。当前选择、可处理的错误和决策依据，需要稳定可辨；标签和补充信息可以更弱，但让有用的文字难以阅读不是层级设计。联合观察字号、字重、颜色、位置和周围留白；每个标题都把五种强调用满，反而失去有意义的区别。
 
-图标与文字的前景角色及语义例外由[图标参考](../.agents/skills/dsh-client-ui-ux/references/icons.md)负责；案例 C1 将该规则用于搜索框。
+图标与文字的前景角色及语义例外由[图标参考](../.agents/skills/lyn-client-ui-ux/references/icons.md)负责；案例 C1 将该规则用于搜索框。
 
-字体也是几何的一部分：结合预期字体、长翻译与相关字体设置，比较文字起点、基线和行框。字号配套行高，并遵循[视觉基础](../.agents/skills/dsh-client-ui-ux/SKILL.md#visual-foundation)的字重限制。正文、代码、终端与固定界面角色不必同幅缩放；把差异判为缺陷前，核对[字体设置所有方](../packages/client/ui-theme/README.zh.md)。先修容器分配，不用缩小有用文字来强行对齐。
+字体也是几何的一部分：结合预期字体、长翻译与相关字体设置，比较文字起点、基线和行框。字号配套行高，并遵循[视觉基础](../.agents/skills/lyn-client-ui-ux/SKILL.md#visual-foundation)的字重限制。正文、代码、终端与固定界面角色不必同幅缩放；把差异判为缺陷前，核对[字体设置所有方](../packages/client/ui-theme/README.zh.md)。先修容器分配，不用缩小有用文字来强行对齐。
 
 <a id="case-search-color"></a>
 ### 示例 C1：同一信息单元的图文强调
@@ -343,7 +343,7 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 <a id="icon-optics"></a>
 ## 7. 图标光学
 
-[图标参考](../.agents/skills/dsh-client-ui-ux/references/icons.md)负责界面图标的角色、槽位、颜色和视觉平衡；[官方 artwork](../.agents/skills/dsh-official-plugin-artwork/SKILL.md)保留独立职责。
+[图标参考](../.agents/skills/lyn-client-ui-ux/references/icons.md)负责界面图标的角色、槽位、颜色和视觉平衡；[官方 artwork](../.agents/skills/lyn-official-plugin-artwork/SKILL.md)保留独立职责。
 
 <a id="case-file-optics"></a>
 ### 示例 O1：不同类型图标的光学对齐
@@ -386,7 +386,7 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 
 [![Fluent 反例：两个全圆角半区造成内部缺口](https://fluent2.microsoft.design/_image?f=png&h=440&href=https%3A%2F%2Ffluent2websitecdn.azureedge.net%2Fcdn%2Fdesignlanguage-shapes-cornerradius-03.D70MlS4K.webp&w=728)](https://fluent2.microsoft.design/shapes/)
 
-图片来自 Microsoft Fluent 2，链接到原始来源。在 DSH 中采用圆角规范的贴边填色关系，再一起检查左右两半的悬停、焦点和弹出菜单是否完整显示。Fluent 的圆角与描边尺度不是 DSH 默认值。观察内部接缝的凹口；原图是反例，不是 DSH 的修改前后对照。
+图片来自 Microsoft Fluent 2，链接到原始来源。在 LYN 中采用圆角规范的贴边填色关系，再一起检查左右两半的悬停、焦点和弹出菜单是否完整显示。Fluent 的圆角与描边尺度不是 LYN 默认值。观察内部接缝的凹口；原图是反例，不是 LYN 的修改前后对照。
 
 <a id="case-model-radius"></a>
 ### 示例 R1：不同层级容器与控件的圆角
@@ -417,20 +417,20 @@ DSH 的视觉审查优先关注对齐与空间分组。先识别任务和语义�
 这些组件中的尺寸是对应案例的证据，不是通用设计常数。共享数值仍由[样式参考](web-styling.zh.md)、[圆角标准](ui-radius.zh.md)及组件归属方定义。新增使用位置或任务不同时，应补充证据，不能脱离条件照抄案例数值。
 
 <a id="references"></a>
-## 外部参考与 DSH 的取舍
+## 外部参考与 LYN 的取舍
 
-这些是研究输入，不是自动启用的 skill，也不替代 DSH 规范。下列材料阅读于 2026-10-26。公开资料提供比较方法，本文 DSH 案例和原理图是结合本地场景的归纳；链接指向原作者。使用本文不需要安装或执行外部 skill。
+这些是研究输入，不是自动启用的 skill，也不替代 LYN 规范。下列材料阅读于 2026-10-26。公开资料提供比较方法，本文 LYN 案例和原理图是结合本地场景的归纳；链接指向原作者。使用本文不需要安装或执行外部 skill。
 
 | 参考 | 可采用的贡献 | 范围与明确取舍 |
 |---|---|---|
-| [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | 明确构图、围绕实际内容做选择、观察渲染结果自评 | 表现性视觉方向不意味着应重设工作界面风格或更换 DSH 字体 |
-| [Vercel web-design-guidelines skill](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md) 与[规则](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md) | 定位问题源码，覆盖焦点、标签、长内容与交互 | 代码合规不能证明对齐和分组；其 title case 建议不覆盖 DSH 的 sentence case |
+| [Anthropic frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | 明确构图、围绕实际内容做选择、观察渲染结果自评 | 表现性视觉方向不意味着应重设工作界面风格或更换 LYN 字体 |
+| [Vercel web-design-guidelines skill](https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md) 与[规则](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md) | 定位问题源码，覆盖焦点、标签、长内容与交互 | 代码合规不能证明对齐和分组；其 title case 建议不覆盖 LYN 的 sentence case |
 | [Impeccable](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/SKILL.md)、[critique](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/critique.md)、[polish](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/polish.md)、[operate](https://github.com/pbakaus/impeccable/blob/main/.agents/skills/impeccable/reference/operate.md) | 区分任务型界面与宣传设计，区分视觉判断与检测器输出 | 采用完整路径检查与现有系统比较，不引入其执行、委派或评分机制 |
-| [Interface Design](https://github.com/Dammyjay93/interface-design/blob/main/.claude/skills/interface-design/SKILL.md) | 明确产品意图、复用重复模式、与已有相邻界面比较 | 保留 DSH 现有系统，不照搬示例字重、不另建 token 目录、不为独特而独特 |
+| [Interface Design](https://github.com/Dammyjay93/interface-design/blob/main/.claude/skills/interface-design/SKILL.md) | 明确产品意图、复用重复模式、与已有相邻界面比较 | 保留 LYN 现有系统，不照搬示例字重、不另建 token 目录、不为独特而独特 |
 | [OpenAI figma-implement-design](https://github.com/openai/skills/blob/main/skills/.curated/figma-implement-design/SKILL.md) | 用真实视觉参考比较渲染结果，并整合已有组件 | 截图是有范围的证据，不代表可以推断未展示状态或照搬每个数值 |
 | [Fluent Shapes](https://fluent2.microsoft.design/shapes/)与 [Primer Forms](https://primer.style/product/ui-patterns/forms/) | 能直接检查关系的组件反例 | 上文案例分析迁移判断方法，不迁移其 token 或交互体系 |
 | [Atlassian spacing](https://atlassian.design/foundations/spacing/) | 邻近关系、重复节奏、层级与光学调整的正反例 | 借鉴关系判断，不移植 Atlassian token 名称或自动像素公式 |
-| [Carbon spacing](https://www.carbondesignsystem.com/building-blocks/foundations/spacing/overview) | 间距模式表达等权与分区边界，流式居中不同于固定距离 | 沿用 DSH 间距所有方，只有一套尺度仍不能选择正确分组关系 |
+| [Carbon spacing](https://www.carbondesignsystem.com/building-blocks/foundations/spacing/overview) | 间距模式表达等权与分区边界，流式居中不同于固定距离 | 沿用 LYN 间距所有方，只有一套尺度仍不能选择正确分组关系 |
 | [Codex 官方产品介绍](https://openai.com/index/introducing-the-codex-app/)与[桌面文档](https://learn.chatgpt.com/docs/app) | 任务导向的构图和可比较的真实公开示例 | 公开示例是特定版本的观察，不是当前本机应用或未公开的 Codex 设计规范 |
 
 ### Codex：限定用途的构图参照

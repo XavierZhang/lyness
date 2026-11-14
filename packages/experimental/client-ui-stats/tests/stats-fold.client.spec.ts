@@ -1,14 +1,14 @@
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'agent-message': { readonly kind: 'agent-message' }
   }
 }
 
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { SessionEventLike } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { TeamId, TeamMessageId } from '@deepseek-ai/dsh-agent-team/types'
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import type { SessionEventLike } from '@lyness/lyn-api-session-controller/client'
+import type { TeamId, TeamMessageId } from '@lyness/lyn-agent-team/types'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { brandString } from '@lyness/lyn-brand'
 import type {
   LlmAttemptId,
   MessageId,
@@ -21,10 +21,10 @@ import type {
   TokenUsage,
   ToolResultMessage,
   UserMessage,
-} from '@deepseek-ai/dsh-llm'
-import type { RetryId } from '@deepseek-ai/dsh-llm-retry/types'
-import { type SessionId, SessionSeq, type SessionEventMap, type SessionEventType } from '@deepseek-ai/dsh-session/types'
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
+} from '@lyness/lyn-llm'
+import type { RetryId } from '@lyness/lyn-llm-retry/types'
+import { type SessionId, SessionSeq, type SessionEventMap, type SessionEventType } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
 import {
   CALL_LIMIT, fallbackState, foldEvent, isCodeMode, newState, promptOf, stepMetrics, toolSpanUnion, triggerSenderOf,
 } from '../src/client/stats-fold.ts'

@@ -1,6 +1,6 @@
 import { executeTool } from './execute-tool.ts'
 import { describe, expect, it } from 'vitest'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { ToolCallId } from '@lyness/lyn-llm'
 import { z } from 'zod'
 import { taskId } from '../src/records.ts'
 import { setup } from './fixture.ts'

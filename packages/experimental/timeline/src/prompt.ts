@@ -1,4 +1,4 @@
-// Report roles and exclusion rules adapted from kermanx/dsh-progress-check (MIT).
+// Report roles and exclusion rules adapted from kermanx/lyn-progress-check (MIT).
 import { z } from 'zod'
 import type { OutputLanguage } from './policy.ts'
 import type { Summary } from './records.ts'

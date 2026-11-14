@@ -6,7 +6,7 @@ Status: proposed
 
 ## Problem
 
-这棵树里没有任何东西认识"人"。[`dsh-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 把一次调用解析到一个组织——靠网关设置的 `x-tenant-id` 头、靠 hostname、或靠基础域名下的子域标签——到此为止。唯一像用户的标识是 [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.zh.md)，而它存在的目的是在**不识别任何人**的前提下关联遥测。`TenantConfig` 记录一个组织的模型、供应商、功能与文案，它自己的 README 也写明了这个缺口：组织与 agent 之间没有用户层。
+这棵树里没有任何东西认识"人"。[`lyn-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 把一次调用解析到一个组织——靠网关设置的 `x-tenant-id` 头、靠 hostname、或靠基础域名下的子域标签——到此为止。唯一像用户的标识是 [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.zh.md)，而它存在的目的是在**不识别任何人**的前提下关联遥测。`TenantConfig` 记录一个组织的模型、供应商、功能与文案，它自己的 README 也写明了这个缺口：组织与 agent 之间没有用户层。
 
 已经有两份提案依赖这一缺失的层。[会话归属](2026-10-07-session-ownership.zh.md)要求每次调用说明是谁打开了对话、以及他以哪重成员身份行事。[租户级品牌](2026-10-07-per-tenant-brand.zh.md)要求有一位可以更改品牌的租户管理员，以及一道在保存处执行的计划门禁。两者都不能先建。
 

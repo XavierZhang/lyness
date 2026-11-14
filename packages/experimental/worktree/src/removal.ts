@@ -1,6 +1,6 @@
 /** Identity validation shared by restoration and removal, and the conservative inspection before a checkout is removed. */
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-fs'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-fs'
 import type { RestoreWorktreeRequest } from './types.ts'
 
 /** Runs one Git command in the owner's confinement and reports its complete bounded output. */

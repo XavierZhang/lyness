@@ -1,8 +1,8 @@
 /** Delivery gestures share pending state, report their settled outcome, and cancel with the plugin. */
 import { afterEach, expect, it, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { PresentedOpenController } from '../src/client/present-open.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers() })
 

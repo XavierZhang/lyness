@@ -19,10 +19,10 @@ it.each([
   { event: 'shutdown', phase: 'startup', fail: true },
 ] as const)('settles $event while waiting for $phase (failure: $fail)', async ({ event, phase, fail }) => {
   const root = mkdtempSync(join(tmpdir(), 'desktop-disconnect-'))
-  const modules = join(root, 'node_modules', '@deepseek-ai')
+  const modules = join(root, 'node_modules', '@lyness')
   const hostDirectory = fileURLToPath(new URL('../../desktop-host/', import.meta.url))
   const manifest = JSON.parse(readFileSync(join(hostDirectory, 'package.json'), 'utf8')) as { dependencies: Record<string, string> }
-  const stubbed = new Set(['@deepseek-ai/dsh-app-boot', '@deepseek-ai/dsh'])
+  const stubbed = new Set(['@lyness/lyn-app-boot', '@lyness/lyn'])
   for (const name of Object.keys(manifest.dependencies)) {
     const destination = join(root, 'node_modules', name)
     mkdirSync(dirname(destination), { recursive: true })
@@ -30,8 +30,8 @@ it.each([
     else symlinkSync(realpathSync(join(hostDirectory, 'node_modules', name)), destination, 'junction')
   }
   writeFileSync(join(root, 'package.json'), '{"type":"module"}')
-  writeFileSync(join(modules, 'dsh-app-boot', 'package.json'), '{"type":"module","exports":"./index.js"}')
-  writeFileSync(join(modules, 'dsh-app-boot', 'index.js'), `
+  writeFileSync(join(modules, 'lyn-app-boot', 'package.json'), '{"type":"module","exports":"./index.js"}')
+  writeFileSync(join(modules, 'lyn-app-boot', 'index.js'), `
     import { writeFileSync } from 'node:fs';
     export class StartupError extends Error {}
     export const loadProfileDirectory = () => {
@@ -41,8 +41,8 @@ it.each([
     export const reportSkippedBundles = () => {};
     export const loadLayeredEnv = () => ({});
   `)
-  writeFileSync(join(modules, 'dsh', 'package.json'), '{"type":"module","exports":{"./profile-boot":"./profile-boot.js"}}')
-  writeFileSync(join(modules, 'dsh', 'profile-boot.js'), `
+  writeFileSync(join(modules, 'lyn', 'package.json'), '{"type":"module","exports":{"./profile-boot":"./profile-boot.js"}}')
+  writeFileSync(join(modules, 'lyn', 'profile-boot.js'), `
     import { writeFileSync } from 'node:fs';
     export function runProfile(options) {
       process.send({ type: 'booting', packageManager: options.packageManager });

@@ -1,9 +1,9 @@
 ---
-description: "The web search and fetch settings page on the dsh web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, DeepSeek Search and Fetch API billing, and legacy Messages search settings."
+description: "The web search and fetch settings page on the lyn web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, DeepSeek Search and Fetch API billing, and legacy Messages search settings."
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-web-search
+# @lyness/lyn-client-ui-settings-web-search
 
 English | [中文](README.zh.md)
 
@@ -74,7 +74,7 @@ None; this package neither assembles nor sends a provider request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Automatic selection reads only the deployment composition** — a menu offers it when the composition layer sets no provider for that capability. While automatic selection applies, the Host's `DSH_WEB_SEARCH_PROVIDER` or `DSH_WEB_FETCH_PROVIDER` environment variable picks the provider instead, and the page does not show that choice. Without either, automatic selection with more than one usable registered provider makes each operation fail with `WEB_PROVIDER_AMBIGUOUS`.
+- **Automatic selection reads only the deployment composition** — a menu offers it when the composition layer sets no provider for that capability. While automatic selection applies, the Host's `LYNESS_WEB_SEARCH_PROVIDER` or `LYNESS_WEB_FETCH_PROVIDER` environment variable picks the provider instead, and the page does not show that choice. Without either, automatic selection with more than one usable registered provider makes each operation fail with `WEB_PROVIDER_AMBIGUOUS`.
 
 - **Billing availability is not shown** — the page does not report that the selected billing has no signed-in account or no configured key; reading sign-in state needs the account remote, and the key reference of the DeepSeek API-key model provider is not visible to this page. An unavailable billing withholds the web tool from the model.
 

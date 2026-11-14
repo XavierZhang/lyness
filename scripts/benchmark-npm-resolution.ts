@@ -16,7 +16,7 @@ import { parseArgs } from 'node:util'
  */
 const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
 
-const TARGET_PACKAGE = '@deepseek-ai/dsh'
+const TARGET_PACKAGE = '@lyness/lyn'
 const DEFAULT_TIMEOUT_MS = 300_000
 const TERMINATION_GRACE_MS = 1_000
 const FORCED_EXIT_TIMEOUT_MS = 5_000
@@ -388,7 +388,7 @@ async function runNpm(
 ): Promise<{ durationMs: number; output: string; timedOut: boolean }> {
   const npmrc = join(cwd, '.npmrc')
   const globalNpmrc = join(cwd, '.npmrc-global')
-  writeFileSync(npmrc, `registry=${registry}\n@deepseek-ai:registry=${registry}\n`)
+  writeFileSync(npmrc, `registry=${registry}\n@lyness:registry=${registry}\n`)
   writeFileSync(globalNpmrc, '')
   const inheritedEnvironment = Object.fromEntries(Object.entries(process.env)
     .filter(([name]) => !name.toLowerCase().startsWith('npm_config_')))
@@ -473,10 +473,10 @@ export async function resolveNpmPackageLock(
   })
   const port = await listen(server)
   registry = `http://127.0.0.1:${String(port)}/`
-  const consumer = mkdtempSync(join(tmpdir(), 'dsh-npm-resolution-'))
+  const consumer = mkdtempSync(join(tmpdir(), 'lyn-npm-resolution-'))
   try {
     writeFileSync(join(consumer, 'package.json'), `${JSON.stringify({
-      name: 'dsh-npm-resolution-benchmark',
+      name: 'lyn-npm-resolution-benchmark',
       version: '0.0.0',
       private: true,
       dependencies,
@@ -500,7 +500,7 @@ export async function resolveNpmPackageLock(
 /**
  * Resolve the CLI install graph once without downloading package archives.
  * @param index - Package metadata exposed through the local registry.
- * @param targetVersion - Version of `@deepseek-ai/dsh` to install.
+ * @param targetVersion - Version of `@lyness/lyn` to install.
  * @param timeoutMs - Hard wall-clock limit for the npm child process.
  * @returns Timing and registry-request observations.
  */

@@ -3,7 +3,7 @@ kind: package-reference
 description: "Authenticate Desktop requests with a private, in-memory credential without exposing it to the renderer."
 ---
 
-# @deepseek-ai/dsh-host-authentication-desktop
+# @lyness/lyn-host-authentication-desktop
 
 English | [中文](README.zh.md)
 
@@ -31,7 +31,7 @@ The Desktop startup owner mounts the plugin through Cordis after receiving its p
 |---|---|---|
 | `readSecret` | required | Function returning the credential already validated on the private parent IPC channel |
 
-The provider accepts one `dsh-desktop-session` Cookie value matching its credential. Duplicate values, malformed credentials and mismatches are rejected. Successful HTTP and WebSocket admission reuse its existing Peer. Disposing this plugin removes its provider registration and ends that Peer through the normal Connection lifecycle.
+The provider accepts one `lyn-desktop-session` Cookie value matching its credential. Duplicate values, malformed credentials and mismatches are rejected. Successful HTTP and WebSocket admission reuse its existing Peer. Disposing this plugin removes its provider registration and ends that Peer through the normal Connection lifecycle.
 
 -----
 
@@ -41,7 +41,7 @@ The provider accepts one `dsh-desktop-session` Cookie value matching its credent
 <details>
 <summary>Implementation internals — click to expand</summary>
 
-The Desktop parent process generates and privately delivers the credential. The Host application's IPC receiver validates the handshake; its startup entry authenticates through ConnectionAuthentication before publishing the page injections. Both ends use the fixed Cookie name `dsh-desktop-session` and the value `<name>=<secret>`. The Cordis plugin owns credential verification and Peer creation. Desktop owns Host address validation and request forwarding, including origin checks and credential attachment. It supplies the process channel, mounts the plugin, and publishes its single ready response. ConnectionAuthentication owns the Provider registry and verification; Connection owns Peer creation and transport.
+The Desktop parent process generates and privately delivers the credential. The Host application's IPC receiver validates the handshake; its startup entry authenticates through ConnectionAuthentication before publishing the page injections. Both ends use the fixed Cookie name `lyn-desktop-session` and the value `<name>=<secret>`. The Cordis plugin owns credential verification and Peer creation. Desktop owns Host address validation and request forwarding, including origin checks and credential attachment. It supplies the process channel, mounts the plugin, and publishes its single ready response. ConnectionAuthentication owns the Provider registry and verification; Connection owns Peer creation and transport.
 
 The [plugin entry](src/index.ts) exports the ordinary `name`, `inject`, and `apply` members; `Config` is a TypeScript interface. Token and Desktop register through the same ConnectionAuthentication service, with neither provider depending on the other.
 

@@ -4,19 +4,19 @@
  * actions and their notices, the changes view, and unload.
  */
 import assert from 'node:assert/strict'
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { RemoteHostFacts } from '@deepseek-ai/dsh-api-remotes/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
-import type { QuoteSummary } from '@deepseek-ai/dsh-client-ui-primitives'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type { SidebarRightTabDefinition, TabId } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import { Context, Service } from '@lyness/cordis'
+import type { RemoteHostFacts } from '@lyness/lyn-api-remotes/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { stubConfigForm } from '@lyness/lyn-client-test-runtime'
+import type { QuoteSummary } from '@lyness/lyn-client-ui-primitives'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SidebarRightTabDefinition, TabId } from '@lyness/lyn-client-ui-sidebar-right/client'
 import type {
   ChangeRequestReviewer, ChangeRequestSnapshot, ForgeCommitList, ForgeRerunRequest, ForgeReviewData, ForgeReviewerCandidate,
   ForgeReviewRequest, ForgeReviewResult, ForgeReviewWrite, ForgeReviewWriteResult, ForgeThreadId, ForgeViewedFiles, ForgeViewedRequest,
-} from '@deepseek-ai/dsh-experimental-forge/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { RemoteError, type RemoteResult, type TypertRemoteContribution } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/lyn-experimental-forge/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError, type RemoteResult, type TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ActionToast } from '../src/client/ActionToast.tsx'
 import { CHANGES_ID, CHANGES_KIND } from '../src/client/changes-address.ts'
@@ -37,16 +37,16 @@ import { WorktreeProgress, type WorktreeProgressInjected } from '../src/client/W
 import { WorktreeSettings } from '../src/client/WorktreeSettings.tsx'
 import type { WorktreeSettingsInjected, WorktreeSettings as WorktreeSettingsFields } from '../src/client/worktree-settings-form.ts'
 import { WorktreeToggle, type WorktreeToggleInjected } from '../src/client/WorktreeToggle.tsx'
-import type { WorktreeCleanup } from '@deepseek-ai/dsh-experimental-worktree/types'
+import type { WorktreeCleanup } from '@lyness/lyn-experimental-worktree/types'
 import type {
   ForgeBaseBranches, ForgeBranches, ForgeChangeRequestDiff, ForgeChangeRequestStatesFrame, ForgeExtensionState, ForgeLensFrame,
   ForgeLensRequest,
   ForgeCommitRange, ForgeLocalCommits, ForgeLocalDiff, ForgeLocalScope, ForgePanelState,
 } from '../src/types.ts'
 import { entry, listState, ready, snapshot, unserved } from './client-fixtures.client.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
-const REMOTE: TypertRemoteContribution = { package: '@deepseek-ai/dsh-experimental-client-ui-forge', descriptors: [] }
+const REMOTE: TypertRemoteContribution = { package: '@lyness/lyn-experimental-client-ui-forge', descriptors: [] }
 const S1 = brandString<SessionId>('s1')
 const S2 = brandString<SessionId>('s2')
 const BRANCHES: ForgeBranches = { current: 'main', branches: ['main', 'release'] }
@@ -92,7 +92,7 @@ const REFUSED = {
   started: { ok: false, error: new RemoteError('forgePanel/session-started', 'started', {}) },
   unavailable: { ok: false, error: new RemoteError('forgePanel/worktrees-unavailable', 'unavailable', {}) },
   busy: { ok: false, error: new RemoteError('forgePanel/session-busy', 'busy', {}) },
-  restore: { ok: false, error: new RemoteError('forgePanel/restore-failed', 'fatal: \'/work/repo-dsh\' already exists', {}) },
+  restore: { ok: false, error: new RemoteError('forgePanel/restore-failed', 'fatal: \'/work/repo-lyn\' already exists', {}) },
   failed: { ok: false, error: new RemoteError('gateway/bad-request', 'failed', {}) },
   stale: { ok: false, error: new RemoteError('forgePanel/stale-head', 'Head branch was modified', {}) },
   refused: { ok: false, error: new RemoteError('forgePanel/action-failed', 'Pull Request is not mergeable', {}) },
@@ -443,7 +443,7 @@ describe('mountForgePanel extension API', () => {
     expect(face.keyedHooks.annotations(address)).toBe(view)
     expect(face.keyedHooks.annotations(forgeChanges.address({ sessionId: S1, source: { kind: 'change', url: 'https://github.com/octo/demo/pull/7' } })))
       .not.toBe(view)
-    expect(() => face.keyedHooks.annotations('dsh-resource://forge-changes/s1/remote')).toThrow('forge-panel: not a changes address')
+    expect(() => face.keyedHooks.annotations('lyn-resource://forge-changes/s1/remote')).toThrow('forge-panel: not a changes address')
 
     await f.dispose()
     expect(f.extensionStreams[0]?.disposed).toHaveBeenCalled()
@@ -611,10 +611,10 @@ describe('mountForgePanel tab actions', () => {
     const writeText = vi.fn(async (_text: string) => {})
     Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } })
 
-    f.tab(S1).copyPath('/work/repo-dsh')
+    f.tab(S1).copyPath('/work/repo-lyn')
     await settle()
 
-    expect(writeText).toHaveBeenCalledWith('/work/repo-dsh')
+    expect(writeText).toHaveBeenCalledWith('/work/repo-lyn')
     expect(f.notice()).toMatchObject({ key: 'toast.pathCopied', tone: 'success', params: {}, undo: undefined })
     await f.dispose()
   })
@@ -642,7 +642,7 @@ describe('mountForgePanel tab actions', () => {
     f.tab(S1).restore()
     await settle()
     expect(f.notice()).toMatchObject({
-      key: 'toast.restoreFailed', tone: 'failure', seq: 2, params: { message: 'fatal: \'/work/repo-dsh\' already exists' },
+      key: 'toast.restoreFailed', tone: 'failure', seq: 2, params: { message: 'fatal: \'/work/repo-lyn\' already exists' },
     })
     f.toast().dismiss()
     expect(f.notice()).toBeNull()
@@ -864,7 +864,7 @@ describe('mountForgePanel worktree card actions', () => {
   it('returns why a restore failed for the card to show, without a notice', async () => {
     const f = await fixture()
     f.forgePanel.restoreWorktree.mockResolvedValueOnce(REFUSED.restore)
-    expect(await f.progress(S1).restore()).toBe('fatal: \'/work/repo-dsh\' already exists')
+    expect(await f.progress(S1).restore()).toBe('fatal: \'/work/repo-lyn\' already exists')
     expect(f.notice()).toBeNull()
     await f.dispose()
   })

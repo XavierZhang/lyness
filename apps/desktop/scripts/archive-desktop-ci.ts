@@ -3,9 +3,9 @@ import { constants } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { appendFile, copyFile, mkdtemp } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
-import { desktopPublicationFailure } from '@deepseek-ai/dsh-desktop-publisher/desktop-publication-failure.ts'
+import { desktopPublicationFailure } from '@lyness/lyn-desktop-publisher/desktop-publication-failure.ts'
 import { desktopReleasesRoot } from './retain-desktop-ci.ts'
-import { retainedDesktopPath, verifyRetainedDesktopRelease } from '@deepseek-ai/dsh-desktop-publisher/desktop-release-store.ts'
+import { retainedDesktopPath, verifyRetainedDesktopRelease } from '@lyness/lyn-desktop-publisher/desktop-release-store.ts'
 
 /**
  * Verify an original build without interpreting the archive job's attempt as a new build.

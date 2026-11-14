@@ -15,7 +15,7 @@
 ```sh
 ls -d packages/*/*/ | wc -l                      # 插件包数
 ls packages/bundle/ | wc -l                      # profile bundle 数
-grep -c '^| `@deepseek-ai' docs/tool-catalog.md       # 工具包数
+grep -c '^| `@lyness' docs/tool-catalog.md       # 工具包数
 pnpm run verify-remote-authority                 # Remote 命名空间数
 grep -n 'SHIPPED_LOCALE_IDS = ' scripts/shipped-locales.ts   # 出厂语言
 ```

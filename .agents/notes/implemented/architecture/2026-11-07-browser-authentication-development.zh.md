@@ -16,11 +16,11 @@ Status: implemented
 
 Connection 插件提供独立嵌套服务 `connection.authentication`。Provider 插件同时注入 `connection` 和 `connection.authentication`：前者创建 Peer，后者拥有注册与凭据验证。该访问路径是真正的 Cordis 服务，不是构造临时注册表对象的 getter。
 
-下面的完整函数插件示例由 Host 提供可信进程内验证器和 principal。其中 `Config.verify` 是示例的应用输入，不是新 DSH API，也不代替具体凭据算法的实现。
+下面的完整函数插件示例由 Host 提供可信进程内验证器和 principal。其中 `Config.verify` 是示例的应用输入，不是新 LYN API，也不代替具体凭据算法的实现。
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { ConnectionTrustRequest, Principal } from '@deepseek-ai/dsh-client-connection'
+import type { Context } from '@lyness/cordis'
+import type { ConnectionTrustRequest, Principal } from '@lyness/lyn-client-connection'
 
 export const name = 'example-authentication'
 export const inject = ['connection', 'connection.authentication']
@@ -51,8 +51,8 @@ export function apply(ctx: Context, config: Config): void {
 下面的示例注册普通业务 handler。Host 提供 `Config.upgrade`，即业务已有的协议实现，并非另一个框架操作。HTTP 中的断言对应此路由的 `required` 策略；公共 handler 类型同时支持没有 Peer 的匿名路由。
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { WebUpgradeRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { Context } from '@lyness/cordis'
+import type { WebUpgradeRoute } from '@lyness/lyn-host-webserver'
 
 export const name = 'example-protected-routes'
 export const inject = ['webServer']
@@ -107,7 +107,7 @@ Upgrade 为该连接固定 Peer，后续 HTTP 请求重新认证。Token 的浏�
 
 WebApp 保留 `publicUrl`、`printUrl` 和 `openBrowser`，两个输出开关默认均为 true。Loader 装配结束并完成启动审计后，它发出 `webserver/entry-url`，传入自己的 WebServer subject、普通基地址和初始为空的 `WebEntryUrl[]`。每条入口包含 `label`、完整 `url` 和布尔值 `open`。
 
-Token 不读取 WebApp 服务，只贡献带签名的 `dsh web` URL。没有用户入口的 Provider 不贡献条目，其他产品可以贡献自己的 label 和完整 URL。启用打印时，WebApp 逐行输出 `label: url`；启用浏览器打开且不在 SSH 下时，只打开首个 `open: true` 条目。空列表不产生输出或浏览器打开。即使接线未公开原始 Token getter，进程凭据仍是敏感信息。
+Token 不读取 WebApp 服务，只贡献带签名的 `lyn web` URL。没有用户入口的 Provider 不贡献条目，其他产品可以贡献自己的 label 和完整 URL。启用打印时，WebApp 逐行输出 `label: url`；启用浏览器打开且不在 SSH 下时，只打开首个 `open: true` 条目。空列表不产生输出或浏览器打开。即使接线未公开原始 Token getter，进程凭据仍是敏感信息。
 
 Desktop 父进程为每个 Host 进程持有新私有凭据，并在 ready 前交付。Desktop Provider 创建 Peer，通过相同认证服务注册验证。Electron 使用本地组装的 `authenticationCookie`；runtime smoke 等父进程消费者不使用普通 ready URL 尝试 Token 交换。Renderer 启动数据和 wire ready 消息不含私有凭据。
 

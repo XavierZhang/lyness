@@ -1,6 +1,6 @@
 /** The one Remote failure class shared by owners, the Gateway, and consumers. */
 
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 import type { RemoteErrorCode, RemoteErrorDetailsMap, RemoteFailure } from './types.ts'
 
 /**
@@ -13,7 +13,7 @@ import type { RemoteErrorCode, RemoteErrorDetailsMap, RemoteFailure } from './ty
  */
 export class RemoteError<Code extends RemoteErrorCode = RemoteErrorCode> extends HarnessError {
   /** Structural marker: cross-realm/bundle identification never uses instanceof. */
-  readonly isDSHRemoteError: true = true
+  readonly isLYNRemoteError: true = true
 
   /**
    * @param code - stable failure code declared in {@link RemoteErrorDetailsMap}.
@@ -43,7 +43,7 @@ export function remoteErrorOf(value: unknown): RemoteFailure | undefined {
   // Structural, not instanceof: an Error thrown in another realm (iframe, VM)
   // fails instanceof Error here, so the marker plus the code field is the test.
   if (typeof value === 'object' && value !== null
-    && (value as { isDSHRemoteError?: unknown }).isDSHRemoteError === true
+    && (value as { isLYNRemoteError?: unknown }).isLYNRemoteError === true
     && typeof (value as { code?: unknown }).code === 'string') {
     return value as RemoteFailure
   }

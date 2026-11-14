@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { HarnessError } from '@deepseek-ai/dsh-error'
-import { RemoteError, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
+import { HarnessError } from '@lyness/lyn-error'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 
 describe('RemoteError', () => {
   it('is a HarnessError that keeps its Remote code, details, and cause', () => {

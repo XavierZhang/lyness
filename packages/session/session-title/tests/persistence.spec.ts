@@ -1,15 +1,15 @@
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionTitleService, { foldSessionTitle } from '@deepseek-ai/dsh-session-title'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionTitleService, { foldSessionTitle } from '@lyness/lyn-session-title'
+import { brandString } from '@lyness/lyn-brand'
 
 const CONFIG = {
   fallbackMaxWords: 5,
@@ -64,7 +64,7 @@ async function expectPersistedTitle(ctx: Context, id: SessionId): Promise<void> 
 
 describe('session title persistence round trips', () => {
   it('round-trips through a remounted JSONL backend', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-title-jsonl-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-title-jsonl-'))
     roots.push(root)
     const id = brandString<SessionId>('title-jsonl')
     const writer = new Context()

@@ -3,12 +3,12 @@
  * model, reasoning effort, and sampling values are request-header state that
  * can affect cache reuse; request waterfalls replace them and the loop logs
  * changed snapshots instead of allowing silent per-call drift.
- * @module dsh-llm/call-config
+ * @module lyn-llm/call-config
  */
 
 import type { GenerateOptions, LlmResolvedModelInfo, ReasoningEffortId } from './types.ts'
 
-/** Process-local identities of request objects assembled by dsh-agent-loop. */
+/** Process-local identities of request objects assembled by lyn-agent-loop. */
 const AGENT_LOOP_REQUESTS = new WeakSet<GenerateOptions>()
 
 /** Concrete generation settings; omitted controls use the selected route's defaults. */
@@ -76,7 +76,7 @@ export function callConfigEquals(a: LlmCallConfig, b: LlmCallConfig): boolean {
 }
 
 /**
- * Mark one exact request object as assembled by dsh-agent-loop.
+ * Mark one exact request object as assembled by lyn-agent-loop.
  * @param request - loop-owned request envelope before LLM dispatch.
  * @returns the same request object marked as created by the process-local agent loop.
  */
@@ -86,7 +86,7 @@ export function markAgentLoopRequest<T extends GenerateOptions>(request: T): T {
 }
 
 /**
- * Test whether the exact request object was assembled by dsh-agent-loop.
+ * Test whether the exact request object was assembled by lyn-agent-loop.
  * @param request - request envelope observed at the LLM waterfall.
  * @returns whether {@link markAgentLoopRequest} recorded this object.
  */

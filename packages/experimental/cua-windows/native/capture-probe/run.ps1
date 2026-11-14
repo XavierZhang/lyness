@@ -1,7 +1,7 @@
 # Compile and run a private capture experiment using only the installed .NET Framework.
 param(
     [long]$WindowHandle = 0,
-    [string]$OutputDirectory = (Join-Path $env:TEMP ("dsh-capture-" + [guid]::NewGuid().ToString("N")))
+    [string]$OutputDirectory = (Join-Path $env:TEMP ("lyn-capture-" + [guid]::NewGuid().ToString("N")))
 )
 $ErrorActionPreference = "Stop"
 $framework = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319"

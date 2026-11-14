@@ -3,14 +3,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import CommandRuntime from '@deepseek-ai/dsh-commands'
-import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
-import * as SessionLogDownload from '@deepseek-ai/dsh-session-log-export'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import type { Agent } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
+import SessionStore, { type SessionId } from '@lyness/lyn-session'
+import * as SessionLogDownload from '@lyness/lyn-session-log-export'
+import { brandString } from '@lyness/lyn-brand'
 
 let root: string | undefined
 let context: Context | undefined
@@ -24,12 +24,12 @@ afterEach(async () => {
 
 describe('session-log-download real Loader composition', () => {
   it('discovers and executes /export through the assembled command plane', async () => {
-    root = await mkdtemp(join(tmpdir(), 'dsh-session-export-loader-'))
+    root = await mkdtemp(join(tmpdir(), 'lyn-session-export-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@deepseek-ai/dsh-session'",
-      "- name: '@deepseek-ai/dsh-commands'",
-      "- name: '@deepseek-ai/dsh-session-log-export'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-commands'",
+      "- name: '@lyness/lyn-session-log-export'",
       '',
     ].join('\n'))
 
@@ -41,9 +41,9 @@ describe('session-log-download real Loader composition', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@deepseek-ai/dsh-session', SessionStore],
-      ['@deepseek-ai/dsh-commands', CommandRuntime],
-      ['@deepseek-ai/dsh-session-log-export', SessionLogDownload],
+      ['@lyness/lyn-session', SessionStore],
+      ['@lyness/lyn-commands', CommandRuntime],
+      ['@lyness/lyn-session-log-export', SessionLogDownload],
     ])
     context.loader.internal = {
       version: 'v2',
@@ -62,7 +62,7 @@ describe('session-log-download real Loader composition', () => {
       .create(brandString<SessionId>('loader-session-export'), { meta: { createdAt: 1 } })
     const agent = { session, status: 'idle', options: {} } as unknown as Agent
     expect(context.commands.list(agent)).toContainEqual({
-      definitionId: '@deepseek-ai/dsh-session-log-export',
+      definitionId: '@lyness/lyn-session-log-export',
       name: 'export', description: 'Download this Session log as a ZIP archive',
     })
     const execution = await context.commands.execute(agent, '/export', [], new AbortController().signal)

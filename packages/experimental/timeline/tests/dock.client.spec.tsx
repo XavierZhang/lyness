@@ -12,7 +12,7 @@ import type { TimelineView } from '../src/records.ts'
 import { patchTasks } from '../src/tasks.ts'
 import type { ProgressPrecision } from '../src/policy.ts'
 
-vi.mock('@deepseek-ai/dsh-client-ui-primitives', () => ({
+vi.mock('@lyness/lyn-client-ui-primitives', () => ({
   Button: (props: ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props} />,
   Tooltip: ({ children }: { children: ReactNode }) => children,
   IconRightUpOutlineRegular: () => <span />,

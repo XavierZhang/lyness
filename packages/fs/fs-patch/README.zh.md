@@ -3,7 +3,7 @@ description: "解析 Codex 风格补丁并将 hunk 应用于文本，不执行�
 kind: "package-library"
 ---
 
-# dsh-fs-patch
+# lyn-fs-patch
 
 [English](README.md) | 中文
 
@@ -26,7 +26,7 @@ kind: "package-library"
 操作和 hunk（修改块）只包含可 JSON 序列化的值；解析按输入顺序保留重复路径，路径保持为未解析的字符串。
 
 ```ts
-import { applyHunks, parsePatch } from '@deepseek-ai/dsh-fs-patch'
+import { applyHunks, parsePatch } from '@lyness/lyn-fs-patch'
 
 const operations = parsePatch('*** Begin Patch\n*** Update File: hello.txt\n-hello\n+hi\n*** End Patch')
 const operation = operations[0]
@@ -76,7 +76,7 @@ if (operation?.kind === 'update') {
 | 上下文行 | 用补丁文本替换整个匹配区间，包括容错匹配的上下文差异。 |
 | 没有 hunk | 仍执行相同的重建，因此会补齐缺少的末尾 LF，也可能消耗一个末尾空行。 |
 
-与 Codex 的刻意差异在于职责和结果报告：行尾风格由 DSH 提供方保留，因此匹配器只接收 LF 规范化文本，不实现 `PreserveLineEndings`。CR 是普通字符：调用方必须先规范化 CRLF，之后还原选定的行尾风格。匹配失败返回结构化数据而非 Codex 带路径的错误，因此调用方负责文件标识和面向用户的诊断。
+与 Codex 的刻意差异在于职责和结果报告：行尾风格由 LYN 提供方保留，因此匹配器只接收 LF 规范化文本，不实现 `PreserveLineEndings`。CR 是普通字符：调用方必须先规范化 CRLF，之后还原选定的行尾风格。匹配失败返回结构化数据而非 Codex 带路径的错误，因此调用方负责文件标识和面向用户的诊断。
 
 <a id="understand-the-implementation"></a>
 ## 理解实现

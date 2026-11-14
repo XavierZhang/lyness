@@ -13,6 +13,6 @@ for (const dependency of ['electron', 'electron-builder', 'app-builder-lib', 're
 }
 assert.equal(existsSync(new URL('../../desktop/node_modules', import.meta.url)), false)
 assert.equal(typeof teo.v20220901.Client, 'function')
-assert.throws(() => desktopReleasesRoot({}), /DSH_PACKAGING_CONFIG_DIR is required/)
+assert.throws(() => desktopReleasesRoot({}), /LYNESS_PACKAGING_CONFIG_DIR is required/)
 await assert.rejects(prepareDesktopRolloutCi({}), /runId/)
 console.log('Desktop publisher isolated install: OK (no package build, credentials or remote operations)')

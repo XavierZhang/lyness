@@ -7,8 +7,8 @@
   - paragraph: 版本 1.0.0
   - button "收起安装详情" [expanded]
   - button "重试"
-  - paragraph: 安装位置：{{cwd}}/.dsh-home/profiles/scaffold
+  - paragraph: 安装位置：{{cwd}}/.lyn-home/profiles/scaffold
   - text: 失败 $ pnpm add silent-package 退出码 1
   - button "复制"
   - text: "Command failed with exit code 1: {{node}} add silent-package"
-  - paragraph: 完整日志：{{cwd}}/.dsh-home/profiles/scaffold/.plugin-manager/logs/operation-{{suffix}}/pnpm.log
+  - paragraph: 完整日志：{{cwd}}/.lyn-home/profiles/scaffold/.plugin-manager/logs/operation-{{suffix}}/pnpm.log

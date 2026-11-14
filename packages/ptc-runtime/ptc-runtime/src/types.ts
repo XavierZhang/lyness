@@ -3,11 +3,11 @@
  * {@link ../index.ts | PtcRuntime} and what it gets back. Pure types — no
  * runtime code lives here.
  *
- * @module @deepseek-ai/dsh-ptc-runtime/src/types
+ * @module @lyness/lyn-ptc-runtime/src/types
  */
 
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type { SandboxEnforcement, SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { SandboxEnforcement, SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
 
 /** Raw text fragments and inspected images in emission order; concatenate adjacent text without separators. */
 export type PtcOutput = { type: 'text'; text: string } | { type: 'image'; attachment: ImageAttachmentRef }

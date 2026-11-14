@@ -3,10 +3,10 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionSnapshot } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { ScheduleRecord, ScheduleCatalogEntry, ScheduleId } from '@deepseek-ai/dsh-schedule/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
+import type { ScheduleRecord, ScheduleCatalogEntry, ScheduleId } from '@lyness/lyn-schedule/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   formatScheduleAbsolute,
   formatScheduleFrequency,
@@ -23,7 +23,7 @@ import type { CatalogSnapshot } from '../src/client/catalog-source.ts'
 import { en, zh } from '../src/client/locales.ts'
 import catalogCss from '../src/client/ScheduleCatalogAction.module.css'
 import { en as managerEn, zh as managerZh } from '../src/client/task-manager-locales.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SESSION = 'schedule-session' as SessionId
 const START = Date.parse('2026-08-25T12:00:00.000Z')

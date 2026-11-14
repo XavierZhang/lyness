@@ -1,6 +1,6 @@
 /** Validate and capture the binding names available to one program. */
-import { PtcImage, RESERVED_BINDING_WORDS, PtcRuntimeError, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcBindingFunction, PtcBindingNamespace, PtcJsonValue, PtcProgramFormat, PtcRunRequest } from '@deepseek-ai/dsh-ptc-runtime'
+import { PtcImage, RESERVED_BINDING_WORDS, PtcRuntimeError, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/lyn-ptc-runtime'
+import type { PtcBindingFunction, PtcBindingNamespace, PtcJsonValue, PtcProgramFormat, PtcRunRequest } from '@lyness/lyn-ptc-runtime'
 import { snapshotPtcJsonValue, encodePtcJsonWire, type PtcJsonWire, type PtcImageWire } from './json-wire.ts'
 import { RESERVED_PREFIX } from './evaluators/scoped-repl.ts'
 const IDENTIFIER = /^[A-Za-z_$][A-Za-z0-9_$]*$/
@@ -15,13 +15,13 @@ export function validateBindings(request: PtcRunRequest, programFormat: PtcProgr
   for (const namespace of request.bindings) {
     if (!IDENTIFIER.test(namespace.global) || RESERVED_BINDING_WORDS.has(namespace.global)
       || (programFormat === 'scoped-repl' && namespace.global.includes(RESERVED_PREFIX))) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: binding global ${JSON.stringify(namespace.global)} is not a usable identifier`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: binding global ${JSON.stringify(namespace.global)} is not a usable identifier`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     if (RESERVED_BINDING_GLOBALS.has(namespace.global)) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: reserved binding global ${JSON.stringify(namespace.global)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: reserved binding global ${JSON.stringify(namespace.global)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     if (bindings.has(namespace.global)) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: duplicate binding global ${JSON.stringify(namespace.global)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: duplicate binding global ${JSON.stringify(namespace.global)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     bindings.set(namespace.global, namespace)
   }
@@ -32,17 +32,17 @@ export function validateBindings(request: PtcRunRequest, programFormat: PtcProgr
     if (!descriptor) continue
     if (!IDENTIFIER.test(descriptor.name) || RESERVED_BINDING_WORDS.has(descriptor.name)
       || (programFormat === 'scoped-repl' && descriptor.name.includes(RESERVED_PREFIX))) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: binding error class ${JSON.stringify(descriptor.name)} is not a usable identifier`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: binding error class ${JSON.stringify(descriptor.name)} is not a usable identifier`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     if (RESERVED_BINDING_GLOBALS.has(descriptor.name)) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: reserved binding global ${JSON.stringify(descriptor.name)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: reserved binding global ${JSON.stringify(descriptor.name)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     if (bindings.has(descriptor.name) || errorClassNames.has(descriptor.name)) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: duplicate injected global ${JSON.stringify(descriptor.name)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: duplicate injected global ${JSON.stringify(descriptor.name)}`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     const member = descriptor.memberNameProperty
     if (member.length === 0 || RESERVED_ERROR_MEMBERS.has(member)) {
-      throw new PtcRuntimeError(`dsh-ptc-runtime-node: binding error member property ${JSON.stringify(descriptor.memberNameProperty)} is not usable`, 'PTC_RUNTIME_INVALID_ARGUMENT')
+      throw new PtcRuntimeError(`lyn-ptc-runtime-node: binding error member property ${JSON.stringify(descriptor.memberNameProperty)} is not usable`, 'PTC_RUNTIME_INVALID_ARGUMENT')
     }
     errorClassNames.add(descriptor.name)
   }

@@ -11,10 +11,10 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type { SessionId as sessionId, SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent'
+import type { SessionId as sessionId, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent'
 import { launchWebScaffold, readPersistedEvents, webSnapshotMode, type WebScaffold } from './scaffold.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const MODE = webSnapshotMode()
 const INITIAL = 'Explain event sourcing in one sentence.'
@@ -79,7 +79,7 @@ describe.skipIf(MODE === 'record')('web e2e: subagents/interruptByUser over the 
   let childId: SessionId
 
   beforeAll(async () => {
-    sidecarRoot = await mkdtemp(join(tmpdir(), 'dsh-web-subagent-interrupt-'))
+    sidecarRoot = await mkdtemp(join(tmpdir(), 'lyn-web-subagent-interrupt-'))
     readyFile = join(sidecarRoot, 'hang-ready')
     // Whole-script replacement: the child's three model calls are the hang
     // (turn 1, interrupted), the parked follow-up's turn, and the waking turn.

@@ -89,11 +89,11 @@ process.send({ type: 'starting', runId: 'c254ab28-97c9-4382-95e6-2db9c66f98c8' }
 `
 
 function projectWithHost(source = HTTP_HOST): string {
-  const project = mkdtempSync(join(tmpdir(), 'dsh-desktop-host-test-'))
+  const project = mkdtempSync(join(tmpdir(), 'lyn-desktop-host-test-'))
   roots.push(project)
-  const packageRoot = join(project, 'node_modules', '@deepseek-ai', 'dsh-desktop-host')
+  const packageRoot = join(project, 'node_modules', '@lyness', 'lyn-desktop-host')
   mkdirSync(join(packageRoot, 'lib'), { recursive: true })
-  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@deepseek-ai/dsh-desktop-host","type":"module"}\n')
+  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@lyness/lyn-desktop-host","type":"module"}\n')
   writeFileSync(join(packageRoot, 'lib', 'index.js'), source)
   return project
 }
@@ -302,7 +302,7 @@ process.send({ type: 'starting', runId: randomUUID() })
     const first = await hostProcess(runtime).start()
     const second = await hostProcess(runtime).start()
     expect(first.url).toBe('http://127.0.0.1:3080/')
-    expect(first.authenticationCookie).toMatch(/^dsh-desktop-session=[A-Za-z0-9_-]{43}$/)
+    expect(first.authenticationCookie).toMatch(/^lyn-desktop-session=[A-Za-z0-9_-]{43}$/)
     expect(first.authenticationCookie).not.toBe(second.authenticationCookie)
     expect(first.injections).toEqual([])
   })
@@ -349,7 +349,7 @@ process.send({ type: 'starting', runId: randomUUID() })
     const host = hostProcess(runtime, runtime, failure)
     const ready = await host.start()
     expect(new URL(ready.url).search).toBe('')
-    expect(ready.authenticationCookie).toMatch(/^dsh-desktop-session=[A-Za-z0-9_-]{43}$/)
+    expect(ready.authenticationCookie).toMatch(/^lyn-desktop-session=[A-Za-z0-9_-]{43}$/)
     expect(await host.start()).toEqual(ready)
     expect((await fetch(ready.url)).status).toBe(200)
     await host.stop()
@@ -388,7 +388,7 @@ process.send({ type: 'starting', runId: randomUUID() })
     const { url } = await host.start()
     await fetch(new URL('/crash', url))
     await expect.poll(() => failure.mock.calls.length).toBe(1)
-    expect(failure).toHaveBeenCalledWith(expect.objectContaining({ message: 'dsh desktop host exited with 7: plugin crashed', hostRunId: 'c254ab28-97c9-4382-95e6-2db9c66f98c8' }))
+    expect(failure).toHaveBeenCalledWith(expect.objectContaining({ message: 'lyn desktop host exited with 7: plugin crashed', hostRunId: 'c254ab28-97c9-4382-95e6-2db9c66f98c8' }))
   })
 
   it('retains only recent diagnostics from a noisy child', async () => {

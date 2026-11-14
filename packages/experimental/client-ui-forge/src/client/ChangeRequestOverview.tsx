@@ -11,12 +11,12 @@ import {
   Button, IconChevronRightOutlineRegular, IconPlusOutlineRegular, IconRefreshOutlineRegular, IconSearchOutlineRegular,
   IconUserOutlineRegular, Input, Menu, MenuItemButton, StateDot, Tooltip,
   type MenuEntry,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type {
   BranchUpdateMethod, BranchUpdateRequest, ChangeRequestCheck, ChangeRequestIssue, ChangeRequestReviewer, ChangeRequestSnapshot,
   ForgeRerunRequest, ForgeReviewerCandidate, ReviewVerdict,
-} from '@deepseek-ai/dsh-experimental-forge/types'
+} from '@lyness/lyn-experimental-forge/types'
 import type { ForgePanelChangeRequest } from '../types.ts'
 import { formatDuration } from './format.ts'
 import { CheckGlyph } from './glyphs.tsx'

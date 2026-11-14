@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-instructions/client/binding
+ * @module @lyness/lyn-client-ui-settings-instructions/client/binding
  */
 
-import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
+import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
 import type { InstructionsOperations, InstructionsSink } from './operations.ts'
 import type { InstructionsSectionInjected } from './InstructionsSection.tsx'
 

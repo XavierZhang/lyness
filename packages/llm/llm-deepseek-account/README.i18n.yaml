@@ -5,42 +5,42 @@
 /:
   en: fc1ff226d5dca691
   zh: 770a99ef368c4767
-/deepseek-harness-dsh-llm-deepseek-account:
+/lyness-lyn-llm-deepseek-account:
   en: c2eaef5e584ddade
   zh: 63d23671f322aff9
-/deepseek-harness-dsh-llm-deepseek-account/summary:
+/lyness-lyn-llm-deepseek-account/summary:
   en: d6430c58221487ab
   zh: 04208583818e6fb8
-/deepseek-harness-dsh-llm-deepseek-account/table-of-contents:
+/lyness-lyn-llm-deepseek-account/table-of-contents:
   en: 23386452a66b2fbd
   zh: 4cf93c4bf17b3da2
-/deepseek-harness-dsh-llm-deepseek-account/use-this-package:
+/lyness-lyn-llm-deepseek-account/use-this-package:
   en: 62791d9eeb917c0d
   zh: ee9454b4cafb1f2e
-/deepseek-harness-dsh-llm-deepseek-account/understand-the-implementation:
+/lyness-lyn-llm-deepseek-account/understand-the-implementation:
   en: 06629c312d0cb860
   zh: f33b2773b0ab1d25
-/deepseek-harness-dsh-llm-deepseek-account/further-exploration:
+/lyness-lyn-llm-deepseek-account/further-exploration:
   en: e2082aa3afe8a250
   zh: 1a057384458783f9
-/deepseek-harness-dsh-llm-deepseek-account/model-experience:
+/lyness-lyn-llm-deepseek-account/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-llm-deepseek-account/model-experience/authenticated-model-requests:
+/lyness-lyn-llm-deepseek-account/model-experience/authenticated-model-requests:
   en: 5cf024f0d3370159
   zh: ed480db8f348a42f
-/deepseek-harness-dsh-llm-deepseek-account/model-experience/authenticated-model-requests/what-the-model-sees:
+/lyness-lyn-llm-deepseek-account/model-experience/authenticated-model-requests/what-the-model-sees:
   en: bd62360e6e6965ab
   zh: 519626fc34672187
-/deepseek-harness-dsh-llm-deepseek-account/model-experience/authenticated-model-requests/token-effect:
+/lyness-lyn-llm-deepseek-account/model-experience/authenticated-model-requests/token-effect:
   en: b0f531baf29daf52
   zh: c89837e35981c318
-/deepseek-harness-dsh-llm-deepseek-account/model-experience/authenticated-model-requests/kv-cache-effect:
+/lyness-lyn-llm-deepseek-account/model-experience/authenticated-model-requests/kv-cache-effect:
   en: 2ecaa7bbbdd638e9
   zh: bb067520885d877b
-/deepseek-harness-dsh-llm-deepseek-account/known-limitations-and-deferred-work:
+/lyness-lyn-llm-deepseek-account/known-limitations-and-deferred-work:
   en: ee8b7ff23c806e18
   zh: bd26832c8d455012
-/deepseek-harness-dsh-llm-deepseek-account/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-llm-deepseek-account/known-limitations-and-deferred-work/dev-note:
   en: 0525041e573e96b6
   zh: b05ed8d852498e6b

@@ -3,7 +3,7 @@ description: "Create and enter a retained Git worktree under the calling Session
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-experimental-worktree
+# @lyness/lyn-experimental-worktree
 
 English | [中文](README.zh.md)
 
@@ -28,8 +28,8 @@ Create an isolated checkout from a local commit and continue the same Session in
 Mount the service alongside `workingDirectory`, `fs`, `subprocess`, `sandbox`, `sandboxPolicy`, and `sessionProjections` providers. Archive cleanup additionally needs `workspaceRegistry` and `sessionQuery`, and uses `sessionProjectionCache` when it is mounted; without the first two the service only creates and restores. Add the tool package when models need the operation.
 
 ```yaml
-- name: '@deepseek-ai/dsh-experimental-worktree'
-- name: '@deepseek-ai/dsh-experimental-tool-worktree'
+- name: '@lyness/lyn-experimental-worktree'
+- name: '@lyness/lyn-experimental-tool-worktree'
 ```
 
 `ctx.worktrees.create(agent, { name?, from? }, signal?, onPhase?)` creates a new branch and checkout, then enters the canonical checkout directory through `ctx.workingDirectory.set`. `from` resolves to a local commit before creation and defaults to `HEAD`; staged, unstaged, untracked, and ignored source files are not copied. `baseCommit` reports the resolved commit object name; repository-local replacement refs still apply to the checked-out content. Checkout disables configured Git clean, smudge, and process filters without changing repository configuration. An existing branch or checkout path is an error. The returned record contains `path`, `branch`, `baseCommit`, and `repositoryRoot`. An optional fourth argument, `onPhase`, receives `prepare` before validation, directory allocation, and branch creation, and `checkout` before the files are written and the checkout is entered; it must not throw.
@@ -40,7 +40,7 @@ Every creation appends a `plugin:worktree/created` record to the Session log aft
 
 Expected failures throw `WorktreeError` with a stable `code`: `WORKTREE_INVALID_ARGUMENT` for a name Git or the pool rules reject, an empty start revision, or a restoration record that violates a documented constraint, while a start revision or base commit Git cannot resolve fails as `WORKTREE_COMMAND_FAILED`; `WORKTREE_ALREADY_EXISTS` for an existing branch or path; `WORKTREE_LOCKED` for a locked registration; `WORKTREE_COMMAND_FAILED`, `WORKTREE_OUTPUT_TOO_LARGE`, and `WORKTREE_TIMEOUT` for a command that exits unsuccessfully, exceeds `maxOutputBytes`, or exceeds `timeoutMs`; and `WORKTREE_UNAVAILABLE` after service disposal. A failure after directory allocation adds the retained-artifact context to its message and keeps the original error's `name` and `code`; caller cancellation stays an `AbortError`.
 
-The default checkout directory is `<current checkout root>/.agents/worktrees/<name>`. The returned `repositoryRoot` is the top-level directory of the caller’s current checkout; when it is a linked checkout, the pool is nested inside it. Omitted names join the `dsh-` prefix, the first eight hexadecimal digits of the UUID in the Session id, a hyphen, and four random hexadecimal digits, such as `dsh-6b1f02c4-9a3e`; a Session id without a UUID gets eight random hexadecimal digits after the prefix. `generatedWorktreeName` exports the same rule for callers that name a worktree before creating it. The service writes a `.gitignore` containing `*` and a trailing newline only when its allocation creates the pool; existing files and ignore rules are preserved. Each Git and Node command runs under its own `timeoutMs` deadline, 5 minutes by default, so checking out a large repository on a slow filesystem can finish; cancellation still stops the running command. Relative `directory`, generated `namePrefix`, executable choices, process limits, and `retainOnArchive` are configurable in the [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-experimental-worktree).
+The default checkout directory is `<current checkout root>/.agents/worktrees/<name>`. The returned `repositoryRoot` is the top-level directory of the caller’s current checkout; when it is a linked checkout, the pool is nested inside it. Omitted names join the `lyn-` prefix, the first eight hexadecimal digits of the UUID in the Session id, a hyphen, and four random hexadecimal digits, such as `lyn-6b1f02c4-9a3e`; a Session id without a UUID gets eight random hexadecimal digits after the prefix. `generatedWorktreeName` exports the same rule for callers that name a worktree before creating it. The service writes a `.gitignore` containing `*` and a trailing newline only when its allocation creates the pool; existing files and ignore rules are preserved. Each Git and Node command runs under its own `timeoutMs` deadline, 5 minutes by default, so checking out a large repository on a slow filesystem can finish; cancellation still stops the running command. Relative `directory`, generated `namePrefix`, executable choices, process limits, and `retainOnArchive` are configurable in the [configuration catalog](../../../docs/config-catalog.md#lynesslyn-experimental-worktree).
 
 -----
 

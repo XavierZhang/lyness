@@ -42,7 +42,7 @@ export async function apply(ctx) {
     label: 'web-search-billing-fixture',
     requestListener: (request, response) => {
       if (request.method === 'POST' && request.url === '/v1/tools/search') {
-        if (request.headers['x-dsh-auth-token'] !== ACCOUNT_TOKEN || request.headers.authorization !== undefined) {
+        if (request.headers['x-lyn-auth-token'] !== ACCOUNT_TOKEN || request.headers.authorization !== undefined) {
           response.writeHead(401, { 'content-type': 'application/json' })
           response.end(JSON.stringify({ error: { message: 'expected only the account token' } }))
           return

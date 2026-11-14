@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
+import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
 /**
  * What the body draws from its pages and the file's metadata, and what it does
  * with a navigation: load until the asked line is held, jump to it once, then
@@ -12,10 +12,10 @@ import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
-import type { FileNavigatorInput } from '@deepseek-ai/dsh-client-ui-sidebar-files/client'
-import type { TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { OwnerOf } from '@deepseek-ai/dsh-client-ui-slots'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { FileNavigatorInput } from '@lyness/lyn-client-ui-sidebar-files/client'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { OwnerOf } from '@lyness/lyn-client-ui-slots'
 import { TextPreview } from '../src/client/TextPreview.tsx'
 import type { TextPreviewProps } from '../src/client/TextPreview.tsx'
 import { CodeBody } from '../src/client/code/CodeBody.tsx'
@@ -763,14 +763,14 @@ it('opens a path menu with the preview pane and requested line', async () => {
   const p = h.props()
   const info = p.useTabInfo()
   view.rerender(<TextPreview {...p} useContextMenu={contextMenuHook(openFileMenu)} useDocumentPreviews={selector => selector([])}
-    useTabInfo={() => ({ ...info, tab: { ...info.tab, contentId: 'dsh-resource://file/session/s/archive.zip',
-      navigation: { address: 'dsh-resource://file/session/s/archive.zip', revision: 2, params: undefined } } })} />)
+    useTabInfo={() => ({ ...info, tab: { ...info.tab, contentId: 'lyn-resource://file/session/s/archive.zip',
+      navigation: { address: 'lyn-resource://file/session/s/archive.zip', revision: 2, params: undefined } } })} />)
   fireEvent.contextMenu(view.container.querySelector('[data-textpreview-path]')!, { clientX: 55, clientY: 66 })
   expect(openFileMenu).toHaveBeenLastCalledWith({ kind: 'file', value: { sessionId: SESSION, path: ABSOLUTE_PATH, paneId: 'pane-1' } }, { x: 55, y: 66 })
   view.rerender(<TextPreview {...h.props({ revision: 3, params: { line: 42 } })}
     useContextMenu={contextMenuHook(openFileMenu)} useDocumentPreviews={selector => selector([])}
-    useTabInfo={() => ({ ...info, tab: { ...info.tab, contentId: 'dsh-resource://file/session/s/archive.zip',
-      navigation: { address: 'dsh-resource://file/session/s/archive.zip', revision: 3, params: { line: 42 } } } })} />)
+    useTabInfo={() => ({ ...info, tab: { ...info.tab, contentId: 'lyn-resource://file/session/s/archive.zip',
+      navigation: { address: 'lyn-resource://file/session/s/archive.zip', revision: 3, params: { line: 42 } } } })} />)
   fireEvent.keyDown(view.container.querySelector('[data-textpreview-path]')!, { key: 'F10', shiftKey: true })
   expect(openFileMenu).toHaveBeenLastCalledWith({ kind: 'file', value: {
     sessionId: SESSION, path: ABSOLUTE_PATH, line: 42, paneId: 'pane-1',
@@ -919,8 +919,8 @@ describe('TextPreview — workspace navigator Factories', () => {
     render(<TextPreview {...props} useTabInfo={useTabInfo} renderFactorySlot={renderFactorySlot} />)
     await settle()
     expect(open).toBeTypeOf('function')
-    open!('dsh-resource://file/session/s-1/b.txt')
-    expect(openResource).toHaveBeenCalledExactlyOnceWith('dsh-resource://file/session/s-1/b.txt', { replaceTab: true })
+    open!('lyn-resource://file/session/s-1/b.txt')
+    expect(openResource).toHaveBeenCalledExactlyOnceWith('lyn-resource://file/session/s-1/b.txt', { replaceTab: true })
   })
 
   it('starts a text preview without a notice with its header', async () => {
@@ -936,7 +936,7 @@ describe('TextPreview — workspace navigator Factories', () => {
     const h = harness({ 1: page(1, ['a'], true) })
     const base = h.props()
     const info = base.useTabInfo()
-    const address = 'dsh-resource://file/session/s-1/work/clip.mp4'
+    const address = 'lyn-resource://file/session/s-1/work/clip.mp4'
     const useTabInfo: TextPreviewProps['useTabInfo'] = () => (
       { ...info, tab: { ...info.tab, contentId: address, navigation: { ...info.tab.navigation, address } } }
     )

@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 afterEach(() => {
-  vi.doUnmock('@deepseek-ai/dsh-lazy-require')
+  vi.doUnmock('@lyness/lyn-lazy-require')
   vi.resetModules()
 })
 
@@ -19,7 +19,7 @@ describe.skipIf(process.platform !== 'linux')('Linux libc execve binding', () =>
       : nativeFcntl)
     const load = vi.fn(() => ({ func }))
     const errno = vi.fn(() => 2)
-    vi.doMock('@deepseek-ai/dsh-lazy-require', () => ({
+    vi.doMock('@lyness/lyn-lazy-require', () => ({
       createLazyRequire: () => () => ({ errno, load }),
     }))
 
@@ -76,7 +76,7 @@ describe.skipIf(process.platform !== 'linux')('Linux libc execve binding', () =>
       return 0x802
     })
     const func = vi.fn((declaration: string) => declaration.includes('execve') ? nativeExecve : nativeFcntl)
-    vi.doMock('@deepseek-ai/dsh-lazy-require', () => ({
+    vi.doMock('@lyness/lyn-lazy-require', () => ({
       createLazyRequire: () => () => ({ errno: () => 9, load: () => ({ func }) }),
     }))
     const { loadLinuxExecve } = await import('../src/linux-execve.ts')

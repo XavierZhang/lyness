@@ -4,7 +4,7 @@ import { metricReader } from '../src/metrics.ts'
 
 const limits = { timeoutMs: 10, maxTarballBytes: 1024 }
 const TOKEN = 'test-only-github-token'
-const plugin = (name = '@team/dsh-test', source: Record<string, string> = { type: 'npm' }): GeneratedEntry => ({
+const plugin = (name = '@team/lyn-test', source: Record<string, string> = { type: 'npm' }): GeneratedEntry => ({
   name, repository: { url: 'https://github.com/team/plugins' },
   versions: [{ version: '1.0.0', publishTimestamp: 0, source }],
 })
@@ -107,7 +107,7 @@ it('skips GitHub without a token while keeping npm downloads', async () => {
   expect((await read(plugin())).metadata?.sortKeys).toEqual({ npm_weekly_downloads: 42 })
   const git = plugin('git-only', { type: 'git', url: 'https://github.com/team/plugins' })
   expect(await read(git)).toEqual(git)
-  expect(fetch).toHaveBeenCalledExactlyOnceWith('https://api.npmjs.org/downloads/point/last-week/%40team%2Fdsh-test', expect.any(Object))
+  expect(fetch).toHaveBeenCalledExactlyOnceWith('https://api.npmjs.org/downloads/point/last-week/%40team%2Flyn-test', expect.any(Object))
   expect(warn).not.toHaveBeenCalled()
 })
 

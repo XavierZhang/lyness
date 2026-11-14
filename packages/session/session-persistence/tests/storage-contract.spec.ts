@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION, type SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { SESSION_FORMAT_VERSION, type SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,
@@ -24,7 +24,7 @@ import {
 } from '../src/index.ts'
 import type { SessionLocation } from '../src/index.ts'
 import { meta } from './contract.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const LOCATION: SessionLocation = { kind: 'jsonl', path: '/store/session.jsonl' }
 

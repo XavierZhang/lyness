@@ -1,8 +1,8 @@
 /** Both native languages admit the same generated model and Host operation fields. */
 import { readFile } from 'node:fs/promises'
 import { expect, it } from 'vitest'
-import { nativeProtocol } from '@deepseek-ai/dsh-cua/native-schema'
-import { ActionResult, NativeScreenshotResult } from '@deepseek-ai/dsh-cua/protocol'
+import { nativeProtocol } from '@lyness/lyn-cua/native-schema'
+import { ActionResult, NativeScreenshotResult } from '@lyness/lyn-cua/protocol'
 import { Config } from '../src/index.ts'
 
 it('keeps the C# admission schema identical to the shared generated schema', async () => {

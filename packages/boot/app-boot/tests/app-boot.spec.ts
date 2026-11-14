@@ -4,15 +4,15 @@ import { join, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { inspect } from 'node:util'
 import { afterAll, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-system-prompt'
 import {
   auditStartupEntries, boot, StartupError,
   FAIL_LOUD_RELEASE_TIMEOUT_MS,
   installFailLoud, loadEnv, loadLayeredEnv, loadOverlayPatches, resolveConfigPath, type FailLoudEvent, type FailLoudProcess,
 } from '../src/index.ts'
 
-const NAME = 'dsh-test-bin'
+const NAME = 'lyn-test-bin'
 
 const tempRoots: string[] = []
 afterAll(() => {
@@ -20,7 +20,7 @@ afterAll(() => {
 })
 
 const tmp = (): string => {
-  const dir = mkdtempSync(join(tmpdir(), 'dsh-app-boot-'))
+  const dir = mkdtempSync(join(tmpdir(), 'lyn-app-boot-'))
   tempRoots.push(dir)
   return dir
 }
@@ -45,12 +45,12 @@ describe('resolveConfigPath', () => {
 describe('loadEnv', () => {
   it('loads variables from .env in the given dir', () => {
     const dir = tmp()
-    writeFileSync(join(dir, '.env'), 'DSH_APP_BOOT_SPEC_VAR=loaded\n')
+    writeFileSync(join(dir, '.env'), 'LYNESS_APP_BOOT_SPEC_VAR=loaded\n')
     const warn = vi.fn()
     loadEnv(NAME, dir, warn)
-    expect(process.env['DSH_APP_BOOT_SPEC_VAR']).toBe('loaded')
+    expect(process.env['LYNESS_APP_BOOT_SPEC_VAR']).toBe('loaded')
     expect(warn).not.toHaveBeenCalled()
-    delete process.env['DSH_APP_BOOT_SPEC_VAR']
+    delete process.env['LYNESS_APP_BOOT_SPEC_VAR']
   })
 
   it('stays silent when no .env exists (ambient environment wins)', () => {
@@ -70,7 +70,7 @@ describe('loadEnv', () => {
 
   it('defaults dir to the process cwd and warn to a stderr write', () => {
     const dir = tmp()
-    writeFileSync(join(dir, '.env'), 'DSH_APP_BOOT_SPEC_DEFAULTS=yes\n')
+    writeFileSync(join(dir, '.env'), 'LYNESS_APP_BOOT_SPEC_DEFAULTS=yes\n')
     const previous = process.cwd()
     process.chdir(dir)
     try {
@@ -78,8 +78,8 @@ describe('loadEnv', () => {
     } finally {
       process.chdir(previous)
     }
-    expect(process.env['DSH_APP_BOOT_SPEC_DEFAULTS']).toBe('yes')
-    delete process.env['DSH_APP_BOOT_SPEC_DEFAULTS']
+    expect(process.env['LYNESS_APP_BOOT_SPEC_DEFAULTS']).toBe('yes')
+    delete process.env['LYNESS_APP_BOOT_SPEC_DEFAULTS']
     // The default warn sink itself: point it at a broken .env with stderr
     // spied, so the arrow body runs without polluting the test output.
     const broken = tmp()
@@ -120,7 +120,7 @@ describe('loadLayeredEnv', () => {
       '',
     ].join('\n'))
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv('APP_BOOT_LAYERED_INHERITED', 'inherited')
     const warn = vi.fn()
     try {
@@ -137,10 +137,10 @@ describe('loadLayeredEnv', () => {
   })
 
   it.each([
-    ['a harness switch', 'DSH_PERMISSION_MODE=danger-full-access\n'],
+    ['a harness switch', 'LYNESS_PERMISSION_MODE=danger-full-access\n'],
     ['the executable search path', 'PATH=/tmp/evil\n'],
     ['a module preload', 'NODE_OPTIONS=--require /tmp/evil.js\n'],
-    ['a skill root', 'DSH_AGENTS_HOME=/tmp/injected\n'],
+    ['a skill root', 'LYNESS_AGENTS_HOME=/tmp/injected\n'],
     ['a network proxy', 'HTTPS_PROXY=http://attacker.example\n'],
     ['a lowercase network proxy', 'https_proxy=http://attacker.example\n'],
     ['a browser command', 'BROWSER=./script\n'],
@@ -152,7 +152,7 @@ describe('loadLayeredEnv', () => {
     const project = tmp()
     writeFileSync(join(project, '.env'), `${NAMES[1]}=applied-anyway\n${content}`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     try {
       expect(() => loadLayeredEnv(NAME, project, vi.fn())).toThrow(/only the launching environment may set/)
       expect(process.env[NAMES[1]]).toBeUndefined()
@@ -176,7 +176,7 @@ describe('loadLayeredEnv', () => {
     // supplies it, and that the launching shell outranks the file, is not.
     writeFileSync(join(home, '.env'), 'HTTP_PROXY=http://from-home:8080\nno_proxy=example.com\nHTTPS_PROXY=http://from-home:8443\n')
     clear(); clearProxy()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv('HTTPS_PROXY', 'http://exported:8080')
     try {
       const snapshot = loadLayeredEnv(NAME, project, vi.fn())
@@ -201,7 +201,7 @@ describe('loadLayeredEnv', () => {
       '',
     ].join('\n'))
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv('DEEPSEEK_BASE_URL', 'https://exported.example/anthropic')
     vi.stubEnv('DEEPSEEK_SEARCH_BASE_URL', undefined)
     try {
@@ -223,7 +223,7 @@ describe('loadLayeredEnv', () => {
     // Consumers look the endpoint up by its exact name on POSIX, so another spelling would load without effect.
     writeFileSync(join(home, '.env'), `${name}=https://from-home.example/v1\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv(name, undefined)
     try {
       expect(() => loadLayeredEnv(NAME, project, vi.fn()))
@@ -238,15 +238,15 @@ describe('loadLayeredEnv', () => {
   it.each([
     'SSL_CERT_FILE=/tmp/ca.pem\n',
     'NODE_TLS_REJECT_UNAUTHORIZED=0\n',
-    'DSH_HOME=/tmp/elsewhere\n',
+    'LYNESS_HOME=/tmp/elsewhere\n',
   ])('still refuses every other bootstrap name in the Harness-home .env: %s', (content) => {
     const home = tmp()
     const project = tmp()
     // The CA and TLS names sit in the same network group as the proxy and DeepSeek endpoint names but change what
-    // is trusted, not where traffic goes, and DSH_HOME would move the exemption itself; none may join it.
+    // is trusted, not where traffic goes, and LYNESS_HOME would move the exemption itself; none may join it.
     writeFileSync(join(home, '.env'), content)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     try {
       expect(() => loadLayeredEnv(NAME, project, vi.fn())).toThrow(/only the launching environment may set/)
     } finally {
@@ -260,7 +260,7 @@ describe('loadLayeredEnv', () => {
     const project = tmp()
     writeFileSync(join(project, '.env'), `${name}=http://attacker.example\n`)
     clear(); clearProxy()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv(name, undefined)
     try {
       expect(() => loadLayeredEnv(NAME, project, vi.fn()))
@@ -276,7 +276,7 @@ describe('loadLayeredEnv', () => {
     const home = tmp()
     writeFileSync(join(home, '.env'), 'HTTP_PROXY=http://from-home:8080\n')
     clear(); clearProxy()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     try {
       // Launched from inside the home itself, its one file is read as the project layer; the
       // exemption follows the directory, not the layer name.
@@ -293,7 +293,7 @@ describe('loadLayeredEnv', () => {
     writeFileSync(join(home, '.env'), `${NAMES[1]}=u\n`)
     writeFileSync(join(project, '.env'), `${NAMES[2]}=p\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     try {
       const snapshot = loadLayeredEnv(NAME, project, vi.fn())
       expect(snapshot.get(NAMES[1])).toEqual({ value: 'u', source: 'user-env', path: join(home, '.env') })
@@ -311,7 +311,7 @@ describe('loadLayeredEnv', () => {
     writeFileSync(join(home, '.env'), `${NAMES[1]}=real-home\n`)
     writeFileSync(join(project, '.env'), `${NAMES[2]}=set-by-project\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     try {
       loadLayeredEnv(NAME, project, vi.fn())
       expect(process.env[NAMES[1]]).toBe('real-home')
@@ -329,7 +329,7 @@ describe('loadLayeredEnv', () => {
     mkdirSync(join(home, '.env'))
     writeFileSync(join(project, '.env'), `${NAMES[2]}=project-only\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     const warn = vi.fn()
     try {
       const snapshot = loadLayeredEnv(NAME, project, warn)
@@ -349,7 +349,7 @@ describe('loadLayeredEnv', () => {
     mkdirSync(join(home, '.env'))
     writeFileSync(join(project, '.env'), `${NAMES[2]}=project-only\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     const write = vi.spyOn(process.stderr, 'write').mockReturnValue(true)
     try {
       const snapshot = loadLayeredEnv(NAME, project)
@@ -368,7 +368,7 @@ describe('loadLayeredEnv', () => {
     const project = tmp()
     writeFileSync(join(project, '.env'), `${NAMES[2]}=project-only\n`)
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     const warn = vi.fn()
     try {
       const snapshot = loadLayeredEnv(NAME, project, warn)
@@ -384,7 +384,7 @@ describe('loadLayeredEnv', () => {
     const home = tmp()
     const project = tmp()
     clear()
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.stubEnv('APP_BOOT_LAYERED_INHERITED', 'inherited')
     try {
       const snapshot = loadLayeredEnv(NAME, project, vi.fn())
@@ -399,7 +399,7 @@ describe('loadLayeredEnv', () => {
     const both = tmp()
     writeFileSync(join(both, '.env'), `${NAMES[2]}=one-file\n`)
     clear()
-    vi.stubEnv('DSH_HOME', both)
+    vi.stubEnv('LYNESS_HOME', both)
     try {
       const snapshot = loadLayeredEnv(NAME, both, vi.fn())
       expect(snapshot.get(NAMES[2])).toEqual({ value: 'one-file', source: 'project-env', path: join(both, '.env') })
@@ -570,15 +570,15 @@ describe('installFailLoud', () => {
   it('turns an uncaught exception into a labelled diagnostic with its enumerable properties and exits 1', () => {
     const proc = fakeProc()
     installFailLoud(NAME, proc)
-    const error = Object.assign(new Error("ENOENT: no such file or directory, open '/tmp/dsh-subprocess-x/out.log'"), {
-      errno: -2, code: 'ENOENT', syscall: 'open', path: '/tmp/dsh-subprocess-x/out.log',
+    const error = Object.assign(new Error("ENOENT: no such file or directory, open '/tmp/lyn-subprocess-x/out.log'"), {
+      errno: -2, code: 'ENOENT', syscall: 'open', path: '/tmp/lyn-subprocess-x/out.log',
     })
     proc.exception(error)
     expect(proc.written).toHaveLength(1)
     expect(proc.written[0]).toContain(`${NAME}: fatal uncaught exception: `)
     expect(proc.written[0]).toContain(error.stack)
     expect(proc.written[0]).toContain("syscall: 'open'")
-    expect(proc.written[0]).toContain("path: '/tmp/dsh-subprocess-x/out.log'")
+    expect(proc.written[0]).toContain("path: '/tmp/lyn-subprocess-x/out.log'")
     expect(proc.exits).toEqual([1])
   })
 
@@ -665,7 +665,7 @@ describe('auditStartupEntries', () => {
     const original = new Error('todo apply failure')
     await auditStartupEntries(ctxWith([
       { options: { id: 'missing-tool', name: './missing.mjs' }, parent: { tree: { import: () => Promise.resolve() } } },
-      { fiber: fiber(3, original), options: { id: 'tool-todo', name: '@deepseek-ai/dsh-tool-todo' } },
+      { fiber: fiber(3, original), options: { id: 'tool-todo', name: '@lyness/lyn-tool-todo' } },
       {
         fiber: fiber(0, undefined, { ready: {}, missing: {} }, ['ready']),
         options: { id: 'waiting-tool', name: './waiting.mjs' },
@@ -675,7 +675,7 @@ describe('auditStartupEntries', () => {
     expect(warn).toHaveBeenCalledWith([
       `${NAME}: warning: 3 entries did not activate`,
       'missing-tool (./missing.mjs): failed to import',
-      `tool-todo (@deepseek-ai/dsh-tool-todo): ${original.stack!}`,
+      `tool-todo (@lyness/lyn-tool-todo): ${original.stack!}`,
       'waiting-tool (./waiting.mjs): pending (waiting for service: missing)',
       '',
     ].join('\n'))
@@ -782,12 +782,12 @@ describe('auditStartupEntries', () => {
     const optionalError = new Error('todo unavailable')
     const error = await auditStartupEntries(ctxWith([
       { fiber: fiber(3, requiredError), options: { id, name: './required.mjs' } },
-      { fiber: fiber(3, optionalError), options: { id: 'tool-todo', name: '@deepseek-ai/dsh-tool-todo' } },
+      { fiber: fiber(3, optionalError), options: { id: 'tool-todo', name: '@lyness/lyn-tool-todo' } },
     ]), NAME, warn).catch((error: unknown) => error)
     expect(error).toBeInstanceOf(StartupError)
     expect((error as Error).message).toContain(`${NAME}: startup failed: 1 required plugin did not activate`)
     expect((error as Error).message).toContain(`  ${id} (required)\n    Package: ./required.mjs`)
-    expect((error as Error).message).toContain('  tool-todo\n    Package: @deepseek-ai/dsh-tool-todo')
+    expect((error as Error).message).toContain('  tool-todo\n    Package: @lyness/lyn-tool-todo')
     expect(((error as Error).cause as AggregateError).errors).toEqual([requiredError, optionalError])
     expect(warn).not.toHaveBeenCalled()
   })
@@ -846,17 +846,17 @@ describe('auditStartupEntries', () => {
     const warn = vi.fn()
     const error = await auditStartupEntries(ctxWith([
       { fiber: fiber(0, undefined, { webServer: {} }), options: { id: 'web-runtime', name: './web.mjs' } },
-      { fiber: fiber(3, original), options: { id: 'webserver', name: '@deepseek-ai/dsh-host-webserver' } },
+      { fiber: fiber(3, original), options: { id: 'webserver', name: '@lyness/lyn-host-webserver' } },
       { fiber: fiber(0, undefined, { webStartup: {} }), options: { id: 'connection', name: './connection.mjs' } },
       { fiber: fiber(0), options: { id: 'unknown', name: './unknown.mjs' } },
     ]), NAME, warn).catch((error: unknown) => error)
     expect(error).toBeInstanceOf(StartupError)
     expect((error as Error).message).toMatchInlineSnapshot(`
-      "dsh-test-bin: startup failed: 3 required plugins did not activate
+      "lyn-test-bin: startup failed: 3 required plugins did not activate
 
       Failed plugins (1):
         webserver (required)
-          Package: @deepseek-ai/dsh-host-webserver
+          Package: @lyness/lyn-host-webserver
           Error: listen EADDRINUSE: address already in use 127.0.0.1:3080
               at Server.listen (node:net:1:2)
 
@@ -872,7 +872,7 @@ describe('auditStartupEntries', () => {
   it('rejects a required entry pending on an injected service', async () => {
     await expect(auditStartupEntries(ctxWith([{
       fiber: fiber(0, undefined, { headlessStartup: {} }),
-      options: { id: 'headless-runner', name: '@deepseek-ai/dsh-headless' },
+      options: { id: 'headless-runner', name: '@lyness/lyn-headless' },
     }]), NAME, vi.fn())).rejects.toThrow(
       'headless-runner (required)  headlessStartup',
     )
@@ -988,12 +988,12 @@ describe('boot', () => {
     const dir = tmp()
     const harness = tmp()
     const absolutePlugin = join(dir, 'absolute.mjs')
-    const shadow = join(dir, 'node_modules', '@deepseek-ai', 'dsh-system-prompt')
-    const harnessPlugin = join(harness, 'node_modules', '@deepseek-ai', 'dsh-system-prompt')
+    const shadow = join(dir, 'node_modules', '@lyness', 'lyn-system-prompt')
+    const harnessPlugin = join(harness, 'node_modules', '@lyness', 'lyn-system-prompt')
     mkdirSync(shadow, { recursive: true })
     mkdirSync(harnessPlugin, { recursive: true })
     writeFileSync(join(shadow, 'package.json'), JSON.stringify({
-      name: '@deepseek-ai/dsh-system-prompt',
+      name: '@lyness/lyn-system-prompt',
       type: 'module',
       exports: './index.mjs',
     }))
@@ -1004,7 +1004,7 @@ describe('boot', () => {
       '',
     ].join('\n'))
     writeFileSync(join(harnessPlugin, 'package.json'), JSON.stringify({
-      name: '@deepseek-ai/dsh-system-prompt',
+      name: '@lyness/lyn-system-prompt',
       type: 'module',
       exports: './index.mjs',
     }))
@@ -1018,7 +1018,7 @@ describe('boot', () => {
     writeFileSync(absolutePlugin, 'export function apply(ctx) { ctx.provide("absolutePluginLoaded", true) }\n')
     const entries = [
       '- id: prompt',
-      "  name: '@deepseek-ai/dsh-system-prompt'",
+      "  name: '@lyness/lyn-system-prompt'",
       '- id: relative',
       "  name: './relative.mjs'",
     ]
@@ -1068,10 +1068,10 @@ describe('boot', () => {
     }
   })
 
-  it('exposes dshHomePath and dshPath to Loader config expressions', async () => {
+  it('exposes lynHomePath and lynPath to Loader config expressions', async () => {
     const dir = tmp()
-    const dshHome = join(dir, 'home')
-    vi.stubEnv('DSH_HOME', dshHome)
+    const lynHome = join(dir, 'home')
+    vi.stubEnv('LYNESS_HOME', lynHome)
     writeFileSync(join(dir, 'capture.mjs'), [
       'export const name = "capture"',
       'export function apply(ctx, config) {',
@@ -1084,15 +1084,15 @@ describe('boot', () => {
       '- id: capture',
       '  name: ./capture.mjs',
       '  config:',
-      "    path: !!js dshHomePath('sessions')",
-      "    state: !!js dshPath('state', 'capture')",
+      "    path: !!js lynHomePath('sessions')",
+      "    state: !!js lynPath('state', 'capture')",
       '',
     ].join('\n'))
     let ctx: Context | undefined
     try {
       ctx = await boot(NAME, join(dir, 'cordis.yml'))
-      expect(ctx.get('capturedPath')).toBe(join(dshHome, 'sessions'))
-      expect(ctx.get('capturedStatePath')).toBe(join(dshHome, 'state', 'capture'))
+      expect(ctx.get('capturedPath')).toBe(join(lynHome, 'sessions'))
+      expect(ctx.get('capturedStatePath')).toBe(join(lynHome, 'state', 'capture'))
     } finally {
       await ctx?.fiber.dispose()
       vi.unstubAllEnvs()
@@ -1240,8 +1240,8 @@ describe('boot', () => {
     let disposed = false
     writeFileSync(join(dir, 'good.mjs'), [
       'export function apply(ctx) {',
-      '  globalThis.__DSH_REQUIRED_TEST_DISPOSED__ = false',
-      '  ctx.effect(() => () => { globalThis.__DSH_REQUIRED_TEST_DISPOSED__ = true })',
+      '  globalThis.__LYNESS_REQUIRED_TEST_DISPOSED__ = false',
+      '  ctx.effect(() => () => { globalThis.__LYNESS_REQUIRED_TEST_DISPOSED__ = true })',
       '}',
       '',
     ].join('\n'))
@@ -1259,8 +1259,8 @@ describe('boot', () => {
       String.raw`webserver \(required\)`,
       'required apply failure',
     ].join(String.raw`[\s\S]*`)))
-    disposed = (globalThis as { __DSH_REQUIRED_TEST_DISPOSED__?: boolean }).__DSH_REQUIRED_TEST_DISPOSED__ ?? false
-    delete (globalThis as { __DSH_REQUIRED_TEST_DISPOSED__?: boolean }).__DSH_REQUIRED_TEST_DISPOSED__
+    disposed = (globalThis as { __LYNESS_REQUIRED_TEST_DISPOSED__?: boolean }).__LYNESS_REQUIRED_TEST_DISPOSED__ ?? false
+    delete (globalThis as { __LYNESS_REQUIRED_TEST_DISPOSED__?: boolean }).__LYNESS_REQUIRED_TEST_DISPOSED__
     expect(disposed).toBe(true)
   })
 

@@ -2,11 +2,11 @@
 /** Session header entry, forge and changes tab titles, and action toast rendering. */
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import toastCss from '@deepseek-ai/dsh-client-ui-primitives/src/Toast.module.css'
-import type { PaneId, SidebarRightTabInfo, TabId } from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import toastCss from '@lyness/lyn-client-ui-primitives/src/Toast.module.css'
+import type { PaneId, SidebarRightTabInfo, TabId } from '@lyness/lyn-client-ui-sidebar-right/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { ActionToast } from '../src/client/ActionToast.tsx'
 import { changesAddress } from '../src/client/changes-address.ts'
 import { ChangesTabTitle } from '../src/client/ChangesTabTitle.tsx'
@@ -16,7 +16,7 @@ import { en } from '../src/client/locales.ts'
 import { createNoticeSource, type PanelSnapshot } from '../src/client/source.ts'
 import type { ForgePanelState } from '../src/types.ts'
 import { entry, ready, snapshot } from './client-fixtures.client.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(() => {
   cleanup()
@@ -120,7 +120,7 @@ describe('ChangesTabTitle', () => {
   })
 
   it('keeps the captured title of an address it did not mint', () => {
-    expect(title('dsh-resource://forge-changes/s1/remote').container.textContent).toBe('Captured')
+    expect(title('lyn-resource://forge-changes/s1/remote').container.textContent).toBe('Captured')
   })
 })
 

@@ -6,11 +6,11 @@ English | [中文](2026-11-04-unprefixed-experimental-package-names.zh.md)
 
 ## Problem
 
-An experimental package named `@deepseek-ai/dsh-experimental-<name>` must be renamed when it moves to a product group. The rename changes every import, dependency entry, module declaration, and profile file that names the package, so promotion carries a migration that is unrelated to the capability's behavior.
+An experimental package named `@lyness/lyn-experimental-<name>` must be renamed when it moves to a product group. The rename changes every import, dependency entry, module declaration, and profile file that names the package, so promotion carries a migration that is unrelated to the capability's behavior.
 
 ## Decision
 
-New experimental packages use `@deepseek-ai/dsh-<name>` and never the `experimental` prefix. Each one is declared in `EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS` in the [experimental package policy](../../../../scripts/experimental-package-policy.ts), because isolation checks and plugin-record ownership recognize an unprefixed experimental name only through that map. Promotion moves the package and removes its map entry; its npm name stays the same.
+New experimental packages use `@lyness/lyn-<name>` and never the `experimental` prefix. Each one is declared in `EXPERIMENTAL_PACKAGE_NAME_EXCEPTIONS` in the [experimental package policy](../../../../scripts/experimental-package-policy.ts), because isolation checks and plugin-record ownership recognize an unprefixed experimental name only through that map. Promotion moves the package and removes its map entry; its npm name stays the same.
 
 Existing packages with the prefix are listed in `LEGACY_PREFIXED_EXPERIMENTAL_PACKAGE_DIRECTORIES`. `pnpm run constraints` rejects the prefix in any other directory and rejects a listed directory that no longer holds a prefixed package, so the list can only shrink. A legacy package is renamed when it is promoted; renaming it earlier needs the release and migration evidence that the [plugin identity decision](2026-10-06-web-desktop-plugin-identity-compatibility.md) requires.
 

@@ -2,7 +2,7 @@
 /** The worktree row page: the summary names the switch, and the page stages it until one explicit save. */
 import { afterEach, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { bindSnapshotSelector, stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
+import { bindSnapshotSelector, stubConfigForm } from '@lyness/lyn-client-test-runtime'
 import { en } from '../src/client/locales.ts'
 import { WorktreeSettingsForm, type WorktreeSettings as WorktreeSettingsFields } from '../src/client/worktree-settings-form.ts'
 import { WorktreeSettings, type WorktreeSettingsProps } from '../src/client/WorktreeSettings.tsx'

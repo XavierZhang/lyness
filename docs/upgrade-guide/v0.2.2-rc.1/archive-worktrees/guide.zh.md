@@ -15,7 +15,7 @@ Forge bundle 为面板和 `create_worktree` 工具挂载同一个 `worktree` 服
 
 ## 迁移
 
-1. 如果检出目录必须供 DSH 之外继续使用，请保持其 Session 未归档，在归档前用 `git worktree lock <path>` 锁定它，或在插件页 Forge 套件的 worktree 行上开启**归档时不删除工作树**（`retainOnArchive`），它会保留所有检出目录。被忽略的文件不会保留，skip-worktree 或 assume-unchanged 文件的改动也不会：归档前请提交这些改动，或用 `git update-index --no-skip-worktree` 或 `--no-assume-unchanged` 清除标记。
+1. 如果检出目录必须供 LYN 之外继续使用，请保持其 Session 未归档，在归档前用 `git worktree lock <path>` 锁定它，或在插件页 Forge 套件的 worktree 行上开启**归档时不删除工作树**（`retainOnArchive`），它会保留所有检出目录。被忽略的文件不会保留，skip-worktree 或 assume-unchanged 文件的改动也不会：归档前请提交这些改动，或用 `git update-index --no-skip-worktree` 或 `--no-assume-unchanged` 清除标记。
 2. 要继续使用已归档且检出目录已删除的 Session，请取消归档并使用**恢复工作树**。保留的分支会在记录的路径重新检出。
 3. 在 profile 的 `cordis.patch.yml` 中，把针对 `forge-worktree` 的覆盖迁到 `worktree` 行，把针对 `optional-forge-panel` 的覆盖迁到 `forge-panel` 行；对 `forge-panel` 设置 `disabled: true` 可以只关闭面板。
 4. 用 `git branch --list` 确认分支与提交仍然存在，并确认**恢复工作树**使记录的检出目录重新可用。Session 日志无需迁移。

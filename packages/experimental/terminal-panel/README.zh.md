@@ -3,7 +3,7 @@ description: "在 Web 侧栏中显示 Agent 的持久终端，人可以旁观并
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-terminal-panel
+# @lyness/lyn-terminal-panel
 
 [English](README.md) | 中文
 
@@ -33,9 +33,9 @@ kind: "package-reference"
   isolate:
     terminals: true
   config:
-    - name: '@deepseek-ai/dsh-terminal'
-    - name: '@deepseek-ai/dsh-terminal-panel'
-    - name: '@deepseek-ai/dsh-tool-terminal'
+    - name: '@lyness/lyn-terminal'
+    - name: '@lyness/lyn-terminal-panel'
+    - name: '@lyness/lyn-tool-terminal'
 ```
 
 ### Agent 终端
@@ -134,7 +134,7 @@ Terminals you open with terminal_open appear in the user's side panel. The user 
 
 #### 模型看到什么
 
-两个 schema 列在 [`dsh-terminal-panel` 目录小节](../../../docs/tool-catalog.zh.md#deepseek-aidsh-terminal-panel)中。6 个终端工具沿用 [`dsh-tool-terminal`](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-terminal) 的 schema。
+两个 schema 列在 [`lyn-terminal-panel` 目录小节](../../../docs/tool-catalog.zh.md#lynesslyn-terminal-panel)中。6 个终端工具沿用 [`lyn-tool-terminal`](../../../docs/tool-catalog.zh.md#lynesslyn-tool-terminal) 的 schema。
 
 #### Token 影响
 

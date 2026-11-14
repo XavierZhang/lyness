@@ -8,14 +8,14 @@
  * vocabulary, freshness, and torn-tail repair. Backend-specific behavior
  * (file layout, encodings, artifact export) stays in each backend's own spec.
  *
- * @module @deepseek-ai/dsh-session-persistence/tests/contract
+ * @module @lyness/lyn-session-persistence/tests/contract
  */
 
 import { describe, expect, it } from 'vitest'
-import { SessionSeq, SESSION_FORMAT_VERSION, type SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
-import { type MessageId, freezeMessage } from '@deepseek-ai/dsh-llm'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { SessionSeq, SESSION_FORMAT_VERSION, type SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import { type MessageId, freezeMessage } from '@lyness/lyn-llm'
+import { brandString } from '@lyness/lyn-brand'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,

@@ -1,5 +1,5 @@
 /** Resolve the required policy service from the same deployment as updater publication. */
-import { resolveDesktopAutoUpdateEnvironment } from '@deepseek-ai/dsh-desktop-publisher/desktop-auto-update-environment.mjs'
+import { resolveDesktopAutoUpdateEnvironment } from '@lyness/lyn-desktop-publisher/desktop-auto-update-environment.mjs'
 
 function origin(value, name) {
   let url
@@ -17,12 +17,12 @@ function origin(value, name) {
  */
 export function resolveDesktopPolicyEnvironment(environment) {
   const deployment = resolveDesktopAutoUpdateEnvironment(environment)
-  const name = deployment === 'test' ? 'DSH_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN' : 'DSH_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN'
+  const name = deployment === 'test' ? 'LYNESS_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN' : 'LYNESS_DESKTOP_MANDATORY_UPDATE_PROD_ORIGIN'
   const selected = origin(environment[name], name)
   let settings = {}
-  if (environment.DSH_DESKTOP_MANDATORY_UPDATE_CONFIG !== undefined) {
-    try { settings = JSON.parse(environment.DSH_DESKTOP_MANDATORY_UPDATE_CONFIG) }
-    catch { throw new Error('desktop package: DSH_DESKTOP_MANDATORY_UPDATE_CONFIG must be valid JSON') }
+  if (environment.LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG !== undefined) {
+    try { settings = JSON.parse(environment.LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG) }
+    catch { throw new Error('desktop package: LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG must be valid JSON') }
   }
   if (typeof settings !== 'object' || settings === null || Array.isArray(settings)
     || 'origin' in settings || 'authentication' in settings) {

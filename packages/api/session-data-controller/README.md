@@ -3,13 +3,13 @@ description: "A person's own conversations: the deletion they can ask for, bound
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-session-data-controller
+# @lyness/lyn-api-session-data-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-session-data-controller` owns the `sessionData` Remote namespace: one method, which deletes one of the caller's own conversations and answers which stored sessions went. Which conversation it may act on is never a parameter a caller can widen — the ownership rule answers it from the conversation's own log — so somebody else's id is answered exactly as an id that never existed. The namespace reads no list: `session.list` already answers which conversations a caller may see, and a second listing would be the one place a page and the thing it acts on could disagree.
+`lyn-api-session-data-controller` owns the `sessionData` Remote namespace: one method, which deletes one of the caller's own conversations and answers which stored sessions went. Which conversation it may act on is never a parameter a caller can widen — the ownership rule answers it from the conversation's own log — so somebody else's id is answered exactly as an id that never existed. The namespace reads no list: `session.list` already answers which conversations a caller may see, and a second listing would be the one place a page and the thing it acts on could disagree.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ Mount it with the service it calls:
 
 ```yaml
 - id: session-deletion
-  name: '@deepseek-ai/dsh-session-deletion'
+  name: '@lyness/lyn-session-deletion'
 - id: session-data-controller
-  name: '@deepseek-ai/dsh-api-session-data-controller'
+  name: '@lyness/lyn-api-session-data-controller'
 ```
 
 `delete(sessionId)` removes that conversation and every subagent session beneath it, then answers their ids. A deployment that selects neither row serves no namespace, and the Settings page that mounts it does not appear.
@@ -63,10 +63,10 @@ Mount it with the service it calls:
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-session-deletion`](../../session/session-deletion/README.md) — what the deletion removes, in what order, and what it leaves.
-- [`dsh-session-ownership`](../../identity/session-ownership/README.md) — the rule that decides whose conversation this is.
-- [`dsh-client-ui-settings-data`](../../client/ui-settings-data/README.md) — the page that calls this method.
-- [`dsh-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
+- [`lyn-session-deletion`](../../session/session-deletion/README.md) — what the deletion removes, in what order, and what it leaves.
+- [`lyn-session-ownership`](../../identity/session-ownership/README.md) — the rule that decides whose conversation this is.
+- [`lyn-client-ui-settings-data`](../../client/ui-settings-data/README.md) — the page that calls this method.
+- [`lyn-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
 
 -----
 
@@ -84,7 +84,7 @@ None at call time. A deleted conversation has no next request.
 <a id="known-limitations-and-deferred-work"></a>
 
 - **No bulk deletion** — one conversation per call, so a person clearing a long history asks once per row. A page that offered "delete everything" would need a bound nobody has decided.
-- **No export method** — the ZIP and Markdown exports are authenticated Host routes that `dsh-session-log-export` owns; this namespace adds no second way to read a conversation out.
+- **No export method** — the ZIP and Markdown exports are authenticated Host routes that `lyn-session-log-export` owns; this namespace adds no second way to read a conversation out.
 - **An open conversation cannot be deleted** — the refusal names it, and a reader closes it first. Ending somebody's conversation to delete it would be a second decision this call does not make.
 
 **Runtime invariant:** every call decides visibility from the conversation's own log before anything is removed.

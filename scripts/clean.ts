@@ -104,7 +104,7 @@ export class RepositoryCleaner {
     const unsafeOrphans: string[] = []
     const canonicalRoot = await realpath(this.root)
 
-    await this.addIfPresent(targets, join(this.root, '.dsh-build'), canonicalRoot)
+    await this.addIfPresent(targets, join(this.root, '.lyn-build'), canonicalRoot)
     await this.addIfPresent(targets, join(this.root, 'apps/desktop/.desktop-build'), canonicalRoot)
     // The CLI package's documentation copy: `prepack` writes it, `postpack` removes it.
     await this.addIfPresent(targets, join(this.root, 'apps/cli/docs'), canonicalRoot)

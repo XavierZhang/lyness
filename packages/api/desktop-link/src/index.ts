@@ -13,19 +13,19 @@
  * the desktop already opened, so a desktop behind NAT is reachable without
  * anything listening on it.
  *
- * @module @deepseek-ai/dsh-desktop-link
+ * @module @lyness/lyn-desktop-link
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type { CallId, DesktopRefusal, DesktopReply, DesktopRequest } from './types.ts'
 
 export type { CallId, DesktopRefusal, DesktopReply, DesktopRequest } from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Links to signed-in people's own machines; absent on a deployment that reaches none. */
     desktopLink: DesktopLink

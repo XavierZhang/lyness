@@ -1,4 +1,4 @@
-import { HarnessError } from '@deepseek-ai/dsh-error'
+import { HarnessError } from '@lyness/lyn-error'
 import type { output, ZodType } from 'zod'
 
 /** A Timeline failure with a stable tool-result code. */

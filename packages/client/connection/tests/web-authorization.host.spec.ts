@@ -1,7 +1,7 @@
 /** WebServer admission applies Connection source checks once before route dispatch. */
 import { request as httpRequest } from 'node:http'
-import { Context } from '@deepseek-ai/cordis'
-import WebServer, { type WebRoute } from '@deepseek-ai/dsh-host-webserver'
+import { Context } from '@lyness/cordis'
+import WebServer, { type WebRoute } from '@lyness/lyn-host-webserver'
 import { afterEach, expect, it, vi } from 'vitest'
 import * as Connection from '../src/index.ts'
 

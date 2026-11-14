@@ -15,7 +15,7 @@ English | [中文](guide.zh.md)
 
 `ForgeProvider` also gains optional `viewedFiles` with `setViewed`, `rerunChecks`, `requestReviews` with `reviewerCandidates`, and `updateBranch`; a provider without them keeps working, and the card then offers none of those actions.
 
-This affects third-party `ForgeProvider` implementations registered with `ctx.forge.register` and other code that builds `ChangeRequestSnapshot` or `ChangeRequestCheck` values. All types come from `@deepseek-ai/dsh-experimental-forge`.
+This affects third-party `ForgeProvider` implementations registered with `ctx.forge.register` and other code that builds `ChangeRequestSnapshot` or `ChangeRequestCheck` values. All types come from `@lyness/lyn-experimental-forge`.
 
 ## Migration
 

@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
+import type { ToolDefinition } from '@lyness/lyn-tools'
 import { MCP_TOOL_PREFIX, connectionsOf, serverOfToolName, toolsOf } from '../src/project.ts'
 import type { ToolOrigin } from '../src/project.ts'
 
@@ -20,7 +20,7 @@ function from(name: string, plugin: string, extra: Partial<ToolOrigin> = {}): To
 }
 
 describe('serverOfToolName', () => {
-  it('reads the server out of the name dsh-mcp-client writes', () => {
+  it('reads the server out of the name lyn-mcp-client writes', () => {
     expect(serverOfToolName(`${MCP_TOOL_PREFIX}acme__search`)).toBe('acme')
     expect(serverOfToolName(`${MCP_TOOL_PREFIX}acme__deep__nested`)).toBe('acme')
   })
@@ -41,9 +41,9 @@ describe('toolsOf', () => {
     // what a row names is the plugin; the tool names ride along because a
     // task shows them.
     const available = [
-      from('write', 'tool-fs', { module: '@acme/dsh-tool-fs' }),
-      from('bash', 'tool-bash', { module: '@acme/dsh-tool-bash' }),
-      from('read', 'tool-fs', { module: '@acme/dsh-tool-fs' }),
+      from('write', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
+      from('bash', 'tool-bash', { module: '@acme/lyn-tool-bash' }),
+      from('read', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
     ]
     expect(toolsOf(available, new Set(['write', 'bash', 'read']))).toEqual([
       { plugin: 'tool-bash', tools: ['bash'], source: 'deployment' },
@@ -53,7 +53,7 @@ describe('toolsOf', () => {
 
   it('carries the package\'s own localized metadata when the deployment could read it', () => {
     const meta = { title: { en: 'Files', zh: '文件' } }
-    expect(toolsOf([from('read', 'tool-fs', { module: '@acme/dsh-tool-fs', meta })], new Set(['read'])))
+    expect(toolsOf([from('read', 'tool-fs', { module: '@acme/lyn-tool-fs', meta })], new Set(['read'])))
       .toEqual([{ plugin: 'tool-fs', tools: ['read'], source: 'deployment', meta }])
   })
 
@@ -66,8 +66,8 @@ describe('toolsOf', () => {
 
   it('groups by composition entry, so two plugins calling themselves the same stay apart', () => {
     const available = [
-      from('read', 'tool-fs', { module: '@acme/dsh-tool-fs' }),
-      from('peek', 'tool-fs', { module: '@other/dsh-tool-fs' }),
+      from('read', 'tool-fs', { module: '@acme/lyn-tool-fs' }),
+      from('peek', 'tool-fs', { module: '@other/lyn-tool-fs' }),
     ]
     expect(toolsOf(available, new Set(['read', 'peek'])).map(group => group.tools))
       .toEqual([['read'], ['peek']])

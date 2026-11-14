@@ -3,7 +3,7 @@ description: "按照调用 Session 的文件策略创建并进入保留的 Git �
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-experimental-worktree
+# @lyness/lyn-experimental-worktree
 
 [English](README.md) | 中文
 
@@ -28,8 +28,8 @@ kind: "package-reference"
 将服务与 `workingDirectory`、`fs`、`subprocess`、`sandbox`、`sandboxPolicy` 和 `sessionProjections` 提供方一起挂载。归档清理还需要 `workspaceRegistry` 与 `sessionQuery`，并在挂载了 `sessionProjectionCache` 时使用它；缺少前两者时服务只创建与恢复。模型需要此操作时，再添加工具包。
 
 ```yaml
-- name: '@deepseek-ai/dsh-experimental-worktree'
-- name: '@deepseek-ai/dsh-experimental-tool-worktree'
+- name: '@lyness/lyn-experimental-worktree'
+- name: '@lyness/lyn-experimental-tool-worktree'
 ```
 
 `ctx.worktrees.create(agent, { name?, from? }, signal?, onPhase?)` 创建新分支与检出目录，再通过 `ctx.workingDirectory.set` 进入规范化的检出目录。`from` 在创建前解析为本地提交，默认是 `HEAD`；暂存、未暂存、未跟踪以及被忽略的源文件均不复制。`baseCommit` 报告解析出的提交对象名称；仓库本地的替换引用仍作用于检出的内容。检出操作禁用已配置的 Git clean、smudge 和 process 过滤器，不修改仓库配置。分支或检出路径已存在时会报错。返回记录包含 `path`、`branch`、`baseCommit` 和 `repositoryRoot`。可选的第四个参数 `onPhase` 在校验、分配目录与创建分支之前收到 `prepare`，在写入文件并进入检出之前收到 `checkout`；它不得抛出异常。
@@ -40,7 +40,7 @@ kind: "package-reference"
 
 预期失败抛出 `WorktreeError`，其 `code` 为：名称被 Git 或池规则拒绝、起始修订为空或恢复记录违反文档约束时为 `WORKTREE_INVALID_ARGUMENT`，Git 无法解析的起始修订或基础提交则以 `WORKTREE_COMMAND_FAILED` 失败；分支或路径已存在时为 `WORKTREE_ALREADY_EXISTS`；登记被锁定时为 `WORKTREE_LOCKED`；命令以失败状态退出、超过 `maxOutputBytes` 或超过 `timeoutMs` 时分别为 `WORKTREE_COMMAND_FAILED`、`WORKTREE_OUTPUT_TOO_LARGE` 和 `WORKTREE_TIMEOUT`；服务释放后为 `WORKTREE_UNAVAILABLE`。目录分配之后的失败会在消息中加入保留产物的说明，并保留原错误的 `name` 与 `code`；调用方取消仍是 `AbortError`。
 
-默认检出目录是 `<current checkout root>/.agents/worktrees/<name>`。返回的 `repositoryRoot` 是调用方当前检出目录的顶层目录；如果它是链接检出目录，工作树父目录就嵌套在其中。省略名称时，名称由前缀 `dsh-`、Session id 中 UUID 的前 8 位十六进制数、一个连字符和 4 位随机十六进制数组成，例如 `dsh-6b1f02c4-9a3e`；Session id 不含 UUID 时，前缀后接 8 位随机十六进制数。`generatedWorktreeName` 导出同一规则，供在创建前确定名称的调用方使用。仅当服务的分配操作创建了父目录时，服务才会写入内容为 `*` 加换行符的 `.gitignore`；已有文件与忽略规则保持不变。每条 Git 和 Node 命令各自受 `timeoutMs` 时限约束，默认 5 分钟，使大仓库在较慢的文件系统上也能完成检出；取消仍会终止正在运行的命令。相对路径 `directory`、生成名称使用的 `namePrefix`、可执行程序、进程限制与 `retainOnArchive` 可在[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-experimental-worktree)中查阅。
+默认检出目录是 `<current checkout root>/.agents/worktrees/<name>`。返回的 `repositoryRoot` 是调用方当前检出目录的顶层目录；如果它是链接检出目录，工作树父目录就嵌套在其中。省略名称时，名称由前缀 `lyn-`、Session id 中 UUID 的前 8 位十六进制数、一个连字符和 4 位随机十六进制数组成，例如 `lyn-6b1f02c4-9a3e`；Session id 不含 UUID 时，前缀后接 8 位随机十六进制数。`generatedWorktreeName` 导出同一规则，供在创建前确定名称的调用方使用。仅当服务的分配操作创建了父目录时，服务才会写入内容为 `*` 加换行符的 `.gitignore`；已有文件与忽略规则保持不变。每条 Git 和 Node 命令各自受 `timeoutMs` 时限约束，默认 5 分钟，使大仓库在较慢的文件系统上也能完成检出；取消仍会终止正在运行的命令。相对路径 `directory`、生成名称使用的 `namePrefix`、可执行程序、进程限制与 `retainOnArchive` 可在[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-experimental-worktree)中查阅。
 
 -----
 

@@ -3,7 +3,7 @@ description: "通过组合的子进程提供方运行打包的 ripgrep，为文�
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-util-ripgrep
+# @lyness/lyn-util-ripgrep
 
 [English](README.md) | 中文
 

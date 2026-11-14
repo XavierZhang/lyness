@@ -1,6 +1,6 @@
 /** The forge panel's extension slots and the props their owners pass. */
 
-import type { ChangeRequestRef, ChangeRequestState } from '@deepseek-ai/dsh-experimental-forge/types'
+import type { ChangeRequestRef, ChangeRequestState } from '@lyness/lyn-experimental-forge/types'
 import type { ForgeLensFile } from '../types.ts'
 import type { ChangesTarget } from './changes-address.ts'
 import type { ForgeLineAnnotation } from './changes-service.ts'
@@ -65,7 +65,7 @@ export interface ForgeChangeRequestCardActionsProps {
   readonly state: ChangeRequestState | null
 }
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Tools a plugin adds to the changes toolbar, after its flexible space and before the thread list toggle. */
     'forge.changes.toolbar': { kind: 'list'; scope: 'session'; owner: ForgeChangesToolbarProps }

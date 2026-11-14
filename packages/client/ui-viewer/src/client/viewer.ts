@@ -8,17 +8,17 @@
  * surface and could show two of them disagreeing, so the read, its outcome,
  * and the derived plane all live here.
  *
- * @module @deepseek-ai/dsh-client-ui-viewer/client/viewer
+ * @module @lyness/lyn-client-ui-viewer/client/viewer
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import { createOutcomeRead, createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { ReadOutcome, SharedRead, SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import { createOutcomeRead, createSnapshotStore } from '@lyness/lyn-client-store'
+import type { ReadOutcome, SharedRead, SnapshotStore } from '@lyness/lyn-client-store'
+import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 import { administers } from './plane.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     uiViewer: UiViewer
   }

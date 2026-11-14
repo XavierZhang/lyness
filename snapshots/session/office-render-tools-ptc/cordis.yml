@@ -1,20 +1,20 @@
 - insert:
     - id: office-kit
-      name: '@deepseek-ai/dsh-office-kit'
+      name: '@lyness/lyn-office-kit'
       config:
-        outputDirectory: !!js dshHomePath('office-kit', 'outputs')
+        outputDirectory: !!js lynHomePath('office-kit', 'outputs')
 
     - id: tool-office
-      name: '@deepseek-ai/dsh-tool-office'
+      name: '@lyness/lyn-tool-office'
 
     - id: workspace-dependencies
-      name: '@deepseek-ai/dsh-tool-workspace-dependencies'
+      name: '@lyness/lyn-tool-workspace-dependencies'
       config:
         source: !!js process.cwd() + '/runtime-source'
         root: !!js process.cwd() + '/runtime-installed'
 
     - id: skill-office
-      name: '@deepseek-ai/dsh-skill-office'
+      name: '@lyness/lyn-skill-office'
       config:
         assetRoot: !!js process.cwd() + '/office-skills'
 

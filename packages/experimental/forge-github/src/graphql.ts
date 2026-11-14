@@ -1,11 +1,11 @@
 /** GitHub GraphQL documents and their mapping into provider-neutral results. */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import { changeRequestKey } from '@deepseek-ai/dsh-experimental-forge'
+import type { Branded } from '@lyness/lyn-brand'
+import { changeRequestKey } from '@lyness/lyn-experimental-forge'
 import type {
   ChangeRequestCheck, ChangeRequestKey, ChangeRequestRef, ChangeRequestReviewer, ChangeRequestSnapshot, CheckState, ChecksRollup,
   ForgeCheckId, ForgeFailure, ForgeRepository, Mergeability, MergeMethod, ReviewDecision, ReviewVerdict,
-} from '@deepseek-ai/dsh-experimental-forge'
+} from '@lyness/lyn-experimental-forge'
 import { z } from 'zod'
 import { checkedRepository, isCommit } from './urls.ts'
 

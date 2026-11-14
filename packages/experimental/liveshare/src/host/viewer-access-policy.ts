@@ -14,11 +14,11 @@
  * activating a cold Session, fork identity and replay) stays in the viewer reader before dispatch, which
  * reads the same write rules through {@link readerWriteRefusal}.
  *
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/viewer-access-policy
+ * @module @lyness/lyn-experimental-liveshare/src/host/viewer-access-policy
  */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   RemoteAccessAction,
   RemoteAccessBinding,
@@ -29,10 +29,10 @@ import type {
   RemoteAccessRequest,
   RemoteAccessResourceKind,
   RemoteAccessRole,
-} from '@deepseek-ai/dsh-api-remote-access/types'
-import type { ShareRpcActor } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
-import { identityKeyOf } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
-import type { Workspace } from '@deepseek-ai/dsh-workspace/types'
+} from '@lyness/lyn-api-remote-access/types'
+import type { ShareRpcActor } from '@lyness/lyn-experimental-liveshare-protocol'
+import { identityKeyOf } from '@lyness/lyn-experimental-liveshare-protocol'
+import type { Workspace } from '@lyness/lyn-workspace/types'
 import {
   VIEWER_ENDPOINT_CLASSES,
   VIEWER_FORWARDED_EVENTS,

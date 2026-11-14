@@ -5,30 +5,30 @@ import { join } from 'node:path'
 import { createInterface } from 'node:readline'
 import { PassThrough } from 'node:stream'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import AgentPreset from '@deepseek-ai/dsh-agent-preset'
-import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
-import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
-import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
-import { CuaConfig, installCua } from '@deepseek-ai/dsh-cua'
-import type { NativeChannelFactory } from '@deepseek-ai/dsh-cua/native-client'
-import FileSystem from '@deepseek-ai/dsh-fs-local'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import NodeRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
-import Sandbox from '@deepseek-ai/dsh-sandbox-local'
-import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import Subprocess from '@deepseek-ai/dsh-subprocess-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import UserQuestions from '@deepseek-ai/dsh-user-questions'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
+import { Context } from '@lyness/cordis'
+import Include from '@lyness/cordis-plugin-include'
+import Loader from '@lyness/cordis-plugin-loader'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import AgentPreset from '@lyness/lyn-agent-preset'
+import AgentPresets from '@lyness/lyn-agent-preset-registry'
+import LocalAttachmentStore from '@lyness/lyn-attachment-local'
+import ComputerUseRegistry from '@lyness/lyn-computer-use'
+import { CuaConfig, installCua } from '@lyness/lyn-cua'
+import type { NativeChannelFactory } from '@lyness/lyn-cua/native-client'
+import FileSystem from '@lyness/lyn-fs-local'
+import LlmRuntime from '@lyness/lyn-llm'
+import NodeRuntime from '@lyness/lyn-ptc-runtime-node'
+import Sandbox from '@lyness/lyn-sandbox-local'
+import SandboxPolicy from '@lyness/lyn-sandbox-policy'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import Subprocess from '@lyness/lyn-subprocess-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import ToolRuntime from '@lyness/lyn-tools'
+import UserQuestions from '@lyness/lyn-user-questions'
+import WorkingDirectory from '@lyness/lyn-working-directory'
 import { Client, InMemoryTransport, type CallToolResult } from '@modelcontextprotocol/client'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { createNativeFixture } from '../../../../snapshots/session/cua-run-code/native-channel.mjs'
@@ -93,7 +93,7 @@ function lastJson(result: CallToolResult): unknown {
 }
 
 async function setup(options: SetupOptions = {}) {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-cua-mcp-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-cua-mcp-'))
   const ctx = new Context()
   onTestFinished(async () => {
     try { await ctx.fiber.dispose() } finally { await rm(directory, { recursive: true, force: true }) }
@@ -120,14 +120,14 @@ async function setup(options: SetupOptions = {}) {
       },
     },
   }
-  // The Host plane owns the native executor, as dsh-base does; the empty preset adds no model-facing rows.
+  // The Host plane owns the native executor, as lyn-base does; the empty preset adds no model-facing rows.
   const entries = Object.keys(modules).filter(name => options.provider !== false || name !== 'cua').map(name => ({
     id: name, name: `cordis:${name}`,
     ...name === 'agentPresets' ? { config: { default: 'cua-mcp' } } : {},
     ...name === 'preset' ? { config: { id: 'cua-mcp', plugins: [] } } : {},
     ...name === 'sandboxPolicy' ? { config: { mode: 'danger-full-access', workspaceRoot: directory } } : {},
     ...name === 'sharedRuntime' ? { config: { executionMode: 'per-call' } } : {},
-    ...name === 'attachments' ? { config: { dshHome: directory } } : {},
+    ...name === 'attachments' ? { config: { lynHome: directory } } : {},
     ...name === 'cua' ? { config: {
       screenshotTarget: { longEdge: 1, maxBytes: 100_000 },
       allowedApps: options.granted === false ? [] : [{ id: 'a'.repeat(64), name: 'Fixture', executablePath: '/fixture/app' }],
@@ -255,14 +255,14 @@ describe('Computer Use MCP composition', () => {
     expect(lastJson(b)).toEqual(['a', 'b'])
     const failed = await run('throw new Error("boom")')
     expect(failed.isError).toBe(true)
-    // The client marks the error; the text is DSH's failure message without its `Error: ` prefix.
+    // The client marks the error; the text is LYN's failure message without its `Error: ` prefix.
     expect(texts(failed)[0]).toMatch(/^code run failed \(exception\): .*boom/s)
     const controller = new AbortController()
     const hanging = run('await new Promise(resolve => setTimeout(resolve, 60_000))', {}, controller.signal)
     setTimeout(() => { controller.abort() }, 100)
     await expect(hanging).rejects.toThrow()
     expect(lastJson(await run('inspect(1 + 1)'))).toBe(2)
-    // Argument validation belongs to the DSH executor: a program without the required description is refused there.
+    // Argument validation belongs to the LYN executor: a program without the required description is refused there.
     const invalid = await client.callTool({ name: 'cua_run_code', arguments: { code: '1' } })
     expect(invalid.isError).toBe(true)
     expect(texts(invalid)).toEqual(['invalid arguments: missing required property "description"'])
@@ -439,7 +439,7 @@ describe('Computer Use MCP composition', () => {
     const unsupported = await setup({ consent: 'elicit', granted: false })
     const refused = await unsupported.run('var app = await cua.getApp("test.fixture"); app.appHandle')
     expect(refused.isError).toBe(true)
-    expect(texts(refused).join('\n')).toContain('DSH_CUA_CONSENT=allow')
+    expect(texts(refused).join('\n')).toContain('LYNESS_CUA_CONSENT=allow')
   })
 
   it('lists no program tool on a Host without a CUA provider and releases the connection Agent on disposal', async () => {

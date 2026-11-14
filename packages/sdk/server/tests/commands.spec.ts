@@ -1,15 +1,15 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { once } from 'node:events'
 import { PassThrough } from 'node:stream'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import CommandRuntime, { type CommandDefinitionId, type CommandDefinition, type CommandInvocation } from '@deepseek-ai/dsh-commands'
-import type { AttachmentStore, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment/types'
-import { LlmAdapter, type GenerateOptions, type LlmResolvedModelInfo, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { JsonRpcLineTransport, type JsonRpcTransportPeer } from '@deepseek-ai/dsh-sdk-protocol'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { brandString } from '@lyness/lyn-brand'
+import CommandRuntime, { type CommandDefinitionId, type CommandDefinition, type CommandInvocation } from '@lyness/lyn-commands'
+import type { AttachmentStore, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { AttachmentId } from '@lyness/lyn-attachment/types'
+import { LlmAdapter, type GenerateOptions, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import { JsonRpcLineTransport, type JsonRpcTransportPeer } from '@lyness/lyn-sdk-protocol'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { HarnessSdkJsonRpcServer } from '../src/server.ts'
 
@@ -54,7 +54,7 @@ async function setup(registry = true, peer?: JsonRpcTransportPeer) {
   onTestFinished(async () => { await server.shutdown() })
   const initialize = () => server.initialize({ cwd: process.cwd(), provider: 'mock', model: 'mock' })
   const register = (handler: CommandDefinition['handler']) => {
-    ctx.effect(() => ctx.commands.register({ name: 'compact', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-compact'), description: 'Fixture command', handler }))
+    ctx.effect(() => ctx.commands.register({ name: 'compact', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-compact'), description: 'Fixture command', handler }))
   }
   const command = async () => {
     const result = await server.query({ sessionId: brandString<SessionId>('commands'), contentBlocks: [{ type: 'text', text: '/compact' }] })
@@ -145,7 +145,7 @@ describe('SDK command dispatch', () => {
     h.ctx.provide('attachments', store as AttachmentStore)
     const handler = vi.fn((_invocation: CommandInvocation) => ({ kind: 'success' as const }))
     h.ctx.effect(() => h.ctx.commands.register({
-      name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
+      name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
     }))
     const attachments = [{ type: 'image', data: 'AQ==', mimeType: 'image/png', name: 'diagram.png' }]
     const text = { type: 'text', text: '/plan inspect' }
@@ -172,7 +172,7 @@ describe('SDK command dispatch', () => {
     h.ctx.provide('attachments', store as AttachmentStore)
     const handler = vi.fn(() => ({ kind: 'success' as const }))
     h.ctx.effect(() => h.ctx.commands.register({
-      name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
+      name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
     }))
     await expect(h.server.handleRequest('session/query', {
       sessionId: 'refused-content', contentBlocks: [
@@ -195,7 +195,7 @@ describe('SDK command dispatch', () => {
     h.ctx.provide('attachments', { saveImages } as AttachmentStore)
     const handler = vi.fn(() => ({ kind: 'success' as const }))
     h.ctx.effect(() => h.ctx.commands.register({
-      name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
+      name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan', input: { hint: 'Task', attachments: true }, handler,
     }))
     const request = h.server.query({ sessionId: brandString<SessionId>('image-shutdown'),
       contentBlocks: [{ type: 'text', text: '/plan inspect' }, { type: 'image', data: 'AQ==', mimeType: 'image/png' }],
@@ -210,10 +210,10 @@ describe('SDK command dispatch', () => {
   })
 
   it.each([
-    ['compact', '@deepseek-ai/dsh-command-compact', '/compact', '/压缩'],
-    ['permission', '@deepseek-ai/dsh-permission-presets', '/permission read-only', '/权限 read-only'],
-    ['plan', '@deepseek-ai/dsh-plan-mode', '/plan', '/计划'],
-    ['goal', '@deepseek-ai/dsh-command-goal', '/goal', '/目标'],
+    ['compact', '@lyness/lyn-command-compact', '/compact', '/压缩'],
+    ['permission', '@lyness/lyn-permission-presets', '/permission read-only', '/权限 read-only'],
+    ['plan', '@lyness/lyn-plan-mode', '/plan', '/计划'],
+    ['goal', '@lyness/lyn-command-goal', '/goal', '/目标'],
   ])('accepts the %s English and Chinese aliases and delivers their lifecycle before resolution', async (name, definitionId, line, alias) => {
     const input = new PassThrough()
     const output = new PassThrough()
@@ -261,10 +261,10 @@ describe('SDK command dispatch', () => {
   })
 
   it.each([
-    ['compact', '@deepseek-ai/dsh-command-compact', '压缩', ''],
-    ['permission', '@deepseek-ai/dsh-permission-presets', '权限', ' read-only'],
-    ['plan', '@deepseek-ai/dsh-plan-mode', '计划', ' task'],
-    ['goal', '@deepseek-ai/dsh-command-goal', '目标', ' task'],
+    ['compact', '@lyness/lyn-command-compact', '压缩', ''],
+    ['permission', '@lyness/lyn-permission-presets', '权限', ' read-only'],
+    ['plan', '@lyness/lyn-plan-mode', '计划', ' task'],
+    ['goal', '@lyness/lyn-command-goal', '目标', ' task'],
   ])('dispatches the renamed %s definition through its registered name and aliases', async (name, id, alias, args) => {
     const h = await setup()
     await h.initialize()
@@ -318,7 +318,7 @@ describe('SDK command dispatch', () => {
     await h.server.initialize({ cwd: process.cwd(), provider: 'query-model', model: 'model' })
     const handler = vi.fn(() => ({ kind: 'success' as const }))
     h.ctx.effect(() => h.ctx.commands.register({
-      name: 'access', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-permission-presets'),
+      name: 'access', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-permission-presets'),
       description: 'Permission', handler,
     }))
     const sessionId = brandString<SessionId>('empty-preset')
@@ -342,7 +342,7 @@ describe('SDK command dispatch', () => {
     const h = await setup()
     await h.initialize()
     const handler = vi.fn((_invocation: CommandInvocation) => ({ kind: 'error' as const, text: 'native preset refusal' }))
-    h.ctx.effect(() => h.ctx.commands.register({ name: 'permission', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-permission-presets'), description: 'Fixture permission', input: { hint: 'Preset' }, handler }))
+    h.ctx.effect(() => h.ctx.commands.register({ name: 'permission', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-permission-presets'), description: 'Fixture permission', input: { hint: 'Preset' }, handler }))
     const sessionId = brandString<SessionId>('permission')
     const line = '/permission  deployment-preset'
     const result = await h.server.query({ sessionId, contentBlocks: [{ type: 'text', text: line }] })
@@ -358,7 +358,7 @@ describe('SDK command dispatch', () => {
     const h = await setup()
     await h.initialize()
     const handler = vi.fn((_invocation: CommandInvocation) => ({ kind: 'success' as const, text: 'native plan result' }))
-    h.ctx.effect(() => h.ctx.commands.register({ name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan', input: { hint: '[off|message]' }, handler }))
+    h.ctx.effect(() => h.ctx.commands.register({ name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan', input: { hint: '[off|message]' }, handler }))
     const result = await h.server.query({ sessionId: brandString<SessionId>('plan'), contentBlocks: [{ type: 'text', text: line }] })
     expect(result).toMatchObject({ kind: 'command', execution: { result: { kind: 'success', text: 'native plan result' } } })
     expect(handler.mock.calls[0]![0].rawInput).toBe(line.slice('/plan'.length))
@@ -367,12 +367,12 @@ describe('SDK command dispatch', () => {
   })
 
   it.each([
-    ['/plan\u3000Inspect\u3000the\nchange', 'plan', '@deepseek-ai/dsh-plan-mode', ' Inspect\u3000the\nchange'],
-    ['/计划\u00a0\t设计\u00a0方案', 'plan', '@deepseek-ai/dsh-plan-mode', ' \t设计\u00a0方案'],
-    ['/goal\u2003Finish\u3000the task', 'goal', '@deepseek-ai/dsh-command-goal', ' Finish\u3000the task'],
-    ['/目标\u3000\u00a0完成任务', 'goal', '@deepseek-ai/dsh-command-goal', ' \u00a0完成任务'],
-    ['/permission\u00a0read-only', 'permission', '@deepseek-ai/dsh-permission-presets', ' read-only'],
-    ['/权限\u202f\tread-only', 'permission', '@deepseek-ai/dsh-permission-presets', ' \tread-only'],
+    ['/plan\u3000Inspect\u3000the\nchange', 'plan', '@lyness/lyn-plan-mode', ' Inspect\u3000the\nchange'],
+    ['/计划\u00a0\t设计\u00a0方案', 'plan', '@lyness/lyn-plan-mode', ' \t设计\u00a0方案'],
+    ['/goal\u2003Finish\u3000the task', 'goal', '@lyness/lyn-command-goal', ' Finish\u3000the task'],
+    ['/目标\u3000\u00a0完成任务', 'goal', '@lyness/lyn-command-goal', ' \u00a0完成任务'],
+    ['/permission\u00a0read-only', 'permission', '@lyness/lyn-permission-presets', ' read-only'],
+    ['/权限\u202f\tread-only', 'permission', '@lyness/lyn-permission-presets', ' \tread-only'],
   ])('executes Unicode-separated input %j through its native handler', async (line, name, definitionId, rawInput) => {
     const h = await setup()
     await h.initialize()
@@ -395,7 +395,7 @@ describe('SDK command dispatch', () => {
     const h = await setup()
     await h.initialize()
     h.ctx.effect(() => h.ctx.commands.register({
-      name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan',
+      name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan',
       handler: ({ rawInput }) => { throw new Error(`handler saw:${rawInput}`) },
     }))
     await expect(h.server.handleRequest('session/query', { sessionId: 'commands', contentBlocks: [{ type: 'text', text: '/plan  extra' }] }))
@@ -557,7 +557,7 @@ describe('SDK query dispatch', () => {
     await h.server.initialize({ cwd: process.cwd(), provider: 'query-model', model: 'model' })
     const handler = vi.fn(() => ({ kind: 'success' as const }))
     h.ctx.effect(() => h.ctx.commands.register({ name: 'feedback', description: 'Feedback', input: { hint: 'Task' }, handler }))
-    h.ctx.effect(() => h.ctx.commands.register({ name: 'permission', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-permission-presets'), description: 'Permission', input: { hint: 'Preset' }, handler }))
+    h.ctx.effect(() => h.ctx.commands.register({ name: 'permission', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-permission-presets'), description: 'Permission', input: { hint: 'Preset' }, handler }))
     await expect(h.server.query({ sessionId: brandString<SessionId>('q'), contentBlocks: [{ type: 'text', text }] })).resolves.toMatchObject({ kind: 'prompt' })
     await h.server.wait({ sessionId: 'q' })
     expect(handler).not.toHaveBeenCalled()

@@ -2,10 +2,10 @@
 /** Existing Session actions receive the captured owner and one dismissal context. */
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { ComponentProps } from 'react'
 import { SessionMenu } from '../src/client/session-actions/SessionMenu.tsx'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 afterEach(cleanup)
 it('ignores other targets and forwards close requests from legacy Session actions', () => {

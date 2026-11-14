@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 import { createPortal } from 'react-dom'
-import type { JobsSnapshot, JobView, ObservedJob } from '@deepseek-ai/dsh-api-job-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { JobsSnapshot, JobView, ObservedJob } from '@lyness/lyn-api-job-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   IconChevronDownOutlineRegular, IconLayersOutlineRegular, IconStopFillRegular, MenuSurface, StateDot, TerminalBlock, Tooltip,
   useDismissOnOutsidePointer,
   type StateDotState, type TerminalBlockLabels,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime, TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime, TranslateNS } from '@lyness/lyn-client-ui-slots'
 import { NS } from './locales.ts'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import css from './JobListAction.module.css'
 
 /** Registration-side business face for the job list. */
@@ -407,7 +407,7 @@ export function JobListAction({ sessionId, useJobs, watchRows, observe, killJob,
   // Timers belong to this mounted session and cannot survive a disappearing trigger.
   useEffect(() => cancelHover, [cancelHover, sessionId, hasJobs])
 
-  const anchorName = `--dsh-jobs-${useId().replaceAll(':', '')}`
+  const anchorName = `--lyn-jobs-${useId().replaceAll(':', '')}`
   useDismissOnOutsidePointer(rootRef, open, changeOpen, menuRef)
   // Hover does not move focus; Escape must also work from the rest of the page.
   useEffect(() => {

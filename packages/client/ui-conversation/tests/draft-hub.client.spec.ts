@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 /** InputHub restores drafts before views and follows Session-owned lexicon subscriptions. */
 import { randomUUID } from 'node:crypto'
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { SessionReference } from '@deepseek-ai/dsh-api-session-controller/client'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { makeTranslate, TestSessions } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { Context, Service } from '@lyness/cordis'
+import type { SessionReference } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { makeTranslate, TestSessions } from '@lyness/lyn-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { $nodesOfType } from 'lexical'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import type { DraftSnapshot } from '../src/client/contract/draft-editor.ts'
@@ -15,7 +15,7 @@ import { TextRefNode } from '../src/client/input/editor/text-ref.ts'
 import { SessionInputShell } from '../src/client/input/facade.ts'
 import { InputHub } from '../src/client/input/hub.ts'
 import { zh } from '../src/client/locales.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const mention = '@src/main.ts'
 const saved: DraftSnapshot = {
@@ -28,7 +28,7 @@ const saved: DraftSnapshot = {
 
 async function storedSession(draft: unknown) {
   const id = brandString<SessionId>(`draft-hub-${randomUUID()}`)
-  const key = `dsh.conversation.${id}`
+  const key = `lyn.conversation.${id}`
   const previous = localStorage.getItem(key)
   onTestFinished(() => {
     if (previous === null) localStorage.removeItem(key)

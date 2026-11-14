@@ -12,7 +12,7 @@ import {
   ScheduleInputError,
 } from '../src/domain.ts'
 import type { DailyInput, DailyScheduleRecord, ScheduleId } from '../src/types.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 function daily(now: string, time = '23:00:00', timeZone = 'Asia/Shanghai'): DailyScheduleRecord {
   return createDailyScheduleRecord(

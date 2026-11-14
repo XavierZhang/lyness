@@ -15,7 +15,7 @@ Hosts that create Agents without a preset are affected: the `sdk`, `sdk-minimal`
 
 - The model request gains the `cua_run_code` schema and the CUA guidance.
 - Agent creation waits for the provider's dedicated program runtime; it rejects while that runtime or the `workingDirectory` service is unavailable, for example with `CUA program tool is unavailable`.
-- With `@deepseek-ai/dsh-tool-executor-ptc` mounted on the Host, programs see `tools.cua_run_code` inside `run_code`.
+- With `@lyness/lyn-tool-executor-ptc` mounted on the Host, programs see `tools.cua_run_code` inside `run_code`.
 
 ## Migration
 

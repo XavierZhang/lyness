@@ -10,7 +10,7 @@
 
 - insert:
     - id: computer-use
-      name: '@deepseek-ai/dsh-computer-use'
+      name: '@lyness/lyn-computer-use'
     - id: cua-run-code-fixture
       name: '../../session/cua-run-code/provider.mjs'
       config:

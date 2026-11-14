@@ -3,18 +3,18 @@ import { lstatSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync 
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { Context } from '@lyness/cordis'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import {
   boot, composeEntries, createRuntimeResolution,
   PluginPackages, type Profile,
-} from '@deepseek-ai/dsh-app-boot'
-import { installProxyFromEnvironment } from '@deepseek-ai/dsh-http-proxy'
+} from '@lyness/lyn-app-boot'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { runProfile, userAgentProfile } from '../src/profile-boot.ts'
 
-vi.mock('@deepseek-ai/dsh-app-boot', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@deepseek-ai/dsh-app-boot')>()
+vi.mock('@lyness/lyn-app-boot', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@lyness/lyn-app-boot')>()
   return {
     ...actual,
     boot: vi.fn(),
@@ -22,11 +22,11 @@ vi.mock('@deepseek-ai/dsh-app-boot', async (importOriginal) => {
     installFailLoud: vi.fn(),
   }
 })
-vi.mock('@deepseek-ai/dsh-http-proxy', () => ({ installProxyFromEnvironment: vi.fn() }))
+vi.mock('@lyness/lyn-http-proxy', () => ({ installProxyFromEnvironment: vi.fn() }))
 
 const homes: string[] = []
 // runProfile writes the suffix into process.env; stubbing first lets afterEach restore it.
-beforeEach(() => { vi.stubEnv('DSH_USER_AGENT_SUFFIX', undefined) })
+beforeEach(() => { vi.stubEnv('LYNESS_USER_AGENT_SUFFIX', undefined) })
 afterEach(() => {
   vi.restoreAllMocks()
   vi.unstubAllEnvs()
@@ -38,12 +38,12 @@ describe('runProfile with an application-owned profile', () => {
   it.each(
     ['composition', 'boot', 'watch', 'cleanup', 'tree-cleanup', 'both-cleanups'] as const,
   )('releases startup resources after a %s failure', async (stage) => {
-    const home = mkdtempSync(join(tmpdir(), 'dsh-profile-startup-failure-'))
+    const home = mkdtempSync(join(tmpdir(), 'lyn-profile-startup-failure-'))
     homes.push(home)
     mkdirSync(join(home, 'runtime'))
     writeFileSync(join(home, 'runtime/package.json'), '{"name":"test-runtime","version":"1.0.0"}')
     writeFileSync(join(home, 'package.json'), '{"name":"test-bundle","version":"1.0.0"}')
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.spyOn(process, 'on').mockReturnValue(process)
     const ctx = new Context()
     ctx.provide('loader', { create: vi.fn() })
@@ -89,7 +89,7 @@ describe('runProfile with an application-owned profile', () => {
   })
 
   it('uses shared layers, runtime resolution, and shutdown', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'dsh-resolved-profile-'))
+    const home = mkdtempSync(join(tmpdir(), 'lyn-resolved-profile-'))
     homes.push(home)
     mkdirSync(join(home, 'runtime'))
     writeFileSync(join(home, 'runtime/package.json'), '{"name":"test-runtime","version":"1.0.0","exports":"./index.cjs"}')
@@ -100,8 +100,8 @@ describe('runProfile with an application-owned profile', () => {
     const localManifest = '{"name":"test-local","version":"1.0.0","exports":"./index.cjs"}'
     writeFileSync(join(localPackageDir, 'package.json'), localManifest)
     writeFileSync(join(localPackageDir, 'index.cjs'), 'module.exports = "profile"\n')
-    vi.stubEnv('DSH_HOME', home)
-    vi.stubEnv('DSH_TELEMETRY_DISABLED', '1')
+    vi.stubEnv('LYNESS_HOME', home)
+    vi.stubEnv('LYNESS_TELEMETRY_DISABLED', '1')
     vi.spyOn(process, 'on').mockReturnValue(process)
     const oldExitCode = process.exitCode
     const ctx = new Context()
@@ -188,18 +188,18 @@ describe('profile User-Agent suffix', () => {
   })
 
   it('names the profile before any plugin loads', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'dsh-profile-user-agent-'))
+    const home = mkdtempSync(join(tmpdir(), 'lyn-profile-user-agent-'))
     homes.push(home)
     mkdirSync(join(home, 'runtime'))
     writeFileSync(join(home, 'runtime/package.json'), '{"name":"test-runtime","version":"1.0.0"}')
     writeFileSync(join(home, 'package.json'), '{"name":"test-bundle","version":"1.0.0"}')
-    vi.stubEnv('DSH_HOME', home)
+    vi.stubEnv('LYNESS_HOME', home)
     vi.spyOn(process, 'on').mockReturnValue(process)
     vi.mocked(installProxyFromEnvironment).mockResolvedValue(async () => {})
     const failure = new Error('stop after observing the environment')
     let seen: string | undefined
     vi.mocked(boot).mockImplementation(() => {
-      seen = process.env.DSH_USER_AGENT_SUFFIX
+      seen = process.env.LYNESS_USER_AGENT_SUFFIX
       return Promise.reject(failure)
     })
     const profile: Profile = { skippedBundles: [],
@@ -209,6 +209,6 @@ describe('profile User-Agent suffix', () => {
       environment: createLaunchEnvironmentSnapshot([]), profile: 'my web', patchFiles: [], args: [],
       resolvedProfile: { profile, installAnchor: join(home, 'runtime/package.json') },
     })).rejects.toBe(failure)
-    expect(seen).toBe('dsh-profile/my%20web')
+    expect(seen).toBe('lyn-profile/my%20web')
   })
 })

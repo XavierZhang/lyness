@@ -13,10 +13,10 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ToolCallId, StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { ReplayEntry } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { ToolCallId, StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry } from '@lyness/lyn-llm-replay'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, launchWebScaffold, readPersistedEvents,
   watchConsole, webSnapshotMode, type WebScaffold,
@@ -115,7 +115,7 @@ describe.skipIf(MODE === 'record')('web e2e: archiving a running Session stops i
   }
 
   beforeAll(async () => {
-    replayDir = await mkdtemp(join(tmpdir(), 'dsh-session-archive-active-'))
+    replayDir = await mkdtemp(join(tmpdir(), 'lyn-session-archive-active-'))
     const replayOverride = join(replayDir, 'replay.override.json')
     await writeFile(replayOverride, JSON.stringify(script()))
     scaffold = await launchWebScaffold({
@@ -147,7 +147,7 @@ describe.skipIf(MODE === 'record')('web e2e: archiving a running Session stops i
     const input = page.locator('[data-composer-input]').first()
     await input.waitFor({ timeout: 10_000 })
     sessionId = await page.evaluate(() => {
-      const selected = JSON.parse(localStorage.getItem('dsh.sessions.current')!) as { sessionId: string }
+      const selected = JSON.parse(localStorage.getItem('lyn.sessions.current')!) as { sessionId: string }
       return selected.sessionId
     }) as SessionId
     await writeComposerDraft(page, input, PROMPT)

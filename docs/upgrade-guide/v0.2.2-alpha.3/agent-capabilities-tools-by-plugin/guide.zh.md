@@ -28,6 +28,6 @@ Host 侧的注册表新增了 `ctx.tools.registered(scope?)`，把每个可见�
 
 1. 读分组而不是读工具：`view.tools.flatMap(group => group.tools)` 就是原来的名字清单，而 `view.tools.length` 现在数的是插件数，不是工具数。
 2. 用插件自己的文案替换逐工具说明：按读者语言解析 `group.meta?.title` 与 `group.meta?.description`（客户端用 `ctx.locale.resolveText`），包没声明标题时回退到 `group.plugin`。
-3. 把从 `@deepseek-ai/dsh-api-agent-capabilities-controller/types` 导入的类型名 `ToolAvailabilityView` 改为 `ToolPluginView`。
+3. 把从 `@lyness/lyn-api-agent-capabilities-controller/types` 导入的类型名 `ToolAvailabilityView` 改为 `ToolPluginView`。
 4. Host 侧需要知道「谁注册了这个工具」的消费方，改读 `ctx.tools.registered()`，不要再靠比较名字。
 5. 验证：`pnpm run test -- packages/api/agent-capabilities-controller` 通过，其中的 composition 用例断言包自己的标题确实进入了回复。

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { type ToolCallId , createMessage, createToolResultMessage } from '@deepseek-ai/dsh-llm'
+import { brandString } from '@lyness/lyn-brand'
+import { type ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
 import { interruptedTurnClosers as repairInterruptedTurn, SessionSeq, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN, ToolCallRecovery } from '../src/index.ts'
 import { openTurnClosers as closeOpenTurn, type OpenTurnCloseCause } from '../src/repair.ts'
 import type { SessionEvent as LogicalSessionEvent, SurfaceEvent } from '../src/index.ts'

@@ -3,4 +3,4 @@
 # include this layer.
 - insert:
     - id: deepseek-chat-import
-      name: '@deepseek-ai/dsh-deepseek-chat-import'
+      name: '@lyness/lyn-deepseek-chat-import'

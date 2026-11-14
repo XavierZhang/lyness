@@ -1,6 +1,6 @@
 /** The node id of a pull request that a GraphQL mutation names, read together with the head the write must still find. */
 
-import type { ChangeRequestRef, ForgeActionFailure } from '@deepseek-ai/dsh-experimental-forge'
+import type { ChangeRequestRef, ForgeActionFailure } from '@lyness/lyn-experimental-forge'
 import { z } from 'zod'
 import type { GraphqlReader } from './commits.ts'
 import { checkedRepository } from './urls.ts'

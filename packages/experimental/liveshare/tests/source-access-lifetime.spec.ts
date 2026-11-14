@@ -1,9 +1,9 @@
 /** A source limit installed on a live Agent cannot authorize a later Agent generation. */
-import { Context } from '@deepseek-ai/cordis'
-import { Peer } from '@deepseek-ai/dsh-client-connection'
+import { Context } from '@lyness/cordis'
+import { Peer } from '@lyness/lyn-client-connection'
 import { randomUUID } from 'node:crypto'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
+import { createScope } from '@lyness/lyn-scope'
+import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -11,9 +11,9 @@ import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import type {} from '../src/index.ts'
 import { apply } from '../src/host/share-host.ts'
 import { SHARED_TOOL_PROFILES } from '../src/host/shared-tools.ts'
-import type { TunnelRegistrationToken, TunnelWorkerEvent } from '@deepseek-ai/dsh-experimental-liveshare-protocol'
+import type { TunnelRegistrationToken, TunnelWorkerEvent } from '@lyness/lyn-experimental-liveshare-protocol'
 import type { TunnelWorkerInput } from '../src/host/tunnel-worker.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const worker = vi.hoisted(() => ({ event: undefined as ((event: TunnelWorkerEvent) => void) | undefined }))
 vi.mock('../src/host/tunnel-worker.ts', () => ({ TunnelWorker: class {
@@ -108,7 +108,7 @@ describe('source access lifetime', () => {
     await change()
     expect(registrations).toBe(VIEW_SURFACE + 2 * WRITE_SURFACE)
     const actor = { providerId: 'mock', tenantId: 'tenant', subjectId: 'viewer' }
-    const token = 'pending-prompt' as import('@deepseek-ai/dsh-experimental-liveshare-protocol').TunnelRequestToken
+    const token = 'pending-prompt' as import('@lyness/lyn-experimental-liveshare-protocol').TunnelRequestToken
     const registrationToken = randomUUID() as TunnelRegistrationToken
     worker.event?.({ type: 'share-rpc-request', registrationToken, shareId: 'share', token, id: 1, actor,
       body: { op: 'call', path: '/api/session/prompt', body: { type: 'client-request', rpcId: 'rpc',

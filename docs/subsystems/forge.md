@@ -2,7 +2,7 @@
 
 English | [中文](forge.zh.md)
 
-The experimental forge capability seam reads change requests, meaning pull requests and merge requests, from code hosts. [`dsh-experimental-forge`](../../packages/experimental/forge/README.md) is the Service Definition and provides `ctx.forge`; [`dsh-experimental-forge-github`](../../packages/experimental/forge-github/README.md) is the Service Provider for GitHub hosts; [`dsh-experimental-forge-session`](../../packages/experimental/forge-session/README.md) is the Consumer that binds change requests to Sessions and provides `ctx.forgeSession`; [`dsh-experimental-client-ui-forge`](../../packages/experimental/client-ui-forge/README.md) is the GUI Consumer that provides `ctx.forgePanel`. The default-disabled [forge bundle](../../packages/experimental/forge-bundle/README.md) composes all four, with the [worktree model tool](../../packages/experimental/tool-worktree/README.md) and one shared [worktree service](../../packages/experimental/worktree/README.md), from the Plugins page; otherwise they load only through explicit composition.
+The experimental forge capability seam reads change requests, meaning pull requests and merge requests, from code hosts. [`lyn-experimental-forge`](../../packages/experimental/forge/README.md) is the Service Definition and provides `ctx.forge`; [`lyn-experimental-forge-github`](../../packages/experimental/forge-github/README.md) is the Service Provider for GitHub hosts; [`lyn-experimental-forge-session`](../../packages/experimental/forge-session/README.md) is the Consumer that binds change requests to Sessions and provides `ctx.forgeSession`; [`lyn-experimental-client-ui-forge`](../../packages/experimental/client-ui-forge/README.md) is the GUI Consumer that provides `ctx.forgePanel`. The default-disabled [forge bundle](../../packages/experimental/forge-bundle/README.md) composes all four, with the [worktree model tool](../../packages/experimental/tool-worktree/README.md) and one shared [worktree service](../../packages/experimental/worktree/README.md), from the Plugins page; otherwise they load only through explicit composition.
 
 ## Providers and change requests
 
@@ -1095,7 +1095,7 @@ type ForgeDiffStatus = 'added' | 'deleted' | 'modified' | 'renamed'
 
 ```ts type-equiv
 /**
- * Review layer of a changed file: the layer the repository's root `.gitattributes` names with `dsh-review-layer`, else
+ * Review layer of a changed file: the layer the repository's root `.gitattributes` names with `lyn-review-layer`, else
  * `test` for a file it marks `linguist-generated`, else the first of `testPaths`, `interfacePaths`, and the built-in
  * test and interface rules that the path matches, else `implementation`.
  */
@@ -1202,7 +1202,7 @@ interface ForgeLocalChanges {
 
 ## Extension API
 
-Other plugins extend change request review through the services above and five more extension points; each registration returns its disposer and ends with the plugin that made it. The surface is experimental and pre-stable like the rest of this capability. Adding an optional field, method, slot, event, error code, or defaulted Config key is compatible; removing or renaming a type, method, slot, owner prop, event, Config key, or the `dsh-resource://forge-changes/` address, or narrowing what one means, needs an [upgrade guide](../../.agents/skills/dsh-create-upgrade-guide/SKILL.md). None of these extension points sends anything to a model: a plugin that shows forge data, lens results, or annotations to a model does so through its own tool results or `agent.inject()`, which the Session log records.
+Other plugins extend change request review through the services above and five more extension points; each registration returns its disposer and ends with the plugin that made it. The surface is experimental and pre-stable like the rest of this capability. Adding an optional field, method, slot, event, error code, or defaulted Config key is compatible; removing or renaming a type, method, slot, owner prop, event, Config key, or the `lyn-resource://forge-changes/` address, or narrowing what one means, needs an [upgrade guide](../../.agents/skills/lyn-create-upgrade-guide/SKILL.md). None of these extension points sends anything to a model: a plugin that shows forge data, lens results, or annotations to a model does so through its own tool results or `agent.inject()`, which the Session log records.
 
 | Extension point | Service Definition | Service Provider | Consumer |
 |---|---|---|---|

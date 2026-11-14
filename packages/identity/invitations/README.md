@@ -3,13 +3,13 @@ description: "Invitations: the bounded code an administrator sends so somebody n
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-invitations
+# @lyness/lyn-invitations
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-invitations` is how a stranger becomes a member, and how somebody already here gains a second standing. An administrator issues a code carrying one standing — a role and its organization — and sends it. A stranger presents it at a sign-in and becomes a roster entry with that standing; somebody the roster already holds accepts it themselves. The code is the authority, bounded on every side: it grants no more than its issuer could, it expires, it allows a counted number of redemptions, it can be withdrawn, and it dies with the issuing standing. Only its hash is stored.
+`lyn-invitations` is how a stranger becomes a member, and how somebody already here gains a second standing. An administrator issues a code carrying one standing — a role and its organization — and sends it. A stranger presents it at a sign-in and becomes a roster entry with that standing; somebody the roster already holds accepts it themselves. The code is the authority, bounded on every side: it grants no more than its issuer could, it expires, it allows a counted number of redemptions, it can be withdrawn, and it dies with the issuing standing. Only its hash is stored.
 
 ## Table of Contents
 
@@ -25,16 +25,16 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Two rows: the invitations themselves, and the admission rule that honours them **instead of** `dsh-managed-people/admission`.
+Two rows: the invitations themselves, and the admission rule that honours them **instead of** `lyn-managed-people/admission`.
 
 ```yaml
 - id: invitations
-  name: '@deepseek-ai/dsh-invitations'
+  name: '@lyness/lyn-invitations'
   config:
     defaultLifetimeMs: 604800000
     defaultMaxUses: 1
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-invitations/admission'
+  name: '@lyness/lyn-invitations/admission'
   config:
     bindings: []
 ```
@@ -71,10 +71,10 @@ The browser half carries the code: `/auth/sign-in/<channel>?invite=<code>` keeps
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-managed-people`](../managed-people/README.md) — the roster a redemption writes, and the rules it restates.
-- [`dsh-sign-in`](../sign-in/README.md) — the flow that presents the code, and the admission seam it reaches.
-- [`dsh-sign-in-http`](../sign-in-http/README.md) — the cookie that carries a code across the browser round trip.
-- [`dsh-admin-audit`](../admin-audit/README.md) — where issuing, withdrawing and redeeming are recorded.
+- [`lyn-managed-people`](../managed-people/README.md) — the roster a redemption writes, and the rules it restates.
+- [`lyn-sign-in`](../sign-in/README.md) — the flow that presents the code, and the admission seam it reaches.
+- [`lyn-sign-in-http`](../sign-in-http/README.md) — the cookie that carries a code across the browser round trip.
+- [`lyn-admin-audit`](../admin-audit/README.md) — where issuing, withdrawing and redeeming are recorded.
 
 -----
 

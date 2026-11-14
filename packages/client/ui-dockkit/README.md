@@ -1,9 +1,9 @@
 ---
-description: "Docking layout kit for the dsh web client: a split tree of tabbed panes with invertible operations, planners, a linear history, and the components that render and drive it."
+description: "Docking layout kit for the lyn web client: a split tree of tabbed panes with invertible operations, planners, a linear history, and the components that render and drive it."
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-dockkit
+# @lyness/lyn-client-ui-dockkit
 
 English | [中文](README.zh.md)
 
@@ -88,7 +88,7 @@ These are not stylistic; each one fixes a defect found in a real browser.
 <a id="build-shape"></a>
 ## Build shape
 
-The package is statically linked: tsdown's `staticLinked` preset emits one browser ESM bundle at `lib/index.js` (every bare specifier stays an import, sourcemaps chain to the sources), and the Web shell resolves the package name and bundles that artifact itself. The preset compiles `dockkit.module.css` with class names of the form `<hash>_<local>` and carries its text in the bundle's `__$dsh_client_module_manifest` export; the renderer installs it as one style element with `data-plugin="@deepseek-ai/dsh-client-ui-dockkit"` and `data-path="src/components/dockkit.module.css"`.
+The package is statically linked: tsdown's `staticLinked` preset emits one browser ESM bundle at `lib/index.js` (every bare specifier stays an import, sourcemaps chain to the sources), and the Web shell resolves the package name and bundles that artifact itself. The preset compiles `dockkit.module.css` with class names of the form `<hash>_<local>` and carries its text in the bundle's `__$lyn_client_module_manifest` export; the renderer installs it as one style element with `data-plugin="@lyness/lyn-client-ui-dockkit"` and `data-path="src/components/dockkit.module.css"`.
 
 <a id="model-experience"></a>
 ## Model Experience

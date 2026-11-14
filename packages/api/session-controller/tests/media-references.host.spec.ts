@@ -2,10 +2,10 @@ import { appendFile, mkdir, mkdtemp, open, realpath, rm, symlink, writeFile } fr
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { FsError, type FsTargetKey, type FsVersion } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
+import { Context } from '@lyness/cordis'
+import { FsError, type FsTargetKey, type FsVersion } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
 import { SessionMediaReferences } from '../src/media-references.ts'
 
 const PNG_BYTES = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4])
@@ -20,7 +20,7 @@ describe('SessionMediaReferences /api/file', () => {
   const contexts: Context[] = []
 
   beforeEach(async () => {
-    root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-media-references-')))
+    root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-media-references-')))
   })
 
   afterEach(async () => {
@@ -197,7 +197,7 @@ describe('SessionMediaReferences /api/file', () => {
 
   it('reads files and symlink targets outside the default cwd without a workspace registry', async () => {
     const route = await mount()
-    const outside = await mkdtemp(join(tmpdir(), 'dsh-media-outside-'))
+    const outside = await mkdtemp(join(tmpdir(), 'lyn-media-outside-'))
     try {
       const path = join(outside, 'image.png')
       await writeFile(path, PNG_BYTES)

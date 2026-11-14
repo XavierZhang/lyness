@@ -1,6 +1,6 @@
 /** Errno classification into the shared filesystem codes. */
 import { describe, expect, it } from 'vitest'
-import { FsError, fsErrorFromErrno } from '@deepseek-ai/dsh-fs'
+import { FsError, fsErrorFromErrno } from '@lyness/lyn-fs'
 
 describe('fsErrorFromErrno', () => {
   const errno = (code: string): Error => Object.assign(new Error(`${code}: injected`), { code })

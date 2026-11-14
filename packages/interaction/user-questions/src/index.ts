@@ -1,25 +1,25 @@
 /**
  * Service Definition for the user-questions capability seam (`ctx.userQuestions`): a UI-backed service for
  * pausing an agent tool call until the human answers a question. The model-
- * facing tool lives in `@deepseek-ai/dsh-tool-ask-user`; UI packages compose
+ * facing tool lives in `@lyness/lyn-tool-ask-user`; UI packages compose
  * answerers on the Agent-scoped Cordis waterfall.
  *
- * @module @deepseek-ai/dsh-user-questions
+ * @module @lyness/lyn-user-questions
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-agent'
-import { createUserMessage, HarnessError, type MessageId, type ToolCallId, type UserMessage } from '@deepseek-ai/dsh-llm'
-import type { Session } from '@deepseek-ai/dsh-session'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
-import z from '@deepseek-ai/schemastery'
+import { Context, Service } from '@lyness/cordis'
+import type {} from '@lyness/lyn-agent'
+import { createUserMessage, HarnessError, type MessageId, type ToolCallId, type UserMessage } from '@lyness/lyn-llm'
+import type { Session } from '@lyness/lyn-session'
+import { scopeTarget } from '@lyness/lyn-scope'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import z from '@lyness/schemastery'
 import { userQuestionProjectionDefinition, type UserQuestionProjectionState } from './projection.ts'
 import { TimedQuestionWait } from './timed-wait.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     userQuestions: UserQuestionService
   }

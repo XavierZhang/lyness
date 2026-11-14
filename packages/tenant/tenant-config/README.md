@@ -3,7 +3,7 @@ description: "The ctx.tenantConfig seam: the models, providers, features, identi
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-config
+# @lyness/lyn-tenant-config
 
 English | [中文](README.zh.md)
 
@@ -25,12 +25,12 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Compose a backend — [`dsh-tenant-config-static`](../tenant-config-static/README.md) reads rows from composition config, [`dsh-tenant-config-store`](../tenant-config-store/README.md) keeps records an administration surface saves — and read through `ctx.tenantConfig`:
+Compose a backend — [`lyn-tenant-config-static`](../tenant-config-static/README.md) reads rows from composition config, [`lyn-tenant-config-store`](../tenant-config-store/README.md) keeps records an administration surface saves — and read through `ctx.tenantConfig`:
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { ModelChoice } from '@deepseek-ai/dsh-tenant-config'
-import type { TenantId } from '@deepseek-ai/dsh-tenant'
+import type { Context } from '@lyness/cordis'
+import type { ModelChoice } from '@lyness/lyn-tenant-config'
+import type { TenantId } from '@lyness/lyn-tenant'
 
 export async function imageModelsOf(ctx: Context, tenantId: TenantId): Promise<readonly ModelChoice[]> {
   const config = await ctx.tenantConfig.get(tenantId)
@@ -107,7 +107,7 @@ None; this package neither assembles nor sends a provider request.
 
 These are current constraints, not a task backlog.
 
-- **Identity is prose, not policy** — [`dsh-tenant-session`](../tenant-session/README.md) records what a tenant contributed and composes it into each agent's prompt, so `constraints` reach the model as sentences it is asked to follow. Nothing enforces them; a rule that has to be enforced needs a permission preset.
+- **Identity is prose, not policy** — [`lyn-tenant-session`](../tenant-session/README.md) records what a tenant contributed and composes it into each agent's prompt, so `constraints` reach the model as sentences it is asked to follow. Nothing enforces them; a rule that has to be enforced needs a permission preset.
 - **No user layer** — the layering above names a user between the organization and the agent, and this deployment has no user records to carry one.
 - **Features are ids, not permissions** — the list says which features a tenant may use, not which member may use them; roles arrive with an administration surface that has members.
 - **No usage limits** — quotas, budgets, and rate limits are not part of this configuration.

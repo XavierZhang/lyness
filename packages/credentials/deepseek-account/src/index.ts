@@ -1,18 +1,18 @@
 /** DeepSeek account service; browser approval never bypasses local cancellation. */
 import { randomBytes, randomUUID, createHash, timingSafeEqual } from 'node:crypto'
 import type { ServerResponse } from 'node:http'
-import type {} from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@lyness/lyn-host-webserver'
 import { arch, platform, release } from 'node:os'
 import { promises as streamPromises } from 'node:stream'
-import { Context, Service } from '@deepseek-ai/cordis'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import Schema from '@deepseek-ai/schemastery'
+import { Context, Service } from '@lyness/cordis'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import Schema from '@lyness/schemastery'
 import { z } from 'zod'
 import { installAccountTaskCancellation, isRunningAccountTask } from './account-tasks.ts'
 import { mergePlatformCookies, platformClientHeaders, platformWireLocale } from './client-metadata.ts'
 import { type AccountNotification, type AccountNotificationBatch, type AccountNotificationEvent, type AccountNotificationId, type AccountClientMetadata, type AccountDetails, type AccountUserId, type AccountView, type AccountUpdate, type PlatformSession, type SignInAttemptId, type SignInAttemptView } from './types.ts'
-import { credentialKey } from '@deepseek-ai/dsh-credentials'
-import type { AuthorizationSession } from '@deepseek-ai/dsh-authorization'
+import { credentialKey } from '@lyness/lyn-credentials'
+import type { AuthorizationSession } from '@lyness/lyn-authorization'
 import { profile, readAccountDetail } from './details.ts'
 import { readNotificationContent, readNotifications, sendNotificationEvent } from './notifications.ts'
 import { revokeAccount, type LogoutRetryPolicy } from './logout.ts'
@@ -20,7 +20,7 @@ import { AccountUnauthorizedError, PlatformAuthError, platformHeaders, platformO
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context { deepseekAccount: DeepSeekAccount }
   interface Events {
     /** Local grant removal has completed.
@@ -462,7 +462,7 @@ export class DeepSeekAccount extends TypertRemoteService {
     if (!result.success) throw new PlatformAuthError('storage')
     // Development grants cannot authenticate production model or file requests.
     const issuer = new URL(result.data.issuer)
-    if (result.data.token.startsWith('dsh_mock_')) return undefined
+    if (result.data.token.startsWith('lyn_mock_')) return undefined
     if (this.inferenceOrigin === 'https://api.deepseek.com') {
       if (['localhost', '127.0.0.1', '[::1]'].includes(issuer.hostname)) return undefined
     } else if (issuer.origin !== this.origin) return undefined
@@ -728,7 +728,7 @@ export class DeepSeekAccount extends TypertRemoteService {
         login_source: attempt.loginSource,
       }, signal, attempt.clientHeaders), { reportInput: true })
       if (!init.success) this.rejectPayload('auth_init', init.error)
-      const authorizeUrl = browserUrl(init.data.authorize_url, this.origin, '/dsh/authorize', this.rewriteBrowserOrigin)
+      const authorizeUrl = browserUrl(init.data.authorize_url, this.origin, '/lyn/authorize', this.rewriteBrowserOrigin)
       authorizeId = init.data.authorize_id
       signal.throwIfAborted()
       const now = Date.now()
@@ -750,7 +750,7 @@ export class DeepSeekAccount extends TypertRemoteService {
         device_id: identity.id, device_model: `${platform()}-${arch()}`, os_version: deviceOsVersion(),
       }, signal, attempt.clientHeaders), { reportInput: true })
       if (!result.success) this.rejectPayload('auth_exchange', result.error)
-      const completionUrl = new URL(browserUrl(result.data.authorized_url, this.origin, '/dsh/authorized', this.rewriteBrowserOrigin))
+      const completionUrl = new URL(browserUrl(result.data.authorized_url, this.origin, '/lyn/authorized', this.rewriteBrowserOrigin))
       completionUrl.searchParams.set('login_source', attempt.loginSource)
       attempt.completionUrl = completionUrl.href
       if (Date.now() >= expiresAt) deadline.abort()

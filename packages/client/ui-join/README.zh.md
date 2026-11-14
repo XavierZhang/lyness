@@ -3,13 +3,13 @@ description: "邀请链接打开的那一页：用哪些目录兑换它，以及
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-join
+# @lyness/lyn-client-ui-join
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-join` 是邀请链接打开的那一页。它只在自己那条路径上占住内建的 `root` 席位、别处一行都不注册——因为跟着这种链接来的人在这里可能还没有账号，而工作台对他来说用不了。它从自己的查询串里读出那张码，为每一个「浏览器能发起的目录」各给一条带着它的链接。已经登录的人看到的则是一个按钮：按下它，这张码携带的身份就加到他的账户上。另有两种访问只会得到一句话：链接没带码，以及部署没有账号体系。
+`lyn-client-ui-join` 是邀请链接打开的那一页。它只在自己那条路径上占住内建的 `root` 席位、别处一行都不注册——因为跟着这种链接来的人在这里可能还没有账号，而工作台对他来说用不了。它从自己的查询串里读出那张码，为每一个「浏览器能发起的目录」各给一条带着它的链接。已经登录的人看到的则是一个按钮：按下它，这张码携带的身份就加到他的账户上。另有两种访问只会得到一句话：链接没带码，以及部署没有账号体系。
 
 ## 目录
 
@@ -29,16 +29,16 @@ kind: "package-reference"
 
 ```yaml
 - id: web-runtime
-  name: '@deepseek-ai/dsh-web-app'
+  name: '@lyness/lyn-web-app'
   config:
     documentPaths:
       - /join
 - id: ui-join
-  name: '@deepseek-ai/dsh-client-ui-join'
+  name: '@lyness/lyn-client-ui-join'
   config:
     path: /join
 - id: ui-admin-invitations
-  name: '@deepseek-ai/dsh-client-ui-admin-invitations'
+  name: '@lyness/lyn-client-ui-admin-invitations'
   config:
     joinPath: /join
 ```
@@ -67,10 +67,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-client-ui-admin-invitations`](../ui-admin-invitations/README.zh.md) —— 这一页所应答的那条链接是在哪里拼出来的。
-- [`dsh-invitations`](../../identity/invitations/README.zh.md) —— 一次兑换被拿去对照的那些边界。
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 让码跨过目录往返的那条路由。
-- [`dsh-host-frontend-static`](../../host/frontend-static/README.zh.md) —— 让这条路径根本能给出一页的那个东西。
+- [`lyn-client-ui-admin-invitations`](../ui-admin-invitations/README.zh.md) —— 这一页所应答的那条链接是在哪里拼出来的。
+- [`lyn-invitations`](../../identity/invitations/README.zh.md) —— 一次兑换被拿去对照的那些边界。
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 让码跨过目录往返的那条路由。
+- [`lyn-host-frontend-static`](../../host/frontend-static/README.zh.md) —— 让这条路径根本能给出一页的那个东西。
 
 -----
 

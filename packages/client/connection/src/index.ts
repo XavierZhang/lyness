@@ -1,10 +1,10 @@
 /** Host HTTP bridge for browser-client RPC. */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-attachment'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/lyn-attachment'
 // Activates the webServer Context merge used below.
-import type { WebRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { WebRoute } from '@lyness/lyn-host-webserver'
 import { API_PATH } from './api-path.ts'
 import { bridge, DEFAULT_MAX_REQUEST_BODY_BYTES } from './http-bridge.ts'
 import { assertTrustedAuthority } from './api-request-trust.ts'
@@ -33,7 +33,7 @@ export type {
   RpcMessage,
   ServerResponse,
 } from './rpc.ts'
-export type { PeerId, PeerScope, Principal, RemoteInvocation } from '@deepseek-ai/dsh-typert-protocol'
+export type { PeerId, PeerScope, Principal, RemoteInvocation } from '@lyness/lyn-typert-protocol'
 export { RpcId, transportError } from './rpc.ts'
 export { Peer } from './peer.ts'
 export type { PeerOptions } from './peer.ts'
@@ -54,7 +54,7 @@ export { API_PATH } from './api-path.ts'
 /** Stable Cordis plugin name. */
 export const name = 'client-connection'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * Admit or wrap an authenticated shared API request, including body transfer.
@@ -131,7 +131,7 @@ export function apply(ctx: Context, config?: ConnectionConfig): void {
     connectionCtx.inject(['webServer'], (webCtx) => {
       assertImageBodyCapacity(webCtx, maxRequestBodyBytes)
       webCtx.on('webserver/index-inject', (table) => {
-        table.push({ kind: 'global', name: '__DSH_CONNECTION_RECOVERY__', value: recovery })
+        table.push({ kind: 'global', name: '__LYNESS_CONNECTION_RECOVERY__', value: recovery })
       })
       const fetchHandler = connection.createSharedFetchHandler(API_PATH)
       const route: WebRoute = {

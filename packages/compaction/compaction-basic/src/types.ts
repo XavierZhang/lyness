@@ -1,16 +1,16 @@
 /**
  * Configuration vocabulary for the replay-aware basic compaction backend.
  *
- * @module @deepseek-ai/dsh-compaction-basic/types
+ * @module @lyness/lyn-compaction-basic/types
  */
 
-declare module '@deepseek-ai/dsh-llm/types' {
+declare module '@lyness/lyn-llm/types' {
   interface LlmRequestPurposeMap {
     'compaction': true
   }
 }
 
-import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
 
 /** Policy fields shared by the default policy and exact model overrides. */
 export interface CompactionPolicyConfig {

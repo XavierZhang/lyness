@@ -1,4 +1,4 @@
-// Task semantics adapted from DeepSeek Harness (MIT).
+// Task semantics adapted from lyness (MIT).
 import { patchSchema, taskSchema } from './records.ts'
 import type { Priority, Task, TaskPatch, TaskRevision } from './records.ts'
 

@@ -1,6 +1,6 @@
 /** GitHub pull request commit listing through GraphQL, pinned to one head commit across pages. */
 
-import type { ChangeRequestRef, ForgeCommit, ForgeCommitList, ForgeFailure } from '@deepseek-ai/dsh-experimental-forge'
+import type { ChangeRequestRef, ForgeCommit, ForgeCommitList, ForgeFailure } from '@lyness/lyn-experimental-forge'
 import { z } from 'zod'
 import { checkedRepository } from './urls.ts'
 

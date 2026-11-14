@@ -7,13 +7,13 @@
  * fatal close, and exposes managed-range termination through the handle so the
  * instance owns teardown; platform mechanics live in the subprocess
  * Service Provider.
- * @module @deepseek-ai/dsh-lsp-stdio/connection
+ * @module @lyness/lyn-lsp-stdio/connection
  */
 
 import type { Writable } from 'node:stream'
-import { LspError } from '@deepseek-ai/dsh-lsp'
-import { HarnessError } from '@deepseek-ai/dsh-error'
-import type { SubprocessHandle, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
+import { LspError } from '@lyness/lyn-lsp'
+import { HarnessError } from '@lyness/lyn-error'
+import type { SubprocessHandle, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 import { encodeMessage, MessageDecoder } from './framing.ts'
 
 /** How to launch the server and answer its config requests. */
@@ -110,7 +110,7 @@ export class LspConnection {
       },
       graceMs: spec.killGraceMs,
       // The seam merges explicit config entries after its ambient scrub, so a
-      // configured credential or DSH_* fact reaches the child deliberately.
+      // configured credential or LYNESS_* fact reaches the child deliberately.
       env: spec.env,
     })
     /* v8 ignore start -- 'pipe' dispositions expose both streams by the seam contract; defensive. */

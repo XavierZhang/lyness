@@ -12,7 +12,7 @@ The harder half was authorization. A configuration surface must know whose confi
 
 ## Decision
 
-`@deepseek-ai/dsh-api-tenant-controller` registers the `tenant` Remote namespace with two methods. `describe` answers the calling tenant's own configuration plus two facts the seam does not carry: `writable`, whether this deployment's backend accepts a save, and `configured`, whether the tenant has ever saved anything. `save` replaces the whole configuration, and its input carries no tenant id.
+`@lyness/lyn-api-tenant-controller` registers the `tenant` Remote namespace with two methods. `describe` answers the calling tenant's own configuration plus two facts the seam does not carry: `writable`, whether this deployment's backend accepts a save, and `configured`, whether the tenant has ever saved anything. `save` replaces the whole configuration, and its input carries no tenant id.
 
 Four rulings shape it.
 

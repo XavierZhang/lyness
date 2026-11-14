@@ -1,14 +1,14 @@
-import { Context } from '@deepseek-ai/cordis'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { expect, it, vi } from 'vitest'
 import { createAfterScheduleRecord } from '../src/domain.ts'
 import type { ScheduleId } from '../src/types.ts'
 import { ScheduleRuntime } from '../src/runtime.ts'
 import type { ScheduleTask } from '../src/storage.ts'
 import { boundTask } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 it('acknowledges the real synchronous inbox splice after flush without claiming model execution', async () => {
   vi.useFakeTimers()

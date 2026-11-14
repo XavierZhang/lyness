@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CommandDefinitionId, CommandDescriptor } from '@deepseek-ai/dsh-commands/types'
+import { brandString } from '@lyness/lyn-brand'
+import type { CommandDefinitionId, CommandDescriptor } from '@lyness/lyn-commands/types'
 import { queryCommand } from '../src/query-input.ts'
 
 const commands: readonly CommandDescriptor[] = [
-  { name: 'compact', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-compact'), description: 'Compact' },
-  { name: 'plan', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Plan', input: { hint: 'Task' } },
-  { name: 'goal', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-goal'), description: 'Goal', input: { hint: 'Goal' } },
-  { name: 'permission', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-permission-presets'), description: 'Permission', input: { hint: 'Preset' } },
-  { name: 'feedback', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-feedback'), description: 'Feedback', input: { hint: 'Feedback' } },
-  { name: 'export', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-session-log-export'), description: 'Export' },
+  { name: 'compact', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-compact'), description: 'Compact' },
+  { name: 'plan', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Plan', input: { hint: 'Task' } },
+  { name: 'goal', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-goal'), description: 'Goal', input: { hint: 'Goal' } },
+  { name: 'permission', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-permission-presets'), description: 'Permission', input: { hint: 'Preset' } },
+  { name: 'feedback', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-feedback'), description: 'Feedback', input: { hint: 'Feedback' } },
+  { name: 'export', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-session-log-export'), description: 'Export' },
 ]
 
 describe('SDK query text recognition', () => {
@@ -65,11 +65,11 @@ describe('SDK query text recognition', () => {
     expect(queryCommand('/compact', [])).toBeUndefined()
     expect(queryCommand('/export', [])).toBeUndefined()
     expect(queryCommand('/permission read-only', [])).toBeUndefined()
-    expect(queryCommand('/压缩', [{ name: 'prune', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-command-compact'), description: 'Renamed command' }]))
+    expect(queryCommand('/压缩', [{ name: 'prune', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-command-compact'), description: 'Renamed command' }]))
       .toBe('/prune')
-    expect(queryCommand('/权限 read-only', [{ name: 'access', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-permission-presets'), description: 'Renamed permission' }]))
+    expect(queryCommand('/权限 read-only', [{ name: 'access', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-permission-presets'), description: 'Renamed permission' }]))
       .toBe('/access read-only')
-    expect(queryCommand('/计划', [{ name: 'planning', definitionId: brandString<CommandDefinitionId>('@deepseek-ai/dsh-plan-mode'), description: 'Renamed plan' }]))
+    expect(queryCommand('/计划', [{ name: 'planning', definitionId: brandString<CommandDefinitionId>('@lyness/lyn-plan-mode'), description: 'Renamed plan' }]))
       .toBe('/planning')
     expect(queryCommand('/目标', [{ name: 'goal', description: 'Scoped goal' }])).toBeUndefined()
   })

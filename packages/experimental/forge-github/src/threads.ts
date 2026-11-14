@@ -4,7 +4,7 @@ import { Buffer } from 'node:buffer'
 import type {
   ChangeRequestRef, ForgeAnchor, ForgeCommentId, ForgeFailure, ForgeReviewComment, ForgeReviewData, ForgeReviewId, ForgeReviewThread,
   ForgeThreadId,
-} from '@deepseek-ai/dsh-experimental-forge'
+} from '@lyness/lyn-experimental-forge'
 import { z } from 'zod'
 import type { GraphqlReader } from './commits.ts'
 import { checkedRepository, isCommit } from './urls.ts'

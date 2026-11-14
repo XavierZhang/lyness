@@ -1,15 +1,15 @@
 /** Windows provider registration through the Loader without an interactive desktop. */
-import { Context } from '@deepseek-ai/cordis'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import SubprocessLocal from '@deepseek-ai/dsh-subprocess-local'
+import { Context } from '@lyness/cordis'
+import Include from '@lyness/cordis-plugin-include'
+import Loader from '@lyness/cordis-plugin-loader'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import ComputerUseRegistry from '@lyness/lyn-computer-use'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import SubprocessLocal from '@lyness/lyn-subprocess-local'
 import { expect, it, onTestFinished } from 'vitest'
 import * as WindowsProvider from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 it.skipIf(process.platform !== 'win32')('loads the Windows provider and rejects a numeric window ID before native dispatch', async () => {
   const ctx = new Context()
@@ -29,8 +29,8 @@ it.skipIf(process.platform !== 'win32')('loads the Windows provider and rejects 
   const { agent } = await ctx.agents.create({ sessionId: brandString<SessionId>('cua-windows-loader') })
   expect(ctx.tools.get('cua', agent)).toBeDefined()
   const prompt = await ctx.systemPrompt.assemble({ scope: agent })
-  expect(prompt.sections.find(section => section.name === 'computer-use:dsh-cua')?.text).toContain('Windows:')
-  expect(prompt.sections.find(section => section.name === 'computer-use:dsh-cua')?.text).not.toContain('useSystemPointer')
+  expect(prompt.sections.find(section => section.name === 'computer-use:lyn-cua')?.text).toContain('Windows:')
+  expect(prompt.sections.find(section => section.name === 'computer-use:lyn-cua')?.text).not.toContain('useSystemPointer')
   expect(JSON.stringify(ctx.tools.get('cua', agent)!.parameters)).not.toContain('useSystemPointer')
   const batch = await ctx.tools.execute({ agent, signal: new AbortController().signal, calls: [{
     type: 'tool-call', id: brandString<ToolCallId>('invalid-window'), name: 'cua',

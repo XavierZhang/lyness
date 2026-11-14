@@ -6,8 +6,8 @@
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { internals } from '@deepseek-ai/dsh-cmdline'
+import { Context } from '@lyness/cordis'
+import { internals } from '@lyness/lyn-cmdline'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { parse } from 'yaml'
 import * as AdminSetup from '../src/index.ts'
@@ -46,11 +46,11 @@ async function invoke(args: readonly string[]): Promise<{ code: number; stdout: 
   return { code, ...output }
 }
 
-/** One dsh home this case owns. */
+/** One lyn home this case owns. */
 async function home(): Promise<string> {
   const dir = await mkdtemp(join(tmpdir(), 'admin-setup-home-'))
   directories.push(dir)
-  vi.stubEnv('DSH_HOME', dir)
+  vi.stubEnv('LYNESS_HOME', dir)
   return dir
 }
 
@@ -79,7 +79,7 @@ describe('admin-setup command line', () => {
     // The report is the operator's next two steps, in order: the provider
     // first, because starting without it registered admits nobody.
     expect(run.stdout).toContain('https://agent.acme.example/auth/callback/oidc')
-    expect(run.stdout).toContain('OIDC_CLIENT_SECRET=… dsh --profile enterprise')
+    expect(run.stdout).toContain('OIDC_CLIENT_SECRET=… lyn --profile enterprise')
     expect(run.stdout.indexOf('/auth/callback/oidc')).toBeLessThan(run.stdout.indexOf('OIDC_CLIENT_SECRET=…'))
   })
 

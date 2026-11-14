@@ -1,9 +1,9 @@
-import { Context } from '@deepseek-ai/cordis'
-import { LocalSpillStore } from '@deepseek-ai/dsh-spill-local'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ToolCallId } from '@deepseek-ai/dsh-llm/types'
+import { Context } from '@lyness/cordis'
+import { LocalSpillStore } from '@lyness/lyn-spill-local'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import type { SessionId } from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { ToolCallId } from '@lyness/lyn-llm/types'
 import { mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
@@ -29,7 +29,7 @@ it.each([false, true])('keeps concurrent physical spill files private while reta
       await fsFiber
 
 
-      const locatorRoot = resolve('/tmp/dsh-acp-snap-123456789')
+      const locatorRoot = resolve('/tmp/lyn-acp-snap-123456789')
       const fork = ctx.plugin(locators, { root, locatorRoot })
       disposers.push(() => fork.dispose())
       await fork

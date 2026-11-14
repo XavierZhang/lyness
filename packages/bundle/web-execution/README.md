@@ -3,13 +3,13 @@ description: "The Web execution plane as its own bundle: the execution bundle's 
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-web-execution
+# @lyness/lyn-web-execution
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-web-execution` disables the host-plane shell, filesystem, workflow, and ralph rows the execution bundle inserts, because the Web profile's presets re-add them per session, keyed by agent. It is its own bundle because the move needs both halves: a profile with the Web surface and no execution bundle has neither the rows nor the presets, and a patch naming rows that are not there reports one absent entry per row at every boot.
+`lyn-web-execution` disables the host-plane shell, filesystem, workflow, and ralph rows the execution bundle inserts, because the Web profile's presets re-add them per session, keyed by agent. It is its own bundle because the move needs both halves: a profile with the Web surface and no execution bundle has neither the rows nor the presets, and a patch naming rows that are not there reports one absent entry per row at every boot.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ A profile selects it after both halves:
 
 ```yaml
 bundles:
-  - '@deepseek-ai/dsh-module-execution'
-  - '@deepseek-ai/dsh-web-app'
-  - '@deepseek-ai/dsh-web-execution'
+  - '@lyness/lyn-module-execution'
+  - '@lyness/lyn-web-app'
+  - '@lyness/lyn-web-execution'
 ```
 
 The shipped `web` and `enterprise` templates do exactly that. The `hosted` template selects no execution bundle, so it does not select this one either.
@@ -45,15 +45,15 @@ The shipped `web` and `enterprise` templates do exactly that. The `hosted` templ
 
 **Disabling rather than deleting.** The base composition is shared, and a row deleted by a surface overlay would silently reappear the day someone reorders the layers.
 
-**`shell-env` stays on the host plane.** The Web app injects it to publish `DSH_WEB_URL` and `DSH_WEB_MODE`, and a row that injects a service resolves before any session exists, so there is no agent to key it by. Behind a preset realm those variables would never reach the model's shell at all.
+**`shell-env` stays on the host plane.** The Web app injects it to publish `LYNESS_WEB_URL` and `LYNESS_WEB_MODE`, and a row that injects a service resolves before any session exists, so there is no agent to key it by. Behind a preset realm those variables would never reach the model's shell at all.
 
 -----
 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-module-execution`](../module-execution/README.md) — the rows this bundle moves.
-- [`dsh-web-app`](../web-app/README.md) — the presets that re-add them per session.
+- [`lyn-module-execution`](../module-execution/README.md) — the rows this bundle moves.
+- [`lyn-web-app`](../web-app/README.md) — the presets that re-add them per session.
 
 -----
 
@@ -82,6 +82,6 @@ No request prefix changes, because the rows this bundle disables contribute no i
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-These rows lived in `dsh-web-app` until the hosted template — Web surface, no execution bundle — made them name seven rows that were not there, once per boot.
+These rows lived in `lyn-web-app` until the hosted template — Web surface, no execution bundle — made them name seven rows that were not there, once per boot.
 
 </details>

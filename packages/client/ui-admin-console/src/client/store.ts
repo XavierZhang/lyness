@@ -6,11 +6,11 @@
  * kept per browser (`persist`), so an administrator who reloads the console
  * returns to the page they were on rather than to the first one in the list.
  *
- * @module @deepseek-ai/dsh-client-ui-admin-console/client/store
+ * @module @lyness/lyn-client-ui-admin-console/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
 
 /** What the console's shell renders. */
 export interface AdminConsoleState {

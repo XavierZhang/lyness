@@ -1,25 +1,25 @@
 import { access, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { unsupportedInbox, unsupportedModel } from '@deepseek-ai/dsh-agent-loop-testkit'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import SessionStore, { appendPluginRecord, type SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import * as SessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SessionProjectionCache from '@deepseek-ai/dsh-session-projection-cache'
-import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
-import type { SessionEventSearchPage, SessionSearchHit, SessionSearchPage } from '@deepseek-ai/dsh-session-query'
-import Storage from '@deepseek-ai/dsh-storage'
-import { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import WorkingDirectoryService from '@deepseek-ai/dsh-working-directory'
-import WorkspaceRegistry from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { unsupportedInbox, unsupportedModel } from '@lyness/lyn-agent-loop-testkit'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import SessionStore, { appendPluginRecord, type SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import * as SessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionProjectionCache from '@lyness/lyn-session-projection-cache'
+import SessionQueryEngine from '@lyness/lyn-session-query'
+import type { SessionEventSearchPage, SessionSearchHit, SessionSearchPage } from '@lyness/lyn-session-query'
+import Storage from '@lyness/lyn-storage'
+import { DomainFacility } from '@lyness/lyn-storage-domain'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import WorkingDirectoryService from '@lyness/lyn-working-directory'
+import WorkspaceRegistry from '@lyness/lyn-workspace'
 import { MemoryMediaPool, MemoryStorageBackend } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
 import type {} from '../src/archive.ts'
 import WorktreeService, { CREATED_RECORD, worktreeProjection } from '../src/index.ts'
@@ -28,7 +28,7 @@ import * as removal from '../src/removal.ts'
 import { git, repository, UnusedSandbox } from './harness.ts'
 import { mkdtemp, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Archive tests only use the query service's listing and observation APIs. */
 class ArchiveQueries extends SessionQueryEngine {
@@ -65,7 +65,7 @@ function agentFor(ctx: Context, session: Session): Agent {
 }
 
 async function fixture(options: { cache?: boolean; retainOnArchive?: boolean; maxOutputBytes?: number } = {}) {
-  const temporary = await realpath(await mkdtemp(join(tmpdir(), 'dsh-worktree-archive-')))
+  const temporary = await realpath(await mkdtemp(join(tmpdir(), 'lyn-worktree-archive-')))
   cleanups.push(() => rm(temporary, { recursive: true, force: true }))
   const root = await repository(temporary)
   const ctx = new Context()

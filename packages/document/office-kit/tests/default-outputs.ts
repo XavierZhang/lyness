@@ -5,8 +5,8 @@ import { afterAll, beforeAll, expect } from 'vitest'
 
 /**
  * Place an expired leftover in the store's own naming format under `home`'s default output directory, and require it
- * to survive every test in the calling spec. The spec must mock `dshHomePath` to resolve under `home`.
- * @param home - temporary directory standing in for `$DSH_HOME`; removed after the spec.
+ * to survive every test in the calling spec. The spec must mock `lynHomePath` to resolve under `home`.
+ * @param home - temporary directory standing in for `$LYNESS_HOME`; removed after the spec.
  */
 export function expectDefaultOutputsUntouched(home: string): void {
   const leftover = join(home, 'office-kit', 'outputs', `session-${'0'.repeat(24)}`, '00000000-0000-4000-8000-000000000000')

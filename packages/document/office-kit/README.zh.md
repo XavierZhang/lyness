@@ -3,7 +3,7 @@ description: "通过独立发布的 kit 在 Host 渲染、转换 Office 文档�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-office-kit
+# @lyness/lyn-office-kit
 
 [English](README.md) | 中文
 
@@ -25,9 +25,9 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用此包
 
-[Web bundle](../../bundle/web-app/README.zh.md)和 [SDK bundle](../../bundle/sdk-app/README.zh.md)以 `office-kit` 条目挂载此提供方；[Office 工具](../tool-office/README.zh.md)是其面向模型的消费方。独立组合通过 `cordis.yml` 条目挂载 `@deepseek-ai/dsh-office-kit`。
+[Web bundle](../../bundle/web-app/README.zh.md)和 [SDK bundle](../../bundle/sdk-app/README.zh.md)以 `office-kit` 条目挂载此提供方；[Office 工具](../tool-office/README.zh.md)是其面向模型的消费方。独立组合通过 `cordis.yml` 条目挂载 `@lyness/lyn-office-kit`。
 
-调用方提交已授权源的标识、版本、可选字节数、延迟的有界读取、输入扩展名；PDF 转换还指定调度优先级，图片渲染、格式转换和重算以前台优先级运行。源版本变化会拒绝操作。取消以原因为拒绝值，失败使用 `OfficeKitError`，其小写 `code` 也是 `document-render/failed` 的原因；[`dsh-tool-office`](../tool-office/README.zh.md#use-this-package) 在工具结果中把它映射为 `OfficeToolError` 的代码。每个结果都携带缺失字体；PDF 结果还携带转换 generation（配置替换后随之改变）。
+调用方提交已授权源的标识、版本、可选字节数、延迟的有界读取、输入扩展名；PDF 转换还指定调度优先级，图片渲染、格式转换和重算以前台优先级运行。源版本变化会拒绝操作。取消以原因为拒绝值，失败使用 `OfficeKitError`，其小写 `code` 也是 `document-render/failed` 的原因；[`lyn-tool-office`](../tool-office/README.zh.md#use-this-package) 在工具结果中把它映射为 `OfficeToolError` 的代码。每个结果都携带缺失字体；PDF 结果还携带转换 generation（配置替换后随之改变）。
 
 | 方法 | 操作 | 结果 |
 |---|---|---|
@@ -50,13 +50,13 @@ Kit 缺失时提供方照常注册，例如未下载 Office sidecar 就启动的
 | `timeoutMs` | `60000` | 获取转换器后的转换期限。 |
 | `maxInputBytes` | `52428800` | 最大源字节数。 |
 | `maxOutputBytes` | `104857600` | 最大完整 PDF、转换或重算文件字节数。 |
-| `outputDirectory` | `$DSH_HOME/office-kit/outputs` | 转换和重算文件的绝对目录。 |
+| `outputDirectory` | `$LYNESS_HOME/office-kit/outputs` | 转换和重算文件的绝对目录。 |
 | `outputRetentionMs` | `86400000` | 输出保留的毫秒数。 |
 | `maxOutputStoreBytes` | `536870912` | 保留输出的最大总字节数。 |
 | `maxImageResolution` | `192` | PDF 导出中图像的 DPI；覆盖 kit 的默认值 `144`。`renderImages()` 改用每个请求的 `dpi`。 |
 | `fontFallbacks` | kit 默认值 | 有序字体族优先组；每组至少包含两个含非空白字符的名称。 |
 
-[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-office-kit)定义全部字体、归档和图像设置。`fontDirectories` 接受绝对目录；省略时使用 kit 的平台默认值。显式 `fontFallbacks` 替换 kit 的默认分组。已安装的请求字体仍优先使用，缺失字形仍可由其他系统字体提供。原生引擎可能在应用这些优先规则前选中已安装的度量兼容字体。
+[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-office-kit)定义全部字体、归档和图像设置。`fontDirectories` 接受绝对目录；省略时使用 kit 的平台默认值。显式 `fontFallbacks` 替换 kit 的默认分组。已安装的请求字体仍优先使用，缺失字形仍可由其他系统字体提供。原生引擎可能在应用这些优先规则前选中已安装的度量兼容字体。
 
 [有界转换决策](../../../.agents/notes/implemented/architecture/2026-09-15-bounded-office-conversion.zh.md)说明队列准入、缓存限额与共享取消的设计依据。
 

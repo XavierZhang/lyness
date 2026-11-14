@@ -1,0 +1,10 @@
+version: 1
+scenario: subagent-lyn-sdk-dynamic-route
+profile: sdk
+composition: sdk-lyn-sdk-dynamic-route
+recording: authored
+header:
+  class: sdk-lyn-sdk-dynamic-route
+  pin: true
+  childSystemPrompts: [1]
+  childToolSchemas: [1]

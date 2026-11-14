@@ -17,7 +17,7 @@ internal static class SharedRuntime
         using var process = Process.GetCurrentProcess();
         var user = identity.User?.Value ?? throw new NativeFailure("NATIVE_STARTUP", "The Windows user identity is unavailable");
         var scope = Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(Encoding.UTF8.GetBytes($"{user}:{process.SessionId}")));
-        return $"dsh-cua-{scope}-{runtime}";
+        return $"lyn-cua-{scope}-{runtime}";
     }
 
     internal static async Task Connect(string launcherId, string runtime, int timeoutMs, int graceMs)

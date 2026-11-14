@@ -3,7 +3,7 @@ description: "由技能激活的 Office 工具，用于查看文档页面、转�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tool-office
+# @lyness/lyn-tool-office
 
 [English](README.md) | 中文
 
@@ -25,15 +25,15 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-[Web bundle](../../bundle/web-app/README.zh.md)和 [SDK bundle](../../bundle/sdk-app/README.zh.md)在 Desktop、普通 `dsh web` 和 SDK 中随 `office-kit` 挂载此插件；Web bundle 中由 `standard` 和 `ptc` Agent 预设包含它，`minimal` 预设不包含。加载任一配置的 [Office 技能](../../skill/skill-office/README.zh.md)后，三个工具从模型的下一步起全部激活，无论技能由模型调用 `skill`、PTC 嵌套调用，还是用户以 `/office` 等方式直接调用。加载失败或加载其他技能不会激活工具。激活前调用返回 `UNKNOWN_TOOL`。
+[Web bundle](../../bundle/web-app/README.zh.md)和 [SDK bundle](../../bundle/sdk-app/README.zh.md)在 Desktop、普通 `lyn web` 和 SDK 中随 `office-kit` 挂载此插件；Web bundle 中由 `standard` 和 `ptc` Agent 预设包含它，`minimal` 预设不包含。加载任一配置的 [Office 技能](../../skill/skill-office/README.zh.md)后，三个工具从模型的下一步起全部激活，无论技能由模型调用 `skill`、PTC 嵌套调用，还是用户以 `/office` 等方式直接调用。加载失败或加载其他技能不会激活工具。激活前调用返回 `UNKNOWN_TOOL`。
 
-激活只匹配 `activationSkills` 中列出的技能名，因此须同时挂载 [`@deepseek-ai/dsh-skill-office`](../../skill/skill-office/README.zh.md)，或其他注册了同名技能的 provider；否则三个工具永远不会出现。
+激活只匹配 `activationSkills` 中列出的技能名，因此须同时挂载 [`@lyness/lyn-skill-office`](../../skill/skill-office/README.zh.md)，或其他注册了同名技能的 provider；否则三个工具永远不会出现。
 
 工具在每次调用时读取 Office 套件服务。Kit 缺失时，调用以该服务的 `unavailable` 消息失败；服务不存在时，调用以 `The document converter is unavailable.` 失败。每个 `unavailable` 失败都提示模型告知用户；原因可能是暂时的（例如输出存储已满或服务正在卸载）时稍后重试，并且不改用系统 soffice、npx 或其他转换工具。
 
 ```yaml
-- name: '@deepseek-ai/dsh-office-kit'
-- name: '@deepseek-ai/dsh-tool-office'
+- name: '@lyness/lyn-office-kit'
+- name: '@lyness/lyn-tool-office'
   config:
     maxImages: 20
 ```

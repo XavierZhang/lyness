@@ -15,7 +15,7 @@ description: "ChangeRequestSnapshot 新增必填的概览字段，ChangeRequestC
 
 `ForgeProvider` 还新增可选的 `viewedFiles` 与 `setViewed`、`rerunChecks`、`requestReviews` 与 `reviewerCandidates`，以及 `updateBranch`；未实现它们的提供方照常工作，卡片不提供对应操作。
 
-受影响的是通过 `ctx.forge.register` 注册的第三方 `ForgeProvider` 实现，以及其他构造 `ChangeRequestSnapshot` 或 `ChangeRequestCheck` 值的代码。所有类型都来自 `@deepseek-ai/dsh-experimental-forge`。
+受影响的是通过 `ctx.forge.register` 注册的第三方 `ForgeProvider` 实现，以及其他构造 `ChangeRequestSnapshot` 或 `ChangeRequestCheck` 值的代码。所有类型都来自 `@lyness/lyn-experimental-forge`。
 
 ## 迁移
 

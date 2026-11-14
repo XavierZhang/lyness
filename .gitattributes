@@ -17,7 +17,7 @@
 
 # Pairing records are generated from the three confirmed owner-blob pairs.
 # The worktree-local installer registers the fail-closed driver command.
-*.i18n.yaml merge=dsh-translation-pairing
+*.i18n.yaml merge=lyn-translation-pairing
 # The persistence catalog is the readable projection of these generated schemas.
 docs/persistence-schema.json linguist-generated=true
 docs/persistence-changes/*.schema.json linguist-generated=true
@@ -27,11 +27,11 @@ docs/persistence-changes/historical-formats/*.schema.json linguist-generated=tru
 # Unified patch blank context lines require their leading space.
 patches/*.patch whitespace=-blank-at-eol
 
-# Review layers of the forge changes view (dsh-review-layer), for this repository's own conventions:
+# Review layers of the forge changes view (lyn-review-layer), for this repository's own conventions:
 # plugin locale dictionaries and the session snapshot tree hide with test files, generated bilingual
 # pairing records join them, and a package's types-only module is part of its interface.
-packages/*/*/locale/*.json dsh-review-layer=test
-locales.ts dsh-review-layer=test
-snapshots/** dsh-review-layer=test
-*.i18n.yaml dsh-review-layer=test
-packages/*/*/src/types.ts dsh-review-layer=interface
+packages/*/*/locale/*.json lyn-review-layer=test
+locales.ts lyn-review-layer=test
+snapshots/** lyn-review-layer=test
+*.i18n.yaml lyn-review-layer=test
+packages/*/*/src/types.ts lyn-review-layer=interface

@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`@deepseek-ai/cordis` now carries upstream Cordis 4.0.0-rc.12. Third-party plugins and services written against the previous release are affected:
+`@lyness/cordis` now carries upstream Cordis 4.0.0-rc.12. Third-party plugins and services written against the previous release are affected:
 
 - `ctx.root` no longer exists. The root context is `ctx[Context.root]`; `Context.root` is a symbol exported on the `Context` class. Inside a plugin, reading `ctx.root` throws `cannot get property "root" without inject`.
 - `Service.config` becomes `Service.metadata`. A service declares its intercept type with `declare [Service.metadata]: T`.
@@ -22,7 +22,7 @@ English | [中文](guide.zh.md)
 
 ## Migration
 
-1. Replace every `ctx.root` with `ctx[Context.root]`, importing `Context` as a value from `@deepseek-ai/cordis`. Plain JavaScript without the import can read `ctx[Symbol.for('cordis.root')]`.
+1. Replace every `ctx.root` with `ctx[Context.root]`, importing `Context` as a value from `@lyness/cordis`. Plain JavaScript without the import can read `ctx[Symbol.for('cordis.root')]`.
 2. In service classes, rename `declare [Service.config]` to `declare [Service.metadata]` and calls of `[Service.resolveConfig]()` to `[Service.resolveIntercept]()`. Replace `base` and `head` arguments by declaring the base value in `inject` and adding the override with `ctx.intercept()`.
 3. Where code reads or writes decorator method metadata through `symbols.metadata` or `Symbol.for('cordis.metadata')`, use `symbols.decorator` instead.
 4. Move a `Config.merge` implementation to a `[Service.mergeIntercept](...values)` method on the service class.

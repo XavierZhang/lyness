@@ -1,7 +1,7 @@
 /** Bounded source admission, shared content conversion, and caller-owned output delivery. */
 import { createHash } from 'node:crypto'
 import { OfficeKitError } from './errors.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import type { OfficeKitKey, OfficeKitGeneration } from './identity.ts'
 import type {
   OfficeConversionFormat, OfficeImage, OfficeKitPriority, OfficeKitSource, OfficeRecalculationFormat,

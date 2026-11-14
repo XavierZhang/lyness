@@ -9,7 +9,7 @@
 import { z } from 'zod'
 
 /** Prefix of every storage key; the index of Sessions with marks uses it with the `sessions` suffix. */
-const PREFIX = 'dsh.forge-viewed.v1'
+const PREFIX = 'lyn.forge-viewed.v1'
 
 /** Sessions whose marks the browser keeps; marking a file in another Session drops the least recently marked one's. */
 const MAX_SESSIONS = 50

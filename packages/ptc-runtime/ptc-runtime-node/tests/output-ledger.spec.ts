@@ -1,8 +1,8 @@
-import type { AttachmentId } from '@deepseek-ai/dsh-attachment'
+import type { AttachmentId } from '@lyness/lyn-attachment'
 import { expect, it } from 'vitest'
-import type { PtcOutput } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcOutput } from '@lyness/lyn-ptc-runtime'
 import { OutputLedger } from '../src/output-ledger.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 it('accounts for exact JSON escaping, separators and optional completion values', () => {
   const ledger = new OutputLedger(20)

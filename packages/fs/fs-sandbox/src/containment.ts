@@ -2,13 +2,13 @@
  * Path-containment mechanics for the filesystem sandbox. Canonical spellings
  * take the fast lexical path; filesystem identity supplies the conservative
  * fallback for alias-equivalent roots such as Windows 8.3 names and casing.
- * @module @deepseek-ai/dsh-fs-sandbox/containment
+ * @module @lyness/lyn-fs-sandbox/containment
  */
 
 import type { BigIntStats } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { dirname, sep } from 'node:path'
-import { fsErrorFromErrno } from '@deepseek-ai/dsh-fs'
+import { fsErrorFromErrno } from '@lyness/lyn-fs'
 
 const MISSING_CODES: ReadonlySet<NodeJS.ErrnoException['code']> = new Set(['ENOENT', 'ENOTDIR'])
 

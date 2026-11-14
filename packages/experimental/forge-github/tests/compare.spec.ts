@@ -1,4 +1,4 @@
-import type { ForgeFailure } from '@deepseek-ai/dsh-experimental-forge'
+import type { ForgeFailure } from '@lyness/lyn-experimental-forge'
 import { describe, expect, it } from 'vitest'
 import { readComparison } from '../src/compare.ts'
 import { demo } from './fixtures.ts'

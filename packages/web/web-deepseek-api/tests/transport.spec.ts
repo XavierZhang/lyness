@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { credentialRef } from '@deepseek-ai/dsh-credentials'
-import { WebError } from '@deepseek-ai/dsh-web'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { WebError } from '@lyness/lyn-web'
 import { customGuidance } from './guidance.ts'
 import {
   dispatchDeepSeekWeb, hasDeepSeekWebCredential, isDeepSeekWebAuthReady,
@@ -66,7 +66,7 @@ describe('DeepSeek web credential order', () => {
     expect(request?.url).toBe(`${ACCOUNT_BASE}/search`)
     expect(resolveToken).toHaveBeenCalledExactlyOnceWith(request?.url)
     expect(resolve).not.toHaveBeenCalled()
-    expect(request?.headers['x-dsh-auth-token']).toBe('account-token')
+    expect(request?.headers['x-lyn-auth-token']).toBe('account-token')
     expect(request?.headers).not.toHaveProperty('x-api-key')
     expect(request?.headers).not.toHaveProperty('authorization')
   })
@@ -81,7 +81,7 @@ describe('DeepSeek web credential order', () => {
     expect(sent()).toHaveLength(1)
     expect(request?.url).toBe(`${API_BASE}/search`)
     expect(request?.headers).toMatchObject({ 'authorization': 'Bearer resolved-key', 'x-api-key': 'resolved-key' })
-    expect(request?.headers).not.toHaveProperty('x-dsh-auth-token')
+    expect(request?.headers).not.toHaveProperty('x-lyn-auth-token')
     expect(resolve).toHaveBeenCalledOnce()
     expect(configured).not.toHaveBeenCalled()
     expect(resolveToken).not.toHaveBeenCalled()
@@ -90,14 +90,14 @@ describe('DeepSeek web credential order', () => {
   it.each([undefined, ''])('sends the account token when the referenced key first in order resolves %j', async (key) => {
     const { sent } = captureFetch()
     await search([keySource(keyRef(async () => key)), accountSource(async () => 'account-token')])
-    expect(sent().map(row => [row.url, row.headers['x-dsh-auth-token'], row.headers.authorization]))
+    expect(sent().map(row => [row.url, row.headers['x-lyn-auth-token'], row.headers.authorization]))
       .toEqual([[`${ACCOUNT_BASE}/search`, 'account-token', undefined]])
   })
 
   it.each([undefined, ''])('sends the key to its own base when the account first in order resolves %j', async (token) => {
     const { sent } = captureFetch()
     await search([accountSource(async () => token), keySource()])
-    expect(sent().map(row => [row.url, row.headers['x-api-key'], row.headers['x-dsh-auth-token']]))
+    expect(sent().map(row => [row.url, row.headers['x-api-key'], row.headers['x-lyn-auth-token']]))
       .toEqual([[`${API_BASE}/search`, 'ds-key', undefined]])
   })
 

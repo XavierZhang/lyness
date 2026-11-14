@@ -2,19 +2,19 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
-import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
-import SubprocessLocal from '@deepseek-ai/dsh-subprocess-local'
-import UserQuestions from '@deepseek-ai/dsh-user-questions'
-import { LlmAdapter, type ToolCallId, type LlmResolvedModelInfo, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import ComputerUseRegistry from '@lyness/lyn-computer-use'
+import LocalAttachmentStore from '@lyness/lyn-attachment-local'
+import SubprocessLocal from '@lyness/lyn-subprocess-local'
+import UserQuestions from '@lyness/lyn-user-questions'
+import { LlmAdapter, type ToolCallId, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 import { expect, it, onTestFinished } from 'vitest'
-import { createCuaApi } from '@deepseek-ai/dsh-cua/api'
+import { createCuaApi } from '@lyness/lyn-cua/api'
 import sharp from 'sharp'
 import * as Provider from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 class ImageAdapter extends LlmAdapter {
   override resolveModel(provider: string, model: string): Promise<LlmResolvedModelInfo> {
@@ -22,17 +22,17 @@ class ImageAdapter extends LlmAdapter {
   }
   stream(): AsyncIterable<StreamChunk> { throw new Error('Desktop tests do not request model generation') }
 }
-const helperPath = process.env.DSH_CUA_DESKTOP_TEST_HELPER
-const selector = process.env.DSH_CUA_DESKTOP_TEST_APP
+const helperPath = process.env.LYNESS_CUA_DESKTOP_TEST_HELPER
+const selector = process.env.LYNESS_CUA_DESKTOP_TEST_APP
 it.skipIf(!helperPath || !selector)('admits real application screenshots through the CUA tool', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-desktop-tool-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-desktop-tool-'))
   const ctx = new Context()
   onTestFinished(async () => { try { await ctx.fiber.dispose() } finally { await rm(root, { recursive: true, force: true }) } })
   await mountAgentLoopTestDependencies(ctx)
   await mountAgentLoopTestHarness(ctx)
   await ctx.plugin(ComputerUseRegistry)
   await ctx.plugin(SubprocessLocal)
-  await ctx.plugin(LocalAttachmentStore, { dshHome: root })
+  await ctx.plugin(LocalAttachmentStore, { lynHome: root })
   await ctx.plugin(UserQuestions)
   ctx.on('user-questions/request', async () => ({ answers: [{ id: 'cua-app-access', selected: ['Allow for this session'] }] }))
   await ctx.plugin(Provider, { helperPath: helperPath!, agentPreset: false })

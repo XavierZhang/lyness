@@ -1,21 +1,21 @@
 /** CUA tool and prompt ownership follows live Agent presets and provider disposal. */
 import { resolve } from 'node:path'
-import { Context, FiberState } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
-import NodeRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
-import Subprocess from '@deepseek-ai/dsh-subprocess'
-import Sandbox from '@deepseek-ai/dsh-sandbox-local'
-import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import { Context, FiberState } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import AgentPresets from '@lyness/lyn-agent-preset-registry'
+import type { Agent } from '@lyness/lyn-agent'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import ComputerUseRegistry from '@lyness/lyn-computer-use'
+import NodeRuntime from '@lyness/lyn-ptc-runtime-node'
+import Subprocess from '@lyness/lyn-subprocess'
+import Sandbox from '@lyness/lyn-sandbox-local'
+import SandboxPolicy from '@lyness/lyn-sandbox-policy'
+import { scopeTarget } from '@lyness/lyn-scope'
+import WorkingDirectory from '@lyness/lyn-working-directory'
+import type { SessionId } from '@lyness/lyn-session'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { CuaConfig, installCua } from '../src/index.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const programPrompt = 'Fixture CUA program guidance\n\nAX read defaults: maxElements=2000, maxDepth=25.\n\nMaximum click holdMs: 5000 ms.'
 
@@ -64,7 +64,7 @@ async function setup(presetIds: readonly string[] | false = ['standard', 'ptc'],
 
 async function cuaPrompts(ctx: Context, agent: Agent): Promise<string[]> {
   return (await ctx.systemPrompt.assemble({ scope: agent })).sections
-    .filter(section => section.name === 'computer-use:dsh-cua').map(section => section.text)
+    .filter(section => section.name === 'computer-use:lyn-cua').map(section => section.text)
 }
 
 /** Mount the preset registry with one `ptc` preset in a composition that started without them. */
@@ -201,7 +201,7 @@ it('selects one CUA transport for existing and new Agents and removes both on un
   expect(ctx.tools.get('cua_run_code', existing.agent)).toBeUndefined()
   expect(ctx.get('ptcRuntime')).toBeUndefined()
   const { sections } = await ctx.systemPrompt.assemble({ scope: existing.agent })
-  expect(sections.find(section => section.name === 'computer-use:dsh-cua')?.text).toContain('Fixture CUA guidance')
+  expect(sections.find(section => section.name === 'computer-use:lyn-cua')?.text).toContain('Fixture CUA guidance')
   await ctx.agentPresets.select(existing.agent, 'ptc')
   expect(ctx.tools.schemas(existing.agent).filter(tool => tool.name === 'cua')).toHaveLength(1)
   const fresh = await create('fresh', 'ptc')
@@ -210,7 +210,7 @@ it('selects one CUA transport for existing and new Agents and removes both on un
   await expect.poll(() => ctx.tools.get('cua', existing.agent)).toBeUndefined()
   await expect.poll(() => ctx.tools.get('cua_run_code', existing.agent)).toBeDefined()
   const standardSections = (await ctx.systemPrompt.assemble({ scope: existing.agent })).sections
-  expect(standardSections.find(section => section.name === 'computer-use:dsh-cua')?.text).toContain('Fixture CUA program guidance')
+  expect(standardSections.find(section => section.name === 'computer-use:lyn-cua')?.text).toContain('Fixture CUA program guidance')
   await ctx.agentPresets.select(existing.agent, 'ptc')
   await expect.poll(() => ctx.tools.get('cua', existing.agent)).toBeDefined()
   await fresh.dispose()
@@ -219,7 +219,7 @@ it('selects one CUA transport for existing and new Agents and removes both on un
   expect(ctx.tools.get('cua_run_code', standard.agent)).toBeUndefined()
   expect(ctx.tools.get('cua', existing.agent)).toBeUndefined()
   expect((await ctx.systemPrompt.assemble({ scope: existing.agent })).sections)
-    .not.toContainEqual(expect.objectContaining({ name: 'computer-use:dsh-cua' }))
+    .not.toContainEqual(expect.objectContaining({ name: 'computer-use:lyn-cua' }))
   const reloaded = await ctx.plugin(provider, {})
   await expect.poll(() => ctx.tools.get('cua', existing.agent)).toBeDefined()
   expect(ctx.tools.get('cua', standard.agent)).toBeUndefined()
@@ -506,7 +506,7 @@ it.each([
   ctx.provide('ptcRuntime', runtime)
   await ctx.plugin(provider, {})
   const owner = await create('cua-runtime-guidance', 'ptc')
-  const prompt = (await ctx.systemPrompt.assemble({ scope: owner.agent })).sections.find(section => section.name === 'computer-use:dsh-cua')?.text
+  const prompt = (await ctx.systemPrompt.assemble({ scope: owner.agent })).sections.find(section => section.name === 'computer-use:lyn-cua')?.text
   expect(prompt).toBeDefined()
   expect(prompt?.includes('Persistent PTC initialization:')).toBe(runtime.retainsState)
   expect(prompt?.includes('use the host-provided bridge initialization once and retain the returned objects')).toBe(runtime.retainsState)

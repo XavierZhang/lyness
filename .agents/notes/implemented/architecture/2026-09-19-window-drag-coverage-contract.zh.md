@@ -49,7 +49,7 @@ macOS 桌面窗口的可拖区域被写了两遍。布局决定 chrome 行在哪
 - `packages/client/web/tests/window-drag-recall.client.spec.ts` —— 通过两个 seam 驱动 watcher：什么会重新启动它、什么被它忽略、收敛循环、外壳默认值，以及销毁。
 - `apps/web/tests/window-drag-coverage.e2e.ts` —— 真 Chromium：控件与区域所有者分开探测，被裁剪的转录区与标签内容不能减除页头，含浮动面板的全屏右栏保留预期排除，inert 的保留面板不影响前景行。插件管理页头的紧凑态场景检查标记页头的矩形不会延伸到列表控件上方。逐行探测、详情页正文排除、浮层和右栏 recall 脉冲仍有覆盖。
 - `apps/web/tests/window-drag-inheritance.e2e.ts` —— 已安装的 Chrome 报告版本，并验证继承的排除、生产重置、显式 `none` 与 `initial` 的区别，以及移除重置的负对照。未安装 Chrome 或运行时不支持属性继承时，显式跳过本场景；断言和其他启动错误正常失败。常规 Chromium 149 车道不实现继承，因此单靠该车道不能验证重置行为。
-- 运行时诊断（2026-11-02，Electron 44.7.0 / Chromium 152.0.7977.130）：独立隐藏 BrowserWindow 确认，元素重置前子元素计算为 `no-drag`，重置后为 `none`；显式 `none` 计算为 `no-drag`，`initial` 计算为 `none`。该诊断不加载 DSH 产品代码，仅检查交付内核的 CSS 属性行为，不属于原生状态矩阵验收。
+- 运行时诊断（2026-11-02，Electron 44.7.0 / Chromium 152.0.7977.130）：独立隐藏 BrowserWindow 确认，元素重置前子元素计算为 `no-drag`，重置后为 `none`；显式 `none` 计算为 `no-drag`，`initial` 计算为 `none`。该诊断不加载 LYN 产品代码，仅检查交付内核的 CSS 属性行为，不属于原生状态矩阵验收。
 - 真机验收（2026-09-20，双平台，HID 级指针输入 + 窗口矩形读数）：上面的 macOS 矩阵在真实 `hiddenInset` 窗口上跑过，Windows 各格在 Windows 11 ARM64 虚拟机上跑过——chrome 行可拖、正文与覆盖浮层不可拖、控件保留点击、右栏 strip 行在滑入后可拖。
 
 ## Manual state matrix

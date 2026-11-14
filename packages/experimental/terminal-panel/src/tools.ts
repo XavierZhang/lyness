@@ -1,10 +1,10 @@
 /** Read-only model tools for terminals the user controls in the Session's sidebar. */
 
 import { Buffer } from 'node:buffer'
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { TerminalController, TerminalScreenPage, WebTerminalInfo } from '@deepseek-ai/dsh-api-terminal-controller'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type { TerminalController, TerminalScreenPage, WebTerminalInfo } from '@lyness/lyn-api-terminal-controller'
+import { defineTool } from '@lyness/lyn-tools'
 import { newestBytes } from './session.ts'
 
 /** Lines returned when the model names no count, as the tool schema states. */

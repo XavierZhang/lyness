@@ -6,10 +6,10 @@
 
 import { useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import type { UseProjection } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { UseProjection } from '@lyness/lyn-api-session-controller/client'
 // Type-only: the `contextPressure` / `contextBreakdown` projection key merges.
-import type {} from '@deepseek-ai/dsh-token-meter/client'
-import { Tooltip, useDismissOnOutsidePointer } from '@deepseek-ai/dsh-client-ui-primitives'
+import type {} from '@lyness/lyn-token-meter/client'
+import { Tooltip, useDismissOnOutsidePointer } from '@lyness/lyn-client-ui-primitives'
 import type { ComposerBarProps } from '../contract/slots.ts'
 import { contextOccupancy } from '../context-occupancy.ts'
 import css from './ContextMeter.module.css'
@@ -61,7 +61,7 @@ export function ContextMeter({ useProjection, t }: ContextMeterProps) {
   const panelRef = useRef<HTMLDivElement | null>(null)
   const context = contextOccupancy(pressure)
   const available = context !== null
-  const anchorName = `--dsh-context-${useId().replaceAll(':', '')}`
+  const anchorName = `--lyn-context-${useId().replaceAll(':', '')}`
   useDismissOnOutsidePointer(rootRef, open && available, setOpen, panelRef)
 
   // A model switch can temporarily remove capacity while this component stays

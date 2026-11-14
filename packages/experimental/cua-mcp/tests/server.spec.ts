@@ -1,11 +1,11 @@
 /** Server behavior beyond the fixture desktop: registry projection, the reference tool, unknown tools, and reset ordering. */
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent, AgentHandle } from '@deepseek-ai/dsh-agent'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CuaPrograms } from '@deepseek-ai/dsh-cua'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { ToolBatchInput, ToolBatchResult } from '@deepseek-ai/dsh-tools'
-import type { AskUserQuestionItem } from '@deepseek-ai/dsh-user-questions'
+import { Context } from '@lyness/cordis'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { brandString } from '@lyness/lyn-brand'
+import type { CuaPrograms } from '@lyness/lyn-cua'
+import type { SessionId } from '@lyness/lyn-session'
+import type { ToolBatchInput, ToolBatchResult } from '@lyness/lyn-tools'
+import type { AskUserQuestionItem } from '@lyness/lyn-user-questions'
 import { Client, InMemoryTransport, type CallToolResult } from '@modelcontextprotocol/client'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { createCuaMcpServer } from '../src/server.ts'
@@ -94,7 +94,7 @@ function fixture(options: SetupOptions = {}) {
     ? undefined
     : { ...registration, parameters: options.parameters ?? registration.parameters })
   const assemble = vi.fn(async () => ({
-    sections: options.reference === false ? [] : [{ name: 'computer-use:dsh-cua', text: 'Fixture guidance' }], contexts: [], variables: {}, tools: [],
+    sections: options.reference === false ? [] : [{ name: 'computer-use:lyn-cua', text: 'Fixture guidance' }], contexts: [], variables: {}, tools: [],
   }))
   const release = vi.fn(async () => {})
   ctx.provide('agents', { create, withInitiator } as never)

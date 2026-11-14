@@ -1,9 +1,9 @@
 ---
-description: "dsh Web 客户端插件页上的网页搜索与获取设置页：Search 与 Fetch 提供方下拉框、DeepSeek Search API 的结果数、DeepSeek Search 与 Fetch API 的计费方式，以及旧版 Messages 搜索的设置。"
+description: "lyn Web 客户端插件页上的网页搜索与获取设置页：Search 与 Fetch 提供方下拉框、DeepSeek Search API 的结果数、DeepSeek Search 与 Fetch API 的计费方式，以及旧版 Messages 搜索的设置。"
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-web-search
+# @lyness/lyn-client-ui-settings-web-search
 
 [English](README.md) | 中文
 
@@ -74,7 +74,7 @@ kind: "package-reference"
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **自动选择只看部署组合层**——组合层没有为该能力设置提供方时，下拉框才提供自动选择。自动选择生效时，Host 的 `DSH_WEB_SEARCH_PROVIDER` 或 `DSH_WEB_FETCH_PROVIDER` 环境变量会改为由它指定提供方，而页面不会显示这一选择。两者都没有时，如果注册了多个可用提供方，自动选择会让每次操作以 `WEB_PROVIDER_AMBIGUOUS` 失败。
+- **自动选择只看部署组合层**——组合层没有为该能力设置提供方时，下拉框才提供自动选择。自动选择生效时，Host 的 `LYNESS_WEB_SEARCH_PROVIDER` 或 `LYNESS_WEB_FETCH_PROVIDER` 环境变量会改为由它指定提供方，而页面不会显示这一选择。两者都没有时，如果注册了多个可用提供方，自动选择会让每次操作以 `WEB_PROVIDER_AMBIGUOUS` 失败。
 
 - **不显示计费方式是否可用**——所选计费方式没有已登录账号或没有配置密钥时，页面不会提示；读取登录状态需要账号 remote，而本页看不到 DeepSeek API Key 模型提供方实际使用的密钥引用。不可用的计费方式会让模型看不到对应的网页工具。
 

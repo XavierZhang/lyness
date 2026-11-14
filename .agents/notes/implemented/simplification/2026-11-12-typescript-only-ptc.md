@@ -10,7 +10,7 @@ The Python tool SDK originally let a provider change the program language while 
 
 ## Decision
 
-`dsh-tool-executor-ptc` supports TypeScript only. It removes Python schema rendering and exports, language dispatch, completion presentation, and Python-specific binding exclusions. Unsupported providers fail during prompt assembly or execution through the selected executor, or when a private program tool is created. The PTC selection remains active so an invalid provider cannot expose inherited native tools. TypeScript programs retain their SDK, parameters, explicit output selection, canonical nested results and cancellation behavior.
+`lyn-tool-executor-ptc` supports TypeScript only. It removes Python schema rendering and exports, language dispatch, completion presentation, and Python-specific binding exclusions. Unsupported providers fail during prompt assembly or execution through the selected executor, or when a private program tool is created. The PTC selection remains active so an invalid provider cannot expose inherited native tools. TypeScript programs retain their SDK, parameters, explicit output selection, canonical nested results and cancellation behavior.
 
 The runtime service remains independent of tools. Its source-language descriptor lets each consumer check its own requirements; direct runtime and workflow consumers retain completion values. The Harness Python SDK, runtime wheels and other tools' Python environments have separate consumers and remain supported.
 

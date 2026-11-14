@@ -1,10 +1,10 @@
 import { createRequire } from 'node:module'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { APP_IDENTITY, attributionHeaders, userAgent } from '@deepseek-ai/dsh-llm'
-import type { AppIdentity } from '@deepseek-ai/dsh-llm'
+import { APP_IDENTITY, attributionHeaders, userAgent } from '@lyness/lyn-llm'
+import type { AppIdentity } from '@lyness/lyn-llm'
 
 // The default identity must not depend on the developer's exported suffix.
-beforeEach(() => { vi.stubEnv('DSH_USER_AGENT_SUFFIX', undefined) })
+beforeEach(() => { vi.stubEnv('LYNESS_USER_AGENT_SUFFIX', undefined) })
 afterEach(() => { vi.unstubAllEnvs() })
 
 const manifest = createRequire(import.meta.url)('../package.json') as { version: string }
@@ -23,9 +23,9 @@ describe('APP_IDENTITY', () => {
 
   it('carries only static public product facts', () => {
     expect(APP_IDENTITY).toEqual({
-      product: 'HARNESS',
+      product: 'lyness',
       version: manifest.version,
-      url: 'https://github.com/deepseek-ai/deepseek-harness',
+      url: 'https://github.com/XavierZhang/lyness',
     })
   })
 })
@@ -33,7 +33,7 @@ describe('APP_IDENTITY', () => {
 describe('userAgent', () => {
   it('renders product/version with the +url comment', () => {
     expect(userAgent()).toBe(
-      `DeepSeek Harness/${manifest.version} (+https://github.com/deepseek-ai/deepseek-harness)`,
+      `lyness/${manifest.version} (+https://github.com/XavierZhang/lyness)`,
     )
   })
 
@@ -42,26 +42,26 @@ describe('userAgent', () => {
   })
 
   it('appends the identity suffix after the comment', () => {
-    expect(userAgent({ ...forkIdentity, suffix: 'dsh-profile/web' })).toBe('fork-agent/9.9.9 (+https://example.com/fork-agent) dsh-profile/web')
+    expect(userAgent({ ...forkIdentity, suffix: 'lyn-profile/web' })).toBe('fork-agent/9.9.9 (+https://example.com/fork-agent) lyn-profile/web')
   })
 })
 
-describe('DSH_USER_AGENT_SUFFIX', () => {
+describe('LYNESS_USER_AGENT_SUFFIX', () => {
   it('appends the launch suffix to the default User-Agent when read', () => {
-    vi.stubEnv('DSH_USER_AGENT_SUFFIX', 'dsh-profile/my%20web')
-    expect(APP_IDENTITY.suffix).toBe('dsh-profile/my%20web')
-    expect(userAgent()).toBe(`deepseek-harness/${manifest.version} (+https://github.com/deepseek-ai/deepseek-harness) dsh-profile/my%20web`)
+    vi.stubEnv('LYNESS_USER_AGENT_SUFFIX', 'lyn-profile/my%20web')
+    expect(APP_IDENTITY.suffix).toBe('lyn-profile/my%20web')
+    expect(userAgent()).toBe(`lyness/${manifest.version} (+https://github.com/XavierZhang/lyness) lyn-profile/my%20web`)
   })
 
   it.each(['', undefined])('omits the suffix when it is %j', (value) => {
-    vi.stubEnv('DSH_USER_AGENT_SUFFIX', value)
+    vi.stubEnv('LYNESS_USER_AGENT_SUFFIX', value)
     expect(APP_IDENTITY.suffix).toBeUndefined()
-    expect(userAgent()).toBe(`deepseek-harness/${manifest.version} (+https://github.com/deepseek-ai/deepseek-harness)`)
+    expect(userAgent()).toBe(`lyness/${manifest.version} (+https://github.com/XavierZhang/lyness)`)
   })
 
-  it.each(['dsh-profile/my web', 'dsh-profile/web\r\nx-injected: 1', 'dsh-profile/(web)', 'dsh-profile/a/b'])('rejects %j', (value) => {
-    vi.stubEnv('DSH_USER_AGENT_SUFFIX', value)
-    expect(() => userAgent()).toThrow('DSH_USER_AGENT_SUFFIX must be an RFC 9110 product token')
+  it.each(['lyn-profile/my web', 'lyn-profile/web\r\nx-injected: 1', 'lyn-profile/(web)', 'lyn-profile/a/b'])('rejects %j', (value) => {
+    vi.stubEnv('LYNESS_USER_AGENT_SUFFIX', value)
+    expect(() => userAgent()).toThrow('LYNESS_USER_AGENT_SUFFIX must be an RFC 9110 product token')
   })
 })
 

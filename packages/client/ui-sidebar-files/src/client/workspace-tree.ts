@@ -13,9 +13,9 @@
  * whose every entry is hidden says so. The same conversion draws a search's
  * results, whose directories hold only the matches.
  */
-import type { RemoteFailure } from '@deepseek-ai/dsh-api-remotes/client'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
 import type { TreeDirectoryState, TreeEntry } from './FileTree.tsx'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 import type {} from './locales.ts'
 import { isHiddenEntry } from './search-rules.ts'
 import { childPath, type DirLevel, type FilesTreeState } from './store.ts'

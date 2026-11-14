@@ -1,5 +1,5 @@
 /** Complete account notification values shared by presentation tests. */
-import type { AccountNotification, AccountNotificationId } from '@deepseek-ai/dsh-deepseek-account/types'
+import type { AccountNotification, AccountNotificationId } from '@lyness/lyn-deepseek-account/types'
 
 /**
  * Create one notification without wire parsing or account lifecycle effects.

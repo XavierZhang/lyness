@@ -176,7 +176,7 @@
    owns the window drag over its own box — clearance included — so this page's
    top strip drags without a frame band. */
 :global([data-platform='darwin']) .pageHead {
-  padding-top: calc(var(--plugin-page-top-inset) + var(--dsh-frame-top-clearance, 0px));
+  padding-top: calc(var(--plugin-page-top-inset) + var(--lyn-frame-top-clearance, 0px));
 }
 
 .pageHeading {
@@ -338,10 +338,10 @@
 
 /* The package an install just enabled: a ring that fades while the list scrolls to it. */
 .card[data-plugin-highlight] {
-  animation: dsh-plugin-highlight 2400ms ease-out;
+  animation: lyn-plugin-highlight 2400ms ease-out;
 }
 
-@keyframes dsh-plugin-highlight {
+@keyframes lyn-plugin-highlight {
   0%,
   55% {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--dsw-alias-state-business-primary) 40%, transparent);
@@ -384,8 +384,8 @@
   border-radius: var(--dsw-radius-xl);
   /* The page itself scrolls on the base surface. Anything that scrolls inside
      a card draws the l2 thumb (ui-theme styles/scrollbar.css rebinding contract). */
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 .cardHead {
@@ -507,7 +507,7 @@
 /* Match Session search's pulse without coupling the two feature packages. */
 .skeletonFill {
   background: var(--dsw-alias-bg-skeleton);
-  animation: dsh-plugin-skeleton 2s cubic-bezier(0.36, 0, 0.64, 1) infinite;
+  animation: lyn-plugin-skeleton 2s cubic-bezier(0.36, 0, 0.64, 1) infinite;
 }
 
 /* Keep each real text line's height; center the shorter painted bar within it. */
@@ -534,7 +534,7 @@
   height: 20px;
 }
 
-@keyframes dsh-plugin-skeleton {
+@keyframes lyn-plugin-skeleton {
   0% { opacity: 1; }
   40% { opacity: 0.6; }
   80%, 100% { opacity: 1; }
@@ -644,7 +644,7 @@
    and the outline hover rebinds to a red wash instead of the gray one. */
 .danger {
   color: var(--dsw-alias-state-error-primary);
-  --dsh-button-outline-color: color-mix(in srgb, var(--dsw-alias-state-error-primary) 30%, transparent);
+  --lyn-button-outline-color: color-mix(in srgb, var(--dsw-alias-state-error-primary) 30%, transparent);
   --dsw-alias-interactive-bg-hover: color-mix(in srgb, var(--dsw-alias-state-error-primary) 8%, transparent);
 }
 
@@ -994,17 +994,17 @@
   box-shadow: var(--dsw-elevation-prominent);
   min-width: 0;
   max-width: calc(100vw - 24px);
-  max-height: calc(100dvh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));
+  max-height: calc(100dvh - 12px - max(12px, var(--lyn-frame-overlay-top, 12px)));
   overflow-x: hidden;
   overflow-y: auto;
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   position-area: none;
   top: max(12px, calc(anchor(bottom) + 6px));
   bottom: 12px;
   left: 12px;
   right: max(12px, anchor(right));
-  position-try-fallbacks: --dsh-registry-window, --dsh-registry-opposite, --dsh-registry-wide-opposite, --dsh-registry-tall, --dsh-registry-viewport;
+  position-try-fallbacks: --lyn-registry-window, --lyn-registry-opposite, --lyn-registry-wide-opposite, --lyn-registry-tall, --lyn-registry-viewport;
   align-self: start;
   justify-self: end;
   height: fit-content;
@@ -1431,7 +1431,7 @@ label.registryOption {
 
 :global([data-platform='darwin']) .detailTop,
 :global([data-platform='darwin']) .moreHead {
-  padding-top: calc(var(--plugin-page-top-inset) + var(--dsh-frame-top-clearance, 0px));
+  padding-top: calc(var(--plugin-page-top-inset) + var(--lyn-frame-top-clearance, 0px));
 }
 
 .crumb {
@@ -1614,8 +1614,8 @@ label.registryOption {
   border-bottom: 0;
 }
 
-.detail[data-plugin-detail='@deepseek-ai/dsh-cua-bundle'] .facts div,
-.detail[data-plugin-detail='@deepseek-ai/dsh-cua-bundle'] .row {
+.detail[data-plugin-detail='@lyness/lyn-cua-bundle'] .facts div,
+.detail[data-plugin-detail='@lyness/lyn-cua-bundle'] .row {
   border-bottom-color: var(--dsw-alias-border-l3);
 }
 
@@ -1749,7 +1749,7 @@ label.registryOption {
 :global([data-platform='darwin']) :global([data-sidebar-collapsed]) .pageBar[data-compact]:not([data-natural]) .pageHead {
   --plugin-page-top-inset: 8px;
 
-  padding-top: calc(var(--plugin-page-top-inset) + var(--dsh-frame-top-clearance, 0px));
+  padding-top: calc(var(--plugin-page-top-inset) + var(--lyn-frame-top-clearance, 0px));
 }
 
 /* The collapsed bar's divider spans the page like the scrolled list and its scrollbar. */
@@ -2272,7 +2272,7 @@ button.versionSummary:focus-visible {
   }
 }
 
-@position-try --dsh-registry-window {
+@position-try --lyn-registry-window {
   position-area: none;
   top: max(12px, calc(anchor(bottom) + 6px));
   bottom: 12px;
@@ -2283,14 +2283,14 @@ button.versionSummary:focus-visible {
   justify-self: safe start;
 }
 
-@position-try --dsh-registry-opposite {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-registry-opposite {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 6px));
   align-self: end;
 }
 
-@position-try --dsh-registry-wide-opposite {
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+@position-try --lyn-registry-wide-opposite {
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: max(12px, calc(anchor(top) + 6px));
   left: 12px;
   right: 12px;
@@ -2298,9 +2298,9 @@ button.versionSummary:focus-visible {
   justify-self: safe start;
 }
 
-@position-try --dsh-registry-tall {
+@position-try --lyn-registry-tall {
   position-area: none;
-  top: max(12px, var(--dsh-frame-overlay-top, 12px));
+  top: max(12px, var(--lyn-frame-overlay-top, 12px));
   bottom: 12px;
   left: 12px;
   right: max(12px, anchor(right));
@@ -2309,9 +2309,9 @@ button.versionSummary:focus-visible {
   justify-self: end;
 }
 
-@position-try --dsh-registry-viewport {
+@position-try --lyn-registry-viewport {
   position-area: none;
-  inset: max(12px, var(--dsh-frame-overlay-top, 12px)) 12px 12px;
+  inset: max(12px, var(--lyn-frame-overlay-top, 12px)) 12px 12px;
   margin: 0;
   align-self: safe start;
   justify-self: safe start;

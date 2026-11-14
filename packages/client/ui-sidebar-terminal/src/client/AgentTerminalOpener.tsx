@@ -1,7 +1,7 @@
 /** A displayed Session's header watches its terminals and opens the ones its Agent starts. */
 import { useEffect, type ReactNode } from 'react'
-import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 
 /** The plugin owns tab placement; the component only ties the watch to the displayed Session. */
 export interface AgentTerminalOpenerInjected {

@@ -41,7 +41,7 @@
 .menu {
   position: fixed;
   position-area: none;
-  position-try-fallbacks: --dsh-schedule-catalog-wide-below, --dsh-schedule-catalog-above, --dsh-schedule-catalog-wide-above, --dsh-schedule-catalog-window, --dsh-schedule-catalog-viewport;
+  position-try-fallbacks: --lyn-schedule-catalog-wide-below, --lyn-schedule-catalog-above, --lyn-schedule-catalog-wide-above, --lyn-schedule-catalog-window, --lyn-schedule-catalog-viewport;
   top: max(16px, calc(anchor(bottom) + 5px));
   bottom: 16px;
   left: max(16px, anchor(left));
@@ -65,8 +65,8 @@
   border-radius: 16px;
   background: var(--dsw-specific-menu);
   backdrop-filter: var(--dsw-menu-backdrop-filter);
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);
   box-shadow: var(--dsw-elevation-prominent);
 }
@@ -214,20 +214,20 @@
 }
 
 /* A wide catalog first shifts horizontally without leaving its trigger's row. */
-@position-try --dsh-schedule-catalog-wide-below {
+@position-try --lyn-schedule-catalog-wide-below {
   left: 16px;
   right: 16px;
   justify-self: safe end;
 }
 
-@position-try --dsh-schedule-catalog-above {
-  top: max(16px, var(--dsh-frame-overlay-top, 16px));
+@position-try --lyn-schedule-catalog-above {
+  top: max(16px, var(--lyn-frame-overlay-top, 16px));
   bottom: max(16px, calc(anchor(top) + 5px));
   align-self: end;
 }
 
-@position-try --dsh-schedule-catalog-wide-above {
-  top: max(16px, var(--dsh-frame-overlay-top, 16px));
+@position-try --lyn-schedule-catalog-wide-above {
+  top: max(16px, var(--lyn-frame-overlay-top, 16px));
   bottom: max(16px, calc(anchor(top) + 5px));
   left: 16px;
   right: 16px;
@@ -235,16 +235,16 @@
   justify-self: safe end;
 }
 
-@position-try --dsh-schedule-catalog-window {
-  top: max(16px, var(--dsh-frame-overlay-top, 16px));
+@position-try --lyn-schedule-catalog-window {
+  top: max(16px, var(--lyn-frame-overlay-top, 16px));
   bottom: 16px;
   margin: 0;
   align-self: safe end;
 }
 
-@position-try --dsh-schedule-catalog-viewport {
+@position-try --lyn-schedule-catalog-viewport {
   position-area: none;
-  inset: max(16px, var(--dsh-frame-overlay-top, 16px)) 16px 16px;
+  inset: max(16px, var(--lyn-frame-overlay-top, 16px)) 16px 16px;
   margin: 0;
   align-self: safe end;
   justify-self: safe end;

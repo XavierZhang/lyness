@@ -9,10 +9,10 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Button, Input, RiskConfirmation, SegmentedControl, Tag, useClipboardCopy } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type { InvitationInput, InvitationRowView, Role } from '@deepseek-ai/dsh-api-invitations-controller/types'
+import { Button, Input, RiskConfirmation, SegmentedControl, Tag, useClipboardCopy } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type { InvitationInput, InvitationRowView, Role } from '@lyness/lyn-api-invitations-controller/types'
 import type { createInvitationsPageStore } from './store.ts'
 import css from './InvitationsPage.module.css'
 

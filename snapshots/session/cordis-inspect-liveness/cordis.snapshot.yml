@@ -1,21 +1,21 @@
 - id: llm-deepseek
-  name: '@deepseek-ai/dsh-llm-deepseek-api-key'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   disabled: true
 
 - id: agent-default-model
-  name: '@deepseek-ai/dsh-agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash
 
 - id: session-persistence-jsonl
-  name: '@deepseek-ai/dsh-session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
-    root: !!js dshHomePath('sessions')
+    root: !!js lynHomePath('sessions')
     compression: none
 
 - id: agent-instructions
-  name: '@deepseek-ai/dsh-agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
@@ -26,7 +26,7 @@
   disabled: true
 
 - id: system-prompt
-  name: '@deepseek-ai/dsh-system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model.
@@ -35,15 +35,15 @@
 
 - insert:
     - id: cordis-host-runner
-      name: '@deepseek-ai/dsh-cordis-host-runner'
+      name: '@lyness/lyn-cordis-host-runner'
       config:
         clientInspectTimeoutMs: 100
     - id: cordis-inspect-providers
-      name: '@deepseek-ai/dsh-tool-cordis/host'
+      name: '@lyness/lyn-tool-cordis/host'
     - id: tool-cordis
-      name: '@deepseek-ai/dsh-tool-cordis'
+      name: '@lyness/lyn-tool-cordis'
     - id: llm-replay
-      name: '@deepseek-ai/dsh-llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

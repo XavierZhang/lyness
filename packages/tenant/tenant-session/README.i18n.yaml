@@ -5,48 +5,48 @@
 /:
   en: 30ffa313db22c567
   zh: 10cbc565f7be23f8
-/deepseek-harness-dsh-tenant-session:
+/lyness-lyn-tenant-session:
   en: 312ec96e04adbb1b
   zh: 6af250d74a249fd3
-/deepseek-harness-dsh-tenant-session/summary:
+/lyness-lyn-tenant-session/summary:
   en: 87fc6237a58fdede
   zh: de56b9ab45d82401
-/deepseek-harness-dsh-tenant-session/table-of-contents:
+/lyness-lyn-tenant-session/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-tenant-session/use-this-package:
+/lyness-lyn-tenant-session/use-this-package:
   en: 7dc801b9d2a598ab
   zh: ebb92dcc15f30e7d
-/deepseek-harness-dsh-tenant-session/use-this-package/what-lands-in-the-log:
+/lyness-lyn-tenant-session/use-this-package/what-lands-in-the-log:
   en: 7a00fc469d53e044
   zh: e1cb599da9c9c251
-/deepseek-harness-dsh-tenant-session/use-this-package/one-tenant-per-deployment-for-now:
+/lyness-lyn-tenant-session/use-this-package/one-tenant-per-deployment-for-now:
   en: d88205e50edd2bfc
   zh: d1c936a332cd7cf2
-/deepseek-harness-dsh-tenant-session/understand-the-implementation:
+/lyness-lyn-tenant-session/understand-the-implementation:
   en: 524673bbbdf713b0
   zh: 6f67aeec4150709e
-/deepseek-harness-dsh-tenant-session/further-exploration:
+/lyness-lyn-tenant-session/further-exploration:
   en: 2b8a93b70b2611ea
   zh: f87c7a4b9de0053c
-/deepseek-harness-dsh-tenant-session/model-experience:
+/lyness-lyn-tenant-session/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-tenant-session/model-experience/the-organization-s-identity:
+/lyness-lyn-tenant-session/model-experience/the-organization-s-identity:
   en: 2bbafad2c4d4a26c
   zh: 914d97dff6f790a6
-/deepseek-harness-dsh-tenant-session/model-experience/the-organization-s-identity/what-the-model-sees:
+/lyness-lyn-tenant-session/model-experience/the-organization-s-identity/what-the-model-sees:
   en: 0b2d1599b02a6cfd
   zh: dda10b856df16264
-/deepseek-harness-dsh-tenant-session/model-experience/the-organization-s-identity/token-effect:
+/lyness-lyn-tenant-session/model-experience/the-organization-s-identity/token-effect:
   en: 5a439ca2f098f50d
   zh: 4751af816eb94a3f
-/deepseek-harness-dsh-tenant-session/model-experience/the-organization-s-identity/kv-cache-effect:
+/lyness-lyn-tenant-session/model-experience/the-organization-s-identity/kv-cache-effect:
   en: 3a0eb10d126b8d42
   zh: 340858bb45d6f998
-/deepseek-harness-dsh-tenant-session/known-limitations-and-deferred-work:
+/lyness-lyn-tenant-session/known-limitations-and-deferred-work:
   en: 39fd05cae041c245
   zh: fbb0afc764c8a115
-/deepseek-harness-dsh-tenant-session/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-tenant-session/known-limitations-and-deferred-work/dev-note:
   en: 1daa57f1854dfe4c
   zh: ed627ee3e20e0926

@@ -6,11 +6,11 @@
  * `llm-*` settings namespace serves models without anybody signing in, and an
  * API key read from the environment leaves no stored secret behind. Covering
  * on the account state alone would shut such an installation out of itself.
- * @module @deepseek-ai/dsh-client-ui-settings-account/model-readiness
+ * @module @lyness/lyn-client-ui-settings-account/model-readiness
  */
 
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import type { SettingsDescribeView } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { SettingsDescribeView } from '@lyness/lyn-client-ui-settings/client'
 
 /** The namespace prefix every model-provider plugin registers under. */
 const MODEL_NAMESPACE_PREFIX = 'llm-'

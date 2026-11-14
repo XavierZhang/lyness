@@ -84,7 +84,7 @@ it.each(forgePreviews)('reads the Forge preview in %s before activation', async 
   await page.goto(scaffold.authenticatedUrl)
   await expect.poll(() => page.locator('html').getAttribute('lang')).toBe(id)
   await page.getByRole('button', { name: plugins, exact: true }).click()
-  const card = page.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-forge-bundle"]')
+  const card = page.locator('[data-plugin-package="@lyness/lyn-experimental-forge-bundle"]')
   expect(await card.getByRole('switch').getAttribute('aria-checked')).toBe('false')
   await card.getByRole('button').click()
   const image = page.locator('[data-detail-document]').getByRole('img', { name: alt, exact: true })

@@ -1,13 +1,13 @@
 /** RFC 5545 recurrence validation, occurrence arithmetic, and strict decoding of Host task records. */
 import { describe, expect, it } from 'vitest'
-import { MAX_FOUR_DIGIT_YEAR_MS, MIN_FOUR_DIGIT_YEAR_MS } from '@deepseek-ai/dsh-util-time'
+import { MAX_FOUR_DIGIT_YEAR_MS, MIN_FOUR_DIGIT_YEAR_MS } from '@lyness/lyn-util-time'
 import type { ScheduleId } from '../src/types.ts'
 import type { RecurringOccurrence } from '../src/domain.ts'
 import {
   createRRuleScheduleRecord, decodeRRuleScheduleRecord, formatScheduleLocalTime,
   normalizeRRule, resolveRRuleOccurrence, updateRRuleScheduleRecord,
 } from '../src/domain.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 /** Join a DTSTART line and an RRULE body. */
 function rule(body: string, start = 'DTSTART:20260916T010000Z'): string {

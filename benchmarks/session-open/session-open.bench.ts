@@ -4,10 +4,10 @@ import { copyFile, mkdir, mkdtemp, readFile, readdir, rm } from 'node:fs/promise
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { Session, type SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import {
   runBuiltBenchmarkWorker,
   type BuiltBenchmarkWorkerRun,
@@ -77,7 +77,7 @@ const AGENT_RETAINED_HEAP_BUDGET_MB = Math.ceil(
   EXPECTED_AGENT_RETAINED_HEAP_MB * PERFORMANCE_BUDGET_HEADROOM,
 )
 
-const WORKER = join(import.meta.dirname, '..', '.dsh-build', 'session-open', 'session-open.worker.js')
+const WORKER = join(import.meta.dirname, '..', '.lyn-build', 'session-open', 'session-open.worker.js')
 /**
  * Estimated storage wait of the phase endpoints, whose worker reports CPU time only for the whole run: open
  * and read access one Session log that the page cache usually holds; restore and projection start after the
@@ -86,8 +86,8 @@ const WORKER = join(import.meta.dirname, '..', '.dsh-build', 'session-open', 'se
 const PHASE_IO_SHARE = { file: 0.1, memory: 0 } as const
 /** User scenario of each access kind. */
 const ACCESS_AFFECTS: Readonly<Record<SessionAccessKind, string>> = {
-  'first-open': 'Opening a large Session for the first time after upgrading DSH.',
-  'post-upgrade-reopen': 'Opening a large Session again in a new DSH process.',
+  'first-open': 'Opening a large Session for the first time after upgrading LYN.',
+  'post-upgrade-reopen': 'Opening a large Session again in a new LYN process.',
 }
 
 /**
@@ -203,7 +203,7 @@ class SessionOpenBenchmarkSuite {
   private rootIndex = 0
 
   async prepare(): Promise<void> {
-    this.scratch = await mkdtemp(join(tmpdir(), 'dsh-session-open-bench-'))
+    this.scratch = await mkdtemp(join(tmpdir(), 'lyn-session-open-bench-'))
     this.facts = await writeSyntheticReleasedV0Session(join(this.scratch, 'source'), SHAPE)
     this.legacySourcePath = this.facts.path
     // Produce one real post-upgrade directory outside every measured interval.
@@ -351,7 +351,7 @@ describe('Session opening benchmark prerequisites', () => {
   })
 
   it('migrates the generated workload and reopens its successor without changing V0', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-session-bench-fixture-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-session-bench-fixture-'))
     const contexts: Context[] = []
     const mount = async () => {
       const ctx = new Context()

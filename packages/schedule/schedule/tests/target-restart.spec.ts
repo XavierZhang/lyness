@@ -2,12 +2,12 @@
 import { mkdtemp, readFile, readdir, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { JsonStorageBackend } from '@deepseek-ai/dsh-storage-json'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
+import { JsonStorageBackend } from '@lyness/lyn-storage-json'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { harness, storedUnit } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const contexts: Context[] = []
 const roots: string[] = []
@@ -22,7 +22,7 @@ afterEach(async () => {
 })
 
 it('reopens Host tasks of every target kind byte-identical without activating a Session', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-targets-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-targets-'))
   roots.push(root)
   const setup = () => harness({ backend: new JsonStorageBackend(root), onContext: ctx => contexts.push(ctx) })
   const first = await setup()

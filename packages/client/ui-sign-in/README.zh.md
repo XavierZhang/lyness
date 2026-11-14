@@ -3,13 +3,13 @@ description: "有账户的部署给未登录者看的那块屏，以及说出谁
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-sign-in
+# @lyness/lyn-client-ui-sign-in
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-sign-in` 是一个人进入「服务有名有姓的人」的部署的方式：在没人登录时盖住产品的一块屏，按部署挂载的渠道各给一个按钮；以及通用设置里说出这是谁的会话、并提供出口的一行。两者渲染的是 `uiViewer` 服务持有的同一个答案，于是打开设置与加载框架不会问部署两次——也不会与设置导航产生分歧，后者从同一次读取决定自己的平面。在没有账户的部署上两者都不渲染，单操作者形态毫无变化。
+`lyn-client-ui-sign-in` 是一个人进入「服务有名有姓的人」的部署的方式：在没人登录时盖住产品的一块屏，按部署挂载的渠道各给一个按钮；以及通用设置里说出这是谁的会话、并提供出口的一行。两者渲染的是 `uiViewer` 服务持有的同一个答案，于是打开设置与加载框架不会问部署两次——也不会与设置导航产生分歧，后者从同一次读取决定自己的平面。在没有账户的部署上两者都不渲染，单操作者形态毫无变化。
 
 ## 目录
 
@@ -29,11 +29,11 @@ Web bundle 把两侧与它们读的那个命名空间并列挂上：
 
 ```yaml
 - id: identity-controller
-  name: '@deepseek-ai/dsh-api-identity-controller'
+  name: '@lyness/lyn-api-identity-controller'
 - id: ui-viewer
-  name: '@deepseek-ai/dsh-client-ui-viewer'
+  name: '@lyness/lyn-client-ui-viewer'
 - id: ui-sign-in
-  name: '@deepseek-ai/dsh-client-ui-sign-in'
+  name: '@lyness/lyn-client-ui-sign-in'
 ```
 
 别的都不用配。出现什么由答案决定：没有账户就什么都不渲染，有账户而没人登录就盖住产品，已登录的访客只看到设置里那一行。
@@ -51,7 +51,7 @@ Web bundle 把两侧与它们读的那个命名空间并列挂上：
 
 **渠道是链接，不是调用。** 登录要离开去目录自己的页面，登出要清一个 cookie；两者都不可能发生在一次 RPC 里，所以都是跳转到部署汇报出的那些路径。
 
-**两个界面都不持有这次读取。** 屏与行回答的问题，正是设置导航回答的那个，于是读取、它的结果与它决定的平面都住在 `dsh-client-ui-viewer` 里；两个界面通过各自的 `hooks` 隔间取它的快照，并驱动它共享的 `load`。一个人登录之后，屏消失与行填上，来自同一个答案。
+**两个界面都不持有这次读取。** 屏与行回答的问题，正是设置导航回答的那个，于是读取、它的结果与它决定的平面都住在 `lyn-client-ui-viewer` 里；两个界面通过各自的 `hooks` 隔间取它的快照，并驱动它共享的 `load`。一个人登录之后，屏消失与行填上，来自同一个答案。
 
 **读取失败时显示失败，而不是一个猜测。** 重试由屏提供，行没有：失败会盖住产品，而再试一次的地方就是那块屏。
 
@@ -60,10 +60,10 @@ Web bundle 把两侧与它们读的那个命名空间并列挂上：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-client-ui-viewer`](../ui-viewer/README.zh.md) —— 持有两个界面所渲染的那次读取的服务。
-- [`dsh-api-identity-controller`](../../api/identity-controller/README.zh.md) —— 它背后的那个命名空间。
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 链接所指向的那些路由。
-- [`dsh-api-remote-authority`](../../api/remote-authority/README.zh.md) —— 真正拒绝未出示身份调用的那一条规则。
+- [`lyn-client-ui-viewer`](../ui-viewer/README.zh.md) —— 持有两个界面所渲染的那次读取的服务。
+- [`lyn-api-identity-controller`](../../api/identity-controller/README.zh.md) —— 它背后的那个命名空间。
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 链接所指向的那些路由。
+- [`lyn-api-remote-authority`](../../api/remote-authority/README.zh.md) —— 真正拒绝未出示身份调用的那一条规则。
 
 -----
 

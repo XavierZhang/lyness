@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { expect, it, onTestFinished } from 'vitest'
-import { applyEntryPatches } from '@deepseek-ai/cordis-plugin-include'
-import { initProfile, loadOptionalPatches, type ProfileContext } from '@deepseek-ai/dsh-app-boot'
+import { applyEntryPatches } from '@lyness/cordis-plugin-include'
+import { initProfile, loadOptionalPatches, type ProfileContext } from '@lyness/lyn-app-boot'
 import { writePluginEnabled } from '../src/patch.ts'
 
 const TOOL = { id: 'tool', name: 'package' }
@@ -19,7 +19,7 @@ async function fixture(text?: string, rows: object[] = []): Promise<ProfileConte
   initProfile(dir, ['bundle'])
   const bundle = join(dir, 'node_modules', 'bundle')
   await mkdir(bundle, { recursive: true })
-  await writeFile(join(bundle, 'package.json'), JSON.stringify({ name: 'bundle', version: '1.0.0', dsh: { bundle: { patch: './cordis.patch.yml' } } }))
+  await writeFile(join(bundle, 'package.json'), JSON.stringify({ name: 'bundle', version: '1.0.0', lyn: { bundle: { patch: './cordis.patch.yml' } } }))
   await writeFile(join(bundle, 'cordis.patch.yml'), JSON.stringify([{ insert: rows }]))
   const patchPath = join(dir, 'cordis.patch.yml')
   await (text === undefined ? rm(patchPath) : writeFile(patchPath, text))

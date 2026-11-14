@@ -15,10 +15,10 @@ try {
   assert.equal(preflightDesktopPublish('owner/repo', { package_run_id: '123', package_run_attempt: '2' }, () => [{ artifacts: [] }]), '2')
   assert.throws(() => preflightDesktopPublish('owner/repo', { package_run_id: '123', package_run_attempt: '2' }, () => [{ artifacts: [{ name: 'windows-x64-unsigned-123-2' }] }]), /unsigned/)
   const env = { ...process.env }
-  for (const key of ['GITHUB_EVENT_PATH', 'GITHUB_REPOSITORY', 'GITHUB_OUTPUT', 'DSH_PACKAGING_CONFIG_DIR', 'NODE_OPTIONS']) Reflect.deleteProperty(env, key)
+  for (const key of ['GITHUB_EVENT_PATH', 'GITHUB_REPOSITORY', 'GITHUB_OUTPUT', 'LYNESS_PACKAGING_CONFIG_DIR', 'NODE_OPTIONS']) Reflect.deleteProperty(env, key)
   for (const [filename, diagnostic] of [
     ['preflight-desktop-publish.mjs', 'Actions context required'],
-    ['preflight-desktop-publish-local.mjs', 'set DSH_PACKAGING_CONFIG_DIR'],
+    ['preflight-desktop-publish-local.mjs', 'set LYNESS_PACKAGING_CONFIG_DIR'],
   ]) {
     const result = spawnSync(process.execPath, [join(directory, filename)], { env, encoding: 'utf8', timeout: 10_000 })
     assert.equal(result.error, undefined)

@@ -1,11 +1,11 @@
 {
-  "format": "dsh-timeline-tree",
+  "format": "lyn-timeline-tree",
   "version": 1,
   "title": "Restore saved plans",
   "description": "Complete the interrupted recovery checks.",
   "elapsedMs": 120000,
   "metadata": {
-    "plugin": "@magolor/dsh-timeline",
+    "plugin": "@magolor/lyn-timeline",
     "pluginVersion": "0.3.6",
     "exportedAt": "2026-10-30T12:04:00.000Z",
     "sourceSessionId": "session-example",

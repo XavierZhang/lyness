@@ -9,15 +9,15 @@
  *
  * It answers the question `FileSystem` never asks — whose machine? — from
  * the session the turn belongs to. The session records its owner when it is
- * opened (`@deepseek-ai/dsh-session-ownership`); a call outside any turn falls
+ * opened (`@lyness/lyn-session-ownership`); a call outside any turn falls
  * back to the person the request authenticated as; a call that is neither
  * fails rather than guessing a machine.
  *
- * @module @deepseek-ai/dsh-fs-desktop
+ * @module @lyness/lyn-fs-desktop
  */
 
 import { posix, win32 } from 'node:path'
-import { FileSystem, FsError, FsVersion } from '@deepseek-ai/dsh-fs'
+import { FileSystem, FsError, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDeleteOutcome,
   FsDirEntry,
@@ -29,16 +29,16 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@deepseek-ai/dsh-fs'
-import type { PatchHunk } from '@deepseek-ai/dsh-fs-patch'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type {} from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-desktop-link'
-import type {} from '@deepseek-ai/dsh-session-ownership'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
-import type {} from '@deepseek-ai/dsh-request-principal'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@lyness/lyn-fs'
+import type { PatchHunk } from '@lyness/lyn-fs-patch'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-desktop-link'
+import type {} from '@lyness/lyn-session-ownership'
+import type {} from '@lyness/lyn-session-ownership/visibility'
+import type {} from '@lyness/lyn-request-principal'
+import type { PersonId } from '@lyness/lyn-people'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { z } from 'zod'
 import {
   FS_CAPABILITY,

@@ -5,63 +5,63 @@
 /:
   en: 14d3fdd57b94c86f
   zh: abcd3b4f9dd908fa
-/deepseek-harness-dsh-sandbox-windows-acl:
+/lyness-lyn-sandbox-windows-acl:
   en: d007b44672ee7165
   zh: a75265b994affb40
-/deepseek-harness-dsh-sandbox-windows-acl/summary:
+/lyness-lyn-sandbox-windows-acl/summary:
   en: 312d1d84a161c3f6
   zh: 241f8f1938923cb2
-/deepseek-harness-dsh-sandbox-windows-acl/table-of-contents:
+/lyness-lyn-sandbox-windows-acl/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-sandbox-windows-acl/use-this-package:
+/lyness-lyn-sandbox-windows-acl/use-this-package:
   en: 58b220faa66b2f05
   zh: dda42e4197d80bfe
-/deepseek-harness-dsh-sandbox-windows-acl/use-this-package/when-to-choose-it:
+/lyness-lyn-sandbox-windows-acl/use-this-package/when-to-choose-it:
   en: 510d0b1ef7db159d
   zh: dc2cf25b3db14c63
-/deepseek-harness-dsh-sandbox-windows-acl/use-this-package/direct-api:
+/lyness-lyn-sandbox-windows-acl/use-this-package/direct-api:
   en: 16596607bbccc2a3
   zh: 30bc370a5281bf0d
-/deepseek-harness-dsh-sandbox-windows-acl/use-this-package/what-confinement-gives-you:
+/lyness-lyn-sandbox-windows-acl/use-this-package/what-confinement-gives-you:
   en: 289e65bddf20dd79
   zh: 7ff72ed64c4b4d1c
-/deepseek-harness-dsh-sandbox-windows-acl/use-this-package/failures-and-recovery:
+/lyness-lyn-sandbox-windows-acl/use-this-package/failures-and-recovery:
   en: 805cd6dd204e2eb0
   zh: 709625bafe1972e5
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation:
   en: c2cde86c85c2c619
   zh: a29a114e591f9d3f
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation/mechanism:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation/mechanism:
   en: 20f87fd0351e6b36
   zh: 4dd061e66a477cf1
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation/modes-and-token-lists:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation/modes-and-token-lists:
   en: 9c8d9af84f9abd99
   zh: 1c82b355aa5f210f
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation/the-confinement-runner:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation/the-confinement-runner:
   en: 476609f9afa6e762
   zh: 973dfab09cd95518
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation/verified-boundaries:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation/verified-boundaries:
   en: 681dd6f2f5d3b32f
   zh: 8786aebcf71c5b1f
-/deepseek-harness-dsh-sandbox-windows-acl/understand-the-implementation/header-verification-and-source-map:
+/lyness-lyn-sandbox-windows-acl/understand-the-implementation/header-verification-and-source-map:
   en: 547f4b2de7bd7325
   zh: d1d79422c6b87293
-/deepseek-harness-dsh-sandbox-windows-acl/further-exploration:
+/lyness-lyn-sandbox-windows-acl/further-exploration:
   en: d5de87c67d64f2e6
   zh: 115b8d46e0772ae6
-/deepseek-harness-dsh-sandbox-windows-acl/model-experience:
+/lyness-lyn-sandbox-windows-acl/model-experience:
   en: 8bed2a7988bbc0ef
   zh: 9ae11ee5b39d28a0
-/deepseek-harness-dsh-sandbox-windows-acl/model-experience/kv-cache-effect:
+/lyness-lyn-sandbox-windows-acl/model-experience/kv-cache-effect:
   en: 817eb1b7de13872e
   zh: 06fe175e41e7459b
-/deepseek-harness-dsh-sandbox-windows-acl/known-limitations-and-deferred-work:
+/lyness-lyn-sandbox-windows-acl/known-limitations-and-deferred-work:
   en: f9df5d45dc4bd0d7
   zh: 921f739663728ebf
-/deepseek-harness-dsh-sandbox-windows-acl/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-sandbox-windows-acl/known-limitations-and-deferred-work/dev-note:
   en: cc273320f6a1beaf
   zh: 5c57a312ddc50651
-/deepseek-harness-dsh-sandbox-windows-acl/known-limitations-and-deferred-work/dev-note/future-warnings-and-cleanup-surfaces:
+/lyness-lyn-sandbox-windows-acl/known-limitations-and-deferred-work/dev-note/future-warnings-and-cleanup-surfaces:
   en: 8872c7b4c8ce1cc7
   zh: c7fb4eefa013c7b0

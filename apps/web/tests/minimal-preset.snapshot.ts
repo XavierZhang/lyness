@@ -1,19 +1,19 @@
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
 import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { AgentHandle } from '@deepseek-ai/dsh-agent'
-import type { SessionAttachmentValue } from '@deepseek-ai/dsh-api-session-controller'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { type ToolCallId, createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import type { AgentHandle } from '@lyness/lyn-agent'
+import type { SessionAttachmentValue } from '@lyness/lyn-api-session-controller'
+import { brandString } from '@lyness/lyn-brand'
+import { type ToolCallId, createUserMessage } from '@lyness/lyn-llm'
+import type { GenerateOptions } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import type {} from '@lyness/lyn-system-prompt'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -108,14 +108,14 @@ describe('minimal agent preset', () => {
       signal,
       callId: brandString<ToolCallId>('minimal-bash-state-setup'),
       name: 'bash',
-      arguments: { command: `cd ${JSON.stringify(stateDir)} && export DSH_MINIMAL_STATE=PERSISTED` },
+      arguments: { command: `cd ${JSON.stringify(stateDir)} && export LYNESS_MINIMAL_STATE=PERSISTED` },
       agent: agentHandle.agent,
     })
     const bash = await executeToolFixture(scaffold.ctx, {
       signal,
       callId: brandString<ToolCallId>('minimal-bash-state-read'),
       name: 'bash',
-      arguments: { command: 'printf \'%s:%s\n\' "$DSH_MINIMAL_STATE" "$PWD"' },
+      arguments: { command: 'printf \'%s:%s\n\' "$LYNESS_MINIMAL_STATE" "$PWD"' },
       agent: agentHandle.agent,
     })
     const text = (result: typeof bash): string => result.content

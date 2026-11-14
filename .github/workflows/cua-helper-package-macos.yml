@@ -42,15 +42,15 @@ concurrency:
 
 jobs:
   package:
-    runs-on: [self-hosted, macOS, ARM64, dsh-mac-package-trial]
+    runs-on: [self-hosted, macOS, ARM64, lyn-mac-package-trial]
     timeout-minutes: 60
     outputs:
       artifact-id: ${{ steps.retained.outputs.artifact-id || steps.upload.outputs.artifact-id }}
       run-id: ${{ steps.retained.outputs.run-id || github.run_id }}
       build-key: ${{ steps.build-inputs.outputs.build-key }}
     env:
-      DSH_PACKAGING_PRESET: ${{ inputs.preset }}
-      DSH_TELEMETRY_DISABLED: '1'
+      LYNESS_PACKAGING_PRESET: ${{ inputs.preset }}
+      LYNESS_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -61,8 +61,8 @@ jobs:
           node -e 'const fs=require("node:fs"); const ref=process.env.GITHUB_REF;
           if(!ref || (!ref.startsWith("refs/heads/") && !ref.startsWith("refs/tags/"))) throw Error("Select a trusted repository branch or release tag");
           const tag=ref.replace(/^refs\/tags\//, "");
-          if(tag.startsWith("dsh-v") && tag!=="dsh-v"+JSON.parse(fs.readFileSync("package.json","utf8")).version) throw Error("Release tag must match product version");
-          if(!["test","production"].includes(process.env.DSH_PACKAGING_PRESET)) throw Error("Invalid preset");'
+          if(tag.startsWith("lyn-v") && tag!=="lyn-v"+JSON.parse(fs.readFileSync("package.json","utf8")).version) throw Error("Release tag must match product version");
+          if(!["test","production"].includes(process.env.LYNESS_PACKAGING_PRESET)) throw Error("Invalid preset");'
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: '24'

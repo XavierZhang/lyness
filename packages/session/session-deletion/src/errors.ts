@@ -1,9 +1,9 @@
 /**
  * The deletion refusal a caller can act on.
- * @module @deepseek-ai/dsh-session-deletion/errors
+ * @module @lyness/lyn-session-deletion/errors
  */
 
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /**
  * The conversation is open, so nothing was removed.

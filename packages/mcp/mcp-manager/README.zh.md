@@ -3,13 +3,13 @@ description: "MCP 服务器管理器：面向需要在运行时添加、修改�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-mcp-manager
+# @lyness/lyn-mcp-manager
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-mcp-manager` 管理一组实时 MCP 服务器，来源有两个：其 profile 条目 `config.servers` 中的条目（也可通过 Settings 编辑），以及已安装插件在自身生命周期内注册的条目。管理器为每个启用的条目挂载一个 `dsh-mcp-client` 实例，并随任一来源变化实时增加、重建、停用与移除实例。`ctx.mcpManager` 汇总每台服务器的连接状态，`restart` 恢复重连预算耗尽的服务器，`probe` 在不触碰活动实例的情况下测试一个条目，`watch` 向 Remote 客户端推送服务器列表。`${credential:REF}` 模板让密钥不进入条目；mcp-client 在各实例内部处理凭据轮换。
+`lyn-mcp-manager` 管理一组实时 MCP 服务器，来源有两个：其 profile 条目 `config.servers` 中的条目（也可通过 Settings 编辑），以及已安装插件在自身生命周期内注册的条目。管理器为每个启用的条目挂载一个 `lyn-mcp-client` 实例，并随任一来源变化实时增加、重建、停用与移除实例。`ctx.mcpManager` 汇总每台服务器的连接状态，`restart` 恢复重连预算耗尽的服务器，`probe` 在不触碰活动实例的情况下测试一个条目，`watch` 向 Remote 客户端推送服务器列表。`${credential:REF}` 模板让密钥不进入条目；mcp-client 在各实例内部处理凭据轮换。
 
 ## 目录
 
@@ -25,11 +25,11 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-每个宿主挂载一次管理器。Web 与 Desktop profile 将它作为 [`dsh-web-app`](../../bundle/web-app/README.zh.md) 的 `mcp-manager` 行挂载。其 volatile `config.servers` 存放配置条目；Settings 以所属条目 id 作为命名空间（下例为 `mcp`）。凭据模板经凭据提供方解析，因此只要条目可能使用模板，就为该行加上 `inject: [credentials]`。
+每个宿主挂载一次管理器。Web 与 Desktop profile 将它作为 [`lyn-web-app`](../../bundle/web-app/README.zh.md) 的 `mcp-manager` 行挂载。其 volatile `config.servers` 存放配置条目；Settings 以所属条目 id 作为命名空间（下例为 `mcp`）。凭据模板经凭据提供方解析，因此只要条目可能使用模板，就为该行加上 `inject: [credentials]`。
 
 ### 何时选择它
 
-当服务器集合需要在运行时变化——设置编辑或管理界面添加、改配、停用、删除配置的服务器，或已安装插件带来自己的服务器——就选管理器。当部署把服务器钉死在组合里，或某台服务器只属于一个 agent preset 而非整个宿主时，继续用普通的 `dsh-mcp-client` 行；管理器只治理全局面。
+当服务器集合需要在运行时变化——设置编辑或管理界面添加、改配、停用、删除配置的服务器，或已安装插件带来自己的服务器——就选管理器。当部署把服务器钉死在组合里，或某台服务器只属于一个 agent preset 而非整个宿主时，继续用普通的 `lyn-mcp-client` 行；管理器只治理全局面。
 
 ### 最小配置
 
@@ -37,7 +37,7 @@ kind: "package-reference"
 
 ```yaml
 - id: mcp
-  name: '@deepseek-ai/dsh-mcp-manager'
+  name: '@lyness/lyn-mcp-manager'
   inject: [credentials]
   config:
     servers:
@@ -73,7 +73,7 @@ profile 的 `cordis.patch.yml` 会替换条目的完整 `servers` 映射。需�
 | `startupTimeoutMs` | `30,000` | 模板解析、协商、连接与初次工具发现的预算 |
 | `toolCallTimeoutMs` / `closeTimeoutMs` / `reconnect` | mcp-client 默认值 | 逐服务器覆盖 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-mcp-manager)是每个可接受字段的详尽出处。
+生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-mcp-manager)是每个可接受字段的详尽出处。
 
 ### 管理配置的服务器
 
@@ -86,8 +86,8 @@ Settings 写入经 ConfigEditor 持久化并检查 revision；Loader 更新 vola
 接入某个 MCP 服务的插件注册自己的服务器，而不是写入配置：
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-mcp-manager'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-mcp-manager'
 
 export const name = 'example-app'
 export const inject = ['mcpManager']
@@ -111,7 +111,7 @@ export function apply(ctx: Context): void {
 
 ### Remote 操作
 
-浏览器客户端经 [`dsh-api-remotes`](../../api/remotes/README.zh.md) 以 `ctx.remote.mcpManager` 访问管理器。`watch(signal)` 在订阅时推送完整服务器列表，之后每次状态或条目变化再推送一次，订阅方尚未读取的变化会合并；中止信号结束该流，管理器销毁结束所有流。`restart(name)` 与 `probe(name, signal)` 执行上述操作。配置写入仍走 Settings Remote；管理器不提供写入方法，因此浏览器无法定义服务器命令。
+浏览器客户端经 [`lyn-api-remotes`](../../api/remotes/README.zh.md) 以 `ctx.remote.mcpManager` 访问管理器。`watch(signal)` 在订阅时推送完整服务器列表，之后每次状态或条目变化再推送一次，订阅方尚未读取的变化会合并；中止信号结束该流，管理器销毁结束所有流。`restart(name)` 与 `probe(name, signal)` 执行上述操作。配置写入仍走 Settings Remote；管理器不提供写入方法，因此浏览器无法定义服务器命令。
 
 -----
 
@@ -155,7 +155,7 @@ export function apply(ctx: Context): void {
 - [mcp-client README](../mcp-client/README.zh.md) —— 单实例桥：命名、重连策略、工具执行、状态面。
 - [Settings 包 README](../../settings/settings/README.zh.md) —— 管理器使用的 Config 表单、继承、revision 检查与 profile 写入。
 - [Credentials 组 README](../../credentials/README.zh.md) —— `${credential:…}` 模板解析的凭据引用。
-- [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-mcp-manager) —— 每个可接受的配置字段。
+- [生成的配置目录](../../../docs/config-catalog.zh.md#lynesslyn-mcp-manager) —— 每个可接受的配置字段。
 - [MCP 管理器 Agent Note](../../../.agents/notes/implemented/feature/2026-08-31-mcp-manager-plugin.zh.md) —— 设计决策、同类产品调研与被否决的替代方案。
 
 -----
@@ -163,7 +163,7 @@ export function apply(ctx: Context): void {
 <a id="model-experience"></a>
 ## 模型体验
 
-通过其挂载的 `dsh-mcp-client` 实例间接影响；进入请求的是那些实例的服务器限定工具与 schema，管理器自身不注册任何提示词或工具内容。
+通过其挂载的 `lyn-mcp-client` 实例间接影响；进入请求的是那些实例的服务器限定工具与 schema，管理器自身不注册任何提示词或工具内容。
 
 #### KV Cache 影响
 

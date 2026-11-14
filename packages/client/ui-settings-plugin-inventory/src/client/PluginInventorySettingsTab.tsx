@@ -1,8 +1,8 @@
 import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
-import type { ClientEntryState } from '@deepseek-ai/dsh-client-modules/client'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
-import type { PluginInventorySnapshot } from '@deepseek-ai/dsh-api-remotes/client'
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
+import type { ClientEntryState } from '@lyness/lyn-client-modules/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { PluginInventorySnapshot } from '@lyness/lyn-api-remotes/client'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
 import {
   IconChevronDownOutlineRegular,
   IconSearchOutlineRegular,
@@ -10,10 +10,10 @@ import {
   StateDot,
   Tag,
   useClipboardCopy,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { StateDotState, TagTone } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import { localizedValues, TextSearchIndex, type SearchKeys } from '@deepseek-ai/dsh-util-text-search'
+} from '@lyness/lyn-client-ui-primitives'
+import type { StateDotState, TagTone } from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import { localizedValues, TextSearchIndex, type SearchKeys } from '@lyness/lyn-util-text-search'
 import type { PluginInventoryLocaleKey } from './locales.ts'
 import css from './PluginInventorySettingsTab.module.css'
 
@@ -74,7 +74,7 @@ function moduleShortName(moduleName: string): string {
   return unscoped
     .replace(/^cordis:/, '')
     .replace(/^cordis-plugin-/, '')
-    .replace(/^dsh-(?:host-|client-)?/, '')
+    .replace(/^lyn-(?:host-|client-)?/, '')
 }
 
 /** Display an entry identity without the composition-only `include:` marker. */

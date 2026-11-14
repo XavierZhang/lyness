@@ -1,7 +1,7 @@
 import { rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { scanCommand } from '../src/process.ts'
 import { harness, repository } from './harness.ts'
 

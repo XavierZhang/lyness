@@ -4,9 +4,9 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type { MemoriesView } from '@deepseek-ai/dsh-api-memory-controller/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type { MemoriesView } from '@lyness/lyn-api-memory-controller/types'
 import { createMemoryOperations } from '../src/client/operations.ts'
 import type { MemoryCalls, MemorySink } from '../src/client/operations.ts'
 

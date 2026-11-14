@@ -1,7 +1,7 @@
 import { executeTool } from './execute-tool.ts'
 import { randomUUID } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { ToolCallId } from '@lyness/lyn-llm'
 import * as Timeline from '../src/index.ts'
 import { CONTROL_WAIT_MS, controlTargetsOverlap, reconcileControl } from '../src/controls.ts'
 import { reportId, taskId, treeId } from '../src/records.ts'

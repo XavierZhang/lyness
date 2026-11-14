@@ -1,8 +1,8 @@
 /** Published Web entry URLs and source policy stay with their WebServer isolation. */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { request as httpRequest, type IncomingMessage, type ServerResponse } from 'node:http'
-import * as Connection from '@deepseek-ai/dsh-client-connection'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
+import * as Connection from '@lyness/lyn-client-connection'
+import WebServer from '@lyness/lyn-host-webserver'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import * as WebApp from '../src/index.ts'
 

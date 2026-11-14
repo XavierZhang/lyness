@@ -9,9 +9,9 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`@deepseek-ai/dsh-client-ui-commands` accepts `menuHidden`: command names the composer menu leaves out when it opens with no query. A hidden name is still typed as `/<name>`, still ranked for a typed query, and still executes — only the row is withdrawn, for a surface that already offers the command another way. `@deepseek-ai/dsh-web-app` hides `permission` and `model`, which are seats under the composer in this product. The default hides nothing.
+`@lyness/lyn-client-ui-commands` accepts `menuHidden`: command names the composer menu leaves out when it opens with no query. A hidden name is still typed as `/<name>`, still ranked for a typed query, and still executes — only the row is withdrawn, for a surface that already offers the command another way. `@lyness/lyn-web-app` hides `permission` and `model`, which are seats under the composer in this product. The default hides nothing.
 
-`contactFormUrl` on `@deepseek-ai/dsh-client-ui-settings-account` now defaults to empty, and an empty value withdraws the account menu's Feedback entry. It previously defaulted to a questionnaire this project does not own, and the URL carries the signed-in account, the build and the device description to whoever does. A deployment that wants the entry names its own HTTPS form.
+`contactFormUrl` on `@lyness/lyn-client-ui-settings-account` now defaults to empty, and an empty value withdraws the account menu's Feedback entry. It previously defaulted to a questionnaire this project does not own, and the URL carries the signed-in account, the build and the device description to whoever does. A deployment that wants the entry names its own HTTPS form.
 
 ## Migration
 

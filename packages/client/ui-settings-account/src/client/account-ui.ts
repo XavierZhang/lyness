@@ -1,5 +1,5 @@
 /** Account state and presentation extension points shared with client plugins. */
-import type { AccountClientMetadata, AccountView } from '@deepseek-ai/dsh-deepseek-account/types'
+import type { AccountClientMetadata, AccountView } from '@lyness/lyn-deepseek-account/types'
 
 /** Latest account-stream availability, without notification state. */
 export interface AccountUiState {
@@ -28,7 +28,7 @@ export interface AccountNotificationsOwnerProps {
   openAccount: () => void
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context { accountUi: AccountUi }
   interface Events {
     /** Account stream update or loss of access. @mode parallel
@@ -41,7 +41,7 @@ declare module '@deepseek-ai/cordis' {
   }
 }
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Notifications anchored at the account menu; the contribution owns its markup and lifecycle. */
     'settings.launcher.notifications': { kind: 'single'; scope: 'root'; owner: AccountNotificationsOwnerProps }

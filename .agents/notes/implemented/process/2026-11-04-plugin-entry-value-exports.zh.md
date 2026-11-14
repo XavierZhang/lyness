@@ -6,7 +6,7 @@ Status: implemented
 
 ## 问题
 
-[包表面规则](../../../../docs/defensive-patterns/package-surface.zh.md)把插件入口限定为 Cordis Loader 加载的内容：函数插件的入口导出 `name`、`inject`、`Config`、`apply`，服务插件的入口默认导出它的插件类；除此之外，Host 入口只可再导出供其他包 `extends` 或 `throw` 的 Service Definition 类与错误类型。此前没有门禁检查这条规则，超出规则的值导出在许多插件入口上累积；例如 `dsh-mcp-client` 的入口新增了 `probeServer`、`ReconnectSchema` 以及另外四个由 `dsh-mcp-manager` 导入的值。
+[包表面规则](../../../../docs/defensive-patterns/package-surface.zh.md)把插件入口限定为 Cordis Loader 加载的内容：函数插件的入口导出 `name`、`inject`、`Config`、`apply`，服务插件的入口默认导出它的插件类；除此之外，Host 入口只可再导出供其他包 `extends` 或 `throw` 的 Service Definition 类与错误类型。此前没有门禁检查这条规则，超出规则的值导出在许多插件入口上累积；例如 `lyn-mcp-client` 的入口新增了 `probeServer`、`ReconnectSchema` 以及另外四个由 `lyn-mcp-manager` 导入的值。
 
 Cordis Loader 在插件条目激活时才导入它的入口，并且只读取插件形态提供的内容：函数插件模块命名空间里的 Loader 字段，或服务插件默认导出的类。入口上的其他值都是其他包可以静态导入的 API；这种导入会在导入方加载时执行该入口模块及其依赖，不经过该条目的激活，也不等待 `inject`。
 

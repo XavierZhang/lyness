@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 import type { WorkflowRunId } from '../src/types.ts'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import WorkflowEngineDefault, {
   isFatalWorkflowError,
   WorkflowError,
@@ -23,7 +23,7 @@ class StubEngine extends WorkflowEngine {
 
 const INFO: WorkflowRunInfo = { id: brandString<WorkflowRunId>('run-1'), meta: { name: 'w', description: 'd' } }
 
-describe('dsh-workflow (interface)', () => {
+describe('lyn-workflow (interface)', () => {
   it('preserves workflow identity as a string', () => {
     expect(brandString<WorkflowRunId>('abc')).toBe('abc')
   })

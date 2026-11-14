@@ -2,7 +2,7 @@
 
 English | [中文](computer-use.zh.md)
 
-Computer use lets a model observe and operate the local desktop through a configured provider. The shared DSH capability is called **computer use**; **Cua Driver** names the upstream implementation.
+Computer use lets a model observe and operate the local desktop through a configured provider. The shared LYN capability is called **computer use**; **Cua Driver** names the upstream implementation.
 
 [Computer Use](../../packages/experimental/cua-bundle/README.md) is an optional experimental bundle for macOS and Windows.
 
@@ -21,11 +21,11 @@ The [shared object API](../../packages/experimental/cua/README.md) uses `connect
 
 ## Serve Computer Use to another harness
 
-[Computer use MCP server](../../packages/experimental/cua-mcp/README.md) is a shipped optional bundle that composes the standalone `cua-mcp` profile; a profile manifest that selects it alone is the whole setup. `dsh --profile cua-mcp` serves `cua_get_api_reference`, `cua_run_code`, and `cua_reset` to one MCP client such as Codex or Claude Code; each connection owns one Agent whose programs retain application and window objects, and consent is granted unattended or forwarded to the client as an elicitation. The profile runs no model turn and records no root tool calls in its Session.
+[Computer use MCP server](../../packages/experimental/cua-mcp/README.md) is a shipped optional bundle that composes the standalone `cua-mcp` profile; a profile manifest that selects it alone is the whole setup. `lyn --profile cua-mcp` serves `cua_get_api_reference`, `cua_run_code`, and `cua_reset` to one MCP client such as Codex or Claude Code; each connection owns one Agent whose programs retain application and window objects, and consent is granted unattended or forwarded to the client as an elicitation. The profile runs no model turn and records no root tool calls in its Session.
 
 ## Choose a provider
 
-Mount [`dsh-computer-use`](../../packages/computer-use/computer-use/README.md) and one provider in the same composition. The Computer Use bundle selects the native provider for the host platform. Custom compositions can also mount a provider directly.
+Mount [`lyn-computer-use`](../../packages/computer-use/computer-use/README.md) and one provider in the same composition. The Computer Use bundle selects the native provider for the host platform. Custom compositions can also mount a provider directly.
 
 | Provider | Runtime |
 |---|---|
@@ -40,7 +40,7 @@ The two Cua Driver providers are public experimental npm packages. Mount one exp
 
 A provider retains its registration while it shuts down its tools and owned resources. Startup failure releases the attempted registration. The MCP provider keeps its registration during reconnects.
 
-One registered provider does not reserve a desktop for a Session. Callers coordinate complete observe, act, and verify workflows across Sessions and separate DSH processes. A cancelled call cannot undo input that the desktop already received.
+One registered provider does not reserve a desktop for a Session. Callers coordinate complete observe, act, and verify workflows across Sessions and separate LYN processes. A cancelled call cannot undo input that the desktop already received.
 
 ## Results and platform requirements
 

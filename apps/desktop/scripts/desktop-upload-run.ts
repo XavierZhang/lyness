@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { Readable } from 'node:stream'
 import type COS from 'cos-nodejs-sdk-v5'
 import type { DesktopUploadArtifact, DesktopUploadPlan } from './desktop-upload-plan.ts'
-import { DESKTOP_COS_REGION } from '@deepseek-ai/dsh-desktop-publisher/desktop-cos.ts'
+import { DESKTOP_COS_REGION } from '@lyness/lyn-desktop-publisher/desktop-cos.ts'
 import { recordPackagingEvent } from './packaging-run.mjs'
 
 const FAILURE_CODES = new Set(['AccessDenied', 'InternalError', 'NoSuchBucket', 'BadDigest', 'SignatureDoesNotMatch',
@@ -17,7 +17,7 @@ const UPLOADER_SOURCES = {
   'desktop-upload-run.ts': new URL('./desktop-upload-run.ts', import.meta.url),
   'upload-target.ts': new URL('./upload-target.ts', import.meta.url),
   'desktop-upload-plan.ts': new URL('./desktop-upload-plan.ts', import.meta.url),
-  'desktop-cos.ts': new URL(import.meta.resolve('@deepseek-ai/dsh-desktop-publisher/desktop-cos.ts')),
+  'desktop-cos.ts': new URL(import.meta.resolve('@lyness/lyn-desktop-publisher/desktop-cos.ts')),
 }
 
 async function fingerprint(artifact: DesktopUploadArtifact) {

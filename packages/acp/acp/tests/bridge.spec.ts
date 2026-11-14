@@ -4,13 +4,13 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { AttachmentError } from '@deepseek-ai/dsh-attachment'
-import type { ToolCallId, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { SESSION_FORMAT_VERSION, type SessionId, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { SessionHeader } from '@deepseek-ai/dsh-session'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { SessionPersistenceRevision, SessionPersistenceSnapshot } from '@deepseek-ai/dsh-session-persistence'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { AttachmentError } from '@lyness/lyn-attachment'
+import type { ToolCallId, StreamChunk } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, type SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { SessionHeader } from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionPersistenceRevision, SessionPersistenceSnapshot } from '@lyness/lyn-session-persistence'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
 import { makeBridgeHarness, textResponse, type BridgeHarness } from './harness.ts'
 import { startHttpMcpFixture } from '../../../mcp/mcp-client/tests/http-fixture.ts'
 
@@ -49,7 +49,7 @@ describe('automation-only ACP bridge', () => {
 
     expect(response).toEqual({
       protocolVersion: PROTOCOL_VERSION,
-      agentInfo: { name: 'deepseek-harness-acp', version: '0.0.1' },
+      agentInfo: { name: 'lyness-acp', version: '0.0.1' },
       agentCapabilities: {
         mcpCapabilities: { http: true },
         promptCapabilities: { image: false, audio: false, embeddedContext: false },
@@ -519,7 +519,7 @@ describe('automation-only ACP bridge', () => {
   })
 
   it('lists and resumes persisted sessions after an equivalent process restart', async () => {
-    const persistenceRoot = await mkdtemp(join(tmpdir(), 'dsh-acp-restart-'))
+    const persistenceRoot = await mkdtemp(join(tmpdir(), 'lyn-acp-restart-'))
     try {
       harness = await makeBridgeHarness({ persistenceRoot, script: [textResponse('before restart')] })
       await harness.client.initialize({ protocolVersion: PROTOCOL_VERSION, clientCapabilities: {} })

@@ -9,10 +9,10 @@
  * Input side owns the span/bare-token CAS guard) and focuses the composer;
  * the controller never touches the input machine.
  */
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { TokenSpan } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
-import { TextSearchIndex } from '@deepseek-ai/dsh-util-text-search'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { TokenSpan } from '@lyness/lyn-client-ui-input-trigger/client'
+import { TextSearchIndex } from '@lyness/lyn-util-text-search'
 import type { PopupSearchLabels, PopupSelectSpec, SelectOption } from './contract.ts'
 import { groupOptions } from './option-groups.ts'
 

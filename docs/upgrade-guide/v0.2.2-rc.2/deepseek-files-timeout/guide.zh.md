@@ -12,4 +12,4 @@ description: "为上传较慢的 DeepSeek 网关保留较长的图片上传时�
 
 ## 迁移
 
-如果网关需要原先的时限，在当前配置的 `cordis.patch.yml` 中为 DeepSeek 提供方设置 `filesApiTimeoutMs: 60000`。已显式设置的值继续生效。运行 `dsh --profile <profile> --dump-config`，检查提供方条目中的值。
+如果网关需要原先的时限，在当前配置的 `cordis.patch.yml` 中为 DeepSeek 提供方设置 `filesApiTimeoutMs: 60000`。已显式设置的值继续生效。运行 `lyn --profile <profile> --dump-config`，检查提供方条目中的值。

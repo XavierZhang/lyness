@@ -2,9 +2,9 @@
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { Context } from '@deepseek-ai/cordis'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import { JsonStorageBackend } from '@deepseek-ai/dsh-storage-json'
+import type { Context } from '@lyness/cordis'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { JsonStorageBackend } from '@lyness/lyn-storage-json'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import {
   createAfterScheduleRecord,
@@ -17,7 +17,7 @@ import {
 } from '../src/domain.ts'
 import type { ScheduleId } from '../src/types.ts'
 import { agentFor, harness, storedUnit } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const roots: string[] = []
 const contexts: Context[] = []
@@ -33,7 +33,7 @@ afterEach(async () => {
 })
 
 async function store(task: unknown, version = 1) {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-evolution-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-evolution-'))
   roots.push(root)
   const file = join(root, 'schedule.json')
   const bytes = JSON.stringify({ unit: { name: 'schedule', version }, global: null, tables: { tasks: { [id]: task } } }, null, 2)

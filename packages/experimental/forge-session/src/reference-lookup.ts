@@ -1,11 +1,11 @@
 /** Resolve unqualified CLI references in the shell execution world and persist only confirmed URLs. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-shell'
-import type {} from '@deepseek-ai/dsh-shell-env'
-import type {} from '@deepseek-ai/dsh-sandbox-policy'
+import type { Context } from '@lyness/cordis'
+import type { Session } from '@lyness/lyn-session'
+import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-shell'
+import type {} from '@lyness/lyn-shell-env'
+import type {} from '@lyness/lyn-sandbox-policy'
 import { z } from 'zod'
 import { ownChangeRequestUrls } from './commands.ts'
 import { ghReferences } from './references.ts'
@@ -107,7 +107,7 @@ export function observeReferences(ctx: Context, timeoutMs: number, record: (sess
         workdir: lookup.cwd,
         timeoutMs,
         signal,
-        dshEnv: scope.shellEnv.collect(lookup.exec),
+        lynEnv: scope.shellEnv.collect(lookup.exec),
         sandboxPolicy: scope.get('sandboxPolicy')?.resolve({ session: lookup.session }),
       })
       const process = await scope.shell.execute(spec)

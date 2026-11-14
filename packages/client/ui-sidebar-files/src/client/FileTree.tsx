@@ -11,9 +11,9 @@
 import { memo, useMemo } from 'react'
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
-import type { FactoryComponentPropsOf } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ContextMenuTriggerProps } from '@deepseek-ai/dsh-client-ui-context-menu/client'
-import { FileTypeIcon, classifyFileType, IconFolderCloseRegular, IconFolderOpenRegular } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { FactoryComponentPropsOf } from '@lyness/lyn-client-ui-slots'
+import type { ContextMenuTriggerProps } from '@lyness/lyn-client-ui-context-menu/client'
+import { FileTypeIcon, classifyFileType, IconFolderCloseRegular, IconFolderOpenRegular } from '@lyness/lyn-client-ui-primitives'
 import type {} from './locales.ts'
 import { matchRanges } from './search-tree.ts'
 import css from './FileTree.module.css'
@@ -111,7 +111,7 @@ export interface FileTreeInput {
   readonly rowTriggerProps?: ((entry: TreeEntry, kind: 'file' | 'directory') => ContextMenuTriggerProps) | undefined
 }
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotFactoryMap {
     /** A controlled file tree over caller-supplied entries; the caller decides what a click does. */
     'sidebar.files.tree': {

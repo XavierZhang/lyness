@@ -7,12 +7,12 @@ import { fileURLToPath } from 'node:url'
 import { execa } from 'execa'
 import yaml from 'js-yaml'
 import { expect, it } from 'vitest'
-import { stringifyEntryYaml } from '@deepseek-ai/cordis-plugin-include'
+import { stringifyEntryYaml } from '@lyness/cordis-plugin-include'
 import { assertInstalledTree, createPackedInstallation } from './packed-installation.ts'
 
 const root = fileURLToPath(new URL('../../../..', import.meta.url))
-const adapter = '@deepseek-ai/dsh-webhook-github'
-const runtime = '@deepseek-ai/dsh-webhook'
+const adapter = '@lyness/lyn-webhook-github'
+const runtime = '@lyness/lyn-webhook'
 const built = existsSync(join(root, 'apps/cli/lib/bin.js'))
   && existsSync(join(root, 'packages/webhook/webhook-github/lib/index.js'))
 const secret = 'packed-webhook-test-secret'
@@ -23,13 +23,13 @@ it.skipIf(!built)('loads the packed GitHub example with its explicitly installed
   retry: 0,
 }, async () => {
   const { temporary, installation, home, profile, environment, tarballs, members, externalVersions, packageCommand }
-    = await createPackedInstallation('dsh-webhook-packed-', [runtime, adapter])
-  Object.assign(environment, { DSH_GITHUB_WEBHOOK_SECRET: secret, DSH_GITHUB_WEBHOOK_PORT: '0' })
+    = await createPackedInstallation('lyn-webhook-packed-', [runtime, adapter])
+  Object.assign(environment, { LYNESS_GITHUB_WEBHOOK_SECRET: secret, LYNESS_GITHUB_WEBHOOK_PORT: '0' })
   expect(existsSync(join(installation, 'node_modules', runtime))).toBe(false)
   expect(existsSync(join(installation, 'node_modules', adapter))).toBe(false)
   await writeFile(join(profile, 'package.json'), JSON.stringify({
     name: 'packed-webhook-profile', private: true, dependencies: {},
-    dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'] } },
+    lyn: { profile: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'] } },
   }))
   const profileDependencies = new Set([runtime, adapter])
   for (const name of profileDependencies) {
@@ -70,7 +70,7 @@ export function apply(ctx) {
     { id: 'github-webhook-ingress', insert: [{ id: 'observe-packed-ingress', name: observer }] },
   ]))
   const child = execa(process.execPath, [
-    join(installation, 'node_modules/@deepseek-ai/dsh/lib/bin.js'), 'web', '--patch', example, '--patch', patch, '--no-open', '--port', '0',
+    join(installation, 'node_modules/@lyness/lyn/lib/bin.js'), 'web', '--patch', example, '--patch', patch, '--no-open', '--port', '0',
   ], { cwd: temporary, env: environment, extendEnv: false, reject: false, timeout: 90_000 })
   try {
     const ready = new Promise<string>((resolveReady, rejectReady) => {
@@ -78,7 +78,7 @@ export function apply(ctx) {
       child.stdout?.on('data', (chunk: Buffer) => {
         output += chunk.toString()
         const origin = /PACKED_WEBHOOK_READY=(http:\/\/127\.0\.0\.1:\d+)/.exec(output)?.[1]
-        if (origin !== undefined && output.includes('dsh web: ')) resolveReady(origin)
+        if (origin !== undefined && output.includes('lyn web: ')) resolveReady(origin)
       })
       void child.then((result) => {
         rejectReady(new Error(`Web profile exited before readiness:\n${result.stdout}\n${result.stderr}`))

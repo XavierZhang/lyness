@@ -3,13 +3,13 @@ description: "The credits module as its own bundle: a ledger, a recurring allowa
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-credits
+# @lyness/lyn-module-credits
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-module-credits` is the composition that meters what a deployment's people spend: the ledger, the recurring allowance, the administrator decisions that change it, and the enforcement that rides `llm/stream`. It is selected beside [`dsh-module-accounts`](../module-accounts/README.md), never instead of it: who a request charges is read from that request's principal, and without accounts there is no principal to read.
+`lyn-module-credits` is the composition that meters what a deployment's people spend: the ledger, the recurring allowance, the administrator decisions that change it, and the enforcement that rides `llm/stream`. It is selected beside [`lyn-module-accounts`](../module-accounts/README.md), never instead of it: who a request charges is read from that request's principal, and without accounts there is no principal to read.
 
 ## Table of Contents
 
@@ -29,8 +29,8 @@ A profile selects it beside the accounts module:
 
 ```yaml
 bundles:
-  - '@deepseek-ai/dsh-module-accounts'
-  - '@deepseek-ai/dsh-module-credits'
+  - '@lyness/lyn-module-accounts'
+  - '@lyness/lyn-module-credits'
 ```
 
 The shipped `hosted` template does exactly that. The `enterprise` template selects accounts and not this one, because metering a customer's own staff on the customer's own hardware would be charging them for their own machine.
@@ -39,7 +39,7 @@ The allowance is the number an installation changes first:
 
 ```yaml
 - id: credits
-  name: '@deepseek-ai/dsh-credits/store'
+  name: '@lyness/lyn-credits/store'
   config:
     periodicAmount: 1000
     period: daily
@@ -61,9 +61,9 @@ The allowance is the number an installation changes first:
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-credits`](../../credits/credits/README.md) — the ledger, the allowance arithmetic, and the authority rule.
-- [`dsh-module-accounts`](../module-accounts/README.md) — the people this module charges, and the principal it reads them from.
-- [`dsh-api-credits-controller`](../../api/credits-controller/README.md) — the namespace a surface reads a balance through.
+- [`lyn-credits`](../../credits/credits/README.md) — the ledger, the allowance arithmetic, and the authority rule.
+- [`lyn-module-accounts`](../module-accounts/README.md) — the people this module charges, and the principal it reads them from.
+- [`lyn-api-credits-controller`](../../api/credits-controller/README.md) — the namespace a surface reads a balance through.
 
 -----
 
@@ -93,6 +93,6 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-These four rows lived in `dsh-module-accounts` until the enterprise template needed accounts without metering; the split is what keeps "no quota" meaning absent rather than configured to zero.
+These four rows lived in `lyn-module-accounts` until the enterprise template needed accounts without metering; the split is what keeps "no quota" meaning absent rather than configured to zero.
 
 </details>

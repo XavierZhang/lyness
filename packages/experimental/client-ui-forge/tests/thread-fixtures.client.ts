@@ -1,6 +1,6 @@
 /** Host review threads, comments, and diff files shared by the browser-side thread tests. */
 
-import type { ForgeCommentId, ForgeReviewComment, ForgeReviewThread, ForgeThreadId } from '@deepseek-ai/dsh-experimental-forge/types'
+import type { ForgeCommentId, ForgeReviewComment, ForgeReviewThread, ForgeThreadId } from '@lyness/lyn-experimental-forge/types'
 import type { ForgeDiffFile, ForgeDiffHunk } from '../src/types.ts'
 
 let comments = 0

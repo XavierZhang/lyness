@@ -6,10 +6,10 @@
  * `ctx.fs`, both within `maxDiffBytes`.
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { FsError } from '@deepseek-ai/dsh-fs'
-import type { Session } from '@deepseek-ai/dsh-session'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
+import type { Context } from '@lyness/cordis'
+import { FsError } from '@lyness/lyn-fs'
+import type { Session } from '@lyness/lyn-session'
+import { assertNever } from '@lyness/lyn-util-values'
 import { rangeStart } from './commit-range.ts'
 import { decodeText, oversizedUntrackedFile, parseDiff, parseNumstat, untrackedFile } from './diff.ts'
 import type { ParsedDiffFile } from './diff.ts'
@@ -21,7 +21,7 @@ import { BASE_REF_PREFIXES, parseBaseBranches, parseName, remoteOrder } from './
 import type {
   ForgeCommitRange, ForgeLocalChanges, ForgeLocalCommits, ForgeLocalDiff, ForgeLocalScope, ForgeBaseBranches, ForgeSessionWorktree,
 } from './types.ts'
-import type { ForgeCommit } from '@deepseek-ai/dsh-experimental-forge/types'
+import type { ForgeCommit } from '@lyness/lyn-experimental-forge/types'
 
 /** Git limits plus the size limits of local diffs. */
 export interface DiffConfig extends GitConfig {

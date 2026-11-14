@@ -1,22 +1,22 @@
 /** Remote contribution and slot registrations of the forge panel. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { RemoteHostFacts } from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-session-controller/client'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
-import { IconBranchOutlineRegular, type QuoteSummary } from '@deepseek-ai/dsh-client-ui-primitives'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
-import type {} from '@deepseek-ai/dsh-experimental-client-ui-forge/remote'
-import type { ForgeReviewThread } from '@deepseek-ai/dsh-experimental-forge/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { RemoteResult, TypertRemoteContribution } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import type { RemoteHostFacts } from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type {} from '@lyness/lyn-client-ui-plugin-manager/client'
+import { IconBranchOutlineRegular, type QuoteSummary } from '@lyness/lyn-client-ui-primitives'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
+import type {} from '@lyness/lyn-experimental-client-ui-forge/remote'
+import type { ForgeReviewThread } from '@lyness/lyn-experimental-forge/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { RemoteResult, TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
 import type {
   ForgeChangeRequestListState, ForgeChangeRequestStatesFrame, ForgeExtensionState, ForgePanelChangeRequest,
 } from '../types.ts'
@@ -52,13 +52,13 @@ import { WorktreeToggle, type WorktreeToggleInjected } from './WorktreeToggle.ts
 export const inject = ['remote', 'slots', 'locale', 'sidebarRightTabs', 'sidebarRight', 'sessions', 'configForms']
 
 /** The worktree row of the Forge bundle, whose Plugins page carries the archive cleanup switch. */
-export const WORKTREE_ROW_KEY = '@deepseek-ai/dsh-experimental-forge-bundle#worktree'
+export const WORKTREE_ROW_KEY = '@lyness/lyn-experimental-forge-bundle#worktree'
 
 /** The Loader entry id the worktree service's settings namespace follows. */
 export const WORKTREE_NS = 'worktree'
 
 /** Registry id of the forge tab type, also its slot key. */
-export const TAB_ID = '@deepseek-ai/dsh-experimental-client-ui-forge'
+export const TAB_ID = '@lyness/lyn-experimental-client-ui-forge'
 
 /** Kind of the forge tab. */
 export const TAB_KIND = 'forge-panel'
@@ -328,7 +328,7 @@ function registerUi(ctx: Context): void {
       reviewQueue: ({ id, signal }) => {
         let queue = store.reviews.get(signal)
         if (queue === undefined) {
-          const records = new ReviewQueue(`dsh.forge-review.tab.v1.${JSON.stringify([sessionId, id])}`)
+          const records = new ReviewQueue(`lyn.forge-review.tab.v1.${JSON.stringify([sessionId, id])}`)
           queue = records
           store.reviews.set(signal, records)
           const clear = (): void => { if (!records.close()) notices.report('review.saveFailed') }

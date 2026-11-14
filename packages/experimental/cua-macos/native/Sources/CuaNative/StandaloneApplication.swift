@@ -20,10 +20,10 @@ enum StandaloneApplication {
         let support = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask,
                                                   appropriateFor: nil, create: true)
         return try install(source, runtimeKey: runtimeKey,
-                           root: support.appendingPathComponent("DeepSeek Harness/Computer Use"), deadline: deadline)
+                           root: support.appendingPathComponent("lyness/Computer Use"), deadline: deadline)
     }
 
-    // Published generations remain immutable while any installed DSH version may still run them.
+    // Published generations remain immutable while any installed LYN version may still run them.
     static func install(_ source: URL, runtimeKey: String, root: URL, deadline: UInt64) throws -> URL {
         let files = FileManager.default
         try files.createDirectory(at: root, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
@@ -72,7 +72,7 @@ enum StandaloneApplication {
         guard !hasApplicationAncestor(application.resolvingSymlinksInPath()) else {
             throw NativeFailure(code: "NATIVE_APPLICATION_REQUIRED", message: "Computer Use application resolves inside another .app: \(application.path)")
         }
-        let executable = application.appendingPathComponent("Contents/MacOS/dsh-cua-native")
+        let executable = application.appendingPathComponent("Contents/MacOS/lyn-cua-native")
         let bytes = try Data(contentsOf: executable, options: .mappedIfSafe)
         let digest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
         var code: SecStaticCode?

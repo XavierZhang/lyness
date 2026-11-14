@@ -5,8 +5,8 @@
  * the exclusion rules, the hidden-entry choice, and `.gitignore`; the Client
  * only draws the matches it returns.
  */
-import type { ClientRemote, RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ClientRemote, RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SearchMatch } from './search-tree.ts'
 
 /** What one search asks the Host for. */

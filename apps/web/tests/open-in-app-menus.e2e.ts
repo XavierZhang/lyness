@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, webkit, type Browser, type BrowserContext, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFinished } from 'vitest'
-import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import {
   captureStableAria, compareOrRefreshGolden, launchWebScaffold, seedSession, webSnapshotMode, type WebScaffold,
 } from './scaffold.ts'
@@ -196,7 +196,7 @@ describe('Open in Session menus', () => {
     if (device.touch) await choice.tap(); else await choice.click()
     await expect.poll(() => launches).toEqual([{ app: 'cursor', path: scaffold.workspaceCwd }])
     await expect.poll(() => page.getByRole('menu').count()).toBe(0)
-    await expect.poll(() => page.evaluate(() => localStorage.getItem('dsh.open-in-app.choice'))).toBe('"cursor"')
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('lyn.open-in-app.choice'))).toBe('"cursor"')
     if (device.mobile) await page.getByText('Opened on another device', { exact: true }).waitFor()
     else expect(await page.getByText('Opened on another device', { exact: true }).count()).toBe(0)
   })
@@ -223,7 +223,7 @@ describe('Open in Session menus', () => {
     await page.keyboard.press('Escape')
     response.resolve(502)
     await page.getByText('Could not open. Try again.', { exact: true }).waitFor()
-    expect(await page.evaluate(() => localStorage.getItem('dsh.open-in-app.choice'))).toBeNull()
+    expect(await page.evaluate(() => localStorage.getItem('lyn.open-in-app.choice'))).toBeNull()
     await background.hover()
     await background.getByRole('button', { name: /actions/i }).click()
     await expect.poll(() => page.getByRole('menuitem', { name: 'Open in', exact: true }).isEnabled()).toBe(true)

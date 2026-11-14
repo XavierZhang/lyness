@@ -2,7 +2,7 @@
 /** The changes toolbar's More menu: the rows of each fold level, their marks, and their actions. */
 import { cleanup, fireEvent, render, within } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { en } from '../src/client/locales.ts'
 import { ViewOptionsMenu, type ViewOptions } from '../src/client/ViewOptionsMenu.tsx'
 

@@ -1,9 +1,9 @@
 ---
-description: "dsh Web 客户端右侧 Sidebar 的工作区文件浏览器：文件页，以及停靠与浮动文件预览旁每个分栏一棵的工作区目录树，通过网络逐层列出。"
+description: "lyn Web 客户端右侧 Sidebar 的工作区文件浏览器：文件页，以及停靠与浮动文件预览旁每个分栏一棵的工作区目录树，通过网络逐层列出。"
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-sidebar-files
+# @lyness/lyn-client-ui-sidebar-files
 
 [English](README.md) | 中文
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 命令 `workspace.files` 在焦点分栏内显示停靠预览旁的导航栏，或展开已有停靠文件页的搜索栏，并把键盘焦点移到其搜索框，保留该 tab；从聊天区触发时使用当前会话的活动停靠分栏。其他情况下（不带导航栏的 tab、没有工作目录的会话、浮动 tab）打开或聚焦文件页，文件页的目录树始终显示。文件页替换开始页，同一分栏内重复打开仍保留一个文件页。桌面默认键为 Mod+P。开始页入口显示有效快捷键；Windows 和 macOS Web 使用[快捷键服务的平台默认值](../shortcuts/README.zh.md)；Linux Web 默认不绑定此命令。
 
-- **类型**：`ctx.sidebarRightTabs.register(...)`，kind 为 `files`，id 为 `@deepseek-ai/dsh-client-ui-sidebar-files`，档位 `builtin`，没有 patterns，另有一个打开该类型的引导页入口（order 10，标题与描述取自 `sidebarFiles` 命名空间，图标为黄色文件夹）。
+- **类型**：`ctx.sidebarRightTabs.register(...)`，kind 为 `files`，id 为 `@lyness/lyn-client-ui-sidebar-files`，档位 `builtin`，没有 patterns，另有一个打开该类型的引导页入口（order 10，标题与描述取自 `sidebarFiles` 命名空间，图标为黄色文件夹）。
 - **文件页正文**：以该 id 为键的 `sidebar.right.pane.tab` slot。其标题行横跨页面，通过共享的 [`PathLabel`](../ui-primitives/README.zh.md#component-catalog) 显示根路径，目录使用弱化颜色，最后一段使用主色；路径过长时保留尾部字符并在左侧渐隐，悬停显示完整路径。目录树的重新读取控件和搜索栏开关位于由文件页注册声明的 Session 作用域 `sidebar.right.tab.files.actions` 列表之前（通过 `absolutePath` 传入当前显示的根目录）；[`ui-open-in-app`](../ui-open-in-app/README.zh.md) 在此提供工作区目录打开按钮。标题行下方由该分栏的导航栏铺满整页，停靠与浮动时都一样，这里没有导航栏开关。
 - **各行**：root 作用域的 Component Factory `sidebar.files.tree`，接收调用方的条目和局部 `accessory` slot；见[复用目录树 Factory](#tree-factory)。
 - **导航栏**：Session 作用域的 Component Factory `sidebar.files.navigator`。文件页正文和 [`ui-sidebar-documentpreview`](../ui-sidebar-documentpreview/README.zh.md) 直接渲染它，显示在每个预览旁，无论停靠还是浮动。它绘制[搜索栏](#search)、目录树及其调整宽度的边缘，没有自己的标题行：预览旁只有预览自己的标题行，目录树的重新读取与目录操作留在 `files` 页上。
@@ -56,12 +56,12 @@ kind: "package-reference"
 <a id="the-tree"></a>
 ## 树
 
-根是会话的工作目录，读自 `useSessions().byId[sessionId].cwd`。`/` 和 Windows 盘根等文件系统根路径均可作为树的根。每一层以绝对路径为键；子路径是父路径以 `/` 拼上条目名。一层在首次展开时经 `@deepseek-ai/dsh-api-workspace-files` 命名空间的 `remote.workspaceFiles.list(sessionId, absolutePath)` 列出。各行由[目录树 Factory](#tree-factory) 绘制并排序；`workspace-tree.ts` 传入每个已列出的条目，名字取目录列表中的拼写，类型作为 `meta.kind`，根的键去掉末尾分隔符，并传入已本地化的失败行。Factory 自行从 files locale 读取文案。名称以 `.` 开头的条目，在读者[显示隐藏条目](#search)之前不显示。
+根是会话的工作目录，读自 `useSessions().byId[sessionId].cwd`。`/` 和 Windows 盘根等文件系统根路径均可作为树的根。每一层以绝对路径为键；子路径是父路径以 `/` 拼上条目名。一层在首次展开时经 `@lyness/lyn-api-workspace-files` 命名空间的 `remote.workspaceFiles.list(sessionId, absolutePath)` 列出。各行由[目录树 Factory](#tree-factory) 绘制并排序；`workspace-tree.ts` 传入每个已列出的条目，名字取目录列表中的拼写，类型作为 `meta.kind`，根的键去掉末尾分隔符，并传入已本地化的失败行。Factory 自行从 files locale 读取文案。名称以 `.` 开头的条目，在读者[显示隐藏条目](#search)之前不显示。
 
 | 条目类型 | 行 |
 |---|---|
 | `directory` | 切换展开与折叠；再次打开时重新列举，并恢复仍存在的已展开后代。折叠期间保留已显示条目的缓存。 |
-| `file` | 按[导航栏](#the-navigator)所述打开 `dsh-resource://file/session/<sessionId>/<encoded path relative to the root>`，地址由 `@deepseek-ai/dsh-util-workspace-path` 的 `fileAddressFor` 从条目的绝对路径与树的根生成。没有已注册的 tab 类型能打开该地址时（例如未启用 `ui-sidebar-documentpreview`），该行灰显、不可点击并说明原因；一旦有能打开它的类型注册，就变为可点击。 |
+| `file` | 按[导航栏](#the-navigator)所述打开 `lyn-resource://file/session/<sessionId>/<encoded path relative to the root>`，地址由 `@lyness/lyn-util-workspace-path` 的 `fileAddressFor` 从条目的绝对路径与树的根生成。没有已注册的 tab 类型能打开该地址时（例如未启用 `ui-sidebar-documentpreview`），该行灰显、不可点击并说明原因；一旦有能打开它的类型注册，就变为可点击。 |
 | `other` | 灰显且不可点击，从而完整呈现目录内容。 |
 
 被端点条目上限截断的层以一条标记收尾；空层如实说明，所有条目都是隐藏条目的层说明隐藏项未显示；失败的层按错误码各显示一行（`workspace-file/not-found`、`outside-workspace`、`not-directory`），其他情况显示传输层自己的消息。重新读取就地刷新根与展开中的层，读取期间保留显示条目，不重置整棵树；折叠的层在下次打开时重新拉取。没有工作目录的会话只显示一行说明，而不是树。
@@ -77,20 +77,20 @@ kind: "package-reference"
 
 文件页的搜索栏默认收起。标题行中位于重新读取与目录打开按钮之间的放大镜展开搜索栏并聚焦输入框；再次点击只隐藏搜索栏，保留关键词、结果和进行中的搜索。分栏在切换 tab 和重新挂载时保留这一显示选择，不会持久化。重新展开不会再次搜索。预览旁的搜索栏保持显示。搜索栏内从左到右依次是打开搜索设置的放大镜、搜索框、显示或隐藏隐藏条目的眼睛，以及搜索框有文字时出现的清空按钮。搜索框的文字按分栏保存在类型的存储中，不会持久化；正常切换 tab 或隐藏导航栏会保留它和工作区偏好。
 
-文字除空白外还有内容时，face 立即调用 `SearchWorkspace`，传入 Session、去掉首尾空白的查询、已启用规则的路径、隐藏条目能否匹配，以及是否尊重忽略文件；工作区偏好变化时再次调用。插件装入 `createSearch(ctx.remote)`，它调用 `@deepseek-ai/dsh-api-workspace-files` 命名空间的 `remote.workspaceFiles.search`；Host 遍历整个工作区，包括目录树从未展开过的目录，并应用查询与偏好：不含 `/` 的查询匹配名称，含 `/` 的查询匹配工作区相对路径，都不区分大小写；不含 `/` 的规则排除所有同名文件或目录，含 `/` 的规则排除那一个路径，被排除、隐藏或被忽略的目录不会进入。每个分栏同一时间只运行一次搜索：新的查询或偏好变化会中止正在运行的搜索，并在其答复到达时丢弃它；清空文字或忘掉该分栏也会中止它。搜索运行期间，结果数这一行后面显示一个转圈图标，结果区标记为忙碌；上一次的结果保持显示，直到新答复替换它们，分栏的第一次答复到达之前结果区保持为空。随后目录树的滚动容器改为绘制剪枝到匹配项的树：保留每一层目录，全部默认展开，每个名称高亮其中出现查询的位置（不区分大小写），上方一行报告结果数。搜索结果有自己的展开状态与滚动偏移，新结果从顶部开始，因此清空文字后目录树按原来的展开状态、滚动位置与当前文件重新绘制。这一行是常驻的 polite live region，搜索框为空时内容为空且不占高度，因此读屏软件会播报每次的新结果。匹配但没有匹配后代的目录不显示空目录提示。结果为空时如实说明；开启了过滤时，这一行旁有一个信息按钮，悬停片刻或点击固定后弹出提示，说明三种过滤中哪些略去了条目：隐藏条目、排除的文件和目录、被忽略文件（如 `.gitignore`）忽略的文件和目录，按实际开启的组合给出。无论有无结果，匹配数超过 Host 返回的上限时，结果下方有一行说明只显示了前面的结果、应缩小查询范围；结果可能不完整时（文件数超过搜索上限，或某个目录读取失败），另有一行说明。Host 无法执行的搜索在结果区显示原因和「重试」按钮，其中已分类的失败按目录树同一套文案给出，从不显示为空结果。点「重试」、输入新查询或改动偏好时，已显示的失败会被清掉，不会和转圈并存。搜索框有文字时，重新读取（控件或页面刷新快捷键）也会重新执行该分栏的搜索，因为结果只是某一次搜索的快照。
+文字除空白外还有内容时，face 立即调用 `SearchWorkspace`，传入 Session、去掉首尾空白的查询、已启用规则的路径、隐藏条目能否匹配，以及是否尊重忽略文件；工作区偏好变化时再次调用。插件装入 `createSearch(ctx.remote)`，它调用 `@lyness/lyn-api-workspace-files` 命名空间的 `remote.workspaceFiles.search`；Host 遍历整个工作区，包括目录树从未展开过的目录，并应用查询与偏好：不含 `/` 的查询匹配名称，含 `/` 的查询匹配工作区相对路径，都不区分大小写；不含 `/` 的规则排除所有同名文件或目录，含 `/` 的规则排除那一个路径，被排除、隐藏或被忽略的目录不会进入。每个分栏同一时间只运行一次搜索：新的查询或偏好变化会中止正在运行的搜索，并在其答复到达时丢弃它；清空文字或忘掉该分栏也会中止它。搜索运行期间，结果数这一行后面显示一个转圈图标，结果区标记为忙碌；上一次的结果保持显示，直到新答复替换它们，分栏的第一次答复到达之前结果区保持为空。随后目录树的滚动容器改为绘制剪枝到匹配项的树：保留每一层目录，全部默认展开，每个名称高亮其中出现查询的位置（不区分大小写），上方一行报告结果数。搜索结果有自己的展开状态与滚动偏移，新结果从顶部开始，因此清空文字后目录树按原来的展开状态、滚动位置与当前文件重新绘制。这一行是常驻的 polite live region，搜索框为空时内容为空且不占高度，因此读屏软件会播报每次的新结果。匹配但没有匹配后代的目录不显示空目录提示。结果为空时如实说明；开启了过滤时，这一行旁有一个信息按钮，悬停片刻或点击固定后弹出提示，说明三种过滤中哪些略去了条目：隐藏条目、排除的文件和目录、被忽略文件（如 `.gitignore`）忽略的文件和目录，按实际开启的组合给出。无论有无结果，匹配数超过 Host 返回的上限时，结果下方有一行说明只显示了前面的结果、应缩小查询范围；结果可能不完整时（文件数超过搜索上限，或某个目录读取失败），另有一行说明。Host 无法执行的搜索在结果区显示原因和「重试」按钮，其中已分类的失败按目录树同一套文案给出，从不显示为空结果。点「重试」、输入新查询或改动偏好时，已显示的失败会被清掉，不会和转圈并存。搜索框有文字时，重新读取（控件或页面刷新快捷键）也会重新执行该分栏的搜索，因为结果只是某一次搜索的快照。
 
 眼睛默认闭上。闭眼时，目录树不显示名称以 `.` 开头的条目，搜索也被要求略过它们；睁眼时两者都显示。它通过 `aria-pressed` 报告状态，名称固定为「显示隐藏项」（Show hidden entries）。
 
 设置面板浮在导航栏中搜索栏的下方，列出排除的文件和目录，最新的在最前：每条规则有开关它的复选框、路径和删除按钮。不含 `/` 的规则指任意深度上所有同名的文件或目录，含 `/` 的规则指一个相对于工作区的路径；排除一个目录时其内容也一并排除。添加规则的输入框固定在列表上方，只有列表本身滚动；Enter 把输入的名称或路径添加到最上方，或在输入框下方说明拒绝的原因。默认列表先是版本控制、包管理器和构建输出目录（`.git`、`.hg`、`.next`、`.pnpm-store`、`.svn`、`.turbo`、`.yarn`、`build`、`coverage`、`dist`、`node_modules`），然后是 macOS 和 Windows 写入的元数据（`.DS_Store`、`.Spotlight-V100`、`.Trashes`、`.fseventsd`、`Thumbs.db`、`desktop.ini`、`$RECYCLE.BIN`、`System Volume Information`）。标题行末端是还原按钮和关闭按钮；列表与默认列表有任何不同（包括顺序不同）时显示还原按钮，点击后把列表重置为默认列表。列表上方的「尊重忽略文件（.gitignore 等）」（Respect ignore files (.gitignore, etc.)）复选框默认勾选，此时略过 ripgrep 忽略规则忽略的条目：git 仓库内的 `.gitignore`（包括工作区根以上的）、`.ignore` 文件和全局 Git excludes；不在 git 仓库内时 `.gitignore` 不生效；它和眼睛一样，一改变就保存。规则的编辑留在面板内，直到面板通过放大镜、关闭按钮、Escape 或键盘焦点离开它（在面板外按下也是如此）而关闭；关闭即保存。排除规则只缩小搜索范围，从不影响目录树。
 
-规则、眼睛与 `.gitignore` 选择按工作区根保存，即去掉尾随分隔符的 Session 工作目录（文件系统根需要的那一个除外），因此根在同一目录的每个 Session 与分栏共享它们，其他根互不影响。它们保存在浏览器存储的 `dsh.sidebar-files.workspace-search.v1` 下，读者改过的每个根各占一项，只保存与默认值不同的字段，因此读者没改过规则的根能用上后续版本的默认列表；改回默认值的根删除其条目，缺失或格式不对的字段按默认值读取。分栏的搜索文字非空时发生的变化会立即重新搜索。
+规则、眼睛与 `.gitignore` 选择按工作区根保存，即去掉尾随分隔符的 Session 工作目录（文件系统根需要的那一个除外），因此根在同一目录的每个 Session 与分栏共享它们，其他根互不影响。它们保存在浏览器存储的 `lyn.sidebar-files.workspace-search.v1` 下，读者改过的每个根各占一项，只保存与默认值不同的字段，因此读者没改过规则的根能用上后续版本的默认列表；改回默认值的根删除其条目，缺失或格式不对的字段按默认值读取。分栏的搜索文字非空时发生的变化会立即重新搜索。
 
 在搜索框中按 ↓ 把键盘焦点移到第一行，↑ 与 ↓ 在目录树或搜索结果的行之间移动，搜索栏显示时在第一行按 ↑ 回到搜索框；在行上按 Enter 与单击效果相同。Escape 先关闭设置面板，再清空搜索文字（搜索栏收起时也一样），之后才交给覆盖式导航栏的关闭行为；清空隐藏的查询时，焦点留在目录树内。在已有停靠文件页或停靠预览旁，`workspace.files` 显示搜索框并把键盘焦点移给它；其他位置遵循[命令的文件页打开行为](#what-it-registers)。
 
 <a id="tree-factory"></a>
 ## 复用目录树 Factory
 
-要绘制工作区列表、变更文件或本地 diff，在模块级声明 `const TREE_OPTIONS = { slots: { accessory: ModuleLevelComponent }, fallback: null }`，再调用 `renderFactorySlot('sidebar.files.tree', input, TREE_OPTIONS)`。保持 options 及其 `slots` 对象稳定；重新创建局部选择会让整棵树随父组件渲染而重画。该 root 作用域 Factory 仅在 files 插件加载时可用；未加载时，`renderFactorySlot` 绘制传入的 `fallback`，省略时不绘制内容。从 `@deepseek-ai/dsh-client-ui-sidebar-files/client` 仅以类型方式导入声明以及 `FileTreeInput`、`TreeEntry`、`TreeEntryMeta`、`TreeEntryKind`、`TreeDirectoryState`；不导出组件值。
+要绘制工作区列表、变更文件或本地 diff，在模块级声明 `const TREE_OPTIONS = { slots: { accessory: ModuleLevelComponent }, fallback: null }`，再调用 `renderFactorySlot('sidebar.files.tree', input, TREE_OPTIONS)`。保持 options 及其 `slots` 对象稳定；重新创建局部选择会让整棵树随父组件渲染而重画。该 root 作用域 Factory 仅在 files 插件加载时可用；未加载时，`renderFactorySlot` 绘制传入的 `fallback`，省略时不绘制内容。从 `@lyness/lyn-client-ui-sidebar-files/client` 仅以类型方式导入声明以及 `FileTreeInput`、`TreeEntry`、`TreeEntryMeta`、`TreeEntryKind`、`TreeDirectoryState`；不导出组件值。
 
 `FileTreeInput` 携带 `root`、扁平 `entries`、`expanded`、`onToggle(entry, expanded)` 和 `onOpen(entry)`。可选的 `directories` 按键提供加载、本地化失败和截断状态，并通过 `omitted` 决定没有绘制条目的目录显示什么：`hidden` 说明其隐藏条目未显示，`unmatched` 用于搜索匹配这类选取结果，什么也不显示。可选的 `highlight` 在名称中标出其文字的每次出现，不区分大小写；`current` 与 `currentRef` 标记并提供当前文件按钮。`canOpen(entry)` 可以拒绝打开文件而不禁用其附件。`rowTriggerProps(entry, kind)` 为文件夹行和可打开的文件行提供右键菜单处理器。Factory 通过 files locale 拥有加载、空目录、截断与不可用文案；调用方负责数据访问、展开、打开、祖先定位和滚动。
 

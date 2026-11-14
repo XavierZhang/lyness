@@ -6,13 +6,13 @@ Status: implemented
 
 ## 问题
 
-连接同一宿主的前端需要一致的阅读提醒，包括所有前端都离线时结束的轮次。自动阅读确认不能清除尚未看到的完成提醒或手动未读标记。阅读行为不能改变模型历史。这些提醒显示在 [`@deepseek-ai/dsh-client-ui-session-status`](../../../../packages/client/ui-session-status/README.zh.md) 拥有的前端会话状态表中，因此阅读记录、它的前端订阅方和使用它的状态表需要同一个归属方，而且其前端面能够订阅宿主 Remote 流。
+连接同一宿主的前端需要一致的阅读提醒，包括所有前端都离线时结束的轮次。自动阅读确认不能清除尚未看到的完成提醒或手动未读标记。阅读行为不能改变模型历史。这些提醒显示在 [`@lyness/lyn-client-ui-session-status`](../../../../packages/client/ui-session-status/README.zh.md) 拥有的前端会话状态表中，因此阅读记录、它的前端订阅方和使用它的状态表需要同一个归属方，而且其前端面能够订阅宿主 Remote 流。
 
 ## 决策
 
 ### 包结构
 
-`@deepseek-ai/dsh-client-ui-session-status` 在两个面上拥有该功能，沿用 ui-trajectory 同时提供宿主面和前端面的先例：
+`@lyness/lyn-client-ui-session-status` 在两个面上拥有该功能，沿用 ui-trajectory 同时提供宿主面和前端面的先例：
 
 | 面 | 服务 | 职责 |
 |---|---|---|
@@ -23,7 +23,7 @@ Status: implemented
 
 ### 前端依赖规则
 
-订阅宿主流在运行时需要 Gateway 的 `RemoteSnapshotStream`。`verify-client-packages` 允许 `packages/client` 下的功能包通过 `dsh.client.external` 请求 `packages/api/` 下的行，但仍拒绝请求另一个功能插件的行；Remote API 组是基础设施，不是功能插件。本包只请求 `@deepseek-ai/dsh-api-gateway/client`。只有 `ctx.remoteAccess` 允许 `sessionStatus/follow` 时才运行该流；该端点在 LiveShare 中仅限所有者，因此查看者页面不打开该流，`readingReady` 保持 false，也不报告同步失败。
+订阅宿主流在运行时需要 Gateway 的 `RemoteSnapshotStream`。`verify-client-packages` 允许 `packages/client` 下的功能包通过 `lyn.client.external` 请求 `packages/api/` 下的行，但仍拒绝请求另一个功能插件的行；Remote API 组是基础设施，不是功能插件。本包只请求 `@lyness/lyn-api-gateway/client`。只有 `ctx.remoteAccess` 允许 `sessionStatus/follow` 时才运行该流；该端点在 LiveShare 中仅限所有者，因此查看者页面不打开该流，`readingReady` 保持 false，也不报告同步失败。
 
 `RemoteStream` 按稳定的 error code `gateway/carrier-lost` 判断是否重连，而不是按 `instanceof RemoteStreamCarrierError`。该 class 自带这个 code，现有调用方行为不变；本包的 `ended` 回调返回带该 code 的普通 `Error`，用导出的 `RemoteStreamCarrierFailure` 类型描述，而不导入该 class。该 code 只在前端进程内产生：宿主返回的 `RemoteError` 即使带有相同 code 也会终止流。
 

@@ -1,6 +1,6 @@
 /** GitHub GraphQL mutations sent once through `gh`, with the document and variables as JSON on standard input. */
 
-import type { ForgeActionFailure } from '@deepseek-ai/dsh-experimental-forge'
+import type { ForgeActionFailure } from '@lyness/lyn-experimental-forge'
 import { z } from 'zod'
 import { GhUnavailableError, type GhOutput, type GhRunner } from './gh.ts'
 

@@ -1,4 +1,4 @@
-import type {} from '@deepseek-ai/dsh-client-ui-context-menu/client'
+import type {} from '@lyness/lyn-client-ui-context-menu/client'
 /**
  * Browser half: register `files` as a right-Sidebar tab type, and the
  * workspace navigator beside every file preview. The navigator, the page body,
@@ -7,15 +7,15 @@ import type {} from '@deepseek-ai/dsh-client-ui-context-menu/client'
  * binds the Host's workspace search, `search-rules.ts`, `search-tree.ts`,
  * `search-preferences.ts`, and `SearchSettings.tsx`.
  */
-import type { ShortcutCommandId } from '@deepseek-ai/dsh-client-shortcuts/client'
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-session/client'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import { createSnapshotStore, type BoundActions } from '@deepseek-ai/dsh-client-store'
-import type { TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ShortcutCommandId } from '@lyness/lyn-client-shortcuts/client'
+import type { Context as ClientContext } from '@lyness/cordis'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
+import { createSnapshotStore, type BoundActions } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { FILES_ID, FILES_KIND, filesDefinition } from './definition.tsx'
 import { canOpenOf, createList, createWatch, filesFace, type FilesInjected } from './face.ts'
 import { createSearch } from './search-workspace.ts'
@@ -40,7 +40,7 @@ export type { TreeEntry, TreeEntryMeta, TreeEntryKind, TreeDirectoryState, FileT
 export type { FileNavigatorInput } from './FileNavigator.tsx'
 export type { NavigatorToggleInput } from './NavigatorToggle.tsx'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Workspace directory actions after the `files` page's reload control. */
     'sidebar.right.tab.files.actions': {

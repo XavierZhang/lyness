@@ -10,4 +10,4 @@ header:
   systemPromptSource: web-fetch
   toolSchemasSource: web-fetch
 environment:
-  DSH_SNAPSHOT_FETCH_KEY: snapshot-key
+  LYNESS_SNAPSHOT_FETCH_KEY: snapshot-key

@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { TokenUsage } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session, SessionSeq } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
-import type { ContextPressureProjection, TokenUsageProjection } from '@deepseek-ai/dsh-token-meter/client'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { RetryId } from '@deepseek-ai/dsh-llm-retry/types'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import type { CompactionId } from '@deepseek-ai/dsh-compaction/types'
+import { Context } from '@lyness/cordis'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { TokenUsage } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import type { ContextPressureProjection, TokenUsageProjection } from '@lyness/lyn-token-meter/client'
+import { brandString } from '@lyness/lyn-brand'
+import type { RetryId } from '@lyness/lyn-llm-retry/types'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import type { CompactionId } from '@lyness/lyn-compaction/types'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

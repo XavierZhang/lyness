@@ -3,13 +3,13 @@ description: "A person reads their own balance; an administrator grants credits 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-credits-controller
+# @lyness/lyn-api-credits-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-credits-controller` owns the `credits` Remote namespace: the calling person reads their own balance and ledger, and an administrator grants credits, sets recurring allowances, and reads the accounts of people they administer. Every call acts for the standing the request arrived in, never for one the caller names, and the authority rule itself stays in `dsh-credits` so a read and a grant cannot disagree about who may act. A read answers with `administrable`, so a surface renders its administrator controls from the same answer that fills them.
+`lyn-api-credits-controller` owns the `credits` Remote namespace: the calling person reads their own balance and ledger, and an administrator grants credits, sets recurring allowances, and reads the accounts of people they administer. Every call acts for the standing the request arrived in, never for one the caller names, and the authority rule itself stays in `lyn-credits` so a read and a grant cannot disagree about who may act. A read answers with `administrable`, so a surface renders its administrator controls from the same answer that fills them.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ It takes no configuration and needs the ledger, the administration seam, the dir
 
 ```yaml
 - id: credits-controller
-  name: '@deepseek-ai/dsh-api-credits-controller'
+  name: '@lyness/lyn-api-credits-controller'
 ```
 
 A browser calls `ctx.remote.credits.mine()`, `grant(input)`, `setAllowance(input)`, `account(person)` and `allowance(person)` the way it calls any namespace, and reads each answer as the view this package declares:
 
 ```ts
-import type { CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
+import type { CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 
 /**
  * Whether a credits page may offer granting on this answer.
@@ -83,16 +83,16 @@ export function mayOfferGranting(view: CreditAccountView): boolean {
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-credits`](../../credits/credits/README.md) — the ledger, the allowance arithmetic, and the authority rule.
-- [`dsh-people`](../../identity/people/README.md) — where a standing and its role come from.
-- [`dsh-request-principal`](../../identity/request-principal/README.md) — how a call learns who it is.
+- [`lyn-credits`](../../credits/credits/README.md) — the ledger, the allowance arithmetic, and the authority rule.
+- [`lyn-people`](../../identity/people/README.md) — where a standing and its role come from.
+- [`lyn-request-principal`](../../identity/request-principal/README.md) — how a call learns who it is.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it answers a person reading or changing an account, and the ledger's effect on a turn is the refusal `dsh-credits` raises inside `llm/stream`.
+None, as this package registers no tool or prompt: it answers a person reading or changing an account, and the ledger's effect on a turn is the refusal `lyn-credits` raises inside `llm/stream`.
 
 #### KV Cache effect
 
@@ -118,6 +118,6 @@ No request prefix changes, because nothing here reaches an assembled request.
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-`refusals` matches the administration seam's authority message by its tail, because `dsh-credits` exports that message as `NOT_PERMITTED` rather than a typed error; if that seam gains a typed refusal, branch on it here instead.
+`refusals` matches the administration seam's authority message by its tail, because `lyn-credits` exports that message as `NOT_PERMITTED` rather than a typed error; if that seam gains a typed refusal, branch on it here instead.
 
 </details>

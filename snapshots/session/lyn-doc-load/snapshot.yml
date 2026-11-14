@@ -1,0 +1,9 @@
+version: 1
+scenario: lyn-doc-load
+profile: headless
+composition: default
+recording: authored
+header:
+  class: skill
+workspace:
+  setup: lyn-doc-resources

@@ -1,12 +1,12 @@
 /** Event-level policy tests; no filesystem provider is needed because the plugin performs no I/O. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { FsTargetKey, FsVersion } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { FsObservation, FsTarget, FsWriteIntent } from '@deepseek-ai/dsh-fs'
-import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
-import type { FsObservationActor } from '@deepseek-ai/dsh-fs-observation-policy'
+import { Context } from '@lyness/cordis'
+import type { FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
+import type { FsObservation, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import type { FsObservationActor } from '@lyness/lyn-fs-observation-policy'
 
 function target(path: string): FsTarget {
   return { targetKey: brandString<FsTargetKey>(path), displayPath: path }

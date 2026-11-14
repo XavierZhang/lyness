@@ -6,9 +6,9 @@ Status: proposed
 
 ## Problem
 
-部署的品牌是组合配置。`dsh-host-brand-deployment` 从 profile 的补丁层读取一个 `productName`、一套调色板、一个资产目录，并在每次渲染 index 时把结果写进 `globalThis.dshDeploymentBrand`。因此一个进程恰好服务一个品牌——私有部署正是这个形态：运行服务器的运营方就是品牌所有者，而[配置优先于用户设置](../../implemented/architecture/2026-08-04-configuration-source-ownership.zh.md)正是让他们的身份不被使用者改掉的那条规则。
+部署的品牌是组合配置。`lyn-host-brand-deployment` 从 profile 的补丁层读取一个 `productName`、一套调色板、一个资产目录，并在每次渲染 index 时把结果写进 `globalThis.lynDeploymentBrand`。因此一个进程恰好服务一个品牌——私有部署正是这个形态：运行服务器的运营方就是品牌所有者，而[配置优先于用户设置](../../implemented/architecture/2026-08-04-configuration-source-ownership.zh.md)正是让他们的身份不被使用者改掉的那条规则。
 
-托管产品不是这个形态。一个进程服务许多客户，每个请求由 [`dsh-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 从 header、hostname 或子域解析出租户。企业计划的客户期望产品带着他们的标志、名称与色彩；个人计划的客户不期望这些，也不能把平台的署名撤掉。今天这两件事都无法表达：`TenantConfig` 已经带有 `displayName` 和 `copy` 覆盖表，所以租户能改文字，但一切视觉——标志、字标、favicon、调色板——都来自那一行宿主配置，对该进程服务的每个租户完全相同。
+托管产品不是这个形态。一个进程服务许多客户，每个请求由 [`lyn-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 从 header、hostname 或子域解析出租户。企业计划的客户期望产品带着他们的标志、名称与色彩；个人计划的客户不期望这些，也不能把平台的署名撤掉。今天这两件事都无法表达：`TenantConfig` 已经带有 `displayName` 和 `copy` 覆盖表，所以租户能改文字，但一切视觉——标志、字标、favicon、调色板——都来自那一行宿主配置，对该进程服务的每个租户完全相同。
 
 缺口不只是字段。有三处机制假定只有一个品牌：index 注入在任何租户被识别之前就已解析完毕、品牌资产从一个目录经一个 URL 提供、`showPoweredBy` 是运营方设置的普通布尔值。只加字段而不动这三处，会把一个租户的图形发给另一个租户。
 
@@ -20,7 +20,7 @@ Status: proposed
 
 `TenantConfig` 在 `copy` 旁边新增 `brand` 成员：三个产品名、该租户替换的调色板令牌、三张资产各自的引用。规则沿用既有的——名字用 `isBrandName`，调色板用 `BRAND_COLOUR_TOKENS` 与 `isBrandColour`——统一写在 `validateTenantConfig` 中，只读存储在加载时检查，可写存储在保存前检查。没有新的东西来定义"什么是可用的品牌"。
 
-三个名字作为一组解析，与页面上的规则相同：租户给出其中任一个，另两个取它；三者都不给，取平台的。同一规则再上一层——租户品牌覆盖部署品牌，部署品牌覆盖内置的 DeepSeek Harness 取值——因此配置了一半的租户不会读成自己的名字与平台名字的混合体。
+三个名字作为一组解析，与页面上的规则相同：租户给出其中任一个，另两个取它；三者都不给，取平台的。同一规则再上一层——租户品牌覆盖部署品牌，部署品牌覆盖内置的 lyness 取值——因此配置了一半的租户不会读成自己的名字与平台名字的混合体。
 
 ### index 注入按请求解析
 
@@ -41,7 +41,7 @@ Status: proposed
 租户既有的 `features` 列表里的两个条目承载这个决定：
 
 - `brand.customize`——设置界面出现，`brand` 的保存被接受。个人计划的租户两者皆无。
-- `brand.remove-attribution`——才允许把 `showPoweredBy` 关掉。没有它，署名无论租户要求什么都保留，因此个人计划的租户在 [`sidebar.attribution`](../../../../packages/client/ui-sidebar/README.zh.md) 席位上始终显示 `Powered by DeepSeek Harness`。
+- `brand.remove-attribution`——才允许把 `showPoweredBy` 关掉。没有它，署名无论租户要求什么都保留，因此个人计划的租户在 [`sidebar.attribution`](../../../../packages/client/ui-sidebar/README.zh.md) 席位上始终显示 `Powered by lyness`。
 
 两者都在 `tenant.save()` 内部执行。设置页面隐藏控件只是呈现；决定属于做出它的那个操作，因为一个直接的 Remote 调用到达的是同一个保存。
 
@@ -64,7 +64,7 @@ Status: proposed
 ## Acceptance criteria
 
 - `TenantConfig.brand` 存在，`validateTenantConfig` 拒绝不可用的名字、未知的调色板令牌与不可用的颜色，且拒绝信息指明是哪个字段。
-- 为带品牌的组织行事的请求，其 index 注入得到该组织的品牌，无论该组织是由地址还是由行事上下文指明的；为不带品牌的组织行事、或不为任何组织行事的请求，得到部署品牌；没有部署品牌时得到内置的 DeepSeek Harness 取值。
+- 为带品牌的组织行事的请求，其 index 注入得到该组织的品牌，无论该组织是由地址还是由行事上下文指明的；为不带品牌的组织行事、或不为任何组织行事的请求，得到部署品牌；没有部署品牌时得到内置的 lyness 取值。
 - 配置了不同标志的两个租户收到不同的资产字节，且任一 URL 都无法回答另一个。
 - `tenant.save()` 拒绝来自不具备 `brand.customize` 的租户的 `brand` 变更，拒绝来自不具备 `brand.remove-attribution` 的租户的 `showPoweredBy: false`，两者都发生在 Remote 调用处而不是页面上。
 - 个人计划的租户渲染署名行，无论其存储的配置写了什么。

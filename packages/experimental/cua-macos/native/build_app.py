@@ -12,7 +12,7 @@ import subprocess
 import tempfile
 
 DEV_BUNDLE_SUFFIX = ".dev"
-DEV_DISPLAY_NAME = "DSH Computer Use Dev"
+DEV_DISPLAY_NAME = "LYN Computer Use Dev"
 
 
 def bundle_digest(application):
@@ -56,7 +56,7 @@ def select(output, temporary, key, name):
     receipt = Path(temporary) / "current.json"
     receipt.write_text(json.dumps({"bundle": key}) + "\n")
     os.replace(receipt, output / "current.json")
-    return output / key / name / "Contents/MacOS/dsh-cua-native"
+    return output / key / name / "Contents/MacOS/lyn-cua-native"
 
 
 def publish(binary, output, identity, plist, variant="release", keychain=None):
@@ -67,16 +67,16 @@ def publish(binary, output, identity, plist, variant="release", keychain=None):
     """
     output.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".prepare-", dir=output) as temporary:
-        name = f"{DEV_DISPLAY_NAME}.app" if variant == "dev" else "DSH Computer Use.app"
+        name = f"{DEV_DISPLAY_NAME}.app" if variant == "dev" else "LYN Computer Use.app"
         staged = Path(temporary) / name
-        executable = staged / "Contents/MacOS/dsh-cua-native"
+        executable = staged / "Contents/MacOS/lyn-cua-native"
         executable.parent.mkdir(parents=True)
         shutil.copy2(binary, executable)
         (staged / "Contents/Info.plist").write_bytes(application_info(plist, variant))
         shutil.copystat(plist, staged / "Contents/Info.plist")
         resources = staged / "Contents/Resources"
         resources.mkdir()
-        for filename in ["DSHComputerUse.icns", "LICENSE.computer-use-icon", "LICENSE.cua-driver"]:
+        for filename in ["LYNComputerUse.icns", "LICENSE.computer-use-icon", "LICENSE.cua-driver"]:
             shutil.copy2(plist.with_name(filename), resources / filename)
         index = None
         # Names can resolve to a renewed certificate; only fingerprints identify a stable signing key.
@@ -132,8 +132,8 @@ def main():
     output = args.output_directory or root / "bin" / f"darwin-{architecture}"
     subprocess.run(["/usr/bin/xcrun", "swift", "build", "--package-path", str(root),
                     "--scratch-path", str(scratch), "--configuration", "release",
-                    "--product", "dsh-cua-native", "--arch", args.arch], check=True)
-    executable = publish(scratch / "release/dsh-cua-native", output, args.identity, root / "Info.plist", args.variant, args.keychain)
+                    "--product", "lyn-cua-native", "--arch", args.arch], check=True)
+    executable = publish(scratch / "release/lyn-cua-native", output, args.identity, root / "Info.plist", args.variant, args.keychain)
     print(executable)
 
 

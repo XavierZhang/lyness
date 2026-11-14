@@ -49,12 +49,12 @@ export async function prepareDesktopRolloutCi(env: NodeJS.ProcessEnv) {
     || source.qualification !== (source.target === 'win-x64' ? 'signed' : 'notarized')) {
     throw new Error('desktop rollout: repository or release qualification mismatch')
   }
-  const config = await readDesktopPublishConfig(z.string().parse(env.DSH_PACKAGING_CONFIG_DIR), source.preset)
+  const config = await readDesktopPublishConfig(z.string().parse(env.LYNESS_PACKAGING_CONFIG_DIR), source.preset)
   const zoneId = website ? requireDesktopEdgeOneZoneId(config) : undefined
   const environment = source.preset === 'test'
-    ? { DSH_DESKTOP_AUTO_UPDATE_ENV: 'test', DOWNLOAD_TEST_ORIGIN: config.origin,
+    ? { LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'test', DOWNLOAD_TEST_ORIGIN: config.origin,
       DOWNLOAD_TEST_RELEASE_ID: source.testReleaseId ?? '', DOWNLOAD_TEST_COS_BUCKET: config.bucket }
-    : { DSH_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: config.bucket }
+    : { LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: config.bucket }
   const plan = await prepareDesktopRollout(retainedDesktopPath(root, route.runId, route.attempt), manifest, environment)
   const destination = `${config.bucket}/${plan.upload.publicUrl}${source.channel}`
   const recordsRoot = join(dirname(root), 'upload-records')

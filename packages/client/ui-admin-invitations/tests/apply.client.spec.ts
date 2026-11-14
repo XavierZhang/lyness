@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
-import { apply, Config, DEFAULT_JOIN_PATH, inject, invitationCallsOf, NS } from '@deepseek-ai/dsh-client-ui-admin-invitations/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
+import { apply, Config, DEFAULT_JOIN_PATH, inject, invitationCallsOf, NS } from '@lyness/lyn-client-ui-admin-invitations/client'
 import { InvitationsPage } from '../src/client/InvitationsPage.tsx'
 import type { createInvitationsPageStore } from '../src/client/store.ts'
 

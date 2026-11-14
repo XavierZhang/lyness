@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { BudgetView, CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
+import type { BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import { CreditsSection } from '../src/client/CreditsSection.tsx'
 import type { CreditsSectionProps } from '../src/client/CreditsSection.tsx'
 import type { CreditsSectionState } from '../src/client/store.ts'

@@ -1,6 +1,6 @@
 /** GitHub review thread and pending review writes check the head first, send JSON on stdin, and never retry. */
 import { describe, expect, it } from 'vitest'
-import type { ForgeCommentId, ForgeReviewId, ForgeReviewWrite, ForgeThreadId } from '@deepseek-ai/dsh-experimental-forge'
+import type { ForgeCommentId, ForgeReviewId, ForgeReviewWrite, ForgeThreadId } from '@lyness/lyn-experimental-forge'
 import { GhTimeoutError, GhUnavailableError, type GhOutput, type GhRunner } from '../src/gh.ts'
 import { GitHubProvider } from '../src/provider.ts'
 import {

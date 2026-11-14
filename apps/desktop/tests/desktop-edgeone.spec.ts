@@ -3,7 +3,7 @@ import { teo } from 'tencentcloud-sdk-nodejs-teo'
 import { purgeDesktopInstaller, resolveDesktopPurgeConfig } from '../scripts/desktop-edgeone.ts'
 
 const environment = {
-  DSH_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: 'fixture-bucket',
+  LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: 'fixture-bucket',
   DOWNLOAD_PROD_COS_SECRET_ID: 'fixture-secret-id', DOWNLOAD_PROD_COS_SECRET_KEY: 'fixture-secret-key',
   DOWNLOAD_PROD_EO_ZONE_ID: 'zone-fixture',
 }
@@ -13,8 +13,8 @@ afterEach(() => vi.restoreAllMocks())
 
 describe('production EdgeOne configuration', () => {
   it.each([
-    [{ DSH_DESKTOP_AUTO_UPDATE_ENV: 'test' }, /production is required/u],
-    [{ DSH_DESKTOP_AUTO_UPDATE_ENV: 'prod' }, /must be "test" or "production"/u],
+    [{ LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'test' }, /production is required/u],
+    [{ LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'prod' }, /must be "test" or "production"/u],
     [{ DOWNLOAD_PROD_EO_ZONE_ID: '' }, /DOWNLOAD_PROD_EO_ZONE_ID/u],
     [{ DOWNLOAD_PROD_EO_ZONE_ID: 'invalid' }, /must name one EO zone/u],
     [{ DOWNLOAD_PROD_COS_SECRET_KEY: '' }, /DOWNLOAD_PROD_COS_SECRET_KEY/u],
@@ -25,8 +25,8 @@ describe('production EdgeOne configuration', () => {
   it('uses the upload plan URL verbatim and derives only cache-only destinations', () => {
     const url = 'https://download.deepseek.com/changed/installer.dmg'
     expect(resolveDesktopPurgeConfig(environment, 'mac-arm64', url).publicUrl).toBe(url)
-    expect(resolveDesktopPurgeConfig(environment, 'win-x64').publicUrl).toBe('https://download.deepseek.com/desktop/dsh-latest-windows-x64.exe')
-    expect(resolveDesktopPurgeConfig(environment, 'mac-x64').publicUrl).toBe('https://download.deepseek.com/desktop/dsh-latest-macos-x64.dmg')
+    expect(resolveDesktopPurgeConfig(environment, 'win-x64').publicUrl).toBe('https://download.deepseek.com/desktop/lyn-latest-windows-x64.exe')
+    expect(resolveDesktopPurgeConfig(environment, 'mac-x64').publicUrl).toBe('https://download.deepseek.com/desktop/lyn-latest-macos-x64.dmg')
   })
 })
 

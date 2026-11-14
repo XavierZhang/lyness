@@ -2,7 +2,7 @@
 export const name = '@fixture/forge-extension'
 export const inject = ['forgePanel']
 
-/** @param {import('@deepseek-ai/cordis').Context} ctx */
+/** @param {import('@lyness/cordis').Context} ctx */
 export function apply(ctx) {
   ctx.forgePanel.registerLens({
     id: 'fixture/exports',

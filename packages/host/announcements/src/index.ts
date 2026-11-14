@@ -13,16 +13,16 @@
  * disagree — and the newest announcement's version is the one a deployment has
  * actually claimed.
  *
- * @module @deepseek-ai/dsh-announcements
+ * @module @lyness/lyn-announcements
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
 import type { Announcement } from './types.ts'
 
 export type { Announcement, AnnouncementId } from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** What this deployment tells the people using it; absent on a deployment that says nothing. */
     announcements: AnnouncementSource

@@ -3,13 +3,13 @@ description: "Enable optional Computer Use on macOS and Windows with its permiss
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-cua-bundle
+# @lyness/lyn-cua-bundle
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Enable Computer Use from Plugins on macOS and Windows for existing and new sessions. PTC uses the `cua` binding through `run_code`. Other presets receive `cua_run_code`. The bundle ships with DSH switched off and appears in the Experimental plugins list on supported Hosts. Each Host loads its platform's native provider and the shared permission page. Disabled profiles prepare no native components and register neither CUA tools nor their model guidance.
+Enable Computer Use from Plugins on macOS and Windows for existing and new sessions. PTC uses the `cua` binding through `run_code`. Other presets receive `cua_run_code`. The bundle ships with LYN switched off and appears in the Experimental plugins list on supported Hosts. Each Host loads its platform's native provider and the shared permission page. Disabled profiles prepare no native components and register neither CUA tools nor their model guidance.
 
 ## Table of Contents
 
@@ -26,13 +26,13 @@ Enable Computer Use from Plugins on macOS and Windows for existing and new sessi
 
 On macOS or Windows, open **Plugins → More** and switch on **Computer use** in the Experimental plugins list. An enabled bundle also appears in the main plugin list; switching it off returns it to the Experimental plugins list only.
 
-On macOS, the bundle ships with DSH and updates with it, so enabling it downloads nothing. Published packages contain the signed and notarized helper; users need no compiler. Source Web and development Desktop prepare an ad-hoc helper when enabled. Grant Accessibility and Screen Recording to `DSH Computer Use.app`.
+On macOS, the bundle ships with LYN and updates with it, so enabling it downloads nothing. Published packages contain the signed and notarized helper; users need no compiler. Source Web and development Desktop prepare an ad-hoc helper when enabled. Grant Accessibility and Screen Recording to `LYN Computer Use.app`.
 
 Native preparation and access requirements belong to the [macOS provider](../cua-macos/README.md) and [Windows provider](../cua-windows/README.md). For source Web, run these commands from the repository root:
 
 ```sh
 pnpm run build
-pnpm dsh web
+pnpm lyn web
 ```
 
 For the source Desktop launcher and its separate development profile, follow [Desktop development](../../../apps/desktop/README.md). Enable Computer Use in each profile that needs it.
@@ -41,11 +41,11 @@ The switch saves bundle selection in the profile’s `package.json`. PTC session
 
 Disabling unloads the provider and withdraws CUA tools from its Agent scopes. Runtime configuration, the new-session default and saved grants remain.
 
-The bundle supports macOS and native Windows DSH Hosts; it does not enable Windows Computer Use from WSL. Native providers are optional dependencies, and each Host loads only its matching provider; shared CUA and Client packages remain in the installation. Other Hosts hide the bundle from default plugin lists and model recommendations and refuse enablement before saving settings. Explicit profile dependencies and saved selections remain visible for management. An already selected bundle is skipped at startup with a diagnostic and remains available for deselection; saved user settings remain. A browser on another operating system can connect to a supported DSH Host.
+The bundle supports macOS and native Windows LYN Hosts; it does not enable Windows Computer Use from WSL. Native providers are optional dependencies, and each Host loads only its matching provider; shared CUA and Client packages remain in the installation. Other Hosts hide the bundle from default plugin lists and model recommendations and refuse enablement before saving settings. Explicit profile dependencies and saved selections remain visible for management. An already selected bundle is skipped at startup with a diagnostic and remains available for deselection; saved user settings remain. A browser on another operating system can connect to a supported LYN Host.
 
-If preparation fails, the saved selection remains and CUA operations stay unavailable. Refresh or reopen the plugin page to read the component diagnostic, correct its cause, then restart DSH.
+If preparation fails, the saved selection remains and CUA operations stay unavailable. Refresh or reopen the plugin page to read the component diagnostic, correct its cause, then restart LYN.
 
-Explicit activation runs a read-only permission check, which may start a helper without opening a system dialog. Open the [permission page](../cua/README.md) for system requests, settings navigation and automatic refresh. Tasks ask separately before accessing an application. Saved application decisions use profile-scoped domain storage. Conversation decisions survive turns, connections, DSH restarts and Computer Use disablement without applying to another conversation. Revoke access on the same page.
+Explicit activation runs a read-only permission check, which may start a helper without opening a system dialog. Open the [permission page](../cua/README.md) for system requests, settings navigation and automatic refresh. Tasks ask separately before accessing an application. Saved application decisions use profile-scoped domain storage. Conversation decisions survive turns, connections, LYN restarts and Computer Use disablement without applying to another conversation. Revoke access on the same page.
 
 -----
 

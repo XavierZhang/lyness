@@ -1,7 +1,7 @@
 /** Desktop's private credential verifier, registered as an ordinary Connection provider. */
 import { timingSafeEqual } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-connection'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-connection'
 
 /** Stable plugin name. */
 export const name = 'host-authentication-desktop'
@@ -30,7 +30,7 @@ export function apply(ctx: Context, config: Config): void {
       let value: string | undefined
       for (const part of cookie.split(';')) {
         const equals = part.indexOf('=')
-        if (equals < 0 || part.slice(0, equals).trim() !== 'dsh-desktop-session') continue
+        if (equals < 0 || part.slice(0, equals).trim() !== 'lyn-desktop-session') continue
         if (value !== undefined) return undefined
         value = part.slice(equals + 1).trim()
       }

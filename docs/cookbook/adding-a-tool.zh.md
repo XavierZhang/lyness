@@ -8,8 +8,8 @@
 
 ```ts
 import { readFile } from 'node:fs/promises'
-import type { Context } from '@deepseek-ai/cordis'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import { defineTool } from '@lyness/lyn-tools'
 
 export const name = 'my-tool'
 export const inject = ['tools']
@@ -44,7 +44,7 @@ export function apply(ctx: Context) {
 - **注册借用你的只读定义。** 类型化的同进程贡献不是序列化边界；注册后不要修改其 schema 或替换回调。`schemas()` 只物化显式的模型可见投影。如需热替换工具，请 dispose 其所属副作用并注册替代品；回调闭包内的可变状态仍是普通的插件状态。
 - **执行身份受保护。** 注册表在一次递归遍历中将 `arguments` 物化为分离的无损 JSON，在策略开始前冻结该值，并分配一个不透明的 `exec.token`；`callId`、`name`、`arguments`、`agent`、`token`、必填且由调用方持有的 `signal`，以及可选的外层传输 `parent` token 在整个分发过程中保持不可变。`parent` 仅用于身份标识，不暴露活跃的外层执行。请将 `args` 视为只读输入。只有 around-dispatch 包装器会收到可变视图；它可以替换并恢复必填的 `exec.signal` 以施加截止时间，但不能移除该信号。
 - **声明并返回一个规范 JSON 值。** `output.schema` 使用 `ValueSchemaSpec`，根可以是对象、数组、标量或 null。`execute` 只返回推导出的值；注册表将其快照为无损 JSON，完成校验和冻结后，再传给 `output.render(args, value)`。工具主体不要返回内容块，也不要迫使调用方从自然语言中解析 id 和字段。
-- **抛出异常或返回无效值意味着 `isError`。** 注册表会捕获异常，并在观察者运行前收敛 schema、渲染器、元数据投影器和无损 JSON 失败。每种预期失败都应抛出带稳定 `code` 的 `HarnessError` 子类；在工具主体的各种产出中，只有抛出的 `HarnessError` 会让结果保留 `error.name` 和 `error.code`，具体的错误类和 code 由[错误处理规则](../../.agents/skills/dsh-error-handling/SKILL.md#tool-failures)规定。成功的领域结果即使表示不理想的状态，也应写入规范值；其 Native 渲染器可以解释该状态，例如进程以非零状态退出。
+- **抛出异常或返回无效值意味着 `isError`。** 注册表会捕获异常，并在观察者运行前收敛 schema、渲染器、元数据投影器和无损 JSON 失败。每种预期失败都应抛出带稳定 `code` 的 `HarnessError` 子类；在工具主体的各种产出中，只有抛出的 `HarnessError` 会让结果保留 `error.name` 和 `error.code`，具体的错误类和 code 由[错误处理规则](../../.agents/skills/lyn-error-handling/SKILL.md#tool-failures)规定。成功的领域结果即使表示不理想的状态，也应写入规范值；其 Native 渲染器可以解释该状态，例如进程以非零状态退出。
 - **遵守 `exec.signal`。** 信号触发时取消进行中的工作，让 signal 的 reason 或依赖抛出的、name 为 `AbortError` 的错误直接传播；注册表会把它记录为 `AbortError` 与 `TOOL_ABORTED` 常量（值为 `ABORTED`）。不要把它替换成另一个普通 `Error`。
 - **使用 `presentationMeta` 投影持久化的卡片数据（可选）。** `output.presentationMeta(args, value)` 从同一个规范值派生可回放的 JSON。核心将其持久化在 `tool/result` 上并传给 `presentResult`，因此需要结果期事实的卡片——例如 `write`／`edit` 的已应用 hunk——无需持久化规范值也能在回放中重现。嵌套 Code 分发没有卡片，因此会跳过该投影器。
 - **使用 `exec.agent` 发送异步通知。** `agent.inject({ content, source: { kind: 'my-plugin' } })` 追加持久化上下文，下一次模型请求会看到它——这不是唤醒（空闲的 agent（智能体）保持空闲）。在插件里通过 [`MessageSourceMap`](../subsystems/llm-streaming.zh.md#content-blocks-and-messages) 声明该 `kind`：session format V4 在消息准入处拒绝退役的 `{ kind: 'plugin', plugin: '<name>' }` 包装。请防范已 dispose 的 agent（try/catch）。
@@ -53,13 +53,13 @@ export function apply(ctx: Context) {
 
 通过 producer 配置控制 `run_in_background`，然后使用 `ctx.jobs.start({ kind, label, owner: exec.agent, run })` 注册任务。注册表会在进入 producer 主体前将已预先中止的调用判为失败；运行时会在 `run()` 启动工作前校验 owner 和任务控制器是否可用，随后提供 id、会话围栏、通用控制工具、通知和 owner cleanup。成功的后台分支会返回类型化的规范句柄，如 `{ kind: 'background', jobId }`；其 Native 渲染器可以保留 `started background job bash-1` 这类供人阅读的自然语言，但 PTC mode 绝不能通过解析该文本取得 id。
 
-spec 提供同步的 `cancel`、在资源清理后 settle 且不 reject 的 `done`，以及由注册表泵入 job 输出环的拉取式 `output` 源或经 starter 收到的 `JobHandle` 推送的追加；模型的消费式读取由 `dsh-tool-jobs` 从该环渲染。预先中止的调用属于失败，因为此时没有任务，其 id 无法满足成功输出 schema。`ctx.jobs.start()` 发布 id 后，应使用任务自有的取消信号，而不是 `exec.signal`：之后取消外层调用只会停止等待本次调用，不会终止已经发布的工作；该生命周期归 `job_kill`、owner dispose 和服务 teardown 所有。前台工作仍与 `exec.signal` 耦合。流式 producer 的示例和完整约定见[后台任务运行时 reference](../../packages/jobs/jobs/README.zh.md)与 `dsh-tool-bash`。
+spec 提供同步的 `cancel`、在资源清理后 settle 且不 reject 的 `done`，以及由注册表泵入 job 输出环的拉取式 `output` 源或经 starter 收到的 `JobHandle` 推送的追加；模型的消费式读取由 `lyn-tool-jobs` 从该环渲染。预先中止的调用属于失败，因为此时没有任务，其 id 无法满足成功输出 schema。`ctx.jobs.start()` 发布 id 后，应使用任务自有的取消信号，而不是 `exec.signal`：之后取消外层调用只会停止等待本次调用，不会终止已经发布的工作；该生命周期归 `job_kill`、owner dispose 和服务 teardown 所有。前台工作仍与 `exec.signal` 耦合。流式 producer 的示例和完整约定见[后台任务运行时 reference](../../packages/jobs/jobs/README.zh.md)与 `lyn-tool-bash`。
 
 <a id="execution-policy-and-observation"></a>
 
 ## 执行策略与观测
 
-尽量不要把部署策略内建到工具中。使用 `tools/pre-execute` 实现可扩展的允许／拒绝／询问策略（见[权限门禁示例](extension-cookbook.zh.md#a-hook-plugin-permission-gate-example)）；使用 `ctx.tools.guard()` 设置最终的单调拒绝，后续监听器无法撤销；使用 `tools/execute` 为分发添加截止时间、重试或指标收集；使用 `tools/post-execute` 替换展示内容或返回值、阻止结果，或附加模型可见上下文；使用 `tools/result` 观测不可变的归一化结果而不改变它。替换内容不会阻止程序化访问 `value`；保密策略会屏蔽或替换该值。沙箱实现也可以在工具的执行器实现中运行；[`dsh-tools` README](../../packages/core/tools/README.zh.md#extension-points) 定义每个扩展点的输入、顺序、返回值和失败行为。
+尽量不要把部署策略内建到工具中。使用 `tools/pre-execute` 实现可扩展的允许／拒绝／询问策略（见[权限门禁示例](extension-cookbook.zh.md#a-hook-plugin-permission-gate-example)）；使用 `ctx.tools.guard()` 设置最终的单调拒绝，后续监听器无法撤销；使用 `tools/execute` 为分发添加截止时间、重试或指标收集；使用 `tools/post-execute` 替换展示内容或返回值、阻止结果，或附加模型可见上下文；使用 `tools/result` 观测不可变的归一化结果而不改变它。替换内容不会阻止程序化访问 `value`；保密策略会屏蔽或替换该值。沙箱实现也可以在工具的执行器实现中运行；[`lyn-tools` README](../../packages/core/tools/README.zh.md#extension-points) 定义每个扩展点的输入、顺序、返回值和失败行为。
 
 ## PTC mode 自动触达你的工具
 
@@ -91,7 +91,7 @@ spec 提供同步的 `cancel`、在资源清理后 settle 且不 reject 的 `don
 - **UI 格式不进入模型结果。** 围栏 ` ```console ` 块、diff、相对化路径均不应仅为服务 UI 而进入规范值或 Native 内容。`output.render` 负责模型可见的自然语言；`presentationMeta` 和卡片展示器负责可回放的 UI 状态。`terminal` 结果视图携带原始输出，由适配器按需添加回退格式。
 - **`defineTool` 对展示路径做软校验。** 格式错误或旧版日志中的参数会使包装器返回 `undefined`（通用回退）而非抛异常——展示绝不能导致回放崩溃。
 
-中性词汇定义在 `dsh-tools` 中；工具绝不导入 UI 或传输类型。使用该 API 的消费方把每个 `card` 映射到自己的视图。设计与原因见[渲染意图联合体 Agent Note](../../.agents/notes/implemented/architecture/2026-07-02-tool-render-intent-union.zh.md)；`dsh-tool-fs`（generic/diff）和 `dsh-tool-bash`（terminal）是参考实现。
+中性词汇定义在 `lyn-tools` 中；工具绝不导入 UI 或传输类型。使用该 API 的消费方把每个 `card` 映射到自己的视图。设计与原因见[渲染意图联合体 Agent Note](../../.agents/notes/implemented/architecture/2026-07-02-tool-render-intent-union.zh.md)；`lyn-tool-fs`（generic/diff）和 `lyn-tool-bash`（terminal）是参考实现。
 
 ## Web Client 展示
 

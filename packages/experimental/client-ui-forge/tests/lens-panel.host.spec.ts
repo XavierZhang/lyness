@@ -1,9 +1,9 @@
 import { writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
-import type { ForgeCommitList } from '@deepseek-ai/dsh-experimental-forge'
-import type { Session } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import type { ForgeCommitList } from '@lyness/lyn-experimental-forge'
+import type { Session } from '@lyness/lyn-session'
 import type {
   ForgeExtensionState, ForgeLens, ForgeLensFrame, ForgeLensId, ForgeLensInput, ForgeLensRequest, ForgeLensResult,
 } from '../src/index.ts'
@@ -23,7 +23,7 @@ const BASE = 'b'.repeat(40)
 const MERGE_BASE = 'c'.repeat(40)
 
 async function project(): Promise<string> {
-  const { path, remove } = await scratch('dsh-forge-lens-')
+  const { path, remove } = await scratch('lyn-forge-lens-')
   cleanups.push(remove)
   const repo = await repository(path)
   await git(repo, 'remote', 'add', 'origin', 'https://fake.test/octo/demo.git')

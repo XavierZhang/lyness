@@ -1,7 +1,7 @@
 /** Stream framing, early termination and process ownership for packaged rg. */
 import { PassThrough, Readable } from 'node:stream'
 import { describe, expect, it, vi } from 'vitest'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 import { readRipgrepLines, resolveRgPath, spawnRipgrep } from '../src/index.ts'
 
 function handle(

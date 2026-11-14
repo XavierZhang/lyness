@@ -3,7 +3,7 @@ description: "解析一个 HTTP 请求属于哪个租户——按租户请求头
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-http
+# @lyness/lyn-tenant-http
 
 [English](README.md) | 中文
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: tenant-http
-  name: '@deepseek-ai/dsh-tenant-http'
+  name: '@lyness/lyn-tenant-http'
   config:
     path: /tenant
     baseDomain: tenants.example.com

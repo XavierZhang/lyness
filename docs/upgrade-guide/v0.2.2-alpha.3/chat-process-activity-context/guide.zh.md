@@ -9,7 +9,7 @@ description: "Chat 的 ProcessActivity 新增 context 类别，运行中活动�
 
 ## 变更
 
-`@deepseek-ai/dsh-client-ui-chat/client` 导出的 `ProcessActivity` 新增成员 `context`。成员全部为上下文注入的已结束过程组以它作为唯一类别。`ProcessActivitySummary.running` 的类型改为新导出的 `RunningProcessActivity`，该类型不含 `context`。对 `ProcessActivity` 做穷尽 switch 或为每个成员映射文案、图标的扩展受影响。
+`@lyness/lyn-client-ui-chat/client` 导出的 `ProcessActivity` 新增成员 `context`。成员全部为上下文注入的已结束过程组以它作为唯一类别。`ProcessActivitySummary.running` 的类型改为新导出的 `RunningProcessActivity`，该类型不含 `context`。对 `ProcessActivity` 做穷尽 switch 或为每个成员映射文案、图标的扩展受影响。
 
 ## 迁移
 

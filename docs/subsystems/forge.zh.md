@@ -2,7 +2,7 @@
 
 [English](forge.md) | 中文
 
-实验性的 forge 能力 seam 从代码托管平台读取变更请求（change request，即 pull request 与 merge request）。[`dsh-experimental-forge`](../../packages/experimental/forge/README.zh.md) 是 Service Definition，提供 `ctx.forge`；[`dsh-experimental-forge-github`](../../packages/experimental/forge-github/README.zh.md) 是服务 GitHub 主机的 Service Provider；[`dsh-experimental-forge-session`](../../packages/experimental/forge-session/README.zh.md) 是把变更请求绑定到 Session 的 Consumer，提供 `ctx.forgeSession`；[`dsh-experimental-client-ui-forge`](../../packages/experimental/client-ui-forge/README.zh.md) 是提供 `ctx.forgePanel` 的 GUI Consumer。默认禁用的 [forge Bundle](../../packages/experimental/forge-bundle/README.zh.md) 可从插件页面组合这四个包，同时加载[工作树模型工具](../../packages/experimental/tool-worktree/README.zh.md)，并为面板附带一个隔离的 [worktree 服务](../../packages/experimental/worktree/README.zh.md)；除此之外，它们只能通过显式组合加载。
+实验性的 forge 能力 seam 从代码托管平台读取变更请求（change request，即 pull request 与 merge request）。[`lyn-experimental-forge`](../../packages/experimental/forge/README.zh.md) 是 Service Definition，提供 `ctx.forge`；[`lyn-experimental-forge-github`](../../packages/experimental/forge-github/README.zh.md) 是服务 GitHub 主机的 Service Provider；[`lyn-experimental-forge-session`](../../packages/experimental/forge-session/README.zh.md) 是把变更请求绑定到 Session 的 Consumer，提供 `ctx.forgeSession`；[`lyn-experimental-client-ui-forge`](../../packages/experimental/client-ui-forge/README.zh.md) 是提供 `ctx.forgePanel` 的 GUI Consumer。默认禁用的 [forge Bundle](../../packages/experimental/forge-bundle/README.zh.md) 可从插件页面组合这四个包，同时加载[工作树模型工具](../../packages/experimental/tool-worktree/README.zh.md)，并为面板附带一个隔离的 [worktree 服务](../../packages/experimental/worktree/README.zh.md)；除此之外，它们只能通过显式组合加载。
 
 ## 提供方与变更请求
 
@@ -1097,7 +1097,7 @@ type ForgeDiffStatus = 'added' | 'deleted' | 'modified' | 'renamed'
 
 ```ts type-equiv
 /**
- * Review layer of a changed file: the layer the repository's root `.gitattributes` names with `dsh-review-layer`, else
+ * Review layer of a changed file: the layer the repository's root `.gitattributes` names with `lyn-review-layer`, else
  * `test` for a file it marks `linguist-generated`, else the first of `testPaths`, `interfacePaths`, and the built-in
  * test and interface rules that the path matches, else `implementation`.
  */
@@ -1204,7 +1204,7 @@ interface ForgeLocalChanges {
 
 ## 扩展 API
 
-其他插件通过上面的服务和另外五个扩展点扩展变更请求评审；每次注册都返回 disposer，并随做出注册的插件一起结束。与这一能力的其余部分一样，这些接口处于实验阶段，尚未稳定。新增可选字段、方法、slot、事件、错误码或带默认值的 Config 键是兼容的；删除或改名类型、方法、slot、owner props、事件、Config 键或 `dsh-resource://forge-changes/` 地址，或收窄其含义，需要写[升级指南](../../.agents/skills/dsh-create-upgrade-guide/SKILL.md)。这些扩展点都不向模型发送任何内容：插件要让模型看到 forge 数据、透镜结果或注解，须经由它自己的工具结果或 `agent.inject()`，Session log 会记录它们。
+其他插件通过上面的服务和另外五个扩展点扩展变更请求评审；每次注册都返回 disposer，并随做出注册的插件一起结束。与这一能力的其余部分一样，这些接口处于实验阶段，尚未稳定。新增可选字段、方法、slot、事件、错误码或带默认值的 Config 键是兼容的；删除或改名类型、方法、slot、owner props、事件、Config 键或 `lyn-resource://forge-changes/` 地址，或收窄其含义，需要写[升级指南](../../.agents/skills/lyn-create-upgrade-guide/SKILL.md)。这些扩展点都不向模型发送任何内容：插件要让模型看到 forge 数据、透镜结果或注解，须经由它自己的工具结果或 `agent.inject()`，Session log 会记录它们。
 
 | 扩展点 | Service Definition | Service Provider | Consumer |
 |---|---|---|---|

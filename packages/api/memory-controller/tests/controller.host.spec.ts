@@ -4,11 +4,11 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { memoryOwnerOfPerson } from '@deepseek-ai/dsh-memory'
-import type { MemoryId, MemoryOwnerId, MemoryRecord } from '@deepseek-ai/dsh-memory'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { memoryOwnerOfPerson } from '@lyness/lyn-memory'
+import type { MemoryId, MemoryOwnerId, MemoryRecord } from '@lyness/lyn-memory'
+import type { PersonId } from '@lyness/lyn-people'
 import MemoryController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')

@@ -3,7 +3,7 @@ description: "ctx.tenantConfig 能力缝：一个租户为自己配置的模型�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-config
+# @lyness/lyn-tenant-config
 
 [English](README.md) | 中文
 
@@ -25,12 +25,12 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-组合一个后端——[`dsh-tenant-config-static`](../tenant-config-static/README.zh.md) 从组合配置读取行，[`dsh-tenant-config-store`](../tenant-config-store/README.zh.md) 保存管理界面写入的记录——然后通过 `ctx.tenantConfig` 读取：
+组合一个后端——[`lyn-tenant-config-static`](../tenant-config-static/README.zh.md) 从组合配置读取行，[`lyn-tenant-config-store`](../tenant-config-store/README.zh.md) 保存管理界面写入的记录——然后通过 `ctx.tenantConfig` 读取：
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { ModelChoice } from '@deepseek-ai/dsh-tenant-config'
-import type { TenantId } from '@deepseek-ai/dsh-tenant'
+import type { Context } from '@lyness/cordis'
+import type { ModelChoice } from '@lyness/lyn-tenant-config'
+import type { TenantId } from '@lyness/lyn-tenant'
 
 export async function imageModelsOf(ctx: Context, tenantId: TenantId): Promise<readonly ModelChoice[]> {
   const config = await ctx.tenantConfig.get(tenantId)
@@ -107,7 +107,7 @@ export async function imageModelsOf(ctx: Context, tenantId: TenantId): Promise<r
 
 以下是当前的约束，不是任务清单。
 
-- **身份是话，不是策略** —— [`dsh-tenant-session`](../tenant-session/README.zh.md) 记下租户贡献了什么，并把它合成进每个 agent 的提示词，于是 `constraints` 作为一句句「请遵守」的话到达模型。没有任何东西强制它们；必须被强制的规则需要一个权限 preset。
+- **身份是话，不是策略** —— [`lyn-tenant-session`](../tenant-session/README.zh.md) 记下租户贡献了什么，并把它合成进每个 agent 的提示词，于是 `constraints` 作为一句句「请遵守」的话到达模型。没有任何东西强制它们；必须被强制的规则需要一个权限 preset。
 - **没有用户层** —— 上述分层在组织与 Agent 之间还有一层用户，而本部署尚无用户记录可承载它。
 - **功能是 id，不是权限** —— 清单说明租户可用哪些功能，而不是哪位成员可用；角色要等有成员体系的管理界面。
 - **没有用量限制** —— 配额、预算与限流不属于这份配置。

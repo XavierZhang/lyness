@@ -17,21 +17,21 @@
  * stranger causes, so it is bounded by its own record and recorded in the same
  * trail — kept apart from the roster rather than folded into it.
  *
- * @module @deepseek-ai/dsh-invitations
+ * @module @lyness/lyn-invitations
  */
 
 import { createHash, randomBytes } from 'node:crypto'
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { administers } from '@deepseek-ai/dsh-people'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import { PeopleRefusedError } from '@deepseek-ai/dsh-managed-people'
-import type { ExternalSubject } from '@deepseek-ai/dsh-sign-in'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type {} from '@deepseek-ai/dsh-admin-audit'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import { administers } from '@lyness/lyn-people'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import { PeopleRefusedError } from '@lyness/lyn-managed-people'
+import type { ExternalSubject } from '@lyness/lyn-sign-in'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type {} from '@lyness/lyn-admin-audit'
+import type { Domain } from '@lyness/lyn-storage-domain'
 import { invitationsDomain } from './storage.ts'
 import type {
   InvitationCode, InvitationId, InvitationRecord, InvitationRefusal, InvitationSubmission, InvitationView,
@@ -40,7 +40,7 @@ import type {
 export type * from './types.ts'
 export { invitationsDomain, invitationSchema } from './storage.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** The invitations this deployment has issued; absent where it issues none. */
     invitations: Invitations

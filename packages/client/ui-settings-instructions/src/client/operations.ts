@@ -6,15 +6,15 @@
  * for nobody told apart from a read that broke, and a save whose stored state
  * is read back from the answer rather than echoed from what was sent.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-instructions/client/operations
+ * @module @lyness/lyn-client-ui-settings-instructions/client/operations
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { createOutcomeRead, messageOf } from '@deepseek-ai/dsh-client-store'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-personal-instructions-controller/remote'
-import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
+import type { Context } from '@lyness/cordis'
+import { createOutcomeRead, messageOf } from '@lyness/lyn-client-store'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-personal-instructions-controller/remote'
+import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
 export type CallOutcome<T> =

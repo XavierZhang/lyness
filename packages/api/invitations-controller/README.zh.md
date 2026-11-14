@@ -3,13 +3,13 @@ description: "管理员签发、读出与撤回邀请码，以及任何登录了
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-invitations-controller
+# @lyness/lyn-api-invitations-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-api-invitations-controller` 拥有 `invitations` 这个 Remote 命名空间：一个标准管理着的那些邀请码，签发一张、撤回一张这两个调用，以及任何登录了的人用来接受一张的那个调用。谁可以签发什么它一概不决定——那些规则在 `dsh-invitations` 手里，这个命名空间只是把「这次调用所处的那个标准」交给它、并把它答出的东西汇报出来。码只过线一次，就在 `issue` 的应答里，因为部署只存它的哈希。其余每个应答携带的是：这张码授出什么、什么时候失效、还剩多少。
+`lyn-api-invitations-controller` 拥有 `invitations` 这个 Remote 命名空间：一个标准管理着的那些邀请码，签发一张、撤回一张这两个调用，以及任何登录了的人用来接受一张的那个调用。谁可以签发什么它一概不决定——那些规则在 `lyn-invitations` 手里，这个命名空间只是把「这次调用所处的那个标准」交给它、并把它答出的东西汇报出来。码只过线一次，就在 `issue` 的应答里，因为部署只存它的哈希。其余每个应答携带的是：这张码授出什么、什么时候失效、还剩多少。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: invitations-controller
-  name: '@deepseek-ai/dsh-api-invitations-controller'
+  name: '@lyness/lyn-api-invitations-controller'
 ```
 
 管理页签发一张、把码展示这一次，并拼出携带它的那条链接：
 
 ```ts
-import type { InvitationInput, InvitationRowView } from '@deepseek-ai/dsh-api-invitations-controller/types'
+import type { InvitationInput, InvitationRowView } from '@lyness/lyn-api-invitations-controller/types'
 
 /** The one call an invitation form makes. */
 interface InvitationsRemote {
@@ -89,10 +89,10 @@ export async function invite(
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-invitations`](../../identity/invitations/README.zh.md) —— 它所代言的那道接缝，以及它施加的每一条边界。
-- [`dsh-api-people-controller`](../people-controller/README.zh.md) —— 一次兑换写进去的那本名册。
-- [`dsh-api-sign-in-channel-controller`](../sign-in-channel-controller/README.zh.md) —— 邀请链接点名的那些渠道。
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一整套选进来的那个组合。
+- [`lyn-invitations`](../../identity/invitations/README.zh.md) —— 它所代言的那道接缝，以及它施加的每一条边界。
+- [`lyn-api-people-controller`](../people-controller/README.zh.md) —— 一次兑换写进去的那本名册。
+- [`lyn-api-sign-in-channel-controller`](../sign-in-channel-controller/README.zh.md) —— 邀请链接点名的那些渠道。
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一整套选进来的那个组合。
 
 -----
 

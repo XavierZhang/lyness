@@ -1,12 +1,12 @@
 /** The external MCP process is replaced by barriers to pin disposal ordering. */
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import ComputerUse from '@deepseek-ai/dsh-computer-use'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { ComputerUseProviderName } from '@deepseek-ai/dsh-computer-use/types'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import ComputerUse from '@lyness/lyn-computer-use'
+import { brandString } from '@lyness/lyn-brand'
+import type { ComputerUseProviderName } from '@lyness/lyn-computer-use/types'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
 
 const fake = vi.hoisted(() => ({
   start: vi.fn<() => Promise<void>>(),
@@ -14,8 +14,8 @@ const fake = vi.hoisted(() => ({
   configurations: [] as unknown[],
 }))
 
-vi.mock('@deepseek-ai/dsh-mcp-client', async (importOriginal) => {
-  const original = await importOriginal<typeof import('@deepseek-ai/dsh-mcp-client')>()
+vi.mock('@lyness/lyn-mcp-client', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@lyness/lyn-mcp-client')>()
   return {
     ...original,
     async apply(ctx: Context, config: unknown) {

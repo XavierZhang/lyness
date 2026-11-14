@@ -13,7 +13,7 @@ import {
 const created: string[] = []
 
 function tempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), 'dsh-owner-claim-'))
+  const dir = mkdtempSync(join(tmpdir(), 'lyn-owner-claim-'))
   created.push(dir)
   return dir
 }

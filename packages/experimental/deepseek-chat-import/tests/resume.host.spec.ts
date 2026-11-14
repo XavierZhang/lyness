@@ -5,13 +5,13 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { strToU8, zipSync } from 'fflate'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import * as JsonlPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { importDeepseekChatExport } from '../src/importer.ts'
 
@@ -37,7 +37,7 @@ function text(content: readonly ContentBlock[]): string {
 }
 
 it('continues an imported conversation with its finished history and without excluded replies', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-deepseek-import-resume-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-deepseek-import-resume-'))
   cleanups.push(async () => { await rm(root, { recursive: true, force: true }) })
   const conversation = {
     id: 'c1', title: 'Bus route', inserted_at: at(0),

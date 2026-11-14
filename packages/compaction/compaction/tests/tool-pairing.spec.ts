@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { createUserMessage, type ToolCallId , createMessage, createToolResultMessage } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { CompactionId } from '@deepseek-ai/dsh-compaction/types'
-import { compactCheckpointSource, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@deepseek-ai/dsh-compaction'
-import { Session, type SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionSeq as SessionSeqType } from '@deepseek-ai/dsh-session'
+import { createUserMessage, type ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import { brandString } from '@lyness/lyn-brand'
+import type { CompactionId } from '@lyness/lyn-compaction/types'
+import { compactCheckpointSource, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/lyn-compaction'
+import { Session, type SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionSeq as SessionSeqType } from '@lyness/lyn-session'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

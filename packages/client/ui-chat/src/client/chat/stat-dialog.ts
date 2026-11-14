@@ -3,7 +3,7 @@
 // the matching dialog surface skin lives in stat-dialog.module.css.
 
 import { useEffect, useId, useRef, useState, type MutableRefObject } from 'react'
-import { useDismissOnOutsidePointer } from '@deepseek-ai/dsh-client-ui-primitives'
+import { useDismissOnOutsidePointer } from '@lyness/lyn-client-ui-primitives'
 
 /** Open state, refs, and CSS anchor identity for one stat dialog. */
 export interface StatDialogSeat {
@@ -23,7 +23,7 @@ export function useStatDialog(): StatDialogSeat {
   const rootRef = useRef<HTMLSpanElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
 
-  const anchorName = `--dsh-stat-${useId().replaceAll(':', '')}`
+  const anchorName = `--lyn-stat-${useId().replaceAll(':', '')}`
 
   // Outside pointerdown closes through the shared primitive; the portaled
   // panel counts as inside. An outside click also closes, because keyboard

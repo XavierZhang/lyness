@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { expect, it, onTestFinished } from 'vitest'
-import { isDraggableAt, type RegionRect } from '@deepseek-ai/dsh-client-web/src/window-drag/regions.ts'
+import { isDraggableAt, type RegionRect } from '@lyness/lyn-client-web/src/window-drag/regions.ts'
 
 const BASE_STYLES = readFileSync(new URL('../../../packages/client/web/src/base.css', import.meta.url), 'utf8')
 

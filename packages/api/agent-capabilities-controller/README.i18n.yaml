@@ -5,33 +5,33 @@
 /:
   en: 66594302c60698cd
   zh: bf4f9b6ac048ee56
-/deepseek-harness-dsh-api-agent-capabilities-controller:
+/lyness-lyn-api-agent-capabilities-controller:
   en: 5a8040e5b1ec0fde
   zh: 6a46ac4b3a8fa0d3
-/deepseek-harness-dsh-api-agent-capabilities-controller/summary:
+/lyness-lyn-api-agent-capabilities-controller/summary:
   en: b1c455d26d1c704e
   zh: 157a96a5d43a406f
-/deepseek-harness-dsh-api-agent-capabilities-controller/table-of-contents:
+/lyness-lyn-api-agent-capabilities-controller/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2bca79d7b98e8031
-/deepseek-harness-dsh-api-agent-capabilities-controller/use-this-package:
+/lyness-lyn-api-agent-capabilities-controller/use-this-package:
   en: edf1d950dc08c8c4
   zh: 9e181b5e6e57fe1c
-/deepseek-harness-dsh-api-agent-capabilities-controller/understand-the-implementation:
+/lyness-lyn-api-agent-capabilities-controller/understand-the-implementation:
   en: de29ea22fb7200c0
   zh: 0099124f40758a6d
-/deepseek-harness-dsh-api-agent-capabilities-controller/further-exploration:
+/lyness-lyn-api-agent-capabilities-controller/further-exploration:
   en: dcd746f33d139389
   zh: 24f51f8f6863ccdc
-/deepseek-harness-dsh-api-agent-capabilities-controller/model-experience:
+/lyness-lyn-api-agent-capabilities-controller/model-experience:
   en: 8e023eb787964cc0
   zh: 82c097700fa08226
-/deepseek-harness-dsh-api-agent-capabilities-controller/model-experience/kv-cache-effect:
+/lyness-lyn-api-agent-capabilities-controller/model-experience/kv-cache-effect:
   en: e13faf79aaae30a9
   zh: 41e7a3447d0df917
-/deepseek-harness-dsh-api-agent-capabilities-controller/known-limitations-and-deferred-work:
+/lyness-lyn-api-agent-capabilities-controller/known-limitations-and-deferred-work:
   en: 3968c2e51c220c0f
   zh: f9a4f4da2370e593
-/deepseek-harness-dsh-api-agent-capabilities-controller/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-api-agent-capabilities-controller/known-limitations-and-deferred-work/dev-note:
   en: 3eb393720bb1ca42
   zh: a80b3b10fedee71c

@@ -1,7 +1,7 @@
 /** Retained app objects use fresh execution bindings while tool results own image admission. */
 import { expect, it, vi } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { brandString } from '@lyness/lyn-brand'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { connectCua } from '../src/bridge.ts'
 import type { CuaToolBinding } from '../src/bridge.ts'
 import type { CuaCapabilities, CuaElementId, CuaOperation } from '../src/types.ts'

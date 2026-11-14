@@ -2,8 +2,8 @@
 import { Socket } from 'node:net'
 import { Duplex } from 'node:stream'
 import assert from 'node:assert/strict'
-import type { SubprocessRuntime } from '@deepseek-ai/dsh-subprocess'
-import { NativeError, type NativeClientConfig } from '@deepseek-ai/dsh-cua/native-client'
+import type { SubprocessRuntime } from '@lyness/lyn-subprocess'
+import { NativeError, type NativeClientConfig } from '@lyness/lyn-cua/native-client'
 
 /** Transport selected from the resolved Host environment. */
 export type WindowsTransport = 'pipe' | 'stdio'

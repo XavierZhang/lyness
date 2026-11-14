@@ -8,16 +8,16 @@ import { join } from 'node:path'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { abbreviateHomePath } from '@deepseek-ai/dsh-util-workspace-path'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   type SessionId,
   SessionSeq,
-} from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-reference/types'
-import type {} from '@deepseek-ai/dsh-session-title'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-reference/types'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -30,7 +30,7 @@ import {
   type WebScaffold,
 } from './scaffold.ts'
 import { connectFreshWorkspace, newEnglishPage, pinBrowserClock, saveFailureShot, WEB_FIXTURE_TIME, writeComposerDraft } from './support.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('./expected/reference-composer', import.meta.url))
 const MENU_EXPECTED = join(SNAPSHOT_DIR, 'menu.expected.md')

@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import {
   IconCheckOutlineRegular, isMobileDevice, useDismissOnOutsidePointer,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import css from './TaskMenu.module.css'
 
 /** Selectable row of a {@link TaskMenu}. */
@@ -113,7 +113,7 @@ function isLabel(entry: TaskMenuEntry): entry is TaskMenuLabel {
  */
 export function TaskMenu({ open, anchor, items = [], selectedId, onSelect, onClose, align = 'start', portal = false, header, className, listClassName }: TaskMenuProps) {
   const id = useId()
-  const anchorName = `--dsh-task-menu-${id.replaceAll(':', '')}`
+  const anchorName = `--lyn-task-menu-${id.replaceAll(':', '')}`
   const rootRef = useRef<HTMLSpanElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
   /** Index the arrow walk last focused, the resume point when focus left the rows. */

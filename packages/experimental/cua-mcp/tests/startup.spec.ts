@@ -4,8 +4,8 @@ import { existsSync } from 'node:fs'
 import { mkdtemp, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { internals, provideCmdline } from '@deepseek-ai/dsh-cmdline'
+import { Context } from '@lyness/cordis'
+import { internals, provideCmdline } from '@lyness/lyn-cmdline'
 import { Server } from '@modelcontextprotocol/server'
 import { StdioServerTransport } from '@modelcontextprotocol/server/stdio'
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
@@ -38,7 +38,7 @@ let scratch: string
 let workspace: string
 
 beforeEach(async () => {
-  scratch = await mkdtemp(join(tmpdir(), 'dsh-cua-mcp-startup-'))
+  scratch = await mkdtemp(join(tmpdir(), 'lyn-cua-mcp-startup-'))
   workspace = join(scratch, 'home', 'workspace')
   // oxlint-disable-next-line typescript/no-deprecated -- the frontend serves the SDK's low-level server.
   const server = new Server({ name: 'startup-fixture', version: '1' })
@@ -64,8 +64,8 @@ afterEach(async () => {
 /** Launcher facts of the profile; the launch directory is deliberately not the workspace. */
 const profileContext = {
   name: 'cua-mcp', dir: '/profiles/cua-mcp', patchPath: '/profiles/cua-mcp/cordis.patch.yml',
-  installAnchor: '/dsh/package.json', cwd: '/launch', home: '/home/me/.dsh',
-  startedBundles: ['@deepseek-ai/dsh-cua-mcp'], overlays: [], telemetryDisabledEnv: undefined,
+  installAnchor: '/lyn/package.json', cwd: '/launch', home: '/home/me/.lyn',
+  startedBundles: ['@lyness/lyn-cua-mcp'], overlays: [], telemetryDisabledEnv: undefined,
 }
 
 async function boot(args: string[], config: Partial<frontend.Config> = {}) {
@@ -129,9 +129,9 @@ describe('Computer Use MCP startup', () => {
     expect(unknown.stderr.join('')).toContain("unknown option '--print-client-config'")
     expect(unknown.stdout.join('')).toBe('')
     const help = await boot(['--help'])
-    expect(help.stdout.join('')).toContain('Usage: dsh --profile cua-mcp [options]')
-    expect(help.stdout.join('')).toContain('DSH_CUA_CONSENT=allow')
-    expect(help.stdout.join('')).toContain('DSH_CUA_WORKSPACE=/work')
+    expect(help.stdout.join('')).toContain('Usage: lyn --profile cua-mcp [options]')
+    expect(help.stdout.join('')).toContain('LYNESS_CUA_CONSENT=allow')
+    expect(help.stdout.join('')).toContain('LYNESS_CUA_WORKSPACE=/work')
     expect(help.exit).toHaveBeenCalledWith(0)
     // Neither invocation serves, so readiness creates neither the workspace nor an Agent.
     unknown.ready()
@@ -146,7 +146,7 @@ describe('Computer Use MCP startup', () => {
     relative.ready()
     await vi.waitFor(() => { expect(relative.exit).toHaveBeenCalledWith(1) })
     expect(relative.stderr).toEqual([
-      'dsh: MCP startup failed: the workspace "relative/workspace" is not an absolute directory path; set DSH_CUA_WORKSPACE to an absolute path\n',
+      'lyn: MCP startup failed: the workspace "relative/workspace" is not an absolute directory path; set LYNESS_CUA_WORKSPACE to an absolute path\n',
     ])
     // A file occupies the parent, so the directory cannot be created.
     await writeFile(join(scratch, 'occupied'), '')
@@ -155,8 +155,8 @@ describe('Computer Use MCP startup', () => {
     blocked.ready()
     await vi.waitFor(() => { expect(blocked.exit).toHaveBeenCalledWith(1) })
     expect(blocked.stderr).toHaveLength(1)
-    expect(blocked.stderr[0]).toContain(`dsh: MCP startup failed: the workspace directory ${JSON.stringify(occupied)} cannot be created (Error: ENOTDIR`)
-    expect(blocked.stderr[0]).toContain('set DSH_CUA_WORKSPACE to a writable location\n')
+    expect(blocked.stderr[0]).toContain(`lyn: MCP startup failed: the workspace directory ${JSON.stringify(occupied)} cannot be created (Error: ENOTDIR`)
+    expect(blocked.stderr[0]).toContain('set LYNESS_CUA_WORKSPACE to a writable location\n')
     expect(blocked.stdout).toEqual([])
     expect(createCuaMcpServer).not.toHaveBeenCalled()
     expect(connect).not.toHaveBeenCalled()
@@ -167,7 +167,7 @@ describe('Computer Use MCP startup', () => {
     const refused = await boot([])
     refused.ready()
     await vi.waitFor(() => { expect(refused.exit).toHaveBeenCalledWith(1) })
-    expect(refused.stderr).toEqual(['dsh: MCP startup failed: registry refused the Agent\n'])
+    expect(refused.stderr).toEqual(['lyn: MCP startup failed: registry refused the Agent\n'])
     expect(connect).not.toHaveBeenCalled()
     await refused.ctx.fiber.dispose()
     // A rejection that is not an Error is reported as its string form.
@@ -175,7 +175,7 @@ describe('Computer Use MCP startup', () => {
     const failing = await boot([])
     failing.ready()
     await vi.waitFor(() => { expect(failing.exit).toHaveBeenCalledWith(1) })
-    expect(failing.stderr).toEqual(['dsh: MCP startup failed: transport start failed\n'])
+    expect(failing.stderr).toEqual(['lyn: MCP startup failed: transport start failed\n'])
     // A transport that fails while the frontend is being disposed is not a startup failure.
     const opening = Promise.withResolvers<undefined>()
     connect.mockImplementationOnce(async () => { await opening.promise })
@@ -193,7 +193,7 @@ describe('Computer Use MCP startup', () => {
     const ctx = new Context()
     roots.push(ctx)
     provideCmdline(ctx, { args: [], exit: () => {}, ready: { onReady: () => () => {} } })
-    expect(() => { frontend.apply(ctx, frontend.Config({ workspace })) }).toThrow('requires the dsh profile launcher')
+    expect(() => { frontend.apply(ctx, frontend.Config({ workspace })) }).toThrow('requires the lyn profile launcher')
     expect(frontend.Config({ workspace })).toEqual({ consent: 'elicit', workspace })
     expect(() => frontend.Config({})).toThrow()
     expect(() => frontend.Config({ workspace, consent: 'ask' as 'allow' })).toThrow()

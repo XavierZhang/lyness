@@ -3,13 +3,13 @@ description: "MCP server manager for deployments, plugins, and management surfac
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-mcp-manager
+# @lyness/lyn-mcp-manager
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-mcp-manager` manages a live fleet of MCP servers from two sources: entries in `config.servers` on its profile entry (also editable through Settings), and entries that installed plugins register for their own lifetime. The manager mounts one `dsh-mcp-client` instance per enabled entry, adding, rebuilding, disabling, and removing instances live as either source changes. `ctx.mcpManager` aggregates every server's connection status, `restart` recovers a server whose reconnect budget ran out, `probe` tests an entry without touching the live instances, and `watch` streams the server list to Remote clients. `${credential:REF}` templates keep secrets out of entries; mcp-client handles credential rotation inside each instance.
+`lyn-mcp-manager` manages a live fleet of MCP servers from two sources: entries in `config.servers` on its profile entry (also editable through Settings), and entries that installed plugins register for their own lifetime. The manager mounts one `lyn-mcp-client` instance per enabled entry, adding, rebuilding, disabling, and removing instances live as either source changes. `ctx.mcpManager` aggregates every server's connection status, `restart` recovers a server whose reconnect budget ran out, `probe` tests an entry without touching the live instances, and `watch` streams the server list to Remote clients. `${credential:REF}` templates keep secrets out of entries; mcp-client handles credential rotation inside each instance.
 
 ## Table of Contents
 
@@ -25,11 +25,11 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount the manager once per Host. The Web and Desktop profiles mount it as the `mcp-manager` row of [`dsh-web-app`](../../bundle/web-app/README.md). Its volatile `config.servers` holds configured entries; Settings uses the owning entry id as its namespace (`mcp` in the examples below). Credential templates resolve through the credentials provider, so compose the row with `inject: [credentials]` wherever entries may use them.
+Mount the manager once per Host. The Web and Desktop profiles mount it as the `mcp-manager` row of [`lyn-web-app`](../../bundle/web-app/README.md). Its volatile `config.servers` holds configured entries; Settings uses the owning entry id as its namespace (`mcp` in the examples below). Credential templates resolve through the credentials provider, so compose the row with `inject: [credentials]` wherever entries may use them.
 
 ### When to choose it
 
-Choose the manager when the server set changes at runtime: a settings edit or a management surface adds, reconfigures, disables, or deletes configured servers, or an installed plugin brings its own server. Keep plain `dsh-mcp-client` rows instead when a deployment pins its servers in the composition, or when a server belongs to one agent preset rather than the whole Host; the manager governs the global plane only.
+Choose the manager when the server set changes at runtime: a settings edit or a management surface adds, reconfigures, disables, or deletes configured servers, or an installed plugin brings its own server. Keep plain `lyn-mcp-client` rows instead when a deployment pins its servers in the composition, or when a server belongs to one agent preset rather than the whole Host; the manager governs the global plane only.
 
 ### Minimal configuration
 
@@ -37,7 +37,7 @@ One `cordis.yml` row mounts the manager; `servers` in its config is optional and
 
 ```yaml
 - id: mcp
-  name: '@deepseek-ai/dsh-mcp-manager'
+  name: '@lyness/lyn-mcp-manager'
   inject: [credentials]
   config:
     servers:
@@ -73,7 +73,7 @@ A profile’s `cordis.patch.yml` replaces the entry’s complete `servers` map. 
 | `startupTimeoutMs` | `30,000` | Budget for template resolution, negotiation, connection, and initial tool discovery |
 | `toolCallTimeoutMs` / `closeTimeoutMs` / `reconnect` | mcp-client defaults | Per-server overrides |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-mcp-manager) is the exhaustive source for every accepted field.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-mcp-manager) is the exhaustive source for every accepted field.
 
 ### Managing configured servers
 
@@ -86,8 +86,8 @@ Settings writes persist through ConfigEditor with revision checks; Loader update
 A plugin that integrates an MCP service registers its server instead of writing configuration:
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-mcp-manager'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-mcp-manager'
 
 export const name = 'example-app'
 export const inject = ['mcpManager']
@@ -111,7 +111,7 @@ Reconnection stays inside mcp-client. `restart(name)` replaces an instance and r
 
 ### Remote operations
 
-Browser clients reach the manager as `ctx.remote.mcpManager` through [`dsh-api-remotes`](../../api/remotes/README.md). `watch(signal)` yields the complete server list on subscription and again after every status or entry change, coalescing changes the subscriber has not read yet; aborting the signal ends that stream, and manager disposal ends every stream. `restart(name)` and `probe(name, signal)` run the operations above. Configuration writes stay on the Settings Remote; the manager adds no write method, so a browser cannot define a server command.
+Browser clients reach the manager as `ctx.remote.mcpManager` through [`lyn-api-remotes`](../../api/remotes/README.md). `watch(signal)` yields the complete server list on subscription and again after every status or entry change, coalescing changes the subscriber has not read yet; aborting the signal ends that stream, and manager disposal ends every stream. `restart(name)` and `probe(name, signal)` run the operations above. Configuration writes stay on the Settings Remote; the manager adds no write method, so a browser cannot define a server command.
 
 -----
 
@@ -155,7 +155,7 @@ Read these pages when the package-level contract is not enough.
 - [mcp-client README](../mcp-client/README.md) — the per-instance bridge: naming, reconnect policy, tool execution, status surface.
 - [Settings package README](../../settings/settings/README.md) — the Config forms, inheritance, revision checks, and profile writes the manager uses.
 - [Credentials group README](../../credentials/README.md) — the credential references `${credential:…}` templates resolve.
-- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-mcp-manager) — every accepted config field.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-mcp-manager) — every accepted config field.
 - [MCP manager Agent Note](../../../.agents/notes/implemented/feature/2026-08-31-mcp-manager-plugin.md) — the design decisions, peer-product survey, and rejected alternatives.
 
 -----
@@ -163,7 +163,7 @@ Read these pages when the package-level contract is not enough.
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the `dsh-mcp-client` instances it mounts, whose server-qualified tools and schemas enter requests; the manager itself registers no prompt or tool content.
+Indirectly, through the `lyn-mcp-client` instances it mounts, whose server-qualified tools and schemas enter requests; the manager itself registers no prompt or tool content.
 
 #### KV Cache effect
 

@@ -1,6 +1,6 @@
 /** Consent answerer for the connection's Agent: unattended approval or MCP elicitation. @module */
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { UserQuestionError, type AskUserQuestionAnswer, type AskUserQuestionItem } from '@deepseek-ai/dsh-user-questions'
+import type { Agent } from '@lyness/lyn-agent'
+import { UserQuestionError, type AskUserQuestionAnswer, type AskUserQuestionItem } from '@lyness/lyn-user-questions'
 import type { ElicitResult } from '@modelcontextprotocol/server'
 
 /** Who decides application and pointer consent for the connection's Agent. */
@@ -58,7 +58,7 @@ export async function elicitAnswer(
 ): Promise<AskUserQuestionAnswer['answers'][number]> {
   if (!client.supportsElicitation()) {
     throw new Error('The connected MCP client does not support elicitation, so nobody can grant this request; '
-      + 'start the server with DSH_CUA_CONSENT=allow to grant application and pointer access without a human')
+      + 'start the server with LYNESS_CUA_CONSENT=allow to grant application and pointer access without a human')
   }
   const labels = labelsOf(question)
   const message = question.detail === undefined ? question.question : `${question.question}\n\n${question.detail}`

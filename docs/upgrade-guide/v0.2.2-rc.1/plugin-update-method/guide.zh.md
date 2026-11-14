@@ -13,7 +13,7 @@ description: "BundleInfo.updatable 由 BundleInfo.update 取代，ManagementErro
 
 `ManagementError['code']` 新增 `unexpected-package`：带 `InstallBundleOptions.expected` 运行的安装（`updateBundle` 总会传入该选项）在 spec 安装了其他包或其他版本时以此错误码失败。
 
-受影响的代码包括：通过 Host API、`@deepseek-ai/dsh-plugin-manager/types` 或 `@deepseek-ai/dsh-api-remotes/client` 中的远端客户端读取 `listBundles()` 的代码，以及对 `ManagementError['code']` 做穷尽 switch 的代码。`plugin_manager` 工具从未返回该字段，保持不变。
+受影响的代码包括：通过 Host API、`@lyness/lyn-plugin-manager/types` 或 `@lyness/lyn-api-remotes/client` 中的远端客户端读取 `listBundles()` 的代码，以及对 `ManagementError['code']` 做穷尽 switch 的代码。`plugin_manager` 工具从未返回该字段，保持不变。
 
 ## 迁移
 

@@ -1,10 +1,10 @@
 import { createServer, type IncomingMessage } from 'node:http'
 import { PassThrough } from 'node:stream'
 import type { AddressInfo } from 'node:net'
-import { Context } from '@deepseek-ai/cordis'
-import type { IndexInjection, WebServer, WebUpgradeRoute } from '@deepseek-ai/dsh-host-webserver'
-import { ConnectionAuthentication, HostConnectionService } from '@deepseek-ai/dsh-client-connection'
-import * as Connection from '@deepseek-ai/dsh-client-connection'
+import { Context } from '@lyness/cordis'
+import type { IndexInjection, WebServer, WebUpgradeRoute } from '@lyness/lyn-host-webserver'
+import { ConnectionAuthentication, HostConnectionService } from '@lyness/lyn-client-connection'
+import * as Connection from '@lyness/lyn-client-connection'
 import open from 'open'
 import WebSocket, { type RawData } from 'ws'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -52,9 +52,9 @@ describe('experimental Inspector Host plugin', () => {
 
     const rows: IndexInjection[] = []
     context.emit('webserver/index-inject', rows, connection.browserPeer)
-    const bootstrap = rows.find(row => row.kind === 'global' && row.name === '__DSH_INSPECTOR__')
-    expect(bootstrap).toMatchObject({ kind: 'global', name: '__DSH_INSPECTOR__' })
-    expect(log).toHaveBeenCalledWith(expect.stringMatching(/^dsh inspector: devtools:\/\//u))
+    const bootstrap = rows.find(row => row.kind === 'global' && row.name === '__LYNESS_INSPECTOR__')
+    expect(bootstrap).toMatchObject({ kind: 'global', name: '__LYNESS_INSPECTOR__' })
+    expect(log).toHaveBeenCalledWith(expect.stringMatching(/^lyn inspector: devtools:\/\//u))
     expect(context.inspector).toBeDefined()
     expect(registerRoute).toHaveBeenCalledWith(expect.objectContaining({ kind: 'prefix', path: '/inspector/devtools' }))
     expect(registerUpgrade).toHaveBeenCalledWith(expect.objectContaining({ path: '/inspector/devtools/cdp' }))
@@ -103,7 +103,7 @@ describe('experimental Inspector Host plugin', () => {
         if (message.id === 1) resolve(message)
       })
     })
-    socket.send(JSON.stringify({ id: 1, method: 'DSHInspector.getSources' }))
+    socket.send(JSON.stringify({ id: 1, method: 'LYNInspector.getSources' }))
     await vi.waitFor(async () => {
       const sources = (await response).result?.sources as Array<{ topics: Record<string, number> }>
       expect(sources.some(source => source.topics['host/plugin-probe'] === 1)).toBe(true)
@@ -114,10 +114,10 @@ describe('experimental Inspector Host plugin', () => {
     await fiber.dispose()
     expect(releaseRoute).toHaveBeenCalledOnce()
     expect(releaseUpgrade).toHaveBeenCalledOnce()
-    expect(rows.filter(row => row.kind === 'global' && row.name === '__DSH_INSPECTOR__')).toHaveLength(1)
+    expect(rows.filter(row => row.kind === 'global' && row.name === '__LYNESS_INSPECTOR__')).toHaveLength(1)
     const afterDispose: IndexInjection[] = []
     context.emit('webserver/index-inject', afterDispose, connection.browserPeer)
-    expect(afterDispose.some(row => row.kind === 'global' && row.name === '__DSH_INSPECTOR__')).toBe(false)
+    expect(afterDispose.some(row => row.kind === 'global' && row.name === '__LYNESS_INSPECTOR__')).toBe(false)
     expect((await api.fetch(new Request(`http://localhost${INSPECTOR_BOOTSTRAP_PATH}`), connection.browserPeer)).status).toBe(404)
   })
 

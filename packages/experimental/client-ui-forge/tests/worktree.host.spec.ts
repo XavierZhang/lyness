@@ -1,22 +1,22 @@
 import { access } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { AgentCancelCause } from '@deepseek-ai/dsh-agent'
-import { CREATED_RECORD } from '@deepseek-ai/dsh-experimental-worktree'
-import type {} from '@deepseek-ai/dsh-experimental-forge-session'
-import SessionStore, { appendPluginRecord, type SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-working-directory'
+import { Context } from '@lyness/cordis'
+import type { AgentCancelCause } from '@lyness/lyn-agent'
+import { CREATED_RECORD } from '@lyness/lyn-experimental-worktree'
+import type {} from '@lyness/lyn-experimental-forge-session'
+import SessionStore, { appendPluginRecord, type SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-working-directory'
 import type { ForgeSessionWorktree, ForgeWorktreeCreation, ForgeWorktreeState } from '../src/index.ts'
 import { CreationFailure, forgeWorktreeProjection, WORKTREE_RECORD, WorktreeCreations } from '../src/worktree.ts'
 import {
   branches, commitAt, git, hold, notice, plainSession, prompt, proposeStep, rejectionOf, repository, runtime, scratch, startStep, startTurn,
 } from './harness.ts'
 import type { Runtime } from './harness.ts'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { brandString } from '@lyness/lyn-brand'
 
 const cleanups: (() => Promise<void>)[] = []
 
@@ -27,7 +27,7 @@ afterEach(async () => {
 const signal = new AbortController().signal
 
 const WORKTREE: ForgeSessionWorktree = {
-  path: '/work/repo/.agents/worktrees/dsh/0a1b2c3d', branch: 'dsh/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: '/work/repo',
+  path: '/work/repo/.agents/worktrees/lyn/0a1b2c3d', branch: 'lyn/0a1b2c3d', from: null, baseCommit: 'c'.repeat(40), repositoryRoot: '/work/repo',
 }
 
 /** The state before any worktree record, turn, step, or directory change of a Session without a recorded directory. */
@@ -141,7 +141,7 @@ describe('forgeWorktree projection', () => {
 
     appendPluginRecord(session, WORKTREE_RECORD, { action: 'created', worktree: { ...WORKTREE, from: 'main' } })
     const created = state()
-    appendPluginRecord(session, WORKTREE_RECORD, { action: 'created', worktree: { ...WORKTREE, branch: 'dsh/ffffffff' } })
+    appendPluginRecord(session, WORKTREE_RECORD, { action: 'created', worktree: { ...WORKTREE, branch: 'lyn/ffffffff' } })
     appendPluginRecord(session, WORKTREE_RECORD, { action: 'request', from: null })
     appendPluginRecord(session, WORKTREE_RECORD, { action: 'cancel' })
 
@@ -220,7 +220,7 @@ describe('forgeWorktree projection', () => {
 })
 
 async function project(): Promise<string> {
-  const { path, remove } = await scratch('dsh-forge-worktree-')
+  const { path, remove } = await scratch('lyn-forge-worktree-')
   cleanups.push(remove)
   return await repository(path)
 }
@@ -239,7 +239,7 @@ interface Creating extends Runtime {
 /**
  * Open a {@link runtime} whose worktree creations report every change.
  * @param cwd - Session project directory.
- * @param options - branch prefix, `dsh-` when omitted, and whether the worktree service is mounted, as it is when omitted.
+ * @param options - branch prefix, `lyn-` when omitted, and whether the worktree service is mounted, as it is when omitted.
  * @returns the composition.
  */
 async function creating(cwd: string, options: { readonly prefix?: string; readonly worktrees?: boolean } = {}): Promise<Creating> {
@@ -248,7 +248,7 @@ async function creating(cwd: string, options: { readonly prefix?: string; readon
   const states = await base.ctx.sessionProjections.register(forgeWorktreeProjection)
   const changes: (ForgeWorktreeCreation | null)[] = []
   const recorded: (ForgeSessionWorktree | null)[] = []
-  const creations: WorktreeCreations = new WorktreeCreations(base.ctx, states, options.prefix ?? 'dsh-', (session) => {
+  const creations: WorktreeCreations = new WorktreeCreations(base.ctx, states, options.prefix ?? 'lyn-', (session) => {
     changes.push(creations.of(session))
     recorded.push(states.stateOf(session).created)
   })
@@ -256,7 +256,7 @@ async function creating(cwd: string, options: { readonly prefix?: string; readon
 }
 
 /** Matches a generated branch name with the default prefix. */
-const GENERATED_BRANCH: unknown = expect.stringMatching(/^dsh-[0-9a-f]{8}$/)
+const GENERATED_BRANCH: unknown = expect.stringMatching(/^lyn-[0-9a-f]{8}$/)
 
 /** Matches the failure of an attempt whose base branch does not exist. */
 const MISSING_BASE: unknown = expect.stringMatching(/^worktree command failed \(128\): fatal: /)
@@ -283,7 +283,7 @@ describe('creating a requested worktree', () => {
     const result = await opened.creations.create(opened.agent, null, signal, false)
 
     const branch = result.branch
-    expect(branch).toMatch(/^dsh-[0-9a-f]{8}$/)
+    expect(branch).toMatch(/^lyn-[0-9a-f]{8}$/)
     const path = join(repo, '.agents', 'worktrees', ...branch.split('/'))
     const created = { path, branch, from: null, baseCommit: head, repositoryRoot: repo }
     expect(result).toEqual({ path, branch, baseCommit: head, repositoryRoot: repo })
@@ -415,7 +415,7 @@ describe('worktree creation at the first step proposal', () => {
 
     const created = worktreeOf(opened)
     const branch = created?.branch ?? ''
-    expect(branch).toMatch(/^dsh-[0-9a-f]{8}$/)
+    expect(branch).toMatch(/^lyn-[0-9a-f]{8}$/)
     const path = join(repo, '.agents', 'worktrees', ...branch.split('/'))
     expect(created).toEqual({ path, branch, from: null, baseCommit: head, repositoryRoot: repo })
     expect(opened.records).toEqual([{ action: 'request', from: null }])

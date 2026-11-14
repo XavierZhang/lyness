@@ -3,19 +3,19 @@ import { createHash } from 'node:crypto'
 import { appendFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { z } from 'zod'
-import { readDesktopPublishConfig, readDesktopUploadCredentials, requireDesktopEdgeOneZoneId } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-config.ts'
+import { readDesktopPublishConfig, readDesktopUploadCredentials, requireDesktopEdgeOneZoneId } from '@lyness/lyn-desktop-publisher/desktop-publish-config.ts'
 import { desktopReleasesRoot } from './retain-desktop-ci.ts'
-import { retainedDesktopPath, verifyRetainedDesktopRelease } from '@deepseek-ai/dsh-desktop-publisher/desktop-release-store.ts'
+import { retainedDesktopPath, verifyRetainedDesktopRelease } from '@lyness/lyn-desktop-publisher/desktop-release-store.ts'
 import { verifyRetainedDesktopSignatures } from './verify-retained-desktop.ts'
 import { createDesktopUploadPlan } from './desktop-upload-plan.ts'
-import { desktopPublishCos } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-cos.ts'
-import { createDesktopPublicationRecord, wasDesktopAttemptPublished, withDesktopChannelLock } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-record.ts'
-import { publishDesktopRelease } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish.ts'
-import { desktopPublicationFailure } from '@deepseek-ai/dsh-desktop-publisher/desktop-publication-failure.ts'
+import { desktopPublishCos } from '@lyness/lyn-desktop-publisher/desktop-publish-cos.ts'
+import { createDesktopPublicationRecord, wasDesktopAttemptPublished, withDesktopChannelLock } from '@lyness/lyn-desktop-publisher/desktop-publish-record.ts'
+import { publishDesktopRelease } from '@lyness/lyn-desktop-publisher/desktop-publish.ts'
+import { desktopPublicationFailure } from '@lyness/lyn-desktop-publisher/desktop-publication-failure.ts'
 import { desktopPublicationSummary } from './desktop-publication-summary.ts'
 import { publishDesktopTag } from './desktop-publish-tag.ts'
-import { websiteApproval } from '@deepseek-ai/dsh-desktop-publisher/publish-website-ci.ts'
-import { desktopPublishQualificationError } from '@deepseek-ai/dsh-desktop-publisher/desktop-publish-qualification.mjs'
+import { websiteApproval } from '@lyness/lyn-desktop-publisher/publish-website-ci.ts'
+import { desktopPublishQualificationError } from '@lyness/lyn-desktop-publisher/desktop-publish-qualification.mjs'
 
 const routeSchema = z.object({ runId: z.string(), attempt: z.string(), commit: z.string(), runnerName: z.string(),
   sourceRef: z.string(), channel: z.enum(['nightly', 'stable']),
@@ -46,15 +46,15 @@ export async function prepareDesktopPublication(env: NodeJS.ProcessEnv, verifySi
   const diagnostic = desktopPublishQualificationError(source.qualification)
   if (diagnostic) throw new Error(diagnostic)
   if (source.qualification !== (source.target === 'win-x64' ? 'signed' : 'notarized')) throw new Error('desktop publish: package qualification does not match its platform')
-  const config = await readDesktopPublishConfig(env.DSH_PACKAGING_CONFIG_DIR!, source.preset)
+  const config = await readDesktopPublishConfig(env.LYNESS_PACKAGING_CONFIG_DIR!, source.preset)
   const directory = retainedDesktopPath(root, route.runId, route.attempt)
   const environment = source.preset === 'test'
-    ? { DSH_DESKTOP_AUTO_UPDATE_ENV: 'test', DOWNLOAD_TEST_ORIGIN: config.origin,
+    ? { LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'test', DOWNLOAD_TEST_ORIGIN: config.origin,
       DOWNLOAD_TEST_RELEASE_ID: source.testReleaseId ?? '', DOWNLOAD_TEST_COS_BUCKET: config.bucket }
-    : { DSH_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: config.bucket }
+    : { LYNESS_DESKTOP_AUTO_UPDATE_ENV: 'production', DOWNLOAD_PROD_COS_BUCKET: config.bucket }
   const plan = await createDesktopUploadPlan(source.target, { artifactsRoot: directory,
     stagingPercentage,
-    packagedProductVersion: source.productVersion, environment: { ...environment, DSH_DESKTOP_UPDATE_CHANNEL: source.channel } })
+    packagedProductVersion: source.productVersion, environment: { ...environment, LYNESS_DESKTOP_UPDATE_CHANNEL: source.channel } })
   if (plan.version !== source.version || plan.commit !== source.commit || plan.dirty !== false) throw new Error('desktop publish: completion record differs from retained source or has uncommitted changes')
   await verifySignatures(directory, manifest, config)
   const approval = createHash('sha256').update(JSON.stringify({ manifest, plan })).digest('hex')

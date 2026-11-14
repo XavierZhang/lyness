@@ -3,10 +3,10 @@
  * children and is recorded in the creator's catalog; a member's full name is
  * the slash-separated path of names from the root, whose own name is `lead`.
  *
- * @module @deepseek-ai/dsh-subagent/names
+ * @module @lyness/lyn-subagent/names
  */
 
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@lyness/lyn-agent'
 import { SubagentError } from './error.ts'
 
 /** The root agent's fixed name; no child may take it. */

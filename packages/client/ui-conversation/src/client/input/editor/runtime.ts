@@ -1,7 +1,7 @@
 /** The Composer model's private Lexical editor, projections, and node operations. */
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type { LexicalEditor, NodeKey } from 'lexical'
-import type { QuoteSummary } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { QuoteSummary } from '@lyness/lyn-client-ui-primitives'
 import {
   $addUpdateTag, $createParagraphNode, $createTextNode, $getAdjacentNode, $isTextNode,
   $getRoot, $getSelection, $getNodeByKey, $isRangeSelection,
@@ -64,7 +64,7 @@ function $appendParagraphs(text: string): void {
 const HISTORY_MERGE_DELAY_MS = 1000
 
 /** Editor update that removes submitted content while retaining any newer draft suffix. */
-export const DRAFT_SUBMITTED_TAG = 'dsh-draft-submitted'
+export const DRAFT_SUBMITTED_TAG = 'lyn-draft-submitted'
 
 /** One model-owned editor; registration and disposal remain with its model. */
 export class DraftEditorRuntime {
@@ -83,7 +83,7 @@ export class DraftEditorRuntime {
   /** @param deps - model callbacks used by editor listeners and transforms. */
   constructor(private readonly deps: DraftEditorRuntimeDeps) {
     this.editor = createEditor({
-      namespace: 'dsh-composer',
+      namespace: 'lyn-composer',
       nodes: [ReferenceChipNode, CommandChipNode, TextRefNode, QuoteNode],
       onError: (error) => { throw error },
     })

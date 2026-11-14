@@ -16,7 +16,7 @@ Team 协作需要显式开启；[Session 选择](../architecture/2026-10-20-sess
 
 每个普通根及其后代组成以根 `SessionId` 标识的 Team；持久任务状态从首个任务事件开始。[subagent 队友](../architecture/2026-10-15-agent-teams-as-subagents.zh.md)负责单一 agent 身份。[仅等待收件箱](../simplification/2026-10-29-inbox-only-agent-wait.zh.md)使任务板变更独立于收件箱等待。普通 Session fork 成为一棵新树的根，并排除继承的 Team 权限。
 
-实现拆分为 `@deepseek-ai/dsh-agent-team` 与 `@deepseek-ai/dsh-tool-agent-team`：前者负责 `ctx.agentTeams` 和持久语义，后者负责 scoped schema 与模型指引。每个 Team 工具都声明完整的结果 schema，并把该值渲染为紧凑 JSON，因此编译器会检查每个 `execute` 是否符合对模型的承诺，也没有结果把 token 花在缩进上。基础 bundle 挂载两个插件；Team 不注册与 subagent control 同名的工具。共享策略声明 Team 可用，并说明协调责任。两个包属于 [subagent 家族](../../../../packages/subagent/README.zh.md)；根 Session 保存的选择控制任务工具与策略。[Session 模式升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.2/session-team-mode/guide.zh.md)说明 profile 迁移。
+实现拆分为 `@lyness/lyn-agent-team` 与 `@lyness/lyn-tool-agent-team`：前者负责 `ctx.agentTeams` 和持久语义，后者负责 scoped schema 与模型指引。每个 Team 工具都声明完整的结果 schema，并把该值渲染为紧凑 JSON，因此编译器会检查每个 `execute` 是否符合对模型的承诺，也没有结果把 token 花在缩进上。基础 bundle 挂载两个插件；Team 不注册与 subagent control 同名的工具。共享策略声明 Team 可用，并说明协调责任。两个包属于 [subagent 家族](../../../../packages/subagent/README.zh.md)；根 Session 保存的选择控制任务工具与策略。[Session 模式升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.2/session-team-mode/guide.zh.md)说明 profile 迁移。
 
 Lead 必须等待所需工作后才能给出最终答案。进程 teardown 仍是最终生命周期 owner，并会 drain continuation Activation；Team task owner 是持久状态，不会因 idle、interrupt 或进程退出自动释放。
 

@@ -7,18 +7,18 @@
  * Imports go through the package name so the shim, the hook layer, and the watcher share one module instance.
  */
 import { beforeEach, expect, test } from 'vitest'
-import { AsyncLocalStorage } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/node/builtin_modules/implemented/async_hooks.ts'
-import { installAsyncContextHooks } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/polyfill/async-context/async-context-hooks.ts'
-import { installTimerGlobals } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/node/globals/timers.ts'
-import { MemoryVfs } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/storage/active.ts'
-import * as workerFs from '@deepseek-ai/dsh-experimental-webworker-runtime/src/node/builtin_modules/implemented/fs.ts'
+import { AsyncLocalStorage } from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/async_hooks.ts'
+import { installAsyncContextHooks } from '@lyness/lyn-experimental-webworker-runtime/src/polyfill/async-context/async-context-hooks.ts'
+import { installTimerGlobals } from '@lyness/lyn-experimental-webworker-runtime/src/node/globals/timers.ts'
+import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
+import * as workerFs from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/fs.ts'
 
 // The worker entry's order: patch the platform, then wrap the timers over it.
 installAsyncContextHooks()
 installTimerGlobals()
 
-const ROOT = '/dsh/watch-context'
+const ROOT = '/lyn/watch-context'
 let vfs: MemoryVfs
 
 beforeEach(() => {

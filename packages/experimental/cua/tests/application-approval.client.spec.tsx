@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 /** Fixed decisions retain the caller's answer labels and pending-question lifetime. */
 import { cleanup, render } from '@testing-library/react'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { afterEach, expect, it, vi } from 'vitest'
-import type { ApprovalCardInput } from '@deepseek-ai/dsh-client-ui-approval/client'
-import { PendingQuestion, createWaterfallRequest } from '@deepseek-ai/dsh-client-ui-user-questions/src/client/contract/slots.ts'
+import type { ApprovalCardInput } from '@lyness/lyn-client-ui-approval/client'
+import { PendingQuestion, createWaterfallRequest } from '@lyness/lyn-client-ui-user-questions/src/client/contract/slots.ts'
 import { ApplicationApproval, selectApplicationApproval, type ApplicationApprovalProps } from '../src/client/ApplicationApproval.tsx'
 import { en, zh } from '../src/client/locales.ts'
 

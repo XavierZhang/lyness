@@ -4,10 +4,10 @@ import { existsSync, readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import type { Context, Plugin } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/cordis-plugin-loader'
-import type { WebBootGraph } from '@deepseek-ai/dsh-client-modules/client'
-import type {} from '@deepseek-ai/dsh-client-modules'
+import type { Context, Plugin } from '@lyness/cordis'
+import type {} from '@lyness/cordis-plugin-loader'
+import type { WebBootGraph } from '@lyness/lyn-client-modules/client'
+import type {} from '@lyness/lyn-client-modules'
 
 /** Observed Loader entries, registered plugin instances, loaded modules, and delivered Client entries. */
 export interface RuntimeRoster {

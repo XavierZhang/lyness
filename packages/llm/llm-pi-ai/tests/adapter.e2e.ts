@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import LlmRuntime, { createToolResultMessage, createUserMessage, type ToolCallId, type ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { Message, ToolSchema } from '@deepseek-ai/dsh-llm'
-import * as LlmPiAi from '@deepseek-ai/dsh-llm-pi-ai'
-import type { PiAiProviderProfile } from '@deepseek-ai/dsh-llm-pi-ai'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import LlmRuntime, { createToolResultMessage, createUserMessage, type ToolCallId, type ReasoningEffortId } from '@lyness/lyn-llm'
+import type { Message, ToolSchema } from '@lyness/lyn-llm'
+import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
+import type { PiAiProviderProfile } from '@lyness/lyn-llm-pi-ai'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 import { assemble, type AssembledResult } from './assemble.ts'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * Real-API e2e for the pi-ai-backed adapter: V4 Flash defaults and

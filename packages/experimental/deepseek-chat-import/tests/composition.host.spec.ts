@@ -5,29 +5,29 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { strToU8, zipSync } from 'fflate'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import type { ImageAttachmentRef, SaveImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { ConnectionFetchRoute } from '@deepseek-ai/dsh-client-connection'
-import * as SessionStore from '@deepseek-ai/dsh-session'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import * as SessionProjection from '@deepseek-ai/dsh-session-projection'
-import * as SessionProjectionCache from '@deepseek-ai/dsh-session-projection-cache'
-import * as Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import * as Workspace from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import type { ImageAttachmentRef, SaveImageAttachment } from '@lyness/lyn-attachment'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { ConnectionFetchRoute } from '@lyness/lyn-client-connection'
+import * as SessionStore from '@lyness/lyn-session'
+import { SessionId } from '@lyness/lyn-session'
+import * as JsonlPersistence from '@lyness/lyn-session-persistence-jsonl'
+import * as SessionProjection from '@lyness/lyn-session-projection'
+import * as SessionProjectionCache from '@lyness/lyn-session-projection-cache'
+import * as Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as TypertRegistry from '@lyness/lyn-typert-registry'
+import * as Workspace from '@lyness/lyn-workspace'
 import * as DeepseekChatImport from '../src/index.ts'
 import { UPLOAD_PATH } from '../src/protocol.ts'
 import type { ExportSessionFile } from '../src/format.ts'
 import type { DeepseekChatImportLine } from '../src/types.ts'
-import type { PeerId, Principal, RemoteInvocation } from '@deepseek-ai/dsh-typert-protocol'
+import type { PeerId, Principal, RemoteInvocation } from '@lyness/lyn-typert-protocol'
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface PrincipalMap {
     /** Test-only non-owner caller shared by the access specs. */
     'test-guest': { readonly kind: 'test-guest'; readonly guest: string }
@@ -59,31 +59,31 @@ function chat(id: string, leafAt: number): ExportSessionFile {
 
 /** Boot the plugin rows through the Loader with stand-ins for the Connection route registry and the attachment store. */
 async function boot(saveImage: (input: SaveImageAttachment) => Promise<ImageAttachmentRef> = () => Promise.reject(new Error('unused'))) {
-  root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-deepseek-import-loader-')))
+  root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-deepseek-import-loader-')))
   const workspacePath = join(root, 'project')
   await mkdir(workspacePath)
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@deepseek-ai/dsh-session'",
-    "- name: '@deepseek-ai/dsh-session-persistence-jsonl'",
+    "- name: '@lyness/lyn-session'",
+    "- name: '@lyness/lyn-session-persistence-jsonl'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'sessions'))}`,
-    "- name: '@deepseek-ai/dsh-storage'",
-    "- name: '@deepseek-ai/dsh-storage-json'",
+    "- name: '@lyness/lyn-storage'",
+    "- name: '@lyness/lyn-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'storage'))}`,
-    "- name: '@deepseek-ai/dsh-storage-domain'",
+    "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@deepseek-ai/dsh-workspace'",
-    "- name: '@deepseek-ai/dsh-session-projection'",
-    "- name: '@deepseek-ai/dsh-session-projection-cache'",
+    "- name: '@lyness/lyn-workspace'",
+    "- name: '@lyness/lyn-session-projection'",
+    "- name: '@lyness/lyn-session-projection-cache'",
     '  config:',
     '    writeEveryEvents: 1',
     '    writeIntervalMs: 1000',
-    "- name: '@deepseek-ai/dsh-typert-registry'",
+    "- name: '@lyness/lyn-typert-registry'",
     '- id: deepseek-chat-import',
-    "  name: '@deepseek-ai/dsh-deepseek-chat-import'",
+    "  name: '@lyness/lyn-deepseek-chat-import'",
     '  config:',
     '    maxSessions: 1',
     '    maxUploadBytes: 4096',
@@ -105,16 +105,16 @@ async function boot(saveImage: (input: SaveImageAttachment) => Promise<ImageAtta
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-persistence-jsonl', JsonlPersistence],
-    ['@deepseek-ai/dsh-storage', Storage],
-    ['@deepseek-ai/dsh-storage-json', StorageJson],
-    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
-    ['@deepseek-ai/dsh-workspace', Workspace],
-    ['@deepseek-ai/dsh-session-projection', SessionProjection],
-    ['@deepseek-ai/dsh-session-projection-cache', SessionProjectionCache],
-    ['@deepseek-ai/dsh-typert-registry', TypertRegistry],
-    ['@deepseek-ai/dsh-deepseek-chat-import', DeepseekChatImport],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-persistence-jsonl', JsonlPersistence],
+    ['@lyness/lyn-storage', Storage],
+    ['@lyness/lyn-storage-json', StorageJson],
+    ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-workspace', Workspace],
+    ['@lyness/lyn-session-projection', SessionProjection],
+    ['@lyness/lyn-session-projection-cache', SessionProjectionCache],
+    ['@lyness/lyn-typert-registry', TypertRegistry],
+    ['@lyness/lyn-deepseek-chat-import', DeepseekChatImport],
   ])
   context.loader.internal = {
     version: 'v2',

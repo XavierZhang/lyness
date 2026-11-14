@@ -1,7 +1,7 @@
 /** The API-key route serves the official /models listing while its catalog is the built-in one. */
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import LlmRuntime from '@lyness/lyn-llm'
 import { liveConfig } from '../../../settings/settings/tests/live-config.ts'
 import * as ApiKey from '../src/index.ts'
 
@@ -13,7 +13,7 @@ const FLASH = {
   api_capabilities: { anthropic_messages: { system_prompt_update: 'in-history' } },
 }
 const PRO = { id: 'deepseek-v4-pro', name: 'DeepSeek-V4-Pro', context_window: 1_048_576, input_modalities: ['text'], ...MESSAGES }
-const requires = (version: string) => ({ client_requirements: { 'HARNESS': { min_version: version } } })
+const requires = (version: string) => ({ client_requirements: { 'lyness': { min_version: version } } })
 const BUILT_IN = ['deepseek-flash', 'deepseek-v4-pro']
 
 const contexts: Context[] = []
@@ -62,7 +62,7 @@ it('follows the official listing while the catalog is the built-in one', async (
 
 it('advertises listed badges only while it follows the listing', async () => {
   const badge = { text: '1017', tone: 'info' }
-  officialListing(listing({ ...FLASH, client_metadata: { 'HARNESS': { badge } } }, PRO))
+  officialListing(listing({ ...FLASH, client_metadata: { 'lyness': { badge } } }, PRO))
   const { ctx } = await host()
   await ctx.plugin(ApiKey, {})
   const listed = await ctx.llm.listModels('deepseek-official')
@@ -178,7 +178,7 @@ it('keeps following the listing across an update the adapter rejects', async () 
 it.each([undefined, null])('notifies an idle client when a badge is replaced and cleared with %s', async (clear) => {
   vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date'] })
   let badge: { text: string; tone: string } | null | undefined = { text: 'New', tone: 'info' }
-  officialListing(() => listing({ ...FLASH, client_metadata: { 'HARNESS': { badge } } })())
+  officialListing(() => listing({ ...FLASH, client_metadata: { 'lyness': { badge } } })())
   const { ctx } = await host()
   await ctx.plugin(ApiKey, {})
   const changed = vi.fn()

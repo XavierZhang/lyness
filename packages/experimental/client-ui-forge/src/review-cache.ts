@@ -4,7 +4,7 @@
  */
 
 import { Buffer } from 'node:buffer'
-import type { ChangeRequestKey, ForgeReviewData } from '@deepseek-ai/dsh-experimental-forge'
+import type { ChangeRequestKey, ForgeReviewData } from '@lyness/lyn-experimental-forge'
 
 interface Entry {
   /** Head commit and update time the threads were read at. */

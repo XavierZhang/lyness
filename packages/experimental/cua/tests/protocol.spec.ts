@@ -1,6 +1,6 @@
 /** Model-authored operation JSON cannot supply host configuration or bypass retained identities. */
 import { expect, it } from 'vitest'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { CapabilitiesResult, NativeScreenshotResult, Request, ScreenshotResult, ShowResult, StateResult, SystemPointerRequest, WindowsResult } from '../src/protocol.ts'
 
 it('preserves opaque window IDs in requests and results', () => {

@@ -37,7 +37,7 @@ vi.mock('node:fs/promises', async (importOriginal) => {
 
 let root: string
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), 'dsh-office-outputs-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-office-outputs-'))
 })
 afterEach(async () => {
   io.rmFailure = undefined

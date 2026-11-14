@@ -1,7 +1,7 @@
-import type { ISessions, SessionFace } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+import type { ISessions, SessionFace } from '@lyness/lyn-api-session-controller/client'
+import type { ConnectionHandle } from '@lyness/lyn-client-connection/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 import { z } from 'zod'
 import type { Annotation, Task, Tree } from '../records.ts'
 import { newId, statuses, summarySchema } from '../records.ts'
@@ -64,7 +64,7 @@ function messageContext(annotation: Annotation, context: unknown, t: TranslateNS
   return lines.join('\n')
 }
 
-declare module '@deepseek-ai/dsh-api-session-controller/client' {
+declare module '@lyness/lyn-api-session-controller/client' {
   interface SessionReferenceSourceMap {
     timelineTaskAction: unknown
   }

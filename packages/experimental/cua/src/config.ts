@@ -1,7 +1,7 @@
 /** Schemastery fields for platform-specific native CUA configuration. */
-import Schema from '@deepseek-ai/schemastery'
-import NodePtcRuntime, { type Config as NodeRuntimeConfig } from '@deepseek-ai/dsh-ptc-runtime-node'
-import { RunCodeConfig } from '@deepseek-ai/dsh-tool-executor-ptc/run-code'
+import Schema from '@lyness/schemastery'
+import NodePtcRuntime, { type Config as NodeRuntimeConfig } from '@lyness/lyn-ptc-runtime-node'
+import { RunCodeConfig } from '@lyness/lyn-tool-executor-ptc/run-code'
 
 /** Resource bounds for the dedicated CUA program runtime and its nested tool calls. */
 export interface CuaStandaloneRunCodeConfig {
