@@ -212,6 +212,10 @@ export interface SidebarFooterActionOwnerProps {
 
 /** Owner share of the New-session row's HOC layer. */
 export interface SidebarSessionActionOwnerProps {
+  /** Whether the sidebar renders wide content (false = 56px rail). */
+  wide: boolean
+}
+
 /** Owner share of the attribution line under the sidebar foot. */
 export interface SidebarAttributionOwnerProps {
   /** Whether the sidebar renders wide content (false = 56px rail). */

@@ -356,17 +356,24 @@ describe('real Loader composition', () => {
       release.resolve(undefined)
       await outcome
     }
+  })
+
   it('answers a configured page with the document, and its trailing slash with a redirect', { timeout: 60_000 }, async () => {
     // A second page over the same dist: the browser asks for /admin, this
     // answers the same document, and the client decides which shell to render.
     const loaded = await loadComposition()
     const port = loaded.webServer.port
-    const launchUrl = loaded.connection.authenticatedUrl(`http://127.0.0.1:${String(port)}`)
-    const exchange = await fetch(launchUrl, { redirect: 'manual' })
-    const setCookie = exchange.headers.get('set-cookie')
-    if (setCookie === null) throw new Error('authenticated frontend did not set a cookie')
-    const cookie = setCookie.split(';', 1)[0]!
-    const headers = { cookie }
+    // Credential verification belongs to ConnectionAuthentication, so the
+    // fixture registers one that admits a header rather than exchanging a
+    // token: what this asserts is which paths carry the document.
+    const reader = loaded.connection.createPeer({ principal: { kind: 'owner' } })
+    await loaded.connection.authentication.register({
+      authenticate(input) {
+        const value = input.headers instanceof Headers ? input.headers.get('x-reader') : input.headers['x-reader']
+        return value === 'page' ? reader : undefined
+      },
+    })
+    const headers = { 'x-reader': 'page' }
 
     // Unauthenticated, a page is refused exactly like the index is.
     expect(await request(port, '/admin')).toMatchObject({ status: 401 })

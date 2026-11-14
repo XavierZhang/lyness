@@ -23,7 +23,6 @@ import { DEFAULT_WORKSPACE_DIRECTORY } from '../src/default-workspace.ts'
 import { WorkspaceFeed } from '../src/feed.ts'
 import type { WorkspaceFollowFrame } from '../src/types.ts'
 import { MemoryStorageBackend } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
-import { brandString } from '@lyness/lyn-brand'
 
 // The controller relays whatever families the providers report; this suite merges its own.
 declare module '@lyness/lyn-workspace/types' {
@@ -689,7 +688,7 @@ describe('whose conversations a Workspace projection names', () => {
     const opened = new Map<PersonId, SessionId>()
     for (const person of [ADA, BEA]) {
       people.as(person)
-      const session = it.ctx.sessions.create(SessionId(`${person}-one`), { meta: { cwd: workspace.path } })
+      const session = it.ctx.sessions.create(brandString<SessionId>(`${person}-one`), { meta: { cwd: workspace.path } })
       await workspace.attachSession(session.id)
       opened.set(person, session.id)
     }
@@ -806,7 +805,7 @@ describe('whose conversations a Workspace projection names', () => {
     if (workspace === undefined) throw new Error('fixture Workspace disappeared')
     const ids: SessionId[] = []
     for (const name of ['one', 'two']) {
-      const session = it.ctx.sessions.create(SessionId(name), { meta: { cwd: workspace.path } })
+      const session = it.ctx.sessions.create(brandString<SessionId>(name), { meta: { cwd: workspace.path } })
       await workspace.attachSession(session.id)
       ids.push(session.id)
     }

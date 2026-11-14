@@ -1,5 +1,7 @@
 /** Plugin management interface copy. */
 
+import { guideDe, guideEn, guideEs, guideFr, guideJa, guidePt, guideRu, guideZh } from './guide-locales.ts'
+
 /** Git template a field still holding it reports as needing the actual address; no guide entry shows it. */
 export const INSTALL_GIT_EXAMPLE = 'https://github.com/author/lyn-plugin'
 /** Local-path template a field still holding it reports as needing the actual path; no guide entry shows it. */
@@ -7,6 +9,7 @@ export const INSTALL_PATH_EXAMPLE = '/Users/name/my-plugin'
 
 /** Simplified Chinese dictionary and key source of truth. */
 export const zh = {
+  ...guideZh,
   panel: '插件',
   title: '插件',
   intro: '安装、启用和配置插件',
@@ -307,6 +310,7 @@ export type PluginManagerLocaleKey = keyof typeof zh
 
 /** English dictionary checked against the Chinese key set. */
 export const en = {
+  ...guideEn,
   panel: 'Plugins',
   title: 'Plugins',
   intro: 'Install, enable, and configure plugins',
@@ -604,6 +608,7 @@ export const en = {
 
 /** Japanese copy, checked against the English keys. */
 export const ja = {
+  ...guideJa,
   'reasonUnsupportedPlatform': 'このプラグインはLYNを実行しているホストOSに対応していません。',
   'panel': 'プラグイン',
   'title': 'プラグイン',
@@ -901,6 +906,7 @@ export const ja = {
 
 /** Spanish dictionary, checked against the English keys. */
 export const es = {
+  ...guideEs,
   reasonUnsupportedPlatform: 'Este complemento no es compatible con el sistema operativo que ejecuta {brandAbbr}.',
   panel: 'Complementos',
   title: 'Complementos',
@@ -1198,6 +1204,7 @@ export const es = {
 
 /** French dictionary, checked against the English keys. */
 export const fr = {
+  ...guideFr,
   reasonUnsupportedPlatform: 'Ce plugin ne prend pas en charge le système d’exploitation sur lequel {brandAbbr} s’exécute.',
   panel: 'Plugins',
   title: 'Plugins',
@@ -1495,6 +1502,7 @@ export const fr = {
 
 /** German dictionary, checked against the English keys. */
 export const de = {
+  ...guideDe,
   reasonUnsupportedPlatform: 'Dieses Plugin unterstützt das Betriebssystem, auf dem {brandAbbr} läuft, nicht.',
   panel: 'Plugins',
   title: 'Plugins',
@@ -1792,6 +1800,7 @@ export const de = {
 
 /** Russian dictionary, checked against the English keys. */
 export const ru = {
+  ...guideRu,
   reasonUnsupportedPlatform: 'Этот плагин не поддерживает операционную систему, в которой работает {brandAbbr}.',
   panel: 'Плагины',
   title: 'Плагины',
@@ -2089,6 +2098,7 @@ export const ru = {
 
 /** Portuguese dictionary, checked against the English keys. */
 export const pt = {
+  ...guidePt,
   reasonUnsupportedPlatform: 'Este plugin não oferece suporte ao sistema operacional em que o {brandAbbr} está sendo executado.',
   panel: 'Plug-ins',
   title: 'Plug-ins',

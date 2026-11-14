@@ -7,8 +7,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { parseEntryYaml } from '@lyness/cordis-plugin-include'
 import { evaluate } from '@lyness/cordis-plugin-loader'
 
 describe('lyn-module-execution bundle', () => {
@@ -19,10 +18,7 @@ describe('lyn-module-execution bundle', () => {
       lyn?: { bundle?: { patch?: string } }
     }
     expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
-    const parsed = yaml.load(
-      readFileSync(resolve(root, manifest.lyn!.bundle!.patch!), 'utf8'),
-      { schema: entryListSchema },
-    )
+    const parsed = parseEntryYaml(readFileSync(resolve(root, manifest.lyn!.bundle!.patch!), 'utf8'))
     expect(Array.isArray(parsed)).toBe(true)
   })
 
@@ -31,7 +27,7 @@ describe('lyn-module-execution bundle', () => {
     const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as {
       dependencies?: Record<string, string>
     }
-    const parsed = yaml.load(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'), { schema: entryListSchema })
+    const parsed = parseEntryYaml(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'))
     if (!Array.isArray(parsed)) throw new TypeError('patch must parse to a patch list')
     const rows = parsed.flatMap((patch): Record<string, unknown>[] =>
       typeof patch === 'object' && patch !== null && Array.isArray((patch as { insert?: unknown[] }).insert)
@@ -54,10 +50,7 @@ describe('lyn-module-execution bundle', () => {
 
   it('gates each shell stack by platform with a symmetric disabled expression', () => {
     const root = fileURLToPath(new URL('..', import.meta.url))
-    const parsed = yaml.load(
-      readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'),
-      { schema: entryListSchema },
-    )
+    const parsed = parseEntryYaml(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'))
     if (!Array.isArray(parsed)) throw new TypeError('base patch must parse to a patch list')
     const rows = parsed.flatMap((patch): Record<string, unknown>[] =>
       typeof patch === 'object' && patch !== null

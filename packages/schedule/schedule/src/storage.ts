@@ -5,7 +5,7 @@ import { z } from 'zod'
 import type { SessionId } from '@lyness/lyn-session/types'
 import { brandString } from '@lyness/lyn-brand'
 import type { MessageId } from '@lyness/lyn-llm/types'
-import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
 import { decodeScheduleRecord } from './domain.ts'
 import type { ScheduleDeliveryRecord, ScheduleId, ScheduleRecord, ScheduleTarget } from './types.ts'
 

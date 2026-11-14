@@ -426,8 +426,8 @@ const HERO_HEADLINE = '智驭百阵，领驭胜势'
 
 describe('Hero chrome', () => {
   it('renders the headline through the hero locale seat, and no badge beside it', () => {
-    const renderSlot = vi.fn<HeroShellProps['renderSlot']>(() => null)
-    const view = render(<HeroShell t={makeTranslate(en, commonEn)} renderSlot={renderSlot} />)
+    const renderSlot = vi.fn<(key: string, owner: object, opts?: { fallback?: ReactNode }) => ReactNode>(() => null)
+    const view = render(<HeroShell t={makeTranslate(en, commonEn)} renderSlot={renderSlot as never} />)
     expect(view.getByText(en['hero.headline'])).toBeTruthy()
     // The release-stage badge was removed from the product, so the hero is
     // the headline and the mark, nothing else.

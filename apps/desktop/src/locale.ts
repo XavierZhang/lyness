@@ -1,5 +1,7 @@
 /** Typed shell copy for every shipped language owned by the Electron shell. */
 
+import { BUILT_IN_BRAND } from './brand-names.ts'
+
 export const en = {
   cliCommandMenu: 'Manage lyn Command…',
   cliCommandTitle: 'Manage lyn Command',
@@ -1553,30 +1555,60 @@ export interface DesktopLocale {
   readonly messages: DesktopMessages
 }
 
-/** Resolve Electron's locale to one shipped Desktop dictionary. */
-export function resolveDesktopLocale(locale: string): DesktopLocale {
+/**
+ * Fill one dictionary's product-name placeholders.
+ *
+ * Every message is locale-owned and carries `{brandName}` and its siblings
+ * rather than a literal product name, so the names this build packaged are
+ * substituted once, here, before any reader sees them. A placeholder no name
+ * covers stays, which is how `{version}` and the other per-call values
+ * survive to their own substitution.
+ * @param messages - one shipped dictionary.
+ * @param brand - the names this build carries.
+ * @returns the dictionary a reader sees.
+ */
+function brandedMessages(messages: DesktopMessages, brand: Readonly<Record<string, string>>): DesktopMessages {
+  return Object.fromEntries(Object.entries(messages)
+    .map(([key, message]) => [key, formatDesktopMessage(message, brand)])) as DesktopMessages
+}
+
+/**
+ * Resolve Electron's locale to one shipped Desktop dictionary.
+ * @param locale - Electron's locale, or any language tag.
+ * @param brand - this build's product names; the built-in names stand for a build that packaged none.
+ * @returns the dictionary for that language with its product names filled.
+ */
+export function resolveDesktopLocale(
+  locale: string,
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): DesktopLocale {
   const primary = locale.toLowerCase().split('-')[0]
   if (primary !== undefined && Object.hasOwn(dictionaries, primary)) {
     const id = primary as keyof typeof dictionaries
-    return { id: id === 'zh' ? 'zh-CN' : id, messages: dictionaries[id] }
+    return { id: id === 'zh' ? 'zh-CN' : id, messages: brandedMessages(dictionaries[id], brand) }
   }
-  return { id: 'en', messages: en }
+  return { id: 'en', messages: brandedMessages(en, brand) }
 }
 
 /**
  * Choose a built-in dictionary from the shared preference, then ordered OS languages.
  * @param preference - explicit locale.preference, or null when no language was selected.
  * @param languages - operating-system languages in preference order.
+ * @param brand - this build's product names.
  * @returns the supported dictionary, falling back to English.
  */
-export function resolveDesktopStartupLocale(preference: string | null, languages: readonly string[]): DesktopLocale {
+export function resolveDesktopStartupLocale(
+  preference: string | null,
+  languages: readonly string[],
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): DesktopLocale {
   const selected = preference?.toLowerCase()
-  if (selected !== undefined && Object.hasOwn(dictionaries, selected)) return resolveDesktopLocale(selected)
+  if (selected !== undefined && Object.hasOwn(dictionaries, selected)) return resolveDesktopLocale(selected, brand)
   for (const language of languages) {
     const primary = language.toLowerCase().split('-')[0]
-    if (primary !== undefined && Object.hasOwn(dictionaries, primary)) return resolveDesktopLocale(primary)
+    if (primary !== undefined && Object.hasOwn(dictionaries, primary)) return resolveDesktopLocale(primary, brand)
   }
-  return resolveDesktopLocale('en')
+  return resolveDesktopLocale('en', brand)
 }
 
 /** Replace named placeholders in one locale-owned message. */

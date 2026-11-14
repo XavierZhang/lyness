@@ -75,7 +75,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     mkdirSync(output)
     stageCuaHelperPayload(f.payload, packageRoot, identity)
     writeFileSync(join(packageRoot, 'package.json'), JSON.stringify({
-      name: providerPackageName, version: identity.version, type: 'module',
+      name: providerPackageName, version: f.manifest.version, type: 'module',
       files: ['lib/index.js', 'native/bin', CUA_MANIFEST],
     }))
     writeFileSync(join(packageRoot, 'lib/index.js'), 'export const provider = "fixture";\n')
@@ -88,7 +88,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     expect(result.isCanceled).toBe(false)
     expect(result.signal).toBeUndefined()
     expect(result.exitCode, result.stderr).toBe(0)
-    const tarball = join(output, `${providerPackageName.replace('@', '').replace('/', '-')}-${identity.version}.tgz`)
+    const tarball = join(output, `${providerPackageName.replace('@', '').replace('/', '-')}-${f.manifest.version}.tgz`)
     await verifyCuaHelperTarball(tarball, identity)
     return readFileSync(tarball)
   }

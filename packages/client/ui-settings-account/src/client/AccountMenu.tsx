@@ -27,7 +27,6 @@ export function AccountMenu({
   // Offered only where a deployment named its own questionnaire: the URL
   // carries the account, build and device to whoever owns that form.
   const feedback = contactUs === undefined ? [] : [{ id: 'contact', label: t('contactUs'), icon: <IconPaperPlaneOutlineMedium size={16} /> }]
-  const anchor = useRef<HTMLDivElement>(null)
   // The launcher outlives the panel, so a false-to-true edge is one Settings entry:
   // re-renders, section switches and tab switches inside one open must not read again.
   const settingsWasOpen = useRef(false)

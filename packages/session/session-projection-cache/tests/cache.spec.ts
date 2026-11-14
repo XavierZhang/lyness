@@ -645,7 +645,7 @@ describe('SessionProjectionCache listing read', () => {
     })
     const { ctx, cache } = await harness({ root })
     await ctx.sessionProjections.register(secretUnit)
-    const header = headerOf(SessionId('host-read'))
+    const header = headerOf(brandString<SessionId>('host-read'))
 
     // The wire face keeps it off the wire; the Host face reads it, which is
     // what lets a rule decide something about a listed session without
@@ -653,8 +653,8 @@ describe('SessionProjectionCache listing read', () => {
     const rows = cache.cachedCheckpoint(header)
     expect(rows !== undefined && ctx.sessionProjections.checkpointState(rows, 'cache-test/secret'))
       .toBe('private prompt text')
-    expect(cache.cachedCheckpoint(headerOf(SessionId('nothing-stored')))).toBeUndefined()
-    expect(cache.cachedCheckpoint(headerOf(SessionId('host-read'), 0, '/moved'))).toBeUndefined()
+    expect(cache.cachedCheckpoint(headerOf(brandString<SessionId>('nothing-stored')))).toBeUndefined()
+    expect(cache.cachedCheckpoint(headerOf(brandString<SessionId>('host-read'), 0, '/moved'))).toBeUndefined()
   })
 
   it('serves lifecycle-matching rows as a cached block and refuses unrelated ones', async () => {
@@ -980,8 +980,8 @@ describe('SessionProjectionCache summary reads', () => {
 describe('SessionProjectionCache.forget', () => {
   it('removes one session\'s stored record and leaves every other', async () => {
     const { ctx, root } = await harness()
-    const going = SessionId('forget-going')
-    const staying = SessionId('forget-staying')
+    const going = brandString<SessionId>('forget-going')
+    const staying = brandString<SessionId>('forget-staying')
     await seedRecord(root, String(going), { 'cache-test/marks': { ver: 1, seq: SessionSeq(0), val: { marks: ['a'] } } })
     await seedRecord(root, String(staying), { 'cache-test/marks': { ver: 1, seq: SessionSeq(0), val: { marks: ['b'] } } })
     // The seeded documents are read at open, so the domain is reopened over them.
@@ -998,6 +998,6 @@ describe('SessionProjectionCache.forget', () => {
 
   it('reports that no record was stored under an id it never recorded', async () => {
     const { cache } = await harness()
-    expect(await cache.forget(SessionId('forget-absent'))).toBe(false)
+    expect(await cache.forget(brandString<SessionId>('forget-absent'))).toBe(false)
   })
 })

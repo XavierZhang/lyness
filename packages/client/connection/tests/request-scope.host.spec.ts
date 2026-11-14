@@ -4,7 +4,7 @@ import { AsyncLocalStorage } from 'node:async_hooks'
 import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import type { BrowserAuth } from '../src/browser-auth.ts'
+import { ConnectionAuthentication } from '../src/authentication.ts'
 import { HostConnectionService } from '../src/rpc-host.ts'
 import type { ConnectionRpcResult } from '../src/rpc.ts'
 
@@ -18,7 +18,10 @@ async function mounted(): Promise<{
 }> {
   const ctx = new Context()
   const fiber = ctx.plugin((pluginCtx) => {
-    new HostConnectionService(pluginCtx, [], {} as BrowserAuth)
+    // The service reads credential verification from its own context, so the
+    // authentication service mounts first in the same fiber.
+    new ConnectionAuthentication(pluginCtx)
+    new HostConnectionService(pluginCtx, [])
   })
   await fiber.await()
   return {

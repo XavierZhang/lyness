@@ -136,7 +136,7 @@ it('offers no questionnaire entry where the deployment configured none', async (
   const { contactUs: _contactUs, ...operations } = mount({ status: 'credential-stored', attempt: null }, zh)
   cleanup()
   const { AccountMenu } = await import('../src/client/AccountMenu.tsx')
-  render(<AccountMenu {...({} as GlobalStandardProps)} {...operations} settingsOpen={false}
+  render(<AccountMenu renderSlot={() => null} {...({} as GlobalStandardProps)} {...operations} settingsOpen={false}
     signOut={vi.fn(() => Promise.resolve())} hasRunningAccountTasks={async () => false}
     useAccount={selector => selector(operations.hooks.account.getSnapshot())}
     useTheme={selector => selector(operations.hooks.theme.getSnapshot())} wide openOnboarding={() => {}}

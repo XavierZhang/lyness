@@ -20,8 +20,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
-import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { parseEntryYaml } from '@lyness/cordis-plugin-include'
 import { interpolate } from '@lyness/cordis-plugin-loader/src/config/utils.ts'
 import { Context } from '@lyness/cordis'
 import OTel from '@lyness/lyn-otel'
@@ -57,7 +56,7 @@ function shippedRows(): Row[] {
   }
   const patch = manifest.lyn?.bundle?.patch
   if (patch === undefined) throw new Error('lyn-base declares no lyn.bundle.patch')
-  const parsed = yaml.load(readFileSync(resolve(root, patch), 'utf8'), { schema: entryListSchema })
+  const parsed = parseEntryYaml(readFileSync(resolve(root, patch), 'utf8'))
   return (parsed as { insert?: Row[] }[]).flatMap(entry => entry.insert ?? [])
 }
 
@@ -179,7 +178,7 @@ describe('shipped telemetry rows under the default environment', () => {
     // The desktop row's endpoint comes only from the operator's variable. An
     // upstream sync that reinstates a vendor default fails here.
     const patch = resolve(root, '..', 'web-app', 'cordis.patch.yml')
-    const parsed = yaml.load(readFileSync(patch, 'utf8'), { schema: entryListSchema })
+    const parsed = parseEntryYaml(readFileSync(patch, 'utf8'))
     const rows = (parsed as { insert?: Row[] }[]).flatMap(entry => entry.insert ?? [])
     const telemetry = rows.find(entry => entry.id === 'desktop-product-telemetry')
     expect(telemetry, 'the Web bundle no longer carries a desktop-product-telemetry row').toBeDefined()

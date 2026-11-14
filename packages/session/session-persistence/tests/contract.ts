@@ -646,7 +646,7 @@ export function runPersistenceContract(name: string, make: () => Promise<Contrac
     it('delete refuses a session that does not exist', async () => {
       const { persistence, dispose } = await make()
       try {
-        await expect(persistence.delete(SessionId('absent-delete')))
+        await expect(persistence.delete(brandString<SessionId>('absent-delete')))
           .rejects.toThrow(SessionPersistenceNotFoundError)
       } finally {
         await dispose()

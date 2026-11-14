@@ -87,11 +87,9 @@ function mountShell({ collapsed = false, width = 300, drawer = false, shortcuts 
       renderFactorySlot={() => null}
       renderSlot={((
         key: string,
-        owner: SidebarFooterActionOwnerProps | SidebarSectionOwnerProps | SidebarSessionActionOwnerProps | SidebarSettingsOwnerProps,
+        owner: SidebarAttributionOwnerProps | SidebarFooterActionOwnerProps | SidebarSectionOwnerProps
+          | SidebarSessionActionOwnerProps | SidebarSettingsOwnerProps,
         opts?: { hookContext?: SidebarSectionHookContext; children?: ReactNode },
-        owner: SidebarAttributionOwnerProps | SidebarFooterActionOwnerProps
-          | SidebarSectionOwnerProps | SidebarSettingsOwnerProps,
-        opts?: { hookContext?: SidebarSectionHookContext },
       ) => {
         if (key === 'sidebar.brand.mark') return brandMark
         if (key === 'sidebar.brand.name') return brandName
@@ -109,6 +107,7 @@ function mountShell({ collapsed = false, width = 300, drawer = false, shortcuts 
           sessionActionOwner = owner
           sessionActionChildren = opts?.children
           return <>{opts?.children}<div data-testid="session-action-seat" data-wide={owner.wide} /></>
+        }
         if (key === 'sidebar.attribution') {
           attributionOwner = owner
           return <div data-testid="attribution-seat" data-wide={owner.wide} />

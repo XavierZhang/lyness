@@ -18,7 +18,7 @@ describe('the request scope registration', () => {
     await ctx.plugin(StaticTenantDirectory, TENANTS)
     const connectionFiber = ctx.plugin((pluginCtx: Context) => {
       // The browser-auth owner is unreachable here: nothing in this test passes the trust fence.
-      new HostConnectionService(pluginCtx, [], {} as ConstructorParameters<typeof HostConnectionService>[2])
+      new HostConnectionService(pluginCtx, [])
     })
     await connectionFiber.await()
     const fiber = ctx.plugin(RequestTenantScope)

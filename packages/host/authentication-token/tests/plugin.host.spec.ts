@@ -35,6 +35,7 @@ async function mounted(secure = false, before?: (ctx: Context) => void) {
     rpc: {
       handle() { throw new Error('RPC registration is outside this fixture') },
       intercept() { throw new Error('RPC interception is outside this fixture') },
+      scope() { throw new Error('Per-request scopes are outside this fixture') },
     },
     fetch: { register() { throw new Error('Fetch routes are outside this fixture') } },
     createSharedFetchHandler() { throw new Error('Fetch dispatch is outside this fixture') },

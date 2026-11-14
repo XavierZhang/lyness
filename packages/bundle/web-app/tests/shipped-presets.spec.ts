@@ -15,8 +15,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { parseEntryYaml } from '@lyness/cordis-plugin-include'
 import { inheritedPlugins, type PresetDefinition } from '@lyness/lyn-agent-preset-registry'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
@@ -46,7 +45,7 @@ function shippedRows(): Row[] {
   if (patch === undefined) throw new Error('lyn-web-app declares no lyn.bundle.patch')
   const files = typeof patch === 'string' ? [patch] : patch
   return files.flatMap((file) => {
-    const parsed = yaml.load(readFileSync(resolve(root, file), 'utf8'), { schema: entryListSchema })
+    const parsed = parseEntryYaml(readFileSync(resolve(root, file), 'utf8'))
     return (parsed as { insert?: Row[] }[]).flatMap(entry => entry.insert ?? [])
   })
 }

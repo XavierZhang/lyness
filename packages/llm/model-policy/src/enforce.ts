@@ -67,8 +67,13 @@ export function apply(ctx: Context): void {
     const { allowed, authority } = await ctx.modelPolicy.allowance()
     if (!permits(allowed, options.provider, options.model)) {
       // No provider facts: the refusal happens before the provider boundary,
-      // so there is no status, request id, or retry hint to carry.
-      throw new LlmError(refusal(authority, options.provider, options.model), MODEL_NOT_ALLOWED)
+      // so there is no status, request id, or retry hint to carry. Raised
+      // through `fromFailure` because the constructor admits only the
+      // built-in codes, and this one is this package's own.
+      throw LlmError.fromFailure({
+        message: refusal(authority, options.provider, options.model),
+        code: MODEL_NOT_ALLOWED,
+      })
     }
     // Delegating is what reaches the resolved adapter; returning without it
     // would short-circuit every allowed call into silence.
