@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-brand-fonts",
   "description": "The platform's built-in wordmark fonts: Inter SemiBold and Noto Sans CJK SC Medium, in fallback order, under the SIL Open Font License",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -25,7 +25,10 @@
     "lib/index.js",
     "fonts",
     "third-party-assets.json",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "peerDependencies": {

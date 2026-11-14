@@ -31,7 +31,7 @@ export class SessionStatusService extends TypertRemoteService {
 
   /** @param ctx - Host services supplying Session events and metadata. */
   constructor(ctx: Context) {
-    super(ctx, 'sessionStatus', { namespace: 'sessionStatus' })
+    super(ctx, 'sessionStatus', { namespace: 'sessionStatus', requires: 'member' })
   }
 
   protected [Service.init](): void {

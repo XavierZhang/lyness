@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-brand-wordmark",
   "description": "Typesets a brand name in a supplied font into a single-colour SVG wordmark sized for the Web shell's brand row",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,10 @@
   },
   "files": [
     "lib/index.js",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "peerDependencies": {

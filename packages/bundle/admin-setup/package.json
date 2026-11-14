@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-admin-setup",
   "description": "The lyn admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,10 @@
     "locale/*.json",
     "lib/index.js",
     "cordis.patch.yml",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "lyn": {

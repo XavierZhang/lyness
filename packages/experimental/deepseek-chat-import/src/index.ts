@@ -69,7 +69,7 @@ export default class DeepseekChatImportService extends TypertRemoteService {
   private active: { readonly controller: AbortController; readonly settled: Promise<void> } | undefined
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'deepseekChatImport', { namespace: 'deepseekChatImport' })
+    super(ctx, 'deepseekChatImport', { namespace: 'deepseekChatImport', requires: 'platform-administrator' })
     const route = createUploadRoute({
       maxUploadBytes: config.maxUploadBytes,
       claim: () => this.claim(),

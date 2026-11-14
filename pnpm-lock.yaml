@@ -372,9 +372,6 @@ importers:
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
-      '@lyness/lyn-experimental-badge-skill-bundle':
-        specifier: workspace:*
-        version: link:../../packages/experimental/badge-skill-bundle
       '@lyness/lyn-experimental-cot-translation-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/cot-translation-bundle
@@ -390,9 +387,6 @@ importers:
       '@lyness/lyn-experimental-plugin-market-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/plugin-market-bundle
-      '@lyness/lyn-experimental-ralph-bundle':
-        specifier: workspace:*
-        version: link:../../packages/experimental/ralph-bundle
       '@lyness/lyn-experimental-session-search':
         specifier: workspace:*
         version: link:../../packages/experimental/session-search

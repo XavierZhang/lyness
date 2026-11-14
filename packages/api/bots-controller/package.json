@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-bots-controller",
   "description": "Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -39,13 +39,14 @@
     "lib/index.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
     "lib/typert.host.js",
     "lib/typert.host.d.ts",
     "lib/typert.remote-client.js",
     "lib/typert.remote-client.d.ts",
-    "lib/types/**/*.d.ts.map",
-    "lib/**/*.js.map",
-    "lib/typert.remote-client.d.ts.map"
+    "lib/typert.remote-client.d.ts.map",
+    "src"
   ],
   "license": "MIT",
   "peerDependencies": {

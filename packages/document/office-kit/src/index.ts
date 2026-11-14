@@ -144,7 +144,7 @@ export class OfficeKit extends TypertRemoteService {
    * @param config - resolved rendering, font, and concurrency limits.
    */
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'officeKit')
+    super(ctx, 'officeKit', { requires: 'member' })
     if (config.fontDirectories?.some(path => !isAbsolute(path))) throw new Error('fontDirectories must contain absolute paths.')
     if (config.maxSourceBytes < config.maxInputBytes) throw new Error('maxSourceBytes must be at least maxInputBytes.')
     if (!isAbsolute(config.outputDirectory)) throw new Error('outputDirectory must be an absolute path.')

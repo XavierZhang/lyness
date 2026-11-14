@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "environment": {
-    "LYNESS_CLIENT_COMMIT_HASH": "f4872e7",
+    "LYNESS_CLIENT_COMMIT_HASH": "ff8bada",
     "LYNESS_CLIENT_GIT_DIRTY": "true",
-    "LYNESS_CLIENT_VERSION": "0.2.2-alpha.3"
+    "LYNESS_CLIENT_VERSION": "0.2.2-rc.3"
   },
   "artifacts": {
-    "fileCount": 398,
-    "sha256": "22ce58b9f2b6b430108f4d35bd6b6cecb1c749b21d2ec51f0b1ad35fec59be56"
+    "fileCount": 411,
+    "sha256": "2754ab8dbd5003add5c08718e7afb3cbcdafdc3ccf66be81533eae57c3591b4b"
   }
 }

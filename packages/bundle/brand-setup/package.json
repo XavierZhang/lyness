@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-brand-setup",
   "description": "The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +32,10 @@
     "lib/index.js",
     "lib/startup.js",
     "cordis.patch.yml",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "lyn": {

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-config",
   "description": "Abstract tenant-configuration seam (ctx.tenantConfig): models, providers, features, identity, and copy one tenant configures",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -28,7 +28,10 @@
   "files": [
     "lib/index.js",
     "lib/types/**/*.js",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "dependencies": {

@@ -11,7 +11,7 @@ export const guideEn = {
   guideStandardExplanation: [
     '### How it works',
     'The agent calls tools directly to read and edit files, search, and run terminal commands. It includes Skills, planning, goals, subagents, workflows, plugin management, and context compaction.',
-    'For questions about LYN and plugin or preset work you request, the lyn-doc skill guides the agent to the installed documentation and source. Its instructions load only when requested or relevant; loading it does not change files, tools, or the profile.',
+    'For questions about {brandAbbr} and plugin or preset work you request, the lyn-doc skill guides the agent to the installed documentation and source. Its instructions load only when requested or relevant; loading it does not change files, tools, or the profile.',
     '### When to choose it',
     'Start here for everyday coding, file work, and research. Standard mode can also write scripts and process files in batches. PTC changes how tool calls are organized; it is not required for batch tasks.',
   ].join('\n\n'),
@@ -90,7 +90,7 @@ export const guideZh: Record<PresetGuideKey, string> = {
   guideStandardExplanation: [
     '### 工作方式',
     'Agent 直接调用工具来读写文件、检索资料和执行终端命令。包含 Skills、计划、目标、子 Agent、工作流、插件管理和上下文压缩等能力。',
-    '对于 LYN 相关问题以及你要求的插件或预设工作，lyn-doc skill 引导 Agent 查阅已安装的文档和源码。其指令仅在被要求加载或与当前任务相关时加载；加载该 skill 不会改变文件、工具或 profile。',
+    '对于 {brandAbbr} 相关问题以及你要求的插件或预设工作，lyn-doc skill 引导 Agent 查阅已安装的文档和源码。其指令仅在被要求加载或与当前任务相关时加载；加载该 skill 不会改变文件、工具或 profile。',
     '### 什么时候选',
     '日常编程、文件处理和资料整理可以从这里开始。标准模式也能编写脚本、批量处理文件；PTC 改变的是工具调用方式，批量任务并不必须使用 PTC。',
   ].join('\n\n'),

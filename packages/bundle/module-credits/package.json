@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-credits",
   "description": "The credits module as its own bundle: a ledger, a recurring allowance, and metering a model request cannot go around",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,10 @@
     "locale/*.json",
     "lib/index.js",
     "cordis.patch.yml",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "lyn": {

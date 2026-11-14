@@ -30,6 +30,11 @@ const root = resolve(import.meta.dirname, '..')
  * value — text that reads the same in both languages. Nothing here is prose.
  */
 const SHARED: ReadonlySet<string> = new Set([
+  // Proper nouns and an example value: the two languages genuinely read the same.
+  'packages/client/ui-settings-models/src/client/locales.ts::protocolGemini',
+  'packages/client/ui-settings-models/src/client/locales.ts::customGeminiBaseUrlPlaceholder',
+  'packages/client/ui-sidebar-terminal/src/client/locales.ts::badge.agent',
+  'packages/experimental/client-ui-forge/src/client/locales.ts::thread.bot',
   'packages/client/ui-conversation/src/client/locales.ts::web.http',
   'packages/client/ui-input-trigger/src/client/locales.ts::drill.key',
   'packages/client/ui-plugin-manager/src/client/locales.ts::installGuideIdExample',

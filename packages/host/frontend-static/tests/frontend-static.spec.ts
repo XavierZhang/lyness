@@ -367,7 +367,7 @@ describe('real Loader composition', () => {
     // fixture registers one that admits a header rather than exchanging a
     // token: what this asserts is which paths carry the document.
     const reader = loaded.connection.createPeer({ principal: { kind: 'owner' } })
-    await loaded.connection.authentication.register({
+    loaded.connection.authentication.register({
       authenticate(input) {
         const value = input.headers instanceof Headers ? input.headers.get('x-reader') : input.headers['x-reader']
         return value === 'page' ? reader : undefined

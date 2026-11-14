@@ -133,7 +133,7 @@ export class DeepSeekAccount extends TypertRemoteService {
 
   /** @param ctx - Host with authorization and credentials services. @param config - deployment options. */
   constructor(ctx: Context, config: Config = {}) {
-    super(ctx, 'deepseekAccount', { namespace: 'account' })
+    super(ctx, 'deepseekAccount', { namespace: 'account', requires: 'platform-administrator' })
     installAccountTaskCancellation(ctx)
     const resolved = Config(config)
     this.embeddedPageDist = resolved.embeddedPageDist
