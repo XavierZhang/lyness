@@ -5589,7 +5589,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       },
     ],
     ownerProps: [
-      '/** Owner share of the New-session row\'s HOC layer. */\nexport interface SidebarSessionActionOwnerProps {',
+      '/** Owner share of the New-session row\'s HOC layer. */\nexport interface SidebarSessionActionOwnerProps {\n  /** Whether the sidebar renders wide content (false = 56px rail). */\n  wide: boolean\n}',
     ],
     ownerPropsReferences: [],
     standardProps: [

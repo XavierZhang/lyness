@@ -202,7 +202,6 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/bundle/brand-setup': { kind: 'none', reason: 'Operator page that writes brand files and a patch layer; mounts no model-facing row.' },
   'packages/bundle/brand-studio': { kind: 'none', reason: 'Operator command that writes brand files and a patch layer; mounts no model-facing row.' },
   'packages/bundle/admin-setup': { kind: 'none', reason: 'Operator command that writes a profile patch layer; mounts no model-facing row.' },
-  'packages/client/ui-conversation': { kind: 'none', reason: 'Browser-side UI plugin layer; registers nothing model-facing.' },
   'packages/client/ui-approval': { kind: 'none', reason: 'Browser-side approval presentation; registers nothing model-facing.' },
   'packages/client/ui-chat': { kind: 'none', reason: 'Browser-side Chat presentation; registers nothing model-facing.' },
   'packages/client/ui-message-feedback': { kind: 'none', reason: 'Browser-side controls over log-only message feedback; ratings and notes never enter model context or change model-input tokens.' },

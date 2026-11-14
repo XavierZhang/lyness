@@ -160,7 +160,8 @@ const homeAndGuide = pairedPages([
     label: { root: '卸载 LYN 桌面端', en: 'Uninstall LYN Desktop' },
     sidebar: { root: 'zh-guide', en: 'en-guide' },
     section: { root: '入门', en: 'Guide' },
-    order: 5,
+    // After the deployment pages this fork adds at 5: install, deploy, then leave.
+    order: 6,
   },
   {
     source: 'docs/user/guide/python-sdk.md',

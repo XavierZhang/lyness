@@ -1245,6 +1245,7 @@ The coding agent MUST:
 - Maintain sufficient contrast
 - Prefer existing components over inconsistent new styles
 - Reuse spacing and radius tokens
+- Follow the platform mask for an app icon's radius, not this document's UI scale
 - Keep UI visually restrained
 - Keep Agent/Workflow states semantically consistent
 
