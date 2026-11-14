@@ -295,6 +295,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 2026-09-10 | `aa8262ec09`（0.1.2-alpha.1 → 0.1.5-rc.1，2151 个提交） | 0 | typecheck ✅ build ✅ install ✅ | 未走逐行合并：品牌替换是**再生成**的，不是可合并的。做法见下节 |
 | 2026-10-28 | `22ddee3792`（0.1.7-rc.2 → 0.2.1-rc.3，3912 个提交） | 1119（其中 944 为派生产物） | 见本节末 | 改用**真实三方合并**：先修好 `--reverse`，把全树还原为官方拼写再合并。做法见下节 |
 | 2026-11-03 | `8bd073392e`（0.2.1-rc.3 → 0.2.2-alpha.3+555，1654 个提交） | 367（其中 276 为派生产物与品牌噪声） | typecheck 5/5 ✅ build 8/8 ✅ 其余见本节末 | 同一条路；本轮量化了 `--reverse` 的保真缺陷，并修掉上一轮丢失的 18 条组合行 |
+| 2026-11-14 | `39163dd30f`（0.2.2-alpha.3 → 0.2.2-rc.3+，1631 个提交、6058 个文件） | 526（反向改名前是 2758） | typecheck 5/5 ✅ lint ✅ build 8/8 ✅ hygiene 34/34 ✅ doc-sync 44/44 ✅ 其余见本节末 | 同一条路：反向改名 → 真实三方合并 → 正向改名 → 收尾清单 |
 
 ### 2026-10-28 合并方法（反向改名 → 真实合并 → 正向改名）
 
@@ -2295,3 +2296,68 @@ OIDC 提案第 5 期剩下的那一半。多标准的人登录后一个标准都
 存储侧：邀请记录 `uses 1/1`、只有 `codeHash`；管理轨迹里这次接受记成**签发者 Ada 的**改动（`uses 0→1`、`accepted: <person>`），这本来就是谁的授权。
 
 **没有真跑到的一条**：「名册拒绝时把次数放回去」——这个部署里 Ada 是唯一的管理员（平台级），构造不出「签发者管不着目标人的某个身份」的局面。它由单元测试与真 Loader 组合测试覆盖。
+
+-----
+
+## 2026-11-14 合并官方：1631 个提交（0.2.2-alpha.3 → 0.2.2-rc.3+）
+
+路子不变：反向改名 → 真实三方合并 → 正向改名 → 收尾清单。改名造成的冲突 2758 个，反向之后真实冲突 **526** 个。
+
+### 冲突分流
+
+| 类别 | 个数 | 做法 |
+|---|---|---|
+| 派生产物（双语配对记录、锁文件、快照、生成的 schema 与 catalog、`tsconfig.base.json`） | 323 | 取上游，收尾时重新生成 |
+| 包清单 `package.json` | 103 | **结构化三方合并**，不走行级并集（台账里两次事故都是行级并集坏掉 JSON）。100 个无标量冲突，3 个是上游删包 |
+| 代码与散文 | 100 | 逐个裁决，见下 |
+
+结构化合并的规则：一侧没改就让位给改了的那侧；两个字典逐键合并，上游删掉的键保持删掉；两个数组取「上游在前、我方新增在后」；两个都改过的标量取上游（上游拥有「fork 没有刻意设定过」的那个值）。
+
+### 上游删掉的四个包，我方增量要搬家
+
+`api/account-controller`、`credentials/deepseek-account-platform`、`experimental/ptc-runtime-python`、`document/office-to-pdf` 上游全删了。接受删除，并把我方在其中的增量落到替代物上：`account` 命名空间的 `requires` 落到 `credentials/deepseek-account`（见下面的裁定），`office-to-pdf` 的 `requires: 'member'` 落到 `document/office-kit`。两个 locale 标题随包消失。
+
+### 裁定：四个 Remote 命名空间的 `requires`（2026-11-14，由 fork 所有者裁定）
+
+| 命名空间 | 定为 | 理由 |
+|---|---|---|
+| `deepseekAccount` | `platform-administrator` | 它暴露的是**整个部署对外用的那个账号**：`startSignIn`／`cancelSignIn`／`rejectToken`／`resolveToken`／`getPlatformSession`／`getDeviceIdentity`。成员不该发起或取消它的登录，也不该读设备身份。与 fork 对它前身 `api/account-controller` 的裁定一致 |
+| `deepseekChatImport` | `platform-administrator` | 它自己的代码只允许 owner（其他主体一律 `owner-only` 拒）。声明成管理员，网关就不会放进一个注定被拒的调用 |
+| `officeKit` | `member` | 渲染的是调用方本来就有权访问的工作区文件，范围另有授权。与前身 `office-to-pdf` 的裁定一致 |
+| `sessionStatus` | `member` | `mark()`／`follow()` 只是调用方自己的会话已读状态 |
+
+### 跟随上游退役的 fork 机制
+
+`frontend-static` 手写的 `authorizeIndex`（把 writeHead/end 捕成 Response 的桥接）退役：上游给 WebServer 加了一等的路由鉴权策略（`auth: 'anonymous' | 'required' | 'deny'`）。fork 的 `documentPaths` 保留，并新增 `carriesDocument()` 让 `/admin`、`/join` 在 auth 与 resource 两个判断里都算作 index——否则它们会被当成缺失的静态文件。
+
+**连带：每条 fork 自己注册的路由都要声明策略**，没声明的被 WebServer 直接 503。本轮补了 10 条，全部 `anonymous`（登录、退出、品牌资产、租户公开标识、OAuth 回调、brand-setup 的运维页），它们都在「还没有身份」时被走到，各自做自己的检查。
+
+### 两个 experimental bundle 不再被 CLI 依赖
+
+上游给 `apps/cli` 加了 `experimental-badge-skill-bundle` 与 `experimental-ralph-bundle` 两个依赖，而 fork 把 `skill-badge` 与 `tool-ralph` 的行放在默认产品里——依赖那两个 wrapper 会让 Loader 拿到同一个 id 的两行。`constraints` 与 `verify-default-product-isolation` 同时报错，已摘掉。
+
+### 「取上游」丢掉又找回的 fork 增量（下轮同步先查这几项）
+
+| 丢掉的 | 症状 | 怎么找回的 |
+|---|---|---|
+| `tsconfig.base.json` 的 143 条手写别名 | `gen-tsconfig-paths` 报 34 个包「没有别名可映射」 | 从改名前的提交取回，剔掉 6 条指向已删包的 |
+| 桌面 locale 的品牌占位替换（`brandedMessages` 与两个解析函数的 `brand` 参数） | `apps/desktop` 5 处 TS2554「参数多了」 | 按旧版重建，JSDoc 一并补回 |
+| `plugin-manager` 把 `guide-locales` 合进 8 种语言的 8 行与导入 | `devGuide*` 键不在 `LocaleKeysOf` 里 | 补回导入与 8 处展开 |
+| `capability-seams` 中文侧 41 条 fork 接缝行 | 配对门禁报「表格行数 155 vs 114」 | 以旧 zh 为我方、上游 master 为对方、合并基点转成 lyness 拼写为基，做一次真三方合并（7 个冲突逐条裁） |
+| fork 14 个 Remote 控制器包的 typert 产物 `files` 条目 | `generate-typert` 直接拒绝 | 以上游一个控制器包的清单为准补齐 |
+
+**教训**：派生产物「取上游」是对的，但凡**生成区域之外还有手写内容**的派生文件（`tsconfig.base.json` 就是）都不能整份取上游。
+
+### 上游新门禁，fork 侧首次面对
+
+`verify-plugin-entry-exports`（插件入口只能导出 Loader 会读的东西）。fork 37 个包共 271 条既有导出登记进 `scripts/plugin-entry-existing-exports.ts` 的**既有债务**基线——不是新开例外，门禁自己的文档就把这张表定义为「已存在的债务」。`no-unknown-casts` 基线按合并后的树重录（1225 处／491 文件）。
+
+### 上游自身的两处缺陷（已在 fork 侧绕开，**可反馈给上游**）
+
+1. **`liveshare/owner-credential-horizon` 是定时炸弹**：`LIVE` 写成 `START + 30 天`，而 `START = 2026-10-15`，于是这个「还没过期的凭据期限」在 **2026-11-14** 当天到期。今天之前一直过，从今天起必然失败。改为相对 `Date.now()`。
+2. **`operator-connect` 的「关掉 mux 之后应答 401」没等异步撤销落地**：`release()` 在 socket 关闭后异步跑，而断言紧跟其后。单独跑三次都过，满载必输。改为 `vi.waitFor`。
+
+### 我自己引入的两类缺陷（记下来免得重犯）
+
+1. **盲目的行级并集会切断语法**：sidebar 的 SlotMap JSDoc（注释头被吃掉，导致整个 merge 成员不被 TypeScript 看见，`gen-client-catalog` 报「没有任何 SlotMap 声明这个 slot」）、`renderSlot` 的参数列表变成重复参数、两个测试文件的块结束符丢失。**并集只能用在「两侧各加一条独立行」的地方**，凡冲突块跨越了一个语法结构就必须手工裁。
+2. **品牌占位脚本只认 `DeepSeek Harness`／`DSH`，漏了裸 `Harness`**：上游有一条文案写的是裸 `Harness`（改名刻意不动这个词），于是 `welcomeKeyDescription` 的 `{brandName}` 在 8 种语言里一起丢了，靠桌面的快照测试才抓出来。

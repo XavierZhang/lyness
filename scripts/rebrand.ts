@@ -202,9 +202,9 @@ export const RULES: readonly Rule[] = [
   {
     id: 'external-office-kit-segment-shield',
     backward: 'skip',
-    from: "'@deepseek-ai', 'libreoffice-kit'",
-    to: "'\u0000office-kit-segment\u0000'",
-    note: 'The same external packages addressed as path segments, where the scope stands alone and the slashed rules cannot see it. `libreoffice-packages.mjs` joins them to reach the installed engine, so renaming the segment sends the Python SDK build at a directory that does not exist.',
+    from: "'@deepseek-ai', 'libreoffice-kit",
+    to: "'\u0000office-kit-segment\u0000",
+    note: 'The same external packages addressed as path segments, where the scope stands alone and the slashed rules cannot see it. `libreoffice-packages.mjs` joins them to reach the installed engine, so renaming the segment sends the Python SDK build at a directory that does not exist. Matched as a prefix rather than a whole name, because the engine packages carry a suffix (`libreoffice-kit-wasm`) and the office-kit lookup spec joins that pair the same way.',
   },
   {
     id: 'external-office-kit-shield',
@@ -253,8 +253,8 @@ export const RULES: readonly Rule[] = [
   {
     id: 'external-office-kit-segment-restore',
     backward: 'skip',
-    from: "'\u0000office-kit-segment\u0000'",
-    to: "'@deepseek-ai', 'libreoffice-kit'",
+    from: "'\u0000office-kit-segment\u0000",
+    to: "'@deepseek-ai', 'libreoffice-kit",
     note: 'Puts back what `external-office-kit-segment-shield` parked, once the scope rules have run.',
   },
   {
@@ -596,7 +596,7 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'scripts/gen-third-party-notices.ts', text: "'@lyness/lyn-experimental-subagent-oar'", count: 1 },
   { file: 'docs/subsystems/office-kit.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
   { file: 'docs/subsystems/office-kit.zh.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
-  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 13 },
+  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 14 },
 ]
 
 /**
