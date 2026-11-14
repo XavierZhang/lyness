@@ -38,9 +38,11 @@ python/**/.pytest_cache/
 packages/**/__pycache__/
 .agents/**/__pycache__/
 apps/web/dist/
+apps/cli/docs/
 .artifacts/
 .dsh-build/
 .dsh-report/
+.ui-review/
 .playwright-mcp/
 .orig
 .worktrees/

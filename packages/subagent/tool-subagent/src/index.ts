@@ -9,15 +9,16 @@
 import type { Context } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
 import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import { defineTool, ToolContextUnavailableError } from '@deepseek-ai/dsh-tools'
 import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
 import type { AgentOptions } from '@deepseek-ai/dsh-agent'
-import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import type { ReasoningEffortId } from '@deepseek-ai/dsh-llm/types'
 import type { ContentBlock } from '@deepseek-ai/dsh-llm'
 import {
   assertSubagentMaxDepth,
   delegationDepthOf,
   parentAgentOptionsForDelegation,
+  SubagentError,
 } from '@deepseek-ai/dsh-subagent'
 import type { SubagentProvider } from '@deepseek-ai/dsh-subagent'
 import {
@@ -88,12 +89,12 @@ export const Config: z<Config> = z.object({
   agentOptions: z.object({
     provider: z.string(),
     model: z.string(),
-    reasoningEffort: z.string().min(1) as z<ReturnType<typeof ReasoningEffortId> | undefined>,
+    reasoningEffort: z.string().min(1) as z<ReasoningEffortId | undefined>,
     maxTokens: z.number().step(1).min(1).max(Number.MAX_SAFE_INTEGER),
   }).default(undefined as unknown as {
     provider: string
     model: string
-    reasoningEffort: ReturnType<typeof ReasoningEffortId>
+    reasoningEffort: ReasoningEffortId
     maxTokens: number
   }),
   agentPreset: z.string().min(1),
@@ -207,7 +208,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     const definition = defineTool({
       name: toolName,
       description: wording.description
-        + ' This tool starts an independently managed subagent and immediately returns its id. If you are still online when it finishes, the runtime automatically delivers its completion notice. The notice includes the final answer unless the child sent you a message just before finishing.'
+        + ' This tool starts an independently managed subagent and immediately returns its name. If you are still online when it finishes, the runtime automatically delivers its completion notice. The notice includes the final answer unless the child sent you a message just before finishing.'
         + (subagentProvider.prepareContinuable !== undefined
           ? ' Use `send_message` to steer it while running or continue its conversation after it finishes.'
           : ' This backend does not accept follow-up messages.')
@@ -225,6 +226,11 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
           required: true,
           description: 'A short (3-5 word) description of the delegated task, for display. '
             + "Use the language of the user's current request.",
+        },
+        name: {
+          type: 'string',
+          description: 'Optional short name for the subagent, unique among the subagents you create: lower-case letters, '
+            + 'digits, and hyphens, starting with a letter, at most 32 characters; lead is reserved for the root agent. Omitted names default to agent-1, agent-2, and so on.',
         },
         prompt: {
           type: 'string',
@@ -259,18 +265,18 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
           additionalProperties: false,
           properties: {
             kind: { type: 'string', required: true, const: 'activation' },
-            subagentId: { type: 'string', required: true },
+            name: { type: 'string', required: true },
           },
         },
-        render: (_args, value) => [{ type: 'text', text: `started subagent ${value.subagentId}` }],
-        presentationMeta: (_args, value) => ({ kind: value.kind, subagentId: value.subagentId }),
+        render: (_args, value) => [{ type: 'text', text: `started subagent ${value.name}` }],
+        presentationMeta: (_args, value) => ({ kind: value.kind, name: value.name }),
       },
       isConcurrencySafe: () => true,
       async execute(args, exec) {
         const parent = exec.agent
         if (!parent) {
           // Non-agent callers provide no parent for delegation ownership.
-          throw new Error('subagent tool requires a calling agent (exec.agent was undefined)')
+          throw new ToolContextUnavailableError('subagent tool requires a calling agent (exec.agent was undefined)')
         }
 
         const routes = subagentModelSelectionPolicy(subagentModelSelectionProjectionHandle, parent.session)
@@ -293,7 +299,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
         if (requiresRoutePreflight) {
           const llm = ctx.get('llm')
           if (llm === undefined) {
-            throw new Error('cannot resolve the selected child LLM route because the `llm` service is unavailable')
+            throw new ToolContextUnavailableError('cannot resolve the selected child LLM route because the `llm` service is unavailable')
           }
           const inheritParentReasoningEffort = providerRouteDefaults === undefined && !hasDelegationModelRequest(modelRequest)
           await preflightChildLlmRoute(
@@ -304,7 +310,10 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
             inheritParentReasoningEffort,
           )
           if (ctx.subagents.getProvider(config.provider) !== subagentProvider) {
-            throw new Error(`subagent provider "${config.provider}" changed while resolving the child LLM route; retry the delegation`)
+            throw new SubagentError(
+              `subagent provider "${config.provider}" changed while resolving the child LLM route; retry the delegation`,
+              'PROVIDER_CHANGED',
+            )
           }
         }
         exec.signal.throwIfAborted()
@@ -321,11 +330,12 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
         const started = await ctx.subagents.startActivation({
           provider: config.provider,
           label: args.description,
+          ...args.name === undefined ? {} : { name: args.name },
           ...request,
           signal: exec.signal,
           delivery: 'parent',
         })
-        return { kind: 'activation' as const, subagentId: started.childId }
+        return { kind: 'activation' as const, name: started.name }
       },
     })
     const disposeTool = ctx.effect(() => {
@@ -367,7 +377,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
         .sort()
       if (visible[0] !== toolName) return ''
       const names = visible.map(name => `\`${name}\``).join(' or ')
-      return `Start independent delegations with ${names} together in one assistant message and continue useful work while they run. When only waiting for their results remains, end your turn instead of sleeping or polling; the next result starts a new turn. Collect the subagent results required to complete the task before giving the user a final answer.\n\nAgents may use different working directories; changes to shared files affect other agents. Split parallel write work into disjoint file or directory scopes. Bash, formatters, code generators, and scripts can overwrite concurrent edits without conflict detection; coordinate their changes explicitly. The agent integrating the work must review the final diff and run relevant tests.`
+      return `Start independent delegations with ${names} together in one assistant message and continue useful work while they run. When only waiting for their results remains, end your turn instead of sleeping or polling; the next result starts a new turn. Collect the subagent results required to complete the task before giving the user a final answer.\n\nBash, formatters, code generators, and scripts can overwrite concurrent edits without conflict detection; coordinate their changes explicitly. The agent integrating the work must review the final diff and run relevant tests.`
     },
   })
   ctx.systemPrompt.context({

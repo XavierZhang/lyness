@@ -1,7 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-experimental-speech-to-text-sensevoice",
   "description": "Local SenseVoice ONNX transcription with a managed sherpa-onnx process",
-  "version": "0.2.2-alpha.3",
+  "version": "0.2.2-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -31,14 +31,17 @@
     "lib/index.js",
     "lib/worker.js",
     "runtime/assets.json",
-    "lib/types/**/*.d.ts"
+    "lib/types/**/*.d.ts",
+    "lib/types/**/*.d.ts.map",
+    "lib/**/*.js.map",
+    "src"
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-timeout": "workspace:*",
     "@deepseek-ai/schemastery": "workspace:~",
-    "sherpa-onnx-node": "1.13.8",
-    "zod": "4.4.3"
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "zod": "4.6.6",
+    "sherpa-onnx-node": "1.13.8"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "workspace:~",

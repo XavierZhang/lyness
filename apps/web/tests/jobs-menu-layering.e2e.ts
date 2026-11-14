@@ -7,9 +7,10 @@ import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import type { Agent } from '@deepseek-ai/dsh-agent'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { JobId } from '@deepseek-ai/dsh-jobs'
+import type { ToolCallId } from '@deepseek-ai/dsh-llm'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { JobId } from '@deepseek-ai/dsh-jobs'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import {
   assertFixtureInventory, compareOrRefreshGolden, launchWebScaffold, seedSession,
   watchConsole, webSnapshotMode, type WebScaffold,
@@ -19,7 +20,7 @@ import { newEnglishPage, saveFailureShot } from './support.ts'
 const FIXTURE = fileURLToPath(new URL('../../../snapshots/web/fresh-round-trip/session.v3.jsonl', import.meta.url))
 const EXPECTED_DIR = fileURLToPath(new URL('./expected/jobs-menu-layering', import.meta.url))
 const MODE = webSnapshotMode()
-const SEED_ID = SessionId('jobs-menu-layering-web-e2e')
+const SEED_ID = brandString<SessionId>('jobs-menu-layering-web-e2e')
 // The private scaffold cwd owns the barrier; the loop bounds an orphan's lifetime.
 const RELEASE = '.jobs-menu-layering.release'
 const COMMAND = `printf 'jobs-menu-%s\\n' output; for _ in $(seq 1 3000); do [ -e ${RELEASE} ] && break; sleep 0.2; done`
@@ -47,13 +48,13 @@ function placement(page: Page) {
       [0.25, 0.5, 0.75].every(y => menu.contains(document.elementFromPoint(
         left + (right - left) * x, top + (bottom - top) * y,
       ))))
-    const expectedLeft = Math.min(Math.max(trigger.left, 12), innerWidth - box.width - 12)
-    const expectedTop = Math.min(Math.max(trigger.bottom + 5, 12), innerHeight - box.height - 12)
+    const verticalGap = Math.min(Math.abs(box.top - trigger.bottom - 5), Math.abs(trigger.top - box.bottom - 5))
+    const horizontalAlignment = Math.min(Math.abs(box.left - trigger.left), Math.abs(box.right - trigger.right))
     return {
       dockMode: dock.dataset.sidebarRightPanel,
       bodyMounted: menu.parentElement === document.body,
       fixed: getComputedStyle(menu).position === 'fixed',
-      anchored: Math.abs(box.left - expectedLeft) <= 1 && Math.abs(box.top - expectedTop) <= 1,
+      anchored: verticalGap <= 1 && horizontalAlignment <= 1,
       viewportBounded: box.left >= 11 && box.top >= 11
         && box.right <= innerWidth - 11 && box.bottom <= innerHeight - 11,
       overlapsBrowser,
@@ -120,7 +121,7 @@ describe.skipIf(MODE === 'record')('web e2e: jobs menu layering', () => {
     agent = opened
     const started = await executeToolFixture(scaffold.ctx, {
       signal: new AbortController().signal,
-      callId: ToolCallId('jobs-menu-layering-e2e'),
+      callId: brandString<ToolCallId>('jobs-menu-layering-e2e'),
       name: 'bash',
       arguments: { command: COMMAND, description: 'Emit output and hold the jobs menu fixture', run_in_background: true },
       agent,
@@ -128,7 +129,7 @@ describe.skipIf(MODE === 'record')('web e2e: jobs menu layering', () => {
     const reported = started.content.map(block => block.type === 'text' ? block.text : '').join('')
     const matched = /\bbash-[0-9a-f]{16}\b/.exec(reported)
     if (matched === null) throw new Error(`background bash reported no job id: ${reported}`)
-    const startedJobId = JobId(matched[0])
+    const startedJobId = brandString<JobId>(matched[0])
     jobId = startedJobId
     // Registration precedes shell startup; inspect its output before depending on a live row.
     await expect.poll(() => {

@@ -3,38 +3,38 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-07-20-ptc-typed-tool-returns.md
 /agent-note-typed-tool-returns-in-ptc-mode:
-  en: a05e01980dd45aea
-  zh: fa60c8b3fc6fff05
+  en: 4b7c45b382db3a40
+  zh: 96e9210446ec35ed
 /agent-note-typed-tool-returns-in-ptc-mode/problem:
-  en: f862a3c58255f967
-  zh: 75603372101dbd9a
+  en: e2403bc358c4e14b
+  zh: dd37923097a3b24c
 /agent-note-typed-tool-returns-in-ptc-mode/decision:
-  en: 75e5e8f46d21d287
-  zh: dc2a40121714bc01
+  en: 6e6b4ee0a37a7a9a
+  zh: 9f9ee75e55f58958
 /agent-note-typed-tool-returns-in-ptc-mode/decision/generated-sdk:
   en: 30583e9ac6715952
   zh: 3a85c9482abf574c
 /agent-note-typed-tool-returns-in-ptc-mode/decision/binding-values-and-failures:
-  en: ecb95cafa2dc1297
-  zh: ccdf300ca936ca12
+  en: 8b10f08e67ca9323
+  zh: e57adb520049f407
 /agent-note-typed-tool-returns-in-ptc-mode/decision/outer-result-and-output-ledger:
-  en: d907d0a8205157e1
-  zh: 1ed99168266a7ca4
+  en: e48ef4dbe1ac9a1e
+  zh: b87b0c0a3f1c2a4e
 /agent-note-typed-tool-returns-in-ptc-mode/decision/typed-handles-and-lifetime:
-  en: c130408858491611
-  zh: d07514878dde174d
+  en: b2b9318c2812e3a4
+  zh: 73cf34bfd487e2f1
 /agent-note-typed-tool-returns-in-ptc-mode/decision/persistence-metadata-and-spill:
-  en: 4b02ebe228892dd3
-  zh: 04c9ab116549e9f3
+  en: c6c4c3162b4c5f8e
+  zh: fb6704409ba8b4a2
 /agent-note-typed-tool-returns-in-ptc-mode/testing:
-  en: 728513c779f031f8
-  zh: f6d869f18add7242
+  en: 81a4355914c918cf
+  zh: 36aa414cd382ff9c
 /agent-note-typed-tool-returns-in-ptc-mode/alternatives-considered:
-  en: dedd87b9b35d8fab
-  zh: 78db4c7e8c4e5f61
+  en: 069a1e170c7d1dfb
+  zh: 14ce5a56e602595c
 /agent-note-typed-tool-returns-in-ptc-mode/consequences:
   en: f5726b5e7a2fc73f
   zh: 0b9aa884db5d920f
 /agent-note-typed-tool-returns-in-ptc-mode/known-limitations-and-deferred-work:
-  en: a42af629ad6872cc
-  zh: 41e5c0bb3de0ae4d
+  en: 19828c2e5796df2d
+  zh: 2ef63df81fca7a72

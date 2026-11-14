@@ -6,7 +6,8 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@deepseek-ai/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
@@ -56,7 +57,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('coding task: fix a failing test 
     expect(before.status).not.toBe(0)
 
     ctx = await codingHarness(workdir, { personaPrefix: SYSTEM_PROMPT })
-    const agent = await ctx.agentLoop.create(SessionId('e2e-task'), { provider: 'deepseek-official', model: E2E_TARGET.model }, { cwd: workdir })
+    const agent = await ctx.agentLoop.create(brandString<SessionId>('e2e-task'), { provider: 'deepseek-official', model: E2E_TARGET.model }, { cwd: workdir })
 
     agent.followup(createUserMessage({
       content: [{

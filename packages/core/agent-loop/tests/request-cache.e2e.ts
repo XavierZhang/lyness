@@ -3,7 +3,7 @@ import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
 import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SessionStore, { type SessionId } from '@deepseek-ai/dsh-session'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
@@ -12,6 +12,7 @@ import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
@@ -79,7 +80,7 @@ function waitForIdle(context: Context, agent: Agent): Promise<void> {
 describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)('log-derived request cache hits (real API, official only)', () => {
   it('every request after the first hits the provider prefix cache', async () => {
     ctx = await loopHarness()
-    const agent = await ctx.agentLoop.create(SessionId('cache-e2e'), { provider: 'deepseek-official', model: E2E_TARGET.model })
+    const agent = await ctx.agentLoop.create(brandString<SessionId>('cache-e2e'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     // Turn 1: forces a tool call → at least two steps (two model requests).
     agent.followup(createUserMessage({ content: [{ type: 'text', text: 'Look up the key "deploy-color" with the lookup tool and tell me the value.' }], source: { kind: 'user' } }))

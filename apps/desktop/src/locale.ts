@@ -1,7 +1,5 @@
 /** Typed shell copy for every shipped language owned by the Electron shell. */
 
-import { BUILT_IN_BRAND } from './brand-names.ts'
-
 export const en = {
   cliCommandMenu: 'Manage dsh Command…',
   cliCommandTitle: 'Manage dsh Command',
@@ -39,6 +37,8 @@ export const en = {
   hideApplication: 'Hide {brandName}',
   hideOtherApplications: 'Hide Others',
   showAllApplications: 'Show All',
+  substitutionsMenu: 'Substitutions',
+  speechMenu: 'Speech',
   quitApplication: 'Quit {brandName}',
   openApplication: 'Open {brandName}',
   quit: 'Quit',
@@ -94,7 +94,7 @@ export const en = {
   welcomeSignIn: 'Sign in',
   welcomeApiKey: 'Add API Key',
   welcomeKeyTitle: 'Add an API key to get started',
-  welcomeKeyDescription: 'Configure official DeepSeek models to start using {brandName}',
+  welcomeKeyDescription: 'Configure official DeepSeek models to start using Harness',
   welcomeKeyPlaceholder: 'Enter API key',
   welcomeKeySave: 'Save and continue',
   welcomeKeyLater: 'Set up later',
@@ -138,6 +138,8 @@ export const en = {
   updateClose: 'Close',
   updateAcknowledge: 'OK',
   updateLater: 'Update later',
+  updateDownloadInProgress: 'Downloading update',
+  updateDownloadDetail: 'The update is downloading in the background. You can continue using the app.',
   updateDownloading: 'Downloading {percent}%…',
   updateVerifying: 'Verifying update files…',
   updateInstalling: 'Preparing to restart…',
@@ -230,6 +232,8 @@ export const zh = {
   hideApplication: '隐藏 {brandName}',
   hideOtherApplications: '隐藏其他',
   showAllApplications: '显示全部',
+  substitutionsMenu: '替换',
+  speechMenu: '语音',
   quitApplication: '退出 {brandName}',
   openApplication: '打开 {brandName}',
   quit: '退出',
@@ -285,7 +289,7 @@ export const zh = {
   welcomeSignIn: '登录',
   welcomeApiKey: '添加 API Key',
   welcomeKeyTitle: '添加一个 API Key 开始使用',
-  welcomeKeyDescription: '配置 DeepSeek 官方模型，即可开始使用 {brandName}',
+  welcomeKeyDescription: '配置 DeepSeek 官方模型，即可开始使用',
   welcomeKeyPlaceholder: '输入 API 密钥',
   welcomeKeySave: '保存并继续',
   welcomeKeyLater: '稍后配置',
@@ -329,6 +333,8 @@ export const zh = {
   updateClose: '关闭',
   updateAcknowledge: '确定',
   updateLater: '稍后更新',
+  updateDownloadInProgress: '正在下载更新',
+  updateDownloadDetail: '更新正在后台下载，你可以继续使用应用。',
   updateDownloading: '正在下载 {percent}%…',
   updateVerifying: '正在校验更新文件…',
   updateInstalling: '正在准备重启…',
@@ -419,6 +425,8 @@ export const ja = {
   hideApplication: '{brandName} を隠す',
   hideOtherApplications: 'ほかを隠す',
   showAllApplications: 'すべて表示',
+  substitutionsMenu: '自動置換',
+  speechMenu: 'スピーチ',
   quitApplication: '{brandName} を終了',
   openApplication: '{brandName} を開く',
   quit: '終了',
@@ -474,7 +482,7 @@ export const ja = {
   welcomeSignIn: 'ログイン',
   welcomeApiKey: 'APIキーを追加',
   welcomeKeyTitle: 'APIキーを追加して開始',
-  welcomeKeyDescription: '公式の DeepSeek モデルを設定して {brandName} を使い始めましょう',
+  welcomeKeyDescription: '公式のDeepSeekモデルを設定してHarnessを使い始めましょう',
   welcomeKeyPlaceholder: 'APIキーを入力',
   welcomeKeySave: '保存して続行',
   welcomeKeyLater: '後で設定',
@@ -518,6 +526,8 @@ export const ja = {
   updateClose: '閉じる',
   updateAcknowledge: 'OK',
   updateLater: '後でアップデート',
+  updateDownloadInProgress: 'アップデートをダウンロード中',
+  updateDownloadDetail: 'アップデートをバックグラウンドでダウンロードしています。アプリは引き続き使用できます。',
   updateDownloading: 'ダウンロード中 {percent}%…',
   updateVerifying: 'アップデートファイルを検証中…',
   updateInstalling: '再起動の準備中…',
@@ -608,6 +618,8 @@ export const es = {
   hideApplication: 'Ocultar {brandName}',
   hideOtherApplications: 'Ocultar otros',
   showAllApplications: 'Mostrar todo',
+  substitutionsMenu: 'Sustituciones',
+  speechMenu: 'Voz',
   quitApplication: 'Salir de {brandName}',
   openApplication: 'Abrir {brandName}',
   quit: 'Salir',
@@ -663,7 +675,7 @@ export const es = {
   welcomeSignIn: 'Iniciar sesión',
   welcomeApiKey: 'Agregar clave API',
   welcomeKeyTitle: 'Agregue una clave API para comenzar',
-  welcomeKeyDescription: 'Configura los modelos oficiales DeepSeek para empezar a utilizar {brandName}',
+  welcomeKeyDescription: 'Configura los modelos oficiales DeepSeek para empezar a utilizar Harness',
   welcomeKeyPlaceholder: 'Ingrese la clave API',
   welcomeKeySave: 'Guardar y continuar',
   welcomeKeyLater: 'Configurar más tarde',
@@ -707,6 +719,8 @@ export const es = {
   updateClose: 'Cerrar',
   updateAcknowledge: 'OK',
   updateLater: 'Actualizar más tarde',
+  updateDownloadInProgress: 'Descargando actualización',
+  updateDownloadDetail: 'La actualización se está descargando en segundo plano. Puede seguir usando la aplicación.',
   updateDownloading: 'Descargando {percent}%…',
   updateVerifying: 'Verificando archivos de actualización...',
   updateInstalling: 'Preparándose para reiniciar…',
@@ -797,6 +811,8 @@ export const fr = {
   hideApplication: 'Masquer {brandName}',
   hideOtherApplications: 'Masquer les autres',
   showAllApplications: 'Afficher tout',
+  substitutionsMenu: 'Substitutions',
+  speechMenu: 'Parole',
   quitApplication: 'Quitter {brandName}',
   openApplication: 'Ouvrir {brandName}',
   quit: 'Quitter',
@@ -852,7 +868,7 @@ export const fr = {
   welcomeSignIn: 'Connectez-vous',
   welcomeApiKey: 'Ajouter une clé API',
   welcomeKeyTitle: 'Ajoutez une clé API pour commencer',
-  welcomeKeyDescription: 'Configurez les modèles DeepSeek officiels pour commencer à utiliser {brandName}',
+  welcomeKeyDescription: 'Configurez les modèles DeepSeek officiels pour commencer à utiliser Harness',
   welcomeKeyPlaceholder: 'Entrez la clé API',
   welcomeKeySave: 'Enregistrer et continuer',
   welcomeKeyLater: 'Configurer plus tard',
@@ -896,6 +912,8 @@ export const fr = {
   updateClose: 'Fermer',
   updateAcknowledge: 'OK',
   updateLater: 'Mettre à jour plus tard',
+  updateDownloadInProgress: 'Téléchargement de la mise à jour',
+  updateDownloadDetail: 'La mise à jour se télécharge en arrière-plan. Vous pouvez continuer à utiliser l’application.',
   updateDownloading: 'Téléchargement de {percent}%…',
   updateVerifying: 'Vérification des fichiers de mise à jour…',
   updateInstalling: 'Préparation du redémarrage…',
@@ -986,6 +1004,8 @@ export const de = {
   hideApplication: '{brandName} ausblenden',
   hideOtherApplications: 'Andere ausblenden',
   showAllApplications: 'Alle einblenden',
+  substitutionsMenu: 'Ersetzungen',
+  speechMenu: 'Sprachausgabe',
   quitApplication: '{brandName} beenden',
   openApplication: '{brandName} öffnen',
   quit: 'Beenden',
@@ -1041,7 +1061,7 @@ export const de = {
   welcomeSignIn: 'Anmelden',
   welcomeApiKey: 'API-Schlüssel hinzufügen',
   welcomeKeyTitle: 'Fügen Sie einen API-Schlüssel hinzu, um loszulegen',
-  welcomeKeyDescription: 'Konfigurieren Sie offizielle DeepSeek-Modelle für die Verwendung von {brandName}',
+  welcomeKeyDescription: 'Konfigurieren Sie offizielle DeepSeek-Modelle für die Verwendung von Harness',
   welcomeKeyPlaceholder: 'API-Schlüssel eingeben',
   welcomeKeySave: 'Speichern und fortfahren',
   welcomeKeyLater: 'Später einrichten',
@@ -1085,6 +1105,8 @@ export const de = {
   updateClose: 'Schließen',
   updateAcknowledge: 'OK',
   updateLater: 'Später aktualisieren',
+  updateDownloadInProgress: 'Update wird heruntergeladen',
+  updateDownloadDetail: 'Das Update wird im Hintergrund heruntergeladen. Sie können die App weiter verwenden.',
   updateDownloading: '{percent}% wird heruntergeladen…',
   updateVerifying: 'Aktualisierungsdateien werden überprüft…',
   updateInstalling: 'Neustart wird vorbereitet…',
@@ -1175,6 +1197,8 @@ export const ru = {
   hideApplication: 'Скрыть {brandName}',
   hideOtherApplications: 'Скрыть других',
   showAllApplications: 'Показать все',
+  substitutionsMenu: 'Замены',
+  speechMenu: 'Речь',
   quitApplication: 'Выйти из {brandName}',
   openApplication: 'Открыть {brandName}',
   quit: 'Выйти',
@@ -1230,7 +1254,7 @@ export const ru = {
   welcomeSignIn: 'Войти',
   welcomeApiKey: 'Добавить ключ API',
   welcomeKeyTitle: 'Добавьте ключ API, чтобы начать работу.',
-  welcomeKeyDescription: 'Настройте официальные модели DeepSeek, чтобы начать использовать {brandName}.',
+  welcomeKeyDescription: 'Настройте официальные модели DeepSeek, чтобы начать использовать Harness.',
   welcomeKeyPlaceholder: 'Введите ключ API',
   welcomeKeySave: 'Сохранить и продолжить',
   welcomeKeyLater: 'Настроить позже',
@@ -1274,6 +1298,8 @@ export const ru = {
   updateClose: 'Закрыть',
   updateAcknowledge: 'OK',
   updateLater: 'Обновить позже',
+  updateDownloadInProgress: 'Загрузка обновления',
+  updateDownloadDetail: 'Обновление загружается в фоновом режиме. Вы можете продолжать пользоваться приложением.',
   updateDownloading: 'Загрузка {percent}%…',
   updateVerifying: 'Проверка файлов обновлений…',
   updateInstalling: 'Подготовка к перезапуску…',
@@ -1364,6 +1390,8 @@ export const pt = {
   hideApplication: 'Ocultar {brandName}',
   hideOtherApplications: 'Ocultar outros',
   showAllApplications: 'Mostrar tudo',
+  substitutionsMenu: 'Substituições',
+  speechMenu: 'Fala',
   quitApplication: 'Sair de {brandName}',
   openApplication: 'Abra {brandName}',
   quit: 'Sair',
@@ -1419,7 +1447,7 @@ export const pt = {
   welcomeSignIn: 'Faça login',
   welcomeApiKey: 'Adicionar chave API',
   welcomeKeyTitle: 'Adicione uma chave API para começar',
-  welcomeKeyDescription: 'Configure modelos DeepSeek oficiais para começar a usar o {brandName}',
+  welcomeKeyDescription: 'Configure modelos DeepSeek oficiais para começar a usar o Harness',
   welcomeKeyPlaceholder: 'Insira a chave de API',
   welcomeKeySave: 'Salvar e continuar',
   welcomeKeyLater: 'Configurar mais tarde',
@@ -1463,6 +1491,8 @@ export const pt = {
   updateClose: 'Fechar',
   updateAcknowledge: 'OK',
   updateLater: 'Atualizar mais tarde',
+  updateDownloadInProgress: 'Baixando atualização',
+  updateDownloadDetail: 'A atualização está sendo baixada em segundo plano. Você pode continuar usando o aplicativo.',
   updateDownloading: 'Baixando {percent}%…',
   updateVerifying: 'Verificando arquivos de atualização…',
   updateInstalling: 'Preparando para reiniciar…',
@@ -1523,61 +1553,30 @@ export interface DesktopLocale {
   readonly messages: DesktopMessages
 }
 
-/**
- * Put this build's product names into one shipped dictionary.
- *
- * The shell's copy names the product through a placeholder, and most of that
- * copy is read straight off the dictionary rather than through
- * {@link formatDesktopMessage}, so the names fill once here rather than at each
- * use. A placeholder no name covers stays, which is how `{version}` and the
- * other per-call values survive to their own substitution.
- * @param messages - one shipped dictionary.
- * @param brand - the names this build carries.
- * @returns the dictionary a reader sees.
- */
-function brandedMessages(messages: DesktopMessages, brand: Readonly<Record<string, string>>): DesktopMessages {
-  return Object.fromEntries(Object.entries(messages)
-    .map(([key, message]) => [key, formatDesktopMessage(message, brand)])) as DesktopMessages
-}
-
-/**
- * Resolve Electron's locale to one shipped Desktop dictionary.
- * @param locale - Electron's locale, or any language tag.
- * @param brand - this build's product names; the built-in names stand for a
- * build that packaged none.
- * @returns the dictionary for that language with its product names filled.
- */
-export function resolveDesktopLocale(
-  locale: string,
-  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
-): DesktopLocale {
+/** Resolve Electron's locale to one shipped Desktop dictionary. */
+export function resolveDesktopLocale(locale: string): DesktopLocale {
   const primary = locale.toLowerCase().split('-')[0]
   if (primary !== undefined && Object.hasOwn(dictionaries, primary)) {
     const id = primary as keyof typeof dictionaries
-    return { id: id === 'zh' ? 'zh-CN' : id, messages: brandedMessages(dictionaries[id], brand) }
+    return { id: id === 'zh' ? 'zh-CN' : id, messages: dictionaries[id] }
   }
-  return { id: 'en', messages: brandedMessages(en, brand) }
+  return { id: 'en', messages: en }
 }
 
 /**
  * Choose a built-in dictionary from the shared preference, then ordered OS languages.
  * @param preference - explicit locale.preference, or null when no language was selected.
  * @param languages - operating-system languages in preference order.
- * @param brand - this build's product names.
  * @returns the supported dictionary, falling back to English.
  */
-export function resolveDesktopStartupLocale(
-  preference: string | null,
-  languages: readonly string[],
-  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
-): DesktopLocale {
+export function resolveDesktopStartupLocale(preference: string | null, languages: readonly string[]): DesktopLocale {
   const selected = preference?.toLowerCase()
-  if (selected !== undefined && Object.hasOwn(dictionaries, selected)) return resolveDesktopLocale(selected, brand)
+  if (selected !== undefined && Object.hasOwn(dictionaries, selected)) return resolveDesktopLocale(selected)
   for (const language of languages) {
     const primary = language.toLowerCase().split('-')[0]
-    if (primary !== undefined && Object.hasOwn(dictionaries, primary)) return resolveDesktopLocale(primary, brand)
+    if (primary !== undefined && Object.hasOwn(dictionaries, primary)) return resolveDesktopLocale(primary)
   }
-  return resolveDesktopLocale('en', brand)
+  return resolveDesktopLocale('en')
 }
 
 /** Replace named placeholders in one locale-owned message. */

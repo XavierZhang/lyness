@@ -27,7 +27,7 @@ Install and compose experimental capabilities explicitly, without a product-supp
 
 **Optional** means a user explicitly selects the capability. **Official** means the project maintains and lists the package in the Plugins page. Neither describes maturity; publication, default installation, and GUI visibility do not determine maturity either. Product packages outside this group have maintained product roles, while their public APIs still follow the repository's pre-stable policy.
 
-Promotion requires a named product role, documented public behavior and limitations, current consumers, release contents, and test evidence. Move the package to its product group, apply that group's naming rules, and update affected consumers together. The [subtree rules](AGENTS.md) govern dependency isolation and publication.
+Promotion requires a named product role, documented public behavior and limitations, current consumers, release contents, and test evidence. Move the package to its product group and update affected consumers together. The [subtree rules](AGENTS.md) govern package naming, dependency isolation, and publication.
 
 -----
 
@@ -44,6 +44,7 @@ Promotion requires a named product role, documented public behavior and limitati
 | [`client-ui-plugin-recommendations`](client-ui-plugin-recommendations/README.md) | Official plugin card body with catalog text and enabling | — |
 | [`personalized-recommendations`](personalized-recommendations/README.md) | Default-disabled bundle of personalized pages, plugin recommendations and their action cards | — |
 | [`session-search`](session-search/README.md) | Optional experimental global session search tools | — |
+| [`deepseek-chat-import`](deepseek-chat-import/README.md) | Optional upload of DeepSeek website chat exports as Sessions in a chosen Workspace | `ctx.deepseekChatImport` |
 | [`ralph-bundle`](ralph-bundle/README.md) | Optional repeated delegation with an isolated workflow engine | — |
 | [`terminal-bundle`](terminal-bundle/README.md) | Optional global persistent terminal tools | — |
 | [`badge-skill-bundle`](badge-skill-bundle/README.md) | Optional powered-by-dsh badge skill | — |
@@ -52,6 +53,7 @@ Promotion requires a named product role, documented public behavior and limitati
 | [`hooks-claude-code`](hooks-claude-code/README.md) | Claude Code hook bridge | — |
 | [`hooks-codex`](hooks-codex/README.md) | Codex hook bridge | — |
 | [`session-title-all-prompts-llm`](session-title-all-prompts-llm/README.md) | Session titles from all human prompts | — |
+| [`terminal-panel`](terminal-panel/README.md) | Agent terminals in the Web sidebar and read-only user terminal tools | — |
 | [`translator`](translator/README.md) | Anonymous Google and Bing text translation | `ctx.translator` |
 | [`client-ui-cot-translation`](client-ui-cot-translation/README.md) | Expanded reasoning translation and original-text controls | `ctx.cotTranslation` |
 | [`cot-translation-bundle`](cot-translation-bundle/README.md) | Default-disabled reasoning translation composition | — |
@@ -69,10 +71,12 @@ Promotion requires a named product role, documented public behavior and limitati
 | [`tool-subagent-oar`](tool-subagent-oar/README.md) | Select a configured external agent for each delegated task | `ctx.tools` |
 | [`claude-code-mods`](claude-code-mods/README.md) | Run Claude Code mods as plugins: their hook chains on harness extension points and a band above the prompt | `ctx.claudeCodeMods` |
 | [`client-ui-claude-code-mods`](client-ui-claude-code-mods/README.md) | The Web band that draws a mod's tree above the prompt and sends button clicks back | — |
-| [`ptc-runtime-python`](ptc-runtime-python/README.md) | CPython subprocess backend for the PTC execution seam | `ctx.ptcRuntime` |
 | [CUA](cua/README.md) | Application/window objects, authorized execution, and permission controls. | `ctx.cuaAccess` |
 | [macOS CUA](cua-macos/README.md) | Swift native execution and platform preparation. | `ctx.computerUse` |
+| [Windows CUA](cua-windows/README.md) | Native application and window operations through Windows UI Automation. | `ctx.computerUse` |
 | [`cua-bundle`](cua-bundle/README.md) | Optional Computer Use switch for PTC sessions | — |
+| [`cua-mcp`](cua-mcp/README.md) | Computer Use as an MCP stdio server for external agent harnesses, served by the `cua-mcp` profile | — |
+| [`timeline`](timeline/README.md) | Task trees, progress bars, and interval reports for the current session | `ctx.timeline` |
 | [`computer-use-cua-driver-mcp`](computer-use-cua-driver-mcp/README.md) | Use an installed Cua Driver through MCP | `ctx.computerUse` |
 | [`computer-use-cua-driver-native`](computer-use-cua-driver-native/README.md) | Embed the Cua Driver native npm runtime | `ctx.computerUse` |
 | [`browser-use-playwright-mcp`](browser-use-playwright-mcp/README.md) | Playwright browser tools over MCP | `ctx.browserUse` |

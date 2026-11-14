@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
@@ -14,6 +14,7 @@ import { candidateScopeKey } from '../src/render.ts'
 import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
 import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
 import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 const PROBE = 'banana-271828'
@@ -49,7 +50,7 @@ async function harness(): Promise<{ ctx: Context; agent: Agent }> {
   await ctx.plugin(AgentLoop, { agents: [] })
   await ctx.plugin(LlmDeepSeek, { models: [{ id: E2E_TARGET.model }] })
   const handle = await ctx.agents.create({
-    sessionId: SessionId('workspace-context-e2e-session'),
+    sessionId: brandString<SessionId>('workspace-context-e2e-session'),
     meta: { cwd: workdir },
     agentOptions: { provider: 'deepseek-official', model: E2E_TARGET.model },
   })

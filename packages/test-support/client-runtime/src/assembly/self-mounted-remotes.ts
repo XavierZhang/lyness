@@ -45,6 +45,8 @@ export const STAND_IN_NAMESPACES_ENV = 'DSH_STAND_IN_REMOTE_NAMESPACES'
 export const SELF_MOUNTED_REMOTES: readonly SelfMountedRemote[] = [
   // LiveShare's client entry mounts its own share namespace; the row is optional and outside the web roster.
   { package: '@deepseek-ai/dsh-experimental-liveshare', directory: 'packages/experimental/liveshare', namespaces: [] },
+  // The chat importer's client entry mounts its own namespace; the row is optional and outside the web roster.
+  { package: '@deepseek-ai/dsh-deepseek-chat-import', directory: 'packages/experimental/deepseek-chat-import', namespaces: [] },
   // The four personal-plane settings pages each mount the one namespace they consume.
   {
     package: '@deepseek-ai/dsh-api-agent-capabilities-controller',

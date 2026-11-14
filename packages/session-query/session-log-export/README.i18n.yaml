@@ -5,81 +5,78 @@
 /:
   en: 2ed4e25828621cc5
   zh: e9aa38b58d716093
-/deepseek-harness-dsh-session-log-export:
-  en: 962c540c0a85d3f0
-  zh: 9391be411d8b3e9c
-/deepseek-harness-dsh-session-log-export/summary:
-  en: 13d307e6bc6cc5f2
-  zh: 48220daeec702fe3
-/deepseek-harness-dsh-session-log-export/table-of-contents:
+/deepseek-ai-dsh-session-log-export:
+  en: eea87f5da57ff494
+  zh: db388203522b840f
+/deepseek-ai-dsh-session-log-export/summary:
+  en: ee7d348dd7fe684f
+  zh: 6cd6d5d644176355
+/deepseek-ai-dsh-session-log-export/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-session-log-export/use-this-package:
-  en: 41fd55c85ed1e9ed
-  zh: 5912045c12afc67a
-/deepseek-harness-dsh-session-log-export/use-this-package/copy-session-as-markdown:
-  en: 55c163a4ae5b8d5d
-  zh: c1dac154ed1fa56d
-/deepseek-harness-dsh-session-log-export/use-this-package/when-to-choose-it:
+/deepseek-ai-dsh-session-log-export/use-this-package:
+  en: bb12bdeafa8571b5
+  zh: e7df75c03478f7ed
+/deepseek-ai-dsh-session-log-export/use-this-package/copy-session-as-markdown:
+  en: 259be867138d8d92
+  zh: 984959dd966168bf
+/deepseek-ai-dsh-session-log-export/use-this-package/when-to-choose-it:
   en: 4011f686afd24f09
   zh: 2710b9995c80ba1f
-/deepseek-harness-dsh-session-log-export/use-this-package/backend-conversion:
+/deepseek-ai-dsh-session-log-export/use-this-package/backend-conversion:
   en: 252bc78a7850557a
   zh: e695658a94c8c2bf
-/deepseek-harness-dsh-session-log-export/use-this-package/composition:
-  en: 5beaf5ff0a1b61a8
-  zh: dd3e26988fdf199a
-/deepseek-harness-dsh-session-log-export/use-this-package/configuration:
+/deepseek-ai-dsh-session-log-export/use-this-package/composition:
+  en: dc562975a59e0175
+  zh: e8b0964a00ffef69
+/deepseek-ai-dsh-session-log-export/use-this-package/configuration:
   en: 377a0d8860c46f63
   zh: 9eb7698f813b2fa3
-/deepseek-harness-dsh-session-log-export/use-this-package/command-contract:
+/deepseek-ai-dsh-session-log-export/use-this-package/command-contract:
   en: 26329688b9a924a7
   zh: 94e21c10fdcfc1ac
-/deepseek-harness-dsh-session-log-export/use-this-package/what-to-expect:
-  en: 44be1f1d1903d12a
-  zh: c8f1eb5b92b71a30
-/deepseek-harness-dsh-session-log-export/use-this-package/deployments-with-accounts:
-  en: 397a290130b8829f
-  zh: a96159dd4a9f188e
-/deepseek-harness-dsh-session-log-export/use-this-package/failures:
-  en: e92a382bebfe99e3
-  zh: 671178b06808bfb9
-/deepseek-harness-dsh-session-log-export/understand-the-implementation:
+/deepseek-ai-dsh-session-log-export/use-this-package/what-to-expect:
+  en: 737aadb8946182da
+  zh: 1e4a1c16b6f8b18a
+/deepseek-ai-dsh-session-log-export/use-this-package/failures:
+  en: 355facfc072eb15d
+  zh: bd7686d16d933eae
+/deepseek-ai-dsh-session-log-export/understand-the-implementation:
   en: 7cb82a6851405f95
   zh: b8c525170d19dc6c
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/design-split:
-  en: 3bb8e18b107c353f
-  zh: 3cc45ce2b5699066
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/download-flow:
-  en: bd46d2fa1273a6a4
-  zh: 4d3eb2cf0a9bf12b
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/markdown-copy-flow:
+/deepseek-ai-dsh-session-log-export/understand-the-implementation/design-split:
+  en: a1a931677dabc1aa
+  zh: d4bd10bde23c14e9
+/deepseek-ai-dsh-session-log-export/understand-the-implementation/download-flow:
+  en: 00002fe0448b1654
+  zh: 9d8f88e42d88fd15
+/deepseek-ai-dsh-session-log-export/understand-the-implementation/markdown-copy-flow:
   en: d4e02b56ffb8ee8a
   zh: 0a329039788a13ee
-/deepseek-harness-dsh-session-log-export/further-exploration:
-  en: 610f5dd48daeef1b
-  zh: bde23601154bc5fa
-/deepseek-harness-dsh-session-log-export/model-experience:
+/deepseek-ai-dsh-session-log-export/further-exploration:
+  en: 8eef7e6c58c9f962
+  zh: 6c720c91c7f26299
+/deepseek-ai-dsh-session-log-export/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls:
+/deepseek-ai-dsh-session-log-export/model-experience/human-export-and-copy-controls:
   en: fc738fb50c699115
   zh: d9184c11b904d36c
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/what-the-model-sees:
+/deepseek-ai-dsh-session-log-export/model-experience/human-export-and-copy-controls/what-the-model-sees:
   en: e7784b93213942e5
   zh: 598c2ce6af076d2f
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/token-effect:
+/deepseek-ai-dsh-session-log-export/model-experience/human-export-and-copy-controls/token-effect:
   en: 312b2def8b2cd7d4
   zh: 9af5e3a7cd12ce65
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/kv-cache-effect:
+/deepseek-ai-dsh-session-log-export/model-experience/human-export-and-copy-controls/kv-cache-effect:
   en: 61e7dbf79010d071
   zh: 29294355598c0476
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work:
-  en: 9fa197530a6c0747
-  zh: aea781afa60f6282
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-session-log-export/known-limitations-and-deferred-work:
+  en: 961c206403204080
+  zh: c0cea2c965cc0b1b
+/deepseek-ai-dsh-session-log-export/known-limitations-and-deferred-work/dev-note:
   en: 4ee4d24c26c127bf
   zh: 1facdfbfa3ccefbc
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work/dev-note/future-export-destinations-beyond-the-browser:
+/deepseek-ai-dsh-session-log-export/known-limitations-and-deferred-work/dev-note/future-export-destinations-beyond-the-browser:
   en: 820a5a5f2c5471cd
   zh: 59d5852372a1f3ed

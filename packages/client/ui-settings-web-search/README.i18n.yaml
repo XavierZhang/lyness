@@ -3,35 +3,35 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-settings-web-search/README.md
 /:
-  en: f03a583078e73a90
-  zh: 62a0739506b8ad68
-/deepseek-harness-dsh-client-ui-settings-web-search:
-  en: 6a49c28a8a3019e4
-  zh: 11adbf7d192e73e9
-/deepseek-harness-dsh-client-ui-settings-web-search/summary:
-  en: 93af84c75a57345b
-  zh: 67836fe89e423a52
-/deepseek-harness-dsh-client-ui-settings-web-search/table-of-contents:
+  en: c998138f550b2c5c
+  zh: 7b7998c9801e1bdd
+/deepseek-ai-dsh-client-ui-settings-web-search:
+  en: 968c0f6ba2415331
+  zh: aaf9e2aa22eafc98
+/deepseek-ai-dsh-client-ui-settings-web-search/summary:
+  en: 23c442a512078061
+  zh: f10ddb1d6afe7a82
+/deepseek-ai-dsh-client-ui-settings-web-search/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-settings-web-search/use-this-package:
-  en: 0174b0cbdc50888c
-  zh: b546d59c88aca2f8
-/deepseek-harness-dsh-client-ui-settings-web-search/understand-the-implementation:
-  en: 078184ee0b31389a
-  zh: 8d74eb3b687a2d6f
-/deepseek-harness-dsh-client-ui-settings-web-search/further-exploration:
-  en: 6c038920e9c7f6fa
-  zh: ff7450df10741ca8
-/deepseek-harness-dsh-client-ui-settings-web-search/model-experience:
+/deepseek-ai-dsh-client-ui-settings-web-search/use-this-package:
+  en: b00497ce4cf39d47
+  zh: 9663997b7a4cc959
+/deepseek-ai-dsh-client-ui-settings-web-search/understand-the-implementation:
+  en: 836d3f3032033148
+  zh: f5b5c1ee14450ab5
+/deepseek-ai-dsh-client-ui-settings-web-search/further-exploration:
+  en: 892dc41e9012f3c4
+  zh: dc7cf90868141c0d
+/deepseek-ai-dsh-client-ui-settings-web-search/model-experience:
   en: 6b7c6f82ab6c8435
   zh: 4517689c899abcbe
-/deepseek-harness-dsh-client-ui-settings-web-search/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-settings-web-search/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 6e1c9a8fdde89577
-/deepseek-harness-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work:
-  en: 7288f5bb8fce1a7d
-  zh: b5e964cc0d68b571
-/deepseek-harness-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work:
+  en: 5c6dad603abec1c3
+  zh: a594f9def4ef8215
+/deepseek-ai-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

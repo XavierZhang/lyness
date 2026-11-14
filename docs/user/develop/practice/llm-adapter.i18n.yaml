@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/user/develop/practice/llm-adapter.md
 /llm-adapters:
-  en: fc0b2f9b030c065c
-  zh: 6a2e5a0d4c79ef15
+  en: 3ed9fd352e2c3edd
+  zh: f575c12bb4409a7f
 /llm-adapters/overview:
   en: 613076de2e5c7c2d
   zh: 9df5bf6bca93267f
@@ -18,8 +18,8 @@
   en: c0138e6ba95197fa
   zh: fc1e2b8047e08d2a
 /llm-adapters/generateoptions:
-  en: 064be8141ffe23dc
-  zh: 2e84a7e6df805074
+  en: 5bdb364bd44239c4
+  zh: ca0f2854069aa134
 /llm-adapters/register-an-adapter:
   en: 8e0ac8990c049f29
   zh: f8c3de63ee4d6757
@@ -30,5 +30,5 @@
   en: e05d4b0a901e8ef0
   zh: 9516cebb3e5c3692
 /llm-adapters/error-handling:
-  en: d54065c52caf7910
-  zh: 79b3ebc22a38286d
+  en: 08670c0bc7b8f494
+  zh: 37312af73d0acf91

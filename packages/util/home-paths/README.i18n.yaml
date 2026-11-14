@@ -3,53 +3,56 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/home-paths/README.md
 /:
-  en: 4d11c541e5bef78f
-  zh: 7b6e76b49589062c
-/deepseek-harness-dsh-home-paths:
-  en: 3600389ab4964f05
-  zh: b32a66634916d1e6
-/deepseek-harness-dsh-home-paths/summary:
-  en: 1e300e50b067a1d1
-  zh: 97c85c653b9dbb79
-/deepseek-harness-dsh-home-paths/table-of-contents:
+  en: f9a4cf8ae5a00fa2
+  zh: a7fccbffa7e63ae5
+/deepseek-ai-dsh-home-paths:
+  en: 6a18bcb84ce35987
+  zh: f26144b659925421
+/deepseek-ai-dsh-home-paths/summary:
+  en: 52245b057c8de494
+  zh: cd18fb40ad09aecc
+/deepseek-ai-dsh-home-paths/table-of-contents:
   en: 80b31a934611cb4a
   zh: 05f3f7f9cb2fd881
-/deepseek-harness-dsh-home-paths/use-this-package:
+/deepseek-ai-dsh-home-paths/use-this-package:
   en: 5322022224da2f27
   zh: d5cba67f4ea3e429
-/deepseek-harness-dsh-home-paths/use-this-package/resolving-the-home:
-  en: 88bcd9b74d0db457
-  zh: c30aa365ed125edd
-/deepseek-harness-dsh-home-paths/use-this-package/resolving-the-shared-agents-root:
-  en: 02a97826ab551cbb
-  zh: 99cb2b035671dc5b
-/deepseek-harness-dsh-home-paths/use-this-package/displaying-a-home:
-  en: 16502702cb7d4f3d
-  zh: 1a23d8fb6bef025a
-/deepseek-harness-dsh-home-paths/use-this-package/expanding-user-paths:
+/deepseek-ai-dsh-home-paths/use-this-package/resolving-the-home:
+  en: da3b53cf08826d46
+  zh: a0d25c8932307bbd
+/deepseek-ai-dsh-home-paths/use-this-package/choosing-a-category-for-a-new-path:
+  en: b067146c36447eee
+  zh: a3c1c4955842ddf4
+/deepseek-ai-dsh-home-paths/use-this-package/resolving-the-shared-agents-root:
+  en: 899c53a36b4a77cd
+  zh: 216532c8876d201d
+/deepseek-ai-dsh-home-paths/use-this-package/displaying-a-home:
+  en: 5296a54cce9be374
+  zh: e408ce14b8be4698
+/deepseek-ai-dsh-home-paths/use-this-package/expanding-user-paths:
   en: 80bf5dead177c1d8
   zh: 6faf257afbb9c246
-/deepseek-harness-dsh-home-paths/use-this-package/canonicalizing-watch-paths:
+/deepseek-ai-dsh-home-paths/use-this-package/canonicalizing-watch-paths:
   en: 55c5d8179de704c5
   zh: b86395e9605807cd
-/deepseek-harness-dsh-home-paths/understand-the-implementation:
+/deepseek-ai-dsh-home-paths/understand-the-implementation:
   en: 3f97bd4606e12d4a
   zh: 8f09f108141a478e
-/deepseek-harness-dsh-home-paths/understand-the-implementation/source-map:
+/deepseek-ai-dsh-home-paths/understand-the-implementation/source-map:
   en: 584610e67c4aa386
   zh: 766f77e35c65193d
-/deepseek-harness-dsh-home-paths/understand-the-implementation/resolution-rules:
-  en: 1868aa4c30faf852
-  zh: d2874668d7c8850e
-/deepseek-harness-dsh-home-paths/understand-the-implementation/canonicalization-mechanics:
+/deepseek-ai-dsh-home-paths/understand-the-implementation/resolution-rules:
+  en: f8935bcc43a7749e
+  zh: 863e3f58eb88b342
+/deepseek-ai-dsh-home-paths/understand-the-implementation/canonicalization-mechanics:
   en: a79aecd162317dc2
   zh: 342f9bae0231c3de
-/deepseek-harness-dsh-home-paths/further-exploration:
-  en: 2320e82d26d80e52
-  zh: 3a8e90557194e8e4
-/deepseek-harness-dsh-home-paths/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-home-paths/further-exploration:
+  en: 20c1a7aad2c891e7
+  zh: 66977a9714e6eff8
+/deepseek-ai-dsh-home-paths/known-limitations-and-deferred-work:
   en: aa4aecf31a596da0
   zh: 22dea997610fae2d
-/deepseek-harness-dsh-home-paths/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-home-paths/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

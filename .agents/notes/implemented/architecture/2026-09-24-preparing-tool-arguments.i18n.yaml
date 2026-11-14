@@ -3,23 +3,23 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-24-preparing-tool-arguments.md
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation:
-  en: 4bead146aa623b61
-  zh: e2632a1f9e7fb3c2
+  en: 07f6420c67ea2700
+  zh: b9b53250e050cf6e
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/problem:
-  en: 94808fd4ff24b123
-  zh: 30b3d06409a09dce
+  en: c97b3edd4ef1d063
+  zh: 5c8b6065e662f326
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision:
   en: a15c7c13f167e5ac
   zh: 63bcc2ef60c2f344
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/a-lazily-computed-argument-view-lives-in-dsh-util-values:
-  en: c92dae3adcb44d69
-  zh: fca12eaaabd75933
+  en: eb004194b0c08464
+  zh: d09c6353ed7138de
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/parsing-happens-in-the-tool-definition-not-in-react:
   en: 518206f94d82993d
   zh: c6cab3b2f71dd18b
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/argument-declaration-order:
-  en: 0fd7c9f0b8cf6a28
-  zh: 7d410403283b9996
+  en: caae19337804cef4
+  zh: 887186eeb8bd36f8
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/alternatives-considered:
   en: 7a033f81c557c58f
   zh: 2ec66b0db6cf5d9e

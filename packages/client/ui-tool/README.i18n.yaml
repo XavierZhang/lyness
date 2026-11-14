@@ -3,50 +3,50 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-tool/README.md
 /:
-  en: be6fb4d857544b40
-  zh: eb4e2b70caa0779e
-/deepseek-harness-dsh-client-ui-tool:
-  en: 754922081fcf51d9
-  zh: 9afe973ac1c3da3a
-/deepseek-harness-dsh-client-ui-tool/summary:
-  en: dc013f4d0153b30f
-  zh: 27084d98b9c73a1a
-/deepseek-harness-dsh-client-ui-tool/table-of-contents:
+  en: d5ef8fa5a5ebfbc2
+  zh: 9870b3f207a248cc
+/deepseek-ai-dsh-client-ui-tool:
+  en: 03bfcfbf7f1cea76
+  zh: 142abbf07affee63
+/deepseek-ai-dsh-client-ui-tool/summary:
+  en: e7ef510d1764f9b2
+  zh: 236bc66607211f0f
+/deepseek-ai-dsh-client-ui-tool/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-tool/use-this-package:
-  en: 2419beff9bcd8139
-  zh: 5aafe9b168e571a5
-/deepseek-harness-dsh-client-ui-tool/use-this-package/registering-a-business-tool-view:
-  en: e458aff61e634190
-  zh: 650e417f450b3edf
-/deepseek-harness-dsh-client-ui-tool/use-this-package/built-in-views:
-  en: d686f389fdf490e7
-  zh: b20896b24226b105
-/deepseek-harness-dsh-client-ui-tool/understand-the-implementation:
+/deepseek-ai-dsh-client-ui-tool/use-this-package:
+  en: 5afd42f0761ff21b
+  zh: 5a22eee65019a03e
+/deepseek-ai-dsh-client-ui-tool/use-this-package/registering-a-business-tool-view:
+  en: 3dd6bd71dfc5527d
+  zh: 9fe3c2135014bb7b
+/deepseek-ai-dsh-client-ui-tool/use-this-package/built-in-views:
+  en: 33f41ad70d0728f7
+  zh: b7c65108c5921134
+/deepseek-ai-dsh-client-ui-tool/understand-the-implementation:
   en: 00bc7b0c84edc603
   zh: 1cfcf5b435248a91
-/deepseek-harness-dsh-client-ui-tool/understand-the-implementation/rendering-contract:
-  en: 1de1d6b0ba705ec2
-  zh: 2c1162f5bdf0a690
-/deepseek-harness-dsh-client-ui-tool/understand-the-implementation/cards:
-  en: 1134104b7399086d
-  zh: 6e3f1412cc1fea5e
-/deepseek-harness-dsh-client-ui-tool/understand-the-implementation/declared-optional-capabilities:
+/deepseek-ai-dsh-client-ui-tool/understand-the-implementation/rendering-contract:
+  en: 672e63b2f92e689b
+  zh: ba950ecb480325a6
+/deepseek-ai-dsh-client-ui-tool/understand-the-implementation/cards:
+  en: cf7e57801571d443
+  zh: fee3b0b00c6aab69
+/deepseek-ai-dsh-client-ui-tool/understand-the-implementation/declared-optional-capabilities:
   en: c1926deb4e5f3734
   zh: c5845f465b94a459
-/deepseek-harness-dsh-client-ui-tool/further-exploration:
-  en: 75744b9fd926a038
-  zh: b7621ca7348cc3ef
-/deepseek-harness-dsh-client-ui-tool/model-experience:
+/deepseek-ai-dsh-client-ui-tool/further-exploration:
+  en: b37600769951cbca
+  zh: 816589549d21d176
+/deepseek-ai-dsh-client-ui-tool/model-experience:
   en: 1e5e72dd269855d5
   zh: 81a4756d460e3af9
-/deepseek-harness-dsh-client-ui-tool/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-tool/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-harness-dsh-client-ui-tool/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-client-ui-tool/known-limitations-and-deferred-work:
   en: 49f7008105e804df
   zh: e773f101126b01b4
-/deepseek-harness-dsh-client-ui-tool/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-tool/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

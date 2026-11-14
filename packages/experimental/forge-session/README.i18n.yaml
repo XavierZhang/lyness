@@ -5,33 +5,33 @@
 /:
   en: 04fd3e698332ce87
   zh: 283b365b1f909e0b
-/deepseek-harness-dsh-experimental-forge-session:
-  en: 2ac5c8cffad4a7d3
-  zh: d91ee3335bc8ee73
-/deepseek-harness-dsh-experimental-forge-session/summary:
-  en: 6c46b2a70c2f4760
-  zh: 9425687e258412b4
-/deepseek-harness-dsh-experimental-forge-session/table-of-contents:
+/deepseek-ai-dsh-experimental-forge-session:
+  en: b8c7e5c40e3c21a4
+  zh: 2360132d865b9d08
+/deepseek-ai-dsh-experimental-forge-session/summary:
+  en: 5aba678acbd32a39
+  zh: 2d46c826c60982e1
+/deepseek-ai-dsh-experimental-forge-session/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2f8a621b991260a1
-/deepseek-harness-dsh-experimental-forge-session/use-this-package:
-  en: 06d381142abeb618
-  zh: 25ab79a92c326129
-/deepseek-harness-dsh-experimental-forge-session/understand-the-implementation:
-  en: 46d6625f613e9c69
-  zh: 688ad6eb25570bc3
-/deepseek-harness-dsh-experimental-forge-session/further-exploration:
-  en: 81d45451ae3fe298
-  zh: a14a8e4786273c6e
-/deepseek-harness-dsh-experimental-forge-session/model-experience:
+/deepseek-ai-dsh-experimental-forge-session/use-this-package:
+  en: 28bc68989945466f
+  zh: 5e151236ead2764b
+/deepseek-ai-dsh-experimental-forge-session/understand-the-implementation:
+  en: 1afa3f7214e5b7fd
+  zh: 396773f1cd4b0cee
+/deepseek-ai-dsh-experimental-forge-session/further-exploration:
+  en: afd5ea387dc53920
+  zh: 1f2d48bdd1abeef7
+/deepseek-ai-dsh-experimental-forge-session/model-experience:
   en: c2866463fc210ca0
   zh: 0e66693bfd75264b
-/deepseek-harness-dsh-experimental-forge-session/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-experimental-forge-session/model-experience/kv-cache-effect:
   en: 1bdaeb7d102c23d8
   zh: 37a3f0bd58f68363
-/deepseek-harness-dsh-experimental-forge-session/known-limitations-and-deferred-work:
-  en: 87c7672b6dc886a0
-  zh: 864ef4403a3e7fea
-/deepseek-harness-dsh-experimental-forge-session/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-experimental-forge-session/known-limitations-and-deferred-work:
+  en: af600913828699f4
+  zh: d931fafc1324a80e
+/deepseek-ai-dsh-experimental-forge-session/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

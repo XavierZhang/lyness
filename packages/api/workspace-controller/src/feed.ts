@@ -1,6 +1,8 @@
 /** Reconnect-safe Workspace baseline and increment producer. */
 
 import type { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
 import { Deque } from '@deepseek-ai/dsh-deque'
 import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { Principal } from '@deepseek-ai/dsh-request-principal'
@@ -9,7 +11,6 @@ import type { Workspace, WorkspaceRecord } from '@deepseek-ai/dsh-workspace'
 import {
   workspaceDomainState,
   workspaceRecord,
-  WorkspaceId,
 } from '@deepseek-ai/dsh-workspace'
 import { keepVisible, visibleSessions } from './visible-sessions.ts'
 import type { VisibleSessions } from './visible-sessions.ts'
@@ -56,7 +57,7 @@ export function workspaceView(workspace: Workspace, visible: VisibleSessions): W
 function changedWorkspaceView(workspaceId: string, value: unknown): WorkspaceView {
   const record: WorkspaceRecord = workspaceRecord.parse(value)
   return {
-    workspaceId: WorkspaceId(workspaceId),
+    workspaceId: brandString<WorkspaceId>(workspaceId),
     path: record.path,
     title: record.title,
     sessionIds: [...record.sessionIds],
@@ -201,7 +202,7 @@ export class WorkspaceFeed {
     if (change.table !== 'workspaces') return
     if (change.operation === 'deleted') {
       if (!this.knownIds.delete(change.key)) return
-      this.publish({ type: 'remove', workspaceId: WorkspaceId(change.key) })
+      this.publish({ type: 'remove', workspaceId: brandString<WorkspaceId>(change.key) })
       return
     }
     if (!this.knownIds.has(change.key)) return

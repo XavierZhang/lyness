@@ -75,6 +75,16 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
      */
     'sidebar.footer.action': { kind: 'list'; scope: 'root'; owner: SidebarFooterActionOwnerProps }
     /**
+     * HOC layer around the inner content of the New-session row — the Tooltip
+     * and button the shell passes as `children`, rendered only while the Peer
+     * may create Sessions. An occupant receives that content and returns it,
+     * possibly wrapped, together with its own controls, so it decorates the
+     * row without adding a wrapper element. Occupants nest around the content
+     * instead of rendering beside it: one that adds nothing must return
+     * `children`, and with no occupant the content renders unchanged.
+     * Declared by this package's 'sidebar' entry.
+     */
+    'sidebar.session.action': { kind: 'hoc'; scope: 'root'; owner: SidebarSessionActionOwnerProps }
      * The attribution line under the sidebar foot, naming the platform this
      * deployment runs on rather than the deployment's own brand. Declared by
      * this package's 'sidebar' entry; the brand package registers the line and
@@ -198,6 +208,8 @@ export interface SidebarFooterActionOwnerProps {
   wide: boolean
 }
 
+/** Owner share of the New-session row's HOC layer. */
+export interface SidebarSessionActionOwnerProps {
 /** Owner share of the attribution line under the sidebar foot. */
 export interface SidebarAttributionOwnerProps {
   /** Whether the sidebar renders wide content (false = 56px rail). */
@@ -253,6 +265,7 @@ export type SidebarRootComponentProps =
     | 'sidebar.workspaces'
     | 'sidebar.settings'
     | 'sidebar.footer.action'
+    | 'sidebar.session.action'
     | 'sidebar.attribution'
   >
   & PropsRenderFactories & InjectFace<SidebarRootInjected> & PropsLocale<'sidebar'>
