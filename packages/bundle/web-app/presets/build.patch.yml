@@ -26,7 +26,9 @@
           - id: persona
             name: '@lyness/lyn-persona'
             config:
-              prefix: You are a coding agent powered by the {{model}} model.
+              prefix: >-
+                You are a coding agent powered by the {{model}} model.
+                You help the user customize lyness itself.
               suffix: Your working directory is {{cwd}}.
           - id: tool-session-query
             name: '@lyness/lyn-tool-session-query'

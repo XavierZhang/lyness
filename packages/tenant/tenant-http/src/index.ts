@@ -88,5 +88,8 @@ export function apply(ctx: Context, config: Config): void {
     const config = await configured.get(tenant.id)
     sendJson(res, 200, { ...identity, features: config?.features ?? [], copy: config?.copy ?? {} })
   }
-  ctx.effect(() => ctx.webServer.register({ kind: 'exact', path, handler }), 'tenant-http.route')
+  // The requesting tenant's own identity, features and copy: the sign-in
+  // screen renders them before anybody has signed in, so the route admits an
+  // anonymous request. It answers nothing about who is asking.
+  ctx.effect(() => ctx.webServer.register({ auth: 'anonymous', kind: 'exact', path, handler }), 'tenant-http.route')
 }

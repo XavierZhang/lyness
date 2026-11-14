@@ -165,6 +165,10 @@ export function apply(ctx: Context, config: Config): void {
   const terms = resolveConfig(config)
 
   ctx.effect(() => ctx.webServer.register({
+    // Signing in happens before anybody has an identity, and signing out
+    // presents only the cookie, so these routes admit an anonymous request
+    // and do their own checking.
+    auth: 'anonymous',
     kind: 'exact',
     path: CHANNELS_PATH,
     handler: (req, res) => {
@@ -174,6 +178,10 @@ export function apply(ctx: Context, config: Config): void {
   }))
 
   ctx.effect(() => ctx.webServer.register({
+    // Signing in happens before anybody has an identity, and signing out
+    // presents only the cookie, so these routes admit an anonymous request
+    // and do their own checking.
+    auth: 'anonymous',
     kind: 'prefix',
     path: START_PREFIX,
     handler: async (req, res) => {
@@ -209,6 +217,10 @@ export function apply(ctx: Context, config: Config): void {
   }))
 
   ctx.effect(() => ctx.webServer.register({
+    // Signing in happens before anybody has an identity, and signing out
+    // presents only the cookie, so these routes admit an anonymous request
+    // and do their own checking.
+    auth: 'anonymous',
     kind: 'prefix',
     path: CALLBACK_PREFIX,
     handler: async (req, res) => {
@@ -245,6 +257,10 @@ export function apply(ctx: Context, config: Config): void {
   }))
 
   ctx.effect(() => ctx.webServer.register({
+    // Signing in happens before anybody has an identity, and signing out
+    // presents only the cookie, so these routes admit an anonymous request
+    // and do their own checking.
+    auth: 'anonymous',
     kind: 'exact',
     path: SIGN_OUT_PATH,
     handler: async (req, res) => {

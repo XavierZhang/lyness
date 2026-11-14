@@ -419,6 +419,9 @@ export function apply(ctx: Context, config: Config): void {
 
   if (assets.size > 0) {
     ctx.effect(() => ctx.webServer.register({
+      // The deployment's own icon and wordmark, served like a favicon: the
+      // sign-in screen renders them before anybody has signed in.
+      auth: 'anonymous',
       kind: 'prefix',
       path: BRAND_ASSET_ROUTE,
       handler: assetHandler(assets),

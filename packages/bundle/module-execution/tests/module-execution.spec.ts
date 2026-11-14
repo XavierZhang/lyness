@@ -48,10 +48,13 @@ describe('lyn-module-execution bundle', () => {
     }
   })
 
+  // The execution plane lives here rather than in `lyn-base`: a hosted
+  // deployment composes a runtime that executes nothing by leaving this
+  // module out (CUSTOM.md, 2026-10-15).
   it('gates each shell stack by platform with a symmetric disabled expression', () => {
     const root = fileURLToPath(new URL('..', import.meta.url))
     const parsed = parseEntryYaml(readFileSync(resolve(root, 'cordis.patch.yml'), 'utf8'))
-    if (!Array.isArray(parsed)) throw new TypeError('base patch must parse to a patch list')
+    if (!Array.isArray(parsed)) throw new TypeError('module-execution patch must parse to a patch list')
     const rows = parsed.flatMap((patch): Record<string, unknown>[] =>
       typeof patch === 'object' && patch !== null
         ? (patch as { insert?: Record<string, unknown>[] }).insert ?? []
@@ -69,7 +72,7 @@ describe('lyn-module-execution bundle', () => {
       ['tool-pwsh', false, true],
     ] as const) {
       const row = rows.find(candidate => candidate.id === id)
-      if (row === undefined) throw new Error(`base patch must mount ${id}`)
+      if (row === undefined) throw new Error(`module-execution patch must mount ${id}`)
       const expression = (row.disabled as { __jsExpr?: string } | undefined)?.__jsExpr
       if (expression === undefined) throw new Error(`${id} must gate on a !!js disabled expression`)
       expect(Boolean(evaluate({ process: { platform: 'win32' } }, expression)), `${id} on win32`).toBe(win32)
@@ -78,4 +81,5 @@ describe('lyn-module-execution bundle', () => {
     // The platform layer folded into these rows: no separate patch file ships.
     expect(existsSync(resolve(root, 'windows.cordis.patch.yml'))).toBe(false)
   })
+
 })

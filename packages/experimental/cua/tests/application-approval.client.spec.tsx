@@ -43,7 +43,11 @@ it.each(['allow', 'reject', 'always'] as const)('returns the exact %s option fro
   expect(name).toBe('conversation.approval.card')
   expect(card).toMatchObject({ title: '允许吗？', description: '本次任务', allowLabel: '本次任务允许', subject: { name: 'Calculator' } })
   expect(card.canAnswer()).toBe(true)
-  expect(card.warning).toEqual({ label: zh.approvalRisks, title: zh.approvalRiskTitle, detail: zh.approvalRiskNotice })
+  // Through the translator: the notice names the product with a brand
+  // placeholder the runtime fills before a reader sees it.
+  const t = makeTranslate(zh)
+  expect(card.warning)
+    .toEqual({ label: t('approvalRisks'), title: t('approvalRiskTitle'), detail: t('approvalRiskNotice') })
   await ({ allow: card.onAllow, reject: card.onReject, always: card.onAlways! })[choice]()
   expect(await request.result).toEqual({ answers: [{ id: 'cua-app-access', selected: [{ allow: 'task-value', reject: 'deny-value', always: 'saved-value' }[choice]] }] })
   pending.close()

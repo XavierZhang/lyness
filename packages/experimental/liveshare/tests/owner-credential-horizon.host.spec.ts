@@ -19,7 +19,10 @@ import { apply } from '../src/host/share-host.ts'
 
 const START = Date.parse('2026-10-15T00:00:00.000Z')
 const PAST = new Date(START).toISOString()
-const LIVE = new Date(START + 30 * 24 * 60 * 60_000).toISOString()
+// Relative to now, not to START: a horizon pinned 30 days after a fixed date
+// is a live credential only until that date arrives, and these cases assert
+// that a horizon still ahead is adopted.
+const LIVE = new Date(Date.now() + 30 * 24 * 60 * 60_000).toISOString()
 const STORED_TOKEN = 'stored-payload.stored-signature'
 
 /**

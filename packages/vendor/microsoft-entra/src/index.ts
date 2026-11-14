@@ -269,6 +269,10 @@ export class MicrosoftEntra extends Service {
         reject(new EntraSignInError('the sign-in was withdrawn'))
       }
       const dispose = this.ctx.effect(() => this.ctx.webServer.register({
+        // The directory returns the browser here with a code, which is what
+        // establishes an identity: the request carries none yet. The handler
+        // validates `state` against the attempt this process started.
+        auth: 'anonymous',
         kind: 'exact',
         path: this.config.redirectPath,
         handler: (req, res) => {

@@ -11,7 +11,7 @@ function kitTree() {
   onTestFinished(() => { rmSync(root, { recursive: true, force: true, maxRetries: 3, retryDelay: 10 }) })
   const kitDirectory = join(root, 'node_modules', '@deepseek-ai', 'libreoffice-kit')
   const entry = join(kitDirectory, 'lib', 'index.js')
-  const engine = join(kitDirectory, 'node_modules', '@lyness', 'libreoffice-kit-wasm', 'package.json')
+  const engine = join(kitDirectory, 'node_modules', '@deepseek-ai', 'libreoffice-kit-wasm', 'package.json')
   mkdirSync(dirname(engine), { recursive: true })
   mkdirSync(dirname(entry), { recursive: true })
   writeFileSync(join(kitDirectory, 'package.json'), JSON.stringify({

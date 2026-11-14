@@ -135,6 +135,10 @@ export function apply(ctx: Context, config: Config): void {
   }
 
   ctx.effect(() => ctx.webServer.register({
+    // The operator reaches this page with the token the command printed, which
+    // is the only credential this profile has: it runs before a deployment has
+    // a roster. Every handler below checks that token itself.
+    auth: 'anonymous',
     kind: 'exact',
     path: '/',
     handler: (req, res) => {
@@ -150,6 +154,10 @@ export function apply(ctx: Context, config: Config): void {
   }), 'brand-setup: page')
 
   ctx.effect(() => ctx.webServer.register({
+    // The operator reaches this page with the token the command printed, which
+    // is the only credential this profile has: it runs before a deployment has
+    // a roster. Every handler below checks that token itself.
+    auth: 'anonymous',
     kind: 'exact',
     path: '/state',
     handler: async (req, res) => {
@@ -160,6 +168,10 @@ export function apply(ctx: Context, config: Config): void {
   }), 'brand-setup: current brand')
 
   ctx.effect(() => ctx.webServer.register({
+    // The operator reaches this page with the token the command printed, which
+    // is the only credential this profile has: it runs before a deployment has
+    // a roster. Every handler below checks that token itself.
+    auth: 'anonymous',
     kind: 'exact',
     path: '/apply',
     handler: async (req, res) => {

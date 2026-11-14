@@ -123,7 +123,12 @@ describe('operator connect through Loader composition', () => {
     expect(peer.signal.aborted).toBe(false)
     expect(await refusedMux(host, cookie)).toBe(409)
     await close(api)
-    expect((await rpc(host, cookie, 'fixture/identity', { label: 'after-mux-close' })).status).toBe(401)
+    // Revocation is asynchronous after the socket closes, so this polls the
+    // refusal rather than assuming it has landed by the next request: under a
+    // loaded suite the first call otherwise races the release.
+    await vi.waitFor(async () => {
+      expect((await rpc(host, cookie, 'fixture/identity', { label: 'after-mux-close' })).status).toBe(401)
+    })
   })
 
   it('uses the Peer WebServer authenticated without a second provider pass', async () => {

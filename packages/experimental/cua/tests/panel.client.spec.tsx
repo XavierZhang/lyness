@@ -472,8 +472,11 @@ it.each([[true, true], [false, true], [false, false], [null, true]] as const)('o
   expect(screen.queryByRole('dialog') !== null).toBe(needsSetup)
   if (needsSetup) {
     expect(screen.getByRole('dialog', { name: en.windowsSetupTitle })).toBeTruthy()
-    const explanation = sessionLocked === null ? en.windowsSessionUnknown
-      : sessionLocked ? en.windowsSetupBody : en.windowsCaptureUnavailable
+    // Through the translator, because the copy names the product with a brand
+    // placeholder the runtime fills before a reader sees it.
+    const t = makeTranslate(en)
+    const explanation = t(sessionLocked === null ? 'windowsSessionUnknown'
+      : sessionLocked ? 'windowsSetupBody' : 'windowsCaptureUnavailable')
     expect(screen.getByText(explanation)).toBeTruthy()
   } else expect(onDismiss).toHaveBeenCalledOnce()
 })
