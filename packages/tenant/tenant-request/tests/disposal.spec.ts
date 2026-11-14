@@ -6,6 +6,7 @@ import { HostConnectionService } from '@lyness/lyn-client-connection'
 import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import RequestTenantScope from '../src/index.ts'
 import type { PeerScope } from '@lyness/lyn-typert-protocol'
+import { ConnectionAuthentication } from '@lyness/lyn-client-connection'
 
 /** These assertions are not about access, so every dispatch speaks for the owner. */
 const OWNER = { principal: { kind: 'owner' } } as PeerScope
@@ -17,7 +18,10 @@ describe('the request scope registration', () => {
     const ctx = new Context()
     await ctx.plugin(StaticTenantDirectory, TENANTS)
     const connectionFiber = ctx.plugin((pluginCtx: Context) => {
-      // The browser-auth owner is unreachable here: nothing in this test passes the trust fence.
+      // The Connection reads credential verification from its own context, so
+      // the authentication service mounts first in the same fiber. Nothing in
+      // this test passes the trust fence, so no verifier is registered.
+      new ConnectionAuthentication(pluginCtx)
       new HostConnectionService(pluginCtx, [])
     })
     await connectionFiber.await()
