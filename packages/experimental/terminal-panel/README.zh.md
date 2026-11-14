@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-在 Web 侧栏中显示 Agent 的持久终端。本包注册一个 `ctx.terminals` 后端，其会话就是[终端控制器](../../api/terminal-controller/README.zh.md)提供的侧栏终端，因此 6 个 [`terminal_*` 工具](../tool-terminal/README.zh.md)的名称、参数和结果都不变，而每次 `terminal_open` 都会成为一个人可以旁观和输入的标签页。人第一次按键就接管该终端，此后 Agent 只能读取。另有两个只读工具，用于列出和读取人自己打开的终端。[实验终端 bundle](../terminal-bundle/README.zh.md) 挂载本包。
+在 Web 侧栏中显示 Agent 的持久终端。本包注册一个 `ctx.terminals` 后端，其会话就是[终端控制器](../../api/terminal-controller/README.zh.md)提供的侧栏终端，因此 6 个 [`terminal_*` 工具](../../terminal/tool-terminal/README.zh.md)的名称、参数和结果都不变，而每次 `terminal_open` 都会成为一个人可以旁观和输入的标签页。人第一次按键就接管该终端，此后 Agent 只能读取。另有两个只读工具，用于列出和读取人自己打开的终端。[实验终端 bundle](../terminal-bundle/README.zh.md) 挂载本包。
 
 ## 目录
 
@@ -102,7 +102,7 @@ kind: "package-reference"
 
 - [终端控制器](../../api/terminal-controller/README.zh.md)——Agent 终端的分配、接管与读屏。
 - [侧栏终端](../../client/ui-sidebar-terminal/README.zh.md)——Agent 终端如何出现，以及如何识别人的键入。
-- [终端工具](../tool-terminal/README.zh.md)——本后端承载的 6 个工具。
+- [终端工具](../../terminal/tool-terminal/README.zh.md)——本后端承载的 6 个工具。
 - [终端服务](../../terminal/terminal/README.zh.md)——注册表约定与所有权规则。
 
 -----

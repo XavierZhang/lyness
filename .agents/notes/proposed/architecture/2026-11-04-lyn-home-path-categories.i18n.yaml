@@ -3,32 +3,32 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-11-04-lyn-home-path-categories.md
 /agent-note-harness-home-path-categories:
-  en: 007593701a0d6bf5
-  zh: 3bf266378e3bba08
+  en: e29bfc18bc6ca8ef
+  zh: 36d1ef6720ac374f
 /agent-note-harness-home-path-categories/problem:
-  en: 3e98d90944daeb05
-  zh: 596f750e878f3e69
+  en: c10cddbe1175297d
+  zh: 2afe6e00c14c1147
 /agent-note-harness-home-path-categories/proposal:
-  en: 76abf280dfdba9bc
-  zh: 0ad29c3c67208086
+  en: 4001acb3ea57377e
+  zh: 8220d184c63e449a
 /agent-note-harness-home-path-categories/proposal/path-helper:
-  en: 6f34630c5b05b0d7
-  zh: 2106fdbf4f5ca852
+  en: 3cb75dfb2a1a5342
+  zh: 521c004af56af35e
 /agent-note-harness-home-path-categories/proposal/conventional-top-level-entries:
-  en: 940f404152322a33
-  zh: 5668927394d05723
+  en: c627cd688597db73
+  zh: fdd0acea3665a768
 /agent-note-harness-home-path-categories/proposal/other-existing-entries:
-  en: a8242fc3bbe3fe7a
-  zh: b90f9e9deda18e78
+  en: df674a398f69bd88
+  zh: bbe3ac9276ddd7d8
 /agent-note-harness-home-path-categories/proposal/outside-the-home:
-  en: 9d78c323d3f9d159
-  zh: e11a87b74fe11e5c
+  en: 2e15f1a554479392
+  zh: eb06e3846d20f134
 /agent-note-harness-home-path-categories/alternatives-considered:
-  en: cfa4bc5557af4117
-  zh: 7971e54d5770d9aa
+  en: 309f0835fc5fc566
+  zh: 193e8e3f4a864160
 /agent-note-harness-home-path-categories/acceptance-criteria:
-  en: bf87d444099ebb2b
-  zh: 8315e6ddc07fe3c7
+  en: cc86d80bb2f0d2b5
+  zh: 634d446e913022ea
 /agent-note-harness-home-path-categories/risks:
   en: aa70b3a0243a1853
   zh: 64c74b62d3a42472

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/plugin-market-generator/README.md
 /plugin-market-index-generator:
-  en: 531349889ccc3124
-  zh: 08769a2d9fc586fd
+  en: 97bc7ae0ca567a89
+  zh: 6f28e6df800ff62e
 /plugin-market-index-generator/usage:
   en: b354d10e2463e99e
   zh: 1f83a96f164864fc
 /plugin-market-index-generator/what-gets-listed:
-  en: bcf7ee834276a804
-  zh: d6723321c0baeef7
+  en: b07958fa29e0c8bb
+  zh: 6d0f3b4fdc6c2901
 /plugin-market-index-generator/caching-and-repeated-runs:
   en: 02a87e53b76a017c
   zh: 951a71238a073c44

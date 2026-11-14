@@ -14,15 +14,30 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
+| `@lyness/lyn-api-admin-audit-controller` | no | Remote owner of the administrative trail surface: an administrator reads what was changed, by whom, and from what |
+| `@lyness/lyn-api-agent-capabilities-controller` | no | What one reader's agents may use, and who decided each part of it |
+| `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
+| `@lyness/lyn-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
+| `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
+| `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
+| `@lyness/lyn-api-invitations-controller` | no | Remote owner of the invitations surface: administrators issue, read and withdraw the codes that admit somebody new |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
+| `@lyness/lyn-api-memory-controller` | no | What this deployment remembers about one person, read and removed by that person alone |
+| `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
+| `@lyness/lyn-api-personal-instructions-controller` | no | What one person told their own agents, read and written by that person alone |
 | `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
+| `@lyness/lyn-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
 | `@lyness/lyn-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
+| `@lyness/lyn-api-session-data-controller` | no | A person's own conversations: the deletion they can ask for, bounded by what they may see |
 | `@lyness/lyn-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
+| `@lyness/lyn-api-sign-in-channel-controller` | no | Remote owner of the sign-in channel surface: administrators configure the directories a deployment signs people in with |
+| `@lyness/lyn-api-tenant-controller` | no | Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration |
 | `@lyness/lyn-api-terminal-controller` | yes | Session-owned interactive terminals with shell discovery, screen recovery and typed Remote control |
 | `@lyness/lyn-api-workspace-controller` | yes | Workspace Remote commands and reconnect-safe state transport |
 | `@lyness/lyn-api-workspace-files` | yes | Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace |
+| `@lyness/lyn-desktop-link` | no | The Host-to-desktop link: one authenticated channel per signed-in person, and the executor that answers on it |
 
 ## attachment
 
@@ -50,6 +65,9 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-acp-app` | no | The lyn ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over lyn-base |
+| `@lyness/lyn-admin-setup` | no | The lyn admin-setup profile bundle: write a deployment's first platform administrator, their provider and their binding into a profile |
+| `@lyness/lyn-brand-setup` | yes | The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints |
+| `@lyness/lyn-brand-studio` | no | The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile |
 | `@lyness/lyn-headless` | yes | The lyn one-shot bundle: a direct core Agent/Session runner over lyn-base with no Host, HTTP, or browser layer |
 | `@lyness/lyn-sdk-app` | yes | The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base |
 | `@lyness/lyn-web-app` | yes | The lyn browser-surface bundle: the web patch layer over lyn-base plus the runtime glue plugin (frontend dist serving, bash runtime variables, URL line) |
@@ -69,10 +87,13 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-script-realm-iframe` | no | Optional iframe ScriptRealm provider |
 | `@lyness/lyn-client-shortcuts` | yes | Application keyboard command registry and physical-key routing |
 | `@lyness/lyn-client-ui-account-notifications` | yes | Display account notifications and refresh localized content |
+| `@lyness/lyn-client-ui-admin-console` | no | The administration console: its own page, its own shell, and the administration pages inside it |
+| `@lyness/lyn-client-ui-admin-invitations` | no | The invitations page in the administration console: issue the code that admits somebody new, read what still stands, and withdraw one |
 | `@lyness/lyn-client-ui-agent-preset` | no | Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor |
 | `@lyness/lyn-client-ui-agent-team` | no | Web shared task board for a subagent tree |
 | `@lyness/lyn-client-ui-approval` | no | Approval composer takeover over the scoped Remote Event waterfall |
 | `@lyness/lyn-client-ui-attachment` | no | Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots |
+| `@lyness/lyn-client-ui-brand-lyness` | no | lyness brand occupants for the Web client's sidebar and conversation hero slots |
 | `@lyness/lyn-client-ui-brand-official` | no | Official lyness brand artwork and click-triggered home background |
 | `@lyness/lyn-client-ui-chat` | no | Chat Conversation target, node definitions, renderers, and details surface |
 | `@lyness/lyn-client-ui-commands` | no | Client command surface: global directory cache, '/' source, three command UI kinds, popupSelect registry |
@@ -87,6 +108,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-goal` | no | Session goal surface: GoalBar docked above the composer, read from the goal session projection |
 | `@lyness/lyn-client-ui-input-trigger` | no | Input trigger pipeline: '/' and '@' detection, candidate menu, pick routing to registered sources |
 | `@lyness/lyn-client-ui-jobs` | no | Session-header background-job list with on-demand streaming record panels |
+| `@lyness/lyn-client-ui-join` | no | The page an invited person opens: what the invitation admits them to, and the directories that redeem it |
 | `@lyness/lyn-client-ui-layout` | no | Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels) |
 | `@lyness/lyn-client-ui-message-feedback` | no | The Web feedback surface: per-message Like/Dislike in the assistant-message action strip and the feedback dialog behind both ratings and /feedback, backed by the messageFeedback and sessionFeedback Host Remotes |
 | `@lyness/lyn-client-ui-model-selection` | no | Model selection over the shared model catalog, Session projection, and session.selectModel |
@@ -104,12 +126,22 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
 | `@lyness/lyn-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
 | `@lyness/lyn-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the lyn web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
+| `@lyness/lyn-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
+| `@lyness/lyn-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
+| `@lyness/lyn-client-ui-settings-capabilities` | no | The what-you-may-use section in Settings: a reader's models, connections, skills and tools |
+| `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
+| `@lyness/lyn-client-ui-settings-data` | no | The data section in Settings: a person's own conversations, with the export and the deletion they own |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
+| `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
+| `@lyness/lyn-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
+| `@lyness/lyn-client-ui-settings-memory` | no | The memory section in Settings: what a deployment remembers about one person |
 | `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
+| `@lyness/lyn-client-ui-settings-people` | no | The people section in Settings: who may use a deployment and which directory identity each of them is, maintained at runtime |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
 | `@lyness/lyn-client-ui-settings-plugins` | no | Built-in plugins settings section for the lyn web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
 | `@lyness/lyn-client-ui-settings-session-log` | no | General settings control for Session-log upload with DeepSeek API requests |
 | `@lyness/lyn-client-ui-settings-shell` | no | Settings page of the shell executor on the lyn web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
+| `@lyness/lyn-client-ui-settings-sign-in-channels` | no | The sign-in channels section in Settings: what a deployment or a tenant signs its people in with, configured at runtime |
 | `@lyness/lyn-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the lyn web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
 | `@lyness/lyn-client-ui-settings-web-search` | no | Settings page for web search and fetch on the lyn web client's Plugins page: the Search and Fetch provider menus, the DeepSeek Search API result count, DeepSeek Search and Fetch API billing, and legacy Messages search settings |
 | `@lyness/lyn-client-ui-shortcuts` | no | Keyboard shortcut reference, recording, and local preference editing |
@@ -119,12 +151,14 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-sidebar-files` | no | The workspace files page and one workspace directory tree per pane beside docked and floating file previews, listed lazily over the workspaceFiles Remote namespace |
 | `@lyness/lyn-client-ui-sidebar-right` | no | Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it |
 | `@lyness/lyn-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
+| `@lyness/lyn-client-ui-sign-in` | no | The sign-in screen a deployment with accounts shows, and the row naming who is signed in |
 | `@lyness/lyn-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
 | `@lyness/lyn-client-ui-subagent` | no | Subagent conversation catalog, continuation routing UI, and '@' reference source |
 | `@lyness/lyn-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; ThemeRuntime for light/dark/system state and icon replacements; --dsw-* token styles and Appearance settings row |
 | `@lyness/lyn-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
 | `@lyness/lyn-client-ui-trajectory` | yes | Trajectory event ledger and timing overview with live tool-result inspection |
 | `@lyness/lyn-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
+| `@lyness/lyn-client-ui-viewer` | no | The shared viewer read: who is signed in, and which Settings planes that standing is offered |
 | `@lyness/lyn-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for lyn web |
 | `@lyness/lyn-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
 
@@ -234,14 +268,8 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the lyness interception seams |
 | `@lyness/lyn-plugin-recommendations` | no | Official plugin suggestions with explicit user activation and persistent conversation decisions |
 | `@lyness/lyn-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for lyness session titles |
-| `@lyness/lyn-skill-badge` | no | Bundled lyn badge skill provider for lyness |
 | `@lyness/lyn-terminal-panel` | yes | Persistent Agent terminals shown in the Web sidebar, plus read-only access to the user's terminals |
 | `@lyness/lyn-timeline` | yes | Replace Todo in long-running sessions with task trees, a live progress bar, and timed reports |
-| `@lyness/lyn-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
-| `@lyness/lyn-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
-| `@lyness/lyn-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
-| `@lyness/lyn-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions |
-| `@lyness/lyn-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the lyness webhook runtime |
 
 ## extensions
 
@@ -263,6 +291,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
+| `@lyness/lyn-fs-desktop` | no | The files the agent works on are on the person's own machine, not the server's |
 | `@lyness/lyn-fs-local` | yes | Local-filesystem implementation of the lyness filesystem seam (ctx.fs) |
 | `@lyness/lyn-fs-observation-policy` | no | File-context policy plugin for the lyness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
 | `@lyness/lyn-fs-sandbox` | yes | Sandbox-enforcing implementation of the lyness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |
@@ -292,6 +321,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-host-authentication-desktop` | yes | Desktop private-channel authentication provider |
 | `@lyness/lyn-host-authentication-token` | yes | Default token authentication provider and HTTP cookie exchange |
+| `@lyness/lyn-host-brand-deployment` | yes | The deployment's own brand over the webserver index render: title, favicon, theme colour, and the asset files an operator places |
 | `@lyness/lyn-host-directory-picker-auto` | no | Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the lyness web GUI host |
 | `@lyness/lyn-host-directory-picker-browse` | yes | In-app browsing backend of the directory-picker seam (listing/creation primitives over the host filesystem) |
 | `@lyness/lyn-host-directory-picker-native` | no | Native-OS-chooser backend of the directory-picker seam for the lyness web GUI host |
@@ -300,6 +330,24 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-host-plugin-inventory` | no | Read-only Remote projection of current Cordis Loader plugin state |
 | `@lyness/lyn-host-product-telemetry-otel` | yes | Explicit product usage events exported through OpenTelemetry HTTP logs |
 | `@lyness/lyn-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, per-Peer index transform taps, and static dist fallback |
+
+## identity
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
+| `@lyness/lyn-admin-audit` | yes | The append-only trail of administrative changes a deployment can answer for |
+| `@lyness/lyn-bot-ask` | no | One bot asking a teammate a question, answered in a conversation of the teammate's own |
+| `@lyness/lyn-invitations` | yes | Invitations: the bounded code an administrator sends so somebody nobody has heard of can join |
+| `@lyness/lyn-managed-bots` | no | The bots a deployment's administrators maintain at runtime |
+| `@lyness/lyn-managed-people` | no | The people and admission bindings a deployment's administrators maintain at runtime |
+| `@lyness/lyn-oidc` | yes | An OpenID Provider as a sign-in channel: the standard protocol, so a deployment points it at its own directory |
+| `@lyness/lyn-personal-instructions` | yes | What a person tells their own agents, kept for them and recorded on every session they open |
+| `@lyness/lyn-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
+| `@lyness/lyn-session-ownership` | no | A session belongs to the person who opened it, and the standing they held it open under |
+| `@lyness/lyn-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |
+| `@lyness/lyn-sign-in-channels` | no | The configured sign-in channels a deployment serves, mounted from what its administrators stored |
+| `@lyness/lyn-sign-in-http` | yes | The browser-facing half of signing in: the sign-in, callback, channel-list and sign-out routes, and the session cookie |
 
 ## interaction
 
@@ -328,6 +376,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-llm-deepseek-api-key` | yes | DeepSeek api-key provider authentication and discovery |
 | `@lyness/lyn-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the lyness LLM seam (design-verification twin of lyn-llm-deepseek) |
 | `@lyness/lyn-llm-retry` | yes | Provider-routed LLM request retry policy for the lyness |
+| `@lyness/lyn-model-required` | no | Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive |
 | `@lyness/lyn-plugin-package-inventory-deepseek` | yes | Active Loader-backed plugin package inventory for official DeepSeek LLM API requests |
 | `@lyness/lyn-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the lyness |
 
@@ -346,6 +395,12 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-mcp-client` | yes | MCP client bridge: connects to MCP servers and registers their tools on ctx.tools |
 | `@lyness/lyn-mcp-manager` | yes | MCP server manager: a settings-driven fleet of mcp-client instances with runtime status, restart, and probe |
 | `@lyness/lyn-mcp-resources` | no | Scoped MCP resource discovery and reading through shared model tools |
+
+## memory
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-memory` | yes | Durable agent memory: explicitly written facts folded into every later request as runtime context |
 
 ## plan
 
@@ -393,6 +448,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-message-quotes` | no | Selected-text quotation and Markdown blockquote presentation |
 | `@lyness/lyn-session-checkpoint-policy` | no | Semantic session durability checkpoints before model requests and tool side effects |
+| `@lyness/lyn-session-deletion` | no | Delete one conversation: its stored log, every sub-session log beneath it, and the projections cached about them |
 | `@lyness/lyn-session-log-deepseek` | yes | Incremental lossless session-log request extension for the official DeepSeek LLM API |
 | `@lyness/lyn-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the lyness |
 | `@lyness/lyn-session-projection` | no | Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state |
@@ -411,6 +467,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-session-log-export` | yes | Web Session-log ZIP export and Session Markdown copy |
 | `@lyness/lyn-session-query-sqlite` | yes | Concrete ctx.sessionQuery backend with SQLite FTS5 search |
+| `@lyness/lyn-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
 
 ## settings
 
@@ -437,6 +494,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-skill` | yes | Agent skill provider registry for the lyness |
+| `@lyness/lyn-skill-badge` | no | Bundled lyn badge skill provider for lyness |
 | `@lyness/lyn-skill-filesystem` | yes | Local filesystem skill provider for the lyness |
 | `@lyness/lyn-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and Office operation guidance |
 | `@lyness/lyn-tool-skill` | yes | Model-facing skill loading tool for the lyness |
@@ -475,8 +533,8 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-subagent-acp` | yes | Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol |
 | `@lyness/lyn-subagent-claude-code` | yes | One-shot Claude Code subagent provider over the official Agent SDK |
 | `@lyness/lyn-subagent-codex` | yes | One-shot Codex subagent provider over the official app-server protocol |
-| `@lyness/lyn-subagent-lyn-sdk` | yes | Out-of-process SDK subagent backend: drives a child lyness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
 | `@lyness/lyn-subagent-fork-in-process` | yes | In-process fork subagent backend: runs a child agent seeded with a prefix of the parent's log |
+| `@lyness/lyn-subagent-lyn-sdk` | yes | Out-of-process SDK subagent backend: drives a child lyness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client |
 | `@lyness/lyn-subagent-spawn-in-process` | yes | In-process spawn subagent backend: runs a fresh child agent on ctx.agents |
 | `@lyness/lyn-tool-subagent` | yes | Model-facing subagent delegation tool over the ctx.subagents seam |
 | `@lyness/lyn-tool-subagent-control` | yes | Shared messaging, interruption, and child discovery tools for subagents |
@@ -500,12 +558,24 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-otel` | no | Cordis service for independent ordinary-event and byte-bounded Session-log OTLP channels |
 
+## tenant
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-tenant-config-static` | yes | Tenant configuration backed by the deployment's composition config: models, providers, features, identity, and copy as patch-layer rows |
+| `@lyness/lyn-tenant-config-store` | no | Durable tenant configuration: one record per tenant in the storage domain, writable by an administration surface |
+| `@lyness/lyn-tenant-http` | yes | Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug |
+| `@lyness/lyn-tenant-request` | yes | The tenant one RPC request belongs to: resolved once per call and readable by everything the call reaches |
+| `@lyness/lyn-tenant-session` | yes | Records the tenant a session belongs to, and the identity text that tenant contributed, as one durable session event |
+| `@lyness/lyn-tenant-static` | yes | Tenant directory backed by the deployment's composition config: the roster is patch-layer rows |
+
 ## terminal
 
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-terminal` | no | Persistent PTY session seam for the lyness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
 | `@lyness/lyn-terminal-bash` | yes | Persistent shell PTY backend over the lyness subprocess terminal primitive |
+| `@lyness/lyn-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
 
 ## test-support
 
@@ -525,6 +595,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-typert-loader` | yes | Loader integration for generated Typert package contributions |
 
+## vendor
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-dingtalk` | yes | DingTalk as a sign-in channel: an organization signs in whichever of its people is at the browser |
+| `@lyness/lyn-feishu` | yes | Feishu as a sign-in channel: a tenant signs in whichever of its people is at the browser |
+| `@lyness/lyn-microsoft-entra` | yes | Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration |
+| `@lyness/lyn-wecom` | yes | WeCom as a sign-in channel: a corporation signs in whichever of its members is at the browser |
+
 ## web
 
 | Package | Config | Description |
@@ -535,10 +614,18 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-web-fetch-http` | yes | Anonymous HTTP(S) fetch provider for the lyness web capability seam (ctx.web) |
 | `@lyness/lyn-web-search-deepseek` | yes | DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the lyness web capability seam (ctx.web) |
 
+## webhook
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions |
+| `@lyness/lyn-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the lyness webhook runtime |
+
 ## workflow
 
 | Package | Config | Description |
 |---|---|---|
+| `@lyness/lyn-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
 | `@lyness/lyn-tool-workflow` | yes | Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine |
 | `@lyness/lyn-workflow-ptc` | yes | Workflow orchestration in the shared sandboxed Node PTC runtime |
 

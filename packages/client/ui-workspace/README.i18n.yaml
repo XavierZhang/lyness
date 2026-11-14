@@ -3,74 +3,74 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-workspace/README.md
 /:
-  en: 7c0f613105d4008a
-  zh: c36c0cdff7e77576
-/deepseek-ai-lyn-client-ui-workspace:
-  en: b286adf3aca51710
-  zh: 6122f6e7c8015197
-/deepseek-ai-lyn-client-ui-workspace/summary:
+  en: 57d48a865e410952
+  zh: 81221515688296da
+/lyness-lyn-client-ui-workspace:
+  en: bdb6a554eac41ad7
+  zh: a0753411a755afcf
+/lyness-lyn-client-ui-workspace/summary:
   en: 1a76ace6a18e3ab5
   zh: b274d1e98e133851
-/deepseek-ai-lyn-client-ui-workspace/table-of-contents:
+/lyness-lyn-client-ui-workspace/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-client-ui-workspace/use-this-package:
-  en: c24ee36a92dcb08e
-  zh: 1383bbf4d2579e97
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/reordering-and-view-options:
+/lyness-lyn-client-ui-workspace/use-this-package:
+  en: 1079f5a785a188f7
+  zh: 7cc2bbd918cbb2d6
+/lyness-lyn-client-ui-workspace/use-this-package/reordering-and-view-options:
   en: 55054408b8593c70
   zh: 9fdf9861a48abba3
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/workspace-hierarchy:
+/lyness-lyn-client-ui-workspace/use-this-package/workspace-hierarchy:
   en: cd8635fa6516441d
   zh: c06e251fe3dd895b
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/search:
-  en: 1a1e90c2ed1fd3c1
-  zh: b57fedcec1f00367
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/managing-sessions:
-  en: 0515aae59aa89cce
-  zh: 83b150ab0e233d8a
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/pending-interactions:
+/lyness-lyn-client-ui-workspace/use-this-package/search:
+  en: 58ce2a6152e04e45
+  zh: 3b093f068f83fa6a
+/lyness-lyn-client-ui-workspace/use-this-package/managing-sessions:
+  en: 035be20a841af0ed
+  zh: 95e2210144fd3a5a
+/lyness-lyn-client-ui-workspace/use-this-package/pending-interactions:
   en: 27089341ac2cbcc4
   zh: 63d818a53a7c20e9
-/deepseek-ai-lyn-client-ui-workspace/use-this-package/active-schedule-markers:
-  en: 249d9552d8bef805
-  zh: 405b1c636cba8e0b
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation:
-  en: 8f170900a4096408
-  zh: 85332e80adf39403
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/the-directory-flow-hole:
+/lyness-lyn-client-ui-workspace/use-this-package/active-schedule-markers:
+  en: b8fbd68e3d630e90
+  zh: ede07e557dccab04
+/lyness-lyn-client-ui-workspace/understand-the-implementation:
+  en: b4f64217e8cffc0e
+  zh: 048610cdc4f5083b
+/lyness-lyn-client-ui-workspace/understand-the-implementation/the-directory-flow-hole:
   en: b4c44f1b6d96966d
   zh: 96e9c8c003e2341a
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/the-reusable-workspace-picker:
+/lyness-lyn-client-ui-workspace/understand-the-implementation/the-reusable-workspace-picker:
   en: 029ec1761656801e
   zh: 524dfd341be0e62e
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/session-row-actions:
-  en: d309a8bc5085616b
-  zh: 66152a89d58cb7cb
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/packaged-client-plugin:
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions:
+  en: 706d6b7802e1c246
+  zh: 95aeaa9d30c2fec4
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/packaged-client-plugin:
   en: 36934671b80b11ae
   zh: 8e0aea6162e35e77
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/dynamic-client-package:
-  en: ad4a333892f2fe92
-  zh: 3a670fd401f4d7a7
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/view-state:
-  en: dcf2a7d1c9b0d7ab
-  zh: ed55345f218f0735
-/deepseek-ai-lyn-client-ui-workspace/understand-the-implementation/hover-cards:
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/dynamic-client-package:
+  en: d616709731bf25b3
+  zh: 185d16686a5c675f
+/lyness-lyn-client-ui-workspace/understand-the-implementation/view-state:
+  en: f80402898b39f2fd
+  zh: db9908a73f90b515
+/lyness-lyn-client-ui-workspace/understand-the-implementation/hover-cards:
   en: 8bcb7bd90d7c5773
   zh: 17663be926a099d2
-/deepseek-ai-lyn-client-ui-workspace/further-exploration:
-  en: cb0b5c3c3caa27f5
-  zh: e854ce9c897d1b64
-/deepseek-ai-lyn-client-ui-workspace/model-experience:
+/lyness-lyn-client-ui-workspace/further-exploration:
+  en: 589c1e11b8a4a10c
+  zh: 87b0bb3c7bee0467
+/lyness-lyn-client-ui-workspace/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-ai-lyn-client-ui-workspace/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-workspace/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-ai-lyn-client-ui-workspace/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-workspace/known-limitations-and-deferred-work:
   en: 8211860a1b10ac61
   zh: 4ef11b1fce30cacd
-/deepseek-ai-lyn-client-ui-workspace/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-workspace/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

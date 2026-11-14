@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-11-07-forge-changes-view-responsiveness.md
 /agent-note-forge-changes-view-responsiveness:
-  en: e809ffea0d880a4b
-  zh: 6725e6a9bd1c3bd1
+  en: 4699d88d4f5bef38
+  zh: 53a4af7d3f802d73
 /agent-note-forge-changes-view-responsiveness/problem:
   en: 77fab27f3d4a4a59
   zh: 46e0fa8b9ef978a7

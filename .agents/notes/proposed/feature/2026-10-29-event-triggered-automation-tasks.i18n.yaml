@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/feature/2026-10-29-event-triggered-automation-tasks.md
 /agent-note-event-triggered-automation-tasks:
-  en: fe57a78907eab083
-  zh: 4ac96eeb365ac012
+  en: bb83a8a51098b64f
+  zh: 8d466cbc2a504e7d
 /agent-note-event-triggered-automation-tasks/problem:
-  en: d447fec320c63e96
-  zh: 01e026939933c10a
+  en: 4fb4369ca24e1089
+  zh: b42fe9ba71cd541d
 /agent-note-event-triggered-automation-tasks/proposal:
   en: 4cf9612456ff71c8
   zh: 4e5c1113e034425b
@@ -27,11 +27,11 @@
   en: 66a513c9dd8ec459
   zh: 25be2ee31dc7ba2a
 /agent-note-event-triggered-automation-tasks/proposal/event-triggers-as-infrastructure:
-  en: b4d70a3dd67ac4f8
-  zh: ff3c85caf63930f5
+  en: 4c102f7ff9ceb0d5
+  zh: 4b98d036f05a9e2f
 /agent-note-event-triggered-automation-tasks/proposal/delivery-order:
-  en: 8b181877cc83a7c2
-  zh: e8e7695c832a2bc5
+  en: b9e7fa548f79ea74
+  zh: 8df1973a733a530e
 /agent-note-event-triggered-automation-tasks/alternatives-considered:
   en: c8deb1f69853f19b
   zh: 0ac27b2d59398d53

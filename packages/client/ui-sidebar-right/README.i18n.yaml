@@ -3,53 +3,53 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-sidebar-right/README.md
 /:
-  en: 0960aa113255a3a8
-  zh: 48e5173172a55a91
-/deepseek-ai-lyn-client-ui-sidebar-right:
-  en: 0b446bc3fbd57fad
-  zh: e0b6491a6c43bee1
-/deepseek-ai-lyn-client-ui-sidebar-right/summary:
+  en: 72415158ec0dc6d6
+  zh: 7331ecc6782d5354
+/lyness-lyn-client-ui-sidebar-right:
+  en: 28fdb11cba432c95
+  zh: c0ec8cc30aedc07b
+/lyness-lyn-client-ui-sidebar-right/summary:
   en: 8aafe5400014fdac
   zh: b2d7d0e8dc4f1291
-/deepseek-ai-lyn-client-ui-sidebar-right/table-of-contents:
+/lyness-lyn-client-ui-sidebar-right/table-of-contents:
   en: ff17f27d8c5557d1
   zh: 6efe4b3d4902a441
-/deepseek-ai-lyn-client-ui-sidebar-right/what-lives-here-and-what-does-not:
-  en: 3b007cc4d2d89c60
-  zh: 74d9795c6392ad74
-/deepseek-ai-lyn-client-ui-sidebar-right/presentations:
-  en: 5024c4e5fe5dfd2e
-  zh: 535a7f585e1bcd97
-/deepseek-ai-lyn-client-ui-sidebar-right/the-expand-button:
+/lyness-lyn-client-ui-sidebar-right/what-lives-here-and-what-does-not:
+  en: 288db62fda61857f
+  zh: 1f5b3cdb9efc7ef1
+/lyness-lyn-client-ui-sidebar-right/presentations:
+  en: 9693b3535b56b96b
+  zh: e68562a255a62d9f
+/lyness-lyn-client-ui-sidebar-right/the-expand-button:
   en: ca7a1966ad9cef31
   zh: b9a7a967a14f067e
-/deepseek-ai-lyn-client-ui-sidebar-right/state:
-  en: 98597ce087c48075
-  zh: c5466bf7955ea7b0
-/deepseek-ai-lyn-client-ui-sidebar-right/extension-seats:
-  en: 9533f5af50898daf
-  zh: 78d3b77c25962145
-/deepseek-ai-lyn-client-ui-sidebar-right/ctx-sidebarright:
-  en: ce5622d6d18ed8d1
-  zh: 292932d8edb6e1c3
-/deepseek-ai-lyn-client-ui-sidebar-right/the-tab-domain:
-  en: b6c64c7649203e12
-  zh: c9341bbfd548a5eb
-/deepseek-ai-lyn-client-ui-sidebar-right/the-guide:
+/lyness-lyn-client-ui-sidebar-right/state:
+  en: e8dce031586ea9fa
+  zh: b0243b4f8bfc8bff
+/lyness-lyn-client-ui-sidebar-right/extension-seats:
+  en: f593630103807026
+  zh: 419c4effff64fd93
+/lyness-lyn-client-ui-sidebar-right/ctx-sidebarright:
+  en: dded2c2091c775e7
+  zh: c551ec2b7fdc3d70
+/lyness-lyn-client-ui-sidebar-right/the-tab-domain:
+  en: d98ae55396e7c6ab
+  zh: 6a92c81124a09173
+/lyness-lyn-client-ui-sidebar-right/the-guide:
   en: 68fd575ef382223e
   zh: 1ab1653ee20c64e9
-/deepseek-ai-lyn-client-ui-sidebar-right/copy:
-  en: 67386560b71672a4
-  zh: 35cf8cb7ddf618ce
-/deepseek-ai-lyn-client-ui-sidebar-right/model-experience:
+/lyness-lyn-client-ui-sidebar-right/copy:
+  en: 5391053b6b1e481a
+  zh: beb9cbdeaa4b6417
+/lyness-lyn-client-ui-sidebar-right/model-experience:
   en: 3120df665299c634
   zh: 242f3d68e8267e55
-/deepseek-ai-lyn-client-ui-sidebar-right/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-sidebar-right/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: f57cc48a1b5cbfa9
-/deepseek-ai-lyn-client-ui-sidebar-right/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-sidebar-right/known-limitations-and-deferred-work:
   en: 76a763b4dd71babd
   zh: fdc966dd427a82fb
-/deepseek-ai-lyn-client-ui-sidebar-right/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-sidebar-right/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

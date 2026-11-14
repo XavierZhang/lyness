@@ -20,7 +20,7 @@ Status: proposed
 
 **而任何地方都没有一个经过认证的人。** [`packages/identity`](../../../../packages/identity/anonymous-user-id/README.zh.md) 持有的是一个匿名安装标识，用于遥测关联，并且按设计"不含任何机器或账号数据"。树里没有任何东西确立一个人是谁。这正是下文那个绑定不得不从手工开始的原因：没有目录可读。
 
-而修这件事的机制已经建好了，只是只有一家供应方。[`lyn-authorization`](../../../../packages/credentials/authorization/README.zh.md) 是刻意做成供应方无关的——"本包自身不提供任何供应方专用方法"——而 [`deepseek-account-platform`](../../../../packages/credentials/deepseek-account-platform/README.zh.md) 是它唯一的集成，跑的是完整的 OAuth 2.0 授权码流程加 S256 PKCE：在既有 Host web 服务器上注册 `/oauth/callback`、校验 `state`、一次性兑换 code、提交 grant。本笔记需要的每一家供应方登录，都是同一个流程对着不同的签发方。
+而修这件事的机制已经建好了，只是只有一家供应方。[`lyn-authorization`](../../../../packages/credentials/authorization/README.zh.md) 是刻意做成供应方无关的——"本包自身不提供任何供应方专用方法"——而 [`deepseek-account`](../../../../packages/credentials/deepseek-account/README.zh.md) 是它唯一的集成，跑的是完整的 OAuth 2.0 授权码流程加 S256 PKCE：在既有 Host web 服务器上注册 `/oauth/callback`、校验 `state`、一次性兑换 code、提交 grant。本笔记需要的每一家供应方登录，都是同一个流程对着不同的签发方。
 
 **而入站这个方向没有归属。** [默认模块笔记](2026-10-08-default-modules-and-views.zh.md)把连接器目录给了 MCP 服务器——那是 agent 去够客户的系统。反方向，即客户的人与系统把活儿交给 agent，不在那份清单里。这个遗漏就是本笔记存在的理由，而它恰恰是客户最先要的方向：他们要的是从公司已经在用的那个聊天工具里够到 agent，而不是只能从本产品自己的页面进。
 
@@ -56,7 +56,7 @@ webhook 的 README 本来就划了这条线——"供应方认证属于适配器
 
 ### 一个厂商集成贡献身份、渠道，或两者
 
-一个厂商就是一个包，而它可以贡献两个面。**身份面**让一个人登录进来，并回答他持有哪些成员身份，走的是 `deepseek-account-platform` 已经验证过的那个 OAuth 流程。**渠道面**接收该厂商的事件并投递回复。两个面都有的厂商，共享同一份应用凭据和同一条 token 刷新路径。
+一个厂商就是一个包，而它可以贡献两个面。**身份面**让一个人登录进来，并回答他持有哪些成员身份，走的是 `deepseek-account` 已经验证过的那个 OAuth 流程。**渠道面**接收该厂商的事件并投递回复。两个面都有的厂商，共享同一份应用凭据和同一条 token 刷新路径。
 
 共享正是这个包按厂商划分、而不是按面划分的理由。钉钉、飞书、企业微信各自签发一份企业应用凭据，两个面都用它；拆成一个渠道包加一个身份包，就会把这份凭据和它的刷新复制给两个所有者。微软是同一种关系跨了两个产品名：Entra ID 是身份面，Teams 是渠道面，而 Teams 自己的机器人令牌由 Entra 签发，所以渠道面本来就无法脱离身份面单独建起来。
 

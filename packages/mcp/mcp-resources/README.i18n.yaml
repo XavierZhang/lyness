@@ -5,60 +5,60 @@
 /:
   en: 34b851d97ea0313e
   zh: 2fa00063647b6eee
-/deepseek-ai-lyn-mcp-resources:
-  en: 81abc44a56e1c7d3
-  zh: 34bb6d70ea0219a0
-/deepseek-ai-lyn-mcp-resources/summary:
-  en: 03c61c0b7beab085
-  zh: 4c5efe7fa7d8da36
-/deepseek-ai-lyn-mcp-resources/table-of-contents:
+/lyness-lyn-mcp-resources:
+  en: 49cd84bd363e8bfd
+  zh: 5083358b17ace4f3
+/lyness-lyn-mcp-resources/summary:
+  en: 99ca4a5037fbe6b5
+  zh: 6b81de2f005ea7fb
+/lyness-lyn-mcp-resources/table-of-contents:
   en: d152484eb41ac6b4
   zh: 725b47765ee8f30b
-/deepseek-ai-lyn-mcp-resources/use-this-package:
-  en: 6df1a242b8679b3d
-  zh: 9dd9363d22d8a660
-/deepseek-ai-lyn-mcp-resources/use-this-package/server-configuration:
-  en: ec0195a4ad06b3ab
-  zh: 0b5c41a4f8ff511e
-/deepseek-ai-lyn-mcp-resources/use-this-package/discover-and-read:
+/lyness-lyn-mcp-resources/use-this-package:
+  en: 91348104caecac73
+  zh: 74df7f02e900c0eb
+/lyness-lyn-mcp-resources/use-this-package/server-configuration:
+  en: a714e0cee57d36da
+  zh: 59b2f7fe0537f75e
+/lyness-lyn-mcp-resources/use-this-package/discover-and-read:
   en: 303d9d3a0b61cf2d
   zh: 10a0a6b07fe97919
-/deepseek-ai-lyn-mcp-resources/understand-the-implementation:
-  en: ab308dbe70e82838
-  zh: 1eb73edc14c76516
-/deepseek-ai-lyn-mcp-resources/further-exploration:
-  en: 742e63ef8514fa7d
-  zh: cdadb4baa5275eb0
-/deepseek-ai-lyn-mcp-resources/model-experience:
+/lyness-lyn-mcp-resources/understand-the-implementation:
+  en: 69d9b09c007f57fd
+  zh: 9460bdeec07858c6
+/lyness-lyn-mcp-resources/further-exploration:
+  en: 0e4a138b962ee0ee
+  zh: 37950400b4c42dc6
+/lyness-lyn-mcp-resources/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-mcp-resources/model-experience/shared-resource-tools:
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools:
   en: 520e0b6cb35e4285
   zh: 20a323f87e6d12fc
-/deepseek-ai-lyn-mcp-resources/model-experience/shared-resource-tools/what-the-model-sees:
-  en: a4bcd3734a1fbd07
-  zh: abc25fb23ebaf485
-/deepseek-ai-lyn-mcp-resources/model-experience/shared-resource-tools/token-effect:
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/what-the-model-sees:
+  en: 84d9452ebf2496b7
+  zh: 8e0e7e4031537af8
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/token-effect:
   en: 92682e15ca9e90a5
   zh: 3487ef2adb89c9e4
-/deepseek-ai-lyn-mcp-resources/model-experience/shared-resource-tools/kv-cache-effect:
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/kv-cache-effect:
   en: fdb450babcdf877b
   zh: f013ae46ce9e1125
-/deepseek-ai-lyn-mcp-resources/model-experience/resource-results:
+/lyness-lyn-mcp-resources/model-experience/resource-results:
   en: f46ae3151a215b4d
   zh: 8d15019792d3fe61
-/deepseek-ai-lyn-mcp-resources/model-experience/resource-results/what-the-model-sees:
+/lyness-lyn-mcp-resources/model-experience/resource-results/what-the-model-sees:
   en: 62d0a18c52283474
   zh: 70b2fbea70c98818
-/deepseek-ai-lyn-mcp-resources/model-experience/resource-results/token-effect:
+/lyness-lyn-mcp-resources/model-experience/resource-results/token-effect:
   en: e6fb5043a1ccc6ff
   zh: d15d2e7b5986d614
-/deepseek-ai-lyn-mcp-resources/model-experience/resource-results/kv-cache-effect:
+/lyness-lyn-mcp-resources/model-experience/resource-results/kv-cache-effect:
   en: ea0dfc069bf175c0
   zh: 3e1465e56ff79764
-/deepseek-ai-lyn-mcp-resources/known-limitations-and-deferred-work:
+/lyness-lyn-mcp-resources/known-limitations-and-deferred-work:
   en: 73f1775fd13a7e98
   zh: 8501425c7dd12aee
-/deepseek-ai-lyn-mcp-resources/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-mcp-resources/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

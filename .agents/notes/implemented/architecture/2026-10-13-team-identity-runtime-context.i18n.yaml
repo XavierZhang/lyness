@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-13-team-identity-runtime-context.md
 /agent-note-subagent-identity-in-required-runtime-context:
-  en: 3da6e33c5dc2c917
-  zh: 9c8d4542cda63fc4
+  en: 3446d8a5d46c9b8e
+  zh: 6f20b38532d19221
 /agent-note-subagent-identity-in-required-runtime-context/problem:
   en: f944254565541454
   zh: 27fa9f67c671dec7
 /agent-note-subagent-identity-in-required-runtime-context/decision:
-  en: 85100936f97a139c
-  zh: 614081943944e28b
+  en: 1a680441ecc6eece
+  zh: 2287729eab033e55
 /agent-note-subagent-identity-in-required-runtime-context/alternatives-considered:
   en: 774566ffbf9e9db8
   zh: ea761d876af462f2

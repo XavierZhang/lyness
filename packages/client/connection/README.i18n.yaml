@@ -5,33 +5,33 @@
 /:
   en: 13b131457d03a224
   zh: 6dedd0706d5ffc0a
-/deepseek-ai-lyn-client-connection:
-  en: 142fb403b92c8af8
-  zh: bb52a8ccf7ca4402
-/deepseek-ai-lyn-client-connection/summary:
+/lyness-lyn-client-connection:
+  en: 19dd72d985d6bcf1
+  zh: e4f78b52f2ea5309
+/lyness-lyn-client-connection/summary:
   en: a83b5e9fd1968062
   zh: ac68628e185a4bff
-/deepseek-ai-lyn-client-connection/table-of-contents:
+/lyness-lyn-client-connection/table-of-contents:
   en: 18792bf2fb4f8030
   zh: 84c63acc7e0099ae
-/deepseek-ai-lyn-client-connection/use-this-package:
-  en: 3dc9527a0e2c958b
-  zh: 7411a438013111af
-/deepseek-ai-lyn-client-connection/browser-authentication-and-request-trust:
-  en: 22e629db9745aae9
-  zh: 7004b8b10f2f031d
-/deepseek-ai-lyn-client-connection/connection-generation:
-  en: d9fe48c025ace7ce
-  zh: 0e23b299fbf25ae6
-/deepseek-ai-lyn-client-connection/model-experience:
+/lyness-lyn-client-connection/use-this-package:
+  en: 0d976866a53d2600
+  zh: d838073a3e5e12e1
+/lyness-lyn-client-connection/browser-authentication-and-request-trust:
+  en: 5af917326424e72c
+  zh: 6215389341d2f543
+/lyness-lyn-client-connection/connection-generation:
+  en: df30da2173da7331
+  zh: 11cc7280dd5a81aa
+/lyness-lyn-client-connection/model-experience:
   en: 88bbc33fe9ae9df8
   zh: bfbab6d51b4abd40
-/deepseek-ai-lyn-client-connection/model-experience/kv-cache-effect:
+/lyness-lyn-client-connection/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-ai-lyn-client-connection/known-limitations-and-deferred-work:
-  en: 58fa6081ac988bad
-  zh: a81ec93b6e286343
-/deepseek-ai-lyn-client-connection/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-connection/known-limitations-and-deferred-work:
+  en: f9ebcdad86c8cd3f
+  zh: 742325fbe63c7512
+/lyness-lyn-client-connection/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

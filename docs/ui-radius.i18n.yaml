@@ -3,29 +3,29 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/ui-radius.md
 /lyn-unified-corner-radius-standard:
-  en: e29e91bf80386fff
-  zh: 0bfca32865bcdfff
+  en: 497587b126c3b70f
+  zh: 4815842caa734293
 /lyn-unified-corner-radius-standard/summary:
-  en: 9f7d83fc6c1e56ff
-  zh: 1bfd616392982482
+  en: 69a0cac69e3bf712
+  zh: f316d7c7e73933a9
 /lyn-unified-corner-radius-standard/table-of-contents:
   en: aad65e4a8399adbb
   zh: e76b80d421b17992
 /lyn-unified-corner-radius-standard/scope-and-authority:
-  en: 909c1c11ccf420dc
-  zh: 23bec3e3dfa856b6
+  en: 5b3a81f31c06c3b7
+  zh: 557ffbd969b9448b
 /lyn-unified-corner-radius-standard/select-the-radius:
   en: e736416ec85d6e16
   zh: 0edf60fccc867295
 /lyn-unified-corner-radius-standard/reuse-tokens-and-preserve-deliberate-shapes:
-  en: fb6d50f3139ad186
-  zh: 668cb0c02bd22167
+  en: c45bf0b442e743dc
+  zh: f94d0eaa4f64ccb1
 /lyn-unified-corner-radius-standard/nested-geometry-and-hover:
   en: 7fe4eb7707e6a9f3
   zh: be7530a05c205e27
 /lyn-unified-corner-radius-standard/settings-card-materials:
-  en: 126066f9c638433c
-  zh: a7416d255f838b92
+  en: 01514cce33960586
+  zh: 0ad983cbdcfe628e
 /lyn-unified-corner-radius-standard/apply-and-verify:
   en: 2f6f10e45b27c19b
   zh: 9eb5fd964c643be6

@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-11-05-harness-error-dependency-free-base.md
 /agent-note-keep-the-harnesserror-base-in-a-dependency-free-package:
-  en: 6ff178be521c3318
-  zh: 18a9a8cc261fe975
+  en: 8462ac9decfc3522
+  zh: 090a03be8b9cf8d8
 /agent-note-keep-the-harnesserror-base-in-a-dependency-free-package/problem:
-  en: 29880462facde90c
-  zh: d07805b2000c85b1
+  en: 448844fb6557142a
+  zh: 74badd15b3a14007
 /agent-note-keep-the-harnesserror-base-in-a-dependency-free-package/decision:
-  en: caec42054c040d37
-  zh: d726f0da57dc1e68
+  en: f8e9951cae7c85bf
+  zh: ee45cd0d5d769791
 /agent-note-keep-the-harnesserror-base-in-a-dependency-free-package/alternatives-considered:
-  en: 8245e473d4e90250
-  zh: fe7883dfe13070a9
+  en: fcdb4b9f04432ed7
+  zh: 951d940d1d9f5d40
 /agent-note-keep-the-harnesserror-base-in-a-dependency-free-package/consequences:
-  en: 9a577f5c3bb9fa15
-  zh: 4c18ec885768b9d3
+  en: 749e1836f1edeb38
+  zh: 6370a961aae1d2a5

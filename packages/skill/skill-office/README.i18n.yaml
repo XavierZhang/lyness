@@ -5,36 +5,36 @@
 /:
   en: 0f4a6d0244a9d9bf
   zh: c93c159987c4881d
-/deepseek-ai-lyn-skill-office:
-  en: f855ac5e12b4e604
-  zh: b2e875d31d56cb2e
-/deepseek-ai-lyn-skill-office/summary:
-  en: 964193f66f5fa7be
-  zh: 5a9a9dd9cb8575b4
-/deepseek-ai-lyn-skill-office/table-of-contents:
+/lyness-lyn-skill-office:
+  en: 8d96fe7f808deca2
+  zh: 08dba3a5db3c3016
+/lyness-lyn-skill-office/summary:
+  en: 23f9c60b58b7b2f1
+  zh: 04edcb8dec145256
+/lyness-lyn-skill-office/table-of-contents:
   en: c361195a73cf5755
   zh: 745b04e7be0be369
-/deepseek-ai-lyn-skill-office/use-this-package:
-  en: 2195e74b3648bbdc
-  zh: dd73de9705e5774f
-/deepseek-ai-lyn-skill-office/use-this-package/progressive-loading:
+/lyness-lyn-skill-office/use-this-package:
+  en: f82afbae84bfa529
+  zh: 82a2c08fc64ae034
+/lyness-lyn-skill-office/use-this-package/progressive-loading:
   en: 34dba830aba25713
   zh: 0d670be50fd30115
-/deepseek-ai-lyn-skill-office/understand-the-implementation:
+/lyness-lyn-skill-office/understand-the-implementation:
   en: 979cdfe0f498bc48
   zh: 1a0fa84d3a43f37b
-/deepseek-ai-lyn-skill-office/further-exploration:
-  en: cb17bbc5eb08d58d
-  zh: 8f935802afe86b12
-/deepseek-ai-lyn-skill-office/model-experience:
-  en: ed08fd35aa30c97c
-  zh: 42e97ba44f07bcb5
-/deepseek-ai-lyn-skill-office/model-experience/kv-cache-effect:
+/lyness-lyn-skill-office/further-exploration:
+  en: 43147232dd6dd74f
+  zh: c4c469e6edc034cf
+/lyness-lyn-skill-office/model-experience:
+  en: 2f02dac9ef9ddfc7
+  zh: e59385464a92f9f5
+/lyness-lyn-skill-office/model-experience/kv-cache-effect:
   en: 82649bba2b18f520
   zh: deb9b8c52d2205c6
-/deepseek-ai-lyn-skill-office/known-limitations-and-deferred-work:
+/lyness-lyn-skill-office/known-limitations-and-deferred-work:
   en: af3a40fdd4da52d6
   zh: 7e8a5aada81142e9
-/deepseek-ai-lyn-skill-office/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-skill-office/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 8ec3e73528ddb1a6

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-11-sandboxed-node-ptc-runtime.md
 /agent-note-sandboxed-node-execution-for-ptc:
-  en: 0fb682d787b23a30
-  zh: a7bdbbe987f53dcb
+  en: d09c2fe5aca27616
+  zh: a293ebe0717a0101
 /agent-note-sandboxed-node-execution-for-ptc/problem:
-  en: 66ac3d7ce7eb8e15
-  zh: abb9d41b71900bbf
+  en: 38b0c2a0eccf8165
+  zh: 97bdf0c6b025aa96
 /agent-note-sandboxed-node-execution-for-ptc/decision:
-  en: d6b9c22603a4f933
-  zh: f324b91830078d9a
+  en: 29335b11f8dd66df
+  zh: 2834bde7082a9846
 /agent-note-sandboxed-node-execution-for-ptc/decision/resolved-inputs-and-policy:
   en: e544f1a5b7f5b0ec
   zh: 3195e0008313a5c6
@@ -18,8 +18,8 @@
   en: a8897bae00f5f674
   zh: 2c959353c5a885a4
 /agent-note-sandboxed-node-execution-for-ptc/decision/resource-limits:
-  en: 3f1d8a30f6d48243
-  zh: faa7c01d7c959893
+  en: f136e213b58743af
+  zh: f73c2322a433fd9a
 /agent-note-sandboxed-node-execution-for-ptc/alternatives-considered:
   en: 8ffcc2b32a2243d7
   zh: 81d48d38947abc76

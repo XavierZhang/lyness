@@ -5,120 +5,120 @@
 /:
   en: 5d57c28077cb670a
   zh: 8113ea0248d66a17
-/deepseek-ai-lyn-agent-loop:
-  en: b711ded29c7b9a17
-  zh: cbccba927743f35f
-/deepseek-ai-lyn-agent-loop/summary:
-  en: b2971780b74fd785
-  zh: 05a3043f49fb646d
-/deepseek-ai-lyn-agent-loop/table-of-contents:
+/lyness-lyn-agent-loop:
+  en: 7053fd0215a91a5a
+  zh: bfe49facb7d3d435
+/lyness-lyn-agent-loop/summary:
+  en: 85f07e5f15215843
+  zh: 1d070bf3d2084ca6
+/lyness-lyn-agent-loop/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-agent-loop/use-this-package:
-  en: 35a960c0100a6aa4
-  zh: 438e133fb4c24a9e
-/deepseek-ai-lyn-agent-loop/use-this-package/configure-declarative-agents:
-  en: d5ac4be018308358
-  zh: 4c429a40f666abfb
-/deepseek-ai-lyn-agent-loop/use-this-package/create-or-resume-agents-programmatically:
+/lyness-lyn-agent-loop/use-this-package:
+  en: cb856258f40dc27e
+  zh: cbe90c9c638b113c
+/lyness-lyn-agent-loop/use-this-package/configure-declarative-agents:
+  en: 507f6a6b7da427e0
+  zh: 5536e9e5841e690e
+/lyness-lyn-agent-loop/use-this-package/create-or-resume-agents-programmatically:
   en: 82ec792637e8e57f
   zh: e32f8ec5ee17afcf
-/deepseek-ai-lyn-agent-loop/use-this-package/what-a-step-does:
+/lyness-lyn-agent-loop/use-this-package/what-a-step-does:
   en: b789acbbfd6a3094
   zh: 85b4d093ae23ce7d
-/deepseek-ai-lyn-agent-loop/understand-the-implementation:
+/lyness-lyn-agent-loop/understand-the-implementation:
   en: ce7e776e9d516bdb
   zh: 59d2751743db7795
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/design-concept:
+/lyness-lyn-agent-loop/understand-the-implementation/design-concept:
   en: 030202c112f89366
   zh: 621d53ed755cafa3
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/request-headers-and-adapter-defaults:
+/lyness-lyn-agent-loop/understand-the-implementation/request-headers-and-adapter-defaults:
   en: 21547fd3591f1ff7
   zh: 80b622e5a0827505
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/source-map:
+/lyness-lyn-agent-loop/understand-the-implementation/source-map:
   en: ec2bf804bd1a5439
   zh: 316e767507e859ef
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/creation-and-teardown:
+/lyness-lyn-agent-loop/understand-the-implementation/creation-and-teardown:
   en: 4a10108fb0d37732
   zh: cc3be0eb8f00901c
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/persistence-integration:
+/lyness-lyn-agent-loop/understand-the-implementation/persistence-integration:
   en: 3b48a480036bd5df
   zh: 28cea2036b0dccee
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/turn-and-step-flow:
-  en: 4bd3c8b4a9ee8cf8
-  zh: 2f4965a3197bed0e
-/deepseek-ai-lyn-agent-loop/understand-the-implementation/failure-and-cancellation:
+/lyness-lyn-agent-loop/understand-the-implementation/turn-and-step-flow:
+  en: 52e16a2762b95c3e
+  zh: 6b294746b64ab1ab
+/lyness-lyn-agent-loop/understand-the-implementation/failure-and-cancellation:
   en: eea56903c4ff82f5
   zh: c0d5abb5767780ed
-/deepseek-ai-lyn-agent-loop/further-exploration:
-  en: 7ac519f8e635acbc
-  zh: 975e514915dc6c9f
-/deepseek-ai-lyn-agent-loop/model-experience:
+/lyness-lyn-agent-loop/further-exploration:
+  en: cb6a5e085aced763
+  zh: 082428952e8f635e
+/lyness-lyn-agent-loop/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-agent-loop/model-experience/complete-conversation-request:
+/lyness-lyn-agent-loop/model-experience/complete-conversation-request:
   en: 5507d83eb979c737
   zh: 0ffde85d627b3933
-/deepseek-ai-lyn-agent-loop/model-experience/complete-conversation-request/what-the-model-sees:
+/lyness-lyn-agent-loop/model-experience/complete-conversation-request/what-the-model-sees:
   en: 5535c140d026135c
   zh: 9364a413606fe3e4
-/deepseek-ai-lyn-agent-loop/model-experience/complete-conversation-request/token-effect:
+/lyness-lyn-agent-loop/model-experience/complete-conversation-request/token-effect:
   en: ad93d8d61968a25d
   zh: 268ff858b0fa96e8
-/deepseek-ai-lyn-agent-loop/model-experience/complete-conversation-request/kv-cache-effect:
+/lyness-lyn-agent-loop/model-experience/complete-conversation-request/kv-cache-effect:
   en: 12a2fc9e3654ddbf
   zh: 133b7ca59925c82a
-/deepseek-ai-lyn-agent-loop/model-experience/runtime-context-reminders:
+/lyness-lyn-agent-loop/model-experience/runtime-context-reminders:
   en: 26e77ac20c98b259
   zh: fdb8ff9283361077
-/deepseek-ai-lyn-agent-loop/model-experience/runtime-context-reminders/what-the-model-sees:
+/lyness-lyn-agent-loop/model-experience/runtime-context-reminders/what-the-model-sees:
   en: 68708ef860055484
   zh: ab6c1adf49781491
-/deepseek-ai-lyn-agent-loop/model-experience/runtime-context-reminders/token-effect:
+/lyness-lyn-agent-loop/model-experience/runtime-context-reminders/token-effect:
   en: 23892a2e82df1adc
   zh: e7d01e3b28da6bcd
-/deepseek-ai-lyn-agent-loop/model-experience/runtime-context-reminders/kv-cache-effect:
+/lyness-lyn-agent-loop/model-experience/runtime-context-reminders/kv-cache-effect:
   en: c7a9803ccea0c7d3
   zh: ba8a882feebe3132
-/deepseek-ai-lyn-agent-loop/model-experience/retained-message-history:
+/lyness-lyn-agent-loop/model-experience/retained-message-history:
   en: 50d33d852dec1e28
   zh: ec15695304f25f38
-/deepseek-ai-lyn-agent-loop/model-experience/retained-message-history/what-the-model-sees:
+/lyness-lyn-agent-loop/model-experience/retained-message-history/what-the-model-sees:
   en: 0a36273eff0815fd
   zh: 1aa1e856d8b1afc9
-/deepseek-ai-lyn-agent-loop/model-experience/retained-message-history/token-effect:
+/lyness-lyn-agent-loop/model-experience/retained-message-history/token-effect:
   en: 91552b9cbef55638
   zh: 6e835a66d984f62d
-/deepseek-ai-lyn-agent-loop/model-experience/retained-message-history/kv-cache-effect:
+/lyness-lyn-agent-loop/model-experience/retained-message-history/kv-cache-effect:
   en: 2b82cd95e6335e91
   zh: 2275f0c808427bf1
-/deepseek-ai-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation:
+/lyness-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation:
   en: a7afa95628111dd8
   zh: 1d72925e9915f75f
-/deepseek-ai-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/what-the-model-sees:
+/lyness-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/what-the-model-sees:
   en: e3c07034229f15ed
   zh: b0ee0507606b34ce
-/deepseek-ai-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/token-effect:
+/lyness-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/token-effect:
   en: 7c139b3584615343
   zh: 02d5d8239b502b06
-/deepseek-ai-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/kv-cache-effect:
+/lyness-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/kv-cache-effect:
   en: 1750eea3cc5bf2d8
   zh: 519d37b0cb4467a7
-/deepseek-ai-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure:
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure:
   en: 0f150799ee294e40
   zh: 4c283b07367dfa4a
-/deepseek-ai-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/what-the-model-sees:
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/what-the-model-sees:
   en: a62feae35f09ff13
   zh: d20a0172d86f6515
-/deepseek-ai-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/token-effect:
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/token-effect:
   en: cefdf878a21a681a
   zh: 96d8271b257478d6
-/deepseek-ai-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/kv-cache-effect:
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/kv-cache-effect:
   en: 83531f2a13cc1f0e
   zh: 81a780d637dd8c5d
-/deepseek-ai-lyn-agent-loop/known-limitations-and-deferred-work:
-  en: a57822fab5e6fdfd
-  zh: 39f97b0c5040f7c8
-/deepseek-ai-lyn-agent-loop/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-agent-loop/known-limitations-and-deferred-work:
+  en: fbd0f9efb74db979
+  zh: 3d4377328d0be8b9
+/lyness-lyn-agent-loop/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

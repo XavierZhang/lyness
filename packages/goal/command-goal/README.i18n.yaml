@@ -5,60 +5,60 @@
 /:
   en: 47b9efbd26fb01af
   zh: a9d083654a3e2cab
-/deepseek-ai-lyn-command-goal:
-  en: 28189ce760d60a4c
-  zh: 78b24f13e7438ecc
-/deepseek-ai-lyn-command-goal/summary:
-  en: 85dbb8e93f0ec6cb
-  zh: f0c8cc348b276933
-/deepseek-ai-lyn-command-goal/table-of-contents:
+/lyness-lyn-command-goal:
+  en: c8ac8a450cfe08f0
+  zh: 19515a6b8687e456
+/lyness-lyn-command-goal/summary:
+  en: 2b4d05b29f55173f
+  zh: f4889e938583a47c
+/lyness-lyn-command-goal/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-command-goal/use-this-package:
-  en: 6851ad30832daf22
-  zh: 5a2c49fa42271640
-/deepseek-ai-lyn-command-goal/use-this-package/command-reference:
+/lyness-lyn-command-goal/use-this-package:
+  en: 9846d681214fb98a
+  zh: 1115881d386e9e08
+/lyness-lyn-command-goal/use-this-package/command-reference:
   en: 98ca4ad981960f99
   zh: 22d6ecbadbb3a7e1
-/deepseek-ai-lyn-command-goal/use-this-package/input-grammar:
+/lyness-lyn-command-goal/use-this-package/input-grammar:
   en: 38a273cb14017e13
   zh: d4b7b501bcd9589b
-/deepseek-ai-lyn-command-goal/use-this-package/attachments:
+/lyness-lyn-command-goal/use-this-package/attachments:
   en: e61cd7437ed4aa73
   zh: 552c36c3b8d16007
-/deepseek-ai-lyn-command-goal/use-this-package/compose-it:
-  en: ba5792bd8714f1c3
-  zh: c9e5500c0a3b7651
-/deepseek-ai-lyn-command-goal/understand-the-implementation:
+/lyness-lyn-command-goal/use-this-package/compose-it:
+  en: 3936c345789fb94d
+  zh: 849ca6f389721a00
+/lyness-lyn-command-goal/understand-the-implementation:
   en: 7fba8a13f8452dc1
   zh: bbaba056cda78ec9
-/deepseek-ai-lyn-command-goal/understand-the-implementation/design:
+/lyness-lyn-command-goal/understand-the-implementation/design:
   en: 47880a3aa7c982a2
   zh: eed5b31970e01a51
-/deepseek-ai-lyn-command-goal/understand-the-implementation/source-map:
+/lyness-lyn-command-goal/understand-the-implementation/source-map:
   en: a34756578cce7cc4
   zh: 61079561a2bf742d
-/deepseek-ai-lyn-command-goal/further-exploration:
-  en: 4e1cb75973770863
-  zh: 0e590263783e0cd4
-/deepseek-ai-lyn-command-goal/model-experience:
+/lyness-lyn-command-goal/further-exploration:
+  en: 546f2d0d47bbdbbb
+  zh: 6294cd7dfff26c21
+/lyness-lyn-command-goal/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-command-goal/model-experience/human-goal-control:
+/lyness-lyn-command-goal/model-experience/human-goal-control:
   en: b542d90272a9b64e
   zh: 9f8bfb4ca7784428
-/deepseek-ai-lyn-command-goal/model-experience/human-goal-control/what-the-model-sees:
+/lyness-lyn-command-goal/model-experience/human-goal-control/what-the-model-sees:
   en: a4c7a3d502c58794
   zh: a47ab70d7aa4f0a4
-/deepseek-ai-lyn-command-goal/model-experience/human-goal-control/token-effect:
+/lyness-lyn-command-goal/model-experience/human-goal-control/token-effect:
   en: 1c48e9c98cee51b0
   zh: 63b2f981bdaf6ca4
-/deepseek-ai-lyn-command-goal/model-experience/human-goal-control/kv-cache-effect:
+/lyness-lyn-command-goal/model-experience/human-goal-control/kv-cache-effect:
   en: 15426cc075dc65d7
   zh: 496e488693a2bacb
-/deepseek-ai-lyn-command-goal/known-limitations-and-deferred-work:
+/lyness-lyn-command-goal/known-limitations-and-deferred-work:
   en: df596a8934dba006
   zh: 45b8a32fc0433fe0
-/deepseek-ai-lyn-command-goal/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-command-goal/known-limitations-and-deferred-work/dev-note:
   en: c7a829d5a6e780fd
   zh: 041dc046a223a711

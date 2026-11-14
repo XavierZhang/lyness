@@ -119,8 +119,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       'useContextMenu: UseContextMenu',
       'useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>',
       'usePanelInfo: UsePanelInfo',
-      'useSessions: UseSessions',
       'useSessionStatus: UseSessionStatus',
+      'useSessions: UseSessions',
       'useSessionRetainInfo: UseSessionRetainInfo',
       'useSessionAccess: (sessionId: SessionId, action: RemoteEndpoint) => boolean',
       'useWorkspaceAccess: (workspaceId: WorkspaceId, action: RemoteEndpoint) => boolean',
@@ -4597,8 +4597,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       'useContextMenu: UseContextMenu',
       'useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>',
       'usePanelInfo: UsePanelInfo',
-      'useSessions: UseSessions',
       'useSessionStatus: UseSessionStatus',
+      'useSessions: UseSessions',
       'useSessionRetainInfo: UseSessionRetainInfo',
       'useSessionAccess: (sessionId: SessionId, action: RemoteEndpoint) => boolean',
       'useWorkspaceAccess: (workspaceId: WorkspaceId, action: RemoteEndpoint) => boolean',
@@ -4612,7 +4612,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
     ],
     replaceRisk: 'shadows-shipped-ui',
     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.attribution\', () => ctx.slots.register(\n      { name: \'sidebar.attribution\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-    source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:84',
+    source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:96',
   },
   {
     key: 'sidebar.brand.mark',
@@ -5589,7 +5589,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       },
     ],
     ownerProps: [
-      '/** Owner share of the New-session row\'s HOC layer. */\nexport interface SidebarSessionActionOwnerProps {\n  /** Whether the sidebar renders wide content (false = 56px rail). */\n  wide: boolean\n}',
+      '/** Owner share of the New-session row\'s HOC layer. */\nexport interface SidebarSessionActionOwnerProps {',
     ],
     ownerPropsReferences: [],
     standardProps: [
@@ -5613,7 +5613,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
     ],
     replaceRisk: 'wraps-owner-content',
     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.action\', () => ctx.slots.register(\n      { name: \'sidebar.session.action\', id: \'my-layer\', order: 100 },\n      ({ children }) => React.createElement(\'div\', null, children),\n    ))\n  },\n}',
-    source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:86',
+    source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:87',
   },
   {
     key: 'sidebar.session.row.hover',

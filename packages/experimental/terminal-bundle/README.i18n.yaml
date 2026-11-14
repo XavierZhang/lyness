@@ -5,33 +5,33 @@
 /:
   en: 62a9c0d52c672fc2
   zh: ceb5f7141cd7e3b9
-/deepseek-ai-lyn-experimental-terminal-bundle:
-  en: cc18693529aee09c
-  zh: fbf1c7d8388eeba8
-/deepseek-ai-lyn-experimental-terminal-bundle/summary:
+/lyness-lyn-experimental-terminal-bundle:
+  en: 854d3a89c53d4dd7
+  zh: bb88d687bc424fb5
+/lyness-lyn-experimental-terminal-bundle/summary:
   en: 39707e225afc6561
   zh: a25a811aa3377d3f
-/deepseek-ai-lyn-experimental-terminal-bundle/table-of-contents:
+/lyness-lyn-experimental-terminal-bundle/table-of-contents:
   en: d152484eb41ac6b4
   zh: 988e839059414d27
-/deepseek-ai-lyn-experimental-terminal-bundle/use-this-package:
-  en: 8b2d9dd5727d0a27
-  zh: ca6c9b8e3d196a54
-/deepseek-ai-lyn-experimental-terminal-bundle/understand-the-implementation:
-  en: fcebdcd659f55f24
-  zh: 7837339127a15e40
-/deepseek-ai-lyn-experimental-terminal-bundle/further-exploration:
-  en: 3e26c10b04beb08f
-  zh: 1f810053e6401ca3
-/deepseek-ai-lyn-experimental-terminal-bundle/model-experience:
-  en: 2bac34c923c6cb8e
-  zh: e42998adc33a51fb
-/deepseek-ai-lyn-experimental-terminal-bundle/model-experience/kv-cache-effect:
+/lyness-lyn-experimental-terminal-bundle/use-this-package:
+  en: 497e18b8c14e3d66
+  zh: b1795f357b4311dd
+/lyness-lyn-experimental-terminal-bundle/understand-the-implementation:
+  en: 8eba2354b135b33e
+  zh: 8aa7531249b1725e
+/lyness-lyn-experimental-terminal-bundle/further-exploration:
+  en: 487dfad1797c51c2
+  zh: 4314e9ca9411bbf7
+/lyness-lyn-experimental-terminal-bundle/model-experience:
+  en: 74e75799ae67c73e
+  zh: b9b6aeaf869d8db5
+/lyness-lyn-experimental-terminal-bundle/model-experience/kv-cache-effect:
   en: 25f20eda0e696067
   zh: 378c4a15a5704ba0
-/deepseek-ai-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work:
-  en: 7e2341b40b08997e
-  zh: 5250e5202bad8788
-/deepseek-ai-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work:
+  en: d6d566598df373c4
+  zh: 5adc304650611942
+/lyness-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work/dev-note:
   en: 279d01435256cd2a
   zh: 83780964e5de2f54

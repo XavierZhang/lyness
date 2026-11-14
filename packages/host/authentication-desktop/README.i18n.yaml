@@ -5,33 +5,33 @@
 /:
   en: 31484da58ba0fa12
   zh: 1ba978273620bf0f
-/deepseek-ai-lyn-host-authentication-desktop:
-  en: 9f56b15c58dca9eb
-  zh: 77dd9cacf037d6ac
-/deepseek-ai-lyn-host-authentication-desktop/summary:
+/lyness-lyn-host-authentication-desktop:
+  en: 31a817b2f9845020
+  zh: e8017a8e5f3f9d3d
+/lyness-lyn-host-authentication-desktop/summary:
   en: 2beda6371f4c6463
   zh: afdb9ecabd6f3eb1
-/deepseek-ai-lyn-host-authentication-desktop/table-of-contents:
+/lyness-lyn-host-authentication-desktop/table-of-contents:
   en: d152484eb41ac6b4
   zh: f84d50f3f752145c
-/deepseek-ai-lyn-host-authentication-desktop/use-this-package:
-  en: 9ab26d23b93107ab
-  zh: 35f2606748529d85
-/deepseek-ai-lyn-host-authentication-desktop/understand-the-implementation:
-  en: 02ac97d0f273bd76
-  zh: 6285bb9e911cec3a
-/deepseek-ai-lyn-host-authentication-desktop/further-exploration:
-  en: 6b669dabd7d42226
-  zh: bfac21ab8d8cefaa
-/deepseek-ai-lyn-host-authentication-desktop/model-experience:
+/lyness-lyn-host-authentication-desktop/use-this-package:
+  en: 018b53c6e9fab1c4
+  zh: f75a62f1b47acb13
+/lyness-lyn-host-authentication-desktop/understand-the-implementation:
+  en: 7005b900960a4fe8
+  zh: 73c6a8ef07f1a88e
+/lyness-lyn-host-authentication-desktop/further-exploration:
+  en: 95e3614eef6d6966
+  zh: f9302ace668abfb8
+/lyness-lyn-host-authentication-desktop/model-experience:
   en: afca588fd56333d6
   zh: 3b7c196ac96f56d9
-/deepseek-ai-lyn-host-authentication-desktop/model-experience/kv-cache-effect:
+/lyness-lyn-host-authentication-desktop/model-experience/kv-cache-effect:
   en: bc510c5c25c0204f
   zh: 55366b46ba23f1eb
-/deepseek-ai-lyn-host-authentication-desktop/known-limitations-and-deferred-work:
+/lyness-lyn-host-authentication-desktop/known-limitations-and-deferred-work:
   en: be88a23eed13dc51
   zh: 9b399741e8be49c3
-/deepseek-ai-lyn-host-authentication-desktop/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-host-authentication-desktop/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

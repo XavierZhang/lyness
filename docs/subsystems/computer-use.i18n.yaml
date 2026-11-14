@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/computer-use.md
 /computer-use:
-  en: 45a0f430190937de
-  zh: 7b48603bebfcd1c6
+  en: fc1ea052650ff0cd
+  zh: b81c1606202946b1
 /computer-use/serve-computer-use-to-another-harness:
-  en: 6424dd8388f342fb
-  zh: c5ecebb60ab1f50f
+  en: 58fb147990d20b55
+  zh: fb6bd0ff8e594409
 /computer-use/choose-a-provider:
-  en: 4a72c1987678a47b
-  zh: b039d15b4e782cc4
+  en: 6f848ea94738e7ef
+  zh: 24e26d245e33fd98
 /computer-use/lifetime-and-desktop-sharing:
-  en: 08ff155ad3d75953
-  zh: 48821856b6dff051
+  en: 2de5a44a442a98c2
+  zh: 7079b6d6e2218600
 /computer-use/results-and-platform-requirements:
-  en: 9211e67d14dc1ac5
-  zh: dc8e4da898a417d4
+  en: a0a3b40abd83f140
+  zh: 1ed60822ca1be5db

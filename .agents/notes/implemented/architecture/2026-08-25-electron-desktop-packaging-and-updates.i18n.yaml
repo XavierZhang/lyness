@@ -3,44 +3,44 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-25-electron-desktop-packaging-and-updates.md
 /agent-note-package-and-update-the-electron-desktop-application:
-  en: 477aadc664db857a
-  zh: fa18c8ec5fe00746
+  en: 1f5e62cb980218e2
+  zh: 23990447233e6507
 /agent-note-package-and-update-the-electron-desktop-application/problem:
-  en: 5a39322836f06cd9
-  zh: 7a7ab48fe38a5788
+  en: 31e95a43101559aa
+  zh: 1e9df0ca4e6861ba
 /agent-note-package-and-update-the-electron-desktop-application/decision:
-  en: b4d04297a7abae71
-  zh: 9b770c81c2267869
+  en: 09e26e301d72ec32
+  zh: 0b3e68dba67aefe3
 /agent-note-package-and-update-the-electron-desktop-application/ownership:
-  en: 50e16f318c5d0e1a
-  zh: 84b2ba8f1a6932b0
+  en: fe835467ef7979bb
+  zh: 911a9a132886bc4b
 /agent-note-package-and-update-the-electron-desktop-application/filesystem-layout:
-  en: 4990a8ba137e28f0
-  zh: b12f68d30a5d18fa
+  en: f4592ee530901cc4
+  zh: c19b321953a9dc28
 /agent-note-package-and-update-the-electron-desktop-application/installation-and-resolution:
-  en: 29def175ab33b7d6
-  zh: 87e55ec28c20c7c1
+  en: ce2f3b55b536c6c7
+  zh: af8b82932ee5cfb4
 /agent-note-package-and-update-the-electron-desktop-application/updates-and-recovery:
-  en: 61a02870beb953ec
-  zh: 205ecce330959e9a
+  en: 62fe4028e1892576
+  zh: bc57a48d25d6e9f2
 /agent-note-package-and-update-the-electron-desktop-application/security-and-release-policy:
-  en: 5faaa53b58121311
-  zh: e1c3fc8d21a27d1a
+  en: a7e926de174ee36b
+  zh: 03165686040c5ded
 /agent-note-package-and-update-the-electron-desktop-application/implementation:
-  en: 041a6d35ed61b149
-  zh: 617c6b90a6f4fa4d
+  en: 128c88fc36b5f5da
+  zh: 8a60899a0e610fa8
 /agent-note-package-and-update-the-electron-desktop-application/alternatives-considered:
-  en: 10b1b0a8afe38def
-  zh: 0a4df988f72b8d11
+  en: 1aebe4ed02bd8471
+  zh: fbeca313413fe6dc
 /agent-note-package-and-update-the-electron-desktop-application/consequences:
-  en: 44dc044cfcd6ec17
-  zh: 5e978dec54783b4e
+  en: ce8c3382d11a32ad
+  zh: 779ce49a7a1808d6
 /agent-note-package-and-update-the-electron-desktop-application/review-decisions:
-  en: 54c4c2a4bcdfa834
-  zh: c280351bb3bf085f
+  en: b50e38c63ca6a528
+  zh: e90e2dc7290b00ae
 /agent-note-package-and-update-the-electron-desktop-application/risks:
-  en: af59c819ae700ee1
-  zh: 6c0b4b80690fc6a2
+  en: 17a23f5998d7bbe1
+  zh: 0f113af6015b7f6b
 /agent-note-package-and-update-the-electron-desktop-application/related-proposals:
-  en: b6c0cbd39966f1ec
-  zh: 5c7a919abec643ba
+  en: 7c58c169cb0957b5
+  zh: 0fd52d7b99b097d3

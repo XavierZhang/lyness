@@ -25,6 +25,18 @@ The Cordis framework and its foundation libraries are source-vendored into this 
 | `@lyness/cordis-plugin-hmr` | `@cordisjs/plugin-hmr` | [vendor/hmr](vendor/hmr/) | MIT |
 | `@lyness/cordis-plugin-logger-console` | `@cordisjs/plugin-logger-console` | [vendor/logger-console](vendor/logger-console/) | MIT |
 
+## Bundled third-party files
+
+Files committed inside workspace packages and distributed unmodified with them. Each file's license text ships beside it, and its package's `third-party-assets.json` records its source and SHA-256, which the generator verifies.
+
+| File | Name | Version | License | Source |
+| --- | --- | --- | --- | --- |
+| `packages/client/ui-theme/src/styles/montserrat-light.woff2` | Montserrat Light | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
+| `packages/client/ui-theme/src/styles/montserrat-medium.woff2` | Montserrat Medium | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
+| `packages/client/ui-theme/src/styles/montserrat-regular.woff2` | Montserrat Regular | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
+| `packages/host/brand-fonts/fonts/Inter-SemiBold.ttf` | Inter SemiBold | 4.1 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-Inter.txt) | [github.com/rsms/inter/releases/tag/v4.1](https://github.com/rsms/inter/releases/tag/v4.1) |
+| `packages/host/brand-fonts/fonts/NotoSansCJKsc-Medium.otf` | Noto Sans CJK SC Medium | 2.004 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-NotoSansCJK.txt) | [github.com/notofonts/noto-cjk/releases/tag/Sans2.004](https://github.com/notofonts/noto-cjk/releases/tag/Sans2.004) |
+
 ## Runtime npm dependencies
 
 External packages installed for runtime use or embedded in distributed Host or browser artifacts. Browser inputs are resolved through the shipping tsdown and Vite configurations, independently of npm dependency sections. Host embedding declarations identify the distributing package and its embedded dependencies. The tier covers every plugin a user can mount from `cordis.yml` — not only what the `lyn` CLI, Web UI, and Python SDK runtime load by default.
@@ -53,6 +65,7 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`@modelcontextprotocol/client`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
 | [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
 | [`@modelcontextprotocol/server`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
+| [`@neplex/vectorizer`](https://github.com/neplextech/vectorizer) | MIT |
 | [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) | MIT |
 | [`@octokit/webhooks`](https://github.com/octokit/webhooks.js) | MIT |
 | [`@openai/codex`](https://github.com/openai/codex) | Apache-2.0 |
@@ -101,6 +114,7 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`execa`](https://github.com/sindresorhus/execa) | MIT |
 | [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) | MIT |
 | [`fflate`](https://github.com/101arrowz/fflate) | MIT |
+| [`fontkit`](https://github.com/foliojs/fontkit) | MIT |
 | [`fuzzysort`](https://github.com/farzher/fuzzysort) | MIT |
 | [`got`](https://github.com/sindresorhus/got) | MIT |
 | [`hosted-git-info`](https://github.com/npm/hosted-git-info) | ISC |
@@ -215,6 +229,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`@braintree/sanitize-url`](https://github.com/braintree/sanitize-url) | MIT |
 | [`@electron/get`](https://github.com/electron/get) | MIT |
 | [`@electron/notarize`](https://github.com/electron/notarize) | MIT |
+| [`@fontsource/inter`](https://github.com/fontsource/font-files) | OFL-1.1 |
 | [`@lexical/headless`](https://github.com/facebook/lexical) | MIT |
 | [`@modelcontextprotocol/node`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
 | [`@modelcontextprotocol/server-everything`](https://github.com/modelcontextprotocol/servers) | MIT / Apache-2.0 |
@@ -228,6 +243,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`@types/compression`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/d3-time`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/estree`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
+| [`@types/fontkit`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/hosted-git-info`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/js-yaml`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/jsdom`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
@@ -287,7 +303,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`vitest`](https://github.com/vitest-dev/vitest) | MIT |
 | [`vue`](https://github.com/vuejs/core) | MIT |
 
-`eslint-plugin-sonarjs` (LGPL-3.0-only) and `lightningcss` (MPL-2.0) run only as development tooling; their code is not linked into or distributed with any lyness artifact.
+`@fontsource/inter` (OFL-1.1), `eslint-plugin-sonarjs` (LGPL-3.0-only) and `lightningcss` (MPL-2.0) run only as development tooling; their code is not linked into or distributed with any lyness artifact.
 
 ## Python SDK dependencies (`python/`)
 
@@ -297,7 +313,7 @@ Direct dependencies of the `pyproject.toml` manifests, plus `uv` as the developm
 | --- | --- | --- |
 | [`hatchling`](https://github.com/pypa/hatch) | MIT | build backend |
 | [`pillow`](https://github.com/python-pillow/Pillow) | MIT-CMU | Python project dependency |
-| [`pydantic`](https://github.com/pydantic/pydantic) | MIT | runtime dependency of `deepseek-harness-sdk` |
+| [`pydantic`](https://github.com/pydantic/pydantic) | MIT | runtime dependency of `lyness-sdk` |
 | [`pytest`](https://github.com/pytest-dev/pytest) | MIT | test-only |
 | [`uv`](https://github.com/astral-sh/uv) | MIT / Apache-2.0 | development workflow tool |
 

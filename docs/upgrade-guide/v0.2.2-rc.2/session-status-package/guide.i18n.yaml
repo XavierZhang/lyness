@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/upgrade-guide/v0.2.2-rc.2/session-status-package/guide.md
 /:
-  en: 3ac349a835a29b14
-  zh: 2c0d4c7e3cfb59ca
-/session-status-moves-to-deepseek-ai-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records:
-  en: fb71a29f84e6d36d
-  zh: 5f46ad954c473f7e
-/session-status-moves-to-deepseek-ai-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records/change:
-  en: ec4737fe7f5e4839
-  zh: e68a22fe18216760
-/session-status-moves-to-deepseek-ai-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records/migration:
-  en: 20d2b7a2809ffc2d
-  zh: 9ca5578f94130755
+  en: 5d66366945421c6f
+  zh: 1e43fba8eb614e4e
+/session-status-moves-to-lyness-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records:
+  en: 7342ae4ad201572e
+  zh: a8e2a7030a431e6d
+/session-status-moves-to-lyness-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records/change:
+  en: 7670c705fe6312f1
+  zh: de9cf45e7b564617
+/session-status-moves-to-lyness-lyn-client-ui-session-status-and-completion-reminders-follow-host-reading-records/migration:
+  en: 50a5fff7dfdd6a03
+  zh: d8905d9ce85d5cf2

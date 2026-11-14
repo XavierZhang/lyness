@@ -85,6 +85,8 @@ declare module '@lyness/lyn-client-ui-slots' {
      * Declared by this package's 'sidebar' entry.
      */
     'sidebar.session.action': { kind: 'hoc'; scope: 'root'; owner: SidebarSessionActionOwnerProps }
+
+    /**
      * The attribution line under the sidebar foot, naming the platform this
      * deployment runs on rather than the deployment's own brand. Declared by
      * this package's 'sidebar' entry; the brand package registers the line and

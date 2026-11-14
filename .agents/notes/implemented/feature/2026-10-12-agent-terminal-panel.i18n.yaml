@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-12-agent-terminal-panel.md
 /agent-note-agent-terminals-in-the-web-sidebar:
-  en: 8848102fb82b68ca
-  zh: 833c922944a24e26
+  en: 8558dd726c5f0dfa
+  zh: 445f9d09e0e45c06
 /agent-note-agent-terminals-in-the-web-sidebar/problem:
-  en: 82f0228676e804f1
-  zh: b4f2e309f0570cfa
+  en: f686848f485b4a9e
+  zh: da3ea2165c8fa409
 /agent-note-agent-terminals-in-the-web-sidebar/decision:
-  en: 9b82bdaf681bad16
-  zh: f245c74d84f26d14
+  en: 7ee48ca709ecac4e
+  zh: ac11599d26617b4f
 /agent-note-agent-terminals-in-the-web-sidebar/decision/ownership-by-creator:
   en: 06adc75d5ec6b509
   zh: fb3272ef1d8a3985
 /agent-note-agent-terminals-in-the-web-sidebar/decision/permissions:
-  en: cabac18c98fe9931
-  zh: 4edc9e88c27689c3
+  en: 216b20f188ad7aac
+  zh: 651e6660bd7e52cc
 /agent-note-agent-terminals-in-the-web-sidebar/decision/readiness-and-reads:
   en: 326e3fead9936f32
   zh: 8e45a00cf61307f1

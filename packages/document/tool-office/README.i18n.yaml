@@ -5,42 +5,42 @@
 /:
   en: 2ec7e66cd18356df
   zh: 4862555b5a4c9f51
-/deepseek-ai-lyn-tool-office:
-  en: e9153903d819e2a7
-  zh: 3f50cf3c768a1af5
-/deepseek-ai-lyn-tool-office/summary:
+/lyness-lyn-tool-office:
+  en: dfc909b973dfe07b
+  zh: 8da9473211667c50
+/lyness-lyn-tool-office/summary:
   en: e74f50cd7e13fad9
   zh: f234831ae934f60a
-/deepseek-ai-lyn-tool-office/table-of-contents:
+/lyness-lyn-tool-office/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-tool-office/use-this-package:
-  en: 8e43235b282387a3
-  zh: 9823ab293840422a
-/deepseek-ai-lyn-tool-office/understand-the-implementation:
+/lyness-lyn-tool-office/use-this-package:
+  en: 8f6c042bfb1e1437
+  zh: 685297433dac76a4
+/lyness-lyn-tool-office/understand-the-implementation:
   en: 05a32b4fde4d8c21
   zh: f6ce05a11f5ccb6d
-/deepseek-ai-lyn-tool-office/further-exploration:
-  en: 5d20d2318d1957cf
-  zh: 8b8111099ab8bb46
-/deepseek-ai-lyn-tool-office/model-experience:
+/lyness-lyn-tool-office/further-exploration:
+  en: 8d84b51cec10c8f6
+  zh: 974d9954c68b5f40
+/lyness-lyn-tool-office/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate:
+/lyness-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate:
   en: 3bc9eb9e036e6224
   zh: 3bc9eb9e036e6224
-/deepseek-ai-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/what-the-model-sees:
-  en: 7c31ad3faa31547f
-  zh: 81fdae59ebc4aed0
-/deepseek-ai-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/token-effect:
+/lyness-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/what-the-model-sees:
+  en: 77b6827389f6c21f
+  zh: 218479d8ac462853
+/lyness-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/token-effect:
   en: b8d5d8c33c7563d4
   zh: 5b6cb183b690bdba
-/deepseek-ai-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/kv-cache-effect:
+/lyness-lyn-tool-office/model-experience/office-render-office-convert-office-recalculate/kv-cache-effect:
   en: c4e3595dab58a800
   zh: 65f7fcf46b1e3130
-/deepseek-ai-lyn-tool-office/known-limitations-and-deferred-work:
-  en: 41e64b075cac6b5d
-  zh: 56594dc602b63ca8
-/deepseek-ai-lyn-tool-office/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-tool-office/known-limitations-and-deferred-work:
+  en: 3c33a19f5c2a9004
+  zh: 324e1afc3a74ef78
+/lyness-lyn-tool-office/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

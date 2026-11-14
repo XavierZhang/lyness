@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-23-session-reading-memory.md
 /agent-note-host-memory-session-reading-state:
-  en: d0d93ca91b0bfd16
-  zh: 55f67f2074612e4d
+  en: 6e92f31ec35c2cc1
+  zh: f3b5f5f94d8e062b
 /agent-note-host-memory-session-reading-state/problem:
-  en: 61f665a6dc1bc503
-  zh: 3421cf192528179e
+  en: cb3a87ed0afce535
+  zh: 6a00d32c7ade3843
 /agent-note-host-memory-session-reading-state/decision:
   en: a15c7c13f167e5ac
   zh: 63bcc2ef60c2f344
 /agent-note-host-memory-session-reading-state/decision/package-structure:
-  en: e22765435a1ab422
-  zh: 7ac9fbcea4c15387
+  en: 26091d50e7c1c196
+  zh: dc2a726876741db5
 /agent-note-host-memory-session-reading-state/decision/client-dependency-rules:
-  en: e38746215940a163
-  zh: a4e343dac7942aa2
+  en: 4e876e780042fcb0
+  zh: e0a98164efd6ce70
 /agent-note-host-memory-session-reading-state/decision/host-records:
   en: ea1b8aa4ed60f04c
   zh: 9c979b7b40eacb3e

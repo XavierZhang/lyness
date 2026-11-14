@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-22-subagent-tool-owned-communication.md
 /agent-note-subagent-tools-own-communication-guidance:
-  en: 0bd031aa81fbc18d
-  zh: c530e980826698ed
+  en: 1186b1dfe9fb24d3
+  zh: 8e69e6f4fcfaefdd
 /agent-note-subagent-tools-own-communication-guidance/problem:
   en: ac391b569d2bc7e9
   zh: a95f613aa2b330b8
 /agent-note-subagent-tools-own-communication-guidance/decision:
-  en: d83310e85ffcb3cf
-  zh: eb1f069948399d93
+  en: 1d84c7a9f5f64b9c
+  zh: 7d766b023f8730a8
 /agent-note-subagent-tools-own-communication-guidance/alternatives-considered:
   en: c55d44c6414e0c4c
   zh: 9fa2ab31843e259b

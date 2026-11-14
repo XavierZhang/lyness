@@ -3,35 +3,38 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/architecture.md
 /lyness-architecture:
-  en: 20678ed3f962afba
-  zh: 87a2b81675d93346
+  en: 8778b270b9597b2a
+  zh: acfa460a0cc4c921
 /lyness-architecture/cordis:
-  en: da5060e577578ea7
-  zh: 2e77d570e32d8938
+  en: e4f0cce53e916da4
+  zh: f916bc9e0deb5096
+/lyness-architecture/product-shapes:
+  en: bdca359b747e1b62
+  zh: 2cb81b07da2efc50
 /lyness-architecture/profiles-and-bundles:
-  en: 21423f481b18b0be
-  zh: 5343bd7ea0fae5bc
+  en: 72bedf5b84f2b9ff
+  zh: f1e5204f17db9675
 /lyness-architecture/application-launch:
-  en: 334b4f390b6e376b
-  zh: ce094f24c6162be3
+  en: 0683c5a765efdd0e
+  zh: 9e98d00c48357639
 /lyness-architecture/desktop-application:
-  en: b9eeb18645121a8b
-  zh: 70d87a12c43e042a
+  en: 44fdde3d605be036
+  zh: 0d88257570332bfb
 /lyness-architecture/core-packages:
-  en: 20ef882e44b06a10
-  zh: c10c3934ed5570e9
+  en: 9b4badab7a331611
+  zh: f1eb263b0e3c837e
 /lyness-architecture/events:
-  en: 0d4481070a0ba352
-  zh: 026be77a9f3db68e
+  en: 2de401ff8da74ad7
+  zh: f04a14812f1d8b8f
 /lyness-architecture/turn-flow:
-  en: 1d496f1893bdbb8d
-  zh: f16d162a803fc791
+  en: eec54178f7521a58
+  zh: 15ffeb3d15b23aff
 /lyness-architecture/session-log:
-  en: b3b63d8fe7cab9fe
-  zh: 3703fcf30b1639d0
+  en: c97002d095f4ee70
+  zh: fb07377c67a4e9c1
 /lyness-architecture/capability-seams:
-  en: 1d425c445bfcc931
-  zh: 834d486f88e68edf
+  en: 82faf6da744a0d11
+  zh: 5f29f042c82ee199
 /lyness-architecture/where-new-behavior-goes:
-  en: ee73b1861378b099
-  zh: 9a182be609485f67
+  en: 862285699df49e39
+  zh: 28d1b88abda5ecce

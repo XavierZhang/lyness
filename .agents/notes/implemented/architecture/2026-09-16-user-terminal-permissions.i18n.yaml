@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-16-user-terminal-permissions.md
 /agent-note-user-terminal-permissions:
-  en: 806fc2a4c3bc2294
-  zh: dfdae2dc3c49b0b3
+  en: d798856cb7a3b569
+  zh: 393cff5d60fba945
 /agent-note-user-terminal-permissions/problem:
   en: 2948b4f40ebe9d3b
   zh: a59676148531470f
 /agent-note-user-terminal-permissions/decision:
-  en: de3d0ca17e212126
-  zh: 55c32a2688d1533d
+  en: c2bc99c767a07c32
+  zh: fe26746cad74ad05
 /agent-note-user-terminal-permissions/alternatives-considered:
   en: a4f8d5ac653db322
   zh: 9671639c5a2c746b

@@ -48,6 +48,31 @@ export type Config = z.infer<typeof Config>
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-action-cards -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-admin-audit -->
+<a id="lynesslyn-admin-audit"></a>
+
+## `@lyness/lyn-admin-audit`
+
+- `inject`: `storageDomain`
+- `source`: [`packages/identity/admin-audit/src/index.ts:76`](../packages/identity/admin-audit/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned bounds on what the trail keeps and answers. */
+export interface Config {
+  /**
+   * Characters of each recorded value to keep. Defaults to 2000.
+   *
+   * A persona is free text an administrator wrote, so one record can carry
+   * more prose than a trail should grow by. The cut is recorded on the field
+   * rather than hidden, so a reader knows it is reading part of a value.
+   */
+  maxValueLength?: number
+  /** Entries one read answers with, newest first. Defaults to 200. */
+  maxEntries?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-admin-audit -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-agent-default-model -->
 <a id="lynesslyn-agent-default-model"></a>
 
@@ -158,7 +183,7 @@ export type Config = PresetDefinition
 
 - `inject`: `loader` · `sessionProjections` · `agents`
 - `refs`: `Volatile` (`@lyness/cordis`)
-- `source`: [`packages/preset/agent-preset-registry/src/preset.ts:13`](../packages/preset/agent-preset-registry/src/preset.ts)
+- `source`: [`packages/preset/agent-preset-registry/src/preset.ts:22`](../packages/preset/agent-preset-registry/src/preset.ts)
 
 ```ts config-catalog
 /** Registry selection policy. */
@@ -222,7 +247,7 @@ export interface Config {
 ## `@lyness/lyn-api-gateway`
 
 - `inject`: `typert` · `remoteAccess`
-- `source`: [`packages/api/gateway/src/index.ts:157`](../packages/api/gateway/src/index.ts)
+- `source`: [`packages/api/gateway/src/index.ts:158`](../packages/api/gateway/src/index.ts)
 
 ```ts config-catalog
 /** Gateway transport configuration. */
@@ -348,7 +373,7 @@ export interface Config {
 ## `@lyness/lyn-api-workspace-controller`
 
 - `inject`: `remoteAccess` · `typert` · `workspaceRegistry`
-- `source`: [`packages/api/workspace-controller/src/index.ts:37`](../packages/api/workspace-controller/src/index.ts)
+- `source`: [`packages/api/workspace-controller/src/index.ts:38`](../packages/api/workspace-controller/src/index.ts)
 
 ```ts config-catalog
 /** First-use directory policy for the Host account. */
@@ -491,6 +516,25 @@ export interface Config {
 export type Config = LocalConfig
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-bash-sandbox -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-brand-setup -->
+<a id="lynesslyn-brand-setup"></a>
+
+## `@lyness/lyn-brand-setup`
+
+- `inject`: `webServer`
+- `source`: [`packages/bundle/brand-setup/src/index.ts:45`](../packages/bundle/brand-setup/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: where the brand this page writes lands. */
+export interface Config {
+  /** Profile whose patch layer receives the brand row. */
+  target?: string
+  /** Absolute directory receiving the generated SVGs; omit for `$LYNESS_HOME/brand`. */
+  assetDirectory?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-brand-setup -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-client-connection -->
 <a id="lynesslyn-client-connection"></a>
@@ -656,7 +700,13 @@ export interface Config extends ContactConfig {
 
 /** Questionnaire destination shared by Host and Client. */
 export interface ContactConfig {
-  /** HTTPS questionnaire URL; override for a test form. */
+  /**
+   * HTTPS questionnaire the Feedback entry opens, or empty for none.
+   *
+   * Empty by default, and empty means the entry is not offered: the URL
+   * carries the signed-in account, the build and the device to whoever owns
+   * the form, so a deployment names its own or asks nothing.
+   */
   contactFormUrl: string
   /** Questionnaire source option; empty until Harness is supported by the form. */
   contactSource: string
@@ -1031,6 +1081,32 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-deepseek-chat-import -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-dingtalk -->
+<a id="lynesslyn-dingtalk"></a>
+
+## `@lyness/lyn-dingtalk`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/dingtalk/src/index.ts:93`](../packages/vendor/dingtalk/src/index.ts)
+
+```ts config-catalog
+/** The organization to sign in against, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /** The application's own key, which DingTalk calls `AppKey`. Required. */
+  appKey: string
+  /** Sign-in host; defaults to the public service. */
+  loginHost?: string
+  /** API origin; defaults to the public service. */
+  apiOrigin?: string
+  /** Scope requested at sign-in; defaults to the person's identity only. */
+  scope?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-dingtalk -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-experimental-api-speech-to-text -->
 <a id="lynesslyn-experimental-api-speech-to-text"></a>
@@ -1608,6 +1684,33 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-experimental-worktree -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-feishu -->
+<a id="lynesslyn-feishu"></a>
+
+## `@lyness/lyn-feishu`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/feishu/src/index.ts:88`](../packages/vendor/feishu/src/index.ts)
+
+```ts config-catalog
+/** The application to sign in with, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /** The application's own id, which Feishu calls `app_id`. Required. */
+  appId: string
+  /**
+   * API origin; defaults to the public Feishu service.
+   *
+   * An international deployment points this at Lark's own origin, which
+   * serves the same interface under a different name.
+   */
+  apiOrigin?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-feishu -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-file-reference-local -->
 <a id="lynesslyn-file-reference-local"></a>
 
@@ -1837,6 +1940,50 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-authentication-token -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-host-brand-deployment -->
+<a id="lynesslyn-host-brand-deployment"></a>
+
+## `@lyness/lyn-host-brand-deployment`
+
+- `inject`: `webServer`
+- `source`: [`packages/host/brand-deployment/src/index.ts:98`](../packages/host/brand-deployment/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: the deployment's brand, as an operator writes it. */
+export interface Config {
+  /** Product name shown in the browser tab and in-app; omit to keep the built-in one. */
+  productName?: string
+  /**
+   * Short form shown where product copy abbreviates the name; omit to keep the
+   * built-in one. A brand with no short form of its own names its full one here.
+   */
+  productAbbreviation?: string
+  /** Chinese product name shown in Chinese copy; omit to keep the built-in one. */
+  productNameZh?: string
+  /** Brand colour as a hex triplet or a CSS colour keyword. */
+  themeColor?: string
+  /**
+   * Brand colour tokens this deployment replaces, by {@link BRAND_COLOUR_TOKENS}
+   * key; an absent key keeps the built-in value.
+   */
+  colors?: Partial<Record<BrandColourToken, string>>
+  /** Absolute directory holding the files named below. */
+  assetDirectory?: string
+  /** Favicon file name inside `assetDirectory`. */
+  favicon?: string
+  /** Mark (icon) file name inside `assetDirectory`. */
+  mark?: string
+  /** Wordmark file name inside `assetDirectory`. */
+  wordmark?: string
+  /** Whether the served page shows the upstream attribution line. @default false */
+  showPoweredBy?: boolean
+}
+
+/** One overridable brand colour token. */
+export type BrandColourToken = (typeof BRAND_COLOUR_TOKENS)[number]
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-host-brand-deployment -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-host-directory-picker-browse -->
 <a id="lynesslyn-host-directory-picker-browse"></a>
 
@@ -1862,10 +2009,24 @@ export interface Config {
 - `source`: [`packages/host/frontend-static/src/index.ts:34`](../packages/host/frontend-static/src/index.ts)
 
 ```ts config-catalog
-/** Plugin config: the dist anchor. */
+/** Plugin config: the dist anchor, and any extra page the same dist answers. */
 export interface Config {
   /** Absolute path of index.html inside the dist root. */
   distIndex: string
+  /**
+   * Extra pathnames that answer with the index document rather than with a file.
+   *
+   * One entry per page a composition serves from the same dist: the browser
+   * asks for `/admin`, this answers the same document, and the client decides
+   * which shell to render from the path it was served at. Each is an absolute
+   * pathname with no trailing slash and no further segment, because the
+   * injected `<base href="./">` resolves every app route against the
+   * document's own directory: `/admin` resolves `api/...` to `/api/...`, while
+   * `/admin/` or `/a/b` would resolve it under that directory and reach
+   * nothing. A request carrying the trailing slash is redirected to the path
+   * itself for the same reason.
+   */
+  documentPaths?: string[]
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-frontend-static -->
@@ -1944,7 +2105,7 @@ export interface Config {
 
 ## `@lyness/lyn-host-webserver`
 
-- `source`: [`packages/host/webserver/src/index.ts:171`](../packages/host/webserver/src/index.ts)
+- `source`: [`packages/host/webserver/src/index.ts:187`](../packages/host/webserver/src/index.ts)
 
 ```ts config-catalog
 /** Web server listen, TLS, and response-compression config. */
@@ -1991,6 +2152,29 @@ export interface TlsConfig {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-webserver -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-invitations -->
+<a id="lynesslyn-invitations"></a>
+
+## `@lyness/lyn-invitations`
+
+- `inject`: `storageDomain` · `adminAudit` · `managedPeople`
+- `source`: [`packages/identity/invitations/src/index.ts:75`](../packages/identity/invitations/src/index.ts)
+
+```ts config-catalog
+/** What this deployment allows an invitation to be. */
+export interface Config {
+  /** How long an invitation stays redeemable when its issuer names no lifetime, in milliseconds. */
+  defaultLifetimeMs?: number
+  /** How long the longest-lived invitation may stay redeemable, in milliseconds. */
+  maxLifetimeMs?: number
+  /** How many redemptions an invitation allows when its issuer names no count. */
+  defaultMaxUses?: number
+  /** How many redemptions the most reusable invitation may allow. */
+  maxUsesLimit?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-invitations -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-jobs-local -->
 <a id="lynesslyn-jobs-local"></a>
@@ -2625,6 +2809,27 @@ export interface McpManagedServerEntry {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-mcp-manager -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-memory -->
+<a id="lynesslyn-memory"></a>
+
+## `@lyness/lyn-memory`
+
+- `inject`: `agents` · `sessionProjections` · `storageDomain` · `systemPrompt`
+- `source`: [`packages/memory/memory/src/index.ts:87`](../packages/memory/memory/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned retention and prompt placement. Invalid values fail plugin load. */
+export interface Config {
+  /** Entries retained before the oldest is dropped on write. Defaults to 200. */
+  maxEntries?: number
+  /** Runtime-context sort position. Defaults to 130, after the policy entries. */
+  contextOrder?: number
+  /** Newest entries the prompt carries; the rest are reachable through the tools. Defaults to 12. */
+  promptEntries?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-memory -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-message-feedback -->
 <a id="lynesslyn-message-feedback"></a>
 
@@ -2641,6 +2846,45 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-message-feedback -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-microsoft-entra -->
+<a id="lynesslyn-microsoft-entra"></a>
+
+## `@lyness/lyn-microsoft-entra`
+
+- `inject`: `authorization` · `credentials` · `webServer`
+- `source`: [`packages/vendor/microsoft-entra/src/index.ts:73`](../packages/vendor/microsoft-entra/src/index.ts)
+
+```ts config-catalog
+/**
+ * Entra application registration this deployment signs in through. Invalid
+ * values fail plugin load, because a half-configured sign-in is a sign-in that
+ * fails in a browser instead of at boot.
+ */
+export interface Config {
+  /**
+   * The directory to sign in to: a tenant id, a verified domain, or one of
+   * Entra's multi-tenant audiences (`organizations`, `common`, `consumers`).
+   * Required, because no default is correct for someone else's directory.
+   */
+  directory: string
+  /** The application (client) id of the Entra app registration. Required. */
+  clientId: string
+  /** Authority host; defaults to the public cloud. */
+  authorityHost?: string
+  /** Microsoft Graph origin; defaults to the public cloud. */
+  graphOrigin?: string
+  /** Scopes requested at sign-in; defaults to openid, profile, User.Read, offline_access. */
+  scopes?: string[]
+  /** Loopback path the browser returns to; defaults to `/oauth/callback/microsoft-entra`. */
+  redirectPath?: string
+  /** Bound on one browser round trip in milliseconds; defaults to 300000. */
+  attemptTimeoutMs?: number
+  /** Bound on one token or Graph request in milliseconds; defaults to 20000. */
+  requestTimeoutMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-microsoft-entra -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-office-kit -->
 <a id="lynesslyn-office-kit"></a>
@@ -2699,6 +2943,51 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-office-kit -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-oidc -->
+<a id="lynesslyn-oidc"></a>
+
+## `@lyness/lyn-oidc`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/identity/oidc/src/index.ts:111`](../packages/identity/oidc/src/index.ts)
+
+```ts config-catalog
+/** The provider to sign in against, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the provider returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /**
+   * The provider's issuer identifier, which is also where discovery is read
+   * from. Required, and `https` outside loopback.
+   */
+  issuer: string
+  /** The client this deployment is registered as with the provider. Required. */
+  clientId: string
+  /** Scopes requested at sign-in; defaults to identity and address. */
+  scope?: string
+  /**
+   * The claim naming the organization a sign-in belongs to, with `.`
+   * separating one level.
+   *
+   * Absent leaves every sign-in the deployment's own, which is the standalone
+   * shape. A deployment serving several organizations names the claim its
+   * provider carries them in, so one provider instance serves every tenant.
+   */
+  organizationClaim?: string
+  /** The organization this channel instance signs in for; absent is deployment-wide. */
+  organization?: string
+  /**
+   * The authorization parameter that asks the provider for one organization's
+   * own sign-in page, when it offers one.
+   */
+  organizationParameter?: string
+  /** How long one discovery document is reused, in milliseconds; defaults to 3600000. */
+  discoveryTtlMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-oidc -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-permission-presets -->
 <a id="lynesslyn-permission-presets"></a>
@@ -2769,6 +3058,26 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-persona -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-personal-instructions -->
+<a id="lynesslyn-personal-instructions"></a>
+
+## `@lyness/lyn-personal-instructions`
+
+- `inject`: `agents` · `sessionProjections` · `sessions` · `storageDomain` · `systemPrompt`
+- `source`: [`packages/identity/personal-instructions/src/index.ts:123`](../packages/identity/personal-instructions/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned ceiling on what one person may store. */
+export interface Config {
+  /**
+   * Largest text one person may save, in UTF-16 code units. Defaults to
+   * {@link MAX_INSTRUCTIONS_CHARS}, which the store accepts at most.
+   */
+  maxChars?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-personal-instructions -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-plan-mode -->
 <a id="lynesslyn-plan-mode"></a>
@@ -3217,7 +3526,7 @@ export interface Config {
 ## `@lyness/lyn-session-log-export`
 
 - `inject`: `commands` · `connection`
-- `source`: [`packages/session-query/session-log-export/src/index.ts:48`](../packages/session-query/session-log-export/src/index.ts)
+- `source`: [`packages/session-query/session-log-export/src/index.ts:49`](../packages/session-query/session-log-export/src/index.ts)
 
 ```ts config-catalog
 /** Session-log archive policy. */
@@ -3236,7 +3545,7 @@ export type SessionLogCompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 ## `@lyness/lyn-session-persistence-jsonl`
 
-- `source`: [`packages/session/session-persistence-jsonl/src/index.ts:95`](../packages/session/session-persistence-jsonl/src/index.ts)
+- `source`: [`packages/session/session-persistence-jsonl/src/index.ts:96`](../packages/session/session-persistence-jsonl/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config for the JSONL backend's root, physical encoding, and listing concurrency. */
@@ -3484,6 +3793,62 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-shell-env -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-sign-in -->
+<a id="lynesslyn-sign-in"></a>
+
+## `@lyness/lyn-sign-in`
+
+- `inject`: `authSessions` · `signInAdmission`
+- `source`: [`packages/identity/sign-in/src/index.ts:86`](../packages/identity/sign-in/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned terms for a session a directory sign-in establishes. */
+export interface Config {
+  /**
+   * How long such a session lasts, in milliseconds. Defaults to twelve hours.
+   *
+   * A customer whose staff share machines shortens it; one issuing company
+   * laptops lengthens it. Neither is a default this package can pick for them.
+   */
+  lifetimeMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-sign-in -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-sign-in-http -->
+<a id="lynesslyn-sign-in-http"></a>
+
+## `@lyness/lyn-sign-in-http`
+
+- `inject`: `signIn` · `authSessions` · `webServer`
+- `source`: [`packages/identity/sign-in-http/src/index.ts:55`](../packages/identity/sign-in-http/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned facts about being served over HTTP. */
+export interface Config {
+  /**
+   * The origin a browser reaches this deployment at, with no trailing slash.
+   *
+   * Required, because the Host cannot know it: behind a proxy the request's
+   * own `Host` is the proxy's, and the address a directory returns to has to
+   * be the one in the app registration. Guessing it wrong makes every
+   * sign-in fail at the directory, with the directory doing the complaining.
+   */
+  publicOrigin: string
+  /**
+   * Whether that origin is served over TLS, which decides the cookies' `Secure`.
+   *
+   * Required and not defaulted either way: `true` silently breaks a
+   * plain-HTTP development install, and `false` silently ships a session
+   * cookie that travels in the clear. A deployment states which it is.
+   */
+  secureCookies: boolean
+  /** Where a completed sign-in sends the browser. Defaults to the application root. */
+  landingPath?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-sign-in-http -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-skill -->
 <a id="lynesslyn-skill"></a>
 
@@ -3671,7 +4036,7 @@ export type HelperLaunch = {
 ## `@lyness/lyn-storage-domain`
 
 - `inject`: `storage`
-- `source`: [`packages/storage/storage-domain/src/index.ts:52`](../packages/storage/storage-domain/src/index.ts)
+- `source`: [`packages/storage/storage-domain/src/index.ts:53`](../packages/storage/storage-domain/src/index.ts)
 
 ```ts config-catalog
 /**
@@ -3888,6 +4253,23 @@ export type CodexPermissionMode =
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-subagent-codex -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-subagent-fork-in-process -->
+<a id="lynesslyn-subagent-fork-in-process"></a>
+
+## `@lyness/lyn-subagent-fork-in-process`
+
+- `inject`: `subagents`
+- `source`: [`packages/subagent/subagent-fork-in-process/src/index.ts:29`](../packages/subagent/subagent-fork-in-process/src/index.ts)
+
+```ts config-catalog
+/** Config: the registry name to register the provider under. */
+export interface Config {
+  /** Provider name on `ctx.subagents` (default `fork`). */
+  providerName: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-subagent-fork-in-process -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-subagent-lyn-sdk -->
 <a id="lynesslyn-subagent-lyn-sdk"></a>
 
@@ -3936,23 +4318,6 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-subagent-lyn-sdk -->
 
-<!-- BEGIN GENERATED config-catalog:@lyness/lyn-subagent-fork-in-process -->
-<a id="lynesslyn-subagent-fork-in-process"></a>
-
-## `@lyness/lyn-subagent-fork-in-process`
-
-- `inject`: `subagents`
-- `source`: [`packages/subagent/subagent-fork-in-process/src/index.ts:29`](../packages/subagent/subagent-fork-in-process/src/index.ts)
-
-```ts config-catalog
-/** Config: the registry name to register the provider under. */
-export interface Config {
-  /** Provider name on `ctx.subagents` (default `fork`). */
-  providerName: string
-}
-```
-<!-- END GENERATED config-catalog:@lyness/lyn-subagent-fork-in-process -->
-
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-subagent-spawn-in-process -->
 <a id="lynesslyn-subagent-spawn-in-process"></a>
 
@@ -3975,7 +4340,7 @@ export interface Config {
 
 ## `@lyness/lyn-system-prompt`
 
-- `source`: [`packages/core/system-prompt/src/index.ts:265`](../packages/core/system-prompt/src/index.ts)
+- `source`: [`packages/core/system-prompt/src/index.ts:296`](../packages/core/system-prompt/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: the deployment-authored fragment of the system prompt (see {@link Config.personaPrefix} for its contract). */
@@ -4003,6 +4368,160 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-system-prompt -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-tenant-config-static -->
+<a id="lynesslyn-tenant-config-static"></a>
+
+## `@lyness/lyn-tenant-config-static`
+
+- `refs`: [`Modality`](subsystems/multi-tenancy.md)
+- `source`: [`packages/tenant/tenant-config-static/src/index.ts:80`](../packages/tenant/tenant-config-static/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: one row per configured tenant. */
+export interface Config {
+  /** Every tenant this deployment configures; at least one. */
+  tenants: TenantConfigEntry[]
+}
+
+/** One configured tenant. */
+export interface TenantConfigEntry {
+  /** The tenant this row configures. */
+  tenantId: string
+  /** Providers this tenant may reach. */
+  providers?: ProviderEntry[]
+  /** Models by modality; an absent modality is unavailable to this tenant. */
+  models?: Partial<Record<Modality, ModalityEntry>>
+  /** Features this tenant may use. */
+  features?: string[]
+  /** Identity text this tenant contributes to its model requests. */
+  identity?: IdentityEntry | null
+  /** Interface copy this tenant overrides, by copy id. */
+  copy?: Record<string, string>
+}
+
+/** One configured provider grant. */
+export interface ProviderEntry {
+  /** Provider id this tenant's models name. */
+  provider: string
+  /** Credential reference naming the tenant's key; the value lives in the credential store. */
+  credential: string
+  /** Endpoint to reach the provider at, for a tenant running the model itself. */
+  baseUrl?: string
+}
+
+/** One configured modality. */
+export interface ModalityEntry {
+  /** Models this tenant may use; omitted or empty means the modality is unavailable to it. */
+  available?: ModelEntry[]
+  /** The model chosen when a caller names none; must be one of `available`. */
+  preferred?: ModelEntry | null
+}
+
+/** One configured tenant identity. */
+export interface IdentityEntry {
+  /** Rules every request from this tenant carries. */
+  constraints?: string[]
+  /** Voice this organization asks for. */
+  personality?: string
+}
+
+/** One configured model. */
+export interface ModelEntry {
+  /** Provider id, which must also appear in this tenant's provider grants. */
+  provider: string
+  /** Model id as that provider names it. */
+  model: string
+  /** Provider-specific reasoning effort, when the provider takes one. */
+  reasoningEffort?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-tenant-config-static -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-tenant-http -->
+<a id="lynesslyn-tenant-http"></a>
+
+## `@lyness/lyn-tenant-http`
+
+- `inject`: `tenants` · `webServer`
+- `source`: [`packages/tenant/tenant-http/src/index.ts:37`](../packages/tenant/tenant-http/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: where the route answers, and which hostnames carry a tenant slug. */
+export interface Config {
+  /** Exact pathname of the route. */
+  path?: string
+  /** Base domain whose direct subdomains name tenants by slug; omit to resolve no subdomain. */
+  baseDomain?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-tenant-http -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-tenant-request -->
+<a id="lynesslyn-tenant-request"></a>
+
+## `@lyness/lyn-tenant-request`
+
+- `inject`: `connection` · `tenants`
+- `source`: [`packages/tenant/tenant-request/src/index.ts:37`](../packages/tenant/tenant-request/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: which hostnames carry a tenant slug. */
+export interface Config {
+  /** Base domain whose direct subdomains name tenants by slug; omit to resolve no subdomain. */
+  baseDomain?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-tenant-request -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-tenant-session -->
+<a id="lynesslyn-tenant-session"></a>
+
+## `@lyness/lyn-tenant-session`
+
+- `inject`: `agents` · `sessionProjections` · `sessions` · `systemPrompt` · `tenants`
+- `source`: [`packages/tenant/tenant-session/src/index.ts:189`](../packages/tenant/tenant-session/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: which tenant this deployment's sessions belong to. */
+export interface Config {
+  /**
+   * The tenant a session belongs to when the request that created it named
+   * none — a CLI run, a resumed session, a subagent, or a deployment that
+   * mounts no `ctx.requestTenant`.
+   */
+  tenantId: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-tenant-session -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-tenant-static -->
+<a id="lynesslyn-tenant-static"></a>
+
+## `@lyness/lyn-tenant-static`
+
+- `source`: [`packages/tenant/tenant-static/src/index.ts:39`](../packages/tenant/tenant-static/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: the deployment's tenant roster. */
+export interface Config {
+  /** Every tenant this deployment serves; at least one. */
+  tenants: TenantEntry[]
+}
+
+/** One configured tenant. */
+export interface TenantEntry {
+  /** Immutable id; durable records carry this value. */
+  id: string
+  /** Operator-facing handle and subdomain label, unique in the deployment. */
+  slug: string
+  /** Name shown to that tenant's users. */
+  displayName: string
+  /** Hostnames served for this tenant, each claimed by exactly one tenant. */
+  hosts?: string[]
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-tenant-static -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-terminal-bash -->
 <a id="lynesslyn-terminal-bash"></a>
@@ -4605,7 +5124,7 @@ export interface Config {
 ## `@lyness/lyn-tool-ralph`
 
 - `inject`: `tools` · `workflowEngine` · `subagents` · `systemPrompt`
-- `source`: [`packages/experimental/tool-ralph/src/index.ts:24`](../packages/experimental/tool-ralph/src/index.ts)
+- `source`: [`packages/workflow/tool-ralph/src/index.ts:24`](../packages/workflow/tool-ralph/src/index.ts)
 
 ```ts config-catalog
 /** Deployment policy for the fixed Ralph workflow. */
@@ -4628,7 +5147,7 @@ export interface Config {
 ## `@lyness/lyn-tool-session-query`
 
 - `inject`: `tools` · `systemPrompt` · `sessionQuery` · `agents`
-- `source`: [`packages/experimental/tool-session-query/src/index.ts:28`](../packages/experimental/tool-session-query/src/index.ts)
+- `source`: [`packages/session-query/tool-session-query/src/index.ts:28`](../packages/session-query/tool-session-query/src/index.ts)
 
 ```ts config-catalog
 /** Deployment-owned search count and timeout bounds. */
@@ -4758,7 +5277,7 @@ export interface Config {
 ## `@lyness/lyn-tool-terminal`
 
 - `inject`: `terminals` · `tools` · `systemPrompt` · `workingDirectory`
-- `source`: [`packages/experimental/tool-terminal/src/index.ts:38`](../packages/experimental/tool-terminal/src/index.ts)
+- `source`: [`packages/terminal/tool-terminal/src/index.ts:38`](../packages/terminal/tool-terminal/src/index.ts)
 
 ```ts config-catalog
 /** Model-facing terminal tool configuration. */
@@ -4980,6 +5499,15 @@ export interface Config {
    * Absent or YAML `null` advertises the bind-address URL.
    */
   publicUrl?: string
+  /**
+   * Extra pathnames this GUI answers with the application document.
+   *
+   * One entry per page the composition serves beside the workbench — the
+   * administration console is one — passed through to the dist server. The
+   * page's own plugin states which of them is its, and the two must agree:
+   * this decides which paths carry a document, not what renders on them.
+   */
+  documentPaths?: string[]
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-web-app -->
@@ -5098,7 +5626,7 @@ export interface Config {
 ## `@lyness/lyn-webhook-github`
 
 - `inject`: `webServer` · `webhookRuntime` · `credentials`
-- `source`: [`packages/experimental/webhook-github/src/index.ts:17`](../packages/experimental/webhook-github/src/index.ts)
+- `source`: [`packages/webhook/webhook-github/src/index.ts:17`](../packages/webhook/webhook-github/src/index.ts)
 
 ```ts config-catalog
 /** Required GitHub ingress configuration. */
@@ -5114,6 +5642,40 @@ export interface Config {
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-webhook-github -->
+
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-wecom -->
+<a id="lynesslyn-wecom"></a>
+
+## `@lyness/lyn-wecom`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/wecom/src/index.ts:91`](../packages/vendor/wecom/src/index.ts)
+
+```ts config-catalog
+/** The corporation to sign in against, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /** The corporation's own id, which WeCom calls `corpid`. Required. */
+  corpId: string
+  /** The self-built application's `agentid`. Required. */
+  agentId: string
+  /** Scan-code login host; defaults to the public service. */
+  loginHost?: string
+  /** API origin; defaults to the public service. */
+  apiOrigin?: string
+  /**
+   * Whether to read member detail — name and work address — after sign-in.
+   *
+   * Off by default, because it requires the application to hold the private
+   * information scope, and a deployment that only binds members by id needs
+   * neither value.
+   */
+  readDetail?: boolean
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-wecom -->
 
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-workflow-ptc -->
 <a id="lynesslyn-workflow-ptc"></a>
@@ -5193,10 +5755,28 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `package` | `inject` | `source` |
 | --- | --- | --- |
 | `@lyness/lyn-acp-app` | `cmdlineArgs` | [`packages/bundle/acp-app/src/index.ts`](../packages/bundle/acp-app/src/index.ts) |
+| `@lyness/lyn-acting-context` | `people` | [`packages/identity/acting-context/src/index.ts`](../packages/identity/acting-context/src/index.ts) |
+| `@lyness/lyn-admin-setup` | `cmdlineArgs` | [`packages/bundle/admin-setup/src/index.ts`](../packages/bundle/admin-setup/src/index.ts) |
 | `@lyness/lyn-agent` | `sessionProjections` | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
+| `@lyness/lyn-api-admin-audit-controller` | — | [`packages/api/admin-audit-controller/src/index.ts`](../packages/api/admin-audit-controller/src/index.ts) |
+| `@lyness/lyn-api-agent-capabilities-controller` | `tools` | [`packages/api/agent-capabilities-controller/src/index.ts`](../packages/api/agent-capabilities-controller/src/index.ts) |
+| `@lyness/lyn-api-announcement-controller` | `announcements` | [`packages/api/announcement-controller/src/index.ts`](../packages/api/announcement-controller/src/index.ts) |
+| `@lyness/lyn-api-bots-controller` | — | [`packages/api/bots-controller/src/index.ts`](../packages/api/bots-controller/src/index.ts) |
+| `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |
+| `@lyness/lyn-api-identity-controller` | — | [`packages/api/identity-controller/src/index.ts`](../packages/api/identity-controller/src/index.ts) |
+| `@lyness/lyn-api-invitations-controller` | — | [`packages/api/invitations-controller/src/index.ts`](../packages/api/invitations-controller/src/index.ts) |
+| `@lyness/lyn-api-memory-controller` | `memory` | [`packages/api/memory-controller/src/index.ts`](../packages/api/memory-controller/src/index.ts) |
+| `@lyness/lyn-api-people-controller` | — | [`packages/api/people-controller/src/index.ts`](../packages/api/people-controller/src/index.ts) |
+| `@lyness/lyn-api-personal-instructions-controller` | `personalInstructions` | [`packages/api/personal-instructions-controller/src/index.ts`](../packages/api/personal-instructions-controller/src/index.ts) |
 | `@lyness/lyn-api-remote-access` | — | [`packages/api/remote-access/src/index.ts`](../packages/api/remote-access/src/index.ts) |
+| `@lyness/lyn-api-remote-authority` | `requestPrincipal` · `people` | [`packages/api/remote-authority/src/index.ts`](../packages/api/remote-authority/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |
+| `@lyness/lyn-api-session-data-controller` | `sessionDeletion` · `sessionQuery` | [`packages/api/session-data-controller/src/index.ts`](../packages/api/session-data-controller/src/index.ts) |
+| `@lyness/lyn-api-sign-in-channel-controller` | — | [`packages/api/sign-in-channel-controller/src/index.ts`](../packages/api/sign-in-channel-controller/src/index.ts) |
+| `@lyness/lyn-api-tenant-controller` | — | [`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts) |
 | `@lyness/lyn-authorization` | `credentials` | [`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts) |
+| `@lyness/lyn-bot-ask` | `agentPresets` · `agents` · `agentDefaultModel` · `managedBots` · `sessionProjections` · `sessions` | [`packages/identity/bot-ask/src/index.ts`](../packages/identity/bot-ask/src/index.ts) |
+| `@lyness/lyn-brand-studio` | `cmdlineArgs` | [`packages/bundle/brand-studio/src/index.ts`](../packages/bundle/brand-studio/src/index.ts) |
 | `@lyness/lyn-browser-use` | — | [`packages/browser-use/browser-use/src/index.ts`](../packages/browser-use/browser-use/src/index.ts) |
 | `@lyness/lyn-client-file-upload` | `agents` · `attachments` · `commands` · `connection` | [`packages/client/file-upload/src/index.ts`](../packages/client/file-upload/src/index.ts) |
 | `@lyness/lyn-client-locale` | — | [`packages/client/locale/src/index.ts`](../packages/client/locale/src/index.ts) |
@@ -5205,10 +5785,13 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-client-script-realm` | — | [`packages/client/script-realm/src/index.ts`](../packages/client/script-realm/src/index.ts) |
 | `@lyness/lyn-client-script-realm-iframe` | — | [`packages/client/script-realm-iframe/src/index.ts`](../packages/client/script-realm-iframe/src/index.ts) |
 | `@lyness/lyn-client-ui-action-cards` | — | [`packages/experimental/client-ui-action-cards/src/index.ts`](../packages/experimental/client-ui-action-cards/src/index.ts) |
+| `@lyness/lyn-client-ui-admin-console` | — | [`packages/client/ui-admin-console/src/index.ts`](../packages/client/ui-admin-console/src/index.ts) |
+| `@lyness/lyn-client-ui-admin-invitations` | — | [`packages/client/ui-admin-invitations/src/index.ts`](../packages/client/ui-admin-invitations/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-preset` | — | [`packages/client/ui-agent-preset/src/index.ts`](../packages/client/ui-agent-preset/src/index.ts) |
 | `@lyness/lyn-client-ui-agent-team` | — | [`packages/client/ui-agent-team/src/index.ts`](../packages/client/ui-agent-team/src/index.ts) |
 | `@lyness/lyn-client-ui-approval` | — | [`packages/client/ui-approval/src/index.ts`](../packages/client/ui-approval/src/index.ts) |
 | `@lyness/lyn-client-ui-attachment` | — | [`packages/client/ui-attachment/src/index.ts`](../packages/client/ui-attachment/src/index.ts) |
+| `@lyness/lyn-client-ui-brand-lyness` | — | [`packages/client/ui-brand-lyness/src/index.ts`](../packages/client/ui-brand-lyness/src/index.ts) |
 | `@lyness/lyn-client-ui-brand-official` | — | [`packages/client/ui-brand-official/src/index.ts`](../packages/client/ui-brand-official/src/index.ts) |
 | `@lyness/lyn-client-ui-chat` | — | [`packages/client/ui-chat/src/index.ts`](../packages/client/ui-chat/src/index.ts) |
 | `@lyness/lyn-client-ui-commands` | — | [`packages/client/ui-commands/src/index.ts`](../packages/client/ui-commands/src/index.ts) |
@@ -5225,6 +5808,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-client-ui-goal` | — | [`packages/client/ui-goal/src/index.ts`](../packages/client/ui-goal/src/index.ts) |
 | `@lyness/lyn-client-ui-input-trigger` | — | [`packages/client/ui-input-trigger/src/index.ts`](../packages/client/ui-input-trigger/src/index.ts) |
 | `@lyness/lyn-client-ui-jobs` | — | [`packages/client/ui-jobs/src/index.ts`](../packages/client/ui-jobs/src/index.ts) |
+| `@lyness/lyn-client-ui-join` | — | [`packages/client/ui-join/src/index.ts`](../packages/client/ui-join/src/index.ts) |
 | `@lyness/lyn-client-ui-layout` | — | [`packages/client/ui-layout/src/index.ts`](../packages/client/ui-layout/src/index.ts) |
 | `@lyness/lyn-client-ui-message-feedback` | — | [`packages/client/ui-message-feedback/src/index.ts`](../packages/client/ui-message-feedback/src/index.ts) |
 | `@lyness/lyn-client-ui-model-selection` | — | [`packages/client/ui-model-selection/src/index.ts`](../packages/client/ui-model-selection/src/index.ts) |
@@ -5241,11 +5825,21 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-client-ui-session-status` | `remoteAccess` · `sessions` · `sessionPersistence` · `typert` | [`packages/client/ui-session-status/src/index.ts`](../packages/client/ui-session-status/src/index.ts) |
 | `@lyness/lyn-client-ui-settings` | — | [`packages/client/ui-settings/src/index.ts`](../packages/client/ui-settings/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-agent-loop` | — | [`packages/client/ui-settings-agent-loop/src/index.ts`](../packages/client/ui-settings-agent-loop/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-announcements` | — | [`packages/client/ui-settings-announcements/src/index.ts`](../packages/client/ui-settings-announcements/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-bots` | — | [`packages/client/ui-settings-bots/src/index.ts`](../packages/client/ui-settings-bots/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-capabilities` | — | [`packages/client/ui-settings-capabilities/src/index.ts`](../packages/client/ui-settings-capabilities/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-data` | — | [`packages/client/ui-settings-data/src/index.ts`](../packages/client/ui-settings-data/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-instructions` | — | [`packages/client/ui-settings-instructions/src/index.ts`](../packages/client/ui-settings-instructions/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-memory` | — | [`packages/client/ui-settings-memory/src/index.ts`](../packages/client/ui-settings-memory/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-people` | — | [`packages/client/ui-settings-people/src/index.ts`](../packages/client/ui-settings-people/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-session-log` | — | [`packages/client/ui-settings-session-log/src/index.ts`](../packages/client/ui-settings-session-log/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-shell` | — | [`packages/client/ui-settings-shell/src/index.ts`](../packages/client/ui-settings-shell/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-sign-in-channels` | — | [`packages/client/ui-settings-sign-in-channels/src/index.ts`](../packages/client/ui-settings-sign-in-channels/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-subagent` | — | [`packages/client/ui-settings-subagent/src/index.ts`](../packages/client/ui-settings-subagent/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-web-search` | — | [`packages/client/ui-settings-web-search/src/index.ts`](../packages/client/ui-settings-web-search/src/index.ts) |
 | `@lyness/lyn-client-ui-shortcuts` | — | [`packages/client/ui-shortcuts/src/index.ts`](../packages/client/ui-shortcuts/src/index.ts) |
@@ -5254,10 +5848,12 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-client-ui-sidebar-files` | — | [`packages/client/ui-sidebar-files/src/index.ts`](../packages/client/ui-sidebar-files/src/index.ts) |
 | `@lyness/lyn-client-ui-sidebar-right` | — | [`packages/client/ui-sidebar-right/src/index.ts`](../packages/client/ui-sidebar-right/src/index.ts) |
 | `@lyness/lyn-client-ui-sidebar-terminal` | — | [`packages/client/ui-sidebar-terminal/src/index.ts`](../packages/client/ui-sidebar-terminal/src/index.ts) |
+| `@lyness/lyn-client-ui-sign-in` | — | [`packages/client/ui-sign-in/src/index.ts`](../packages/client/ui-sign-in/src/index.ts) |
 | `@lyness/lyn-client-ui-skill` | — | [`packages/client/ui-skill/src/index.ts`](../packages/client/ui-skill/src/index.ts) |
 | `@lyness/lyn-client-ui-subagent` | — | [`packages/client/ui-subagent/src/index.ts`](../packages/client/ui-subagent/src/index.ts) |
 | `@lyness/lyn-client-ui-tool` | — | [`packages/client/ui-tool/src/index.ts`](../packages/client/ui-tool/src/index.ts) |
 | `@lyness/lyn-client-ui-user-questions` | — | [`packages/client/ui-user-questions/src/index.ts`](../packages/client/ui-user-questions/src/index.ts) |
+| `@lyness/lyn-client-ui-viewer` | — | [`packages/client/ui-viewer/src/index.ts`](../packages/client/ui-viewer/src/index.ts) |
 | `@lyness/lyn-client-ui-workflow-run` | — | [`packages/client/ui-workflow-run/src/index.ts`](../packages/client/ui-workflow-run/src/index.ts) |
 | `@lyness/lyn-client-ui-workspace` | — | [`packages/client/ui-workspace/src/index.ts`](../packages/client/ui-workspace/src/index.ts) |
 | `@lyness/lyn-command-compact` | `commands` · `compaction` | [`packages/compaction/command-compact/src/index.ts`](../packages/compaction/command-compact/src/index.ts) |
@@ -5272,6 +5868,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-cua` | — | [`packages/experimental/cua/src/index.ts`](../packages/experimental/cua/src/index.ts) |
 | `@lyness/lyn-deepseek-llm-api-extensions` | — | [`packages/llm/deepseek-llm-api-extensions/src/index.ts`](../packages/llm/deepseek-llm-api-extensions/src/index.ts) |
 | `@lyness/lyn-deliverable-file-references` | `systemPrompt` | [`packages/deliverables/deliverable-file-references/src/index.ts`](../packages/deliverables/deliverable-file-references/src/index.ts) |
+| `@lyness/lyn-desktop-link` | — | [`packages/api/desktop-link/src/index.ts`](../packages/api/desktop-link/src/index.ts) |
 | `@lyness/lyn-experimental-auto-review` | `approval` · `llm` · `permissionPresets` · `sessions` · `tools` · `workingDirectory` | [`packages/experimental/auto-review/src/index.ts`](../packages/experimental/auto-review/src/index.ts) |
 | `@lyness/lyn-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
 | `@lyness/lyn-experimental-client-ui-stats` | — | [`packages/experimental/client-ui-stats/src/index.ts`](../packages/experimental/client-ui-stats/src/index.ts) |
@@ -5279,6 +5876,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-experimental-computer-use-cua-driver-native` | `computerUse` · `tools` · `systemPrompt` | [`packages/experimental/computer-use-cua-driver-native/src/index.ts`](../packages/experimental/computer-use-cua-driver-native/src/index.ts) |
 | `@lyness/lyn-experimental-session-inspector` | — | [`packages/experimental/session-inspector/src/index.ts`](../packages/experimental/session-inspector/src/index.ts) |
 | `@lyness/lyn-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
+| `@lyness/lyn-fs-desktop` | `desktopLink` · `sessionProjections` | [`packages/fs/fs-desktop/src/index.ts`](../packages/fs/fs-desktop/src/index.ts) |
 | `@lyness/lyn-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 | `@lyness/lyn-fs-ssh` | `ssh` · `sandboxPolicy` | [`packages/ssh/fs-ssh/src/index.ts`](../packages/ssh/fs-ssh/src/index.ts) |
 | `@lyness/lyn-goal-round-driver` | `agents` · `goals` · `sessions` | [`packages/goal/goal-round-driver/src/index.ts`](../packages/goal/goal-round-driver/src/index.ts) |
@@ -5288,21 +5886,29 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-host-plugin-inventory` | `loader` | [`packages/host/plugin-inventory/src/index.ts`](../packages/host/plugin-inventory/src/index.ts) |
 | `@lyness/lyn-llm` | — | [`packages/llm/llm/src/index.ts`](../packages/llm/llm/src/index.ts) |
 | `@lyness/lyn-lsp` | — | [`packages/lsp/lsp/src/index.ts`](../packages/lsp/lsp/src/index.ts) |
+| `@lyness/lyn-managed-bots` | `storageDomain` · `managedPeople` · `agentPresets` · `sessionProjections` · `adminAudit` | [`packages/identity/managed-bots/src/index.ts`](../packages/identity/managed-bots/src/index.ts) |
+| `@lyness/lyn-managed-people` | `storageDomain` · `adminAudit` | [`packages/identity/managed-people/src/index.ts`](../packages/identity/managed-people/src/index.ts) |
 | `@lyness/lyn-mcp-resources` | `tools` | [`packages/mcp/mcp-resources/src/index.ts`](../packages/mcp/mcp-resources/src/index.ts) |
 | `@lyness/lyn-message-quotes` | — | [`packages/session/message-quotes/src/index.ts`](../packages/session/message-quotes/src/index.ts) |
+| `@lyness/lyn-model-required` | `llm` · `appReady` | [`packages/llm/model-required/src/index.ts`](../packages/llm/model-required/src/index.ts) |
 | `@lyness/lyn-otel` | — | [`packages/telemetry/otel/src/index.ts`](../packages/telemetry/otel/src/index.ts) |
 | `@lyness/lyn-plugin-recommendations` | `pluginManager` · `agents` · `skills` · `actionCards` | [`packages/experimental/plugin-recommendations/src/index.ts`](../packages/experimental/plugin-recommendations/src/index.ts) |
+| `@lyness/lyn-request-principal` | `authSessions` | [`packages/identity/request-principal/src/index.ts`](../packages/identity/request-principal/src/index.ts) |
 | `@lyness/lyn-sandbox-ssh` | `ssh` | [`packages/ssh/sandbox-ssh/src/index.ts`](../packages/ssh/sandbox-ssh/src/index.ts) |
 | `@lyness/lyn-session` | — | [`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts) |
 | `@lyness/lyn-session-checkpoint-policy` | `llm` · `sessionPersistence` · `sessions` · `tools` | [`packages/session/session-checkpoint-policy/src/index.ts`](../packages/session/session-checkpoint-policy/src/index.ts) |
+| `@lyness/lyn-session-deletion` | `sessionPersistence` · `sessionQuery` | [`packages/session/session-deletion/src/index.ts`](../packages/session/session-deletion/src/index.ts) |
+| `@lyness/lyn-session-ownership` | `sessionProjections` · `sessions` · `requestPrincipal` | [`packages/identity/session-ownership/src/index.ts`](../packages/identity/session-ownership/src/index.ts) |
 | `@lyness/lyn-session-projection` | — | [`packages/session/session-projection/src/index.ts`](../packages/session/session-projection/src/index.ts) |
 | `@lyness/lyn-session-stats` | `sessionProjections` | [`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts) |
 | `@lyness/lyn-session-turn-outline` | `sessionProjections` | [`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts) |
 | `@lyness/lyn-settings` | `configEditor` · `profileContext` | [`packages/settings/settings/src/index.ts`](../packages/settings/settings/src/index.ts) |
-| `@lyness/lyn-skill-badge` | `skills` | [`packages/experimental/skill-badge/src/index.ts`](../packages/experimental/skill-badge/src/index.ts) |
+| `@lyness/lyn-sign-in-channels` | `storageDomain` · `signIn` · `signInKinds` · `credentials` · `adminAudit` | [`packages/identity/sign-in-channels/src/index.ts`](../packages/identity/sign-in-channels/src/index.ts) |
+| `@lyness/lyn-skill-badge` | `skills` | [`packages/skill/skill-badge/src/index.ts`](../packages/skill/skill-badge/src/index.ts) |
 | `@lyness/lyn-storage` | — | [`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts) |
 | `@lyness/lyn-subprocess-local` | — | [`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts) |
 | `@lyness/lyn-subprocess-ssh` | `ssh` | [`packages/ssh/subprocess-ssh/src/index.ts`](../packages/ssh/subprocess-ssh/src/index.ts) |
+| `@lyness/lyn-tenant-config-store` | `storageDomain` | [`packages/tenant/tenant-config-store/src/index.ts`](../packages/tenant/tenant-config-store/src/index.ts) |
 | `@lyness/lyn-terminal` | — | [`packages/terminal/terminal/src/index.ts`](../packages/terminal/terminal/src/index.ts) |
 | `@lyness/lyn-tool-call-timeout-policy` | `tools` | [`packages/guard/timeout-policy/src/index.ts`](../packages/guard/timeout-policy/src/index.ts) |
 | `@lyness/lyn-tool-cordis` | `tools` · `cordisInspect` | [`packages/extensions/tool-cordis/src/index.ts`](../packages/extensions/tool-cordis/src/index.ts) |
@@ -5311,7 +5917,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-tool-working-directory` | `tools` · `workingDirectory` | [`packages/session/tool-working-directory/src/index.ts`](../packages/session/tool-working-directory/src/index.ts) |
 | `@lyness/lyn-tools` | `systemPrompt` | [`packages/core/tools/src/index.ts`](../packages/core/tools/src/index.ts) |
 | `@lyness/lyn-user-questions` | — | [`packages/interaction/user-questions/src/index.ts`](../packages/interaction/user-questions/src/index.ts) |
-| `@lyness/lyn-webhook` | `agents` · `agentDefaultModel` · `agentPresets` · `permissionPresets` · `sessionTitle` · `workspaceRegistry` | [`packages/experimental/webhook/src/index.ts`](../packages/experimental/webhook/src/index.ts) |
+| `@lyness/lyn-webhook` | `agents` · `agentDefaultModel` · `agentPresets` · `permissionPresets` · `sessionTitle` · `workspaceRegistry` | [`packages/webhook/webhook/src/index.ts`](../packages/webhook/webhook/src/index.ts) |
 | `@lyness/lyn-workspace` | `storageDomain` · `sessionPersistence` | [`packages/workspace/workspace/src/index.ts`](../packages/workspace/workspace/src/index.ts) |
 <!-- END GENERATED config-catalog:no-config -->
 
@@ -5322,13 +5928,18 @@ Abstract service classes — a deployment loads a concrete implementation packag
 <!-- BEGIN GENERATED config-catalog:seam -->
 | `package` | `class` | `inject` | `source` |
 | --- | --- | --- | --- |
+| `@lyness/lyn-announcements` | `AnnouncementSource` | — | [`packages/host/announcements/src/index.ts`](../packages/host/announcements/src/index.ts) |
 | `@lyness/lyn-attachment` | `AttachmentStore` | — | [`packages/attachment/attachment/src/index.ts`](../packages/attachment/attachment/src/index.ts) |
+| `@lyness/lyn-auth-session` | `AuthSessionStore` | — | [`packages/identity/auth-session/src/index.ts`](../packages/identity/auth-session/src/index.ts) |
 | `@lyness/lyn-compaction` | `CompactionEngine` | — | [`packages/compaction/compaction/src/index.ts`](../packages/compaction/compaction/src/index.ts) |
 | `@lyness/lyn-credentials` | `CredentialProvider` | — | [`packages/credentials/credentials/src/index.ts`](../packages/credentials/credentials/src/index.ts) |
+| `@lyness/lyn-credits` | `CreditLedger` | — | [`packages/credits/credits/src/index.ts`](../packages/credits/credits/src/index.ts) |
 | `@lyness/lyn-file-reference` | `FileReferenceService` | — | [`packages/context/file-reference/src/index.ts`](../packages/context/file-reference/src/index.ts) |
 | `@lyness/lyn-fs` | `FileSystem` | — | [`packages/fs/fs/src/index.ts`](../packages/fs/fs/src/index.ts) |
 | `@lyness/lyn-host-directory-picker` | `DirectoryPicker` | — | [`packages/host/directory-picker/src/index.ts`](../packages/host/directory-picker/src/index.ts) |
 | `@lyness/lyn-jobs` | `JobRegistry` | — | [`packages/jobs/jobs/src/index.ts`](../packages/jobs/jobs/src/index.ts) |
+| `@lyness/lyn-model-policy` | `ModelPolicy` | — | [`packages/llm/model-policy/src/index.ts`](../packages/llm/model-policy/src/index.ts) |
+| `@lyness/lyn-people` | `PeopleDirectory` | — | [`packages/identity/people/src/index.ts`](../packages/identity/people/src/index.ts) |
 | `@lyness/lyn-ptc-runtime` | `PtcRuntime` | — | [`packages/ptc-runtime/ptc-runtime/src/index.ts`](../packages/ptc-runtime/ptc-runtime/src/index.ts) |
 | `@lyness/lyn-sandbox` | `SandboxProvider` | — | [`packages/sandbox/sandbox/src/index.ts`](../packages/sandbox/sandbox/src/index.ts) |
 | `@lyness/lyn-session-persistence` | `SessionPersistence` | — | [`packages/session/session-persistence/src/index.ts`](../packages/session/session-persistence/src/index.ts) |
@@ -5336,6 +5947,8 @@ Abstract service classes — a deployment loads a concrete implementation packag
 | `@lyness/lyn-shell` | `ShellExecutor` | — | [`packages/shell/shell/src/index.ts`](../packages/shell/shell/src/index.ts) |
 | `@lyness/lyn-spill` | `SpillStore` | — | [`packages/spill/spill/src/index.ts`](../packages/spill/spill/src/index.ts) |
 | `@lyness/lyn-subprocess` | `SubprocessRuntime` | — | [`packages/subprocess/subprocess/src/index.ts`](../packages/subprocess/subprocess/src/index.ts) |
+| `@lyness/lyn-tenant` | `TenantDirectory` | — | [`packages/tenant/tenant/src/index.ts`](../packages/tenant/tenant/src/index.ts) |
+| `@lyness/lyn-tenant-config` | `TenantConfigStore` | — | [`packages/tenant/tenant-config/src/index.ts`](../packages/tenant/tenant-config/src/index.ts) |
 | `@lyness/lyn-workflow` | `WorkflowEngine` | — | [`packages/workflow/workflow/src/index.ts`](../packages/workflow/workflow/src/index.ts) |
 <!-- END GENERATED config-catalog:seam -->
 
@@ -5362,6 +5975,7 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-cmdline` | — | [`packages/boot/cmdline/src/index.ts`](../packages/boot/cmdline/src/index.ts) |
 | `@lyness/lyn-cua-bundle` | — | [`packages/experimental/cua-bundle/src/index.ts`](../packages/experimental/cua-bundle/src/index.ts) |
 | `@lyness/lyn-deque` | — | [`packages/util/deque/src/index.ts`](../packages/util/deque/src/index.ts) |
+| `@lyness/lyn-e2e-target` | — | [`packages/test-support/e2e-target/src/index.ts`](../packages/test-support/e2e-target/src/index.ts) |
 | `@lyness/lyn-error` | — | [`packages/util/error/src/index.ts`](../packages/util/error/src/index.ts) |
 | `@lyness/lyn-experimental-badge-skill-bundle` | — | [`packages/experimental/badge-skill-bundle/src/index.ts`](../packages/experimental/badge-skill-bundle/src/index.ts) |
 | `@lyness/lyn-experimental-browser-use-runtime` | — | [`packages/experimental/browser-use-runtime/src/index.ts`](../packages/experimental/browser-use-runtime/src/index.ts) |
@@ -5381,12 +5995,26 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-fs-patch` | — | [`packages/fs/fs-patch/src/index.ts`](../packages/fs/fs-patch/src/index.ts) |
 | `@lyness/lyn-home-paths` | — | [`packages/util/home-paths/src/index.ts`](../packages/util/home-paths/src/index.ts) |
 | `@lyness/lyn-hook-protocol` | — | [`packages/experimental/hook-protocol/src/index.ts`](../packages/experimental/hook-protocol/src/index.ts) |
+| `@lyness/lyn-host-brand-fonts` | — | [`packages/host/brand-fonts/src/index.ts`](../packages/host/brand-fonts/src/index.ts) |
+| `@lyness/lyn-host-brand-icon` | — | [`packages/host/brand-icon/src/index.ts`](../packages/host/brand-icon/src/index.ts) |
+| `@lyness/lyn-host-brand-wordmark` | — | [`packages/host/brand-wordmark/src/index.ts`](../packages/host/brand-wordmark/src/index.ts) |
 | `@lyness/lyn-http-proxy` | — | [`packages/util/http-proxy/src/index.ts`](../packages/util/http-proxy/src/index.ts) |
 | `@lyness/lyn-launch-environment` | — | [`packages/util/launch-environment/src/index.ts`](../packages/util/launch-environment/src/index.ts) |
 | `@lyness/lyn-lazy-require` | — | [`packages/util/lazy-require/src/index.ts`](../packages/util/lazy-require/src/index.ts) |
 | `@lyness/lyn-llm-deepseek` | — | [`packages/llm/llm-deepseek/src/index.ts`](../packages/llm/llm-deepseek/src/index.ts) |
 | `@lyness/lyn-llm-mock-server` | — | [`packages/test-support/llm-mock-server/src/index.ts`](../packages/test-support/llm-mock-server/src/index.ts) |
 | `@lyness/lyn-loader-smoke` | — | [`packages/test-support/loader-smoke/src/index.ts`](../packages/test-support/loader-smoke/src/index.ts) |
+| `@lyness/lyn-module-accounts` | — | [`packages/bundle/module-accounts/src/index.ts`](../packages/bundle/module-accounts/src/index.ts) |
+| `@lyness/lyn-module-credits` | — | [`packages/bundle/module-credits/src/index.ts`](../packages/bundle/module-credits/src/index.ts) |
+| `@lyness/lyn-module-deliverables` | — | [`packages/bundle/module-deliverables/src/index.ts`](../packages/bundle/module-deliverables/src/index.ts) |
+| `@lyness/lyn-module-execution` | — | [`packages/bundle/module-execution/src/index.ts`](../packages/bundle/module-execution/src/index.ts) |
+| `@lyness/lyn-module-extensions` | — | [`packages/bundle/module-extensions/src/index.ts`](../packages/bundle/module-extensions/src/index.ts) |
+| `@lyness/lyn-module-lsp` | — | [`packages/bundle/module-lsp/src/index.ts`](../packages/bundle/module-lsp/src/index.ts) |
+| `@lyness/lyn-module-memory` | — | [`packages/bundle/module-memory/src/index.ts`](../packages/bundle/module-memory/src/index.ts) |
+| `@lyness/lyn-module-model-governance` | — | [`packages/bundle/module-model-governance/src/index.ts`](../packages/bundle/module-model-governance/src/index.ts) |
+| `@lyness/lyn-module-schedule` | — | [`packages/bundle/module-schedule/src/index.ts`](../packages/bundle/module-schedule/src/index.ts) |
+| `@lyness/lyn-module-terminal` | — | [`packages/bundle/module-terminal/src/index.ts`](../packages/bundle/module-terminal/src/index.ts) |
+| `@lyness/lyn-module-webhook` | — | [`packages/bundle/module-webhook/src/index.ts`](../packages/bundle/module-webhook/src/index.ts) |
 | `@lyness/lyn-native-command` | — | [`packages/util/native-command/src/index.ts`](../packages/util/native-command/src/index.ts) |
 | `@lyness/lyn-official-bundles` | — | [`packages/util/official-bundles/src/index.ts`](../packages/util/official-bundles/src/index.ts) |
 | `@lyness/lyn-output-retention` | — | [`packages/util/output-retention/src/index.ts`](../packages/util/output-retention/src/index.ts) |
@@ -5423,5 +6051,6 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-util-time` | — | [`packages/util/time/src/index.ts`](../packages/util/time/src/index.ts) |
 | `@lyness/lyn-util-values` | — | [`packages/util/values/src/index.ts`](../packages/util/values/src/index.ts) |
 | `@lyness/lyn-util-workspace-path` | — | [`packages/util/workspace-path/src/index.ts`](../packages/util/workspace-path/src/index.ts) |
+| `@lyness/lyn-web-execution` | — | [`packages/bundle/web-execution/src/index.ts`](../packages/bundle/web-execution/src/index.ts) |
 | `@lyness/lyn-win32-process` | — | [`packages/subprocess/win32-process/src/index.ts`](../packages/subprocess/win32-process/src/index.ts) |
 <!-- END GENERATED config-catalog:library -->

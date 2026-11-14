@@ -3,50 +3,50 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/liveshare/README.md
 /:
-  en: 01889c844628a948
-  zh: 94366d9239f1c383
-/deepseek-ai-lyn-experimental-liveshare:
-  en: d922aebfcdd341f4
-  zh: 92b631fd849b6d03
-/deepseek-ai-lyn-experimental-liveshare/summary:
-  en: 5079cf4c5eb1d15a
-  zh: 96b21dd402dfae5c
-/deepseek-ai-lyn-experimental-liveshare/table-of-contents:
+  en: c30e9a0f32bd9256
+  zh: 52095d930bad07de
+/lyness-lyn-experimental-liveshare:
+  en: fc4177ec6eb9bf15
+  zh: c3e201f1b6f30079
+/lyness-lyn-experimental-liveshare/summary:
+  en: 4c46ca9927524a26
+  zh: 052e27c0147bdcbe
+/lyness-lyn-experimental-liveshare/table-of-contents:
   en: d152484eb41ac6b4
   zh: 405b30feaf48c087
-/deepseek-ai-lyn-experimental-liveshare/use-this-package:
+/lyness-lyn-experimental-liveshare/use-this-package:
   en: bbff250eba0f1b89
   zh: 0a618f05cc88ee2b
-/deepseek-ai-lyn-experimental-liveshare/use-this-package/profile-and-build-requirements:
-  en: 86aa723d77827dca
-  zh: 3cb8774c8c7b1b8c
-/deepseek-ai-lyn-experimental-liveshare/use-this-package/default-visibility-and-enabling:
-  en: 34cb99a56d9c5c9f
-  zh: 9e06fb1a28fd06c3
-/deepseek-ai-lyn-experimental-liveshare/use-this-package/owner-configuration:
-  en: 42b24e06e416eb1d
-  zh: 45f7e2003eb3ae2f
-/deepseek-ai-lyn-experimental-liveshare/use-this-package/sign-in-and-manage-shares:
+/lyness-lyn-experimental-liveshare/use-this-package/profile-and-build-requirements:
+  en: 8448c672d87a9b93
+  zh: c8627216b40863b4
+/lyness-lyn-experimental-liveshare/use-this-package/default-visibility-and-enabling:
+  en: 7276c08329e04a15
+  zh: 9d0c6b8b815c1d7f
+/lyness-lyn-experimental-liveshare/use-this-package/owner-configuration:
+  en: 779e6933fc18dd6d
+  zh: b2edd3006a722e4b
+/lyness-lyn-experimental-liveshare/use-this-package/sign-in-and-manage-shares:
   en: e1bad148f61e1e12
   zh: 0197ba5379c21cb2
-/deepseek-ai-lyn-experimental-liveshare/use-this-package/session-tiers:
-  en: f6c3a858d5120943
-  zh: 2260b9f6faacbae7
-/deepseek-ai-lyn-experimental-liveshare/understand-the-implementation:
-  en: 37d649ff38fca348
-  zh: c73e526eac1e3778
-/deepseek-ai-lyn-experimental-liveshare/further-exploration:
-  en: 7bb2e8bd8c074cd6
-  zh: 6de36c3b450e61e2
-/deepseek-ai-lyn-experimental-liveshare/model-experience:
+/lyness-lyn-experimental-liveshare/use-this-package/session-tiers:
+  en: e31f873e36ed4115
+  zh: 82280cfa371541d0
+/lyness-lyn-experimental-liveshare/understand-the-implementation:
+  en: e487599102c49fa0
+  zh: a99885e76defc214
+/lyness-lyn-experimental-liveshare/further-exploration:
+  en: dbdf05d5b5e513b4
+  zh: 63c1829567128fdc
+/lyness-lyn-experimental-liveshare/model-experience:
   en: 3b248c02220df02d
   zh: 9d752fb049a04e83
-/deepseek-ai-lyn-experimental-liveshare/model-experience/kv-cache-effect:
+/lyness-lyn-experimental-liveshare/model-experience/kv-cache-effect:
   en: 22a9da7d4b23a015
   zh: 5700901ba5f655c8
-/deepseek-ai-lyn-experimental-liveshare/known-limitations-and-deferred-work:
-  en: 78a389977c1631dc
-  zh: fd66c3815ef26485
-/deepseek-ai-lyn-experimental-liveshare/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-experimental-liveshare/known-limitations-and-deferred-work:
+  en: bcd7ce18e4ad3187
+  zh: a517f3a49bbebaa4
+/lyness-lyn-experimental-liveshare/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 8ec3e73528ddb1a6

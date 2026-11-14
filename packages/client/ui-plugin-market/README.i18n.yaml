@@ -5,30 +5,30 @@
 /:
   en: 3685af81d8cbfba4
   zh: 2ec4eeb51778e2c8
-/deepseek-ai-lyn-client-ui-plugin-market:
-  en: 62972eb0dff8c145
-  zh: 682cc03b492cd730
-/deepseek-ai-lyn-client-ui-plugin-market/summary:
-  en: ee0bd00afa1e0887
-  zh: b54e1bdd523437dd
-/deepseek-ai-lyn-client-ui-plugin-market/table-of-contents:
+/lyness-lyn-client-ui-plugin-market:
+  en: 5cc9fa8d9c704b78
+  zh: 84e1ab6af4430083
+/lyness-lyn-client-ui-plugin-market/summary:
+  en: f74f101c354af550
+  zh: 13cfa8b970220aa1
+/lyness-lyn-client-ui-plugin-market/table-of-contents:
   en: 76368b6b1da79c80
   zh: 52384aee991ac542
-/deepseek-ai-lyn-client-ui-plugin-market/use-this-package:
-  en: d633d36f830d052c
-  zh: 07de610c0b1bb34c
-/deepseek-ai-lyn-client-ui-plugin-market/understand-the-implementation:
-  en: 66cef49ded72a290
-  zh: c89a13fa5e5fb965
-/deepseek-ai-lyn-client-ui-plugin-market/model-experience:
+/lyness-lyn-client-ui-plugin-market/use-this-package:
+  en: fd857f1329600fe7
+  zh: 4294632e46a6eac5
+/lyness-lyn-client-ui-plugin-market/understand-the-implementation:
+  en: cef3a07a1007da21
+  zh: 93dde5f1719b502f
+/lyness-lyn-client-ui-plugin-market/model-experience:
   en: 08d25ab9cbdd7567
   zh: 26e6e75c123951ee
-/deepseek-ai-lyn-client-ui-plugin-market/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-plugin-market/model-experience/kv-cache-effect:
   en: 4f0eadf94828e66e
   zh: 4f8a6ec170ebbfb6
-/deepseek-ai-lyn-client-ui-plugin-market/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-plugin-market/known-limitations-and-deferred-work:
   en: 1a06b23ccce41074
   zh: 8c4f5d607b342ef9
-/deepseek-ai-lyn-client-ui-plugin-market/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-plugin-market/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

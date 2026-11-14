@@ -3,29 +3,29 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-28-ctx-remote-failure-vocabulary.md
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote:
-  en: 3aca057ba2c3ae29
-  zh: 3d54024d40265a2a
+  en: 4864a05a067b2ca4
+  zh: ea19a8e36ea1b45e
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/problem:
-  en: 990d46f713fb6303
-  zh: 592cd6128a9640b1
+  en: 2bc2b366a179b00c
+  zh: f88bfc5127cbfd6e
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/decision:
-  en: b54b9d98a34eeaa1
-  zh: ac8e3d493b554c2d
+  en: 6ee514a759b88b63
+  zh: 746332dab15771f2
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/code-ownership:
-  en: cc1d8b88f7349b77
-  zh: 70f010e3310e2667
+  en: 48e882af2479ef06
+  zh: 615de6af22748065
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/discrimination-by-code:
-  en: 8ca8ea2f3236569f
-  zh: ffca80a5157af245
+  en: 4771c4ca3d8bdfdb
+  zh: f685432a3dda2638
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/fixed-host-facts:
-  en: 0dfb0ca5cf67b296
-  zh: baaa890425996fb3
+  en: 64073d4324efea8c
+  zh: 72d89a1ff410152b
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/what-the-wire-carries:
-  en: 346e655fe98b95bd
-  zh: 24185f170ef97811
+  en: 778d6f33ee7acecb
+  zh: eba40bbacd5045ba
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/alternatives-considered:
   en: d92f46d0827ad0d1
   zh: 640f223d3a27559b
 /agent-note-one-remote-failure-vocabulary-for-ctx-remote/consequences:
-  en: 20d2d65d555ef680
-  zh: f8a3de3ce72058c7
+  en: b8bc5c8a7d06a886
+  zh: c3df79f349ae6206

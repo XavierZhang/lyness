@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-19-window-drag-coverage-contract.md
 /agent-note-window-drag-coverage-as-a-contract:
-  en: 120846e859b20561
-  zh: 9511a261d15f87b5
+  en: 38dc7e19cabad3db
+  zh: 0c99f774a01166c9
 /agent-note-window-drag-coverage-as-a-contract/problem:
   en: e4a1c339c31fb1b5
   zh: 0e9db2a9ba74e6c7
@@ -18,8 +18,8 @@
   en: 3fd5dae1e0e941df
   zh: 3d08c93ebef37e09
 /agent-note-window-drag-coverage-as-a-contract/testing:
-  en: a1ef0400a5661962
-  zh: 93f508fc38e0e83c
+  en: 139d384bb2033641
+  zh: f0b312d9ad066b29
 /agent-note-window-drag-coverage-as-a-contract/manual-state-matrix:
   en: 20a0ef140cf73bb5
   zh: e66b97049abe7364

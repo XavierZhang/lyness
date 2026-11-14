@@ -5,51 +5,51 @@
 /:
   en: d88f75fc0178ba53
   zh: 52bc7ae9551ab1cf
-/deepseek-ai-lyn-client-ui-chat:
-  en: 02bd72c12ada3218
-  zh: 331b3a38b3ddfc6e
-/deepseek-ai-lyn-client-ui-chat/summary:
+/lyness-lyn-client-ui-chat:
+  en: 3ccbe6df9d018229
+  zh: f087567cdab44f59
+/lyness-lyn-client-ui-chat/summary:
   en: 4f2d50107db6c4f8
   zh: ea7ccfcce8f1849e
-/deepseek-ai-lyn-client-ui-chat/table-of-contents:
+/lyness-lyn-client-ui-chat/table-of-contents:
   en: 5ee429751fcbeb4f
   zh: 981a37018b6cae3a
-/deepseek-ai-lyn-client-ui-chat/reference-previews:
-  en: c07a50787d77a7cd
-  zh: 70ee4e32d664e88e
-/deepseek-ai-lyn-client-ui-chat/hidden-chat-rows:
+/lyness-lyn-client-ui-chat/reference-previews:
+  en: 07b749e694e35e24
+  zh: 79e5c3f03bc7997b
+/lyness-lyn-client-ui-chat/hidden-chat-rows:
   en: 8ca277dc7fed699f
   zh: 167478dba50f3904
-/deepseek-ai-lyn-client-ui-chat/command-and-failure-rows:
-  en: 30878be703edac57
-  zh: 16b84188c8660850
-/deepseek-ai-lyn-client-ui-chat/inherited-history-divider:
+/lyness-lyn-client-ui-chat/command-and-failure-rows:
+  en: f5a58f7b42b466e0
+  zh: ada6182f1fcefc5d
+/lyness-lyn-client-ui-chat/inherited-history-divider:
   en: a191f90e9a64f6fe
   zh: 8e91b8660f9baa18
-/deepseek-ai-lyn-client-ui-chat/turn-token-usage:
-  en: d363057b5c0b2571
-  zh: 0f6fe864d9673576
-/deepseek-ai-lyn-client-ui-chat/completed-turn-footer:
+/lyness-lyn-client-ui-chat/turn-token-usage:
+  en: 9c9384b0c306dae4
+  zh: 697ae590530096a3
+/lyness-lyn-client-ui-chat/completed-turn-footer:
   en: 382821ca3ffa60dd
   zh: 9840ffa07c13082a
-/deepseek-ai-lyn-client-ui-chat/turn-process-folding:
-  en: 7cc6692b879aa500
-  zh: e924733c88b526c9
-/deepseek-ai-lyn-client-ui-chat/grouped-rendering:
-  en: f6d8bbae13a1a8f8
-  zh: 96c8f400c215e33d
-/deepseek-ai-lyn-client-ui-chat/scroll-ownership:
-  en: 1b12aa6c505dde3b
-  zh: 88e1654dd63816d7
-/deepseek-ai-lyn-client-ui-chat/model-experience:
+/lyness-lyn-client-ui-chat/turn-process-folding:
+  en: 3b63814b4667c1b3
+  zh: fe0cd67546297406
+/lyness-lyn-client-ui-chat/grouped-rendering:
+  en: d7a186881eeec20a
+  zh: fb11493fa3e39e11
+/lyness-lyn-client-ui-chat/scroll-ownership:
+  en: 4569512ae1742cb6
+  zh: 3579cc2b9aa46bb3
+/lyness-lyn-client-ui-chat/model-experience:
   en: c17b4dd43a61c569
   zh: f7414309810c3a08
-/deepseek-ai-lyn-client-ui-chat/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-chat/model-experience/kv-cache-effect:
   en: 15a7151ff9268f15
   zh: 6eae68c718be579b
-/deepseek-ai-lyn-client-ui-chat/known-limitations-and-deferred-work:
-  en: b3b03e8e2fe371a1
-  zh: c5eb8b7205e0e880
-/deepseek-ai-lyn-client-ui-chat/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-chat/known-limitations-and-deferred-work:
+  en: b012972bbfd7ec9b
+  zh: b959b11c3c2c4d3b
+/lyness-lyn-client-ui-chat/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

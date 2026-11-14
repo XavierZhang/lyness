@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-10-08-published-source-and-docs.md
 /agent-note-published-source-maps-and-documentation:
-  en: dbec3958b6bb3a8c
-  zh: f17abeb0533b4191
+  en: 02f35ad94993114f
+  zh: 2302395fff86318c
 /agent-note-published-source-maps-and-documentation/problem:
-  en: 699d35bd0bb12645
-  zh: c9e362c336c6b440
+  en: 34008ac7e1cb735d
+  zh: 1ff4c91ef5458293
 /agent-note-published-source-maps-and-documentation/decision:
-  en: 0181de5ab7314873
-  zh: 6af13b56cf779d9f
+  en: 259fe959ac3272e2
+  zh: 626e645e7a13c98d
 /agent-note-published-source-maps-and-documentation/alternatives-considered:
-  en: 953acd4b427b6698
-  zh: 43426e6213773943
+  en: b24740833db18d08
+  zh: a547df43c812d124
 /agent-note-published-source-maps-and-documentation/consequences:
-  en: e57d7a2d3b5cbdac
-  zh: 1f7c314b09643ae6
+  en: b933af3bf3ac2ab9
+  zh: 20e45aabe7b1f519

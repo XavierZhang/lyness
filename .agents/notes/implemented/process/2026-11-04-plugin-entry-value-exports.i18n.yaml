@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-11-04-plugin-entry-value-exports.md
 /agent-note-plugin-entries-must-not-add-value-exports:
-  en: 7fa97c44ef2ea43c
-  zh: 40b94e6a814ff3be
+  en: b5c14e92df0ce0d9
+  zh: acc222824d70767f
 /agent-note-plugin-entries-must-not-add-value-exports/problem:
-  en: 430b0f35a1358a2f
-  zh: 83b10ec03fab2477
+  en: e058eb614c7575ad
+  zh: 4ed328a1c2297645
 /agent-note-plugin-entries-must-not-add-value-exports/decision:
   en: af431ecc09ef6646
   zh: 3231ab74de70dffa
 /agent-note-plugin-entries-must-not-add-value-exports/alternatives-considered:
-  en: eba451c0ac372a95
-  zh: 906cfc30c66680de
+  en: ad8aae5906eb41f3
+  zh: 6598827d9215bae5
 /agent-note-plugin-entries-must-not-add-value-exports/consequences:
   en: aef0c3a9efa2e76a
   zh: d490227953a5f397

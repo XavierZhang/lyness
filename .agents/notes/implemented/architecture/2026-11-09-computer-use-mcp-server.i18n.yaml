@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-11-09-computer-use-mcp-server.md
 /agent-note-serve-computer-use-to-other-harnesses-as-an-mcp-server:
-  en: 1e4562a8dd533e1f
-  zh: 4e41a369a3a88f02
+  en: eee2e1ce1e3a5767
+  zh: d9a5bd5243a3785a
 /agent-note-serve-computer-use-to-other-harnesses-as-an-mcp-server/problem:
-  en: 6050884223e0e491
-  zh: eb808c298c9fb652
+  en: 97425607ac53bd3c
+  zh: f56c7d60aa3954b1
 /agent-note-serve-computer-use-to-other-harnesses-as-an-mcp-server/decision:
-  en: 582920b339db00ef
-  zh: 9713fe2d524832c0
+  en: df0ccd0ef6aa75e8
+  zh: a8ec778c268397a4
 /agent-note-serve-computer-use-to-other-harnesses-as-an-mcp-server/alternatives-considered:
-  en: 7bba46bed1b1baa3
-  zh: 54f31bd327ee222d
+  en: c6a8a9bf3a9aca8c
+  zh: 97e5d2d5f73bd05d
 /agent-note-serve-computer-use-to-other-harnesses-as-an-mcp-server/consequences:
-  en: 74494a208b1909f9
-  zh: 0e4378667c751f54
+  en: 83ada1566a69dd0d
+  zh: 9e2f4dc51f8eb0ad

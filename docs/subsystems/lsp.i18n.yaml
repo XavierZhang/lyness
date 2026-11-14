@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/lsp.md
 /lsp-navigation:
-  en: fa02506f51df9966
-  zh: eaa24f7154cccb1a
+  en: 6c68bd1d1dac4ede
+  zh: 9e81f71eaa97f3ff
 /lsp-navigation/operations-and-coordinates:
   en: 42204b23027154f4
   zh: 20f3db54da245f99
@@ -15,8 +15,8 @@
   en: d260facb7ad22440
   zh: f4868aae5be01eb6
 /lsp-navigation/provider-and-service:
-  en: 9977196522f2d7e5
-  zh: f971ba2c60beda68
+  en: 5fd56369b7055267
+  zh: 06fd4569e5aa9ce4
 /lsp-navigation/failures:
   en: 50959870fd65acce
   zh: 9f9e0c2b04572235

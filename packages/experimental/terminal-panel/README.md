@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Show an Agent's persistent terminals in the Web sidebar. The package registers a `ctx.terminals` backend whose sessions are sidebar terminals from the [terminal controller](../../api/terminal-controller/README.md), so the six [`terminal_*` tools](../tool-terminal/README.md) keep their names, parameters and results while each `terminal_open` becomes a tab the person can watch and type into. The person's first keystroke takes the terminal over; afterwards the Agent can only read it. Two read-only tools list and read the terminals the person opened. The [experimental terminal bundle](../terminal-bundle/README.md) mounts it.
+Show an Agent's persistent terminals in the Web sidebar. The package registers a `ctx.terminals` backend whose sessions are sidebar terminals from the [terminal controller](../../api/terminal-controller/README.md), so the six [`terminal_*` tools](../../terminal/tool-terminal/README.md) keep their names, parameters and results while each `terminal_open` becomes a tab the person can watch and type into. The person's first keystroke takes the terminal over; afterwards the Agent can only read it. Two read-only tools list and read the terminals the person opened. The [experimental terminal bundle](../terminal-bundle/README.md) mounts it.
 
 ## Table of Contents
 
@@ -102,7 +102,7 @@ A send drains received output, marks the start of the cursor's logical line and 
 
 - [Terminal controller](../../api/terminal-controller/README.md) — Agent terminal allocation, takeover and screen reads.
 - [Sidebar terminal](../../client/ui-sidebar-terminal/README.md) — how Agent terminals appear and how typed input is recognized.
-- [Terminal tools](../tool-terminal/README.md) — the six tools this backend serves.
+- [Terminal tools](../../terminal/tool-terminal/README.md) — the six tools this backend serves.
 - [Terminal service](../../terminal/terminal/README.md) — the registry contract and ownership rules.
 
 -----

@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/ui-design-review-cases.md
 /:
-  en: 1da13fa1c536aa24
-  zh: 52ef6218c8cea359
+  en: 7ed84d19c5b06bb5
+  zh: 0f21855a70d38e20
 /ui-design-principles-and-review-cases:
-  en: 4be954bceeeb7940
-  zh: d91f6595cd3e85f0
+  en: ce35f1cfd7be6aa7
+  zh: 23992bc8f91d7ff1
 /ui-design-principles-and-review-cases/summary:
-  en: 75120a3fd02294c9
-  zh: 498343d7b9b30e46
+  en: 3194baa8e0d1b5a8
+  zh: 0908e1fb62f6ef67
 /ui-design-principles-and-review-cases/table-of-contents:
-  en: c5680dfc600a7495
-  zh: c76ec05c69f1e93c
+  en: db260bf25746ce8e
+  zh: a0722275a754e3fa
 /ui-design-principles-and-review-cases/what-a-review-must-judge:
-  en: eeff4a5f5e487908
-  zh: 51eab38ccd10190b
+  en: 7f720576bd8696ad
+  zh: f5716d15300f16ad
 /ui-design-principles-and-review-cases/review-the-entire-page-or-modal-as-one-unit:
   en: 324c8d9a0ff36ebb
   zh: 3a4c64e15b59f98f
@@ -30,17 +30,17 @@
   en: 138392750105bf23
   zh: 2cf34065251d93df
 /ui-design-principles-and-review-cases/combine-the-applicable-standards-first:
-  en: fd2d0f3433eb7e20
-  zh: 2034723f45360e79
+  en: d5b53982f14c9ea0
+  zh: 399087917fa7b93e
 /ui-design-principles-and-review-cases/choose-cases-that-expose-a-design-decision:
-  en: f8b0f72251aa044f
-  zh: a8b05ce5f3da4221
+  en: e121090f9b20caae
+  zh: 14638267a1b78e6b
 /ui-design-principles-and-review-cases/principle-examples:
   en: 7b8a8bdc5acc11d6
   zh: 96820c11d2e61787
 /ui-design-principles-and-review-cases/1-alignment:
-  en: 0cc9d24851a11497
-  zh: f05bda4fcdf5deac
+  en: c0ecc3f1549f1dce
+  zh: 2b12be6e12999a7d
 /ui-design-principles-and-review-cases/1-alignment/text-metrics-and-unequal-content:
   en: 14558eb00e9b4902
   zh: 333b28dabfccbd6c
@@ -57,8 +57,8 @@
   en: 478771b47daf2cba
   zh: 0eee64751cff6c94
 /ui-design-principles-and-review-cases/1-alignment/example-a5-visible-size-and-center-of-peer-controls:
-  en: 376359e2a1de44e9
-  zh: 2a0b0e4472efefb7
+  en: 589da37085bb474e
+  zh: 888035d62d1697c8
 /ui-design-principles-and-review-cases/1-alignment/example-a6-text-starts-across-triggers-and-menus:
   en: 1afbbce3f4908bf2
   zh: aaf54b32b90a2c82
@@ -66,8 +66,8 @@
   en: c5e9a409c13637bc
   zh: 37c915f187d6e9f7
 /ui-design-principles-and-review-cases/2-spatial-grouping:
-  en: 5a2aebab7e8ab498
-  zh: 46a18d4ddde7fccc
+  en: ef3261780391a523
+  zh: 426ed0b32e203feb
 /ui-design-principles-and-review-cases/2-spatial-grouping/example-g1-separating-content-from-its-action-group:
   en: a4c0b1f1ad441155
   zh: 360ed71994a101a8
@@ -78,11 +78,11 @@
   en: 4d24915951f86d97
   zh: 4d6c348fdb7b78de
 /ui-design-principles-and-review-cases/2-spatial-grouping/example-g3-nested-groups-along-the-reading-order/primer-equal-control-widths-do-not-fix-a-broken-reading-order:
-  en: 65f62d6b2d933d6e
-  zh: 3332fa1c82053c71
+  en: ef430153480f8bb2
+  zh: 25b4548a107ceb46
 /ui-design-principles-and-review-cases/2-spatial-grouping/example-g3-nested-groups-along-the-reading-order/carbon-different-distances-carry-different-meanings:
-  en: 9d7e04a0314ac527
-  zh: fc654332df43d0c1
+  en: e7fd2977d7afd90c
+  zh: 20e8ea8a8e5361ee
 /ui-design-principles-and-review-cases/2-spatial-grouping/example-g4-separating-groups-with-different-purposes:
   en: 77bc7ec83d75ff29
   zh: caab9079ae3e416a
@@ -93,8 +93,8 @@
   en: 10fb29eddaac1951
   zh: e05636b47e860966
 /ui-design-principles-and-review-cases/4-information-hierarchy:
-  en: 7e86e6ff5cd55742
-  zh: 852a1bb0361134a6
+  en: a86fd0906728307a
+  zh: 3e6c052978692f3e
 /ui-design-principles-and-review-cases/4-information-hierarchy/example-c1-color-emphasis-within-one-information-unit:
   en: c17aea1873e9a1a6
   zh: dc7a8df8a60e582d
@@ -108,8 +108,8 @@
   en: 7a49fdd5a601aa48
   zh: e2f9de0d5628a878
 /ui-design-principles-and-review-cases/7-icon-optics:
-  en: ff60eb03e9724e71
-  zh: 8df625c33f3fc3aa
+  en: 3add179a048d5e8b
+  zh: 322132da53265876
 /ui-design-principles-and-review-cases/7-icon-optics/example-o1-optical-alignment-of-different-icon-types:
   en: 3858a85bdf6ee111
   zh: 9c8242a594df069f
@@ -117,14 +117,14 @@
   en: 6f29eb80bfe3baf4
   zh: eb3161af01dd752e
 /ui-design-principles-and-review-cases/8-control-geometry-and-corner-relationships:
-  en: 262cfa8e7dfb969f
-  zh: 4987ad06db795885
+  en: 8d794d73f41f9602
+  zh: 45156c74c2edce61
 /ui-design-principles-and-review-cases/8-control-geometry-and-corner-relationships/decide-geometry-in-this-order:
-  en: 26419c2cbae93712
-  zh: 0f72032f89169b75
+  en: d261f3d045508722
+  zh: 365a4a6cb04482bc
 /ui-design-principles-and-review-cases/8-control-geometry-and-corner-relationships/decide-geometry-in-this-order/fluent-the-split-button-notch-is-a-relationship-error:
-  en: ac1410636b2683ae
-  zh: c39f006a594cbc36
+  en: 2eef323da03b58ee
+  zh: defb2652fd88b081
 /ui-design-principles-and-review-cases/8-control-geometry-and-corner-relationships/example-r1-radii-across-container-and-control-roles:
   en: d7833e6828c48bec
   zh: 66728e53ef3221dc
@@ -135,11 +135,11 @@
   en: 5137089b3644cfb5
   zh: e8b0da147f77a63e
 /ui-design-principles-and-review-cases/reproduce-and-compare:
-  en: ec1ff65e6e15cea6
-  zh: 9dc2344aadbbeea7
+  en: b34def5f01b13e10
+  zh: 9fd22cb6aac8a10b
 /ui-design-principles-and-review-cases/external-references-and-what-lyn-adopts:
-  en: 274dcca699c277ed
-  zh: ecf31d4082bbd309
+  en: 1b9c2d09485083f9
+  zh: b85e036e6182a7ab
 /ui-design-principles-and-review-cases/external-references-and-what-lyn-adopts/codex-a-limited-reference-for-composition:
   en: 38e0bfd3e40da01d
   zh: 87aa406f9138be3e

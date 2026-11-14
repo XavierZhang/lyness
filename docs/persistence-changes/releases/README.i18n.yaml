@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/persistence-changes/releases/README.md
 /:
-  en: 813000c665a9a00b
-  zh: 7585184354024644
+  en: a8615ecaef0ebaa4
+  zh: d2d6cc659c34114b
 /persistence-changes-across-lyn-prereleases:
-  en: 779cdacb7f259aae
-  zh: 0e180dd42e04a81b
+  en: 85494a96d88fe2b5
+  zh: bb6ebaf1612b638c
 /persistence-changes-across-lyn-prereleases/summary:
-  en: 2fb5f2079645f85f
-  zh: 4be7bb6cec10b388
+  en: c869d895208e72fd
+  zh: c4365754431b8ae2
 /persistence-changes-across-lyn-prereleases/table-of-contents:
   en: 66af6c63111e0d4f
   zh: d2cda8c92eda8473
 /persistence-changes-across-lyn-prereleases/archived-releases:
-  en: 995581f72b7d7bf7
-  zh: 7f73f08036618bed
+  en: 5688ef44f517fe91
+  zh: 073f916a06e6a735
 /persistence-changes-across-lyn-prereleases/files-and-scope:
   en: c7b3012355eec9c6
   zh: c31da79dc5cf326c
@@ -24,8 +24,8 @@
   en: 2212c587e280c935
   zh: e1e12ec7d87f9bd2
 /persistence-changes-across-lyn-prereleases/verification:
-  en: 67fc6c81917f57d0
-  zh: 60ee3b746a6115dc
+  en: 6c53aebef3c29c43
+  zh: 1f9fa7094c55d04a
 /persistence-changes-across-lyn-prereleases/dev-note:
   en: 5de1d6304e00c58f
   zh: e58fc8dda0bea8d5

@@ -3,35 +3,35 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-settings-web-search/README.md
 /:
-  en: c998138f550b2c5c
-  zh: 7b7998c9801e1bdd
-/deepseek-ai-lyn-client-ui-settings-web-search:
-  en: 968c0f6ba2415331
-  zh: aaf9e2aa22eafc98
-/deepseek-ai-lyn-client-ui-settings-web-search/summary:
+  en: cfbd61f683955e57
+  zh: 389d0a4c6a32b015
+/lyness-lyn-client-ui-settings-web-search:
+  en: 6a49c28a8a3019e4
+  zh: 11adbf7d192e73e9
+/lyness-lyn-client-ui-settings-web-search/summary:
   en: 23c442a512078061
   zh: f10ddb1d6afe7a82
-/deepseek-ai-lyn-client-ui-settings-web-search/table-of-contents:
+/lyness-lyn-client-ui-settings-web-search/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-client-ui-settings-web-search/use-this-package:
-  en: b00497ce4cf39d47
-  zh: 9663997b7a4cc959
-/deepseek-ai-lyn-client-ui-settings-web-search/understand-the-implementation:
+/lyness-lyn-client-ui-settings-web-search/use-this-package:
+  en: 84f12e4c0e83330a
+  zh: 9ac5b67ce73c377d
+/lyness-lyn-client-ui-settings-web-search/understand-the-implementation:
   en: 836d3f3032033148
   zh: f5b5c1ee14450ab5
-/deepseek-ai-lyn-client-ui-settings-web-search/further-exploration:
-  en: 892dc41e9012f3c4
-  zh: dc7cf90868141c0d
-/deepseek-ai-lyn-client-ui-settings-web-search/model-experience:
+/lyness-lyn-client-ui-settings-web-search/further-exploration:
+  en: 9f2444c44671980e
+  zh: 21e583eea2ef1f25
+/lyness-lyn-client-ui-settings-web-search/model-experience:
   en: 6b7c6f82ab6c8435
   zh: 4517689c899abcbe
-/deepseek-ai-lyn-client-ui-settings-web-search/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-settings-web-search/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 6e1c9a8fdde89577
-/deepseek-ai-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work:
-  en: 5c6dad603abec1c3
-  zh: a594f9def4ef8215
-/deepseek-ai-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work:
+  en: 9a4635a2a06091f5
+  zh: 20fc26b9eee0de5c
+/lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

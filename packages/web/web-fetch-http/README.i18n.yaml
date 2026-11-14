@@ -5,57 +5,57 @@
 /:
   en: dba7f5089d194048
   zh: 956905ee19f6f362
-/deepseek-ai-lyn-web-fetch-http:
-  en: 2e839bfc4c365701
-  zh: 62dd5239ae93471c
-/deepseek-ai-lyn-web-fetch-http/summary:
-  en: afb0ecfdd563bced
-  zh: 734f74bf506e34e2
-/deepseek-ai-lyn-web-fetch-http/table-of-contents:
+/lyness-lyn-web-fetch-http:
+  en: 5b2326688229d04b
+  zh: e3df050e5e61807a
+/lyness-lyn-web-fetch-http/summary:
+  en: 9efa6fa4d9fcec22
+  zh: 13394701f5cc214b
+/lyness-lyn-web-fetch-http/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-web-fetch-http/use-this-package:
+/lyness-lyn-web-fetch-http/use-this-package:
   en: 630b12516d53e905
   zh: eed124cfe9c8dc1f
-/deepseek-ai-lyn-web-fetch-http/use-this-package/when-to-choose-it:
+/lyness-lyn-web-fetch-http/use-this-package/when-to-choose-it:
   en: acb7517f571c38b8
   zh: 8ee9da18953ab65e
-/deepseek-ai-lyn-web-fetch-http/use-this-package/minimal-configuration:
-  en: e4534189d5230861
-  zh: 5905731d7b5d9c60
-/deepseek-ai-lyn-web-fetch-http/use-this-package/what-a-fetch-returns:
+/lyness-lyn-web-fetch-http/use-this-package/minimal-configuration:
+  en: 0cffc41b8fb57358
+  zh: d2cf75f6af6e3eb0
+/lyness-lyn-web-fetch-http/use-this-package/what-a-fetch-returns:
   en: 2d18cdcc9b53dd0f
   zh: 3bc6ca7c5933ee5d
-/deepseek-ai-lyn-web-fetch-http/use-this-package/transport-behavior:
+/lyness-lyn-web-fetch-http/use-this-package/transport-behavior:
   en: 4c5618124337446e
   zh: 45c7378c8b0bba45
-/deepseek-ai-lyn-web-fetch-http/use-this-package/failures-and-recovery:
+/lyness-lyn-web-fetch-http/use-this-package/failures-and-recovery:
   en: c8cc3ab50ee6de0a
   zh: 52710e3e2f82cd87
-/deepseek-ai-lyn-web-fetch-http/understand-the-implementation:
+/lyness-lyn-web-fetch-http/understand-the-implementation:
   en: 9842c69ad3636bb3
   zh: 3cdc3f816cbdd0cb
-/deepseek-ai-lyn-web-fetch-http/understand-the-implementation/design-philosophy:
-  en: 422128dac5eebdde
-  zh: 25ba5f49b305a056
-/deepseek-ai-lyn-web-fetch-http/understand-the-implementation/source-map:
+/lyness-lyn-web-fetch-http/understand-the-implementation/design-philosophy:
+  en: 399f1d0bf44a90fa
+  zh: fa44da930b2ae51a
+/lyness-lyn-web-fetch-http/understand-the-implementation/source-map:
   en: 9a60dc44a74f499d
   zh: a96991347a773e54
-/deepseek-ai-lyn-web-fetch-http/understand-the-implementation/read-path:
+/lyness-lyn-web-fetch-http/understand-the-implementation/read-path:
   en: 4836d06bc065477d
   zh: 5a7ddc805a7c67d8
-/deepseek-ai-lyn-web-fetch-http/further-exploration:
-  en: eeaaf0b455673a1c
-  zh: 0874f9f44ff9a220
-/deepseek-ai-lyn-web-fetch-http/model-experience:
-  en: 90622667adea8ba3
-  zh: 6a38fa2d715fe33a
-/deepseek-ai-lyn-web-fetch-http/model-experience/kv-cache-effect:
+/lyness-lyn-web-fetch-http/further-exploration:
+  en: 054c743f7a9a96b3
+  zh: c9c5e5cedffdc3af
+/lyness-lyn-web-fetch-http/model-experience:
+  en: fa69a0d99ee787a4
+  zh: 4545ed41393c0d81
+/lyness-lyn-web-fetch-http/model-experience/kv-cache-effect:
   en: 40294c1c31b74824
   zh: d75d48f485447a74
-/deepseek-ai-lyn-web-fetch-http/known-limitations-and-deferred-work:
+/lyness-lyn-web-fetch-http/known-limitations-and-deferred-work:
   en: 74d63a0c0e7649e1
   zh: 73a59fcca72daba5
-/deepseek-ai-lyn-web-fetch-http/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-web-fetch-http/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

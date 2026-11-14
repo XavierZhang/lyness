@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-09-session-change-request-bindings.md
 /agent-note-session-change-request-bindings:
-  en: 89ec58adddf53fec
-  zh: 919e8557d9923fdb
+  en: cd73e599453ca1d3
+  zh: db086bda274e4829
 /agent-note-session-change-request-bindings/problem:
   en: e736740546fb8219
   zh: 46a16a7a633716ec
 /agent-note-session-change-request-bindings/decision:
-  en: 9aa6d0c9c1177aeb
-  zh: 0f0604176b02e82c
+  en: 32cce20cf4483c87
+  zh: 21f35f47336a1db1
 /agent-note-session-change-request-bindings/alternatives-considered:
   en: 1e2239783738cec2
   zh: 5f248eee47de376e

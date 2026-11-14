@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/process/2026-08-20-audience-first-documentation-quality.md
 /agent-note-audience-first-documentation-quality-criteria:
-  en: 5fd84aa1a097f80f
-  zh: 073d973331b00ca4
+  en: 32898144230896a4
+  zh: d4a08047696aa35e
 /agent-note-audience-first-documentation-quality-criteria/problem:
   en: 86ee1c395115b7d2
   zh: 7fea995569331599
 /agent-note-audience-first-documentation-quality-criteria/problem/semantic-correctness-can-pass-without-a-current-owner:
-  en: d752be65975937fa
-  zh: f0c9a94ccff8e059
+  en: 0f5dd99221b84057
+  zh: a1e121bca6b95280
 /agent-note-audience-first-documentation-quality-criteria/problem/reader-success-is-implicit-rather-than-testable:
   en: 9d7c94e84fdeea18
   zh: e315ae5d470d576b
@@ -27,8 +27,8 @@
   en: 1f28c04d5002af94
   zh: 4d4dfea99fc6aee2
 /agent-note-audience-first-documentation-quality-criteria/proposal/prototype-rules:
-  en: badae41417e3e3c0
-  zh: 52336cb9ce2790f9
+  en: 945a906a1bfa4135
+  zh: cd895b95913132a1
 /agent-note-audience-first-documentation-quality-criteria/proposal/criteria-by-document-job:
   en: 9abbe4f2d5038284
   zh: 45d30352d9cce4b5
@@ -36,8 +36,8 @@
   en: 2641ca1307c3308f
   zh: 15fd0415d40a9190
 /agent-note-audience-first-documentation-quality-criteria/proposal/enforcement-slices:
-  en: a8bfbf127516e617
-  zh: 284843d0f0a59f58
+  en: 0867485b4be9a59d
+  zh: 0112fb01065f8890
 /agent-note-audience-first-documentation-quality-criteria/proposal/non-goals:
   en: e8633d73b0273bfd
   zh: 516e6d805158d303
@@ -45,8 +45,8 @@
   en: 5f09627b84bf112b
   zh: b0f1845df90e5f1a
 /agent-note-audience-first-documentation-quality-criteria/acceptance-criteria:
-  en: 1d3ca0cd3ed33607
-  zh: 68ed7b6de42ba3aa
+  en: 3575432edc28e6d2
+  zh: b77a13bc7c7fd91d
 /agent-note-audience-first-documentation-quality-criteria/risks:
   en: b920900d3ff05073
   zh: 05b2a0271b825260

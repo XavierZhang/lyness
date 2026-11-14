@@ -6,350 +6,362 @@
   en: 0be8ffbf23193557
   zh: ce2c69aa86875171
 /tool-schema-catalog:
-  en: 6cc2cd9ced70bb09
-  zh: 1c0e6cb4ba2ed637
+  en: 2936d68748e35ac2
+  zh: 2200c557998f090b
 /tool-schema-catalog/tool-package-map:
-  en: 4e5bb11e4664bb1c
-  zh: 4855556d38701373
-/tool-schema-catalog/deepseek-ai-lyn-plugin-manager:
-  en: e0143916bb634762
-  zh: e0143916bb634762
-/tool-schema-catalog/deepseek-ai-lyn-plugin-manager/plugin-manager:
-  en: 2fbe2e5b88e81a54
-  zh: a9de46c13bda53d8
-/tool-schema-catalog/deepseek-ai-lyn-plugin-market:
-  en: 1ec7b4cbc3d98e28
-  zh: 1ec7b4cbc3d98e28
-/tool-schema-catalog/deepseek-ai-lyn-plugin-market/plugin-market:
-  en: ecb8ee73c7bc68b8
-  zh: 59af75c81d7d529d
-/tool-schema-catalog/deepseek-ai-lyn-mcp-resources:
-  en: dd78bd55ec83a539
-  zh: dd78bd55ec83a539
-/tool-schema-catalog/deepseek-ai-lyn-mcp-resources/list-mcp-resource-templates:
+  en: 9534e52fc8a1871b
+  zh: 3f9cdeb299cae0ec
+/tool-schema-catalog/lyness-lyn-plugin-manager:
+  en: 78ed2883903ca173
+  zh: 78ed2883903ca173
+/tool-schema-catalog/lyness-lyn-plugin-manager/plugin-manager:
+  en: 937019d8e188e9cd
+  zh: c5b6bf95f3496381
+/tool-schema-catalog/lyness-lyn-plugin-market:
+  en: 782a142198e8547a
+  zh: 782a142198e8547a
+/tool-schema-catalog/lyness-lyn-plugin-market/plugin-market:
+  en: b58c05994c73e678
+  zh: 423bdee6b8e5135c
+/tool-schema-catalog/lyness-lyn-mcp-resources:
+  en: 6afbbed96fd9e612
+  zh: 6afbbed96fd9e612
+/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resource-templates:
   en: 96275ece9d040944
   zh: 1fa9744642601ece
-/tool-schema-catalog/deepseek-ai-lyn-mcp-resources/list-mcp-resources:
+/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resources:
   en: bf4236607199d61e
   zh: 82f4f749dcabc89f
-/tool-schema-catalog/deepseek-ai-lyn-mcp-resources/read-mcp-resource:
-  en: 5d92c07fa062734f
-  zh: 2d6f0cb8116cf567
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native:
-  en: 19e7df8d692b4375
-  zh: 19e7df8d692b4375
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-act:
+/tool-schema-catalog/lyness-lyn-mcp-resources/read-mcp-resource:
+  en: ab034c84c6f336ac
+  zh: 267d79904da6d3f2
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native:
+  en: 3ae40c040a3e1cc9
+  zh: 3ae40c040a3e1cc9
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-act:
   en: c4b27bf62c534dcc
   zh: 70c53824ed57ac23
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-extract:
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-extract:
   en: ec7462ab99848155
   zh: 632fe0249040708e
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-navigate:
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-navigate:
   en: ef97f063a037a006
   zh: 27727ccc908e007f
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-observe:
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-observe:
   en: 2068f1baa0a59e1b
   zh: 5743c7b33e2c5ccb
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-screenshot:
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-screenshot:
   en: 4910ab327694ee97
   zh: 17e79e4366cb636d
-/tool-schema-catalog/deepseek-ai-lyn-experimental-browser-use-stagehand-native/stagehand-tabs:
-  en: a0d5b9b891358120
-  zh: 25793a62709770b5
-/tool-schema-catalog/deepseek-ai-lyn-action-cards:
-  en: 60c9df6ffda98a1d
-  zh: 60c9df6ffda98a1d
-/tool-schema-catalog/deepseek-ai-lyn-action-cards/propose-action:
-  en: 633c32b6df889830
-  zh: b88ea00b2033c11b
-/tool-schema-catalog/deepseek-ai-lyn-tool-ask-user:
-  en: e713a4a11a15d13c
-  zh: e713a4a11a15d13c
-/tool-schema-catalog/deepseek-ai-lyn-tool-ask-user/ask-user-question:
-  en: 664dae29d0eae65f
-  zh: 2efa5d3f2cb31bf9
-/tool-schema-catalog/deepseek-ai-lyn-tool-executor-ptc:
-  en: 8c8643ef46fd075f
-  zh: 8c8643ef46fd075f
-/tool-schema-catalog/deepseek-ai-lyn-tool-executor-ptc/run-code:
-  en: cff92e5a2476af7e
-  zh: 8d56bc41053f0a85
-/tool-schema-catalog/deepseek-ai-lyn-plan-mode:
-  en: b500b530845e26a9
-  zh: b500b530845e26a9
-/tool-schema-catalog/deepseek-ai-lyn-plan-mode/exit-plan-mode:
-  en: b410483c2bd0c1a1
-  zh: a07ceea6abf1dda3
-/tool-schema-catalog/deepseek-ai-lyn-tool-bash:
-  en: 408ff0a5189bd7ec
-  zh: 408ff0a5189bd7ec
-/tool-schema-catalog/deepseek-ai-lyn-tool-bash/bash:
-  en: bd3559b76dead1ea
-  zh: 7ec2604f73b23a31
-/tool-schema-catalog/deepseek-ai-lyn-tool-office:
-  en: 8b0373f31520efe7
-  zh: 8b0373f31520efe7
-/tool-schema-catalog/deepseek-ai-lyn-tool-office/office-convert:
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-tabs:
+  en: 00dae7468fc45d77
+  zh: 88d7a6d6b272f1da
+/tool-schema-catalog/lyness-lyn-action-cards:
+  en: d63af733d35af036
+  zh: d63af733d35af036
+/tool-schema-catalog/lyness-lyn-action-cards/propose-action:
+  en: 9fa073dd3467e809
+  zh: 8ab019e8dc862c5b
+/tool-schema-catalog/lyness-lyn-tool-ask-user:
+  en: b300ee39e055518d
+  zh: b300ee39e055518d
+/tool-schema-catalog/lyness-lyn-tool-ask-user/ask-user-question:
+  en: 3248f3268ce44a40
+  zh: 86818e03cee86f8e
+/tool-schema-catalog/lyness-lyn-tool-executor-ptc:
+  en: 472d81ae95a81bfd
+  zh: 472d81ae95a81bfd
+/tool-schema-catalog/lyness-lyn-tool-executor-ptc/run-code:
+  en: c31bc5cd95d3d3ab
+  zh: 4838ec3b5cb37938
+/tool-schema-catalog/lyness-lyn-plan-mode:
+  en: b098694195fc1c6e
+  zh: b098694195fc1c6e
+/tool-schema-catalog/lyness-lyn-plan-mode/exit-plan-mode:
+  en: 7eb92e413140c6e3
+  zh: 9a62bf10e621b767
+/tool-schema-catalog/lyness-lyn-tool-bash:
+  en: 586f04db14b9f31c
+  zh: 586f04db14b9f31c
+/tool-schema-catalog/lyness-lyn-tool-bash/bash:
+  en: 3c10f0df5b6bc5e0
+  zh: 77b2f4f22956b5da
+/tool-schema-catalog/lyness-lyn-tool-office:
+  en: 2ff866e8409e12f2
+  zh: 2ff866e8409e12f2
+/tool-schema-catalog/lyness-lyn-tool-office/office-convert:
   en: e63dea0f631fbb15
   zh: c564452c0ae91632
-/tool-schema-catalog/deepseek-ai-lyn-tool-office/office-recalculate:
+/tool-schema-catalog/lyness-lyn-tool-office/office-recalculate:
   en: 27a0ac973b1b9387
   zh: 29b4dd44a3a6b1ef
-/tool-schema-catalog/deepseek-ai-lyn-tool-office/office-render:
-  en: b5e52a86c0a3c122
-  zh: 636810250e6a0aaf
-/tool-schema-catalog/deepseek-ai-lyn-tool-present:
-  en: f656575e6df094f6
-  zh: f656575e6df094f6
-/tool-schema-catalog/deepseek-ai-lyn-tool-present/present:
-  en: c3ab3e71f3c5fd20
-  zh: d6afeb62bac77a24
-/tool-schema-catalog/deepseek-ai-lyn-tool-pwsh:
-  en: b222fc05f3f8ee4a
-  zh: b222fc05f3f8ee4a
-/tool-schema-catalog/deepseek-ai-lyn-tool-pwsh/pwsh:
-  en: 00489572a7e8cb3e
-  zh: c0ecb3909392ee89
-/tool-schema-catalog/deepseek-ai-lyn-tool-cordis:
-  en: 76c7c62f9029b6f5
-  zh: 76c7c62f9029b6f5
-/tool-schema-catalog/deepseek-ai-lyn-tool-cordis/cordis-inspect-list:
+/tool-schema-catalog/lyness-lyn-tool-office/office-render:
+  en: 49e272b3883bbd23
+  zh: 53507b48ee68b152
+/tool-schema-catalog/lyness-lyn-tool-present:
+  en: aeea4f081d8475c1
+  zh: aeea4f081d8475c1
+/tool-schema-catalog/lyness-lyn-tool-present/present:
+  en: 662dbe8342fd6bca
+  zh: 68f9ead67d8c6c74
+/tool-schema-catalog/lyness-lyn-tool-pwsh:
+  en: 99f3bbe639c1ee44
+  zh: 99f3bbe639c1ee44
+/tool-schema-catalog/lyness-lyn-tool-pwsh/pwsh:
+  en: e52ab4351fa4a6d6
+  zh: d21dd1217b17671b
+/tool-schema-catalog/lyness-lyn-tool-cordis:
+  en: 4efc4e4745cfdae2
+  zh: 4efc4e4745cfdae2
+/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-list:
   en: 594e5b42047969cc
   zh: 72189ca21345c210
-/tool-schema-catalog/deepseek-ai-lyn-tool-cordis/cordis-inspect-query:
-  en: 42a647ba98527f9e
-  zh: c53ade6a47ea523f
-/tool-schema-catalog/deepseek-ai-lyn-tool-bash-persistent:
-  en: bdd9e88c49029e05
-  zh: bdd9e88c49029e05
-/tool-schema-catalog/deepseek-ai-lyn-tool-bash-persistent/bash:
-  en: 86421501a9d65ccc
-  zh: d1dc400507952331
-/tool-schema-catalog/deepseek-ai-lyn-tool-pwsh-persistent:
-  en: 40a053607298a4c5
-  zh: 40a053607298a4c5
-/tool-schema-catalog/deepseek-ai-lyn-tool-pwsh-persistent/pwsh:
-  en: 214866b3419c8e12
-  zh: c23368fc61772d52
-/tool-schema-catalog/deepseek-ai-lyn-tool-str-replace-editor:
-  en: 591f6e54dbbc38fe
-  zh: 591f6e54dbbc38fe
-/tool-schema-catalog/deepseek-ai-lyn-tool-str-replace-editor/str-replace-editor:
-  en: 3d11196a13e69228
-  zh: 56019c74cf0633cd
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs:
-  en: 07d595ce1f1a5184
-  zh: 07d595ce1f1a5184
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs/apply-patch:
+/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-query:
+  en: 8282879ab03568b0
+  zh: 17b261e6b611ad25
+/tool-schema-catalog/lyness-lyn-tool-bash-persistent:
+  en: beb9106858608a16
+  zh: beb9106858608a16
+/tool-schema-catalog/lyness-lyn-tool-bash-persistent/bash:
+  en: 42f4e68d8c7fe325
+  zh: f545b6d2d83a1bd1
+/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent:
+  en: 3e398c9eff09e8b7
+  zh: 3e398c9eff09e8b7
+/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent/pwsh:
+  en: aff6d9392a2edd6f
+  zh: 679191616f2c8f2b
+/tool-schema-catalog/lyness-lyn-tool-str-replace-editor:
+  en: 17554198bb416e7d
+  zh: 17554198bb416e7d
+/tool-schema-catalog/lyness-lyn-tool-str-replace-editor/str-replace-editor:
+  en: 8c480df0122921e9
+  zh: 2a9b71c1c30adb9d
+/tool-schema-catalog/lyness-lyn-tool-fs:
+  en: 4804f24068f2f86e
+  zh: 4804f24068f2f86e
+/tool-schema-catalog/lyness-lyn-tool-fs/apply-patch:
   en: 50b4939c9a1d96ac
   zh: e733cc1156e2853c
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs/edit:
+/tool-schema-catalog/lyness-lyn-tool-fs/edit:
   en: 5b6a252adde51af6
   zh: 7aa172a5d8b9cbd2
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs/read:
+/tool-schema-catalog/lyness-lyn-tool-fs/read:
   en: 94bfc5b03c63baef
   zh: 339338a0e74696c3
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs/read-image:
+/tool-schema-catalog/lyness-lyn-tool-fs/read-image:
   en: f6f7a1140066ce04
   zh: d528e01a0939795a
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs/write:
-  en: 22e7c232e157a1e2
-  zh: 176da52cdd4765a9
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs-search:
-  en: 703fea005ce84c50
-  zh: 703fea005ce84c50
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs-search/glob:
+/tool-schema-catalog/lyness-lyn-tool-fs/write:
+  en: b8432b9f1b803383
+  zh: e34da1354c658758
+/tool-schema-catalog/lyness-lyn-tool-fs-search:
+  en: 280f0f6a57d36b14
+  zh: 280f0f6a57d36b14
+/tool-schema-catalog/lyness-lyn-tool-fs-search/glob:
   en: 3ba734ba7852cdd5
   zh: c6ce31ff2c195520
-/tool-schema-catalog/deepseek-ai-lyn-tool-fs-search/grep:
-  en: 6e1f7da62cc9a35b
-  zh: 594817b0befeea86
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal:
-  en: 77501c1b592b6a88
-  zh: 77501c1b592b6a88
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-close:
-  en: 4da73ab1c95aadc6
-  zh: 998471bc4f5af00a
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-list:
-  en: 4cde2b1d38f93e04
-  zh: 2c93f43d54ec9da2
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-open:
-  en: 7051c20587ae426d
-  zh: 39a6aad70d643fbc
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-read:
-  en: 833b47cca9b00b9d
-  zh: 24b3db5b48f0446a
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-send:
-  en: 60a8805611533884
-  zh: 50e4ac6e7f7b9b0a
-/tool-schema-catalog/deepseek-ai-lyn-tool-terminal/terminal-signal:
-  en: cc58c5bcfdc3c04e
-  zh: e673447f4afb0ae5
-/tool-schema-catalog/deepseek-ai-lyn-terminal-panel:
-  en: 45676c90640a8237
-  zh: 45676c90640a8237
-/tool-schema-catalog/deepseek-ai-lyn-terminal-panel/user-terminal-list:
+/tool-schema-catalog/lyness-lyn-tool-fs-search/grep:
+  en: ed7e31a9ed582d72
+  zh: 95a30b2b8dfe69a7
+/tool-schema-catalog/lyness-lyn-tool-terminal:
+  en: e0e15fecbdeb0f86
+  zh: e0e15fecbdeb0f86
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-close:
+  en: 6d6e428c866ac6c1
+  zh: 8033539fcdcb6e7b
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-list:
+  en: ae7d5bce32142aa5
+  zh: e956a650a5bf294b
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-open:
+  en: c542bd7f7e872441
+  zh: 14731de81780b518
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-read:
+  en: 6a7491d2436e4404
+  zh: 772ff408ec0a67e3
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-send:
+  en: e24ca8735dd59adb
+  zh: 24f7140a0aed0968
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-signal:
+  en: f44030bd153b9a94
+  zh: bdcb09f5af98dacb
+/tool-schema-catalog/lyness-lyn-terminal-panel:
+  en: 143f37283e020910
+  zh: 143f37283e020910
+/tool-schema-catalog/lyness-lyn-terminal-panel/user-terminal-list:
   en: cf8134d5a4b5205e
   zh: 4c435304529c4fcd
-/tool-schema-catalog/deepseek-ai-lyn-terminal-panel/user-terminal-read:
-  en: 9eb7cfe5a529a229
-  zh: ecf550e2ad8615cb
-/tool-schema-catalog/deepseek-ai-lyn-tool-goal:
-  en: 74fff3741e7c13de
-  zh: 74fff3741e7c13de
-/tool-schema-catalog/deepseek-ai-lyn-tool-goal/create-goal:
+/tool-schema-catalog/lyness-lyn-terminal-panel/user-terminal-read:
+  en: aa5f1c84cd41ae2a
+  zh: 30efc5129a70e623
+/tool-schema-catalog/lyness-lyn-tool-goal:
+  en: c03447152da25574
+  zh: c03447152da25574
+/tool-schema-catalog/lyness-lyn-tool-goal/create-goal:
   en: 9ae877cdf8a641a3
   zh: f83c3c09e80e4190
-/tool-schema-catalog/deepseek-ai-lyn-tool-goal/get-goal:
+/tool-schema-catalog/lyness-lyn-tool-goal/get-goal:
   en: 0b517f13dfde11fe
   zh: b7ee7482e8ecde56
-/tool-schema-catalog/deepseek-ai-lyn-tool-goal/update-goal:
-  en: 5f8a1d6e44e57d09
-  zh: d757489fdacde22d
-/tool-schema-catalog/deepseek-ai-lyn-tool-schedule:
-  en: 9fd2eccb1ee51372
-  zh: 9fd2eccb1ee51372
-/tool-schema-catalog/deepseek-ai-lyn-tool-schedule/schedule-create:
+/tool-schema-catalog/lyness-lyn-tool-goal/update-goal:
+  en: 3405ea614554bb7c
+  zh: dc7321c5a2fdad70
+/tool-schema-catalog/lyness-lyn-tool-schedule:
+  en: b0ec3b9dac09a861
+  zh: b0ec3b9dac09a861
+/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-create:
   en: 7237e492f01fb8fb
   zh: 2fd2bea81919baf6
-/tool-schema-catalog/deepseek-ai-lyn-tool-schedule/schedule-edit:
+/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-edit:
   en: 08db239b9e1c3e8f
   zh: c3860a8f20a01965
-/tool-schema-catalog/deepseek-ai-lyn-tool-schedule/schedule-list:
+/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-list:
   en: e2c657d431fd02a8
   zh: 7651bf05938eff69
-/tool-schema-catalog/deepseek-ai-lyn-tool-schedule/schedule-view:
-  en: 008cd46ab3c05305
-  zh: 8ef5a0f40640013e
-/tool-schema-catalog/deepseek-ai-lyn-tool-lsp:
-  en: 32982123b1f0e5bc
-  zh: 32982123b1f0e5bc
-/tool-schema-catalog/deepseek-ai-lyn-tool-lsp/lsp:
-  en: 877f1dc0f69e2038
-  zh: 5dda8001fb614315
-/tool-schema-catalog/deepseek-ai-lyn-tool-ralph:
-  en: 45bd083870e2c92d
-  zh: 45bd083870e2c92d
-/tool-schema-catalog/deepseek-ai-lyn-tool-ralph/ralph:
-  en: e97552156225cf10
-  zh: 9ea32b8485e950ec
-/tool-schema-catalog/deepseek-ai-lyn-tool-skill:
-  en: 927a5ac0974b7642
-  zh: 927a5ac0974b7642
-/tool-schema-catalog/deepseek-ai-lyn-tool-skill/skill:
-  en: 9b159d5831855afb
-  zh: 275ee82af0e0f59a
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query:
-  en: eac1dff4b6d9e195
-  zh: eac1dff4b6d9e195
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query/session-event-read:
-  en: 285bab0bd6b50949
-  zh: 9c839e05237a7226
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query/session-event-search:
-  en: 5cd9f05b83f5797e
-  zh: dc6880566b0c5138
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query/session-event-trace:
-  en: de64e837459d7313
-  zh: 60bfcb3691ab862c
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query/session-search:
-  en: c7bc2ee2892bf0e9
-  zh: 1cd6a5d6f7494ca1
-/tool-schema-catalog/deepseek-ai-lyn-tool-session-query/session-trace:
-  en: 73d2146c02eaa16a
-  zh: 34caad3065de7148
-/tool-schema-catalog/deepseek-ai-lyn-experimental-tool-subagent-oar:
-  en: 8daafae6faf7898e
-  zh: 8daafae6faf7898e
-/tool-schema-catalog/deepseek-ai-lyn-experimental-tool-subagent-oar/subagent-oar:
-  en: 4936c61a65f8cdb2
-  zh: 5a1bfbb9738a62a9
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent:
-  en: 841abe0dd5913ea7
-  zh: 841abe0dd5913ea7
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent/list-subagent-models:
+/tool-schema-catalog/lyness-lyn-tool-schedule/schedule-view:
+  en: 3cec5ecf317d4613
+  zh: 1842934902287344
+/tool-schema-catalog/lyness-lyn-tool-lsp:
+  en: 1139151c20d96a77
+  zh: 1139151c20d96a77
+/tool-schema-catalog/lyness-lyn-tool-lsp/lsp:
+  en: 1a969f2671b15a80
+  zh: be5f41184735647a
+/tool-schema-catalog/lyness-lyn-tool-ralph:
+  en: 76f832b9012c3163
+  zh: 76f832b9012c3163
+/tool-schema-catalog/lyness-lyn-tool-ralph/ralph:
+  en: a80bc2379de5b912
+  zh: 3f6d25e2de50bb0b
+/tool-schema-catalog/lyness-lyn-tool-skill:
+  en: bcd0e22ec90f831b
+  zh: bcd0e22ec90f831b
+/tool-schema-catalog/lyness-lyn-tool-skill/skill:
+  en: b52365df0deb3f5b
+  zh: 4cc6352215827edb
+/tool-schema-catalog/lyness-lyn-tool-session-query:
+  en: 7a73f8a26377c505
+  zh: 7a73f8a26377c505
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-read:
+  en: 6687105065ac3a5f
+  zh: 48b2f4d38536e4c7
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-search:
+  en: 41251b4cbe9af70d
+  zh: 8855a5f32b4720e5
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-trace:
+  en: 14b5ec05fa8c0932
+  zh: 3c85d44c13cc42c5
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-search:
+  en: 8263202c97568fc3
+  zh: 92067337294c7a00
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-trace:
+  en: 1fad30b1636ffee6
+  zh: cf3d831d9fff7a3c
+/tool-schema-catalog/lyness-lyn-experimental-tool-subagent-oar:
+  en: 4c79f02c245073ac
+  zh: 4c79f02c245073ac
+/tool-schema-catalog/lyness-lyn-experimental-tool-subagent-oar/subagent-oar:
+  en: a891b292548b65fb
+  zh: ea15d02adb07ddd1
+/tool-schema-catalog/lyness-lyn-tool-subagent:
+  en: 068e185ebae701a3
+  zh: 068e185ebae701a3
+/tool-schema-catalog/lyness-lyn-tool-subagent/list-subagent-models:
   en: 0e21650bbe8c71c7
   zh: fe4033efb38d51a3
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent/subagent:
-  en: 9912eeda5bc40b43
-  zh: 0cb70f9a0d923bee
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent-control:
-  en: ab82e130c3413f04
-  zh: ab82e130c3413f04
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent-control/interrupt-agent:
+/tool-schema-catalog/lyness-lyn-tool-subagent/subagent:
+  en: ebfe55a67a94cb84
+  zh: 96191eb158e3a287
+/tool-schema-catalog/lyness-lyn-tool-subagent-control:
+  en: 7d892d73ecc93d9b
+  zh: 7d892d73ecc93d9b
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/interrupt-agent:
   en: a622b15cc2598d51
   zh: ece4b2af6a11c49c
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent-control/list-agents:
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/list-agents:
   en: 8d50c6e19c9517ab
   zh: 6ae97d046c5915db
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent-control/send-message:
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/send-message:
   en: b53326fedeab850d
   zh: ecb75b6ce31da009
-/tool-schema-catalog/deepseek-ai-lyn-tool-subagent-control/wait-agent:
-  en: 4b95d11b610d34ca
-  zh: 9b0d9b6012be30d8
-/tool-schema-catalog/deepseek-ai-lyn-tool-jobs:
-  en: 9be673b1604d0114
-  zh: 9be673b1604d0114
-/tool-schema-catalog/deepseek-ai-lyn-tool-jobs/job-kill:
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/wait-agent:
+  en: f4afe48c95c93b6c
+  zh: 13f09b7e2082fa41
+/tool-schema-catalog/lyness-lyn-tool-jobs:
+  en: 7b9b5e7c032a569c
+  zh: 7b9b5e7c032a569c
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-kill:
   en: 14294cc1988ae768
   zh: 80a9152bdc02723f
-/tool-schema-catalog/deepseek-ai-lyn-tool-jobs/job-list:
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-list:
   en: 0c37fb1fed979d72
   zh: 5ea9d07f5a4a8a6c
-/tool-schema-catalog/deepseek-ai-lyn-tool-jobs/job-output:
-  en: 2977f731fb90d147
-  zh: 4f422613ff720055
-/tool-schema-catalog/deepseek-ai-lyn-tool-agent-team:
-  en: 3f1a9c3509853972
-  zh: 3f1a9c3509853972
-/tool-schema-catalog/deepseek-ai-lyn-tool-agent-team/team-task-create:
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-output:
+  en: 132740c09669879c
+  zh: 004375d2b63a2e9f
+/tool-schema-catalog/lyness-lyn-tool-agent-team:
+  en: baa779e1f9a306d7
+  zh: baa779e1f9a306d7
+/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-create:
   en: ac9ed819b705b4b8
   zh: 306477d2d457369a
-/tool-schema-catalog/deepseek-ai-lyn-tool-agent-team/team-task-get:
+/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-get:
   en: bca1abf330638c19
   zh: 903bfa977f75c046
-/tool-schema-catalog/deepseek-ai-lyn-tool-agent-team/team-task-list:
+/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-list:
   en: 8001eda7e9ff6a25
   zh: 2414761029f21404
-/tool-schema-catalog/deepseek-ai-lyn-tool-agent-team/team-task-update:
-  en: 9acd1c5b2fac9853
-  zh: 3bd81e9cd1f1c28d
-/tool-schema-catalog/deepseek-ai-lyn-tool-todo:
-  en: dea62d26fb18ff68
-  zh: dea62d26fb18ff68
-/tool-schema-catalog/deepseek-ai-lyn-tool-todo/todo-write:
-  en: f252137b940b38d1
-  zh: 25bd9c6b1ce783d8
-/tool-schema-catalog/deepseek-ai-lyn-tool-working-directory:
-  en: 1bdc4627ca4fff29
-  zh: 1bdc4627ca4fff29
-/tool-schema-catalog/deepseek-ai-lyn-tool-working-directory/working-directory:
-  en: ac1944f6035b8b50
-  zh: f5fc005c13185211
-/tool-schema-catalog/deepseek-ai-lyn-experimental-tool-worktree:
-  en: d5f5679abe86e316
-  zh: d5f5679abe86e316
-/tool-schema-catalog/deepseek-ai-lyn-experimental-tool-worktree/create-worktree:
-  en: 41950f76db71e7f7
-  zh: 654d2e5505ff3d3c
-/tool-schema-catalog/deepseek-ai-lyn-tool-workflow:
-  en: bb38a9d29f46563c
-  zh: bb38a9d29f46563c
-/tool-schema-catalog/deepseek-ai-lyn-tool-workflow/workflow:
-  en: fdd667cfe21481e8
-  zh: 88864d3b958398a4
-/tool-schema-catalog/deepseek-ai-lyn-tool-workspace-dependencies:
-  en: 96bffc40b80df4b8
-  zh: 96bffc40b80df4b8
-/tool-schema-catalog/deepseek-ai-lyn-tool-workspace-dependencies/load-workspace-dependencies:
-  en: 77b88764ff3464e9
-  zh: a9ca7eeb15ada747
-/tool-schema-catalog/deepseek-ai-lyn-tool-web:
-  en: 4b9918342d3aa931
-  zh: 4b9918342d3aa931
-/tool-schema-catalog/deepseek-ai-lyn-tool-web/web-fetch:
+/tool-schema-catalog/lyness-lyn-tool-agent-team/team-task-update:
+  en: c76468d4dbbf023b
+  zh: f80e0797999839f1
+/tool-schema-catalog/lyness-lyn-bot-ask:
+  en: 5674456c460edf3a
+  zh: 5674456c460edf3a
+/tool-schema-catalog/lyness-lyn-bot-ask/ask-teammate:
+  en: c63d1d73787306ae
+  zh: 6d5fdeaa9f6e1d59
+/tool-schema-catalog/lyness-lyn-bot-ask/hold-discussion:
+  en: 003bcb277200d4ba
+  zh: d8a5cd566c290f97
+/tool-schema-catalog/lyness-lyn-bot-ask/list-teammates:
+  en: 0aa6dc5e7c1f560a
+  zh: 823ae5e1a7581cfb
+/tool-schema-catalog/lyness-lyn-tool-todo:
+  en: 6b46c55cd2c76927
+  zh: 6b46c55cd2c76927
+/tool-schema-catalog/lyness-lyn-tool-todo/todo-write:
+  en: 0069e86c1e8c43ea
+  zh: 6299d067d1a1b6b4
+/tool-schema-catalog/lyness-lyn-tool-working-directory:
+  en: c09ff6f79374b12e
+  zh: c09ff6f79374b12e
+/tool-schema-catalog/lyness-lyn-tool-working-directory/working-directory:
+  en: 2de66191c9c6d59a
+  zh: 751c4726ac555cf9
+/tool-schema-catalog/lyness-lyn-experimental-tool-worktree:
+  en: 8242c36d9c0bf4b8
+  zh: 8242c36d9c0bf4b8
+/tool-schema-catalog/lyness-lyn-experimental-tool-worktree/create-worktree:
+  en: 1ae70cab655b2747
+  zh: cbd1c8b873cdfee1
+/tool-schema-catalog/lyness-lyn-tool-workflow:
+  en: daf3635023624dd1
+  zh: daf3635023624dd1
+/tool-schema-catalog/lyness-lyn-tool-workflow/workflow:
+  en: 7d9440a22d82f6e4
+  zh: 351599e9c469373c
+/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies:
+  en: ea7bac41b14c11ea
+  zh: ea7bac41b14c11ea
+/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies/load-workspace-dependencies:
+  en: a590ec98f1c47f75
+  zh: 86c8322d0b37ce19
+/tool-schema-catalog/lyness-lyn-tool-web:
+  en: de179318997ca9d6
+  zh: de179318997ca9d6
+/tool-schema-catalog/lyness-lyn-tool-web/web-fetch:
   en: 8673f203aea9bdf2
   zh: 4e17783ffdf34c83
-/tool-schema-catalog/deepseek-ai-lyn-tool-web/web-search:
+/tool-schema-catalog/lyness-lyn-tool-web/web-search:
   en: cc1ad38bf0006710
   zh: 324eacb827a09e93
